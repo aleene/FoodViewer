@@ -86,8 +86,8 @@ class SingleProductTableViewController: UITableViewController {
             case .available, .loading:
                 selectedProductPair = validProductPair
                 // tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: true)
-                selectedPageIndex = index
-                selectedRowType = .name
+                //productPageViewController?.pageIndex = tableStructure[index].productSection()
+                //selectedRowType = .name
                 showProductPage()
             default:
                 selectedProductPair = nil
@@ -137,7 +137,7 @@ class SingleProductTableViewController: UITableViewController {
     
     fileprivate var selectedPageIndex: Int? = nil // this indicates which part of the product must be shown
     
-    fileprivate var selectedRowType: RowType? = nil
+    // fileprivate var selectedRowType: RowType? = nil
     
     // is the current device in compact orientation?
     private var deviceHasCompactOrientation: Bool {
@@ -149,11 +149,13 @@ class SingleProductTableViewController: UITableViewController {
     fileprivate func showProductPage() {
         if let validProductPageViewController = productPageViewController {
             validProductPageViewController.productPair = selectedProductPair
+            /*
             if let validSelectedRowType = selectedRowType {
                 validProductPageViewController.pageIndex = validSelectedRowType.productSection()
             } else {
                 validProductPageViewController.pageIndex = .identification
             }
+ */
         } else {
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         }
@@ -377,7 +379,7 @@ class SingleProductTableViewController: UITableViewController {
         
         selectedPageIndex = indexPath.row
         if let index = selectedPageIndex {
-            selectedRowType = tableStructure[index]
+            productPageViewController?.pageIndex = tableStructure[index].productSection()
         }
         showProductPage()
         /*
@@ -493,24 +495,14 @@ class SingleProductTableViewController: UITableViewController {
                 if let vc = segue.destination as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
                         ppvc.productPair = selectedProductPair
+                        /*
                         if let validSelectedRowType = selectedRowType,
                             let validProductPair = selectedProductPair {
-                            switch validProductPair.barcodeType {
-                            case .search(let template, _):
-                                if let validIndex = selectedPageIndex {
-                                    let array = template.searchPairsWithArray()
-                                    if array.count > 0 && validIndex < array.count {
-                                        ppvc.pageIndex = searchRowType(array[validIndex].0)
-                                    } else {
-                                        ppvc.pageIndex = .identification
-                                    }
-                                }
-                            default:
-                                ppvc.pageIndex = validSelectedRowType.productSection()
-                            }
+                            ppvc.pageIndex = validSelectedRowType.productSection()
                         } else {
                             ppvc.pageIndex = .identification
                         }
+ */
                     }
                 }
             default: break
@@ -788,7 +780,7 @@ extension SingleProductTableViewController: GKImagePickerDelegate {
         products.productPair(at: validIndex)?.update(frontImage: image, for: validLanguageCode)
         imagePicker.dismiss(animated: true, completion: nil)
         // The app should now move to edit mode and the first page
-        selectedRowType = .name
+        //selectedRowType = .name
         selectedProductPair = products.productPair(at: validIndex)
         performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
     }

@@ -7,7 +7,7 @@
 //  Created by arnaud on 29/09/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
-
+/*
 import Foundation
     import UIKit
     import CoreGraphics
@@ -841,3 +841,4 @@ extension Notification.Name {
     }
     
  }
+*/

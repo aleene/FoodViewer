@@ -602,21 +602,24 @@ class SupplyChainTableViewController: UITableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ExpirationDate, for: indexPath) as! ExpirationDateTableViewCell
+                // print (productPair?.remoteProduct?.expirationDate, productPair?.remoteProduct?.state)
                 switch productVersion {
                 case .remote:
-                    if let validDate = productPair?.remoteProduct?.expirationDate {
-                        cell.date = validDate
-                    }
+                    cell.date = productPair?.remoteProduct?.expirationDate
+                    //if let validDate = productPair?.remoteProduct?.expirationDate {
+                    //    cell.date = validDate
+                    //}
                 //case .local:
                     //if let validDate = productPair?.localProduct?.expirationDate {
                     //    cell.date = validDate
                     //}
                 case .new:
-                    if let validDate = productPair?.localProduct?.expirationDate {
-                        cell.date = validDate
-                    } else if let validDate = productPair?.remoteProduct?.expirationDate {
-                        cell.date = validDate
-                    }
+                    cell.date = productPair?.localProduct?.expirationDate ?? productPair?.remoteProduct?.expirationDate
+                    //if let validDate = productPair?.localProduct?.expirationDate {
+                    //    cell.date = validDate
+                    //} else if let validDate = productPair?.remoteProduct?.expirationDate {
+                    //    cell.date = validDate
+                    //}
                 }
                 cell.editMode = editMode
                 cell.delegate = self

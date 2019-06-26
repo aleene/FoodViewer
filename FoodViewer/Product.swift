@@ -1381,6 +1381,7 @@ class FoodProduct {
         expirationDateString = validProduct.expiration_date
         // This is need as the didSet of exirationDateString is not called in an init.
         expirationDate = decodeDate(expirationDateString)
+        print("FoodProduct ", name, expirationDateString, expirationDate)
         
         allergensInterpreted = Tags(list: validProduct.allergens_tags)
         allergensOriginal = Tags(string: validProduct.allergens)

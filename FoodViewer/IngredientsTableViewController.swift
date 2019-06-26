@@ -1266,17 +1266,6 @@ extension IngredientsTableViewController: TagListViewDelegate {
             default:
                 break
             }
-            // OFF does not allow searching by additive at the moment
-//        case .additives:
-//            switch product!.additivesInterpreted {
-//            case .available:
-//                let rawTag = product!.additivesInterpreted.tag(at: index)
-//                OFFProducts.manager.searchValue = rawTag
-//                OFFProducts.manager.search = OFF.SearchComponent.additive
-//                OFFProducts.manager.list = .search
-//            default:
-//                break
-//            }
         case .labels:
             switch productPair!.remoteProduct!.labelsInterpreted {
             case .available:

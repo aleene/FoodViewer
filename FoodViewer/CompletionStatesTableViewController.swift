@@ -101,142 +101,81 @@ class CompletionStatesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        /*
-        if query != nil {
-            switch indexPath.section {
-            case 0:
-                if query?.completion != nil || editMode {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetCompletionState, for: indexPath) as! ButtonWithSegmentedControlTableViewCell
-                    cell.delegate = self
-                    cell.editMode = editMode
-                    cell.isCompleted = query?.completion?.value ?? true
-                    cell.buttonText = query?.completion?.cleanedState
-                    cell.firstSegmentedControlTitle = query?.completion?.notReady
-                    cell.secondSegmentedControlTitle = query?.completion?.ready
-                    return cell
-                }
-                
-            case 1:
-                if query!.contributors.count > 0 || editMode {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetContributorRole, for: indexPath) as! TextFieldWithButtonTableViewCell
-                    cell.delegate = self
-                    cell.tag = indexPath.row // At the moment only 1 row is supported
-                    cell.editMode = editMode
-                    cell.username = query!.contributors.count > 0 ? query!.contributors[indexPath.row].name : nil
-                    cell.buttonText = query!.contributors.count > 0 ? query!.contributors[indexPath.row].roles[0].description : nil
-                    return cell
-                }
-                
-            case 2:
-                if query!.type != .advanced {
-                    if query!.lastEditDate != nil || editMode {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetLastEditDate, for: indexPath) as! LastEditDateTableViewCell
-                        let formatter = DateFormatter()
-                        formatter.dateStyle = .medium
-                        formatter.timeStyle = .none
-                        // the lastEditDates array contains at least one date, if we arrive here
-                        cell.editMode = editMode
-                        cell.title = query!.lastEditDate != nil ? formatter.string(from: query!.lastEditDate!) : nil
-                        return cell
-                    }
-                }
-            case 3:
-                if query!.type != .advanced {
-                    if query!.creationDate != nil || editMode {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetCreationDate, for: indexPath) as! ButtonTableViewCell
-                        let formatter = DateFormatter()
-                        formatter.dateStyle = .medium
-                        formatter.timeStyle = .none
-                        // the lastEditDates array contains at least one date, if we arrive here
-                        cell.editMode = editMode
-                        cell.title = query!.creationDate != nil ? formatter.string(from: query!.creationDate!) : ( editMode ? TranslatableStrings.EnterDate : TranslatableStrings.NotSet )
-                        return cell
-                    }
-                }
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.CompletionState, for: indexPath) as! StateTableViewCell
+            cell.delegate = delegate
+            let completion = productPair!.remoteProduct!.state.array[indexPath.row]
+            cell.state = completion.value
+            cell.tag = indexPath.row
+            cell.stateTitle = completion.description
+            cell.searchString = OFF.searchKey(for: completion)
+            switch completion.category {
+            case .categories:
+                let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.categoriesTapped))
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                cell.addGestureRecognizer(tapGestureRecognizer)
+            case .productName, .brands, .quantity, .packaging:
+                let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.identificationTapped))
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                cell.addGestureRecognizer(tapGestureRecognizer)
+            case .ingredients:
+                let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.ingredientsTapped))
+                tapGestureRecognizer.numberOfTouchesRequired = 1
+                cell.addGestureRecognizer(tapGestureRecognizer)
+            case .expirationDate:
+                //print(completion)
+                let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.supplyChainTapped))
+                tapGestureRecognizer.numberOfTouchesRequired = 1
+                cell.addGestureRecognizer(tapGestureRecognizer)
+            case .nutritionFacts:
+                let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.nutritionFactsTapped))
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                cell.addGestureRecognizer(tapGestureRecognizer)
+            case .photosUploaded, .photosValidated:
+                let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.galleryTapped))
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                cell.addGestureRecognizer(tapGestureRecognizer)
             default:
                 break
             }
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            return cell
-        } else {*/
-            if indexPath.section == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.CompletionState, for: indexPath) as! StateTableViewCell
-                cell.delegate = delegate
-                let completion = productPair!.remoteProduct!.state.array[indexPath.row]
-                cell.state = completion.value
-                cell.tag = indexPath.row
-                cell.stateTitle = completion.description
-                cell.searchString = OFF.searchKey(for: completion)
-                switch completion.category {
-                case .categories:
-                    let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.categoriesTapped))
-                    tapGestureRecognizer.numberOfTouchesRequired = 1
-                    cell.addGestureRecognizer(tapGestureRecognizer)
-                case .productName, .brands, .quantity, .packaging:
-                    let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.identificationTapped))
-                    tapGestureRecognizer.numberOfTouchesRequired = 1
-                    cell.addGestureRecognizer(tapGestureRecognizer)
-                case .ingredients:
-                    let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.ingredientsTapped))
-                    tapGestureRecognizer.numberOfTouchesRequired = 1
-                    cell.addGestureRecognizer(tapGestureRecognizer)
-                case .expirationDate:
-                    let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.supplyChainTapped))
-                    tapGestureRecognizer.numberOfTouchesRequired = 1
-                    cell.addGestureRecognizer(tapGestureRecognizer)
-                case .nutritionFacts:
-                    let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.nutritionFactsTapped))
-                    tapGestureRecognizer.numberOfTouchesRequired = 1
-                    cell.addGestureRecognizer(tapGestureRecognizer)
-                case .photosUploaded, .photosValidated:
-                    let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.galleryTapped))
-                    tapGestureRecognizer.numberOfTouchesRequired = 1
-                    cell.addGestureRecognizer(tapGestureRecognizer)
-                default:
-                    break
-                }
 
-                return cell
+            return cell
                 
-            } else if indexPath.section == 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Contributors, for: indexPath) as? ContributorTableViewCell
-                cell?.delegate = delegate
-                cell?.contributor = productPair!.remoteProduct!.contributors[indexPath.row]
-                return cell!
+        } else if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Contributors, for: indexPath) as? ContributorTableViewCell
+            cell?.delegate = delegate
+            cell?.contributor = productPair!.remoteProduct!.contributors[indexPath.row]
+            return cell!
                 
-            } else if indexPath.section == 2 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LastEditDate, for: indexPath)
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .none
-                // the lastEditDates array contains at least one date, if we arrive here
-                let dates: [Date] = Array.init(productPair!.remoteProduct!.imageAddDates)
-                cell.textLabel!.text = formatter.string(from: dates[indexPath.row])
-                let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.lastEditDateLongPress))
-                cell.addGestureRecognizer(longPressGestureRecognizer)
+        } else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LastEditDate, for: indexPath)
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .none
+            // the lastEditDates array contains at least one date, if we arrive here
+            let dates: [Date] = Array.init(productPair!.remoteProduct!.imageAddDates)
+            cell.textLabel!.text = formatter.string(from: dates[indexPath.row])
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.lastEditDateLongPress))
+            cell.addGestureRecognizer(longPressGestureRecognizer)
                 
-                return cell
+            return cell
                 
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LastEditDate, for: indexPath)
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .none
+                
+            if let validDate = productPair?.remoteProduct?.additionDate {
+                cell.textLabel!.text = formatter.string(from: validDate)
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LastEditDate, for: indexPath)
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .none
-                if let validDate = productPair?.remoteProduct?.additionDate {
-                    cell.textLabel!.text = formatter.string(from: validDate)
-                } else {
-                    cell.textLabel!.text = Constants.NoCreationDateAvailable
-                }
-                let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.creationDateLongPress))
-                cell.addGestureRecognizer(longPressGestureRecognizer)
-                
-                return cell
+                cell.textLabel!.text = Constants.NoCreationDateAvailable
             }
-       // }
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.creationDateLongPress))
+            cell.addGestureRecognizer(longPressGestureRecognizer)
+                
+            return cell
+        }
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

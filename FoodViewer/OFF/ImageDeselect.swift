@@ -26,13 +26,13 @@ class ImageDeselect: OFFImageDeselectAPI {
                     } else if validStatus_code == 1 {
                         return completion(ProductUpdateStatus.failure(barcodeString, validStatus))
                     } else {
-                        return completion(ProductUpdateStatus.failure(barcodeString, "OFFUpdate:unexpected status_code: \(validStatus_code)"))
+                        return completion(ProductUpdateStatus.failure(barcodeString, "ImageDeselect:unexpected status_code: \(validStatus_code)"))
                     }
                 } else {
                     return completion(ProductUpdateStatus.failure(barcodeString, validStatus))
                 }
             }
-            return completion(ProductUpdateStatus.failure(barcodeString, "OFFUpdate: no valid status"))
+            return completion(ProductUpdateStatus.failure(barcodeString, "ImageDeselect: no valid status"))
         }
     }
     

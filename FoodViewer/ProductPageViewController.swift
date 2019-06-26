@@ -129,11 +129,15 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     var productPair: ProductPair? = nil {
         didSet {
-            initPages()
+            //initPages()
             confirmBarButtonItem?.isEnabled = productPair?.updateIsAllowed ?? true
             guard let validProductPair = productPair else { return }
             if oldValue == nil ||
                 validProductPair.barcodeType.asString != oldValue!.barcodeType.asString {
+                if oldValue == nil {
+                    initPages()
+                }
+                pageIndex = .identification
                 productPageViewControllerdelegate?.productPageViewControllerProductPairChanged(self)
                 title = prefixedTitle
                 currentLanguageCode = validProductPair.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
@@ -748,7 +752,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        initPages()
         dataSource = self
         delegate = self
     }
@@ -761,7 +765,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             confirmBarButtonItem.image = image
         }
 
-        initPages()
         title = prefixedTitle
 
         // listen if a product is set outside of the MasterViewController

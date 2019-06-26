@@ -185,6 +185,10 @@
         }
     }
     
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
     override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.imageCropView?.frame = self.view.bounds;
