@@ -16,6 +16,11 @@ protocol IngredientsFullCellDelegate: class {
 
 class IngredientsFullTableViewCell: UITableViewCell {
 
+    private struct Constants {
+        static let NoIngredientsText = TranslatableStrings.NoIngredients
+        static let UnbalancedWarning = TranslatableStrings.UnbalancedWarning
+    }
+
     @IBOutlet weak var textView: UITextView! {
         didSet {
             setupTextView()
@@ -32,6 +37,11 @@ class IngredientsFullTableViewCell: UITableViewCell {
         ingredients = ""
     }
     
+    @IBOutlet weak var doubleTapIndicator: UIImageView! {
+        didSet {
+            doubleTapIndicator.isHidden = true
+        }
+    }
     private func setTextViewClearButton() {
         clearTextViewButton?.isHidden = !editMode
     }
@@ -40,10 +50,6 @@ class IngredientsFullTableViewCell: UITableViewCell {
         // the textView might not be initialised
         guard textView != nil else { return }
 
-        // Double tapping allows to change the language of the ingredients
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(IngredientsFullTableViewCell.ingredientsTapped))
-        tapGestureRecognizer.numberOfTapsRequired = 2
-        textView?.addGestureRecognizer(tapGestureRecognizer)
         
         textView?.layer.borderWidth = 0.5
         textView?.delegate = delegate as? UITextViewDelegate
@@ -56,10 +62,16 @@ class IngredientsFullTableViewCell: UITableViewCell {
             textView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             textView?.clipsToBounds = true
             textView.isScrollEnabled = true
+            doubleTapIndicator.isHidden = true
         } else {
+            // Double tapping allows to change the language of the ingredients
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(IngredientsFullTableViewCell.ingredientsTapped))
+            tapGestureRecognizer.numberOfTapsRequired = 2
+            textView?.addGestureRecognizer(tapGestureRecognizer)
             textView?.backgroundColor = UIColor.white
             textView?.layer.borderColor = UIColor.white.cgColor
             textView.isScrollEnabled = false
+            doubleTapIndicator.isHidden = !isMultilingual
         }
         
         if editMode {
@@ -105,11 +117,11 @@ class IngredientsFullTableViewCell: UITableViewCell {
     
     var textViewTag: Int = 0
     
-    private struct Constants {
-        static let NoIngredientsText = TranslatableStrings.NoIngredients
-        static let UnbalancedWarning = TranslatableStrings.UnbalancedWarning
+    var isMultilingual = false {
+        didSet {
+            doubleTapIndicator.isHidden = !isMultilingual
+        }
     }
-    
     var ingredients: String? = nil {
         didSet {
             if let text = ingredients {

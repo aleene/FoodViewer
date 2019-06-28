@@ -53,7 +53,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uvp-sU-I6h" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="QhO-Bq-K34" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2280" y="4992"/>
+            <point key="canvasLocation" x="2178" y="5683"/>
         </scene>
         <!--Add Favorite Shop Table View Controller-->
         <scene sceneID="XYb-tx-zRY">
@@ -309,33 +309,33 @@
         <scene sceneID="AnZ-mD-Bvd">
             <objects>
                 <tableViewController storyboardIdentifier="IdentificationTableViewController" extendedLayoutIncludesOpaqueBars="YES" id="hwF-BC-CTo" customClass="IdentificationTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="v7f-Gc-N5v">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="v7f-Gc-N5v">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="8qF-wB-zag">
-                            <rect key="frame" x="0.0" y="944" width="375" height="308"/>
+                            <rect key="frame" x="0.0" y="944" width="414" height="308"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Barcode Cell" rowHeight="88" id="EEQ-rQ-wnz" customClass="BarcodeTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="88"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EEQ-rQ-wnz" id="vuR-sL-kRr">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="87.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O3f-3p-sEO">
-                                            <rect key="frame" x="235" y="11" width="120" height="60"/>
+                                            <rect key="frame" x="274" y="11" width="120" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="120" id="VNy-Nb-Oxo"/>
                                                 <constraint firstAttribute="height" constant="60" id="wkS-EM-d5v"/>
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b5N-ax-YY5">
-                                            <rect key="frame" x="172.66666666666666" y="24.666666666666671" width="30" height="33"/>
+                                            <rect key="frame" x="192" y="24.666666666666671" width="30" height="33"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <connections>
                                                 <action selector="mainLanguageTapped:" destination="EEQ-rQ-wnz" eventType="touchUpInside" id="sMk-CF-Dqr"/>
@@ -343,7 +343,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lFH-LR-JHI">
-                                            <rect key="frame" x="28" y="41" width="136.66666666666666" height="0.0"/>
+                                            <rect key="frame" x="28" y="41" width="156" height="0.0"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -369,20 +369,20 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Barcode Edit Cell" rowHeight="88" id="DgJ-1g-psZ" userLabel="Barcode Edit Cell" customClass="BarcodeEditTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="116" width="375" height="88"/>
+                                <rect key="frame" x="0.0" y="116" width="414" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DgJ-1g-psZ" id="STO-3f-kJd">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="87.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="kRx-hP-7I5">
-                                            <rect key="frame" x="20" y="29" width="283" height="30"/>
+                                            <rect key="frame" x="20" y="29" width="322" height="30"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         </textField>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gLj-tw-8ew">
-                                            <rect key="frame" x="311" y="30" width="44" height="29"/>
+                                            <rect key="frame" x="350" y="30" width="44" height="29"/>
                                             <segments>
                                                 <segment title=""/>
                                                 <segment title=""/>
@@ -407,17 +407,17 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Product Name Cell" rowHeight="44" id="cxD-3X-5h8" customClass="ProductNameTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="204" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="204" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cxD-3X-5h8" id="xEb-a5-r3f">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RIx-Dl-RBn">
-                                            <rect key="frame" x="20" y="0.0" width="335" height="33"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="33"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOZ-Hm-Mnd">
-                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="33"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="318" height="33"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33" id="BwX-hk-fje"/>
@@ -426,7 +426,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NxF-Vk-wdN">
-                                                    <rect key="frame" x="288" y="6.6666666666666679" width="20" height="20"/>
+                                                    <rect key="frame" x="326" y="6.6666666666666679" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="JF8-xn-29O"/>
                                                         <constraint firstAttribute="width" constant="20" id="wBt-hq-UyN"/>
@@ -437,7 +437,7 @@
                                                     </connections>
                                                 </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TripleTap" translatesAutoresizingMaskIntoConstraints="NO" id="XM0-Qs-Fgj">
-                                                    <rect key="frame" x="316" y="4" width="19" height="25"/>
+                                                    <rect key="frame" x="354" y="4" width="20" height="25"/>
                                                 </imageView>
                                             </subviews>
                                         </stackView>
@@ -456,14 +456,14 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListView Cell" id="8wF-U4-oRG" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="248" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="248" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8wF-U4-oRG" id="BaI-t0-8tn">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h49-6T-dZE" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="335" height="22"/>
+                                            <rect key="frame" x="20" y="11" width="374" height="22"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                     </subviews>
@@ -485,14 +485,14 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Identification Packaging Cell" id="Fb8-d1-VzC" userLabel="Identification Packaging TagList Cell" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="292" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="292" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="Fb8-d1-VzC" id="x6I-fF-xLp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Uzv-hg-1Pm" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="335" height="22"/>
+                                            <rect key="frame" x="20" y="11" width="374" height="22"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                     </subviews>
@@ -508,18 +508,18 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListView With SegmentedControl Cell" id="fKD-Ny-Tsj" customClass="TagListViewSegmentedControlTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="336" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="336" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="fKD-Ny-Tsj" id="Cgw-ZK-iJn">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="EM4-1o-6FO" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="298" height="22"/>
+                                            <rect key="frame" x="20" y="11" width="337" height="22"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BY8-EL-Fn9">
-                                            <rect key="frame" x="326" y="11" width="29" height="23"/>
+                                            <rect key="frame" x="365" y="11" width="29" height="23"/>
                                             <segments>
                                                 <segment title=""/>
                                                 <segment title=""/>
@@ -545,20 +545,20 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Quantity Cell" id="XV5-xE-vwP" customClass="QuantityTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="380" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="380" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XV5-xE-vwP" id="McC-tN-MSx">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="m2c-cB-pz9">
-                                            <rect key="frame" x="20" y="11" width="309" height="22"/>
+                                            <rect key="frame" x="20" y="11" width="348" height="22"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vw-9H-1HY">
-                                            <rect key="frame" x="337" y="5.6666666666666679" width="30" height="33"/>
+                                            <rect key="frame" x="376" y="5.6666666666666679" width="30" height="33"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <state key="normal" title="+ ℮"/>
                                             <connections>
@@ -581,24 +581,24 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Identification Image Cell" rowHeight="300" id="E19-gY-jRk" customClass="ProductImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="424" width="375" height="300"/>
+                                <rect key="frame" x="0.0" y="424" width="414" height="300"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E19-gY-jRk" id="gm3-mZ-YUW">
-                                    <rect key="frame" x="0.0" y="0.0" width="337" height="300"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="376" height="299.66666666666669"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XzH-J4-r9F">
-                                            <rect key="frame" x="20" y="11" width="282" height="278"/>
+                                            <rect key="frame" x="20" y="11" width="321" height="278"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Bw-KP-KA8">
-                                            <rect key="frame" x="310" y="179.66666666666666" width="27" height="27"/>
+                                            <rect key="frame" x="349" y="179.66666666666666" width="27" height="27"/>
                                             <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="deselectImageButtonTapped:" destination="E19-gY-jRk" eventType="touchUpInside" id="iUa-Y5-Vay"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ele-zO-pK9">
-                                            <rect key="frame" x="310" y="136.66666666666666" width="27" height="27"/>
+                                            <rect key="frame" x="349" y="136.66666666666666" width="27" height="27"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="ele-zO-pK9" secondAttribute="height" multiplier="1:1" id="DmU-jt-YI8"/>
                                             </constraints>
@@ -609,7 +609,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="nRE-8R-gnq">
-                                            <rect key="frame" x="310" y="93.666666666666671" width="27" height="27"/>
+                                            <rect key="frame" x="349" y="93.666666666666671" width="27" height="27"/>
                                             <state key="normal" image="CameraRoll"/>
                                             <connections>
                                                 <action selector="selectFromCamerRollButtonTapped:" destination="E19-gY-jRk" eventType="touchUpInside" id="w2p-kr-g3D"/>
@@ -644,18 +644,18 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Identification TagListView Add Image Cell" rowHeight="88" id="wJA-PJ-tEc" customClass="TagListViewAddImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="724" width="375" height="88"/>
+                                <rect key="frame" x="0.0" y="724" width="414" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wJA-PJ-tEc" id="I84-yj-DTz">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="87.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NCs-dC-vfs" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="306" height="66"/>
+                                            <rect key="frame" x="20" y="11" width="345" height="66"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HpT-nA-5RE">
-                                            <rect key="frame" x="334" y="43.666666666666664" width="25" height="1"/>
+                                            <rect key="frame" x="373" y="43.666666666666664" width="25" height="1"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="3BC-0d-hGI"/>
@@ -663,7 +663,7 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HsK-Ro-nFX">
-                                            <rect key="frame" x="334" y="52.666666666666657" width="25" height="25"/>
+                                            <rect key="frame" x="373" y="52.666666666666657" width="25" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="336-WL-S0S"/>
                                                 <constraint firstAttribute="width" constant="25" id="fs4-RN-tgR"/>
@@ -675,7 +675,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="p4g-1A-Gyq">
-                                            <rect key="frame" x="334" y="10.666666666666664" width="25" height="25"/>
+                                            <rect key="frame" x="373" y="10.666666666666664" width="25" height="25"/>
                                             <state key="normal" image="CameraRoll"/>
                                             <connections>
                                                 <action selector="selectFromCamerRollButtonTapped:" destination="wJA-PJ-tEc" eventType="touchUpInside" id="4Y9-0N-MzQ"/>
@@ -704,14 +704,14 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Identification Basic Cell" textLabel="1rX-wX-DbL" rowHeight="88" style="IBUITableViewCellStyleDefault" id="CZN-Jn-Vn9" customClass="BarcodeTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="812" width="375" height="88"/>
+                                <rect key="frame" x="0.0" y="812" width="414" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CZN-Jn-Vn9" id="S5k-o3-wDT">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="87.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1rX-wX-DbL">
-                                            <rect key="frame" x="20" y="0.0" width="335" height="88"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="87.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -721,18 +721,18 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListView Button Cell" id="h2H-jh-3lz" customClass="TagListViewButtonTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="900" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="900" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h2H-jh-3lz" id="yu6-kq-Bs9">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wrh-xM-vEY" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="0.0" width="306" height="44"/>
+                                            <rect key="frame" x="20" y="0.0" width="345" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x1N-DK-jl8">
-                                            <rect key="frame" x="334" y="9.6666666666666643" width="25" height="25"/>
+                                            <rect key="frame" x="373" y="9.6666666666666643" width="25" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="x1N-DK-jl8" secondAttribute="height" multiplier="1:1" id="f02-qo-bWx"/>
                                             </constraints>
@@ -763,8 +763,7 @@
                             <outlet property="delegate" destination="hwF-BC-CTo" id="Qpx-BO-FYL"/>
                         </connections>
                     </tableView>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="1000"/>
+                    <size key="freeformSize" width="414" height="1000"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="YxV-p1-2QS">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -778,7 +777,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PBp-dG-DWB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-708" y="4670"/>
+            <point key="canvasLocation" x="-817" y="4668"/>
         </scene>
         <!--Open Food Facts Preferences Table View Controller-->
         <scene sceneID="dVA-la-J9T">
@@ -3267,10 +3266,13 @@
                                             <rect key="frame" x="16" y="11" width="288" height="154"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xD7-Nn-Z60">
-                                                    <rect key="frame" x="0.0" y="58" width="259" height="38"/>
+                                                    <rect key="frame" x="0.0" y="58" width="233" height="38"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TripleTap" translatesAutoresizingMaskIntoConstraints="NO" id="Wsh-Gi-tSw">
+                                                    <rect key="frame" x="242" y="64.666666666666671" width="17" height="25"/>
+                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ir1-3L-TcJ">
                                                     <rect key="frame" x="268" y="67" width="20" height="20"/>
                                                     <constraints>
@@ -3294,6 +3296,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="clearTextViewButton" destination="ir1-3L-TcJ" id="ldD-cP-UE9"/>
+                                    <outlet property="doubleTapIndicator" destination="Wsh-Gi-tSw" id="aAi-nY-gAS"/>
                                     <outlet property="textView" destination="xD7-Nn-Z60" id="SRz-5w-jHi"/>
                                 </connections>
                             </tableViewCell>
@@ -3486,7 +3489,6 @@
                             <outlet property="delegate" destination="B4s-Qn-7FN" id="ckC-fY-MzO"/>
                         </connections>
                     </tableView>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="1000"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="oZc-vs-cnF">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -4354,7 +4356,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mXN-b8-Ula" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1907" y="3796"/>
+            <point key="canvasLocation" x="1588" y="4562"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="NCZ-i8-lPe">
@@ -4989,10 +4991,10 @@
                         <viewControllerLayoutGuide type="bottom" id="A0e-We-iCC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Hd9-O1-Gef">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="ENV-zP-gDX">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="action" id="qXB-WZ-0ua">
@@ -5085,7 +5087,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nBB-MI-hjt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="WFj-eC-tCc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3051" y="4992"/>
+            <point key="canvasLocation" x="2910" y="5683"/>
         </scene>
         <!--Select Completion State View Controller-->
         <scene sceneID="tPV-6K-Ih2">
@@ -5614,7 +5616,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nex-WU-APW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="sn8-Ik-Yij" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3871" y="4992"/>
+            <point key="canvasLocation" x="3622" y="5683"/>
         </scene>
     </scenes>
     <resources>
@@ -5634,8 +5636,8 @@
         <image name="User" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NIk-rX-rWX"/>
+        <segue reference="LXh-Zn-OsY"/>
         <segue reference="ujd-uM-re2"/>
-        <segue reference="TJD-zt-Jpp"/>
+        <segue reference="Jg3-Zr-U6z"/>
     </inferredMetricsTieBreakers>
 </document>

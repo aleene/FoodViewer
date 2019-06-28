@@ -1017,6 +1017,7 @@ class IdentificationTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+
     @objc func doubleTapOnTableView() {
         switch productVersion {
         case .remote:
@@ -1027,6 +1028,12 @@ class IdentificationTableViewController: UITableViewController {
             productVersion = .remote
         }
         tableView.reloadData()
+    }
+
+    @objc func infoClicked() {
+        //TODO: why is this function?
+        //productPair!.remoteProduct = nil
+        //tableView.reloadData()
     }
 
 //
@@ -1069,8 +1076,49 @@ class IdentificationTableViewController: UITableViewController {
         tableStructure = setupSections()
         tableView.reloadData()
 
+        /*
+        //Initialize the toolbar
+        let toolbar = UIToolbar()
+        toolbar.barStyle = UIBarStyle.default
+        
+        //Set the toolbar to fit the width of the app.
+        toolbar.sizeToFit()
+        
+        //Caclulate the height of the toolbar
+        let toolbarHeight = toolbar.frame.size.height
+        
+        //Get the bounds of the parent view
+        let rootViewBounds = self.navigationController?.view.bounds
+        
+        //Get the height of the parent view.
+        let rootViewHeight = rootViewBounds?.height
+        
+        //Get the width of the parent view,
+        let rootViewWidth = rootViewBounds?.width
+        
+        //Create a rectangle for the toolbar
+        let rectArea = CGRect(x: 0, y: rootViewHeight! - toolbarHeight - 50, width: rootViewWidth!, height: toolbarHeight)
+        
+        //Reposition and resize the receiver
+        toolbar.frame = rectArea
+        
+        //Create a button
+        let infoButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.plain, target: self, action: #selector(infoClicked))
+        
+        let pageControllerWidth = CGFloat(120.0)
+        let pageController = UIPageControl(frame: CGRect(x: (rootViewWidth! - pageControllerWidth) / 2, y: rootViewHeight! - 2 * toolbarHeight, width: pageControllerWidth, height: toolbarHeight))
+        pageController.hidesForSinglePage = true
+        pageController.numberOfPages = 5
+        pageController.backgroundColor = .red
+        toolbar.items = [infoButton]
+        
+        //Add the toolbar as a subview to the navigation controller.
+        // self.navigationController?.view.addSubview(toolbar)
+        self.navigationController?.view.addSubview(pageController)
+         */
         navigationController?.setNavigationBarHidden(false, animated: false)
         
+
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)

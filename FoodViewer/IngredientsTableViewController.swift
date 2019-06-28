@@ -20,7 +20,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     // Determines which version of the product needs to be shown, the remote or local
-    
     fileprivate var productVersion: ProductVersion = .new
     
     fileprivate enum SectionType {
@@ -393,6 +392,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             default:
                 cell.ingredients = editMode ? TranslatableStrings.PlaceholderIngredients : nil
             }
+            cell.isMultilingual =  (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false 
+
             print("cell frame", cell.frame)
             return cell
             
@@ -888,13 +889,37 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return nil
     }
 
+    private func setDoubleTapSupport() {
+        // show the double tap possibility only if there is a local product
+        if productPair?.localProduct != nil {
+            // Add doubletapping to the TableView. Any double tap on headers is now received,
+            // and used for changing the productVersion (local and remote)
+            let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
+            doubleTapGestureRecognizer.numberOfTapsRequired = 2
+            doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+            doubleTapGestureRecognizer.cancelsTouchesInView = false
+            doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+            tableView.addGestureRecognizer(doubleTapGestureRecognizer)
+        } else {
+            // There is no local product, so a tableView existing recognizer can be removed
+            //if let recognizers = tableView.gestureRecognizers {
+            //    for recognizer in recognizers {
+             //       if recognizer is UITa
+             //       tableView.removeGestureRecognizer(recognizer)
+             //   }
+           // }
+        }
+    }
+    
     @objc func refreshProduct() {
         labelsTagsTypeToShow = TagsTypeDefault.Labels
         tracesTagsTypeToShow = TagsTypeDefault.Traces
         allergensTagsTypeToShow = TagsTypeDefault.Allergens
         additivesTagsTypeToShow = TagsTypeDefault.Additives
         ingredientsTagsTypeToShow = TagsTypeDefault.Ingredients
+        setDoubleTapSupport()
         tableView.reloadData()
+
     }
 
     func changeLanguage() {
@@ -1007,27 +1032,19 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             tableView.dragDelegate = self
             tableView.dropDelegate = self
         }
-        
+        self.tableView.isUserInteractionEnabled = true
         // For custom tableView headers
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 70
         tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
         
-        // Add doubletapping to the TableView. Any double tap on headers is now received,
-        // and used for changing the productVersion (local and remote)
-        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-        doubleTapGestureRecognizer.cancelsTouchesInView = false
-        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-        tableView.addGestureRecognizer(doubleTapGestureRecognizer)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         tableStructure = setupSections()
+        setDoubleTapSupport()
         tableView.reloadData()
 
         // delegate?.title = TranslatableStrings.Ingredients
@@ -1580,6 +1597,7 @@ extension IngredientsTableViewController: ProductPageViewControllerDelegate {
     }
     
     func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
+        setDoubleTapSupport()
         tableView.reloadData()
     }
 

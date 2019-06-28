@@ -76,6 +76,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         editMode = !editMode
     }
     
+    @IBOutlet weak var switchProductButton: UIBarButtonItem!
+    
+    @IBAction func switchProductButtonTapped(_ sender: UIBarButtonItem) {
+    }
+    
     private func askSavePermission() {
         
         let alertController = UIAlertController(title: TranslatableStrings.AskSavePermissionTitle,
@@ -464,13 +469,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return pages.count
-    }
+    //func presentationCount(for pageViewController: UIPageViewController) //-> Int {
+    //    return pages.count
+    //}
         
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return pages.firstIndex(where: { $0 == pageIndex } ) ?? 0
-    }
+    //func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+    //    return pages.firstIndex(where: { $0 == pageIndex } ) ?? 0
+    //}
         
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         self.title = prefixedTitle
@@ -748,6 +753,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     }
     
+    
+    @objc func infoClicked() {
+        //TODO: why is this function?
+        //productPair!.remoteProduct = nil
+    }
+    
     // MARK: - ViewController Lifecycle
         
     override func viewDidLoad() {
@@ -755,6 +766,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         initPages()
         dataSource = self
         delegate = self
+        //self.view.backgroundColor = .groupTableViewBackground
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -764,6 +776,39 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let image = UIImage.init(named: editMode ? "CheckMark"  : "Edit") {
             confirmBarButtonItem.image = image
         }
+
+        //Initialize the toolbar
+        let toolbar = UIToolbar()
+        toolbar.barStyle = UIBarStyle.default
+        
+        //Set the toolbar to fit the width of the app.
+        toolbar.sizeToFit()
+        
+        //Caclulate the height of the toolbar
+        let toolbarHeight = toolbar.frame.size.height
+        
+        //Get the bounds of the parent view
+        let rootViewBounds = self.parent?.view.bounds
+        
+        //Get the height of the parent view.
+        let rootViewHeight = rootViewBounds?.height
+        
+        //Get the width of the parent view,
+        let rootViewWidth = rootViewBounds?.width
+        
+        //Create a rectangle for the toolbar
+        let rectArea = CGRect(x: 0, y: rootViewHeight! - toolbarHeight, width: rootViewWidth!, height: toolbarHeight)
+        
+        //Reposition and resize the receiver
+        toolbar.frame = rectArea
+        
+        //Create a button
+        let infoButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.plain, target: self, action: #selector(infoClicked))
+        
+        toolbar.items = [infoButton]
+        
+        //Add the toolbar as a subview to the navigation controller.
+        self.navigationController?.view.addSubview(toolbar)
 
         title = prefixedTitle
 
