@@ -25,7 +25,6 @@ class IdentificationTableViewController: UITableViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                delegate?.productPageViewControllerdelegate = self
                 tableView.reloadData()
             }
         }
@@ -918,6 +917,11 @@ class IdentificationTableViewController: UITableViewController {
         tableView.reloadData()
         
     }
+    
+    func refreshInterface() {
+        tableView.reloadData()
+    }
+    
     /*
     @objc func loadFirstProduct() {
         let products = OFFProducts.manager
@@ -1784,21 +1788,4 @@ extension IdentificationTableViewController: GKImageCropControllerDelegate {
         self.reloadImageSection()
         //delegate?.imagePicker(self, cropped:croppedImage!)
     }
-}
-
-// MARK: - ProductPageViewController Delegate Methods
-
-extension IdentificationTableViewController: ProductPageViewControllerDelegate {
-    
-    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-    
-    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-
 }

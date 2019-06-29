@@ -379,25 +379,9 @@ class SingleProductTableViewController: UITableViewController {
         
         selectedPageIndex = indexPath.row
         if let index = selectedPageIndex {
-            productPageViewController?.pageIndex = tableStructure[index].productSection()
+            productPageViewController?.currentProductPage = tableStructure[index].productSection()
         }
         showProductPage()
-        /*
-        if products.count > 0,
-            let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
-            let validProductPair = products.productPair(at: indexPath.section) {
-            switch validFetchResult {
-            case .available,
-                 .loading,
-                 .productNotLoaded:
-                selectedProductPair = validProductPair
-            case .productNotAvailable,
-                 .loadingFailed:
-                selectedProductPair = validProductPair
-            default: break
-            }
-        }
- */
     }
     
     /*

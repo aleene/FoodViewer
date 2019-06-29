@@ -15,7 +15,6 @@ class CategoriesTableViewController: UITableViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                delegate?.productPageViewControllerdelegate = self
                 tableView.reloadData()
             }
         }
@@ -197,6 +196,10 @@ class CategoriesTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
+    func refreshInterface() {
+        tableView.reloadData()
+    }
+    
     @objc func removeProduct() {
         productPair!.remoteProduct = nil
         tableView.reloadData()
@@ -398,21 +401,3 @@ extension CategoriesTableViewController: TagListViewDelegate {
 
 
 }
-
-// MARK: - ProductPageViewController Delegate Methods
-
-extension CategoriesTableViewController: ProductPageViewControllerDelegate {
-    
-    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-    
-    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-
-    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-}
-

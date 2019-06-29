@@ -16,7 +16,6 @@ class NutritionScoreTableViewController: UITableViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                delegate?.productPageViewControllerdelegate = self
                 tableView.reloadData()
             }
         }
@@ -285,21 +284,3 @@ extension NutritionScoreTableViewController: SetNutritionScoreCellDelegate {
     }
 
 }
-
-// MARK: - ProductPageViewController Delegate Methods
-
-extension NutritionScoreTableViewController: ProductPageViewControllerDelegate {
-    
-    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-    
-    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-
-    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-}
-

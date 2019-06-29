@@ -16,7 +16,6 @@ class SupplyChainTableViewController: UITableViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                delegate?.productPageViewControllerdelegate = self
                 tableView.reloadData()
             }
         }
@@ -792,6 +791,10 @@ class SupplyChainTableViewController: UITableViewController {
     func reloadMapSection(_ notification: Notification) {
         tableView.reloadRows(at: [IndexPath(row: 0, section: 8)], with: UITableView.RowAnimation.fade)
     }
+    
+    func refreshInterface() {
+        tableView.reloadData()
+    }
 
     @objc func refreshProduct() {
         showCountriesTagsType = TagsTypeDefault.Countries
@@ -1452,21 +1455,3 @@ extension SupplyChainTableViewController: UITextFieldDelegate {
     }
 
 }
-
-// MARK: - ProductPageViewController Delegate Methods
-
-extension SupplyChainTableViewController: ProductPageViewControllerDelegate {
-    
-    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-    
-    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-
-    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
-        // tableView.reloadData()
-    }
-}
-

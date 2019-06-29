@@ -19,7 +19,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                delegate?.productPageViewControllerdelegate = self
                 collectionView.reloadData()
             }
         }
@@ -920,24 +919,3 @@ extension ProductImagesCollectionViewController: GKImageCropControllerDelegate {
         }
     }
 }
-
-// MARK: - ProductPageViewController Delegate Methods
-
-extension ProductImagesCollectionViewController: ProductPageViewControllerDelegate {
-    
-    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
-        collectionView?.reloadData()
-    }
-    
-    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
-        collectionView?.reloadData()
-    }
-
-    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
-        // collectionView?.reloadData()
-    }
-}
-
-
-
-

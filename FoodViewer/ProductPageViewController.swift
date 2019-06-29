@@ -9,17 +9,8 @@
 import UIKit
 import LocalAuthentication
 
- protocol ProductPageViewControllerDelegate: class {
-    
-    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController)
-    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController)
-    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController)
- }
-
 class ProductPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ProductUpdatedProtocol {
     
-    var productPageViewControllerdelegate: ProductPageViewControllerDelegate? = nil
-
 // MARK: - Interface Actions
     
     @IBOutlet weak var confirmBarButtonItem: UIBarButtonItem! {
@@ -142,48 +133,49 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 if oldValue == nil {
                     initPages()
                 }
-                pageIndex = .identification
-                productPageViewControllerdelegate?.productPageViewControllerProductPairChanged(self)
+                currentProductPage = .identification
+                
+                refreshPageInterface()
                 title = prefixedTitle
                 currentLanguageCode = validProductPair.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
             }
         }
     }
     
-    var pageIndex: ProductPage = .identification {
+    var currentProductPage: ProductPage = .identification {
         didSet {
-            switch pageIndex {
+            switch currentProductPage {
             case .notSet:
                 setViewControllers(
-                    [viewController(for:pageIndex)],
+                    [viewController(for:currentProductPage)],
                     direction: .forward,
                     animated: false, completion: nil)
             default:
-                if pageIndex != oldValue {
+                if currentProductPage != oldValue {
                     // has the initialisation been done?
                     if let oldIndex = pages.firstIndex(where: { $0 == oldValue } ),
-                        let newIndex = pages.firstIndex(where: { $0 == pageIndex } ) {
+                        let newIndex = pages.firstIndex(where: { $0 == currentProductPage } ) {
                         // open de corresponding page
                         if newIndex > oldIndex {
                             setViewControllers(
-                                [viewController(for:pageIndex)],
+                                [viewController(for:currentProductPage)],
                                 direction: .forward,
                                 animated: false, completion: nil)
                         } else {
                             setViewControllers(
-                                [viewController(for:pageIndex)],
+                                [viewController(for:currentProductPage)],
                                 direction: .reverse,
                                 animated: false, completion: nil)
                         }
                     }
                 } else {
                     setViewControllers(
-                        [viewController(for:pageIndex)],
+                        [viewController(for:currentProductPage)],
                         direction: .forward,
                         animated: false, completion: nil)
                 }
                 
-                initPage(pageIndex)
+                initPage(currentProductPage)
             }
                 
         }
@@ -199,7 +191,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         didSet {
             // pass the changed language on
             if currentLanguageCode != oldValue {
-                productPageViewControllerdelegate?.productPageViewControllerEditModeChanged(self)
+                refreshPageInterface()
             }
         }
     }
@@ -207,7 +199,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     public var editMode: Bool = Preferences.manager.editMode {
         didSet {
             if editMode != oldValue {
-                productPageViewControllerdelegate?.productPageViewControllerEditModeChanged(self)
+                refreshPageInterface()
                 Preferences.manager.editMode = editMode
             }
             // change look edit button
@@ -216,6 +208,23 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 confirmBarButtonItem.image = image
             }
         }
+    }
+    
+    private func refreshPageInterface() {
+        
+        if let vc = viewController(for: currentProductPage) as? IdentificationTableViewController {
+            vc.refreshInterface()
+            
+        } else if let vc = viewController(for: currentProductPage) as? IngredientsTableViewController {
+                vc.refreshInterface()
+            
+        } else if let vc = viewController(for: currentProductPage) as? NutrientsTableViewController {
+            vc.refreshInterface()
+            
+        } else if let vc = viewController(for: currentProductPage) as? SupplyChainTableViewController {
+            vc.refreshInterface()
+        }
+
     }
     
     private func type(for viewController: UIViewController) -> ProductPage {
@@ -261,9 +270,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     private func initPages() {
         if productPair == nil {
             pages = [.notSet]
-            pageIndex = .notSet
+            currentProductPage = .notSet
         } else {
-            pageIndex = .identification
+            currentProductPage = .identification
             // define the pages (and order), which will be shown
             switch currentProductType {
             case .food:
@@ -392,11 +401,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
 
     private var prefixedTitle: String {
-        switch pageIndex {
+        switch currentProductPage {
         case .notSet:
-            return pageIndex.description
+            return currentProductPage.description
         default:
-            return pageIndex.description + " " + prefix
+            return currentProductPage.description + " " + prefix
         }
     }
     
@@ -465,7 +474,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                                      willTransitionTo pendingViewControllers: [UIViewController]) {
         // inform us what is happening, so the page can be setup
         if !pendingViewControllers.isEmpty && pendingViewControllers.first != nil {
-            pageIndex = type(for: pendingViewControllers.first!)
+            currentProductPage = type(for: pendingViewControllers.first!)
         }
     }
     
@@ -492,8 +501,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             switch validFetchResult {
             case .available:
                 productPair = validProductPair
-                pageIndex = .identification
-                initPage(pageIndex)
+                currentProductPage = .identification
+                initPage(currentProductPage)
             default: break
             }
         }
@@ -619,9 +628,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // currentLanguageCode = vc.currentLanguageCode
             // updateCurrentLanguage()
             if vc.sourcePage > 0 && vc.sourcePage < pages.count {
-                pageIndex = pages[vc.sourcePage]
+                currentProductPage = pages[vc.sourcePage]
             } else {
-                pageIndex = .identification
+                currentProductPage = .identification
             }
         }
     }
@@ -631,9 +640,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             currentLanguageCode = vc.selectedLanguageCode
 //            update(addLanguageCode: vc.selectedLanguageCode!)
             if vc.sourcePage > 0 && vc.sourcePage < pages.count {
-                pageIndex = pages[vc.sourcePage]
+                currentProductPage = pages[vc.sourcePage]
             } else {
-                pageIndex = .identification
+                currentProductPage = .identification
             }
         }
     }
@@ -649,9 +658,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 // the languageCodes have been edited, so with have now an updated product
                 productPair?.update(addLanguageCode: newLanguageCode)
                 if vc.sourcePage > 0 && vc.sourcePage < pages.count {
-                    pageIndex = pages[vc.sourcePage]
+                    currentProductPage = pages[vc.sourcePage]
                 } else {
-                    pageIndex = .identification
+                    currentProductPage = .identification
                 }
             }
         }

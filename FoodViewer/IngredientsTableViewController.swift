@@ -317,7 +317,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                delegate?.productPageViewControllerdelegate = self
                 tableView.reloadData()
             }
         }
@@ -922,6 +921,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     }
 
+    func refreshInterface() {
+        tableView.reloadData()
+    }
+    
     func changeLanguage() {
         // set the next language in the array
         if currentLanguageCode != nextLanguageCode() {
@@ -1583,25 +1586,5 @@ extension IngredientsTableViewController: GKImageCropControllerDelegate {
         imageCropController.dismiss(animated: true, completion: nil)
         productPair?.update(ingredientsImage: validImage, for:validLanguageCode)
         self.reloadImageSection()
-    }
-}
-
-
-
-// MARK: - ProductPageViewController Delegate Methods
-
-extension IngredientsTableViewController: ProductPageViewControllerDelegate {
-    
-    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-    
-    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
-        setDoubleTapSupport()
-        tableView.reloadData()
-    }
-
-    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
     }
 }

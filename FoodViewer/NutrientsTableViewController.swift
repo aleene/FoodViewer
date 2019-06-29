@@ -15,8 +15,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                delegate?.productPageViewControllerdelegate = self
-                refreshProduct()
+                refreshInterface()
             }
         }
     }
@@ -1111,6 +1110,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     }
     
+    func refreshInterface() {
+        tableView.reloadData()
+    }
+    
     func newPerUnitSettings(_ notification: Notification) {
     }
 
@@ -1829,24 +1832,3 @@ extension NutrientsTableViewController: GKImageCropControllerDelegate {
         self.reloadImageSection()
     }
 }
-
-// MARK: - ProductPageViewController Delegate Methods
-
-extension NutrientsTableViewController: ProductPageViewControllerDelegate {
-    
-    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
-        guard delegate != nil else { return }
-        refreshProduct()
-    }
-    
-    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
-        guard delegate != nil else { return }
-        refreshProduct()
-    }
-
-    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
-        guard delegate != nil else { return }
-        refreshProduct()
-    }
-}
-

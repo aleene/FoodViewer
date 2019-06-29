@@ -154,16 +154,16 @@ class SingleSearchProductTableViewController: UITableViewController {
                     if let validIndex = selectedPageIndex {
                         let array = template.searchPairsWithArray()
                         if array.count > 0 && validIndex < array.count {
-                            ppvc.pageIndex = searchRowType(array[validIndex].0)
+                            ppvc.currentProductPage = searchRowType(array[validIndex].0)
                         } else {
-                            ppvc.pageIndex = .identification
+                            ppvc.currentProductPage = .identification
                         }
                     }
                 default:
-                    ppvc.pageIndex = validSelectedRowType.productSection()
+                    ppvc.currentProductPage = validSelectedRowType.productSection()
                 }
             } else {
-                ppvc.pageIndex = .identification
+                ppvc.currentProductPage = .identification
             }
         }
         }
@@ -497,16 +497,16 @@ class SingleSearchProductTableViewController: UITableViewController {
                                 if let validIndex = selectedPageIndex {
                                     let array = template.searchPairsWithArray()
                                     if array.count > 0 && validIndex < array.count {
-                                        ppvc.pageIndex = searchRowType(array[validIndex].0)
+                                        ppvc.currentProductPage = searchRowType(array[validIndex].0)
                                     } else {
-                                        ppvc.pageIndex = .identification
+                                        ppvc.currentProductPage = .identification
                                     }
                                 }
                             default:
-                                ppvc.pageIndex = validSelectedRowType.productSection()
+                                ppvc.currentProductPage = validSelectedRowType.productSection()
                             }
                         } else {
-                            ppvc.pageIndex = .identification
+                            ppvc.currentProductPage = .identification
                         }
                     }
                 }

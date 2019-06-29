@@ -16,7 +16,6 @@ class CompletionStatesTableViewController: UITableViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                delegate?.productPageViewControllerdelegate = self
                 tableView.reloadData()
             }
         }
@@ -221,27 +220,27 @@ class CompletionStatesTableViewController: UITableViewController {
     }
     
     @objc func identificationTapped() {
-        delegate?.pageIndex = .identification
+        delegate?.currentProductPage = .identification
     }
     
     @objc func ingredientsTapped() {
-        delegate?.pageIndex = .ingredients
+        delegate?.currentProductPage = .ingredients
     }
 
     @objc func categoriesTapped() {
-        delegate?.pageIndex = .categories
+        delegate?.currentProductPage = .categories
     }
 
     @objc func supplyChainTapped() {
-        delegate?.pageIndex = .supplyChain
+        delegate?.currentProductPage = .supplyChain
     }
 
     @objc func nutritionFactsTapped() {
-        delegate?.pageIndex = .nutritionFacts
+        delegate?.currentProductPage = .nutritionFacts
     }
 
     @objc func galleryTapped() {
-        delegate?.pageIndex = .gallery
+        delegate?.currentProductPage = .gallery
     }
 //
 // MARK: - Navigation
@@ -559,24 +558,3 @@ extension CompletionStatesTableViewController: UITextFieldDelegate {
     
     
 }
-
-// MARK: - ProductPageViewController Delegate Methods
-
-extension CompletionStatesTableViewController: ProductPageViewControllerDelegate {
-    
-    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-    
-    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-
-    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
-    }
-}
-
-
-
-
