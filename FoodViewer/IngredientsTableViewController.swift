@@ -1145,6 +1145,10 @@ extension IngredientsTableViewController: IngredientsFullCellDelegate {
         changeLanguage()
     }
 
+    func ingredientsFullTableViewCell(_ sender: IngredientsFullTableViewCell, receivedTapOn button:UIButton) {
+        changeLanguage()
+    }
+
 }
 
 // MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions

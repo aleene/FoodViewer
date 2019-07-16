@@ -9,6 +9,7 @@
 import UIKit
 import MobileCoreServices
 
+
 class NutrientsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     
     
@@ -373,28 +374,30 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     cell?.delegate = self
                     cell?.tag = indexPath.section * 100 + indexPath.row
                     // only add taps gestures when NOT in editMode
-                    if !editMode {
-                        if  (adaptedNutritionFacts[indexPath.row].nutrient.rawValue ==   NatriumChloride.salt.key) ||
-                            (adaptedNutritionFacts[indexPath.row].nutrient.rawValue == NatriumChloride.sodium.key) {
+                    if  (adaptedNutritionFacts[indexPath.row].nutrient.rawValue ==   NatriumChloride.salt.key) ||
+                           (adaptedNutritionFacts[indexPath.row].nutrient.rawValue == NatriumChloride.sodium.key) {
+                        if !editMode {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:  #selector(NutrientsTableViewController.doubleTapOnSaltSodiumTableViewCell))
                             doubleTapGestureRecognizer.numberOfTapsRequired = 2
                             doubleTapGestureRecognizer.numberOfTouchesRequired = 1
                             doubleTapGestureRecognizer.cancelsTouchesInView = false
                             doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
-                            cell?.tripleTapIndicator.isHidden = false
-                        } else if  (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) ||
-                            (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) {
+                            }
+                            cell?.toggleViewModeButton.isHidden = editMode ? true : false
+                    } else if  (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) ||
+                        (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) {
+                        if !editMode {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
                             doubleTapGestureRecognizer.numberOfTapsRequired = 2
                             doubleTapGestureRecognizer.numberOfTouchesRequired = 1
                             doubleTapGestureRecognizer.cancelsTouchesInView = false
                             doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
-                            cell?.tripleTapIndicator.isHidden = false
-                        } else {
-                            cell?.tripleTapIndicator.isHidden = true
                         }
+                        cell?.toggleViewModeButton.isHidden = editMode ? true : false
+                    } else {
+                        cell?.toggleViewModeButton.isHidden = true
                     }
                     cell?.editMode = editMode
                     return cell!
@@ -632,14 +635,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
     }
     
-    @objc func doubleTapOnSaltSodiumTableViewCell(_ recognizer: UITapGestureRecognizer) {
+    @objc func doubleTapOnSaltSodiumTableViewCell() {
         currentSaltDisplayMode = currentSaltDisplayMode == .salt ? .sodium : .salt
         
         mergeNutritionFacts()
         tableView.reloadData()
     }
     
-    @objc func doubleTapOnEnergyTableViewCell(_ recognizer: UITapGestureRecognizer) {
+    @objc func doubleTapOnEnergyTableViewCell() {
         /////
         switch currentEnergyDisplayMode {
         case .calories:
@@ -1111,7 +1114,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     func refreshInterface() {
-        tableView.reloadData()
+        refreshProduct()
     }
     
     func newPerUnitSettings(_ notification: Notification) {
@@ -1316,6 +1319,27 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
+    }
+
+}
+
+extension NutrientsTableViewController: NutrientsCellDelegate {
+
+    func nutrientsTableViewCell(_ sender: NutrientsTableViewCell, receivedTapOn button:UIButton) {
+        // depending on the cell, a button might be present
+        // and an other action will invoked
+        let row = button.tag % 100
+        // only add taps gestures when NOT in editMode
+        if !editMode {
+            if  (adaptedNutritionFacts[row].nutrient.rawValue ==   NatriumChloride.salt.key) ||
+                (adaptedNutritionFacts[row].nutrient.rawValue == NatriumChloride.sodium.key) {
+                doubleTapOnSaltSodiumTableViewCell()
+            } else if  (adaptedNutritionFacts[row].nutrient.key == LocalizedEnergy.key) ||
+                (adaptedNutritionFacts[row].nutrient.key == LocalizedEnergy.key) {
+               doubleTapOnEnergyTableViewCell()
+            }
+        }
+
     }
 
 }

@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol NutrientsCellDelegate: class {
+    
+    func nutrientsTableViewCell(_ sender: NutrientsTableViewCell, receivedTapOn button:UIButton)
+    
+}
+
 class NutrientsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var itemLabel: UILabel! {
@@ -31,7 +37,16 @@ class NutrientsTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var tripleTapIndicator: UIImageView!
+    @IBOutlet weak var toggleViewModeButton: UIButton! {
+        didSet {
+            toggleViewModeButton.isHidden = true
+        }
+    }
+    
+    @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
+        toggleViewModeButton?.tag = tag
+        nutrientsCellDelegate?.nutrientsTableViewCell(self, receivedTapOn:toggleViewModeButton)
+    }
     
     var nutritionDisplayFactItem: NutrientsTableViewController.DisplayFact? = nil {
         didSet {
@@ -58,6 +73,7 @@ class NutrientsTableViewCell: UITableViewCell {
                 textField.backgroundColor = .white
                 textField.borderStyle = .none
                 unitButton.setTitleColor(.black, for: .normal)
+
             }
         }
     }
@@ -70,9 +86,12 @@ class NutrientsTableViewCell: UITableViewCell {
         }
     }
     
+    var nutrientsCellDelegate: NutrientsCellDelegate? = nil
+    
     var delegate: NutrientsTableViewController? = nil {
         didSet {
             textField?.delegate = delegate
+            nutrientsCellDelegate = delegate
         }
     }
 }

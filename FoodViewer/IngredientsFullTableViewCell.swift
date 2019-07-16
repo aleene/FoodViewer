@@ -11,6 +11,9 @@ import UIKit
 protocol IngredientsFullCellDelegate: class {
     
     func ingredientsFullTableViewCell(_ sender: IngredientsFullTableViewCell, receivedActionOn textView:UITextView)
+    
+    func ingredientsFullTableViewCell(_ sender: IngredientsFullTableViewCell, receivedTapOn button:UIButton)
+
 }
 
 
@@ -36,12 +39,15 @@ class IngredientsFullTableViewCell: UITableViewCell {
     @IBAction func clearTextViewButtonTapped(_ sender: UIButton) {
         ingredients = ""
     }
-    
-    @IBOutlet weak var doubleTapIndicator: UIImageView! {
+    @IBOutlet weak var toggleViewModeButton: UIButton! {
         didSet {
-            doubleTapIndicator.isHidden = true
+            toggleViewModeButton?.isHidden = true
         }
     }
+    @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
+        delegate?.ingredientsFullTableViewCell(self, receivedTapOn: toggleViewModeButton)
+    }
+    
     private func setTextViewClearButton() {
         clearTextViewButton?.isHidden = !editMode
     }
@@ -62,7 +68,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
             textView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             textView?.clipsToBounds = true
             textView.isScrollEnabled = true
-            doubleTapIndicator.isHidden = true
+            toggleViewModeButton?.isHidden = true
         } else {
             // Double tapping allows to change the language of the ingredients
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(IngredientsFullTableViewCell.ingredientsTapped))
@@ -71,7 +77,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
             textView?.backgroundColor = UIColor.white
             textView?.layer.borderColor = UIColor.white.cgColor
             textView.isScrollEnabled = false
-            doubleTapIndicator.isHidden = !isMultilingual
+            toggleViewModeButton?.isHidden = !isMultilingual
         }
         
         if editMode {
@@ -119,7 +125,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
     
     var isMultilingual = false {
         didSet {
-            doubleTapIndicator.isHidden = !isMultilingual
+            toggleViewModeButton?.isHidden = !isMultilingual
         }
     }
     var ingredients: String? = nil {

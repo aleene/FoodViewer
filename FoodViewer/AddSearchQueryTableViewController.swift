@@ -1114,6 +1114,11 @@ extension AddSearchQueryTableViewController:  ProductNameCellDelegate {
     func productNameTableViewCell(_ sender: ProductNameTableViewCell, receivedDoubleTap textView:UITextView) {
         // no action required
     }
+    
+    func productNameTableViewCell(_ sender: ProductNameTableViewCell, receivedTapOn button:UIButton) {
+        // no action required
+    }
+
 }
 
 

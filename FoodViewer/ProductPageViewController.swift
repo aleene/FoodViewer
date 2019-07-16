@@ -168,6 +168,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                                 animated: false, completion: nil)
                         }
                     }
+                    refreshPageInterface()
                 } else {
                     setViewControllers(
                         [viewController(for:currentProductPage)],
@@ -177,7 +178,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 
                 initPage(currentProductPage)
             }
-                
         }
     }
     
@@ -223,6 +223,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             
         } else if let vc = viewController(for: currentProductPage) as? SupplyChainTableViewController {
             vc.refreshInterface()
+
+        } else if let vc = viewController(for: currentProductPage) as? CategoriesTableViewController {
+            vc.refreshProduct()
+
+        } else if let vc = viewController(for: currentProductPage) as? ProductImagesCollectionViewController {
+            vc.reloadImages()
         }
 
     }
@@ -478,13 +484,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
-    //func presentationCount(for pageViewController: UIPageViewController) //-> Int {
-    //    return pages.count
-    //}
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        return pages.count
+    }
         
-    //func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-    //    return pages.firstIndex(where: { $0 == pageIndex } ) ?? 0
-    //}
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+        return pages.firstIndex(where: { $0 == currentProductPage } ) ?? 0
+    }
         
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         self.title = prefixedTitle
@@ -761,8 +767,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         self.present(alertController, animated: true, completion: nil)
 
     }
-    
-    
+
     @objc func infoClicked() {
         //TODO: why is this function?
         //productPair!.remoteProduct = nil
@@ -775,7 +780,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         initPages()
         dataSource = self
         delegate = self
-        //self.view.backgroundColor = .groupTableViewBackground
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -786,6 +791,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             confirmBarButtonItem.image = image
         }
 
+
+        /*
         //Initialize the toolbar
         let toolbar = UIToolbar()
         toolbar.barStyle = UIBarStyle.default
@@ -818,7 +825,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
         //Add the toolbar as a subview to the navigation controller.
         self.navigationController?.view.addSubview(toolbar)
-
+*/
         title = prefixedTitle
 
         // listen if a product is set outside of the MasterViewController

@@ -11,6 +11,8 @@ import UIKit
 protocol ProductNameCellDelegate: class {
     
     func productNameTableViewCell(_ sender: ProductNameTableViewCell, receivedDoubleTap textView:UITextView)
+    
+    func productNameTableViewCell(_ sender: ProductNameTableViewCell, receivedTapOn button:UIButton)
 }
 
 class ProductNameTableViewCell: UITableViewCell {
@@ -30,10 +32,14 @@ class ProductNameTableViewCell: UITableViewCell {
         name = ""
     }
     
-    @IBOutlet weak var doubleTapIndicator: UIImageView! {
+    @IBOutlet weak var toggleViewModeButton: UIButton! {
         didSet {
-            doubleTapIndicator.isHidden = true
+            toggleViewModeButton.isHidden = true
         }
+    }
+
+    @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
+        delegate?.productNameTableViewCell(self, receivedTapOn: toggleViewModeButton)
     }
     
     private func setTextViewStyle() {
@@ -49,14 +55,14 @@ class ProductNameTableViewCell: UITableViewCell {
             nameTextView?.layer.cornerRadius = 5
             nameTextView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             nameTextView?.clipsToBounds = true
-            doubleTapIndicator.isHidden = true
+            toggleViewModeButton.isHidden = true
             // nameTextField.removeGestureRecognizer(tapGestureRecognizer)
         } else {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
             tapGestureRecognizer.numberOfTapsRequired = 2
             nameTextView?.addGestureRecognizer(tapGestureRecognizer)
             nameTextView?.layer.borderColor = UIColor.white.cgColor
-            doubleTapIndicator.isHidden = !isMultilingual
+            toggleViewModeButton?.isHidden = !isMultilingual
         }
         print ("ProductNameTableViewCell: setTextView", self.frame)
         //if nameTextView?.text != nil && !nameTextView!.text!.isEmpty {
@@ -87,7 +93,7 @@ class ProductNameTableViewCell: UITableViewCell {
     
     var isMultilingual = false {
         didSet {
-            doubleTapIndicator.isHidden = !isMultilingual
+            toggleViewModeButton?.isHidden = !isMultilingual
         }
     }
     

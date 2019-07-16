@@ -10,8 +10,7 @@ import UIKit
 import MobileCoreServices
 
 class IdentificationTableViewController: UITableViewController {
-    
-    
+
     private struct TextConstants {
         static let ShowIdentificationTitleX = TranslatableStrings.Image
         static let ViewControllerTitleX = TranslatableStrings.Identification
@@ -1051,9 +1050,6 @@ class IdentificationTableViewController: UITableViewController {
             tableView.dropDelegate = self
         }
         
-        // reset the current languagecode
-        // currentLanguageCode = nil
-        
         self.tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = true
         tableView.rowHeight = UITableView.automaticDimension
@@ -1109,16 +1105,10 @@ class IdentificationTableViewController: UITableViewController {
         //Create a button
         let infoButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.plain, target: self, action: #selector(infoClicked))
         
-        let pageControllerWidth = CGFloat(120.0)
-        let pageController = UIPageControl(frame: CGRect(x: (rootViewWidth! - pageControllerWidth) / 2, y: rootViewHeight! - 2 * toolbarHeight, width: pageControllerWidth, height: toolbarHeight))
-        pageController.hidesForSinglePage = true
-        pageController.numberOfPages = 5
-        pageController.backgroundColor = .red
         toolbar.items = [infoButton]
         
         //Add the toolbar as a subview to the navigation controller.
         // self.navigationController?.view.addSubview(toolbar)
-        self.navigationController?.view.addSubview(pageController)
          */
         navigationController?.setNavigationBarHidden(false, animated: false)
         
@@ -1221,6 +1211,11 @@ extension IdentificationTableViewController: ProductNameCellDelegate {
         textView.endEditing(true)
         changeLanguage()
     }
+    
+    func productNameTableViewCell(_ sender: ProductNameTableViewCell, receivedTapOn button:UIButton) {
+        changeLanguage()
+    }
+
 }
 //
 // MARK: - IdentificationImageCellDelegate Functions
