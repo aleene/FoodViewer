@@ -259,7 +259,7 @@ class AddSearchQueryTableViewController: UITableViewController {
         struct Header {
             static let Barcode = TranslatableStrings.Barcode
             static let Name = TranslatableStrings.Name
-            static let CommonName = TranslatableStrings.CommonName
+            static let CommonName = TranslatableStrings.GenericName
             static let Languages = TranslatableStrings.Languages
             static let Brands = TranslatableStrings.Brands
             static let Packaging = TranslatableStrings.Packaging
@@ -268,7 +268,7 @@ class AddSearchQueryTableViewController: UITableViewController {
             static let Traces = TranslatableStrings.Traces
             static let Additives = TranslatableStrings.DetectedAdditives
             static let Labels = TranslatableStrings.Labels
-            static let Producer = TranslatableStrings.Producers
+            static let Producer = TranslatableStrings.Producer
             static let ProducerCode = TranslatableStrings.ProductCodes
             static let IngredientOrigin = TranslatableStrings.IngredientOrigins
             static let Location = TranslatableStrings.PurchaseAddress

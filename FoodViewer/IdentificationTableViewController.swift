@@ -596,64 +596,8 @@ class IdentificationTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let currentProductSection = tableStructure[section]
         switch currentProductSection {
-        case .barcode:
-            switch productVersion {
-            case .remote:
-                break
-            case .new:
-                if productPair?.localProduct != nil && productPair?.localProduct?.primaryLanguageCode != productPair?.remoteProduct?.primaryLanguageCode {
-                    return tableStructure[section].header + " " + TranslatableStrings.EditedInParentheses
-                }
-            }
-            
-        case .image, .name, .genericName :
+        case .barcode, .brands, .image, .name, .genericName, .packaging, .quantity :
             return nil
-            
-        case .brands:
-            switch productVersion {
-            case .remote:
-                break
-            case .new:
-                if let oldTags = productPair?.localProduct?.brandsOriginal {
-                    switch oldTags {
-                    case .available:
-                        return tableStructure[section].header +
-                            " " +
-                            "(" +
-                            TranslatableStrings.Edited +
-                        ")"
-                    default:
-                        break
-                    }
-                }
-            }
-        case .packaging:
-            switch productVersion {
-            case .remote:
-                switch showPackagingTagsType {
-                case TagsTypeDefault.Packaging:
-                    return tableStructure[section].header
-                default:
-                    return tableStructure[section].header +
-                        " " +
-                        "(" +
-                        showPackagingTagsType.description +
-                        ")"
-                }
-            case .new:
-                if let oldTags = productPair?.localProduct?.packagingOriginal {
-                    switch oldTags {
-                    case .available:
-                        return tableStructure[section].header +
-                            " " +
-                            "(" +
-                        TranslatableStrings.Edited +
-                    ")"
-                    default:
-                        break
-                    }
-                }
-            }
         default:
             break
         }
@@ -662,49 +606,145 @@ class IdentificationTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let currentProductSection = tableStructure[section]
-        
+       
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
+        headerView.section = section
+        headerView.delegate = self
+        headerView.changeViewModeButton.isHidden = true
+        setSupport(on: headerView, forDoubleTap: false)
+        var header = tableStructure[section].header
+        // The headers with a language
         switch currentProductSection {
+            
         case .image, .name, .genericName :
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
-            headerView.section = section
-            headerView.delegate = self
-            headerView.title = tableStructure[section].header
-            switch productVersion {
-            case .remote:
-                break
-            case .new:
+            headerView.changeLanguageButton.isHidden = false
                 switch currentProductSection {
                 case .image:
                     guard let localPair = localFrontImage else { break }
                     if localPair.0 != nil {
-                        headerView.title = tableStructure[section].header + " " + TranslatableStrings.EditedInParentheses
+                        headerView.changeViewModeButton.isHidden = false
+                        setSupport(on: headerView, forDoubleTap: true)
+                        switch productVersion {
+                        case .remote:
+                            header = TranslatableStrings.FrontImageOriginal
+                        case .new:
+                            header = TranslatableStrings.FrontImageEdited
+                        }
                     }
                 case .name:
                     guard let validLanguageCode = displayLanguageCode else { break }
                     if productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
-                        headerView.title = tableStructure[section].header + " " + TranslatableStrings.EditedInParentheses
+                        headerView.changeViewModeButton.isHidden = false
+                        setSupport(on: headerView, forDoubleTap: true)
+                        switch productVersion {
+                        case .remote:
+                            header = TranslatableStrings.NameOriginal
+                        case .new:
+                            header = TranslatableStrings.NameEdited
+                        }
                     }
                 case .genericName :
                     guard let validLanguageCode = displayLanguageCode else { break }
                     if productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
-                        headerView.title = tableStructure[section].header + " " + TranslatableStrings.EditedInParentheses
+                        headerView.changeViewModeButton.isHidden = false
+                        setSupport(on: headerView, forDoubleTap: true)
+                        switch productVersion {
+                        case .remote:
+                            header = TranslatableStrings.GenericNameOriginal
+                        case .new:
+                            header = TranslatableStrings.GenericNameEdited
+                        }
                     }
                 default:
                     break
                 }
-            }
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
-            if let validCount = productPair?.remoteProduct?.languageCodes.count {
-                headerView.buttonIsEnabled = editMode ? true : ( validCount > 1 ? true : false )
-            } else {
-                headerView.buttonIsEnabled = false
-            }
+            headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
+            // add a dash to nice separate the title from the language button
+            headerView.title = header + " - "
             return headerView
+            
+        case .barcode, .brands, .packaging, .quantity:
+            switch currentProductSection {
+            case .barcode:
+                guard productPair?.localProduct != nil else { break }
+                if productPair?.localProduct?.primaryLanguageCode != productPair?.remoteProduct?.primaryLanguageCode {
+                    headerView.changeViewModeButton.isHidden = false
+                    setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.BarcodeOriginal
+                    case .new:
+                        header = TranslatableStrings.BarcodeEdited
+                    }
+                }
+                case .brands:
+                    if let newTags = productPair?.localProduct?.brandsOriginal {
+                        switch newTags {
+                        case .available:
+                            headerView.changeViewModeButton.isHidden = false
+                            setSupport(on: headerView, forDoubleTap: true)
+                            switch productVersion {
+                            case .remote:
+                                header = TranslatableStrings.BrandsOriginal
+                            case .new:
+                                header = TranslatableStrings.BrandsEdited
+                            }
+                        default:
+                            break
+                        }
+                    }
+            case .packaging:
+                if let newTags = productPair?.localProduct?.packagingOriginal {
+                    switch newTags {
+                    case .available:
+                        headerView.changeViewModeButton.isHidden = false
+                        setSupport(on: headerView, forDoubleTap: true)
+                        switch productVersion {
+                        case .remote:
+                            header = TranslatableStrings.PackagingOriginal
+                        case .new:
+                            header = TranslatableStrings.PackagingEdited
+                        }
+                    default:
+                        break
+                    }
+                }
+            case .quantity:
+                let quantityHasBeenEdited = productPair?.localProduct?.quantity == nil ? false : true
+                headerView.changeViewModeButton.isHidden = !quantityHasBeenEdited
+                setSupport(on:headerView, forDoubleTap:quantityHasBeenEdited)
+                if quantityHasBeenEdited {
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.QuantityOriginal
+                    case .new:
+                        header = TranslatableStrings.QuantityEdited
+                    }
+                }
+
+            default:
+                break
+            }
+            headerView.title = header
+            return headerView
+            
         default:
             return nil
         }
     }
 
+    private func setSupport(on view:UIView, forDoubleTap support:Bool) {
+        // Add doubletapping to the TableView. Any double tap on headers is now received,
+        // and used for changing the productVersion (local and remote)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+        // show the double tap possibility only if there is a local product
+        doubleTapGestureRecognizer.cancelsTouchesInView = !support
+        view.addGestureRecognizer(doubleTapGestureRecognizer)
+    }
 
     fileprivate struct TableSection {
         struct Size {
@@ -720,7 +760,7 @@ class IdentificationTableViewController: UITableViewController {
         struct Header {
             static let Barcode = TranslatableStrings.Barcode
             static let Name = TranslatableStrings.Name
-            static let CommonName = TranslatableStrings.CommonName
+            static let CommonName = TranslatableStrings.GenericName
             static let Languages = TranslatableStrings.Languages
             static let Brands = TranslatableStrings.Brands
             static let Packaging = TranslatableStrings.Packaging
@@ -1059,15 +1099,6 @@ class IdentificationTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
         // print("viewDidLoad", self.view.frame, self.parent?.view.frame)
         
-        // Add doubletapping to the TableView. Any double tap on headers is now received,
-        // and used for changing the productVersion (local and remote)
-        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IdentificationTableViewController.doubleTapOnTableView))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-        doubleTapGestureRecognizer.cancelsTouchesInView = false
-        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-        tableView.addGestureRecognizer(doubleTapGestureRecognizer)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -1647,6 +1678,10 @@ extension IdentificationTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
         performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNamesLanguages, sender: sender)
+    }
+    
+    func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {
+        doubleTapOnTableView()
     }
 }
 //

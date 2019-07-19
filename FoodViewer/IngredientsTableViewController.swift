@@ -491,136 +491,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return nil
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        switch tableStructure[section] {
-        case .image, .ingredients:
-            return nil
-        case .allergens:
-            switch allergensTagsTypeToShow {
-            case TagsTypeDefault.Allergens:
-                break
-            default:
-                return tableStructure[section].header +
-                    " " +
-                    "(" +
-                    allergensTagsTypeToShow.description +
-                    ")"
-            }
-        case .traces:
-            switch productVersion {
-            case .remote:
-                switch tracesTagsTypeToShow {
-                case TagsTypeDefault.Traces:
-                    break
-                default:
-                    return tableStructure[section].header +
-                        " " +
-                        "(" +
-                        tracesTagsTypeToShow.description +
-                        ")"
-                }
-            case .new:
-                if let oldTags = productPair?.localProduct?.tracesOriginal {
-                    switch oldTags {
-                    case .available:
-                        return tableStructure[section].header +
-                            " " +
-                            "(" +
-                            TranslatableStrings.Edited +
-                        ")"
-                    default:
-                        break
-                    }
-                }
-            }
-
-        case .labels:
-            switch productVersion {
-            case .remote:
-                switch labelsTagsTypeToShow {
-                case TagsTypeDefault.Labels:
-                    break
-                default:
-                    return tableStructure[section].header +
-                        " " +
-                        "(" +
-                        labelsTagsTypeToShow.description +
-                        ")"
-                }
-            case .new:
-                if let oldTags = productPair?.localProduct?.labelsOriginal {
-                    switch oldTags {
-                    case .available:
-                        return tableStructure[section].header +
-                            " " +
-                            "(" +
-                            TranslatableStrings.Edited +
-                        ")"
-                    default:
-                        break
-                    }
-                }
-            }
-        case .additives:
-            switch additivesTagsTypeToShow {
-            case TagsTypeDefault.Additives:
-                break
-            default:
-                return tableStructure[section].header +
-                    " " +
-                    "(" +
-                    additivesTagsTypeToShow.description +
-                ")"
-            }
-        case .minerals:
-            switch mineralsTagsTypeToShow {
-            case TagsTypeDefault.Minerals:
-                break
-            default:
-                return tableStructure[section].header +
-                    " " +
-                    "(" +
-                    mineralsTagsTypeToShow.description +
-                ")"
-            }
-        case .vitamins:
-            switch vitaminsTagsTypeToShow {
-            case TagsTypeDefault.Vitamins:
-                break
-            default:
-                return tableStructure[section].header +
-                    " " +
-                    "(" +
-                    vitaminsTagsTypeToShow.description +
-                ")"
-            }
-        case .nucleotides:
-            switch nucleotidesTagsTypeToShow {
-            case TagsTypeDefault.Nucleotides:
-                break
-            default:
-                return tableStructure[section].header +
-                    " " +
-                    "(" +
-                    nucleotidesTagsTypeToShow.description +
-                ")"
-            }
-        case .otherNutritionalSubstances:
-            switch otherNutritionalSubstancesTagsTypeToShow {
-            case TagsTypeDefault.OtherNutritionalSubstances:
-                break
-            default:
-                return tableStructure[section].header +
-                    " " +
-                    "(" +
-                    otherNutritionalSubstancesTagsTypeToShow.description +
-                ")"
-            }
-        }
-        
-        return tableStructure[section].header
-    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedSection = indexPath.section
@@ -637,52 +507,129 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return nil
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         switch tableStructure[section] {
-        case .image, .ingredients :
-            var header = tableStructure[section].header
-            
-            //     // ⃣ 🍫⃠  b + ⃠ 🌴 + ⃠   👩+❤+💋+👨
-            
-            if let validProduct = productPair?.remoteProduct,
-                validProduct.containsPalm {
-                header = "🌴 " + header
-            } else if let validProduct = productPair?.remoteProduct,
-            validProduct.mightContainPalm {
-                header = "🌴? " + header
-            }
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
-            
-            headerView.section = section
-            headerView.delegate = self
-            headerView.title = header
-            switch productVersion {
-            case .remote:
-                break
-            case .new:
-                let currentProductSection = tableStructure[section]
-                switch currentProductSection {
-                case .image:
-                    if localImageToShow != nil {
-                        headerView.title = header + " " + "(" + TranslatableStrings.Edited + ")"
+        case .image, .ingredients, .labels, .traces:
+            return nil
+        default:
+            return tableStructure[section].header
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let currentProductSection = tableStructure[section]
+
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
+        
+        headerView.section = section
+        headerView.delegate = self
+        headerView.changeViewModeButton.isHidden = true
+        setSupport(on: headerView, forDoubleTap: false)
+        var header = tableStructure[section].header
+
+        switch currentProductSection {
+        case .image, .ingredients : // Header with a language
+            headerView.changeLanguageButton.isHidden = false
+            switch currentProductSection {
+            case .image:
+                if localImageToShow != nil {
+                    headerView.changeViewModeButton.isHidden = false
+                    setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.IngredientsImageOriginal
+                    case .new:
+                        header = TranslatableStrings.IngredientsImageEdited
                     }
-                case .ingredients:
-                    guard let validLanguageCode = displayLanguageCode else { break }
-                    if productPair?.localProduct?.ingredientsLanguage[validLanguageCode] != nil {
-                        headerView.title = header + " " + "(" + TranslatableStrings.Edited + ")"
+                }
+            case .ingredients:
+                guard let validLanguageCode = displayLanguageCode else { break }
+                if productPair?.localProduct?.ingredientsLanguage[validLanguageCode] != nil {
+                    headerView.changeViewModeButton.isHidden = false
+                    setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.IngredientsOriginal
+                    case .new:
+                        header = TranslatableStrings.IngredientsEdited
+                    }
+                }
+            default:
+                break
+            }
+            headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
+            headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
+            // add a dash to nice separate the title from the language button
+            headerView.title = header + " - "
+            return headerView
+        
+        case .labels, .traces:
+            headerView.buttonIsEnabled = false
+            headerView.changeLanguageButton.isHidden = true
+                switch currentProductSection {
+                case .labels:
+                    if let oldTags = productPair?.localProduct?.labelsOriginal {
+                        switch oldTags {
+                        case .available:
+                            headerView.changeViewModeButton.isHidden = false
+                            setSupport(on: headerView, forDoubleTap: true)
+                            switch productVersion {
+                            case .remote:
+                                header = TranslatableStrings.LabelsOriginal
+                            case .new:
+                                header = TranslatableStrings.LabelsEdited
+                            }
+                        default:
+                            break
+                        }
+                    }
+                case .traces:
+                    if let oldTags = productPair?.localProduct?.tracesOriginal {
+                        switch oldTags {
+                        case .available:
+                            headerView.changeViewModeButton.isHidden = false
+                            setSupport(on: headerView, forDoubleTap: true)
+                            switch productVersion {
+                            case .remote:
+                                header = TranslatableStrings.TracesOriginal
+                            case .new:
+                                header = TranslatableStrings.TracesEdited
+                            }
+                        default:
+                            break
+                        }
                     }
                 default:
                     break
                 }
-            }
-            headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
-            headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
-            
+            headerView.title = header
             return headerView
+
         default:
             return nil
         }
+    }
+    
+    private func setSupport(on view:UIView, forDoubleTap support:Bool) {
+        // Add doubletapping to the TableView. Any double tap on headers is now received,
+        // and used for changing the productVersion (local and remote)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+        // show the double tap possibility only if there is a local product
+        doubleTapGestureRecognizer.cancelsTouchesInView = !support
+        view.addGestureRecognizer(doubleTapGestureRecognizer)
+    }
+
+    private func addEdited(to string:String) -> String {
+        return string  + " " + "(" + TranslatableStrings.Edited + ")"
+    }
+
+    private func addOriginal(to string:String) -> String {
+        return string  + " " + "(" + TranslatableStrings.Original + ")"
     }
 
     fileprivate func nextLanguageCode() -> String {
@@ -887,28 +834,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
         return nil
     }
-
-    private func setDoubleTapSupport() {
-        // show the double tap possibility only if there is a local product
-        if productPair?.localProduct != nil {
-            // Add doubletapping to the TableView. Any double tap on headers is now received,
-            // and used for changing the productVersion (local and remote)
-            let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
-            doubleTapGestureRecognizer.numberOfTapsRequired = 2
-            doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-            doubleTapGestureRecognizer.cancelsTouchesInView = false
-            doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-            tableView.addGestureRecognizer(doubleTapGestureRecognizer)
-        } else {
-            // There is no local product, so a tableView existing recognizer can be removed
-            //if let recognizers = tableView.gestureRecognizers {
-            //    for recognizer in recognizers {
-             //       if recognizer is UITa
-             //       tableView.removeGestureRecognizer(recognizer)
-             //   }
-           // }
-        }
-    }
     
     @objc func refreshProduct() {
         labelsTagsTypeToShow = TagsTypeDefault.Labels
@@ -916,7 +841,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         allergensTagsTypeToShow = TagsTypeDefault.Allergens
         additivesTagsTypeToShow = TagsTypeDefault.Additives
         ingredientsTagsTypeToShow = TagsTypeDefault.Ingredients
-        setDoubleTapSupport()
         tableView.reloadData()
 
     }
@@ -1047,7 +971,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         super.viewWillAppear(animated)
         
         tableStructure = setupSections()
-        setDoubleTapSupport()
         tableView.reloadData()
 
         // delegate?.title = TranslatableStrings.Ingredients
@@ -1459,6 +1382,10 @@ extension IngredientsTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
         performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectLanguage, sender: sender)
+    }
+    
+    func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {
+        doubleTapOnTableView()
     }
 }
 

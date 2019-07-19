@@ -11,7 +11,10 @@ import UIKit
 // https://stackoverflow.com/questions/36926612/swift-how-creating-custom-viewforheaderinsection-using-a-xib-file
 
 protocol LanguageHeaderDelegate: class {
+    
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int)
+    
+    func changeViewModeButtonTapped(_ sender: UIButton, in section: Int)
 }
 
 class LanguageHeaderView: UITableViewHeaderFooterView {
@@ -32,6 +35,16 @@ class LanguageHeaderView: UITableViewHeaderFooterView {
         delegate?.changeLanguageButtonTapped(changeLanguageButton, in: section)
     }
    
+    @IBOutlet weak var changeViewModeButton: UIButton! {
+        didSet {
+            changeViewModeButton.isHidden = true
+        }
+    }
+    
+    @IBAction func changeViewModeButtonTapped(_ sender: UIButton) {
+        delegate?.changeViewModeButtonTapped(changeViewModeButton, in: section)
+    }
+    
     weak var delegate: LanguageHeaderDelegate?
     
     var section: Int!
@@ -56,16 +69,12 @@ class LanguageHeaderView: UITableViewHeaderFooterView {
     }
     
     private func setTitle() {
-        if languageLabel != nil {
-            languageLabel.text = (title != nil ? title! : "No header") + " - "
-            languageLabel.sizeToFit()
-        }
+        languageLabel?.text = title ?? "LanguageHeaderView: No header"
+        languageLabel?.sizeToFit()
     }
     
     private func setButton() {
-        if changeLanguageButton != nil {
-            changeLanguageButton.setTitle(buttonText, for: .normal)
-            changeLanguageButton.sizeToFit()
-        }
+        changeLanguageButton?.setTitle(buttonText, for: .normal)
+        changeLanguageButton?.sizeToFit()
     }
 }

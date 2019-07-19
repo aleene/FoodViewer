@@ -423,7 +423,7 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
 
     fileprivate struct TableStructure {
-        static let ProducerSectionHeader = TranslatableStrings.Producers
+        static let ProducerSectionHeader = TranslatableStrings.Producer
         static let ProducerCodeSectionHeader = TranslatableStrings.ProductCodes
         static let IngredientOriginSectionHeader = TranslatableStrings.IngredientOrigins
         static let LocationSectionHeader = TranslatableStrings.PurchaseAddress
@@ -640,138 +640,138 @@ class SupplyChainTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let (_, _, header) = tableStructureForProduct[section]
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var (_, _, header) = tableStructureForProduct[section]
         let (currentProductSection, _, _) = tableStructureForProduct[section]
-        guard let validHeader = header else { return "No header" }
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
+        headerView.section = section
+        headerView.delegate = self
+        headerView.changeViewModeButton.isHidden = true
+        headerView.changeLanguageButton.isHidden = true
+        setSupport(on: headerView, forDoubleTap: false)
 
         switch currentProductSection {
         case .ingredientOrigin:
-            switch productVersion {
-                case .remote:
-                    switch showIngredientOriginTagsType {
-                    case TagsTypeDefault.IngredientOrigin:
-                        break
-                    default:
-                        return validHeader + " " + "(" + showIngredientOriginTagsType.description + ")"
-                }
-            case .new:
-                if let oldTags = productPair?.localProduct?.originsOriginal {
-                    switch oldTags {
-                    case .available:
-                        return validHeader + " " + "(" + TranslatableStrings.Edited + ")"
-                    default:
-                        break
+            if let oldTags = productPair?.localProduct?.originsOriginal {
+                switch oldTags {
+                case .available:
+                    headerView.changeViewModeButton.isHidden = false
+                    setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.IngredientOriginsOriginal
+                    case .new:
+                        header = TranslatableStrings.IngredientOriginsEdited
                     }
+                default:
+                    break
                 }
             }
 
         case .producer:
-            switch productVersion {
-            case .remote:
-                switch showProducerTagsType {
-                case TagsTypeDefault.Producer:
-                    break
-                default:
-                    return validHeader + " " + "(" + showProducerTagsType.description + ")"
-                }
-            case .new:
-                if let oldTags = productPair?.localProduct?.manufacturingPlacesOriginal {
-                    switch oldTags {
-                    case .available:
-                        return validHeader + " " + "(" + TranslatableStrings.Edited + ")"
-                    default:
-                        break
+            if let oldTags = productPair?.localProduct?.manufacturingPlacesOriginal {
+                switch oldTags {
+                case .available:
+                    headerView.changeViewModeButton.isHidden = false
+                    setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.ProducerOriginal
+                    case .new:
+                        header = TranslatableStrings.ProducerEdited
                     }
+                default:
+                    break
                 }
             }
 
         case .store:
-            switch productVersion {
-            case .remote:
-                switch showStoresTagsType {
-                case TagsTypeDefault.Stores:
-                    break
-                default:
-                    return validHeader + " " + "(" + showStoresTagsType.description +  ")"
-                }
-            case .new:
-                if let oldTags = productPair?.localProduct?.storesOriginal {
-                    switch oldTags {
-                    case .available:
-                        return validHeader + " " + "(" + TranslatableStrings.Edited + ")"
-                    default:
-                        break
+            if let oldTags = productPair?.localProduct?.storesOriginal {
+                switch oldTags {
+                case .available:
+                    headerView.changeViewModeButton.isHidden = false
+                       setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.StoresOriginal
+                    case .new:
+                        header = TranslatableStrings.StoresEdited
                     }
+                default:
+                    break
                 }
             }
 
         case .location:
-            switch productVersion {
-            case .remote:
-                switch showPurchaseLocationTagsType {
-                case TagsTypeDefault.PurchaseLocation:
-                    break
-                default:
-                    return validHeader + " " + "(" + showPurchaseLocationTagsType.description + ")"
-                }
-            case .new:
-                if let oldTags = productPair?.localProduct?.purchasePlacesOriginal {
-                    switch oldTags {
-                    case .available:
-                        return validHeader + " " + "(" + TranslatableStrings.Edited + ")"
-                    default:
-                        break
+            if let oldTags = productPair?.localProduct?.purchasePlacesOriginal {
+                switch oldTags {
+                case .available:
+                    headerView.changeViewModeButton.isHidden = false
+                    setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.PurchaseAddressOriginal
+                    case .new:
+                        header = TranslatableStrings.PurchaseAddressEdited
                     }
+                default:
+                    break
                 }
             }
 
         case .country:
-            switch productVersion {
-            case .remote:
-                switch showCountriesTagsType {
-                case TagsTypeDefault.Countries:
-                    break
-                default:
-                    return validHeader + " " + "(" + showCountriesTagsType.description + ")"
-                }
-            case .new:
-                if let oldTags = productPair?.localProduct?.countriesOriginal {
-                    switch oldTags {
-                    case .available:
-                        return validHeader + " " + "(" + TranslatableStrings.Edited + ")"
-                    default:
-                        break
+            if let oldTags = productPair?.localProduct?.countriesOriginal {
+                switch oldTags {
+                case .available:
+                    headerView.changeViewModeButton.isHidden = false
+                    setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.CountriesOriginal
+                    case .new:
+                        header = TranslatableStrings.CountriesEdited
                     }
+                default:
+                    break
                 }
             }
-
+            
         case .producerCode:
-            switch productVersion {
-            case .remote:
-                switch showProducerCodeTagsType {
-                case TagsTypeDefault.ProducerCode:
-                    break
-                default:
-                    return validHeader + " " + "(" + showProducerCodeTagsType.description + ")"
-                }
-            case .new:
-                if let oldTags = productPair?.localProduct?.embCodesOriginal {
-                    switch oldTags {
-                    case .available:
-                        return validHeader + " " + "(" + TranslatableStrings.Edited + ")"
-                    default:
-                        break
+            if let oldTags = productPair?.localProduct?.embCodesOriginal {
+                switch oldTags {
+                case .available:
+                    headerView.changeViewModeButton.isHidden = false
+                    setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.ProductCodesOriginal
+                    case .new:
+                        header = TranslatableStrings.ProductCodesEdited
                     }
+                default:
+                    break
                 }
             }
 
         default:
             break
         }
-        return validHeader
+        headerView.title = header
+        return headerView
     }
     
+    private func setSupport(on view:UIView, forDoubleTap support:Bool) {
+        // Add doubletapping to the TableView. Any double tap on headers is now received,
+        // and used for changing the productVersion (local and remote)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+        // show the double tap possibility only if there is a local product
+        doubleTapGestureRecognizer.cancelsTouchesInView = !support
+        view.addGestureRecognizer(doubleTapGestureRecognizer)
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
@@ -902,16 +902,7 @@ class SupplyChainTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
-
-        
-        // Add doubletapping to the TableView. Any double tap on headers is now received,
-        // and used for changing the productVersion (local and remote)
-        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(SupplyChainTableViewController.doubleTapOnTableView))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-        doubleTapGestureRecognizer.cancelsTouchesInView = false
-        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-        tableView.addGestureRecognizer(doubleTapGestureRecognizer)
+        tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
 
     }
     
@@ -939,6 +930,20 @@ class SupplyChainTableViewController: UITableViewController {
     }
 
 }
+//
+// MARK: - LanguageHeaderDelegate Functions
+//
+extension SupplyChainTableViewController: LanguageHeaderDelegate {
+    
+    func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
+        // not needed
+    }
+    
+    func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {
+        doubleTapOnTableView()
+    }
+}
+
 //
 // MARK: - TagListViewCellDelegate Functions
 //

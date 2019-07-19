@@ -41,12 +41,16 @@ struct TranslatableStrings {
     
     static let B = NSLocalizedString("B", comment: "String in Segmented Control to indicate the second best nutritional score level")
     static let Barcode = NSLocalizedString("Barcode", comment: "Tableview sectionheader for Barcode")
+    static let BarcodeEdited = NSLocalizedString("Barcode (edited main language)", comment: "Tableview sectionheader for Barcode, with edited main language")
+    static let BarcodeOriginal = NSLocalizedString("Barcode (original main language)", comment: "Tableview sectionheader for Barcode, with original main language")
     static let BadNutrients = NSLocalizedString("Bad nutrients", comment: "Header for a table sectionshowing the appreciations of the bad nutrients")
     static let BeautyProducts = NSLocalizedString("Beauty Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
     static let Beauty = NSLocalizedString("Beauty", comment: "Title of a segmented control.")
     static let BeveragesCategory = NSLocalizedString("Beverages category", comment: "Cell title indicating the product belongs to the beverages category")
     static let Brands = NSLocalizedString("Brands", comment: "Tableview sectionheader for brands.")
-    
+    static let BrandsEdited = NSLocalizedString("Brands (edited)", comment: "Tableview sectionheader for the edited brands.")
+    static let BrandsOriginal = NSLocalizedString("Brands (original)", comment: "Tableview sectionheader for the unedited brands.")
+
 //
 // MARK: - CCCCCCCCCCCCCCCCCCCCCC strings
 //
@@ -58,7 +62,6 @@ struct TranslatableStrings {
     static let Checker = NSLocalizedString("Checker", comment: "String in PickerViewController to indicate the checker role of a contributor")
     static let CheesesCategory = NSLocalizedString("Cheeses category", comment: "Cell title indicating the product belongs to the cheeses category")
     static let ClearHistory = NSLocalizedString("Clear History", comment: "Title of a button, which removes all items in the product search history.")
-    static let CommonName = NSLocalizedString("Common Name", comment: "Tableview sectionheader for long product name")
     static let CommunityEffort = NSLocalizedString("Community Effort", comment: "Viewcontroller title for page with community effort for product.")
     static let Completeness = NSLocalizedString("Completeness", comment: "Header title of the tableview section, indicating whether the productdata is complete.")
     static let Completion = NSLocalizedString("Completion", comment: "Label for a horizontal gauge that indicates the completion percentage of the product data.")
@@ -73,6 +76,8 @@ struct TranslatableStrings {
     static let Creator = NSLocalizedString("Creator", comment: "String in PickerViewController to indicate the creator role of a contributor")
     static let CreatorUnicode = NSLocalizedString("❤️", comment: "Image to indicate that the user who created the product.")
     static let Countries = NSLocalizedString("Countries", comment: "Generic string (plural) to indicate the countries where the product is sold.")
+    static let CountriesEdited = NSLocalizedString("Countries (edited)", comment: "Generic string (plural) to indicate the countries where the product is sold (edited).")
+    static let CountriesOriginal = NSLocalizedString("Countries (original)", comment: "Generic string (plural) to indicate the countries where the product is sold (original).")
     //static let CurrentLocale = NSLocalizedString("Current Locale", comment: "Title of segment in segmentedControlto indicate the current local should be used.")
 
 //
@@ -132,12 +137,18 @@ struct TranslatableStrings {
     static let FilterLanguagePlaceholder = NSLocalizedString("Enter characters to filter the list.", comment: "Placeholder in a textField, where a user can enter characters to filter a list.")
     static let FoodProducts = NSLocalizedString("Food Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
     static let Food = NSLocalizedString("Food", comment: "Title of SegmentedControl segment.")
+    static let FrontImage = NSLocalizedString("Front Image", comment: "Title for the viewcontroller with the front image")
+    static let FrontImageEdited = NSLocalizedString("Front Image (edited)", comment: "Title for the viewcontroller with the edited front image")
+    static let FrontImageOriginal = NSLocalizedString("Front Image (original)", comment: "Title for the viewcontroller with the original front image")
 
 //
 // MARK: - GGGGGGGGGGGGGGG strings
 //
     
     static let Gallery = NSLocalizedString("Gallery", comment: "Viewcontroller title for page with images of the product")
+    static let GenericName = NSLocalizedString("Common Name", comment: "Tableview sectionheader for long product name")
+    static let GenericNameEdited = NSLocalizedString("Generic Name (edited)", comment: "Tableview sectionheader for the edited long product name")
+    static let GenericNameOriginal = NSLocalizedString("Generic Name (original)", comment: "Tableview sectionheader for the original long product name")
     static let Gram = NSLocalizedString("gram (g)", comment: "Standard weight unit.")
     static let GoodNutrients = NSLocalizedString("Good nutrients", comment: "Header for a table section showing the appreciations of the good nutrients")
     
@@ -158,8 +169,14 @@ struct TranslatableStrings {
     static let Informer = NSLocalizedString("Informer", comment: "String in PickerViewController to indicate the informer role of a contributor")
     static let InformerUnicode = NSLocalizedString("💭", comment: "Image to indicate that the user who added information to the product.")
     static let Ingredients = NSLocalizedString("Ingredients", comment: "Text to indicate the ingredients of a product.")
+    static let IngredientsEdited = NSLocalizedString("Ingredients (edited)", comment: "Text to indicate the edited ingredients of a product.")
+    static let IngredientsOriginal = NSLocalizedString("Ingredients (original)", comment: "Text to indicate the original (unedited) ingredients of a product.")
     static let IngredientsImage = NSLocalizedString("Ingredients Image", comment: "Header title for the ingredients image section, i.e. the image of the package with the ingredients")
+    static let IngredientsImageEdited = NSLocalizedString("Ingredients Image (edited)", comment: "Header title for the edited ingredients image section, i.e. the image of the package with the ingredients")
+    static let IngredientsImageOriginal = NSLocalizedString("Ingredients Image (original)", comment: "Header title for the original ingredients image section, i.e. the image of the package with the ingredients")
     static let IngredientOrigins = NSLocalizedString("Origins of ingredients", comment: "Generic string to indicate the origins of the ingredients")
+    static let IngredientOriginsEdited = NSLocalizedString("Origins of ingredients (edited)", comment: "Generic string to indicate the edited origins of the ingredients")
+    static let IngredientOriginsOriginal = NSLocalizedString("Origins of ingredients (original)", comment: "Generic string to indicate the original (non-edited) origins of the ingredients")
     static let Initialized = NSLocalizedString("Initialized", comment: "String presented in a tagView if nothing has happened yet")
     static let Interpreted = NSLocalizedString("Interpreted", comment: "Description of the by OFF interpreted tags in the json")
     
@@ -175,6 +192,8 @@ struct TranslatableStrings {
 //
     
     static let Labels = NSLocalizedString("Labels", comment: "Generic string for labels on product")
+    static let LabelsEdited = NSLocalizedString("Labels (edited)", comment: "Generic string for edited labels on product")
+    static let LabelsOriginal = NSLocalizedString("Labels (original)", comment: "Generic string for original (unedited) labels on product")
     static let Languages = NSLocalizedString("Languages", comment: "Tableview sectionheader for languages on product")
     static let LastEditDate = NSLocalizedString("Last Edit Date", comment: "Generic string to indicate the last date the product was edited")
     static let Level = NSLocalizedString("Level", comment: "String to indicate the level (score) of the product.")
@@ -199,6 +218,8 @@ struct TranslatableStrings {
 //
     
     static let Name = NSLocalizedString("Name", comment: "Tableview sectionheader for product name")
+    static let NameEdited = NSLocalizedString("Name (edited)", comment: "Tableview sectionheader for the edited product name")
+    static let NameOriginal = NSLocalizedString("Name (original)", comment: "Tableview sectionheader for the original (non-edited) product name")
     static let NoBrandsIndicated = NSLocalizedString("No brands indicated", comment: "Text in a tableview cell, when no brands are available in the product data.")
     static let NoCreationDateAvailable = NSLocalizedString("no creation date available", comment: "Value of the creation date field, if no valid date is available.")
     static let NoEditDateAvailable = NSLocalizedString("no edit date available", comment: "Value of the edit date field, if no valid date is available.")
@@ -212,6 +233,8 @@ struct TranslatableStrings {
     static let None = NSLocalizedString("none", comment: "Text for a cell, when no status title has been provided, such as 'completed', etc.")
     static let NoneSelected = NSLocalizedString("None selected", comment: "First element of a pickerView where the user has to select an element in the picker.")
     static let NoNutrients = NSLocalizedString("No nutrients", comment: "Text of Label, indicating that the product has no nutrients defined")
+    static let NoNutrientsEdited = NSLocalizedString("No nutrients (edited)", comment: "Text of Label, indicating that the product has no nutrients (edited) defined")
+    static let NoNutrientsOriginal = NSLocalizedString("No nutrients (original)", comment: "Text of Label, indicating that the product has no nutrients (original) defined")
     static let NoQuantityAvailable = NSLocalizedString("No quantity available", comment: "String if no quantity is available")
     static let NoResponse = NSLocalizedString("No reponse", comment: "String presented in a tagView if the site did not respond")
     static let NoSearchDefined = NSLocalizedString("No search defined", comment: "String in TableView section when a search is not defined.")
@@ -234,7 +257,11 @@ struct TranslatableStrings {
     static let NutritionalScoreFrance = NSLocalizedString("Nutritional Score France", comment: "Header for a table section showing the total results France")
     static let NutritionalScoreUK = NSLocalizedString("Nutritional Score UK", comment: "Header for a table section showing the total results UK")
     static let NutritionFacts = NSLocalizedString("Nutrition Facts", comment: "Text to indicate the nutrition facts of a product.")
+    static let NutritionFactsEdited = NSLocalizedString("Nutrition Facts (edited)", comment: "Text to indicate the edited nutrition facts of a product.")
+    static let NutritionFactsOriginal = NSLocalizedString("Nutrition Facts (original)", comment: "Text to indicate the original nutrition facts of a product.")
     static let NutritionFactsImage = NSLocalizedString("Nutrition Facts Image", comment: "Tableview header section for the image of the nutritional facts")
+    static let NutritionFactsImageEdited = NSLocalizedString("Nutrition Facts Image (edited)", comment: "Tableview header section for the edited image of the nutritional facts")
+    static let NutritionFactsImageOriginal = NSLocalizedString("Nutrition Facts Image (original)", comment: "Tableview header section for the original image of the nutritional facts")
     static let NutritionFactsPer100gml = NSLocalizedString("Nutrition Facts (per 100g/100ml)", comment: "Description for NutritionData per standard unit")
     static let NutritionFactsPerServing = NSLocalizedString("Nutrition Facts (per serving)", comment: "Description for NutritionData per serving")
     static let NutritionFactsPer1000Gram = NSLocalizedString("Nutrition Facts (per 1 kg)", comment: "Description for NutritionData per one kilogram")
@@ -245,7 +272,9 @@ struct TranslatableStrings {
     static let OK = NSLocalizedString("OK", comment: "String in button, to let the user indicate he wants to start the search.")
     static let OpenFoodFactsPreferences = NSLocalizedString("Open Food Facts Preferences", comment: "ViewController/row title, which allows the user to set his open food facts username.")
     static let OpenFoodFactsPreferencesExtended = NSLocalizedString("Set your OpenFoodFacts account.", comment: "Row title, which allows the user to set his open food facts username.")
-
+    static let OpenFoodFactsAccount = NSLocalizedString("Default OpenFoodFacts account", comment: "Title of a tableView section, which lets the user set the off account to use")
+    static let OriginalImages = NSLocalizedString("Original Images", comment: "Gallery header text presenting the original images")
+    static let OtherNutritionalSubstances = NSLocalizedString("Other Nutritional Substances", comment: "Tableview section header, which list the detected other nutritional substances in an ingredients list.")
     static let OpenInSafari = NSLocalizedString("Open in Safari", comment: "String for the Activity Action Screen")
     static let Original = NSLocalizedString("Original", comment: "Description of the original tags in the json")
     static let OtherProductType = NSLocalizedString("Other product type", comment: "String presented in a tagView if this is not the current product type")
@@ -254,6 +283,8 @@ struct TranslatableStrings {
 //
     
     static let Packaging = NSLocalizedString("Packaging", comment: "Tableview sectionheader for packaging.")
+    static let PackagingEdited = NSLocalizedString("Packaging (edited)", comment: "Tableview sectionheader for packaging, edited version.")
+    static let PackagingOriginal = NSLocalizedString("Packaging (original)", comment: "Tableview sectionheader for packaging, original version.")
     static let PackagerCodes = NSLocalizedString("Packager Code", comment: "Generic string to indicate the packager codes.")
     static let Password = NSLocalizedString("Password", comment: "String in textField placeholder, to show that the user has to enter his password")
     static let Percentage = NSLocalizedString("percentage (%)", comment: "Fraction of total by volume")
@@ -273,12 +304,18 @@ struct TranslatableStrings {
     static let PointCamera = NSLocalizedString("Point your camera to a barcode to recognize a product", comment: "Text of a lable, which explains the user to point the camera of his device to a barcode to start working.")
     static let Popularity = NSLocalizedString("Popularity", comment: "String in picker, which lets the user select the search result order. Order on the popularity.")
     static let PortionSize = NSLocalizedString("Portion size", comment: "Tableview header section for the size of a portion")
+    static let PortionSizeEdited = NSLocalizedString("Portion size (edited)", comment: "Tableview header section for the edited size of a portion")
+    static let PortionSizeOriginal = NSLocalizedString("Portion size (original)", comment: "Tableview header section for the original size of a portion")
     static let Preferences = NSLocalizedString("Preferences", comment: "TableViewController title for the settings scene.")
     static let PrefixCorrected = NSLocalizedString("Prefix corrected", comment: "Description of the prefixed corrected tags")
     static let PresentationFormat = NSLocalizedString("Presentation format", comment: "Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion.")
-    static let Producers = NSLocalizedString("Producers", comment: "Header for section of tableView with information of the producer (name, geographic location).")
+    static let Producer = NSLocalizedString("Producer", comment: "Header for section of tableView with information of the producer (name, geographic location).")
+    static let ProducerEdited = NSLocalizedString("Producer (edited)", comment: "Header for section of tableView with information of the edited producer (name, geographic location).")
+    static let ProducerOriginal = NSLocalizedString("Producer (original)", comment: "Header for section of tableView with information of the original (non-edited) producer (name, geographic location).")
     static let Product = NSLocalizedString("Product", comment: "Title of a segmented control.")
     static let ProductCodes = NSLocalizedString("Producer Codes", comment: "Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666).")
+    static let ProductCodesEdited = NSLocalizedString("Producer Codes (edited)", comment: "Header for section of tableView with codes for the edited producer (EMB 123456 or FR.666.666).")
+    static let ProductCodesOriginal = NSLocalizedString("Producer Codes (oriiginal)", comment: "Header for section of tableView with codes for the original producer (EMB 123456 or FR.666.666).")
     static let ProductDefined = NSLocalizedString("Product Defined", comment: "Title of a segment in a UISegmentedControl, which indicates that the values of the product are leading.")
     static let ProductDoesNotExistAlertSheetMessage = NSLocalizedString("Product does not exist. Add?", comment: "Alert message, when the product could not be retrieved from Internet.")
     static let ProductDoesNotExistAlertSheetActionTitleForCancel = NSLocalizedString("Nope", comment: "Alert title, to indicate product should NOT be added")
@@ -296,17 +333,17 @@ struct TranslatableStrings {
     static let ProductTypePreferences = NSLocalizedString("Default product type", comment: "String to indicate a product has not yet been retrieved from OFF yet and is only locally available")
     static let ProductWebSites = NSLocalizedString("Official product website", comment: "Header title of tableview section, indicating the websites for the product")
     static let PurchaseAddress = NSLocalizedString("Purchase address", comment: "Generic string to indicate the address (street/city/postalcode/country) where the product was bought")
-    
-    static let OpenFoodFactsAccount = NSLocalizedString("Default OpenFoodFacts account", comment: "Title of a tableView section, which lets the user set the off account to use")
-    static let OriginalImages = NSLocalizedString("Original Images", comment: "Gallery header text presenting the original images")
-    static let OtherNutritionalSubstances = NSLocalizedString("Other Nutritional Substances", comment: "Tableview section header, which list the detected other nutritional substances in an ingredients list.")
+    static let PurchaseAddressEdited = NSLocalizedString("Purchase address (edited)", comment: "Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought")
+    static let PurchaseAddressOriginal = NSLocalizedString("Purchase address (original)", comment: "Generic string to indicate the address original (street/city/postalcode/country) where the product was bought")
 
 //
 // MARK: - QQQQQQQQQQQQQQQQ strings
 //
     
     static let Quantity = NSLocalizedString("Quantity", comment: "Tableview sectionheader for size of package.")
-    
+    static let QuantityEdited = NSLocalizedString("Quantity (edited)", comment: "Tableview sectionheader for the edited size of package.")
+    static let QuantityOriginal = NSLocalizedString("Quantity (original)", comment: "Tableview sectionheader for the original size of package.")
+
 //
 // MARK: - RRRRRRRRRRRRRRRR strings
 //
@@ -362,6 +399,8 @@ struct TranslatableStrings {
     static let StartSearch = NSLocalizedString("Start Search?",
                                                comment: "Title in AlertViewController, which lets the user decide if he wants to start a search.")
     static let Stores = NSLocalizedString("Stores", comment: "Generic string to indicate the stores where the product is sold.")
+    static let StoresEdited = NSLocalizedString("Stores (edited)", comment: "Generic string to indicate the edited stores where the product is sold.")
+    static let StoresOriginal = NSLocalizedString("Stores (original)", comment: "Generic string to indicate the original (non-edited) stores where the product is sold.")
     static let SugarLevel = NSLocalizedString("Sugar level", comment: "Text of a label that will indicate the sugar level (low/medium/high) by colour.")
     static let SupplyChain = NSLocalizedString("Supply Chain", comment: "Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).")
     
@@ -370,6 +409,8 @@ struct TranslatableStrings {
 //
     
     static let Traces = NSLocalizedString("Traces", comment: "Text to indicate the traces of a product.")
+    static let TracesEdited = NSLocalizedString("Traces (edited)", comment: "Text to indicate the edited traces of a product.")
+    static let TracesOriginal = NSLocalizedString("Traces (original)", comment: "Text to indicate the original (un-edited) traces of a product.")
     static let Translated = NSLocalizedString("Translated", comment: "Description of the interpreted tags in the json as translated by the taxonomy")
 //
 // MARK: - UUUUUUUUUUUUUUUU strings

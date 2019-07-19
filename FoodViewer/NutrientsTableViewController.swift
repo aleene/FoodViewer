@@ -446,43 +446,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch tableStructure[section] {
-        case .image :
-            return nil
-        case .servingSize:
-            switch productVersion {
-            case .remote:
-                break
-            case .new:
-                if productPair?.localProduct?.servingSize != nil {
-                    return tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
-                }
-            }
-        case .perUnit:
-            switch productVersion {
-            case .remote:
-                break
-            case .new:
-                if productPair?.localProduct?.nutritionFactsIndicationUnit != nil {
-                    return tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
-                }
-            }
-        case .noNutrimentsAvailable:
-            switch productVersion {
-            case .remote:
-                break
-            case .new:
-                if productPair?.localProduct?.nutrimentFactsAvailability != nil {
-                    return tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
-                }
-            }
-        default:
-            break
-        }
-        return tableStructure[section].header
-    }
-    
     private var currentImage: UIImage? {
         switch productVersion {
         //case .local:
@@ -545,41 +508,36 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        switch tableStructure[section] {
+        var header = tableStructure[section].header
+        let currentProductSection = tableStructure[section]
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
+        headerView.section = section
+        headerView.delegate = self
+        headerView.changeViewModeButton.isHidden = true
+        headerView.changeLanguageButton.isHidden = true
+        setSupport(on: headerView, forDoubleTap: false)
+
+        switch currentProductSection {
         case .image :
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
-            
-            headerView.section = section
-            headerView.delegate = self
-            headerView.title = tableStructure[section].header
-            headerView.changeLanguageButton.tag = 0
-            switch productVersion {
-            case .remote:
-                break
-            case .new:
-                switch tableStructure[section] {
-                case .image:
-                    if localImageToShow != nil {
-                        headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
-                    }
-                default:
-                    break
+            headerView.changeLanguageButton.isHidden = false
+            if localImageToShow != nil {
+                headerView.changeViewModeButton.isHidden = false
+                setSupport(on: headerView, forDoubleTap: true)
+                switch productVersion {
+                case .remote:
+                    header = TranslatableStrings.NutritionFactsImageOriginal
+                case .new:
+                    header = TranslatableStrings.NutritionFactsImageEdited
                 }
             }
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
-            if let aantal = productPair?.remoteProduct?.languageCodes.count {
-                headerView.buttonIsEnabled = editMode ? true : ( aantal > 1 ? true : false )
-            } else {
-                headerView.buttonIsEnabled = false
-            }
+            headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
+            // add a dash to nice separate the title from the language button
+            headerView.title = header + " - "
             return headerView
-        case .nutritionFacts:
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
             
-            headerView.section = section
-            headerView.delegate = self
-            headerView.title = tableStructure[section].header
+        case .nutritionFacts:
+            headerView.changeLanguageButton.isHidden = false
             headerView.changeLanguageButton.tag = 1
             switch productVersion {
             case .remote:
@@ -587,16 +545,81 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             case .new:
                 if let facts = productPair?.localProduct?.nutritionFactsDict,
                     !facts.isEmpty {
-                    headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
+                    headerView.changeViewModeButton.isHidden = false
+                    setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.NutritionFactsOriginal
+                    case .new:
+                        header = TranslatableStrings.NutritionFactsEdited
+                    }
                 }
             }
             headerView.buttonText = currentNutritionFactsTableStyle.description
             headerView.buttonIsEnabled = true
+            headerView.title = header + " - "
+            return headerView
+            
+        case .servingSize:
+            headerView.changeLanguageButton.isHidden = true
+            if productPair?.localProduct?.servingSize != nil {
+                headerView.changeViewModeButton.isHidden = false
+                setSupport(on: headerView, forDoubleTap: true)
+                switch productVersion {
+                case .remote:
+                    header = TranslatableStrings.PortionSizeOriginal
+                case .new:
+                    header = TranslatableStrings.PortionSizeEdited
+                }
+            }
+            headerView.title = header
+            return headerView
+
+        case .perUnit:
+            headerView.changeLanguageButton.isHidden = true
+            if productPair?.localProduct?.nutritionFactsIndicationUnit != nil {
+                headerView.changeViewModeButton.isHidden = false
+                setSupport(on: headerView, forDoubleTap: true)
+                switch productVersion {
+                case .remote:
+                    header = TranslatableStrings.PortionSizeOriginal
+                case .new:
+                    header = TranslatableStrings.PortionSizeEdited
+                }
+            }
+            headerView.title = header
+            return headerView
+
+        case .noNutrimentsAvailable:
+            headerView.changeLanguageButton.isHidden = true
+            if productPair?.localProduct?.nutrimentFactsAvailability != nil {
+                headerView.changeViewModeButton.isHidden = false
+                setSupport(on: headerView, forDoubleTap: true)
+                switch productVersion {
+                case .remote:
+                    header = TranslatableStrings.NoNutrientsOriginal
+                case .new:
+                    header = TranslatableStrings.NoNutrientsEdited
+                }
+            }
+            headerView.title = header
             return headerView
 
         default:
             return nil
         }
+    }
+    
+    private func setSupport(on view:UIView, forDoubleTap support:Bool) {
+        // Add doubletapping to the TableView. Any double tap on headers is now received,
+        // and used for changing the productVersion (local and remote)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+        // show the double tap possibility only if there is a local product
+        doubleTapGestureRecognizer.cancelsTouchesInView = !support
+        view.addGestureRecognizer(doubleTapGestureRecognizer)
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -1266,14 +1289,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         
         tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
 
-        // Add doubletapping to the TableView. Any double tap on headers is now received,
-        // and used for changing the productVersion (local and remote)
-        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnTableView))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-        doubleTapGestureRecognizer.cancelsTouchesInView = false
-        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-        tableView.addGestureRecognizer(doubleTapGestureRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -1723,6 +1738,10 @@ extension NutrientsTableViewController: LanguageHeaderDelegate {
         default:
             break
         }
+    }
+    
+    func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {
+        doubleTapOnTableView()
     }
 }
 
