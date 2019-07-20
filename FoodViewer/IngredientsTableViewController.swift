@@ -1114,6 +1114,7 @@ extension IngredientsTableViewController: UITextViewDelegate {
                 } else if
                     let validLanguageCode = displayLanguageCode {
                     productPair?.update(ingredients: validText, in: validLanguageCode)
+                    tableView.reloadData()
                 }
             }
         default:
@@ -1158,8 +1159,9 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         default:
-            break
+            return
         }
+        tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
@@ -1191,8 +1193,9 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         default:
-            break
+            return
         }
+        tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
@@ -1335,13 +1338,14 @@ extension IngredientsTableViewController: TagListViewDataSource {
             switch tracesToDisplay {
             case .available(var list):
                 list.removeAll()
-                productPair?.update(labelTags: list)
+                productPair?.update(tracesTags: list)
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         default:
-            break
+            return
         }
+        tableView.reloadData()
     }
     
 

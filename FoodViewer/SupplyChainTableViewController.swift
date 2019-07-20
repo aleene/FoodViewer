@@ -1166,6 +1166,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
         default:
             break
         }
+        tableView.reloadData()
     }
 
 }
@@ -1250,6 +1251,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         default:
             break
         }
+        tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
@@ -1442,6 +1444,7 @@ extension SupplyChainTableViewController: UITextFieldDelegate {
             // period after opening
             if let validText = textField.text {
                 productPair?.update(periodAfterOpeningString: validText + " M")
+                tableView.reloadData()
             }
         default:
             break

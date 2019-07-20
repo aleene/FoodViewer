@@ -1644,11 +1644,11 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                 }
                 productPair?.update(fact: editedNutritionFact)
                 mergeNutritionFacts()
-                tableView.reloadData()
             }
         default:
             break
         }
+        tableView.reloadData()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -358,6 +358,14 @@ class IdentificationTableViewController: UITableViewController {
             cell.barcode = productPair?.barcodeType.asString
             cell.mainLanguageCode = primaryLanguageCodeToDisplay
             cell.editMode = editMode
+            if productPair?.localProduct?.primaryLanguageCode != productPair?.remoteProduct?.primaryLanguageCode {
+                switch productVersion {
+                case .remote:
+                    cell.editMode = false
+                case .new:
+                    cell.editMode = true
+                }
+            }
             return cell
 
         case .name:
@@ -365,6 +373,17 @@ class IdentificationTableViewController: UITableViewController {
             cell.delegate = self
             cell.tag = indexPath.section
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+            if editMode,
+                let validLanguageCode = displayLanguageCode {
+                if productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
+                    switch productVersion {
+                    case .remote:
+                        cell.editMode = false
+                    case .new:
+                        cell.editMode = true
+                    }
+                }
+            }
             cell.name = editMode ? TranslatableStrings.PlaceholderProductName : nil
             cell.nameTextView.textColor = .gray
             if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
@@ -386,6 +405,17 @@ class IdentificationTableViewController: UITableViewController {
             cell.delegate = self
             cell.tag = indexPath.section
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+            if editMode,
+                let validLanguageCode = displayLanguageCode {
+                if productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
+                    switch productVersion {
+                    case .remote:
+                        cell.editMode = false
+                    case .new:
+                        cell.editMode = true
+                    }
+                }
+            }
             cell.name = editMode ? TranslatableStrings.PlaceholderGenericProductName : nil
             cell.nameTextView.textColor = .gray
             switch genericNameToDisplay {
@@ -422,7 +452,31 @@ class IdentificationTableViewController: UITableViewController {
 
                 return cell
             }
-        case .brands, .packaging:
+        case .brands:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            //print("Cell", cell.frame)
+            
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = editMode
+            if let newTags = productPair?.localProduct?.brandsOriginal {
+                switch newTags {
+                case .available:
+                    switch productVersion {
+                    case .remote:
+                        cell.editMode = false
+                    case .new:
+                        cell.editMode = true
+                    }
+                default:
+                    break
+                }
+            }
+            cell.tag = indexPath.section
+            return cell
+
+        case .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             //print("Cell", cell.frame)
@@ -430,8 +484,22 @@ class IdentificationTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
+            if let newTags = productPair?.localProduct?.packagingOriginal {
+                switch newTags {
+                case .available:
+                    switch productVersion {
+                    case .remote:
+                        cell.editMode = false
+                    case .new:
+                        cell.editMode = true
+                    }
+                default:
+                    break
+                }
+            }
             cell.tag = indexPath.section
             return cell
+            
         case .quantity:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Quantity, for: indexPath) as! QuantityTableViewCell
             switch quantityToDisplay {
@@ -441,6 +509,14 @@ class IdentificationTableViewController: UITableViewController {
                 cell.tekst = nil
             }
             cell.editMode = editMode
+            if productPair?.localProduct?.quantity == nil {
+                switch productVersion {
+                case .remote:
+                    cell.editMode = false
+                case .new:
+                    cell.editMode = true
+                }
+            }
             cell.delegate = self
             cell.tag = indexPath.section
             return cell
@@ -449,6 +525,15 @@ class IdentificationTableViewController: UITableViewController {
             if currentImage.0 != nil {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
                 cell.editMode = editMode
+                if let localPair = localFrontImage,
+                    localPair.0 != nil {
+                    switch productVersion {
+                    case .remote:
+                        cell.editMode = false
+                    case .new:
+                        cell.editMode = true
+                    }
+                }
                 cell.productImage = currentImage.0
                 cell.delegate = self
                 return cell
@@ -618,46 +703,46 @@ class IdentificationTableViewController: UITableViewController {
             
         case .image, .name, .genericName :
             headerView.changeLanguageButton.isHidden = false
-                switch currentProductSection {
-                case .image:
-                    guard let localPair = localFrontImage else { break }
-                    if localPair.0 != nil {
-                        headerView.changeViewModeButton.isHidden = false
-                        setSupport(on: headerView, forDoubleTap: true)
-                        switch productVersion {
-                        case .remote:
-                            header = TranslatableStrings.FrontImageOriginal
-                        case .new:
-                            header = TranslatableStrings.FrontImageEdited
-                        }
+            switch currentProductSection {
+            case .image:
+                guard let localPair = localFrontImage else { break }
+                if localPair.0 != nil {
+                    headerView.changeViewModeButton.isHidden = false
+                    setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.FrontImageOriginal
+                    case .new:
+                        header = TranslatableStrings.FrontImageEdited
                     }
-                case .name:
-                    guard let validLanguageCode = displayLanguageCode else { break }
-                    if productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
-                        headerView.changeViewModeButton.isHidden = false
-                        setSupport(on: headerView, forDoubleTap: true)
-                        switch productVersion {
-                        case .remote:
-                            header = TranslatableStrings.NameOriginal
-                        case .new:
-                            header = TranslatableStrings.NameEdited
-                        }
-                    }
-                case .genericName :
-                    guard let validLanguageCode = displayLanguageCode else { break }
-                    if productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
-                        headerView.changeViewModeButton.isHidden = false
-                        setSupport(on: headerView, forDoubleTap: true)
-                        switch productVersion {
-                        case .remote:
-                            header = TranslatableStrings.GenericNameOriginal
-                        case .new:
-                            header = TranslatableStrings.GenericNameEdited
-                        }
-                    }
-                default:
-                    break
                 }
+            case .name:
+                guard let validLanguageCode = displayLanguageCode else { break }
+                if productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
+                    headerView.changeViewModeButton.isHidden = false
+                    setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.NameOriginal
+                    case .new:
+                           header = TranslatableStrings.NameEdited
+                    }
+                }
+            case .genericName :
+                guard let validLanguageCode = displayLanguageCode else { break }
+                if productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
+                    headerView.changeViewModeButton.isHidden = false
+                    setSupport(on: headerView, forDoubleTap: true)
+                    switch productVersion {
+                    case .remote:
+                        header = TranslatableStrings.GenericNameOriginal
+                    case .new:
+                        header = TranslatableStrings.GenericNameEdited
+                    }
+                }
+            default:
+                break
+            }
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
             // add a dash to nice separate the title from the language button
@@ -665,6 +750,8 @@ class IdentificationTableViewController: UITableViewController {
             return headerView
             
         case .barcode, .brands, .packaging, .quantity:
+            headerView.changeLanguageButton.isHidden = true
+
             switch currentProductSection {
             case .barcode:
                 guard productPair?.localProduct != nil else { break }
@@ -1224,13 +1311,12 @@ extension IdentificationTableViewController: TagListViewCellDelegate {
         switch currentProductSection {
         case .packaging:
             showPackagingTagsType.cycle()
-            tableView.reloadData()
         case .brands:
             showBrandTagsType.cycle()
-            tableView.reloadData()
         default:
-            break
+            return
         }
+        tableView.reloadData()
     }
 }
 //
@@ -1337,8 +1423,9 @@ extension IdentificationTableViewController: UITextViewDelegate {
                 }
             }
         default:
-            break
+            return
         }
+        tableView.reloadData()
     }
     
     func textViewHeightForAttributedText(text: NSAttributedString, andWidth width: CGFloat) -> CGFloat {
@@ -1436,8 +1523,9 @@ extension IdentificationTableViewController: TagListViewDataSource {
 
             }
         default:
-            break
+            return
         }
+        tableView.reloadData()
     }
     
     /// Which text should be displayed when the TagListView is collapsed?
@@ -1497,8 +1585,9 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 assert(true, "IdentificationTableViewController: How can I add a languages tag when the field is non-editable")
             }
         default:
-            break
+            return
         }
+        tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
@@ -1531,8 +1620,9 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
         default:
-            break
+            return
         }
+        tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
@@ -1596,8 +1686,9 @@ extension IdentificationTableViewController: UITextFieldDelegate {
             }
  */
         default:
-            break
+            return
         }
+        tableView.reloadData()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
