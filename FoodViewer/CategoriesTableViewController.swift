@@ -34,6 +34,15 @@ class CategoriesTableViewController: UITableViewController {
         //case local
         case remote
         case new
+        
+        var isRemote: Bool {
+            switch self {
+            case .remote:
+                return true
+            default:
+                return false
+            }
+        }
     }
     
     // Determines which version of the product needs to be shown, the remote or local
@@ -114,6 +123,15 @@ class CategoriesTableViewController: UITableViewController {
             static let TagListView = "TagListView Cell Identifier"
             static let TagListViewWithSegmentedControl = "TagListView With SegmentedControl Cell Identifier"
         }
+        
+        struct Nib {
+            static let LanguageHeaderView = "LanguageHeaderView"
+        }
+
+        struct ReusableHeaderFooterView {
+            static let Language = "LanguageHeaderView"
+        }
+
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -131,43 +149,61 @@ class CategoriesTableViewController: UITableViewController {
         cell.width = tableView.frame.size.width
         cell.tag = indexPath.section
         cell.editMode = editMode
+        if let oldTags = productPair?.localProduct?.categoriesOriginal {
+            switch oldTags {
+            case .available:
+                cell.editMode = productVersion.isRemote ? false : true
+            default:
+                break
+            }
+        }
         cell.delegate = self
         cell.datasource = self
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let (currentProductSection, _, header) = tableStructureForProduct[section]
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+       
+        var (currentProductSection, _, header) = tableStructureForProduct[section]
         
-        guard let validHeader = header else { return "No header" }
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
+        
+        headerView.section = section
+        headerView.delegate = self
+        headerView.changeViewModeButton.isHidden = true
+        headerView.changeLanguageButton.isHidden = true
+        setSupport(on: headerView, forDoubleTap: false)
+
         switch currentProductSection {
         case .categories:
-            switch productVersion {
-            case .remote:
-                switch showCategoriesTagsType {
-                case TagsTypeDefault.Categories:
-                    return validHeader
-                default:
-                    return validHeader +
-                        " " +
-                        "(" +
-                        showCategoriesTagsType.description +
-                    ")"
-                }
-            case .new:
+            headerView.buttonIsEnabled = false
                 if let oldTags = productPair?.localProduct?.categoriesOriginal {
                     switch oldTags {
                     case .available:
-                        return validHeader + " " + "(" + TranslatableStrings.Edited + ")"
+                        headerView.changeViewModeButton.isHidden = false
+                        setSupport(on: headerView, forDoubleTap: true)
+                        header = productVersion.isRemote ? TranslatableStrings.CategoriesOriginal : TranslatableStrings.CategoriesEdited
                     default:
                         break
                     }
                 }
-            }
         }
-        return validHeader
+        headerView.title = header
+        return headerView
     }
     
+    private func setSupport(on view:UIView, forDoubleTap support:Bool) {
+        // Add doubletapping to the TableView. Any double tap on headers is now received,
+        // and used for changing the productVersion (local and remote)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+        // show the double tap possibility only if there is a local product
+        doubleTapGestureRecognizer.cancelsTouchesInView = !support
+        view.addGestureRecognizer(doubleTapGestureRecognizer)
+    }
+
     struct TableStructure {
         static let CategoriesSectionHeader = TranslatableStrings.Categories
         static let CategoriesSectionSize = 1
@@ -229,15 +265,7 @@ class CategoriesTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
         
-        // Add doubletapping to the TableView. Any double tap on headers is now received,
-        // and used for changing the productVersion (local and remote)
-        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(CategoriesTableViewController.doubleTapOnTableView))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-        doubleTapGestureRecognizer.cancelsTouchesInView = false
-        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-        tableView.addGestureRecognizer(doubleTapGestureRecognizer)
-
+        tableView.register(UINib(nibName: Storyboard.Nib.LanguageHeaderView, bundle: nil), forHeaderFooterViewReuseIdentifier: Storyboard.Nib.LanguageHeaderView)
     }
 
     
@@ -269,6 +297,17 @@ class CategoriesTableViewController: UITableViewController {
 
 }
 
+// MARK: - LanguageHeaderDelegate Functions
+
+extension CategoriesTableViewController: LanguageHeaderDelegate {
+    
+    func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
+    }
+    
+    func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {
+        doubleTapOnTableView()
+    }
+}
 
 // MARK: - TagListViewCellDelegate Functions
 

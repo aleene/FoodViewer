@@ -77,6 +77,15 @@ class IdentificationTableViewController: UITableViewController {
         //case local
         case remote
         case new // mix of local and remote
+        
+        var isRemote: Bool {
+            switch self {
+            case .remote:
+                return true
+            default:
+                return false
+            }
+        }
     }
     
     // Determines which version of the product needs to be shown, the remote or local
@@ -358,13 +367,9 @@ class IdentificationTableViewController: UITableViewController {
             cell.barcode = productPair?.barcodeType.asString
             cell.mainLanguageCode = primaryLanguageCodeToDisplay
             cell.editMode = editMode
-            if productPair?.localProduct?.primaryLanguageCode != productPair?.remoteProduct?.primaryLanguageCode {
-                switch productVersion {
-                case .remote:
-                    cell.editMode = false
-                case .new:
-                    cell.editMode = true
-                }
+            if editMode,
+                productPair?.localProduct?.primaryLanguageCode != productPair?.remoteProduct?.primaryLanguageCode {
+                cell.editMode = productVersion.isRemote ? false : true
             }
             return cell
 
@@ -376,12 +381,7 @@ class IdentificationTableViewController: UITableViewController {
             if editMode,
                 let validLanguageCode = displayLanguageCode {
                 if productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
-                    switch productVersion {
-                    case .remote:
-                        cell.editMode = false
-                    case .new:
-                        cell.editMode = true
-                    }
+                    cell.editMode = productVersion.isRemote ? false : true
                 }
             }
             cell.name = editMode ? TranslatableStrings.PlaceholderProductName : nil
@@ -408,12 +408,7 @@ class IdentificationTableViewController: UITableViewController {
             if editMode,
                 let validLanguageCode = displayLanguageCode {
                 if productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
-                    switch productVersion {
-                    case .remote:
-                        cell.editMode = false
-                    case .new:
-                        cell.editMode = true
-                    }
+                    cell.editMode = productVersion.isRemote ? false : true
                 }
             }
             cell.name = editMode ? TranslatableStrings.PlaceholderGenericProductName : nil
@@ -460,15 +455,11 @@ class IdentificationTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
-            if let newTags = productPair?.localProduct?.brandsOriginal {
+            if editMode,
+                let newTags = productPair?.localProduct?.brandsOriginal {
                 switch newTags {
                 case .available:
-                    switch productVersion {
-                    case .remote:
-                        cell.editMode = false
-                    case .new:
-                        cell.editMode = true
-                    }
+                    cell.editMode = productVersion.isRemote ? false : true
                 default:
                     break
                 }
@@ -484,15 +475,11 @@ class IdentificationTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
-            if let newTags = productPair?.localProduct?.packagingOriginal {
+            if editMode,
+                let newTags = productPair?.localProduct?.packagingOriginal {
                 switch newTags {
                 case .available:
-                    switch productVersion {
-                    case .remote:
-                        cell.editMode = false
-                    case .new:
-                        cell.editMode = true
-                    }
+                    cell.editMode = productVersion.isRemote ? false : true
                 default:
                     break
                 }
@@ -509,13 +496,9 @@ class IdentificationTableViewController: UITableViewController {
                 cell.tekst = nil
             }
             cell.editMode = editMode
-            if productPair?.localProduct?.quantity == nil {
-                switch productVersion {
-                case .remote:
-                    cell.editMode = false
-                case .new:
-                    cell.editMode = true
-                }
+            if editMode,
+                productPair?.localProduct?.quantity == nil {
+                cell.editMode = productVersion.isRemote ? false : true
             }
             cell.delegate = self
             cell.tag = indexPath.section
@@ -525,14 +508,10 @@ class IdentificationTableViewController: UITableViewController {
             if currentImage.0 != nil {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
                 cell.editMode = editMode
-                if let localPair = localFrontImage,
+                if editMode,
+                    let localPair = localFrontImage,
                     localPair.0 != nil {
-                    switch productVersion {
-                    case .remote:
-                        cell.editMode = false
-                    case .new:
-                        cell.editMode = true
-                    }
+                    cell.editMode = productVersion.isRemote ? false : true
                 }
                 cell.productImage = currentImage.0
                 cell.delegate = self
@@ -709,36 +688,21 @@ class IdentificationTableViewController: UITableViewController {
                 if localPair.0 != nil {
                     headerView.changeViewModeButton.isHidden = false
                     setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.FrontImageOriginal
-                    case .new:
-                        header = TranslatableStrings.FrontImageEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.FrontImageOriginal : TranslatableStrings.FrontImageEdited
                 }
             case .name:
                 guard let validLanguageCode = displayLanguageCode else { break }
                 if productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
                     headerView.changeViewModeButton.isHidden = false
                     setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.NameOriginal
-                    case .new:
-                           header = TranslatableStrings.NameEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.NameOriginal : TranslatableStrings.NameEdited
                 }
             case .genericName :
                 guard let validLanguageCode = displayLanguageCode else { break }
                 if productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
                     headerView.changeViewModeButton.isHidden = false
                     setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.GenericNameOriginal
-                    case .new:
-                        header = TranslatableStrings.GenericNameEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.GenericNameOriginal : TranslatableStrings.GenericNameEdited
                 }
             default:
                 break
@@ -758,12 +722,7 @@ class IdentificationTableViewController: UITableViewController {
                 if productPair?.localProduct?.primaryLanguageCode != productPair?.remoteProduct?.primaryLanguageCode {
                     headerView.changeViewModeButton.isHidden = false
                     setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.BarcodeOriginal
-                    case .new:
-                        header = TranslatableStrings.BarcodeEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.BarcodeOriginal : TranslatableStrings.BarcodeEdited
                 }
                 case .brands:
                     if let newTags = productPair?.localProduct?.brandsOriginal {
@@ -771,12 +730,7 @@ class IdentificationTableViewController: UITableViewController {
                         case .available:
                             headerView.changeViewModeButton.isHidden = false
                             setSupport(on: headerView, forDoubleTap: true)
-                            switch productVersion {
-                            case .remote:
-                                header = TranslatableStrings.BrandsOriginal
-                            case .new:
-                                header = TranslatableStrings.BrandsEdited
-                            }
+                            header = productVersion.isRemote ? TranslatableStrings.BrandsOriginal : TranslatableStrings.BrandsEdited
                         default:
                             break
                         }
@@ -787,12 +741,7 @@ class IdentificationTableViewController: UITableViewController {
                     case .available:
                         headerView.changeViewModeButton.isHidden = false
                         setSupport(on: headerView, forDoubleTap: true)
-                        switch productVersion {
-                        case .remote:
-                            header = TranslatableStrings.PackagingOriginal
-                        case .new:
-                            header = TranslatableStrings.PackagingEdited
-                        }
+                        header = productVersion.isRemote ? TranslatableStrings.PackagingOriginal : TranslatableStrings.PackagingEdited
                     default:
                         break
                     }
@@ -802,12 +751,7 @@ class IdentificationTableViewController: UITableViewController {
                 headerView.changeViewModeButton.isHidden = !quantityHasBeenEdited
                 setSupport(on:headerView, forDoubleTap:quantityHasBeenEdited)
                 if quantityHasBeenEdited {
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.QuantityOriginal
-                    case .new:
-                        header = TranslatableStrings.QuantityEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.QuantityOriginal : TranslatableStrings.QuantityEdited
                 }
 
             default:

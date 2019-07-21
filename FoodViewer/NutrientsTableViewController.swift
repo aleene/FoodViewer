@@ -46,6 +46,15 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         //case local
         case remote
         case new
+        
+        var isRemote: Bool {
+            switch self {
+            case .remote:
+                return true
+            default:
+                return false
+            }
+        }
     }
     
 
@@ -313,6 +322,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case .noNutrimentsAvailable:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoNutrimentsAvailable, for: indexPath) as! NutrimentsAvailableTableViewCell
             cell.editMode = editMode
+            if productPair?.localProduct?.nutrimentFactsAvailability != nil {
+                cell.editMode = productVersion.isRemote ? false : true
+            }
+
             cell.delegate = self
             switch productVersion {
             //case .local:
@@ -328,6 +341,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PerUnit, for: indexPath) as! PerUnitTableViewCell
             cell.displayMode = currentNutritionQuantityDisplayMode
             cell.editMode = editMode
+            if productPair?.localProduct?.nutritionFactsIndicationUnit != nil {
+                cell.editMode = productVersion.isRemote ? false : true
+            }
+
             cell.delegate = self
             switch productVersion {
             //case .local:
@@ -400,6 +417,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         cell?.toggleViewModeButton.isHidden = true
                     }
                     cell?.editMode = editMode
+                    if let facts = productPair?.localProduct?.nutritionFactsDict,
+                        !facts.isEmpty {
+                        cell?.editMode = productVersion.isRemote ? false : true
+                    }
+
                     return cell!
                 }
             }
@@ -523,12 +545,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if localImageToShow != nil {
                 headerView.changeViewModeButton.isHidden = false
                 setSupport(on: headerView, forDoubleTap: true)
-                switch productVersion {
-                case .remote:
-                    header = TranslatableStrings.NutritionFactsImageOriginal
-                case .new:
-                    header = TranslatableStrings.NutritionFactsImageEdited
-                }
+                header = productVersion.isRemote ? TranslatableStrings.NutritionFactsImageOriginal : TranslatableStrings.NutritionFactsImageEdited
             }
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
@@ -547,12 +564,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     !facts.isEmpty {
                     headerView.changeViewModeButton.isHidden = false
                     setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.NutritionFactsOriginal
-                    case .new:
-                        header = TranslatableStrings.NutritionFactsEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.NutritionFactsOriginal : TranslatableStrings.NutritionFactsEdited
                 }
             }
             headerView.buttonText = currentNutritionFactsTableStyle.description
@@ -565,12 +577,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if productPair?.localProduct?.servingSize != nil {
                 headerView.changeViewModeButton.isHidden = false
                 setSupport(on: headerView, forDoubleTap: true)
-                switch productVersion {
-                case .remote:
-                    header = TranslatableStrings.PortionSizeOriginal
-                case .new:
-                    header = TranslatableStrings.PortionSizeEdited
-                }
+                header = productVersion.isRemote ? TranslatableStrings.PortionSizeOriginal : TranslatableStrings.PortionSizeEdited
             }
             headerView.title = header
             return headerView
@@ -580,12 +587,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if productPair?.localProduct?.nutritionFactsIndicationUnit != nil {
                 headerView.changeViewModeButton.isHidden = false
                 setSupport(on: headerView, forDoubleTap: true)
-                switch productVersion {
-                case .remote:
-                    header = TranslatableStrings.PortionSizeOriginal
-                case .new:
-                    header = TranslatableStrings.PortionSizeEdited
-                }
+                header = productVersion.isRemote ? TranslatableStrings.PortionSizeOriginal : TranslatableStrings.PortionSizeEdited
             }
             headerView.title = header
             return headerView
@@ -595,12 +597,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if productPair?.localProduct?.nutrimentFactsAvailability != nil {
                 headerView.changeViewModeButton.isHidden = false
                 setSupport(on: headerView, forDoubleTap: true)
-                switch productVersion {
-                case .remote:
-                    header = TranslatableStrings.NoNutrientsOriginal
-                case .new:
-                    header = TranslatableStrings.NoNutrientsEdited
-                }
+                header = productVersion.isRemote ? TranslatableStrings.NoNutrientsOriginal : TranslatableStrings.NoNutrientsEdited
             }
             headerView.title = header
             return headerView

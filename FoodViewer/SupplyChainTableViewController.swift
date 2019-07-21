@@ -33,6 +33,15 @@ class SupplyChainTableViewController: UITableViewController {
         //case local
         case remote
         case new
+        
+        var isRemote: Bool {
+            switch self {
+            case .remote:
+                return true
+            default:
+                return false
+            }
+        }
     }
     
     fileprivate var productPair: ProductPair? {
@@ -535,15 +544,89 @@ class SupplyChainTableViewController: UITableViewController {
             cell.delegate = self
             cell.datasource = self
             cell.editMode = editMode
+            if editMode {
+                switch currentProductSection {
+                case .producer:
+                    if let oldTags = productPair?.localProduct?.manufacturingPlacesOriginal {
+                        switch oldTags {
+                        case .available:
+                            cell.editMode = !productVersion.isRemote
+                        default:
+                            break
+                        }
+                    }
+                case .producerCode:
+                    if let oldTags = productPair?.localProduct?.embCodesOriginal {
+                        switch oldTags {
+                        case .available:
+                            cell.editMode = !productVersion.isRemote
+                        default:
+                            break
+                        }
+                    }
+                case .sites:
+                    if productPair?.localProduct?.links != nil {
+                        cell.editMode = !productVersion.isRemote
+                    }
+                case .ingredientOrigin:
+                    if let oldTags = productPair?.localProduct?.originsOriginal {
+                        switch oldTags {
+                        case .available:
+                            cell.editMode = !productVersion.isRemote
+                        default:
+                            break
+                        }
+                    }
+                case .country:
+                if let oldTags = productPair?.localProduct?.countriesOriginal {
+                    switch oldTags {
+                    case .available:
+                        cell.editMode = !productVersion.isRemote
+                    default:
+                        break
+                    }
+                }
+                default:
+                    break
+                }
+            }
             return cell
             
-        case .store, .location:
+        case .store:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithButton, for: indexPath) as! PurchacePlaceTableViewCell
             cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
             cell.delegate = self
             cell.datasource = self
             cell.editMode = editMode
+            if editMode,
+                let oldTags = productPair?.localProduct?.storesOriginal {
+                switch oldTags {
+                case .available:
+                    cell.editMode = !productVersion.isRemote
+                default:
+                    break
+                }
+            }
+            return cell
+
+        case .location:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithButton, for: indexPath) as! PurchacePlaceTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.tag = indexPath.section
+            cell.delegate = self
+            cell.datasource = self
+            cell.editMode = editMode
+            if editMode,
+                let oldTags = productPair?.localProduct?.purchasePlacesOriginal {
+                switch oldTags {
+                case .available:
+                    cell.editMode = !productVersion.isRemote
+                default:
+                    break
+                }
+            }
+
             return cell
 
         case .map:
@@ -657,12 +740,7 @@ class SupplyChainTableViewController: UITableViewController {
                 case .available:
                     headerView.changeViewModeButton.isHidden = false
                     setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.IngredientOriginsOriginal
-                    case .new:
-                        header = TranslatableStrings.IngredientOriginsEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.IngredientOriginsOriginal : TranslatableStrings.IngredientOriginsEdited
                 default:
                     break
                 }
@@ -674,12 +752,7 @@ class SupplyChainTableViewController: UITableViewController {
                 case .available:
                     headerView.changeViewModeButton.isHidden = false
                     setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.ProducerOriginal
-                    case .new:
-                        header = TranslatableStrings.ProducerEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.ProducerOriginal : TranslatableStrings.ProducerEdited
                 default:
                     break
                 }
@@ -691,12 +764,7 @@ class SupplyChainTableViewController: UITableViewController {
                 case .available:
                     headerView.changeViewModeButton.isHidden = false
                        setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.StoresOriginal
-                    case .new:
-                        header = TranslatableStrings.StoresEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.StoresOriginal: TranslatableStrings.StoresEdited
                 default:
                     break
                 }
@@ -708,12 +776,7 @@ class SupplyChainTableViewController: UITableViewController {
                 case .available:
                     headerView.changeViewModeButton.isHidden = false
                     setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.PurchaseAddressOriginal
-                    case .new:
-                        header = TranslatableStrings.PurchaseAddressEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.PurchaseAddressOriginal : TranslatableStrings.PurchaseAddressEdited
                 default:
                     break
                 }
@@ -725,12 +788,7 @@ class SupplyChainTableViewController: UITableViewController {
                 case .available:
                     headerView.changeViewModeButton.isHidden = false
                     setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.CountriesOriginal
-                    case .new:
-                        header = TranslatableStrings.CountriesEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.CountriesOriginal : TranslatableStrings.CountriesEdited
                 default:
                     break
                 }
@@ -742,17 +800,17 @@ class SupplyChainTableViewController: UITableViewController {
                 case .available:
                     headerView.changeViewModeButton.isHidden = false
                     setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.ProductCodesOriginal
-                    case .new:
-                        header = TranslatableStrings.ProductCodesEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.ProductCodesOriginal : TranslatableStrings.ProductCodesEdited
                 default:
                     break
                 }
             }
-
+        case .sites:
+            if productPair?.localProduct?.links != nil {
+                headerView.changeViewModeButton.isHidden = false
+                setSupport(on: headerView, forDoubleTap: true)
+                header = productVersion.isRemote ? TranslatableStrings.ProductWebSitesEdited : TranslatableStrings.ProductWebSitesOriginal
+            }
         default:
             break
         }

@@ -17,6 +17,15 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         //case local
         case remote
         case new
+        
+        var isRemote: Bool {
+            switch self {
+            case .remote:
+                return true
+            default:
+                return false
+            }
+        }
     }
     
     // Determines which version of the product needs to be shown, the remote or local
@@ -380,6 +389,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.delegate = self
             cell.textViewTag = indexPath.section
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+            if let validLanguageCode = displayLanguageCode,
+                productPair?.localProduct?.ingredientsLanguage[validLanguageCode] != nil {
+                cell.editMode = productVersion.isRemote ? false : true
+            }
+
             cell.textView.textColor = .gray
             switch ingredientsToDisplay {
             case .available(let array):
@@ -393,7 +407,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
             cell.isMultilingual =  (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false 
 
-            print("cell frame", cell.frame)
+            // print("cell frame", cell.frame)
             return cell
             
         case .allergens, .additives, .minerals, .vitamins, .nucleotides, .otherNutritionalSubstances:
@@ -405,12 +419,38 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.tag = indexPath.section
             return cell
 
-        case .traces, .labels:
+        case .traces:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
+            if editMode,
+                let oldTags = productPair?.localProduct?.tracesOriginal {
+                switch oldTags {
+                case .available:
+                    cell.editMode = productVersion.isRemote ? false : true
+                default:
+                    break
+                }
+            }
+            cell.tag = indexPath.section
+            return cell
+
+        case .labels:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = editMode
+            if let oldTags = productPair?.localProduct?.labelsOriginal {
+                switch oldTags {
+                case .available:
+                    cell.editMode = productVersion.isRemote ? false : true
+                default:
+                    break
+                }
+            }
             cell.tag = indexPath.section
             return cell
         
@@ -418,6 +458,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             if imageToShow != nil {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
                 cell.editMode = editMode
+                if localImageToShow != nil {
+                    cell.editMode = productVersion.isRemote ? false : true
+                }
                 cell.productImage = imageToShow
                 cell.delegate = self
                 return cell
@@ -537,24 +580,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 if localImageToShow != nil {
                     headerView.changeViewModeButton.isHidden = false
                     setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.IngredientsImageOriginal
-                    case .new:
-                        header = TranslatableStrings.IngredientsImageEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.IngredientsImageOriginal : TranslatableStrings.IngredientsImageEdited
                 }
             case .ingredients:
                 guard let validLanguageCode = displayLanguageCode else { break }
                 if productPair?.localProduct?.ingredientsLanguage[validLanguageCode] != nil {
                     headerView.changeViewModeButton.isHidden = false
                     setSupport(on: headerView, forDoubleTap: true)
-                    switch productVersion {
-                    case .remote:
-                        header = TranslatableStrings.IngredientsOriginal
-                    case .new:
-                        header = TranslatableStrings.IngredientsEdited
-                    }
+                    header = productVersion.isRemote ? TranslatableStrings.IngredientsOriginal : TranslatableStrings.IngredientsEdited
                 }
             default:
                 break
@@ -575,12 +608,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         case .available:
                             headerView.changeViewModeButton.isHidden = false
                             setSupport(on: headerView, forDoubleTap: true)
-                            switch productVersion {
-                            case .remote:
-                                header = TranslatableStrings.LabelsOriginal
-                            case .new:
-                                header = TranslatableStrings.LabelsEdited
-                            }
+                            header = productVersion.isRemote ? TranslatableStrings.LabelsOriginal : TranslatableStrings.LabelsEdited
                         default:
                             break
                         }
@@ -591,12 +619,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         case .available:
                             headerView.changeViewModeButton.isHidden = false
                             setSupport(on: headerView, forDoubleTap: true)
-                            switch productVersion {
-                            case .remote:
-                                header = TranslatableStrings.TracesOriginal
-                            case .new:
-                                header = TranslatableStrings.TracesEdited
-                            }
+                            header = productVersion.isRemote ? TranslatableStrings.TracesOriginal : TranslatableStrings.TracesEdited
                         default:
                             break
                         }
