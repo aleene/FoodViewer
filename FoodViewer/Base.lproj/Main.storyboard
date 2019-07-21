@@ -855,44 +855,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
-                            <tableViewSection headerTitle="Section-4" id="bSV-8B-W96" userLabel="App version">
+                            <tableViewSection id="bSV-8B-W96" userLabel="Continuous Scan">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="YJ6-zb-KDj">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YJ6-zb-KDj" id="ScW-Nc-e2N">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOC-wQ-aXm">
-                                                    <rect key="frame" x="20" y="11" width="329" height="22"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QQM-9z-kiK">
-                                                    <rect key="frame" x="357" y="6.6666666666666679" width="51" height="31.000000000000004"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vHM-HV-M0a">
+                                                    <rect key="frame" x="20" y="11" width="374" height="23"/>
+                                                    <segments>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
+                                                    </segments>
                                                     <connections>
-                                                        <action selector="allowContinuousScanSwitchChanged:" destination="ZsW-i7-UuO" eventType="valueChanged" id="Y3t-6V-9DT"/>
+                                                        <action selector="continuousScanSegmentedControlTapped:" destination="ZsW-i7-UuO" eventType="valueChanged" id="z6g-90-TPD"/>
                                                     </connections>
-                                                </switch>
+                                                </segmentedControl>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="QQM-9z-kiK" secondAttribute="trailing" constant="8" id="2Au-qb-PdE"/>
-                                                <constraint firstItem="OOC-wQ-aXm" firstAttribute="bottom" secondItem="ScW-Nc-e2N" secondAttribute="bottomMargin" id="7xP-9I-FRF"/>
-                                                <constraint firstItem="QQM-9z-kiK" firstAttribute="leading" secondItem="OOC-wQ-aXm" secondAttribute="trailing" constant="8" id="Djh-rM-mGB"/>
-                                                <constraint firstItem="OOC-wQ-aXm" firstAttribute="leading" secondItem="ScW-Nc-e2N" secondAttribute="leadingMargin" id="Xxd-CP-a5A"/>
-                                                <constraint firstItem="OOC-wQ-aXm" firstAttribute="top" secondItem="ScW-Nc-e2N" secondAttribute="topMargin" id="YuG-yL-Hv2"/>
-                                                <constraint firstItem="OOC-wQ-aXm" firstAttribute="centerY" secondItem="QQM-9z-kiK" secondAttribute="centerY" id="uJR-Mq-aha"/>
+                                                <constraint firstItem="vHM-HV-M0a" firstAttribute="top" secondItem="ScW-Nc-e2N" secondAttribute="topMargin" id="A2a-iW-PAP"/>
+                                                <constraint firstItem="vHM-HV-M0a" firstAttribute="trailing" secondItem="ScW-Nc-e2N" secondAttribute="trailingMargin" id="A6C-gq-azt"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="vHM-HV-M0a" secondAttribute="bottom" id="ZWL-Ih-Lay"/>
+                                                <constraint firstItem="vHM-HV-M0a" firstAttribute="leading" secondItem="ScW-Nc-e2N" secondAttribute="leadingMargin" id="tu2-eE-rUa"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="7Sq-H6-dn5" userLabel="ProductTypePreferences">
+                            <tableViewSection id="7Sq-H6-dn5" userLabel="Default Product Type">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="6mY-8G-Gxg">
-                                        <rect key="frame" x="0.0" y="72" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6mY-8G-Gxg" id="HCB-qz-hCc">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
@@ -913,10 +909,70 @@
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="L3e-wU-xGg" firstAttribute="leading" secondItem="HCB-qz-hCc" secondAttribute="leadingMargin" id="Opt-pY-Jsg"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="L3e-wU-xGg" secondAttribute="bottom" id="eJv-G9-Iju"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="L3e-wU-xGg" secondAttribute="trailing" id="ppq-Hm-JPf"/>
-                                                <constraint firstItem="L3e-wU-xGg" firstAttribute="top" secondItem="HCB-qz-hCc" secondAttribute="topMargin" id="quh-xP-oyg"/>
+                                                <constraint firstItem="L3e-wU-xGg" firstAttribute="leading" secondItem="HCB-qz-hCc" secondAttribute="leadingMargin" id="Lag-jK-9ui"/>
+                                                <constraint firstItem="L3e-wU-xGg" firstAttribute="trailing" secondItem="HCB-qz-hCc" secondAttribute="trailingMargin" id="g97-6b-8cj"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="L3e-wU-xGg" secondAttribute="bottom" id="k3x-O2-FH2"/>
+                                                <constraint firstItem="L3e-wU-xGg" firstAttribute="top" secondItem="HCB-qz-hCc" secondAttribute="topMargin" id="wZ6-we-ERz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="lcM-H0-4B7" userLabel="Default View Toggle Mode">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="VgR-64-Isi">
+                                        <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VgR-64-Isi" id="N2O-Re-hdh">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WfS-fL-UV7">
+                                                    <rect key="frame" x="20" y="11" width="374" height="23"/>
+                                                    <segments>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="viewToggleModeSegmentedControlTapped:" destination="ZsW-i7-UuO" eventType="valueChanged" id="3Jm-0k-dIy"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="WfS-fL-UV7" secondAttribute="bottom" id="7QL-BK-yCz"/>
+                                                <constraint firstItem="WfS-fL-UV7" firstAttribute="leading" secondItem="N2O-Re-hdh" secondAttribute="leadingMargin" id="WpZ-cA-ife"/>
+                                                <constraint firstItem="WfS-fL-UV7" firstAttribute="trailing" secondItem="N2O-Re-hdh" secondAttribute="trailingMargin" id="X1H-KN-Rmt"/>
+                                                <constraint firstItem="WfS-fL-UV7" firstAttribute="top" secondItem="N2O-Re-hdh" secondAttribute="topMargin" id="gjD-KU-lsC"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="VGz-BK-aNb" userLabel="Default Tag Entry Language">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="BhJ-lY-goa">
+                                        <rect key="frame" x="0.0" y="132" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BhJ-lY-goa" id="adc-KL-Bd3">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ray-fa-2r8">
+                                                    <rect key="frame" x="20" y="11" width="374" height="23"/>
+                                                    <segments>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="tagEntryLanguageSegmentedControlTapped:" destination="ZsW-i7-UuO" eventType="valueChanged" id="0h4-qq-ubW"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ray-fa-2r8" firstAttribute="top" secondItem="adc-KL-Bd3" secondAttribute="topMargin" id="Ech-kH-p4O"/>
+                                                <constraint firstItem="Ray-fa-2r8" firstAttribute="trailing" secondItem="adc-KL-Bd3" secondAttribute="trailingMargin" id="IXE-Ny-cDA"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Ray-fa-2r8" secondAttribute="bottom" id="gAS-8w-AVD"/>
+                                                <constraint firstItem="Ray-fa-2r8" firstAttribute="leading" secondItem="adc-KL-Bd3" secondAttribute="leadingMargin" id="jC7-NQ-vgN"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -925,7 +981,7 @@
                             <tableViewSection id="gMN-gY-jpL" userLabel="Clear History">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="5qf-lv-xoc">
-                                        <rect key="frame" x="0.0" y="116" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="176" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5qf-lv-xoc" id="SCb-xM-c6H">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
@@ -950,10 +1006,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="OXD-7R-O6S" userLabel="App version">
+                            <tableViewSection id="OXD-7R-O6S" userLabel="Application version/build">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="aMl-wo-7MW">
-                                        <rect key="frame" x="0.0" y="160" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="220" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aMl-wo-7MW" id="0Kf-qm-huV">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
@@ -983,16 +1039,17 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="allowContinuousScanLabel" destination="OOC-wQ-aXm" id="dZP-uT-HGi"/>
-                        <outlet property="allowContinuousScanSwitch" destination="QQM-9z-kiK" id="Hb6-A8-g3W"/>
                         <outlet property="appVersionAndBuildLabel" destination="7Kq-ms-Dei" id="Ca0-cg-tCF"/>
                         <outlet property="clearHistoryButton" destination="nLJ-Pw-tXZ" id="CZK-c4-z4M"/>
+                        <outlet property="continuousScanSegmentedControl" destination="vHM-HV-M0a" id="cQT-Zx-toL"/>
                         <outlet property="productTypeSegmentedControl" destination="L3e-wU-xGg" id="MIq-Tu-ifI"/>
+                        <outlet property="tagEntryLanguageSegmentedControl" destination="Ray-fa-2r8" id="iKT-5h-fkZ"/>
+                        <outlet property="viewToggleModeSegmentedControl" destination="WfS-fL-UV7" id="89o-uw-FsN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MuA-W8-ay3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-579" y="-2700"/>
+            <point key="canvasLocation" x="-579.71014492753625" y="-2700"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="haz-kS-KCO">
@@ -1125,6 +1182,37 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="bCd-Ei-8kp" userLabel="Negative Ingredient Detection Preference">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="rPs-u9-CHk">
+                                        <rect key="frame" x="0.0" y="176" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rPs-u9-CHk" id="bDr-zc-8BB">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Wui-t6-cfN">
+                                                    <rect key="frame" x="20" y="11" width="374" height="23"/>
+                                                    <segments>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="negativeIngredientDetectionsSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="aMV-Qg-odg"/>
+                                                        <action selector="nutritionFactsLabelStyleSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="XYF-U5-Pkd"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Wui-t6-cfN" firstAttribute="leading" secondItem="bDr-zc-8BB" secondAttribute="leadingMargin" id="4Ps-Ri-Rgi"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Wui-t6-cfN" secondAttribute="trailing" id="7rV-Tf-idW"/>
+                                                <constraint firstItem="Wui-t6-cfN" firstAttribute="bottom" secondItem="bDr-zc-8BB" secondAttribute="bottomMargin" id="WdU-Zm-bd2"/>
+                                                <constraint firstItem="Wui-t6-cfN" firstAttribute="top" secondItem="bDr-zc-8BB" secondAttribute="topMargin" id="djd-Gj-FGl"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="HoC-g1-BPV" id="hqW-Zz-az3"/>
@@ -1135,6 +1223,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="jouleOrCaloriesSegmentedControl" destination="iLS-3y-yF5" id="tw0-QT-u8C"/>
+                        <outlet property="negativeIngredientDetectionsSegmentedControl" destination="Wui-t6-cfN" id="FUI-Sc-u1L"/>
                         <outlet property="nutritionFactsLabelStyleSegmentedControl" destination="9fw-bj-GNl" id="dVE-sT-B5z"/>
                         <outlet property="nutritionUnitSegmentedControl" destination="h25-t4-qRW" id="fbn-xd-cNY"/>
                         <outlet property="saltOrSodiumSegmentedControl" destination="qLB-2k-Ecw" id="K8t-EF-jCw"/>

@@ -297,6 +297,10 @@
 		51DA03231F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DA03221F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift */; };
 		51DA03251F7674BF000C5F93 /* SearchTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DA03241F7674BF000C5F93 /* SearchTemplate.swift */; };
 		51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */; };
+		51DBA3D722E4878500C56263 /* NegativeIngredientDetectionsDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DBA3D622E4878500C56263 /* NegativeIngredientDetectionsDefaults.swift */; };
+		51DBA3D922E4904800C56263 /* TagEntryLanguageDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DBA3D822E4904700C56263 /* TagEntryLanguageDefaults.swift */; };
+		51DBA3DB22E490F000C56263 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DBA3DA22E490F000C56263 /* File.swift */; };
+		51DBA3DD22E4912300C56263 /* ViewToggleModeDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DBA3DC22E4912300C56263 /* ViewToggleModeDefaults.swift */; };
 		51DD35861EFEAB60000A8484 /* emb-30569c in Resources */ = {isa = PBXBuildFile; fileRef = 51DD35851EFEAB60000A8484 /* emb-30569c */; };
 		51E1C3632045DBEB00CB68B1 /* OFFImageDeselectAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C3622045DBE700CB68B1 /* OFFImageDeselectAPI.swift */; };
 		51E1C3652045EB4200CB68B1 /* ImageDeselect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C3642045EB4200CB68B1 /* ImageDeselect.swift */; };
@@ -680,6 +684,10 @@
 		51DA03241F7674BF000C5F93 /* SearchTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTemplate.swift; path = Model/SearchTemplate.swift; sourceTree = "<group>"; };
 		51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionScoreTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3781C60A6A200895513 /* 737628064502.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 737628064502.json; sourceTree = "<group>"; };
+		51DBA3D622E4878500C56263 /* NegativeIngredientDetectionsDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeIngredientDetectionsDefaults.swift; sourceTree = "<group>"; };
+		51DBA3D822E4904700C56263 /* TagEntryLanguageDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagEntryLanguageDefaults.swift; path = Model/Defaults/TagEntryLanguageDefaults.swift; sourceTree = "<group>"; };
+		51DBA3DA22E490F000C56263 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = Model/Defaults/File.swift; sourceTree = "<group>"; };
+		51DBA3DC22E4912300C56263 /* ViewToggleModeDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewToggleModeDefaults.swift; path = Model/Defaults/ViewToggleModeDefaults.swift; sourceTree = "<group>"; };
 		51DD35851EFEAB60000A8484 /* emb-30569c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "emb-30569c"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
 		51E1C3622045DBE700CB68B1 /* OFFImageDeselectAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFImageDeselectAPI.swift; sourceTree = "<group>"; };
 		51E1C3642045EB4200CB68B1 /* ImageDeselect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDeselect.swift; path = OFF/ImageDeselect.swift; sourceTree = "<group>"; };
@@ -1298,6 +1306,10 @@
 		519ACDFE1D9960C100B81D11 /* Defaults */ = {
 			isa = PBXGroup;
 			children = (
+				51DBA3D622E4878500C56263 /* NegativeIngredientDetectionsDefaults.swift */,
+				51DBA3D822E4904700C56263 /* TagEntryLanguageDefaults.swift */,
+				51DBA3DA22E490F000C56263 /* File.swift */,
+				51DBA3DC22E4912300C56263 /* ViewToggleModeDefaults.swift */,
 				516BB740222689FC004D16FF /* ContinuousScanDefaults.swift */,
 				518ED6DC2028B007002176A9 /* ProductStorage.swift */,
 				51E2926D20DBE1B2001C7471 /* ImageCache.swift */,
@@ -1763,6 +1775,7 @@
 				512390FA1E7BEA0700A5D6FD /* PercentUnit.swift in Sources */,
 				51C769B41DDA0D010000D260 /* CaseCountable.swift in Sources */,
 				5198D9A01DC25C1000799797 /* QuantityTableViewCell.swift in Sources */,
+				51DBA3D722E4878500C56263 /* NegativeIngredientDetectionsDefaults.swift in Sources */,
 				51F96662202DA01A00CD58C3 /* OFFProductNutrientLevels.swift in Sources */,
 				5192BE1120DA8AE40068C961 /* LabelWithBadgeTableViewCell.swift in Sources */,
 				51C2FF8820E5081200B65509 /* NSURLResponse+Haneke.swift in Sources */,
@@ -1796,6 +1809,7 @@
 				51C2FF6A20E5076B00B65509 /* CGSize+Swift.swift in Sources */,
 				51F669411F49CB620074AACB /* IngredientsPageTableViewCell.swift in Sources */,
 				51FB32291CF2139D00A17312 /* ReferenceDailyIntakeList.swift in Sources */,
+				51DBA3DB22E490F000C56263 /* File.swift in Sources */,
 				5180B91F1C5E5BB8002DBD21 /* AllProductsTableViewController.swift in Sources */,
 				51FDC3152029D99900ED0DD7 /* OFFProductJson.swift in Sources */,
 				514FC919213E7BD7007577FC /* Endian.swift in Sources */,
@@ -1878,6 +1892,7 @@
 				5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */,
 				51C2FF8C20E5081200B65509 /* UIButton+Haneke.swift in Sources */,
 				51EE97F41D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */,
+				51DBA3DD22E4912300C56263 /* ViewToggleModeDefaults.swift in Sources */,
 				51FB32311CF75B4500A17312 /* SetWarningTableViewCell.swift in Sources */,
 				51CCA8642031CC9F00F1B1B1 /* OFFImageDeselectResultJson.swift in Sources */,
 				5104F4B01FA074C3008D074F /* SetSortOrderViewController.swift in Sources */,
@@ -1929,6 +1944,7 @@
 				51B9048A1E7AEC9C004E3439 /* Weight.swift in Sources */,
 				515742731CDB63B200BE8E2D /* RSExtendedCode39Generator.swift in Sources */,
 				516B32851C75F5130031EF80 /* NutritionItem.swift in Sources */,
+				51DBA3D922E4904800C56263 /* TagEntryLanguageDefaults.swift in Sources */,
 				51E92AFD1E13D6100071B293 /* TagListViewDelegate.swift in Sources */,
 				51C2FF8920E5081200B65509 /* UIImageView+Haneke.swift in Sources */,
 				5127CDEF1E48A03600944FE8 /* ProductImageData.swift in Sources */,

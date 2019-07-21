@@ -169,19 +169,59 @@ class SettingsTableViewController: UITableViewController {
             }
         }
     }
-   
+    
+    // MARK: - Show Negative Ingredient Detections Preference
+    
+    // OFF analyses the ingredients and categorises them into minerals, additives, etc.
+    // The app shows positive detections.
+    // This option determines whether also negative detections are shown
+    
+    @IBOutlet weak var negativeIngredientDetectionsSegmentedControl: UISegmentedControl! {
+        didSet {
+            negativeIngredientDetectionsSegmentedControl.setTitle(TranslatableStrings.NegativeIngredientDetectionsDoNotShow, forSegmentAt: 0)
+            negativeIngredientDetectionsSegmentedControl.setTitle(TranslatableStrings.NegativeIngredientDetectionsShow, forSegmentAt: 1)
+            if let validNegativeIngredientDetectionsShown = NegativeIngredientDetectionsDefaults.manager.negativeIngredientDetectionsShown {
+                negativeIngredientDetectionsSegmentedControl?.selectedSegmentIndex = validNegativeIngredientDetectionsShown ? 1 : 0
+            } else {
+                // use do not show as a default
+                NegativeIngredientDetectionsDefaults.manager.set(false)
+                negativeIngredientDetectionsSegmentedControl?.selectedSegmentIndex = 0
+            }
+        }
+    }
+    
+    @IBAction func negativeIngredientDetectionsSegmentedControlTapped(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            NegativeIngredientDetectionsDefaults.manager.set(false)
+        case 1:
+            NegativeIngredientDetectionsDefaults.manager.set(true)
+        default:
+            break
+        }
+    }
+    
     // MARK: - TableView Delegate Functions
     
+    private struct Row {
+        static let SaltOrSodiumPreference = 0
+        static let EnergyUnitPreference = 1
+        static let NutritionUnitPreference = 2
+        static let NutritionTableFormatPreference = 3
+        static let NegativeIngredientDetectionsPreference = 4
+    }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0:
-            return TranslatableStrings.SaltOrSodiumPreferences
-        case 1:
-            return TranslatableStrings.EneryUnitPreferences
-        case 2:
-            return TranslatableStrings.NutritionUnitPreferences
-        case 3:
-            return TranslatableStrings.NutritionTableFormatPreferences
+        case Row.SaltOrSodiumPreference:
+            return TranslatableStrings.SaltOrSodiumPreference
+        case Row.EnergyUnitPreference:
+            return TranslatableStrings.EnergyUnitPreference
+        case Row.NutritionUnitPreference:
+            return TranslatableStrings.NutritionUnitPreference
+        case Row.NutritionTableFormatPreference:
+            return TranslatableStrings.NutritionTableFormatPreference
+        case Row.NegativeIngredientDetectionsPreference:
+            return TranslatableStrings.NegativeIngredientDetectionsPreference
         default:
             break
         }

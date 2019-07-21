@@ -31,21 +31,41 @@ class ApplicationPreferencesTableViewController: UITableViewController {
             }
         }
     }
-    @IBOutlet weak var allowContinuousScanLabel: UILabel! {
+    
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
+    }
+    
+    // MARK: - Continuous Scan Preference
+    
+    // When scanning a product the application either switched to the product details or allows to scan the next product.
+    
+    @IBOutlet weak var continuousScanSegmentedControl: UISegmentedControl! {
         didSet {
-            allowContinuousScanLabel?.text = TranslatableStrings.AllowContinuousScan
+            continuousScanSegmentedControl.setTitle(TranslatableStrings.ContinuousScanDoNotAllow, forSegmentAt: 0)
+            continuousScanSegmentedControl.setTitle(TranslatableStrings.ContinuousScanAllow, forSegmentAt: 1)
+            if let validAllowContinuousScan = ContinuousScanDefaults.manager.allowContinuousScan {
+                continuousScanSegmentedControl?.selectedSegmentIndex = validAllowContinuousScan ? 1 : 0
+            } else {
+                // use do not show as a default
+                ContinuousScanDefaults.manager.set(true)
+                continuousScanSegmentedControl?.selectedSegmentIndex = 1
+            }
         }
     }
     
-    @IBOutlet weak var allowContinuousScanSwitch: UISwitch! {
-        didSet {
-            allowContinuousScanSwitch.isOn = ContinuousScanDefaults.manager.allowContinuousScan ?? true
+    @IBAction func continuousScanSegmentedControlTapped(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            ContinuousScanDefaults.manager.set(false)
+        case 1:
+            ContinuousScanDefaults.manager.set(true)
+        default:
+            break
         }
     }
     
-    @IBAction func allowContinuousScanSwitchChanged(_ sender: UISwitch) {
-        ContinuousScanDefaults.manager.set(allowContinuousScanSwitch.isOn)
-    }
+    // MARK: - Clear History Preference
     
     @IBOutlet weak var clearHistoryButton: UIButton! {
         didSet {
@@ -61,9 +81,7 @@ class ApplicationPreferencesTableViewController: UITableViewController {
         enableClearHistoryButton()
     }
     
-    private var currentProductType: ProductType {
-        return Preferences.manager.showProductType
-    }
+    // MARK: - Default Product Type Preference
     
     @IBOutlet weak var productTypeSegmentedControl: UISegmentedControl! {
         didSet {
@@ -101,6 +119,74 @@ class ApplicationPreferencesTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - View Toggle Mode
+    
+    // The user can toggle the view on several places:
+    // - Cycle through product languages
+    // - Switch between salt and sodium
+    // - Switch between Joule and kcal
+    // - Switch between edited and original
+    // - Switch between UK nutritional score and France nutritional score
+    // This setting allows the user to select between a double tap or a button for changing the view mode.
+    
+    @IBOutlet weak var viewToggleModeSegmentedControl: UISegmentedControl! {
+        didSet {
+            viewToggleModeSegmentedControl.setTitle(TranslatableStrings.ViewToggleModeButton, forSegmentAt: 1)
+            viewToggleModeSegmentedControl.setTitle(TranslatableStrings.ViewToggleModeDoubletap, forSegmentAt: 0)
+            if let validButtonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap {
+                viewToggleModeSegmentedControl?.selectedSegmentIndex = validButtonNotDoubleTap ? 1 : 0
+            } else {
+                ViewToggleModeDefaults.manager.set(ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault)
+                viewToggleModeSegmentedControl?.selectedSegmentIndex = ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault ? 1 : 0
+            }        }
+    }
+    
+    @IBAction func viewToggleModeSegmentedControlTapped(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            ViewToggleModeDefaults.manager.set(false)
+        case 1:
+            ViewToggleModeDefaults.manager.set(true)
+        default:
+            break
+        }
+    }
+    
+    // MARK: - Tag Entry Language
+
+    // The user can enter tags for new products. If the user does not specify the language of the tag by prefacing the tag with a language code (fr: or nl:), then the system must make an assumption for the default. This defauly can be one of two languages:
+    // - system language
+    // - (main) product language
+    
+    @IBOutlet weak var tagEntryLanguageSegmentedControl: UISegmentedControl! {
+        didSet {
+            tagEntryLanguageSegmentedControl.setTitle(TranslatableStrings.TagEntryLanguageSystem, forSegmentAt: 0)
+            tagEntryLanguageSegmentedControl.setTitle(TranslatableStrings.TagEntryLanguageProduct, forSegmentAt: 1)
+            if let validTagEntryLanguageProductNotSystem = TagEntryLanguageDefaults.manager.productLanguageNotSystemLanguage {
+                tagEntryLanguageSegmentedControl?.selectedSegmentIndex = validTagEntryLanguageProductNotSystem ? 1 : 0
+            } else {
+                // use do not show as a default
+                let tagEntryLanguageProductNotSystemDefault = true
+                TagEntryLanguageDefaults.manager.set(tagEntryLanguageProductNotSystemDefault)
+                tagEntryLanguageSegmentedControl?.selectedSegmentIndex = tagEntryLanguageProductNotSystemDefault ? 1 : 0
+            }
+        }
+    }
+    
+    @IBAction func tagEntryLanguageSegmentedControlTapped(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+           TagEntryLanguageDefaults.manager.set(false)
+        case 1:
+            TagEntryLanguageDefaults.manager.set(true)
+        default:
+            break
+        }
+    }
+    
+    
+    // MARK: - App Version and build
+    
     @IBOutlet weak var appVersionAndBuildLabel: UILabel! {
         didSet {
             var label = ""
@@ -123,6 +209,14 @@ class ApplicationPreferencesTableViewController: UITableViewController {
     
     // MARK: - Table view data source
 
+    private struct Row {
+        static let ContinuousScan = 0
+        static let DefaultProductType = 1
+        static let ViewToggleMode = 2
+        static let TagEntryLanguage = 3
+        static let ClearHistory = 4
+        static let ApplicationVersion = 5
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
@@ -133,11 +227,17 @@ class ApplicationPreferencesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0:
-            return TranslatableStrings.ProductTypePreferences
-        case 1:
+        case Row.ContinuousScan:
+            return TranslatableStrings.ContinuousScanPreference
+        case Row.DefaultProductType:
+            return TranslatableStrings.ProductTypePreference
+        case Row.ViewToggleMode:
+            return TranslatableStrings.ViewToggleModePreference
+        case Row.TagEntryLanguage:
+            return TranslatableStrings.TagEntryLanguagePreference
+        case Row.ClearHistory:
             return TranslatableStrings.ClearHistory
-        case 2:
+        case Row.ApplicationVersion:
             return TranslatableStrings.AppVersionAndBuild
         default:
             return nil
