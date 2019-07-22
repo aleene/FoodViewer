@@ -61,6 +61,12 @@ class LanguageHeaderView: UITableViewHeaderFooterView {
         }
     }
 
+    var buttonNotDoubleTap: Bool? = nil {
+        didSet {
+            setButtonOrDoubletap(buttonNotDoubleTap)
+        }
+    }
+    
     var buttonIsEnabled = false {
         didSet {
             changeLanguageButton.isEnabled = buttonIsEnabled
@@ -77,4 +83,23 @@ class LanguageHeaderView: UITableViewHeaderFooterView {
         changeLanguageButton?.setTitle(buttonText, for: .normal)
         changeLanguageButton?.sizeToFit()
     }
+    
+    @objc func changeView() {
+        delegate?.changeViewModeButtonTapped(changeViewModeButton, in: section)
+    }
+    
+    private func setButtonOrDoubletap(_ button:Bool?) {
+        guard let validButton = button else { return }
+        if validButton {
+            self.changeViewModeButton.isHidden = !validButton
+        } else {
+            let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(changeView))
+            doubleTapGestureRecognizer.numberOfTapsRequired = 2
+            doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+            doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+            doubleTapGestureRecognizer.cancelsTouchesInView = false
+            self.addGestureRecognizer(doubleTapGestureRecognizer)
+        }
+    }
+    
 }
