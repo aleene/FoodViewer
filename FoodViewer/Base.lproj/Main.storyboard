@@ -4687,7 +4687,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kIa-1N-FJx">
-                                <rect key="frame" x="28" y="28" width="386" height="30"/>
+                                <rect key="frame" x="20" y="28" width="374" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -4816,12 +4816,12 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="kIa-1N-FJx" secondAttribute="trailing" id="0tV-cA-J1t"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kIa-1N-FJx" secondAttribute="trailing" id="0tV-cA-J1t"/>
                             <constraint firstItem="t6x-wi-g5S" firstAttribute="leading" secondItem="7Zn-aO-uRv" secondAttribute="leading" id="2fA-bq-nHB"/>
                             <constraint firstItem="2dk-pP-RcU" firstAttribute="top" secondItem="t6x-wi-g5S" secondAttribute="bottom" id="6xY-r8-AGn"/>
-                            <constraint firstItem="kIa-1N-FJx" firstAttribute="leading" secondItem="7Zn-aO-uRv" secondAttribute="leadingMargin" constant="8" id="95w-ai-fYc"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="kIa-1N-FJx" secondAttribute="leading" id="95w-ai-fYc"/>
                             <constraint firstAttribute="trailing" secondItem="t6x-wi-g5S" secondAttribute="trailing" id="EIC-ea-nBb"/>
-                            <constraint firstItem="kIa-1N-FJx" firstAttribute="top" secondItem="3jg-Es-tfQ" secondAttribute="bottom" constant="8" id="jnd-Bg-jOC"/>
+                            <constraint firstItem="3jg-Es-tfQ" firstAttribute="bottom" secondItem="kIa-1N-FJx" secondAttribute="top" constant="-8" id="jnd-Bg-jOC"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Hur-p7-AI0" appends="YES" id="pM6-JP-ZV3"/>
@@ -5467,11 +5467,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="297" height="22"/>
+                                            <rect key="frame" x="20" y="11" width="279" height="22"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="333" y="8" width="61" height="29"/>
+                                            <rect key="frame" x="315" y="8" width="79" height="29"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>
