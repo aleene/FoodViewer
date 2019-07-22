@@ -308,7 +308,7 @@ struct TranslatableStrings {
     static let PlaceholderProductNameSearch = NSLocalizedString("Search in name, generic name, label, brand.", comment: "String show to explain the purpose of a search field in a tableview cell")
     static let PlaceholderProductName = NSLocalizedString("Enter the name of the product", comment: "Placeholder text of a textView for the product name.")
     static let PlaceholderIngredients = NSLocalizedString("Enter the ingredients of the product", comment: "Placeholder text of a textView for the ingredients.")
-    static let PointCamera = NSLocalizedString("Point to a barcode to scan", comment: "Text of a label, which explains the user to point the camera of his device to a barcode to start working.")
+    static let PointCamera = NSLocalizedString("Point to a barcode to scan", comment: "Text of a label, which explains the user to point the camera of his device to a barcode to start working (do not exceed 30 letters).")
     static let Popularity = NSLocalizedString("Popularity", comment: "String in picker, which lets the user select the search result order. Order on the popularity.")
     static let PortionSize = NSLocalizedString("Portion size", comment: "Tableview header section for the size of a portion")
     static let PortionSizeEdited = NSLocalizedString("Portion size (edited)", comment: "Tableview header section for the edited size of a portion")
