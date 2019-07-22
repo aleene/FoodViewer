@@ -29,13 +29,6 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
-    private var buttonNotDoubleTap: Bool {
-        let x =  ViewToggleModeDefaults.manager.buttonNotDoubleTap
-        let y =  ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
-
-        return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
-    }
-    
     fileprivate var tableStructure: [SectionType] = []
     
     fileprivate enum SectionType {
@@ -390,11 +383,13 @@ class IdentificationTableViewController: UITableViewController {
                     cell.editMode = productVersion.isRemote ? false : true
                 }
             }
+
             cell.name = editMode ? TranslatableStrings.PlaceholderProductName : nil
             cell.nameTextView.textColor = .gray
             if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
                 cell.isMultilingual = validNumberOfProductLanguages > 1 ? true : false
             }
+            cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
             switch nameToDisplay {
             case .available(let array):
                 if !array.isEmpty && !array.first!.isEmpty {
@@ -431,6 +426,7 @@ class IdentificationTableViewController: UITableViewController {
             if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
                 cell.isMultilingual = validNumberOfProductLanguages > 1 ? true : false
             }
+            cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
             return cell
 
         case .languages:
@@ -676,7 +672,11 @@ class IdentificationTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let currentProductSection = tableStructure[section]
-       
+        
+        var buttonNotDoubleTap: Bool {
+            return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
+        }
+
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
         headerView.section = section
         headerView.delegate = self
@@ -684,7 +684,6 @@ class IdentificationTableViewController: UITableViewController {
         headerView.buttonNotDoubleTap = nil
 
         headerView.changeViewModeButton.isHidden = true
-        setSupport(on: headerView, forDoubleTap: false)
         var header = tableStructure[section].header
         // The headers with a language
         switch currentProductSection {

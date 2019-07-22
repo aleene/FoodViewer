@@ -17,60 +17,6 @@ protocol ProductNameCellDelegate: class {
 
 class ProductNameTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var nameTextView: UITextView! {
-        didSet {
-            setTextViewStyle()
-        }
-    }
-    
-    @IBOutlet weak var clearTextViewButton: UIButton! {
-        didSet {
-            setTextViewClearButton()
-        }
-    }
-    @IBAction func clearTextViewButtonTapped(_ sender: UIButton) {
-        name = ""
-    }
-    
-    @IBOutlet weak var toggleViewModeButton: UIButton! {
-        didSet {
-            toggleViewModeButton.isHidden = true
-        }
-    }
-
-    @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
-        delegate?.productNameTableViewCell(self, receivedTapOn: toggleViewModeButton)
-    }
-    
-    private func setTextViewStyle() {
-        nameTextView.layer.borderWidth = 0.5
-        nameTextView?.delegate = delegate as? UITextViewDelegate
-        nameTextView?.tag = tag
-        nameTextView?.isEditable = editMode
-        nameTextView?.isScrollEnabled = editMode
-        nameTextView.backgroundColor = editMode ? UIColor.groupTableViewBackground : UIColor.white
-        
-        if editMode {
-            nameTextView?.backgroundColor = UIColor.groupTableViewBackground
-            nameTextView?.layer.cornerRadius = 5
-            nameTextView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
-            nameTextView?.clipsToBounds = true
-            toggleViewModeButton.isHidden = true
-            // nameTextField.removeGestureRecognizer(tapGestureRecognizer)
-        } else {
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
-            tapGestureRecognizer.numberOfTapsRequired = 2
-            nameTextView?.addGestureRecognizer(tapGestureRecognizer)
-            nameTextView?.layer.borderColor = UIColor.white.cgColor
-            toggleViewModeButton?.isHidden = !isMultilingual
-        }
-        print ("ProductNameTableViewCell: setTextView", self.frame)
-        //if nameTextView?.text != nil && !nameTextView!.text!.isEmpty {
-        //    nameTextView?.sizeToFit()
-        //}
-
-    }
-    
     var name: String? = nil {
         didSet {
             setName()
@@ -97,6 +43,64 @@ class ProductNameTableViewCell: UITableViewCell {
         }
     }
     
+    var buttonNotDoubleTap: Bool = true {
+        didSet {
+            setButtonOrDoubletap(buttonNotDoubleTap)
+        }
+    }
+    
+    @IBOutlet weak var nameTextView: UITextView! {
+        didSet {
+            setTextViewStyle()
+        }
+    }
+    
+    @IBOutlet weak var clearTextViewButton: UIButton! {
+        didSet {
+            setTextViewClearButton()
+        }
+    }
+    
+    @IBAction func clearTextViewButtonTapped(_ sender: UIButton) {
+        name = ""
+    }
+    
+    @IBOutlet weak var toggleViewModeButton: UIButton! {
+        didSet {
+            toggleViewModeButton?.isHidden = buttonNotDoubleTap
+        }
+    }
+
+    @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
+        delegate?.productNameTableViewCell(self, receivedTapOn: toggleViewModeButton)
+    }
+    
+    private func setTextViewStyle() {
+        nameTextView.layer.borderWidth = 0.5
+        nameTextView?.delegate = delegate as? UITextViewDelegate
+        nameTextView?.tag = tag
+        nameTextView?.isEditable = editMode
+        nameTextView?.isScrollEnabled = editMode
+        nameTextView.backgroundColor = editMode ? UIColor.groupTableViewBackground : UIColor.white
+        
+        if editMode {
+            nameTextView?.backgroundColor = UIColor.groupTableViewBackground
+            nameTextView?.layer.cornerRadius = 5
+            nameTextView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+            nameTextView?.clipsToBounds = true
+            toggleViewModeButton?.isHidden = true
+            // nameTextField.removeGestureRecognizer(tapGestureRecognizer)
+        } else {
+            setButtonOrDoubletap(buttonNotDoubleTap)
+            nameTextView?.layer.borderColor = UIColor.white.cgColor
+            toggleViewModeButton?.isHidden = !isMultilingual
+        }
+        //print ("ProductNameTableViewCell: setTextView", self.frame)
+        //if nameTextView?.text != nil && !nameTextView!.text!.isEmpty {
+        //    nameTextView?.sizeToFit()
+        //}
+    }
+    
     private func setTextViewClearButton() {
         clearTextViewButton?.isHidden = !editMode
     }
@@ -114,4 +118,18 @@ class ProductNameTableViewCell: UITableViewCell {
     @objc func nameTapped() {
         delegate?.productNameTableViewCell(self, receivedDoubleTap: nameTextView)
     }
+    
+    private func setButtonOrDoubletap(_ button:Bool?) {
+        guard let validButton = button else { return }
+        if validButton {
+            toggleViewModeButton?.isHidden = !validButton
+        } else {
+            let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
+            doubleTapGestureRecognizer.numberOfTapsRequired = 2
+            doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+            doubleTapGestureRecognizer.cancelsTouchesInView = false
+            nameTextView?.addGestureRecognizer(doubleTapGestureRecognizer)
+        }
+    }
+
 }

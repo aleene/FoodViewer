@@ -564,12 +564,16 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         
         let currentProductSection = tableStructure[section]
 
+        var buttonNotDoubleTap: Bool {
+            return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
+        }
+
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
         
         headerView.section = section
         headerView.delegate = self
         headerView.changeViewModeButton.isHidden = true
-        setSupport(on: headerView, forDoubleTap: false)
+        headerView.buttonNotDoubleTap = nil
         var header = tableStructure[section].header
 
         switch currentProductSection {
@@ -578,15 +582,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             switch currentProductSection {
             case .image:
                 if localImageToShow != nil {
-                    headerView.changeViewModeButton.isHidden = false
-                    setSupport(on: headerView, forDoubleTap: true)
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
                     header = productVersion.isRemote ? TranslatableStrings.IngredientsImageOriginal : TranslatableStrings.IngredientsImageEdited
                 }
             case .ingredients:
                 guard let validLanguageCode = displayLanguageCode else { break }
                 if productPair?.localProduct?.ingredientsLanguage[validLanguageCode] != nil {
-                    headerView.changeViewModeButton.isHidden = false
-                    setSupport(on: headerView, forDoubleTap: true)
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
                     header = productVersion.isRemote ? TranslatableStrings.IngredientsOriginal : TranslatableStrings.IngredientsEdited
                 }
             default:
@@ -606,8 +608,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     if let oldTags = productPair?.localProduct?.labelsOriginal {
                         switch oldTags {
                         case .available:
-                            headerView.changeViewModeButton.isHidden = false
-                            setSupport(on: headerView, forDoubleTap: true)
+                            headerView.buttonNotDoubleTap = buttonNotDoubleTap
                             header = productVersion.isRemote ? TranslatableStrings.LabelsOriginal : TranslatableStrings.LabelsEdited
                         default:
                             break
@@ -617,8 +618,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     if let oldTags = productPair?.localProduct?.tracesOriginal {
                         switch oldTags {
                         case .available:
-                            headerView.changeViewModeButton.isHidden = false
-                            setSupport(on: headerView, forDoubleTap: true)
+                            headerView.buttonNotDoubleTap = buttonNotDoubleTap
                             header = productVersion.isRemote ? TranslatableStrings.TracesOriginal : TranslatableStrings.TracesEdited
                         default:
                             break
@@ -633,18 +633,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         default:
             return nil
         }
-    }
-    
-    private func setSupport(on view:UIView, forDoubleTap support:Bool) {
-        // Add doubletapping to the TableView. Any double tap on headers is now received,
-        // and used for changing the productVersion (local and remote)
-        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-        // show the double tap possibility only if there is a local product
-        doubleTapGestureRecognizer.cancelsTouchesInView = !support
-        view.addGestureRecognizer(doubleTapGestureRecognizer)
     }
 
     private func addEdited(to string:String) -> String {

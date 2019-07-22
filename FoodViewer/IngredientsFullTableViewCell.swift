@@ -67,16 +67,13 @@ class IngredientsFullTableViewCell: UITableViewCell {
             textView?.layer.cornerRadius = 5
             textView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             textView?.clipsToBounds = true
-            textView.isScrollEnabled = true
+            textView?.isScrollEnabled = true
             toggleViewModeButton?.isHidden = true
         } else {
-            // Double tapping allows to change the language of the ingredients
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(IngredientsFullTableViewCell.ingredientsTapped))
-            tapGestureRecognizer.numberOfTapsRequired = 2
-            textView?.addGestureRecognizer(tapGestureRecognizer)
+            setButtonOrDoubletap(buttonNotDoubleTap)
             textView?.backgroundColor = UIColor.white
             textView?.layer.borderColor = UIColor.white.cgColor
-            textView.isScrollEnabled = false
+            textView?.isScrollEnabled = false
             toggleViewModeButton?.isHidden = !isMultilingual
         }
         
@@ -128,6 +125,9 @@ class IngredientsFullTableViewCell: UITableViewCell {
             toggleViewModeButton?.isHidden = !isMultilingual
         }
     }
+    
+    var buttonNotDoubleTap: Bool = true
+
     var ingredients: String? = nil {
         didSet {
             if let text = ingredients {
@@ -180,6 +180,19 @@ class IngredientsFullTableViewCell: UITableViewCell {
         delegate?.ingredientsFullTableViewCell(self, receivedActionOn: textView)
     }
 
+    private func setButtonOrDoubletap(_ button:Bool?) {
+        guard let validButton = button else { return }
+        if validButton {
+            toggleViewModeButton?.isHidden = !validButton
+        } else {
+            let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
+            doubleTapGestureRecognizer.numberOfTapsRequired = 2
+            doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+            doubleTapGestureRecognizer.cancelsTouchesInView = false
+            textView?.addGestureRecognizer(doubleTapGestureRecognizer)
+        }
+    }
+    
 }
 
 extension String {

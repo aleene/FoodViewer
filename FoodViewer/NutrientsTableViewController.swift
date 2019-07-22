@@ -531,20 +531,22 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var header = tableStructure[section].header
+        var buttonNotDoubleTap: Bool {
+            return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
+        }
         let currentProductSection = tableStructure[section]
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
         headerView.section = section
         headerView.delegate = self
         headerView.changeViewModeButton.isHidden = true
         headerView.changeLanguageButton.isHidden = true
-        setSupport(on: headerView, forDoubleTap: false)
+        headerView.buttonNotDoubleTap = nil
 
         switch currentProductSection {
         case .image :
             headerView.changeLanguageButton.isHidden = false
             if localImageToShow != nil {
-                headerView.changeViewModeButton.isHidden = false
-                setSupport(on: headerView, forDoubleTap: true)
+                headerView.buttonNotDoubleTap = buttonNotDoubleTap
                 header = productVersion.isRemote ? TranslatableStrings.NutritionFactsImageOriginal : TranslatableStrings.NutritionFactsImageEdited
             }
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
@@ -562,8 +564,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             case .new:
                 if let facts = productPair?.localProduct?.nutritionFactsDict,
                     !facts.isEmpty {
-                    headerView.changeViewModeButton.isHidden = false
-                    setSupport(on: headerView, forDoubleTap: true)
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
                     header = productVersion.isRemote ? TranslatableStrings.NutritionFactsOriginal : TranslatableStrings.NutritionFactsEdited
                 }
             }
@@ -575,8 +576,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case .servingSize:
             headerView.changeLanguageButton.isHidden = true
             if productPair?.localProduct?.servingSize != nil {
-                headerView.changeViewModeButton.isHidden = false
-                setSupport(on: headerView, forDoubleTap: true)
+                headerView.buttonNotDoubleTap = buttonNotDoubleTap
                 header = productVersion.isRemote ? TranslatableStrings.PortionSizeOriginal : TranslatableStrings.PortionSizeEdited
             }
             headerView.title = header
@@ -585,8 +585,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case .perUnit:
             headerView.changeLanguageButton.isHidden = true
             if productPair?.localProduct?.nutritionFactsIndicationUnit != nil {
-                headerView.changeViewModeButton.isHidden = false
-                setSupport(on: headerView, forDoubleTap: true)
+                headerView.buttonNotDoubleTap = buttonNotDoubleTap
                 header = productVersion.isRemote ? TranslatableStrings.PortionSizeOriginal : TranslatableStrings.PortionSizeEdited
             }
             headerView.title = header
@@ -595,8 +594,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case .noNutrimentsAvailable:
             headerView.changeLanguageButton.isHidden = true
             if productPair?.localProduct?.nutrimentFactsAvailability != nil {
-                headerView.changeViewModeButton.isHidden = false
-                setSupport(on: headerView, forDoubleTap: true)
+                headerView.buttonNotDoubleTap = buttonNotDoubleTap
                 header = productVersion.isRemote ? TranslatableStrings.NoNutrientsOriginal : TranslatableStrings.NoNutrientsEdited
             }
             headerView.title = header

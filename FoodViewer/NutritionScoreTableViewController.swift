@@ -220,13 +220,15 @@ class NutritionScoreTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
+        var buttonNotDoubleTap: Bool {
+            return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
+        }
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
         
         headerView.section = section
         headerView.delegate = self
         headerView.changeViewModeButton.isHidden = false
-        setSupport(on: headerView, forDoubleTap: true)
+        headerView.buttonNotDoubleTap = buttonNotDoubleTap
         var header = ""
         switch showNutritionalScore {
         case .uk:
@@ -246,18 +248,6 @@ class NutritionScoreTableViewController: UITableViewController {
         }
         headerView.title = header
         return headerView
-    }
-
-    private func setSupport(on view:UIView, forDoubleTap support:Bool) {
-        // Add doubletapping to the TableView. Any double tap on headers is now received,
-        // and used for changing the productVersion (local and remote)
-        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-        // show the double tap possibility only if there is a local product
-        doubleTapGestureRecognizer.cancelsTouchesInView = !support
-        view.addGestureRecognizer(doubleTapGestureRecognizer)
     }
 
     func refreshProduct() {

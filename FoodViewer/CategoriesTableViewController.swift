@@ -167,12 +167,14 @@ class CategoriesTableViewController: UITableViewController {
         var (currentProductSection, _, header) = tableStructureForProduct[section]
         
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
-        
+        var buttonNotDoubleTap: Bool {
+            return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
+        }
         headerView.section = section
         headerView.delegate = self
         headerView.changeViewModeButton.isHidden = true
         headerView.changeLanguageButton.isHidden = true
-        setSupport(on: headerView, forDoubleTap: false)
+        headerView.buttonNotDoubleTap = nil
 
         switch currentProductSection {
         case .categories:
@@ -180,8 +182,7 @@ class CategoriesTableViewController: UITableViewController {
                 if let oldTags = productPair?.localProduct?.categoriesOriginal {
                     switch oldTags {
                     case .available:
-                        headerView.changeViewModeButton.isHidden = false
-                        setSupport(on: headerView, forDoubleTap: true)
+                        headerView.buttonNotDoubleTap = buttonNotDoubleTap
                         header = productVersion.isRemote ? TranslatableStrings.CategoriesOriginal : TranslatableStrings.CategoriesEdited
                     default:
                         break
@@ -190,18 +191,6 @@ class CategoriesTableViewController: UITableViewController {
         }
         headerView.title = header
         return headerView
-    }
-    
-    private func setSupport(on view:UIView, forDoubleTap support:Bool) {
-        // Add doubletapping to the TableView. Any double tap on headers is now received,
-        // and used for changing the productVersion (local and remote)
-        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-        // show the double tap possibility only if there is a local product
-        doubleTapGestureRecognizer.cancelsTouchesInView = !support
-        view.addGestureRecognizer(doubleTapGestureRecognizer)
     }
 
     struct TableStructure {

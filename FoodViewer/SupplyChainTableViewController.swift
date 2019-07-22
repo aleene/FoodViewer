@@ -725,21 +725,23 @@ class SupplyChainTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var (_, _, header) = tableStructureForProduct[section]
+        var buttonNotDoubleTap: Bool {
+            return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
+        }
         let (currentProductSection, _, _) = tableStructureForProduct[section]
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
         headerView.section = section
         headerView.delegate = self
         headerView.changeViewModeButton.isHidden = true
         headerView.changeLanguageButton.isHidden = true
-        setSupport(on: headerView, forDoubleTap: false)
+        headerView.buttonNotDoubleTap = nil
 
         switch currentProductSection {
         case .ingredientOrigin:
             if let oldTags = productPair?.localProduct?.originsOriginal {
                 switch oldTags {
                 case .available:
-                    headerView.changeViewModeButton.isHidden = false
-                    setSupport(on: headerView, forDoubleTap: true)
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
                     header = productVersion.isRemote ? TranslatableStrings.IngredientOriginsOriginal : TranslatableStrings.IngredientOriginsEdited
                 default:
                     break
@@ -750,8 +752,7 @@ class SupplyChainTableViewController: UITableViewController {
             if let oldTags = productPair?.localProduct?.manufacturingPlacesOriginal {
                 switch oldTags {
                 case .available:
-                    headerView.changeViewModeButton.isHidden = false
-                    setSupport(on: headerView, forDoubleTap: true)
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
                     header = productVersion.isRemote ? TranslatableStrings.ProducerOriginal : TranslatableStrings.ProducerEdited
                 default:
                     break
@@ -762,8 +763,7 @@ class SupplyChainTableViewController: UITableViewController {
             if let oldTags = productPair?.localProduct?.storesOriginal {
                 switch oldTags {
                 case .available:
-                    headerView.changeViewModeButton.isHidden = false
-                       setSupport(on: headerView, forDoubleTap: true)
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
                     header = productVersion.isRemote ? TranslatableStrings.StoresOriginal: TranslatableStrings.StoresEdited
                 default:
                     break
@@ -774,8 +774,7 @@ class SupplyChainTableViewController: UITableViewController {
             if let oldTags = productPair?.localProduct?.purchasePlacesOriginal {
                 switch oldTags {
                 case .available:
-                    headerView.changeViewModeButton.isHidden = false
-                    setSupport(on: headerView, forDoubleTap: true)
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
                     header = productVersion.isRemote ? TranslatableStrings.PurchaseAddressOriginal : TranslatableStrings.PurchaseAddressEdited
                 default:
                     break
@@ -786,8 +785,7 @@ class SupplyChainTableViewController: UITableViewController {
             if let oldTags = productPair?.localProduct?.countriesOriginal {
                 switch oldTags {
                 case .available:
-                    headerView.changeViewModeButton.isHidden = false
-                    setSupport(on: headerView, forDoubleTap: true)
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
                     header = productVersion.isRemote ? TranslatableStrings.CountriesOriginal : TranslatableStrings.CountriesEdited
                 default:
                     break
@@ -798,8 +796,7 @@ class SupplyChainTableViewController: UITableViewController {
             if let oldTags = productPair?.localProduct?.embCodesOriginal {
                 switch oldTags {
                 case .available:
-                    headerView.changeViewModeButton.isHidden = false
-                    setSupport(on: headerView, forDoubleTap: true)
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
                     header = productVersion.isRemote ? TranslatableStrings.ProductCodesOriginal : TranslatableStrings.ProductCodesEdited
                 default:
                     break
@@ -807,8 +804,7 @@ class SupplyChainTableViewController: UITableViewController {
             }
         case .sites:
             if productPair?.localProduct?.links != nil {
-                headerView.changeViewModeButton.isHidden = false
-                setSupport(on: headerView, forDoubleTap: true)
+                headerView.buttonNotDoubleTap = buttonNotDoubleTap
                 header = productVersion.isRemote ? TranslatableStrings.ProductWebSitesEdited : TranslatableStrings.ProductWebSitesOriginal
             }
         default:
@@ -816,18 +812,6 @@ class SupplyChainTableViewController: UITableViewController {
         }
         headerView.title = header
         return headerView
-    }
-    
-    private func setSupport(on view:UIView, forDoubleTap support:Bool) {
-        // Add doubletapping to the TableView. Any double tap on headers is now received,
-        // and used for changing the productVersion (local and remote)
-        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-        // show the double tap possibility only if there is a local product
-        doubleTapGestureRecognizer.cancelsTouchesInView = !support
-        view.addGestureRecognizer(doubleTapGestureRecognizer)
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
