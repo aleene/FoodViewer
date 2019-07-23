@@ -1363,7 +1363,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oh0-x3-cKf">
-                                            <rect key="frame" x="28" y="11" width="144" height="22"/>
+                                            <rect key="frame" x="16" y="11" width="156" height="22"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1380,7 +1380,7 @@
                                         <constraint firstItem="GOD-hQ-6vh" firstAttribute="top" secondItem="NtY-fc-Iv3" secondAttribute="topMargin" id="edu-uh-mMf"/>
                                         <constraint firstItem="GOD-hQ-6vh" firstAttribute="width" secondItem="NtY-fc-Iv3" secondAttribute="width" multiplier="0.5" id="g7V-FH-mf4"/>
                                         <constraint firstItem="GOD-hQ-6vh" firstAttribute="leading" secondItem="Oh0-x3-cKf" secondAttribute="trailing" constant="8" id="h9n-Gs-CoB"/>
-                                        <constraint firstItem="Oh0-x3-cKf" firstAttribute="leading" secondItem="NtY-fc-Iv3" secondAttribute="leadingMargin" constant="8" id="q4R-tT-DV7"/>
+                                        <constraint firstItem="Oh0-x3-cKf" firstAttribute="leading" secondItem="NtY-fc-Iv3" secondAttribute="leadingMargin" constant="-4" id="q4R-tT-DV7"/>
                                         <constraint firstItem="Oh0-x3-cKf" firstAttribute="top" secondItem="NtY-fc-Iv3" secondAttribute="topMargin" id="xkI-Ix-vld"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -1477,7 +1477,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAZ-2N-XHC" userLabel="Ingredients">
-                                            <rect key="frame" x="28" y="11" width="312" height="32.666666666666664"/>
+                                            <rect key="frame" x="16" y="11" width="324" height="32.666666666666664"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1508,7 +1508,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yhw-Cw-Rvb" userLabel="Allergens">
-                                            <rect key="frame" x="28" y="51.666666666666671" width="312" height="32.666666666666671"/>
+                                            <rect key="frame" x="16" y="51.666666666666671" width="324" height="32.666666666666671"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1539,7 +1539,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kg-eR-3ib" userLabel="Traces">
-                                            <rect key="frame" x="28" y="92.333333333333329" width="312" height="32.666666666666671"/>
+                                            <rect key="frame" x="16" y="92.333333333333329" width="324" height="32.666666666666671"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1571,16 +1571,16 @@
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="9kg-eR-3ib" firstAttribute="leading" secondItem="nyS-cM-9ZG" secondAttribute="leadingMargin" constant="8" id="4rI-EN-77q"/>
+                                        <constraint firstItem="9kg-eR-3ib" firstAttribute="leading" secondItem="nyS-cM-9ZG" secondAttribute="leadingMargin" constant="-4" id="4rI-EN-77q"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="9kg-eR-3ib" secondAttribute="bottom" id="5cT-RB-NK6"/>
                                         <constraint firstItem="yhw-Cw-Rvb" firstAttribute="centerY" secondItem="HcW-SF-2Os" secondAttribute="centerY" id="D1p-VC-txw"/>
-                                        <constraint firstItem="yhw-Cw-Rvb" firstAttribute="leading" secondItem="nyS-cM-9ZG" secondAttribute="leadingMargin" constant="8" id="DrR-Oj-6Rw"/>
+                                        <constraint firstItem="yhw-Cw-Rvb" firstAttribute="leading" secondItem="nyS-cM-9ZG" secondAttribute="leadingMargin" constant="-4" id="DrR-Oj-6Rw"/>
                                         <constraint firstItem="VAZ-2N-XHC" firstAttribute="height" secondItem="9kg-eR-3ib" secondAttribute="height" id="HnB-RE-429"/>
                                         <constraint firstItem="VAZ-2N-XHC" firstAttribute="height" secondItem="yhw-Cw-Rvb" secondAttribute="height" id="MxL-k6-LsI"/>
                                         <constraint firstItem="9kg-eR-3ib" firstAttribute="top" secondItem="yhw-Cw-Rvb" secondAttribute="bottom" constant="8" id="Qjv-pw-lg0"/>
                                         <constraint firstItem="VAZ-2N-XHC" firstAttribute="top" secondItem="nyS-cM-9ZG" secondAttribute="topMargin" id="Y1O-Tm-1Zt"/>
                                         <constraint firstAttribute="trailing" secondItem="EYG-d7-XDU" secondAttribute="trailing" id="YbE-sL-nKv"/>
-                                        <constraint firstItem="VAZ-2N-XHC" firstAttribute="leading" secondItem="nyS-cM-9ZG" secondAttribute="leadingMargin" constant="8" id="Yip-O7-tI1"/>
+                                        <constraint firstItem="VAZ-2N-XHC" firstAttribute="leading" secondItem="nyS-cM-9ZG" secondAttribute="leadingMargin" constant="-4" id="Yip-O7-tI1"/>
                                         <constraint firstItem="9kg-eR-3ib" firstAttribute="centerY" secondItem="GvE-G7-u4n" secondAttribute="centerY" id="boL-mk-EXl"/>
                                         <constraint firstItem="GvE-G7-u4n" firstAttribute="leading" secondItem="9kg-eR-3ib" secondAttribute="trailing" constant="8" id="d7T-bD-Szl"/>
                                         <constraint firstAttribute="trailing" secondItem="GvE-G7-u4n" secondAttribute="trailing" id="ftK-BA-bQc"/>
@@ -1647,22 +1647,14 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstItem="BkJ-xW-4k1" firstAttribute="bottom" secondItem="C5W-kO-lKm" secondAttribute="bottomMargin" constant="16" id="3hp-lW-11G"/>
                                         <constraint firstItem="BkJ-xW-4k1" firstAttribute="height" secondItem="kBb-1A-e1O" secondAttribute="height" multiplier="0.9" id="Qdq-YX-xMp"/>
                                         <constraint firstItem="BkJ-xW-4k1" firstAttribute="centerY" secondItem="kBb-1A-e1O" secondAttribute="centerY" id="TLW-rg-Qku"/>
                                         <constraint firstItem="BkJ-xW-4k1" firstAttribute="leading" secondItem="kBb-1A-e1O" secondAttribute="trailing" constant="8" id="UDc-N0-cj7"/>
                                         <constraint firstItem="kBb-1A-e1O" firstAttribute="height" secondItem="C5W-kO-lKm" secondAttribute="height" multiplier="0.9" id="UmR-6s-gZj"/>
                                         <constraint firstItem="kBb-1A-e1O" firstAttribute="leading" secondItem="C5W-kO-lKm" secondAttribute="leading" constant="8" id="dco-4J-KTm"/>
-                                        <constraint firstAttribute="topMargin" secondItem="BkJ-xW-4k1" secondAttribute="top" constant="8" id="jv9-jn-dDv"/>
                                         <constraint firstAttribute="trailing" secondItem="BkJ-xW-4k1" secondAttribute="trailing" id="urT-Lw-nFF"/>
                                         <constraint firstItem="kBb-1A-e1O" firstAttribute="centerY" secondItem="C5W-kO-lKm" secondAttribute="centerY" id="zaG-ye-aJi"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="3hp-lW-11G"/>
-                                            <exclude reference="jv9-jn-dDv"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="novaTitleLabel" destination="6UW-OJ-baU" id="LBJ-T4-V0w"/>
