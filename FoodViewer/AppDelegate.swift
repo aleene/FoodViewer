@@ -58,8 +58,11 @@ extension AppDelegate: UISplitViewControllerDelegate {
     
     // MARK: - Split view
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
-        // print("appDelegate", splitViewController.viewControllers, primaryViewController, secondaryViewController)
-        guard secondaryViewController as? ProductPageViewController != nil else { return false }
+        print("appDelegate", splitViewController.viewControllers, primaryViewController, secondaryViewController)
+        guard secondaryViewController as? ProductPageViewController != nil else {
+            // on the iPhone just the allProductsVC is now shown (when false it will continue to the pageViewController).
+            return true
+        }
         return false
     }
     

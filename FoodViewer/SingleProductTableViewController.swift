@@ -85,10 +85,14 @@ class SingleProductTableViewController: UITableViewController {
             switch validFetchResult {
             case .available, .loading:
                 selectedProductPair = validProductPair
-                // tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: true)
-                //productPageViewController?.pageIndex = tableStructure[index].productSection()
-                //selectedRowType = .name
-                showProductPage()
+                // if we are on the iPad we should show the first page of the product
+                // Can we check on regular or compact width? Or if we are in a split view.
+                if let vc = parent?.parent.self as? UISplitViewController {
+                    if vc.viewControllers.count == 2 {
+                        showProductPage()
+                    }
+                }
+                
             default:
                 selectedProductPair = nil
                 tableView.reloadData()
@@ -713,12 +717,10 @@ class SingleProductTableViewController: UITableViewController {
         // Is there a scanned product?
         if let validSelectedProductIndex = products.currentScannedProduct {
             startInterface(at: validSelectedProductIndex)
-            showProductPage()
         // has a selected product been passed in?
         } else if let validProductPair = selectedProductPair,
             let validIndex = products.index(of: validProductPair) {
             startInterface(at: validIndex)
-            showProductPage()
         // just start at the top
         } else if products.count > 0 {
             // If nothing has been selected yet, start with the first product in the list, and on the iPad

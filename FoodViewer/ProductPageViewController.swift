@@ -136,7 +136,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 currentProductPage = .identification
                 
                 refreshPageInterface()
-                title = prefixedTitle
                 currentLanguageCode = validProductPair.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
             }
         }
@@ -211,7 +210,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     private func refreshPageInterface() {
-        
+        title = prefixedTitle
         if let vc = viewController(for: currentProductPage) as? IdentificationTableViewController {
             vc.refreshInterface()
             
@@ -541,15 +540,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
         }
     }
-    
-// MARK: - Product Updated Protocol functions
-
-    // The updated product contains only those fields that have been edited.
-    // Thus one can always revert to the original product
-    // And we know exactly what has changed
-    // The user can undo an edit in progress by stepping back, i.e. selecting another product
-    // First it is checked whether a change to the field has been made
-    
+        
 //
 // MARK: - Authentication
 //

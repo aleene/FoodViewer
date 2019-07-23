@@ -403,6 +403,7 @@ extension AllProductsTableViewController: UIGestureRecognizerDelegate {
 extension AllProductsTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        
     }
     
 }
