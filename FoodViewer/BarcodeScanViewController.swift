@@ -82,6 +82,14 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         self.switchToHistoryTab()
     }
     
+    @IBOutlet weak var instructionView: UIView!
+    
+    @IBOutlet weak var instructionTextView: UITextView! {
+        didSet {
+            instructionTextView.text = TranslatableStrings.ScanInstruction
+        }
+    }
+    
     private var nova: String? = nil {
         didSet {
             if let validNova = nova {
@@ -182,7 +190,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     
     fileprivate var scannedProductPair: ProductPair? = nil {
         didSet {
-            
+            setupViews()
         }
     }
     
@@ -420,12 +428,25 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         }
     }
     
+    private func setupViews() {
+        DispatchQueue.main.async(execute: {
+            if self.scannedProductPair == nil {
+                self.instructionView.isHidden = false
+                self.productView.isHidden = !self.instructionView.isHidden
+            } else {
+                self.instructionView.isHidden = true
+                self.productView.isHidden = !self.instructionView.isHidden
+            }
+        })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupScanning()
         scanBarcodes()
         setupProductType()
+        setupViews()
         
         let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(BarcodeScanViewController.doubleTapOnProductView))
         doubleTapGestureRecognizer.numberOfTapsRequired = 2
@@ -435,6 +456,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         productView.addGestureRecognizer(doubleTapGestureRecognizer)
 
         initializeCustomKeyboard()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -460,7 +482,9 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
 extension BarcodeScanViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-
+        // The user tapped on one of the tabs, so the selected/scanned product will be reset.
+        scannedProductPair = nil
+        products.currentScannedProduct = nil
     }
     
 }

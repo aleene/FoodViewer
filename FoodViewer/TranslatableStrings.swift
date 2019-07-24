@@ -371,6 +371,7 @@ struct TranslatableStrings {
     static let SaltOrSodiumPreference = NSLocalizedString("Default for salt/sodium", comment: "Title of a tableView section, which lets the user select between salt or sodium")
     static let SampleGenericProductName = NSLocalizedString("This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.", comment: "An explanatory text in the common name field.")
     static let SampleProductName = NSLocalizedString("Sample Product for Demonstration, the globally known M&M's", comment: "Product name of the product shown at first start")
+    static let ScanInstruction = NSLocalizedString("Point the camera to the barcode of a product to recognize the product and get the product information.", comment: "Text to show if the user selects the scan tab")
     static let SaturatedFatToFatRatio = NSLocalizedString("Saturated Fat to Total Fat ratio", comment: "Title in cell with the saturated fat to all fat ratio")
     static let SaturatedFatLevel = NSLocalizedString("Saturated Fat level", comment: "Text of a label that will indicate the saturated fat level (low/medium/high) by colour.")
     static let Save = NSLocalizedString("Save", comment: "Title of a button in an alert sheet, which allows the user to save any changes to the local product")

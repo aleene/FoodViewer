@@ -27,11 +27,6 @@ class OFFProducts {
     
     static let manager = OFFProducts()
     
-    //enum ProductsTab {
-    //    case recent
-    //    case search
-    //}
-    
     // The index of the latest product that was added (scanned or typed)
     var currentScannedProduct: Int? = nil
     
@@ -52,67 +47,37 @@ class OFFProducts {
         NotificationCenter.default.removeObserver(self)
     }
 
-    //var list = ProductsTab.recent {
-    //    didSet {
-            // reload if there is a change of tabs
-    //       if list != oldValue {
-     //           setCurrentProductPairs()
-     //       }
-     //   }
-    //}
-
     //  Contains all the fetch results for all product types
     private var allProductPairs: [ProductPair] = []
     
-    // Contains all the search fetch results
-    //private var allSearchPairs: [ProductPair] = []
-    
-    // This list contains the product fetch results for the current product type
-    //TODO: - make this a fixed variable that is changed when something is added to the allProductFetchResultList
     private var productPairList: [ProductPair] = []
     
     private func loadAll() {
-        //switch list {
-        //case .recent:
-            if allProductPairs.isEmpty {
-                let storedList = storedHistory.barcodes(for: currentProductType)
-                // If there is no history, we are in the cold start case
-                if !storedList.isEmpty {
-                    // create all productPairs found in the history
-                    storedList.forEach({
-                        allProductPairs.append( ProductPair( barcodeString: $0, type: currentProductType))
-                    })
-                    // load the most recent stored product
-                    allProductPairs[0].localStatus = .loading( allProductPairs[0].barcodeType.asString )
-                        MostRecentProduct().load() { (product: FoodProduct?) in
-                        if let validProduct = product {
-                            self.allProductPairs[0].localProduct = product
-                            self.allProductPairs[0].barcodeType = BarcodeType.mostRecent(validProduct.barcode.asString, validProduct.type)
-                             self.allProductPairs[0].updateIsAllowed = true
-                        }
+        if allProductPairs.isEmpty {
+            let storedList = storedHistory.barcodes(for: currentProductType)
+            // If there is no history, we are in the cold start case
+            if !storedList.isEmpty {
+                // create all productPairs found in the history
+                storedList.forEach({
+                    allProductPairs.append( ProductPair( barcodeString: $0, type: currentProductType))
+                })
+                // load the most recent stored product
+                allProductPairs[0].localStatus = .loading( allProductPairs[0].barcodeType.asString )
+                MostRecentProduct().load() { (product: FoodProduct?) in
+                    if let validProduct = product {
+                        self.allProductPairs[0].localProduct = product
+                        self.allProductPairs[0].barcodeType = BarcodeType.mostRecent(validProduct.barcode.asString, validProduct.type)
+                        self.allProductPairs[0].updateIsAllowed = true
                     }
-                    loadProductPairRange(around: 0)
-                } else {
-                    // The cold start case when the user has not yet used the app
-                    loadSampleProductPair()
                 }
+                loadProductPairRange(around: 0)
+            } else {
+                // The cold start case when the user has not yet used the app
+                loadSampleProductPair()
             }
+        }
             // define the public set of products
             setCurrentProductPairs()
-            
-        //default:break
-            // Has a search been setup?
-            //if searchQuery != nil {
-            //    startFreshSearch()
-            //} else {
-             //   setCurrentProductPairs()
-             //   if allSearchPairs.count > 0 {
-             //       let userInfo = [Notification.SearchStringKey:"NO SEARCH"]
-              //      NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
-              //  }
-           // }
-            
-        //}
     }
 
     var count: Int {
@@ -125,53 +90,26 @@ class OFFProducts {
 
     private func setCurrentProductPairs() {
         var list: [ProductPair] = []
-        //switch self.list {
-        //case .recent:
-            for productPair in allProductPairs {
-                // TODO: Is this needed? The idea is to only selectd the right productType,
-                // but do I not already know that?
-                switch productPair.remoteStatus {
-                case .available:
-                    if let producttype = productPair.remoteProduct?.type?.rawValue {
-                        if producttype == currentProductType.rawValue {
-                            list.append(productPair)
-                        }
+        for productPair in allProductPairs {
+            // TODO: Is this needed? The idea is to only selectd the right productType,
+            // but do I not already know that?
+            switch productPair.remoteStatus {
+               case .available:
+                if let producttype = productPair.remoteProduct?.type?.rawValue {
+                    if producttype == currentProductType.rawValue {
+                        list.append(productPair)
                     }
-                default:
-                    list.append(productPair)
                 }
+            default:
+                list.append(productPair)
             }
-            // If there is nothing on the list add the sample product
-            if list.isEmpty {
-                //loadSampleProductPair()
-                // TODO: Must be for the type!!!!
-                //list.append(sampleProductPair)
-            }
-            /*
-        case .search:
-            // show the search query as the first product in the search results
-            if let validQuery = searchQuery {
-                let searchProductPair = ProductPair.init(barcodeType: BarcodeType(barcodeString: "Search Template", type: Preferences.manager.showProductType))
-                searchProductPair.searchTemplate = validQuery
-                list.append(searchProductPair)
-            } else {
-                // setup the first product, without a previous search defined
-                // with an empty searchQueryProduct
-                searchQuery = SearchTemplate()
-                if let validSearchQuery = searchQuery {
-                    let searchProductPair = ProductPair.init(barcodeType: BarcodeType(barcodeString: "Empty Search Template", type: Preferences.manager.showProductType))
-                    searchProductPair.searchTemplate = validSearchQuery
-                    list.append(searchProductPair)
-                }
-            }
-            
-            // add the search results
-            for searchPair in allSearchPairs {
-                list.append(searchPair)
-            }
-  */
-        //default:break
-        //}
+        }
+        // If there is nothing on the list add the sample product
+        if list.isEmpty {
+            //loadSampleProductPair()
+            // TODO: Must be for the type!!!!
+            //list.append(sampleProductPair)
+        }
         self.productPairList = list
     }
 
@@ -250,7 +188,6 @@ class OFFProducts {
         // Inform the viewControllers that the product list is larger
         let userInfo = [Notification.BarcodeKey: allProductPairs[0].barcodeType.asString]
         NotificationCenter.default.post(name: .ProductListExtended, object:nil, userInfo: userInfo)
-        
         return 0
     }
     
@@ -260,7 +197,6 @@ class OFFProducts {
             currentScannedProduct = validIndex
             loadProductPair(at: validIndex)
             return productPair(at: validIndex)
-            
         } else {
             let validIndex = createProduct(with: barcodeType)
             // create a new productPair
@@ -332,50 +268,6 @@ class OFFProducts {
         default:
             break
         }
-    }
-  */
-    
-    // This function inserts a new ProductPair in the current list, in the history and as most recent product
-    /*
-    func insertProductPair(_ barcode: BarcodeType?) -> Int? {
-        if let validBarcode = barcode {
-            // is the product already fetched?
-            if let validIndex = productPairIndex(validBarcode) {
-                return validIndex
-            } else {
-                let newProductPair = ProductPair.init(barcodeType: validBarcode)
-                newProductPair.fetch()
-                // add product barcode to history
-                self.allProductPairs.insert(newProductPair, at: 0)
-                self.setCurrentProductPairs()
-                // try to get the product type out the json
-                self.storedHistory.add( (newProductPair.barcodeType.asString, newProductPair.type.rawValue) )
-                // self.loadMainImage(newProduct)
-                self.saveMostRecentProduct(barcode!)
-            }
-        }
-        return nil
-    }
-  */
-
-    /*
-    func search(_ string: String?, in category: SearchComponent) {
-        guard string != nil else { return }
-        let validString = string!.contains(":") ?
-            string!.split(separator:":").map(String.init)[1] : string!
-        list = .search
-        search = (category, validString)
-    }
-  */
-
-    /*
-    func removeProduct(with barcodeType:BarcodeType) {
-        if let validIndex = productPairIndex(barcodeType) {
-            allProductPairs.remove(at: validIndex)
-        }
-        storedHistory.remove(barcodeType)
-        // recalculate the productPairs
-        setCurrentProductPairs()
     }
   */
     

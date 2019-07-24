@@ -83,6 +83,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
     fileprivate var products = OFFProducts.manager
     
     fileprivate func startInterface(at index:Int) {
+        tableView.reloadData()
         if let validProductPair = products.loadProductPair(at: index),
             let validFetchResult = products.productPair(at: index)?.status {
                 switch validFetchResult {
@@ -91,11 +92,9 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
                     tableView.scrollToRow(at: IndexPath(row: index, section: Constants.Table.NumberOfSections - 1), at: .top, animated: true)
                 default:
                     selectedProductPair = nil
-                    tableView.reloadData()
                 }
          } else {
             selectedProductPair = nil
-            tableView.reloadData()
         }
         setTitle()
     }

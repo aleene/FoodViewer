@@ -4696,6 +4696,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XXO-gd-gvp" userLabel="Instruction View">
+                                <rect key="frame" x="0.0" y="466.33333333333331" width="414" height="220.66666666666669"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1TV-Xf-Pc3">
+                                        <rect key="frame" x="16" y="16" width="382" height="188.66666666666666"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="1TV-Xf-Pc3" firstAttribute="top" secondItem="XXO-gd-gvp" secondAttribute="top" constant="16" id="5JX-sa-zQA"/>
+                                    <constraint firstAttribute="bottom" secondItem="1TV-Xf-Pc3" secondAttribute="bottom" constant="16" id="DUb-wh-TPb"/>
+                                    <constraint firstItem="1TV-Xf-Pc3" firstAttribute="leading" secondItem="XXO-gd-gvp" secondAttribute="leading" constant="16" id="P5P-Qi-iHm"/>
+                                    <constraint firstAttribute="trailing" secondItem="1TV-Xf-Pc3" secondAttribute="trailing" constant="16" id="mBH-Xz-blt"/>
+                                </constraints>
+                            </view>
                             <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6x-wi-g5S">
                                 <rect key="frame" x="0.0" y="466.33333333333331" width="414" height="220.66666666666669"/>
                                 <subviews>
@@ -4872,11 +4890,15 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="kIa-1N-FJx" secondAttribute="trailing" constant="20" id="BEi-nD-oTW"/>
+                            <constraint firstItem="XXO-gd-gvp" firstAttribute="bottom" secondItem="t6x-wi-g5S" secondAttribute="bottom" id="O6C-T4-TUX"/>
+                            <constraint firstItem="XXO-gd-gvp" firstAttribute="top" secondItem="t6x-wi-g5S" secondAttribute="top" id="Odp-Lu-ca9"/>
                             <constraint firstAttribute="trailing" secondItem="t6x-wi-g5S" secondAttribute="trailing" id="QCz-Xj-qng"/>
                             <constraint firstItem="t6x-wi-g5S" firstAttribute="leading" secondItem="7Zn-aO-uRv" secondAttribute="leading" id="W3R-oR-MMD"/>
                             <constraint firstItem="kIa-1N-FJx" firstAttribute="leading" secondItem="7Zn-aO-uRv" secondAttribute="leading" constant="20" id="WCu-rv-n9W"/>
                             <constraint firstItem="2dk-pP-RcU" firstAttribute="top" secondItem="t6x-wi-g5S" secondAttribute="bottom" id="YBt-mP-Nnn"/>
+                            <constraint firstItem="XXO-gd-gvp" firstAttribute="trailing" secondItem="t6x-wi-g5S" secondAttribute="trailing" id="vLe-Ad-bMH"/>
                             <constraint firstItem="kIa-1N-FJx" firstAttribute="top" secondItem="3jg-Es-tfQ" secondAttribute="bottom" constant="8" id="xOq-yA-WlB"/>
+                            <constraint firstItem="XXO-gd-gvp" firstAttribute="leading" secondItem="t6x-wi-g5S" secondAttribute="leading" id="xfn-UI-Uht"/>
                             <constraint firstItem="t6x-wi-g5S" firstAttribute="height" secondItem="7Zn-aO-uRv" secondAttribute="height" multiplier="0.3" id="yde-y0-jx9"/>
                         </constraints>
                         <connections>
@@ -4891,9 +4913,11 @@
                         <outlet property="downTwoFingerSwipe" destination="Hur-p7-AI0" id="4Vc-Ug-KLa"/>
                         <outlet property="fatLabel" destination="9Wp-6X-CaD" id="fsY-Oh-ySk"/>
                         <outlet property="frontImageView" destination="Yrx-vv-WjX" id="wmi-54-JxO"/>
+                        <outlet property="instructionTextView" destination="1TV-Xf-Pc3" id="Klk-4S-SJK"/>
+                        <outlet property="instructionView" destination="XXO-gd-gvp" id="pre-HH-yvi"/>
                         <outlet property="nameLabel" destination="gdJ-8O-DLh" id="mMe-gC-tx8"/>
                         <outlet property="nutriScoreView" destination="Wiu-9U-iJ8" id="A7M-KY-UAA"/>
-                        <outlet property="productView" destination="t6x-wi-g5S" id="ITZ-Ab-y5J"/>
+                        <outlet property="productView" destination="t6x-wi-g5S" id="6cn-E4-Mfg"/>
                         <outlet property="quantityLabel" destination="aMH-So-PQ3" id="WUi-kF-1gK"/>
                         <outlet property="saltLabel" destination="IxF-dc-uyy" id="QRG-fY-sDI"/>
                         <outlet property="saturatedFatLabel" destination="sos-Xt-r5t" id="r7A-dH-HCE"/>
@@ -5523,11 +5547,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="279" height="22"/>
+                                            <rect key="frame" x="20" y="11" width="297" height="22"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="315" y="8" width="79" height="29"/>
+                                            <rect key="frame" x="333" y="8" width="61" height="29"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>
