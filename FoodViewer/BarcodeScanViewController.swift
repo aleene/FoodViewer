@@ -184,7 +184,10 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         }
     }
     
-
+    func resetSearch() {
+        self.searchTextField?.text = ""
+        self.activeTextField.text = ""
+    }
     
     fileprivate var products = OFFProducts.manager
     
@@ -233,6 +236,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
             if let validFetchResult = scannedProductPair?.status  {
                 switch validFetchResult {
                 case .available, .updated:
+                    resetSearch()
                     self.nameLabel.text = scannedProductPair?.localProduct?.name ?? scannedProductPair?.remoteProduct?.name ?? TranslatableStrings.NoName
                     self.brandLabel.text = scannedProductPair?.brand ?? TranslatableStrings.NoBrandsIndicated
                     self.quantityLabel.text = scannedProductPair?.localProduct?.quantity ?? scannedProductPair?.remoteProduct?.quantity
@@ -313,27 +317,39 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                             }
                         }
                     }
-                    self.frontImageView.image = nil
-                    if let language = scannedProductPair?.remoteProduct?.primaryLanguageCode,
-                        let frontImages = scannedProductPair?.remoteProduct?.frontImages ?? scannedProductPair?.localProduct?.frontImages,
-                        !frontImages.isEmpty,
-                        let result = frontImages[language]?.small?.fetch() {
-                        switch result {
-                        case .success(let image):
-                            self.frontImageView.image = image
-                        default:
-                            break
-                        }
-                    }
-
-                case .productNotAvailable:
-                    self.nameLabel.text = TranslatableStrings.ProductNotAvailable
-                case .loadingFailed(let error):
-                    self.nameLabel.text = error
-                default:
-                    break
-                }
+                    showImage()
+                    
+            case .productNotAvailable:
+                setupViews()
+                self.instructionTextView.text = TranslatableStrings.ProductNotAvailable
+            
+            case .loadingFailed(let error):
+                setupViews()
+                self.instructionTextView.text = error
+            default:
+                break
             }
+        } else {
+            // There is no valid productPair
+            setupViews()
+            self.instructionTextView.text = TranslatableStrings.ScanInstruction
+        }
+    }
+    
+    private func showImage() {
+        self.frontImageView.image = nil
+        if let language = scannedProductPair?.remoteProduct?.primaryLanguageCode,
+            let frontImages = scannedProductPair?.remoteProduct?.frontImages ?? scannedProductPair?.localProduct?.frontImages,
+            !frontImages.isEmpty,
+            let result = frontImages[language]?.small?.fetch() {
+            switch result {
+            case .success(let image):
+                self.frontImageView.image = image
+            default:
+                break
+            }
+        }
+
     }
     
     private func setupScanning() {
@@ -394,7 +410,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String,
             let validProductPair = scannedProductPair,
             validProductPair.barcodeType.asString == barcodeString {
-            showProductData()
+            showImage()
         }
     }
 
