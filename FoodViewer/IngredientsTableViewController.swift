@@ -708,7 +708,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 sectionsAndRows.append(.minerals(TableSection.Size.Minerals, TableSection.Header.Minerals))
                 sectionsAndRows.append(.vitamins(TableSection.Size.Vitamins, TableSection.Header.Vitamins))
                 sectionsAndRows.append(.minerals(TableSection.Size.Nucleotides, TableSection.Header.Nucleotides))
-                sectionsAndRows.append(.vitamins(TableSection.Size.OtherNutritionalSubstances, TableSection.Header.OtherNutritionalSubstances))
+                sectionsAndRows.append(.otherNutritionalSubstances(TableSection.Size.OtherNutritionalSubstances, TableSection.Header.OtherNutritionalSubstances))
 
             default :
                 break
