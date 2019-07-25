@@ -212,16 +212,16 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     private func refreshPageInterface() {
         title = prefixedTitle
         if let vc = viewController(for: currentProductPage) as? IdentificationTableViewController {
-            vc.refreshInterface()
+            vc.refreshProduct()
             
         } else if let vc = viewController(for: currentProductPage) as? IngredientsTableViewController {
-                vc.refreshInterface()
+                vc.refreshProduct()
             
         } else if let vc = viewController(for: currentProductPage) as? NutrientsTableViewController {
-            vc.refreshInterface()
+            vc.refreshProduct()
             
         } else if let vc = viewController(for: currentProductPage) as? SupplyChainTableViewController {
-            vc.refreshInterface()
+            vc.refreshProduct()
 
         } else if let vc = viewController(for: currentProductPage) as? CategoriesTableViewController {
             vc.refreshProduct()

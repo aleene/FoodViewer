@@ -18,7 +18,9 @@ class NegativeIngredientDetectionsDefaults {
     static let manager = NegativeIngredientDetectionsDefaults()
     
     var negativeIngredientDetectionsShown: Bool? = nil
-    
+
+    var negativeIngredientDetectionsShownDefault = false
+
     fileprivate var defaults = UserDefaults()
     
     fileprivate struct Constants {

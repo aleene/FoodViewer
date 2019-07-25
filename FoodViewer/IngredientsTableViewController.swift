@@ -326,7 +326,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                tableView.reloadData()
+                refreshProduct()
             }
         }
     }
@@ -693,29 +693,44 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         // The returnValue is an array with sections
         // And each element is a  section type with the number of rows and the section title
         //
+        guard productPair != nil else { return [] }
+        
+        let show = NegativeIngredientDetectionsDefaults.manager.negativeIngredientDetectionsShown ?? NegativeIngredientDetectionsDefaults.manager.negativeIngredientDetectionsShownDefault
+        
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
 
         sectionsAndRows.append(.ingredients(TableSection.Size.Ingredients, TableSection.Header.Ingredients))
-            // not needed for .product, .petFood and .beauty
-            switch currentProductType {
-            case .food:
-
-                // 1:  allergens section
+        // not needed for .product, .petFood and .beauty
+        switch currentProductType {
+        case .food:
+            // 1:  allergens section
+            if productPair!.hasAllergens || show {
                 sectionsAndRows.append(.allergens(TableSection.Size.Allergens, TableSection.Header.Allergens))
-                // 2: traces section
-                sectionsAndRows.append(.traces(TableSection.Size.Traces, TableSection.Header.Traces))
-                sectionsAndRows.append(.minerals(TableSection.Size.Minerals, TableSection.Header.Minerals))
-                sectionsAndRows.append(.vitamins(TableSection.Size.Vitamins, TableSection.Header.Vitamins))
-                sectionsAndRows.append(.minerals(TableSection.Size.Nucleotides, TableSection.Header.Nucleotides))
-                sectionsAndRows.append(.otherNutritionalSubstances(TableSection.Size.OtherNutritionalSubstances, TableSection.Header.OtherNutritionalSubstances))
-
-            default :
-                break
             }
+            // 2: traces section
+            sectionsAndRows.append(.traces(TableSection.Size.Traces, TableSection.Header.Traces))
+            if productPair!.hasMinerals || show {
+                sectionsAndRows.append(.minerals(TableSection.Size.Minerals, TableSection.Header.Minerals))
+            }
+            if productPair!.hasVitamins || show {
+                sectionsAndRows.append(.vitamins(TableSection.Size.Vitamins, TableSection.Header.Vitamins))
+            }
+            if productPair!.hasNucleotides || show {
+                sectionsAndRows.append(.minerals(TableSection.Size.Nucleotides, TableSection.Header.Nucleotides))
+            }
+            if productPair!.hasOtherNutritionalSubstances || show {
+                sectionsAndRows.append(.otherNutritionalSubstances(TableSection.Size.OtherNutritionalSubstances, TableSection.Header.OtherNutritionalSubstances))
+            }
+
+        default :
+            break
+        }
+        if productPair!.hasAdditives {
             sectionsAndRows.append(.additives(TableSection.Size.Additives, TableSection.Header.Additives))
-            sectionsAndRows.append(.labels(TableSection.Size.Labels, TableSection.Header.Labels))
-            sectionsAndRows.append(.image(TableSection.Size.Image, TableSection.Header.Image))
+        }
+        sectionsAndRows.append(.labels(TableSection.Size.Labels, TableSection.Header.Labels))
+        sectionsAndRows.append(.image(TableSection.Size.Image, TableSection.Header.Image))
         
         return sectionsAndRows
     }
@@ -847,16 +862,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     @objc func refreshProduct() {
+        guard productPair != nil else { return }
         labelsTagsTypeToShow = TagsTypeDefault.Labels
         tracesTagsTypeToShow = TagsTypeDefault.Traces
         allergensTagsTypeToShow = TagsTypeDefault.Allergens
         additivesTagsTypeToShow = TagsTypeDefault.Additives
         ingredientsTagsTypeToShow = TagsTypeDefault.Ingredients
-        tableView.reloadData()
-
-    }
-
-    func refreshInterface() {
+        tableStructure = setupSections()
         tableView.reloadData()
     }
     
@@ -980,9 +992,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        tableStructure = setupSections()
-        tableView.reloadData()
 
         // delegate?.title = TranslatableStrings.Ingredients
         // print("ing viewWillAppear", self.view.frame, self.parent?.view.frame)
