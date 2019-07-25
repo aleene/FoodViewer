@@ -133,8 +133,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 if oldValue == nil {
                     initPages()
                 }
-                currentProductPage = .identification
-                
                 refreshPageInterface()
                 currentLanguageCode = validProductPair.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
             }
@@ -277,7 +275,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             pages = [.notSet]
             currentProductPage = .notSet
         } else {
-            currentProductPage = .identification
             // define the pages (and order), which will be shown
             switch currentProductType {
             case .food:

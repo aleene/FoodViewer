@@ -382,9 +382,6 @@ class SingleProductTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectedPageIndex = indexPath.row
-        if let index = selectedPageIndex {
-            productPageViewController?.currentProductPage = tableStructure[index].productSection()
-        }
         showProductPage()
     }
     
@@ -483,6 +480,8 @@ class SingleProductTableViewController: UITableViewController {
                 if let vc = segue.destination as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
                         ppvc.productPair = selectedProductPair
+                        ppvc.currentProductPage = tableStructure[selectedPageIndex ?? 0].productSection()
+
                         /*
                         if let validSelectedRowType = selectedRowType,
                             let validProductPair = selectedProductPair {
