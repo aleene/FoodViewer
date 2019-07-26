@@ -139,7 +139,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
-    var currentProductPage: ProductPage = .identification {
+    var currentProductPage: ProductPage = .notSet {
         didSet {
             switch currentProductPage {
             case .notSet:

@@ -153,13 +153,7 @@ class SingleProductTableViewController: UITableViewController {
     fileprivate func showProductPage() {
         if let validProductPageViewController = productPageViewController {
             validProductPageViewController.productPair = selectedProductPair
-            /*
-            if let validSelectedRowType = selectedRowType {
-                validProductPageViewController.pageIndex = validSelectedRowType.productSection()
-            } else {
-                validProductPageViewController.pageIndex = .identification
-            }
- */
+            validProductPageViewController.currentProductPage = tableStructure[selectedPageIndex ?? 0].productSection()
         } else {
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         }
@@ -725,6 +719,8 @@ class SingleProductTableViewController: UITableViewController {
             // If nothing has been selected yet, start with the first product in the list, and on the iPad
             startInterface(at: 0)
         }
+        
+        showProductPage()
         
         // Notifications coming from ProductPair,
         // which indicate that something in the productPair has changed
