@@ -31,17 +31,29 @@
 /* String (in Segmented Control) to indicate the best nutritional score level */
 "A" = "A";
 
+/* Title of a button to indicate that the front image is missing. */
+"Add Front Image" = "Voog voorkantfoto toe";
+
+/* Title of a viewcontroller which allows the user to add a new language to the product languages. */
+"Add Language" = "Voeg taal toe";
+
 /* Title of a button in normal state allowing the user to add a nutrient */
 "Add Nutrient" = "Voeg voedingswaarde toe";
 
-/* Generic used string to indicate the additives of a product. */
-"Additives" = "Additieven";
+/* ViewController title, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels. */
+"Alert Preferences" = "Waarschuwingsinstellingen";
 
 /* TableViewController title for the allergen warnings setting scene. */
 "Allergen warnings" = "Allergeen waarschuwingen";
 
-/* Text to indicate the allergens of a product. */
-"Allergens" = "Allergenen";
+/* title of a segment of a segmented control, which lets the user set the application to scan products continuously. */
+"Allowed" = "Togestaan";
+
+/* ViewController/row title, which allows the user to set up the application. */
+"Application Preferences" = "App instellingen";
+
+/* Title of a table section header, which display the app version nnumber and build number. */
+"Application version/build" = "App versie/build";
 
 /* ViewController title, which allows to set an image to a language and image category (front/ingredients/nutrition). */
 "Assign Image" = "Wijs foto toe";
@@ -64,6 +76,12 @@
 /* Tableview sectionheader for Barcode */
 "Barcode" = "Streepjescode";
 
+/* Tableview sectionheader for Barcode, with edited main language */
+"Barcode (edited main language)" = "Streepjescode (bewerkt)";
+
+/* Tableview sectionheader for Barcode, with original main language */
+"Barcode (original main language)" = "Streepjescode (onbewerkt)";
+
 /* Title of a segmented control. */
 "Beauty" = "Beauty";
 
@@ -76,6 +94,15 @@
 /* Tableview sectionheader for brands. */
 "Brands" = "Merken";
 
+/* Tableview sectionheader for the edited brands. */
+"Brands (edited)" = "Merken (bewerkt)";
+
+/* Tableview sectionheader for the unedited brands. */
+"Brands (original)" = "Merken (onbewerkt)";
+
+/* Title of a segment of a segmented control, which lets the user set the button view toggle mode interface */
+"Button" = "Button";
+
 /* String in Segmented Control to indicate the thrid best nutritional score level */
 "C" = "C";
 
@@ -87,6 +114,12 @@
 
 /* Text to indicate the product belongs to a category. */
 "Categories" = "Categorieën";
+
+/* Edited text to indicate the product belongs to a category. */
+"Categories (edited)" = "Categorieën (bewerkt)";
+
+/* Original text to indicate the product belongs to a category. */
+"Categories (original)" = "Categorieën (onbewerkt)";
 
 /* String in PickerViewController to indicate the checker role of a contributor */
 "Checker" = "Controleur";
@@ -112,6 +145,9 @@
 /* Generic string to indicate the completion states of a product. */
 "Completion States" = "Volledigheidstoestanden";
 
+/* Header of a table section, which allows the user to set a preference for continuous product scanning. */
+"Continous Scan" = "Doorlopende scan";
+
 /* String in PickerViewController to indicate the creator role of a contributor (any role) */
 "Contributor" = "Bijdrager";
 
@@ -126,6 +162,18 @@
 
 /* Generic string (plural) to indicate the countries where the product is sold. */
 "Countries" = "Landen";
+
+/* Generic string (plural) to indicate the countries where the product is sold (edited). */
+"Countries (edited)" = "Landen (bewerkt)";
+
+/* Generic string (plural) to indicate the countries where the product is sold (original). */
+"Countries (original)" = "Landen (onbewerkt)";
+
+/* Text to indicate the sales countries of a product. */
+"Countries where sold" = "Verkooplanden";
+
+/* Title of a button, which opens a web-page that allows a user to create an OFF account. */
+"Create OFF Account" = "Maak OFF-account aan";
 
 /* String in picker, which lets the user select the search result order. Order on the creation dates. */
 "Creation date" = "Aanmaakdatum";
@@ -148,16 +196,61 @@
 /* String presented in a tagView if the data has been loaded */
 "Data is loaded" = "Data geladen";
 
+/* Title of a table section, which allows the user to define the default energy unit (joules, calories, kilocalories). */
+"Default energy unit" = "Standaard energie eenheid";
+
+/* Title of a tableView section, which lets the user select between salt or sodium */
+"Default for salt/sodium" = "Standaard voor zout/natrium";
+
+/* Title of table view section which allows the user to set the reference for nutrition facts (serving or 100g). */
+"Default nutrition facts style" = "Standaard voedingswaardenstijl";
+
+/* Title of table view section which allows the user to set who defines the table format (user or product). */
+"Default nutrition facts table style" = "Standaard voedingswaardentabelstijl";
+
+/* Title of a tableView section, which lets the user set the off account to use */
+"Default OpenFoodFacts account" = "Standaard OpenFoodFacts account";
+
+/* String to indicate a product has not yet been retrieved from OFF yet and is only locally available */
+"Default product type" = "Standaard producttype";
+
+/* Title of abutton, which allows the user to view the details of a scanned product. */
+"Details" = "Details";
+
+/* Text to indicate the detected allergens of a product. */
+"Detected Additives" = "Gedetecteerde additieven";
+
+/* Text to indicate the detected allergens of a product. */
+"Detected Allergens" = "Gedetecteerde allergenen";
+
+/* Tableview section header, which list the detected minderals in an ingredients list. */
+"Detected Minerals" = "Gedetecteerde mineralen";
+
+/* Tableview section header, which list the detected nucleotides in an ingredients list. */
+"Detected Nucleotides" = "Gedetecteerde nucleotiden";
+
+/* Tableview section header, which list the detected other nutritional substances in an ingredients list. */
+"Detected Other Nutritional Substances" = "Gedetecteerde overige voedingsmiddelen";
+
+/* Tableview section header, which list the detected vitamins in an ingredients list. */
+"Detected Vitamins" = "Gedetecteerde vitaminen";
+
 /* Title of a button in an alert sheet, which allows the user to discard alle changes to the local product. */
 "Discard" = "Verwijder";
 
-/* Title of a tableView section, which lets the user select display options */
-"Display Prefs" = "Display instellingen";
+/* Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc */
+"Display Preferences" = "Productdetailvoorkeuren";
+
+/* SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
+"Do Not Show" = "Toon niet";
 
 /* String in button, to let the user indicate he is ready with username/password input. */
 "Done" = "Gedaan";
 
-/* String in Segmented Control to indicate the fifth best (and last) nutritional score level */
+/* Title of a segment of a segmented control, which lets the user set doubletap view toggle mode interface */
+"Doubletap" = "Dubbeltap";
+
+/* String in Segmented Control to indicate the fifth best (and last) nutrition score level */
 "E" = "E";
 
 /* Title of viewcontroller which allows editing of the product in a webview. */
@@ -175,8 +268,11 @@
 /* String in PickerViewController to indicate the editor role of a contributor */
 "Editor" = "Wijziger";
 
-/* Placeholder string to explain the purpose of a barcode search in a tableview cell */
-"Enter barcode." = "Voer streepjescode in";
+/* Placeholder string in a textfield to explain the purpose of a beauty product barcode search */
+"Enter beauty product barcode." = "Stel beauty product streepjescode in";
+
+/* Placeholder in a textField, where a user can enter characters to filter a list. */
+"Enter characters to filter the list." = "Type letters om te filteren";
 
 /* Placeholder text for field where user should enter a city name. */
 "Enter city name" = "Voer stad in";
@@ -190,8 +286,17 @@
 /* The user can tap the button to enter a date. */
 "Enter date" = "Voer datum in";
 
+/* Placeholder string in a textfield to explain the purpose of a food product barcode search */
+"Enter food product barcode." = "Stel voedsel product streepjescode in";
+
+/* Placeholder string in a textfield to explain the purpose of a pet food barcode search */
+"Enter pet food product barcode." = "Stel dierenvoedsel product streepjescode in";
+
 /* Placeholder text for field where user should enter a postal code. */
 "Enter postal code" = "Voer postcode in";
+
+/* Placeholder string in a textfield to explain the purpose of a product barcode search */
+"Enter product barcode." = "Voer streepjescode in";
 
 /* Placeholder text for field where user should enter a shop name. */
 "Enter shop name" = "Voer winkel in";
@@ -220,6 +325,9 @@
 /* Header title of the tableview section, indicating the most recent expiration date. */
 "Expiration Date" = "Uiterste houdbaarheidsdatum";
 
+/* Text of a label that wil indicate the fat level (low/medium/high) by colour. */
+"Fat level" = "Vetgehalte";
+
 /* Title of SegmentedControl segment. */
 "Food" = "Voedsel";
 
@@ -229,8 +337,23 @@
 /* Explanatory text in AlertViewController, which shows the intended search */
 "for %@ in %@" = "naar %1$@ in %2$@";
 
+/* Title for the viewcontroller with the front image */
+"Front Image" = "voorkantfoto";
+
+/* Title for the viewcontroller with the edited front image */
+"Front Image (edited)" = "voorkantfoto (bewerkt)";
+
+/* Title for the viewcontroller with the original front image */
+"Front Image (original)" = "voorkantfoto (onbewerkt)";
+
 /* Viewcontroller title for page with images of the product */
 "Gallery" = "Fotogalerij";
+
+/* Tableview sectionheader for the edited long product name */
+"Generic Name (edited)" = "Fotogalerij (bewerkt)";
+
+/* Tableview sectionheader for the original long product name */
+"Generic Name (original)" = "Fotogalerij (onbewerkt)";
 
 /* Header for a table section showing the appreciations of the good nutrients */
 "Good nutrients" = "Goede voedingsstoffen";
@@ -268,11 +391,23 @@
 /* Text to indicate the ingredients of a product. */
 "Ingredients" = "Ingrediënten";
 
+/* Text to indicate the edited ingredients of a product. */
+"Ingredients (edited)" = "Ingrediënten (bewerkt)";
+
+/* Text to indicate the original (unedited) ingredients of a product. */
+"Ingredients (original)" = "Ingrediënten (onbewerkt)";
+
 /* Header title for the ingredients image section, i.e. the image of the package with the ingredients */
 "Ingredients Image" = "Ingrediëntenfoto";
 
-/* Generic string to indicate the origins of the ingredients */
-"Ingredients Origin" = "Oorsprong ingrediënten";
+/* Header title for the edited ingredients image section, i.e. the image of the package with the ingredients */
+"Ingredients Image (edited)" = "Ingrediëntenfoto (bewerkt)";
+
+/* Header title for the original ingredients image section, i.e. the image of the package with the ingredients */
+"Ingredients Image (original)" = "Ingrediëntenfoto (onbewerkt)";
+
+/* Text in a tag when a new/edited product is seen. */
+"Ingredients will be analysed after upload by OFF" = "De ingrediënten worden door OFF geanalyseerd na upload";
 
 /* String presented in a tagView if nothing has happened yet */
 "Initialized" = "Geïnitialiseerd";
@@ -280,14 +415,20 @@
 /* Description of the by OFF interpreted tags in the json */
 "Interpreted" = "Geïnterpreteerd";
 
-/* Title of first segment in switch, which lets the user select between joule, kilo-calories or Calories */
-"Joule" = "Joule";
+/* Title of first segment in switch, which lets the user select between joules, kilo-calories or Calories */
+"Joules" = "Joules";
 
 /* Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories */
-"kilocalorie" = "kilocalorie";
+"Kilocalories" = "Kilocalorieën";
 
 /* Generic string for labels on product */
 "Labels" = "Keur- en kenmerken";
+
+/* Generic string for edited labels on product */
+"Labels (edited)" = "Keur- en kenmerken (bewerkt)";
+
+/* Generic string for original (unedited) labels on product */
+"Labels (original)" = "Keur- en kenmerken (onbewerkt)";
 
 /* Tableview sectionheader for languages on product */
 "Languages" = "Talen";
@@ -296,7 +437,7 @@
 "Last Edit Date" = "Laatste wijzigingsdatum";
 
 /* String to indicate the level (score) of the product. */
-"Level" = "Niveau";
+"Level" = "Gehalte";
 
 /* Label to indicate whether any nutrients are indicated on the package */
 "Listed on package?" = "Vermeldt op de verpakking?";
@@ -327,6 +468,15 @@
 
 /* Tableview sectionheader for product name */
 "Name" = "Productnaam";
+
+/* Tableview sectionheader for the edited product name */
+"Name (edited)" = "Productnaam (bewerkt)";
+
+/* Tableview sectionheader for the original (non-edited) product name */
+"Name (original)" = "Productnaam (onbewerkt)";
+
+/* Tableview sectionheader for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
+"Negative Ingredient Detections" = "Niet gedetecteerde ingrediënten";
 
 /* Text in a tableview cell, when no brands are available in the product data. */
 "No brands indicated" = "Geen merken vermeld";
@@ -360,6 +510,12 @@
 
 /* Text of Label, indicating that the product has no nutrients defined */
 "No nutrients" = "Geen voedingswaarden";
+
+/* Text of Label, indicating that the product has no nutrients (edited) defined */
+"No nutrients (edited)" = "Geen voedingswaarden (bewerkt)";
+
+/* Text of Label, indicating that the product has no nutrients (original) defined */
+"No nutrients (original)" = "Geen voedingswaarden (onbewerkt)";
 
 /* Text in a TagListView, when no nutrition data has been specified in the product data. */
 "no nutrition data available" = "geen voedingswaarden aangegeven";
@@ -395,8 +551,14 @@
    Text for a cell, when no status title has been provided, such as 'completed', etc. */
 "none" = "geen";
 
+/* First element of a pickerView where the user has to select an element in the picker. */
+"None selected" = "Niets geselecteerd";
+
 /* Alert title, to indicate product should NOT be added */
 "Nope" = "Noah";
+
+/* title o a segment of a segmented control, which prohibits the user to set the application to scan products continuously. */
+"Not allowed" = "Sta niet toe";
 
 /* Generic text if an action has not yet been done. */
 "Not done" = "Niet gedaan";
@@ -428,6 +590,12 @@
 /* Text to indicate the nutrition facts of a product. */
 "Nutrition Facts" = "Voedingswaarden";
 
+/* Text to indicate the edited nutrition facts of a product. */
+"Nutrition Facts (edited)" = "Voedingswaarden (bewerkt)";
+
+/* Text to indicate the original nutrition facts of a product. */
+"Nutrition Facts (original)" = "Voedingswaarden (onbewerkt)";
+
 /* Description for NutritionData per one kilogram */
 "Nutrition Facts (per 1 kg)" = "Voedingswaarden (per kg)";
 
@@ -440,8 +608,14 @@
 /* Tableview header section for the image of the nutritional facts */
 "Nutrition Facts Image" = "Voedingswaardenfoto";
 
-/* Header for a table section showing the search for nutritional score */
-"Nutritional Score" = "Voedingswaardenscore";
+/* Tableview header section for the edited image of the nutritional facts */
+"Nutrition Facts Image (edited)" = "Voedingswaardenfoto (bewerkt)";
+
+/* Tableview header section for the original image of the nutritional facts */
+"Nutrition Facts Image (original)" = "Voedingswaardenfoto (onbewerkt)";
+
+/* Header for a table section showing the search for nutrition score */
+"Nutrition Score" = "Nutrition Score";
 
 /* Header for a table section showing the total results France */
 "Nutritional Score France" = "Voedingswaardescore Frankrijk";
@@ -449,20 +623,41 @@
 /* Header for a table section showing the total results UK */
 "Nutritional Score UK" = "UK Voedingswaardescore";
 
+/* Header title of tableview section, indicating the websites for the product */
+"Official product website" = "Officiële product website";
+
+/* Header title of tableview section, indicating the edited website for the product */
+"Official product website (edited)" = "Officiële product website (bewerkt)";
+
+/* Header title of tableview section, indicating the original website for the product */
+"Official product website (original)" = "Officiële product website (onbewerkt)";
+
 /* String in button, to let the user indicate he wants to start the search. */
 "OK" = "OK";
 
+/* ViewController/row title, which allows the user to set his open food facts username. */
+"Open Food Facts Preferences" = "Open Food Facts instellingen";
+
 /* String for the Activity Action Screen */
 "Open in Safari" = "Bekijk in Safari";
-
-/* Title of a tableView section, which lets the user set the off account to use */
-"OpenFoodFacts Account" = "OpenFoodFacts gebruiker";
 
 /* Description of the original tags in the json */
 "Original" = "Oorspronkelijk";
 
 /* Gallery header text presenting the original images */
 "Original Images" = "Oorspronkelijke foto's";
+
+/* Generic string to indicate the origins of the ingredients */
+"Origins of ingredients" = "Oorsprong ingrediënten";
+
+/* Generic string to indicate the edited origins of the ingredients */
+"Origins of ingredients (edited)" = "Oorsprong ingrediënten (bewerkt)";
+
+/* Generic string to indicate the original (non-edited) origins of the ingredients */
+"Origins of ingredients (original)" = "Oorsprong ingrediënten (onbewerkt)";
+
+/* Tableview section header, which list the detected other nutritional substances in an ingredients list. */
+"Other Nutritional Substances" = "Overige voedingsmiddelen";
 
 /* String presented in a tagView if this is not the current product type */
 "Other product type" = "Ander product type";
@@ -472,6 +667,12 @@
 
 /* Tableview sectionheader for packaging. */
 "Packaging" = "Verpakking";
+
+/* Tableview sectionheader for packaging, edited version. */
+"Packaging (edited)" = "Verpakking (bewerkt)";
+
+/* Tableview sectionheader for packaging, original version. */
+"Packaging (original)" = "Verpakking (onbewerkt)";
 
 /* String in textField placeholder, to show that the user has to enter his password */
 "Password" = "Wachtwoord";
@@ -500,11 +701,23 @@
 /* String in PickerViewController to indicate the photographer role of a contributor */
 "Photographer" = "Fotografeerder";
 
+/* Text to show if the user selects the scan tab */
+"Point the camera to the barcode of a product to recognize the product and get the product information." = "Richt de camera op een streepjescode van een product om het product te herkennen en de product informatie te verkrijgen";
+
+/* Text of a label, which explains the user to point the camera of his device to a barcode to start working (do not exceed 30 letters). */
+"Point to a barcode to scan" = "Richt op een streepjescode om te scannen";
+
 /* String in picker, which lets the user select the search result order. Order on the popularity. */
 "Popularity" = "Populariteit";
 
 /* Tableview header section for the size of a portion */
 "Portion size" = "Portiegrootte";
+
+/* Tableview header section for the edited size of a portion */
+"Portion size (edited)" = "Portiegrootte (bewerkt)";
+
+/* Tableview header section for the original size of a portion */
+"Portion size (original)" = "Portiegrootte (onbewerkt)";
 
 /* TableViewController title for the settings scene. */
 "Preferences" = "Instellingen";
@@ -515,11 +728,26 @@
 /* Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion. */
 "Presentation format" = "Presentatie format";
 
+/* Header for section of tableView with information of the producer (name, geographic location). */
+"Producer" = "Producent";
+
+/* Header for section of tableView with information of the edited producer (name, geographic location). */
+"Producer (edited)" = "Producent (bewerkt)";
+
+/* Header for section of tableView with information of the original (non-edited) producer (name, geographic location). */
+"Producer (original)" = "Producent (onbewerkt)";
+
 /* Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666). */
 "Producer Codes" = "Producentcodes";
 
-/* Header for section of tableView with information of the producer (name, geographic location). */
-"Producers" = "Producenten";
+/* Header for section of tableView with codes for the edited producer (EMB 123456 or FR.666.666). */
+"Producer Codes (edited)" = "Producentcodes (bewerkt)";
+
+/* Header for section of tableView with codes for the original producer (EMB 123456 or FR.666.666). */
+"Producer Codes (oriiginal)" = "Producentcodes (onbewerkt)";
+
+/* Title of a segmented control. */
+"Product" = "Product";
 
 /* Title of a segment in a UISegmentedControl, which indicates that the values of the product are leading. */
 "Product Defined" = "Product gedefinieerd";
@@ -532,6 +760,9 @@
 
 /* String presented in a tagView if the product is updated */
 "Product is updated" = "Product is aangepast";
+
+/* Title of a segmented control segment, which lets the user set the default language of the new product tag entries as Product Language */
+"Product Language" = "Producttaal";
 
 /* String presented in a tagView if the product list has been loaded */
 "Product list is loaded" = "Producten worden geladen";
@@ -554,17 +785,29 @@
 /* String to indicate a product has not yet been retrieved from OFF yet and is only locally available */
 "Product not loaded" = "Product niet geladen";
 
-/* Header title of tableview section, indicating the websites for the product */
-"Product Websites" = "Product websites";
+/* Title of a page to indicate that the product has not been set by the user. */
+"Product not set" = "Product niet ingesteld";
 
 /* Generic string to indicate the address (street/city/postalcode/country) where the product was bought */
 "Purchase address" = "Verkoopadres";
 
+/* Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought */
+"Purchase address (edited)" = "Verkoopadres (bewerkt)";
+
+/* Generic string to indicate the address original (street/city/postalcode/country) where the product was bought */
+"Purchase address (original)" = "Verkoopadres (onbewerkt)";
+
 /* Tableview sectionheader for size of package. */
 "Quantity" = "Verpakkingsgrootte";
 
+/* Tableview sectionheader for the edited size of package. */
+"Quantity (edited)" = "Verpakkingsgrootte (bewerkt)";
+
+/* Tableview sectionheader for the original size of package. */
+"Quantity (original)" = "Verpakkingsgrootte (onbewerkt)";
+
 /* String in button, to let the user indicate he wants to cancel username/password input. */
-"Reset" = "Reset";
+"Reset application" = "Reset app";
 
 /* String presented in a tagView if a response was received */
 "Response received" = "Antwoord ontvangen";
@@ -572,14 +815,17 @@
 /* Header for section of tableView with names of the stores where the product is sold. */
 "Sale Stores" = "Verkoopwinkels";
 
-/* Text to indicate the sales countries of a product. */
-"Sales countries" = "Verkooplanden";
-
 /* Title of first segment in switch, which lets the user select between salt or sodium */
 "Salt" = "Zout";
 
+/* Text of a label that wil indicate the fat level (low/medium/high) by colour. */
+"Salt level" = "Zoutgehalte";
+
 /* Product name of the product shown at first start */
 "Sample Product for Demonstration, the globally known M&M's" = "Voorbeeldproduct voor demonstratiedoeleinde, de wereldwijd bekende M&Ms.";
+
+/* Text of a label that will indicate the saturated fat level (low/medium/high) by colour. */
+"Saturated Fat level" = "Verzadigd vetgehalte";
 
 /* Title in cell with the saturated fat to all fat ratio */
 "Saturated Fat to Total Fat ratio" = "Verzadigde t.o.v. alle vetten";
@@ -589,6 +835,9 @@
 
 /* The title of an alert sheet, which allows the user to save he product. */
 "Save Product Updates?" = "Bewaar productaanpassingen";
+
+/* Title of a tableview header, which shows the Nutrition Score and Nova Value */
+"Score Summary" = "Samenvatting beoordelingen";
 
 /* Prefix of a title of a Tableview controller */
 "Search" = "Zoek";
@@ -608,6 +857,9 @@
 /* Title of a Tableview controller, indicating the tableview shows search pet food products (note the width of the title is constrained). */
 "Search PetFood" = "Zoek Diervoedingsproducten";
 
+/* Title of a Tableview controller, indicating the tableview shows search products. */
+"Search Products" = "Zoek producten";
+
 /* String presented in a tagView for the search query */
 "Search query" = "Zoekvraag";
 
@@ -626,8 +878,14 @@
 /* Title of a viewcontroller where the user has to select an element in the picker. */
 "Select" = "Kies";
 
+/* Text of a label in a page, when the user has not selected a product. */
+"Select a product from the history." = "Kies een product uit de historie";
+
 /* Title of a picker row where the user has to select an element in the picker. */
 "Select Completion Status" = "Selecteer volledigheidsstatus";
+
+/* Title of a viewcontroller where the user has to select a language in a pickerView list of languages. */
+"Select language" = "Kies taal";
 
 /* First item in a pickerView, indicating what the user should do */
 "Select role" = "Kies rol";
@@ -647,11 +905,29 @@
 /* Title of a segment in a segmentedControl indicating that the a search needs to be setup by tapping. */
 "Set" = "Ingevuld";
 
+/* cell title label, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels. */
+"Set a warning for specific allergen(s)." = "Stel specifieke waarschuwingen in";
+
 /* Title of second segment in switch, which  indicates the user can set another account */
 "Set Account" = "Definieer account";
 
+/* Title of a tableView section, which lets the user set warnings */
+"Set ingredient warnings" = "Stel de ingrediëntenwaarschuwingen in";
+
+/* Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc */
+"Set preferences for salt/sodium, kJ/kcal/Cal, etc." = "Stel voorkeuren voor zout/natrium, kJ/kcal, etc in";
+
+/* TableView row label, which allows the user to set up the application. */
+"Set product type (food/beauty/petFood), reset, etc." = "Stel het product type (food/beauty/...), etc in";
+
+/* Row title, which allows the user to set his open food facts username. */
+"Set your OpenFoodFacts account." = "Stel je OpenFoodFacts account in";
+
 /* Title of a tableview header  indicating that the corresding field has been set. */
 "Setup query" = "Definieer zoekvraag";
+
+/* SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
+"Show" = "Toon";
 
 /* Title of third segment in switch, which lets the user select between salt or sodium */
 "Sodium" = "Natrium";
@@ -671,11 +947,26 @@
 /* Generic string to indicate the stores where the product is sold. */
 "Stores" = "Winkels";
 
+/* Generic string to indicate the edited stores where the product is sold. */
+"Stores (edited)" = "Winkels (bewerkt)";
+
+/* Generic string to indicate the original (non-edited) stores where the product is sold. */
+"Stores (original)" = "Winkels (onbewerkt)";
+
+/* Text of a label that will indicate the sugar level (low/medium/high) by colour. */
+"Sugar level" = "Suikergehalte";
+
 /* Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations). */
 "Supply Chain" = "Aanvoerketen";
 
 /* Alert title, to indicate product should be added */
 "Sure" = "Doen";
+
+/* Title of a segmented control segment, which lets the user set the default language of the new product tag entries as System Language */
+"System Language" = "Systeemtaal";
+
+/* Title of a tableView section, which lets the user set the default language of the new product tag entries */
+"Tag Entry Language" = "Invoertaal tags";
 
 /* The title of an alert sheet, which allows the user to save he product. */
 "The local product has been changed. Should these changes be saved?" = "Het lokale product is aangepast. Bewaren?";
@@ -685,6 +976,12 @@
 
 /* Text to indicate the traces of a product. */
 "Traces" = "Sporen";
+
+/* Text to indicate the edited traces of a product. */
+"Traces (edited)" = "Sporen (bewerkt)";
+
+/* Text to indicate the original (un-edited) traces of a product. */
+"Traces (original)" = "Sporen (onbewerkt)";
 
 /* Description of the interpreted tags in the json as translated by the taxonomy */
 "Translated" = "Vertaald";
@@ -707,12 +1004,21 @@
 /* Title of a button in a navigation bar, which allows the user to adapt an image and use the result. */
 "Use" = "Gebruik";
 
+/* Title of a button to indicate that user can take an image with the Camera. */
+"Use Camera" = "Camera";
+
+/* Title of a button to indicate that user can pick an image from Photos. */
+"Use Photos" = "Fotos";
+
 /* Title of a segment in a segmentedControl that this parameter will be set by the user. */
 "User defined" = "Gebruikerbepaald";
+
+/* ViewController/row title, which allows the user to set the application preferences. */
+"User Preferences" = "Gebruikerswaarden";
 
 /* String in textField placeholder, to show that the user has to enter his username. */
 "Username" = "Gebruikersnaam";
 
-/* Title of a tableView section, which lets the user set warnings */
-"Warnings" = "Waarschuwingen";
+/* Title of a tableView section, which lets the user set the view toggle mode interface (double tap or button) */
+"View Toggle Mode" = "Viewwijzigingsmodus";
 

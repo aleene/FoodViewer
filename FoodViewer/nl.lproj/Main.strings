@@ -7,11 +7,8 @@
 /* Class = "UILabel"; text = " 0"; ObjectID = "2vd-fY-j8y"; */
 "2vd-fY-j8y.text" = "0";
 
-/* Class = "UIButton"; normalTitle = "Clear History"; ObjectID = "7bH-Lm-Fh3"; */
-"7bH-Lm-Fh3.normalTitle" = "Button";
-
-/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "8TO-NA-Iaz"; */
-"8TO-NA-Iaz.title" = "Annuleer";
+/* Class = "UILabel"; text = "NOVA"; ObjectID = "6UW-OJ-baU"; */
+"6UW-OJ-baU.text" = "NOVA";
 
 /* Class = "UILabel"; text = "18"; ObjectID = "57B-be-2Bi"; */
 "57B-be-2Bi.text" = "18";
@@ -22,20 +19,23 @@
 /* Class = "UILabel"; text = "10"; ObjectID = "dtb-c8-qF9"; */
 "dtb-c8-qF9.text" = "10";
 
+/* Class = "UILabel"; text = "NOVA"; ObjectID = "edL-tS-gco"; */
+"edL-tS-gco.text" = "NOVA";
+
 /* Class = "UILabel"; text = "2 "; ObjectID = "fTi-4I-088"; */
 "fTi-4I-088.text" = "2";
 
 /* Class = "UITableViewController"; title = "Products"; ObjectID = "gMe-4s-6cz"; */
 "gMe-4s-6cz.title" = "Producten";
 
-/* Class = "UITextField"; placeholder = "Enter barcode"; ObjectID = "gZ8-Lt-wU3"; */
-"gZ8-Lt-wU3.placeholder" = "Voer streepjescode in";
-
 /* Class = "UINavigationController"; title = "Products"; ObjectID = "hYb-mr-zvw"; */
 "hYb-mr-zvw.title" = "Producten";
 
-/* Class = "UITableViewSection"; headerTitle = "Nutrition Facts Table Format"; ObjectID = "mg1-Aw-Gzt"; */
-"mg1-Aw-Gzt.headerTitle" = "Voedingswaardentabelformaat";
+/* Class = "UITabBarItem"; title = "User"; ObjectID = "l6d-Us-aAN"; */
+"l6d-Us-aAN.title" = "Gebruiker";
+
+/* Class = "UILabel"; text = "NOVA"; ObjectID = "mFF-c4-dtr"; */
+"mFF-c4-dtr.text" = "NOVA";
 
 /* Class = "UILabel"; text = "-1 "; ObjectID = "ozN-oN-PUw"; */
 "ozN-oN-PUw.text" = "-1";
@@ -43,17 +43,14 @@
 /* Class = "UIButton"; normalTitle = "Add"; ObjectID = "PU9-ny-duI"; */
 "PU9-ny-duI.normalTitle" = "Voeg toe";
 
-/* Class = "UILabel"; text = "Allergens / Traces"; ObjectID = "RFc-0b-oYh"; */
-"RFc-0b-oYh.text" = "Allergenen / Sporen";
-
 /* Class = "UILabel"; text = " 19"; ObjectID = "Rte-ld-pqj"; */
 "Rte-ld-pqj.text" = "19";
 
 /* Class = "UILabel"; text = " 11"; ObjectID = "tKL-Tg-nO5"; */
 "tKL-Tg-nO5.text" = "11";
 
-/* Class = "UINavigationItem"; title = "Confirm Product"; ObjectID = "WA5-QR-fDF"; */
-"WA5-QR-fDF.title" = "Bevestig product";
+/* Class = "UITabBarItem"; title = "Scanner"; ObjectID = "U0S-HU-MxM"; */
+"U0S-HU-MxM.title" = "Scanner";
 
 /* Class = "UISegmentedControl"; yzx-7e-epe.segmentTitles[0] = "100 g / 100 ml"; ObjectID = "yzx-7e-epe"; */
 "yzx-7e-epe.segmentTitles[0]" = "100 g / ml";

@@ -141,40 +141,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     var currentProductPage: ProductPage = .notSet {
         didSet {
-            switch currentProductPage {
-            case .notSet:
-                setViewControllers(
+            setViewControllers(
                     [viewController(for:currentProductPage)],
                     direction: .forward,
                     animated: false, completion: nil)
-            default:
-                if currentProductPage != oldValue {
-                    // has the initialisation been done?
-                    if let oldIndex = pages.firstIndex(where: { $0 == oldValue } ),
-                        let newIndex = pages.firstIndex(where: { $0 == currentProductPage } ) {
-                        // open de corresponding page
-                        if newIndex > oldIndex {
-                            setViewControllers(
-                                [viewController(for:currentProductPage)],
-                                direction: .forward,
-                                animated: false, completion: nil)
-                        } else {
-                            setViewControllers(
-                                [viewController(for:currentProductPage)],
-                                direction: .reverse,
-                                animated: false, completion: nil)
-                        }
-                    }
-                    refreshPageInterface()
-                } else {
-                    setViewControllers(
-                        [viewController(for:currentProductPage)],
-                        direction: .forward,
-                        animated: false, completion: nil)
-                }
-                
-                initPage(currentProductPage)
-            }
+            initPage(currentProductPage)
+            refreshPageInterface()
         }
     }
     
