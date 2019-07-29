@@ -406,6 +406,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 cell.ingredients = editMode ? TranslatableStrings.PlaceholderIngredients : nil
             }
             cell.isMultilingual =  (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false 
+            cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
 
             // print("cell frame", cell.frame)
             return cell

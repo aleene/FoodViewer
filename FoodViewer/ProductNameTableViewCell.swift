@@ -67,7 +67,7 @@ class ProductNameTableViewCell: UITableViewCell {
     
     @IBOutlet weak var toggleViewModeButton: UIButton! {
         didSet {
-            toggleViewModeButton?.isHidden = buttonNotDoubleTap
+            setButtonOrDoubletap(buttonNotDoubleTap)
         }
     }
 
@@ -119,11 +119,10 @@ class ProductNameTableViewCell: UITableViewCell {
         delegate?.productNameTableViewCell(self, receivedDoubleTap: nameTextView)
     }
     
-    private func setButtonOrDoubletap(_ button:Bool?) {
-        guard let validButton = button else { return }
-        if validButton {
-            toggleViewModeButton?.isHidden = !validButton
-        } else {
+    private func setButtonOrDoubletap(_ useButton:Bool?) {
+        guard let validUseButton = useButton else { return }
+        toggleViewModeButton?.isHidden = !validUseButton
+        if !validUseButton {
             let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
             doubleTapGestureRecognizer.numberOfTapsRequired = 2
             doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add

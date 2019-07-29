@@ -41,7 +41,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var toggleViewModeButton: UIButton! {
         didSet {
-            toggleViewModeButton?.isHidden = true
+            setButtonOrDoubletap(buttonNotDoubleTap)
         }
     }
     @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
@@ -68,15 +68,13 @@ class IngredientsFullTableViewCell: UITableViewCell {
             textView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             textView?.clipsToBounds = true
             textView?.isScrollEnabled = true
-            toggleViewModeButton?.isHidden = true
         } else {
-            setButtonOrDoubletap(buttonNotDoubleTap)
             textView?.backgroundColor = UIColor.white
             textView?.layer.borderColor = UIColor.white.cgColor
             textView?.isScrollEnabled = false
-            toggleViewModeButton?.isHidden = !isMultilingual
         }
-        
+        setButtonOrDoubletap(buttonNotDoubleTap)
+
         if editMode {
             if unAttributedIngredients.count > 0 {
                 // needed to reset the color of the text. It is not actually shown.
@@ -91,7 +89,6 @@ class IngredientsFullTableViewCell: UITableViewCell {
             // textView.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
             // print(textView?.text, self.frame.size, textView.frame.size)
             // textView?.sizeToFit() this allows for incompatible widths
-            // textView?.removeGestureRecognizer(tapGestureRecognizer)
         } else {
             if attributedIngredients.length > 0 {
                 textView?.attributedText = attributedIngredients
@@ -126,7 +123,11 @@ class IngredientsFullTableViewCell: UITableViewCell {
         }
     }
     
-    var buttonNotDoubleTap: Bool = true
+    var buttonNotDoubleTap: Bool = true {
+        didSet {
+            setButtonOrDoubletap(buttonNotDoubleTap)
+        }
+    }
 
     var ingredients: String? = nil {
         didSet {
@@ -180,16 +181,19 @@ class IngredientsFullTableViewCell: UITableViewCell {
         delegate?.ingredientsFullTableViewCell(self, receivedActionOn: textView)
     }
 
-    private func setButtonOrDoubletap(_ button:Bool?) {
-        guard let validButton = button else { return }
-        if validButton {
-            toggleViewModeButton?.isHidden = !validButton
+    private func setButtonOrDoubletap(_ useButton:Bool?) {
+        guard let validUseButton = useButton else { return }
+        if isMultilingual && !editMode {
+            toggleViewModeButton?.isHidden = !validUseButton
+            if !validUseButton {
+                let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(IngredientsFullTableViewCell.ingredientsTapped))
+                doubleTapGestureRecognizer.numberOfTapsRequired = 2
+                doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+                doubleTapGestureRecognizer.cancelsTouchesInView = false
+                textView?.addGestureRecognizer(doubleTapGestureRecognizer)
+            }
         } else {
-            let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
-            doubleTapGestureRecognizer.numberOfTapsRequired = 2
-            doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-            doubleTapGestureRecognizer.cancelsTouchesInView = false
-            textView?.addGestureRecognizer(doubleTapGestureRecognizer)
+            toggleViewModeButton?.isHidden = true
         }
     }
     
