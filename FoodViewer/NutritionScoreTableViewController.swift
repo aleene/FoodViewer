@@ -61,9 +61,9 @@ class NutritionScoreTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         switch showNutritionalScore {
         case .uk:
-            return Row.UK.NutritionalScore + 1
+            return UK.Section.Total
         case .france:
-            return Row.France.NutritionalScore + 1
+            return France.Section.Total
         }
     }
     
@@ -72,10 +72,10 @@ class NutritionScoreTableViewController: UITableViewController {
         case .uk:
             switch section {
             // section with bad nutriments
-            case Row.UK.BadNutrients:
+            case UK.Section.BadNutrients:
                 return productPair?.remoteProduct?.nutritionalScoreUK?.pointsA.count ?? 0
             // section with good nutriments
-            case Row.UK.GoodNutrients:
+            case UK.Section.GoodNutrients:
                 return productPair?.remoteProduct?.nutritionalScoreUK?.pointsC.count ?? 0
             default:
                 return 1
@@ -84,12 +84,12 @@ class NutritionScoreTableViewController: UITableViewController {
         case .france:
             switch section {
             // section with bad nutriments
-            case Row.France.BadNutrients:
+            case France.Section.BadNutrients:
                 return productPair?.remoteProduct?.nutritionalScoreFR?.pointsA.count ?? 0
             // section with good nutriments
-            case Row.France.GoodNutrients:
+            case France.Section.GoodNutrients:
                 return productPair?.remoteProduct?.nutritionalScoreFR?.pointsC.count ?? 0
-            case Row.France.Exceptions:
+            case France.Section.Exceptions:
                 return 2
             default:
                 return 1
@@ -100,12 +100,12 @@ class NutritionScoreTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch showNutritionalScore {
         case .uk:
-            switch (indexPath as NSIndexPath).section {
-                case Row.UK.ScoreSummary:
+            switch indexPath.section {
+                case UK.Section.ScoreSummary:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionScore, for: indexPath) as! NutritionScoreTableViewCell
                     cell.product = productPair?.remoteProduct ?? productPair?.localProduct
                     return cell
-                case Row.UK.BadNutrients:
+                case UK.Section.BadNutrients:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath) as? LeftNutrimentScoreTableViewCell
                     if let score = productPair?.remoteProduct?.nutritionalScoreUK?.pointsA {
                         cell!.nutrimentScore = (score[indexPath.row].nutriment, score[indexPath.row].points, 10, 0, .bad)
@@ -113,7 +113,7 @@ class NutritionScoreTableViewController: UITableViewController {
                         cell!.nutrimentScore = nil
                     }
                     return cell!
-                case Row.UK.GoodNutrients:
+                case UK.Section.GoodNutrients:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath) as? NutrimentScoreTableViewCell
                     if let score = productPair?.remoteProduct?.nutritionalScoreUK?.pointsC {
                         cell!.nutrimentScore = (score[indexPath.row].nutriment, score[indexPath.row].points, 5, 0, .good)
@@ -128,12 +128,12 @@ class NutritionScoreTableViewController: UITableViewController {
                     return cell
                 }
         case .france:
-            switch (indexPath as NSIndexPath).section {
-            case Row.France.ScoreSummary:
+            switch indexPath.section {
+            case France.Section.ScoreSummary:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionScore, for: indexPath) as? NutritionScoreTableViewCell
                     cell?.product = productPair?.remoteProduct ?? productPair?.localProduct
                     return cell!
-                case Row.France.BadNutrients:
+                case France.Section.BadNutrients:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath) as? LeftNutrimentScoreTableViewCell
                     if let score = productPair?.remoteProduct?.nutritionalScoreFR?.pointsA {
                         cell!.nutrimentScore = (score[indexPath.row].nutriment, score[indexPath.row].points, 10, 0, .bad)
@@ -141,7 +141,7 @@ class NutritionScoreTableViewController: UITableViewController {
                         cell!.nutrimentScore = nil
                     }
                     return cell!
-                case Row.France.GoodNutrients:
+                case France.Section.GoodNutrients:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath) as? NutrimentScoreTableViewCell
                     if let score = productPair?.remoteProduct?.nutritionalScoreFR?.pointsC {
                         cell!.nutrimentScore = (score[indexPath.row].nutriment, score[indexPath.row].points, 5, 0, .good)
@@ -149,7 +149,7 @@ class NutritionScoreTableViewController: UITableViewController {
                         cell!.nutrimentScore = nil
                     }
                     return cell!
-                case Row.France.Exceptions:
+                case France.Section.Exceptions:
                     switch (indexPath as NSIndexPath).row {
                     case 0:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath) as? ProductCategoryTableViewCell
@@ -171,19 +171,24 @@ class NutritionScoreTableViewController: UITableViewController {
         }
     }
     
-    fileprivate struct Row {
-        struct UK {
+    fileprivate struct UK {
+        struct Section {
+            static let Total = 4
             static let ScoreSummary = 0
-            static let BadNutrients = 1
+            static let NutritionalScore = 1
             static let GoodNutrients = 2
-            static let NutritionalScore = 3
+            static let BadNutrients = 3
         }
-        struct France {
+    }
+    
+    fileprivate struct France {
+        struct Section {
+            static let Total = 5
             static let ScoreSummary = 0
-            static let BadNutrients = 1
+            static let NutritionalScore = 1
             static let GoodNutrients = 2
-            static let Exceptions = 3
-            static let NutritionalScore = 4
+            static let BadNutrients = 3
+            static let Exceptions = 4
         }
     }
 
@@ -191,30 +196,33 @@ class NutritionScoreTableViewController: UITableViewController {
         switch showNutritionalScore {
         case .uk:
             switch section {
-            case Row.UK.ScoreSummary:
+            case UK.Section.ScoreSummary:
                 return TranslatableStrings.ScoreSummary
-            case Row.UK.BadNutrients:
+            case UK.Section.BadNutrients:
                 return TranslatableStrings.BadNutrients
-            case Row.UK.GoodNutrients:
+            case UK.Section.GoodNutrients:
                 return TranslatableStrings.GoodNutrients
-            case Row.UK.NutritionalScore:
+            case UK.Section.NutritionalScore:
                 return TranslatableStrings.NutritionalScoreUK
             default:
-                return (":Error:Row undefined")
+                return (":NutritionScoreTableViewController: UK section undefined")
             }
                 
         case .france:
             switch section {
-            case Row.France.ScoreSummary:
+            case France.Section.ScoreSummary:
                 return TranslatableStrings.ScoreSummary
-            case Row.France.BadNutrients:
+            case France.Section.BadNutrients:
                 return TranslatableStrings.BadNutrients
-            case Row.France.GoodNutrients:
+            case France.Section.GoodNutrients:
                 return TranslatableStrings.GoodNutrients
-            case Row.France.Exceptions:
+            case France.Section.Exceptions:
                 return TranslatableStrings.SpecialCategories
-            default:
+            case France.Section.NutritionalScore:
                 return TranslatableStrings.NutritionalScoreFrance
+            default:
+                return (":NutritionScoreTableViewController: France section undefined")
+
             }
         }
     }
@@ -233,14 +241,14 @@ class NutritionScoreTableViewController: UITableViewController {
         switch showNutritionalScore {
         case .uk:
             switch section {
-            case Row.UK.NutritionalScore:
+            case UK.Section.NutritionalScore:
                 header = TranslatableStrings.NutritionalScoreUK
             default:
                 return nil
             }
         case .france:
             switch section {
-            case Row.France.NutritionalScore:
+            case France.Section.NutritionalScore:
                 header = TranslatableStrings.NutritionalScoreFrance
             default:
                 return nil
@@ -268,7 +276,7 @@ class NutritionScoreTableViewController: UITableViewController {
         super.viewDidLoad()
         
         // tableStructure = setupSections()
-        tableView.estimatedRowHeight = 88.0
+        tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableView.automaticDimension
         tableView.allowsSelection = false
         
@@ -279,7 +287,7 @@ class NutritionScoreTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
                 navigationController?.setNavigationBarHidden(false, animated: false)
-        
+        refreshProduct()
         delegate?.title = TranslatableStrings.NutritionalScore
 
     }
