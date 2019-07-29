@@ -22,6 +22,7 @@ struct TranslatableStrings {
     static let AddNutrient = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
     static let AlertPreferences = NSLocalizedString("Alert Preferences", comment: "ViewController title, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels.")
     static let AlertPreferencesExtended = NSLocalizedString("Set a warning for specific allergen(s).", comment: "cell title label, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels.")
+    static let Allergens = NSLocalizedString("Allergens", comment: "Tag title for the number of allergens detected.")
     static let AllergenWarnings = NSLocalizedString("Allergen warnings", comment: "TableViewController title for the allergen warnings setting scene.")
     static let AskSavePermissionTitle = NSLocalizedString("Save Product Updates?", comment: "The title of an alert sheet, which allows the user to save he product.")
     static let AskSavePermissionMessage = NSLocalizedString("The local product has been changed. Should these changes be saved?", comment: "The title of an alert sheet, which allows the user to save he product.")

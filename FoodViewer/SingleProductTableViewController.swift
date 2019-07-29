@@ -284,7 +284,7 @@ class SingleProductTableViewController: UITableViewController {
                 cell.ingredientsBadgeText = TranslatableStrings.Undefined
             }
                     
-            cell.allergensText = TranslatableStrings.DetectedAllergens
+            cell.allergensText = TranslatableStrings.Allergens
             if let validAllergens = selectedProductPair?.remoteProduct?.allergensTranslated ?? selectedProductPair?.localProduct?.allergensOriginal {
                 switch validAllergens {
                 case .available(let allergens):
