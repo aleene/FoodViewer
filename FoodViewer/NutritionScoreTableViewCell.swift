@@ -86,6 +86,13 @@ class NutritionScoreTableViewCell: UITableViewCell {
     }
     
     private func setup() {
+        guard product != nil else { return }
+        guard nutriScoreView != nil else { return }
+        //guard fatLevelLabel != nil else { return }
+        //guard saturatedFatLevelLabel != nil else { return }
+        //guard sugarLevelLabel != nil else { return }
+        //guard saltLevelLabel != nil else { return }
+        
         setScore()
         setNova()
         setLevels()
@@ -94,7 +101,8 @@ class NutritionScoreTableViewCell: UITableViewCell {
     private func setScore() {
         guard product != nil else { return }
         guard nutriScoreView != nil else { return }
-        
+        guard novaValueLabel != nil else { return }
+
         if let score = product?.nutritionGrade {
             switch  score {
             case .a:

@@ -235,7 +235,7 @@ class NutritionScoreTableViewController: UITableViewController {
         
         headerView.section = section
         headerView.delegate = self
-        headerView.changeViewModeButton.isHidden = false
+        headerView.changeViewModeButton.isHidden = true
         headerView.buttonNotDoubleTap = buttonNotDoubleTap
         var header = ""
         switch showNutritionalScore {
