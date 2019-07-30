@@ -1321,8 +1321,7 @@ extension IdentificationTableViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == TranslatableStrings.PlaceholderProductName ||
-            textView.text == TranslatableStrings.PlaceholderGenericProductName ||
-            textView.text == TranslatableStrings.PlaceholderProductNameSearch {
+            textView.text == TranslatableStrings.PlaceholderGenericProductName {
             textView.text = ""
             textView.textColor = .black
         }
@@ -1356,7 +1355,7 @@ extension IdentificationTableViewController: UITextViewDelegate {
                 }
             }
         default:
-            return
+            break
         }
         tableView.reloadData()
     }

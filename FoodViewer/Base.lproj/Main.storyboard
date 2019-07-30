@@ -2872,7 +2872,7 @@
                                         <view contentMode="scaleToFill" verticalHuggingPriority="248" verticalCompressionResistancePriority="748" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oit-hm-F5p" userLabel="Levels">
                                             <rect key="frame" x="7.9999999999999929" y="8" width="124.33333333333331" height="27.666666666666671"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="754" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B5x-uW-4km" userLabel="Fat-level">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="754" text="Test text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B5x-uW-4km" userLabel="Fat-level">
                                                     <rect key="frame" x="0.0" y="0.0" width="124.33333333333333" height="15"/>
                                                     <color key="backgroundColor" red="0.87058823529999996" green="0.14901960780000001" blue="0.062745098040000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -2882,21 +2882,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="754" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Du-he-8Cy" userLabel="Saturated fat-level">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="754" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Du-he-8Cy" userLabel="Saturated fat-level">
                                                     <rect key="frame" x="0.0" y="17" width="124.33333333333333" height="15"/>
                                                     <color key="backgroundColor" red="0.26578802489999998" green="1" blue="0.35619107109999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="754" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vuk-V8-bKD" userLabel="Sugar-level">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="754" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vuk-V8-bKD" userLabel="Sugar-level">
                                                     <rect key="frame" x="0.0" y="34" width="124.33333333333333" height="15"/>
                                                     <color key="backgroundColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="754" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQ1-UT-1ir" userLabel="Salt-level">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="754" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQ1-UT-1ir" userLabel="Salt-level">
                                                     <rect key="frame" x="0.0" y="51" width="124.33333333333333" height="15"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
@@ -2974,9 +2974,13 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="fatLevelLabel" destination="B5x-uW-4km" id="jsE-in-Wxe"/>
                                     <outlet property="novaTitleLabel" destination="edL-tS-gco" id="bCu-Z4-R1I"/>
                                     <outlet property="novaValueLabel" destination="Qxp-Dq-WB0" id="6bg-qR-yN7"/>
                                     <outlet property="nutriScoreView" destination="xGV-rX-fVB" id="QFk-s3-XYL"/>
+                                    <outlet property="saltLevelLabel" destination="BQ1-UT-1ir" id="cPF-ha-LHq"/>
+                                    <outlet property="saturatedFatLevelLabel" destination="4Du-he-8Cy" id="oTo-sG-VvD"/>
+                                    <outlet property="sugarLevelLabel" destination="Vuk-V8-bKD" id="SKb-WS-X1q"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Left Nutriment Score Cell" id="zPg-pw-1ZC" customClass="LeftNutrimentScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -5060,7 +5064,7 @@
                     <tabBarItem key="tabBarItem" systemItem="history" id="qml-Z8-ZBg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tRv-W4-6M9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -5620,11 +5624,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="279" height="22"/>
+                                            <rect key="frame" x="20" y="11" width="297" height="22"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="315" y="8" width="79" height="29"/>
+                                            <rect key="frame" x="333" y="8" width="61" height="29"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>

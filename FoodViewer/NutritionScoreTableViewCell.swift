@@ -40,25 +40,77 @@ class NutritionScoreTableViewCell: UITableViewCell {
             if let nova = product?.novaGroup {
                 switch nova {
                 case "1":
-                    novaValueLabel.text = nova
-                    novaValueLabel.textColor = .white
-                    novaValueLabel.backgroundColor = .green
+                    novaValueLabel?.text = nova
+                    novaValueLabel?.textColor = .white
+                    novaValueLabel?.backgroundColor = .green
                 case "2":
-                    novaValueLabel.text = nova
-                    novaValueLabel.textColor = .white
-                    novaValueLabel.backgroundColor = .yellow
+                    novaValueLabel?.text = nova
+                    novaValueLabel?.textColor = .white
+                    novaValueLabel?.backgroundColor = .yellow
                 case "3":
-                    novaValueLabel.text = nova
-                    novaValueLabel.textColor = .white
-                    novaValueLabel.backgroundColor = .orange
+                    novaValueLabel?.text = nova
+                    novaValueLabel?.textColor = .white
+                    novaValueLabel?.backgroundColor = .orange
                 case "4":
-                    novaValueLabel.text = nova
-                    novaValueLabel.textColor = .white
-                    novaValueLabel.backgroundColor = .red
+                    novaValueLabel?.text = nova
+                    novaValueLabel?.textColor = .white
+                    novaValueLabel?.backgroundColor = .red
                 default:
-                    novaValueLabel.text = "?"
-                    novaValueLabel.textColor = .black
-                    novaValueLabel.backgroundColor = .white
+                    novaValueLabel?.text = "?"
+                    novaValueLabel?.textColor = .black
+                    novaValueLabel?.backgroundColor = .white
+                }
+            }
+            if let nutritionLevels = product?.nutritionScore {
+                for level in nutritionLevels {
+                    switch level.0 {
+                    case .fat:
+                        switch level.1 {
+                        case .low:
+                            self.fatLevelLabel?.backgroundColor = .green
+                        case .moderate:
+                            self.fatLevelLabel?.backgroundColor = .orange
+                        case .high:
+                            self.fatLevelLabel?.backgroundColor = .red
+                        default:
+                            break
+                        }
+                    case .saturatedFat:
+                        switch level.1 {
+                        case .low:
+                            self.saturatedFatLevelLabel?.backgroundColor = .green
+                        case .moderate:
+                            self.saturatedFatLevelLabel?.backgroundColor = .orange
+                        case .high:
+                            self.saturatedFatLevelLabel?.backgroundColor = .red
+                        default:
+                            break
+                        }
+                    case .sugar:
+                        switch level.1 {
+                        case .low:
+                            self.sugarLevelLabel?.backgroundColor = .green
+                        case .moderate:
+                            self.sugarLevelLabel?.backgroundColor = .orange
+                        case .high:
+                            self.sugarLevelLabel?.backgroundColor = .red
+                        default:
+                            break
+                        }
+                    case .salt:
+                        switch level.1 {
+                        case .low:
+                            self.saltLevelLabel?.backgroundColor = .green
+                        case .moderate:
+                            self.saltLevelLabel?.backgroundColor = .orange
+                        case .high:
+                            self.saltLevelLabel?.backgroundColor = .red
+                        default:
+                            break
+                        }
+                    default:
+                        break
+                    }
                 }
             }
         }
@@ -76,6 +128,30 @@ class NutritionScoreTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var fatLevelLabel: UILabel! {
+        didSet {
+            fatLevelLabel.text = TranslatableStrings.FatLevel
+        }
+    }
+    
+    @IBOutlet weak var saturatedFatLevelLabel: UILabel! {
+        didSet {
+            saturatedFatLevelLabel.text = TranslatableStrings.SaturatedFatLevel
+        }
+    }
+
+    @IBOutlet weak var sugarLevelLabel: UILabel! {
+        didSet {
+            sugarLevelLabel.text = TranslatableStrings.SugarLevel
+        }
+    }
+
+    @IBOutlet weak var saltLevelLabel: UILabel! {
+        didSet {
+            saltLevelLabel.text = TranslatableStrings.SaltLevel
+        }
+    }
+
     @IBOutlet weak var nutriScoreView: NutriScoreView! {
         didSet {
             nutriScoreView.isHidden = !regionHasNutritionalScoreLogo()

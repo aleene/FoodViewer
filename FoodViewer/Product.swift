@@ -1871,7 +1871,7 @@ class FoodProduct {
     }
     
     func contains(genericName: String, for languageCode: String) -> Bool {
-        if genericNameLanguage[languageCode] != nil, genericNameLanguage[languageCode]! == name {
+        if genericNameLanguage[languageCode] != nil, genericNameLanguage[languageCode]! == genericName {
             return true
         }
         return false
