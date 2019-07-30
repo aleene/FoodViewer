@@ -81,7 +81,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                                           style: .default)
         { action -> Void in
             self.productPair?.localProduct = nil
-            //self.pageIndex = .identification
+            self.refreshPageInterface()
         }
         
         let useMyOwn = UIAlertAction(title: TranslatableStrings.Save, style: .default)
@@ -682,7 +682,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
         let cancel = UIAlertAction(title: TranslatableStrings.Cancel, style: .default)
         { action -> Void in
-            
         }
         
         alertController.addAction(cancel)
