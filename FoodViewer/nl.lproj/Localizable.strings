@@ -353,10 +353,10 @@
 "Gallery" = "Fotogalerij";
 
 /* Tableview sectionheader for the edited long product name */
-"Generic Name (edited)" = "Fotogalerij (bewerkt)";
+"Generic Name (edited)" = "Generieke productnaam (bewerkt)";
 
 /* Tableview sectionheader for the original long product name */
-"Generic Name (original)" = "Fotogalerij (onbewerkt)";
+"Generic Name (original)" = "Generieke productnaam (onbewerkt)";
 
 /* Header for a table section showing the appreciations of the good nutrients */
 "Good nutrients" = "Goede voedingsstoffen";

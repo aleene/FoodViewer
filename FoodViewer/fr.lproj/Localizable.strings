@@ -46,6 +46,9 @@
 /* TableViewController title for the allergen warnings setting scene. */
 "Allergen warnings" = "Avertissements allergènes";
 
+/* Tag title for the number of allergens detected. */
+"Allergens" = "Allergènes";
+
 /* title of a segment of a segmented control, which lets the user set the application to scan products continuously. */
 "Allowed" = "Permis";
 
@@ -203,7 +206,7 @@
 "Default for salt/sodium" = "Défaut sel ou sodium";
 
 /* Title of table view section which allows the user to set the reference for nutrition facts (serving or 100g). */
-"Default nutrition facts style" = "";
+"Default nutrition facts style" = "Style par défaut tableau valeurs nutritionnelles";
 
 /* Title of table view section which allows the user to set who defines the table format (user or product). */
 "Default nutrition facts table style" = "Défaut style valeurs nutritionnelles";
@@ -575,6 +578,9 @@
 /* Generic text if a value has not yet been set. */
 "Not set" = "Pas définie";
 
+/* Title of a table section, which shows the nova evaluation tags for ingredients, additives and categories. */
+"Nova Evaluation Triggers" = "Déclencheurs NOVA";
+
 /* Generic text to indicate the nutrients of a product. */
 "Nutrients" = "Nutriments";
 
@@ -700,6 +706,9 @@
 
 /* String in PickerViewController to indicate the photographer role of a contributor */
 "Photographer" = "Photographe";
+
+/* Text to show if the user selects the scan tab */
+"Point the camera to the barcode of a product to recognize the product and get the product information." = "Pointez le caméra vers le code barre du produit pour le faire reconnaître et obtenir l'information du produit";
 
 /* Text of a label, which explains the user to point the camera of his device to a barcode to start working (do not exceed 30 letters). */
 "Point to a barcode to scan" = "Pointe le code barre d'un produit";
