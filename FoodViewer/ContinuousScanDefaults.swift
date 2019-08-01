@@ -44,6 +44,7 @@ class ContinuousScanDefaults {
         if let valid = continuousScan {
             defaults.set(valid, forKey: Constants.ContinuousScanKey)
             defaults.synchronize()
+            allowContinuousScan = valid
         }
     }
     

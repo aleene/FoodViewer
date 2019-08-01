@@ -41,8 +41,9 @@ class LastServerDefaults {
     // this writes the new server string
     func set(_ productType: ProductType?) {
         if let server = productType?.rawValue {
-        defaults.set(server, forKey: Constants.LastServerKey)
+            defaults.set(server, forKey: Constants.LastServerKey)
             defaults.synchronize()
+            self.productType = productType
         }
     }
     

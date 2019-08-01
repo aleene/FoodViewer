@@ -42,6 +42,7 @@ class TagEntryLanguageDefaults {
         if let valid = tagEntryLanguageProductNotSystem {
             defaults.set(valid, forKey: Constants.TagEntryLanguageDefaultsKey)
             defaults.synchronize()
+            self.productLanguageNotSystemLanguage = valid
         }
     }
     

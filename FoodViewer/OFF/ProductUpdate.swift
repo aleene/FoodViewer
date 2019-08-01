@@ -62,10 +62,19 @@ class ProductUpdate: OFFProductUpdateAPI {
         default:
             break
         }
+        
+        // The language code used to write tags is either the product language code or the interface language code
+        
         let interfaceLanguageCode = Locale.preferredLanguages[0].split(separator:"-").map(String.init)[0]
+        let productLanguageCode = validProduct.primaryLanguageCode
+        
+        var useProductLanguageCode: Bool {
+            return TagEntryLanguageDefaults.manager.productLanguageNotSystemLanguage ??  true
+        }
+        let languageCodeForWrite = useProductLanguageCode ? (productLanguageCode ?? interfaceLanguageCode) : interfaceLanguageCode
         
         // The OFF interface assumes that values are in english
-        let languageCodeToUse = "en"
+        let defaultLanguageCode = "en"
         
         var urlString = OFFWriteAPI.SecurePrefix
             + ( validProduct.type?.rawValue ?? ProductType.food.rawValue )
@@ -198,7 +207,7 @@ class ProductUpdate: OFFProductUpdateAPI {
         case .available:
             // take into account the language of the tags
             // if a tag has no prefix, a prefix must be added
-            let list = validProduct.packagingOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = validProduct.packagingOriginal.tags(withAdded: languageCodeForWrite, andRemoved: defaultLanguageCode)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -211,7 +220,7 @@ class ProductUpdate: OFFProductUpdateAPI {
         switch validProduct.labelsOriginal {
         case .available:
             // take into account the language of the tags
-            let list = validProduct.labelsOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = validProduct.labelsOriginal.tags(withAdded: languageCodeForWrite, andRemoved: defaultLanguageCode)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -224,7 +233,7 @@ class ProductUpdate: OFFProductUpdateAPI {
         switch validProduct.tracesOriginal {
         case .available:
             // take into account the language of the tags
-            let list = validProduct.tracesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = validProduct.tracesOriginal.tags(withAdded: languageCodeForWrite, andRemoved: defaultLanguageCode)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -237,7 +246,7 @@ class ProductUpdate: OFFProductUpdateAPI {
         switch validProduct.categoriesOriginal {
         case .available:
             // take into account the language of the tags
-            let list = validProduct.categoriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = validProduct.categoriesOriginal.tags(withAdded: languageCodeForWrite, andRemoved: defaultLanguageCode)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -273,7 +282,7 @@ class ProductUpdate: OFFProductUpdateAPI {
         
         switch validProduct.countriesOriginal {
         case .available:
-            let list = validProduct.countriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = validProduct.countriesOriginal.tags(withAdded: languageCodeForWrite, andRemoved: defaultLanguageCode)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         default:

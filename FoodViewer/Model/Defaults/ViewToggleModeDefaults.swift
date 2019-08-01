@@ -44,6 +44,7 @@ class ViewToggleModeDefaults {
         if let valid = viewToggleModeIsButtonNotDoubleTap {
             defaults.set(valid, forKey: Constants.ViewToggleModeDefaultsKey)
             defaults.synchronize()
+            self.buttonNotDoubleTapDefault = valid
         }
     }
     

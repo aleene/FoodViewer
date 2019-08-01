@@ -44,6 +44,7 @@ class NegativeIngredientDetectionsDefaults {
         if let valid = negativeIngredientDetectionsShown {
             defaults.set(valid, forKey: Constants.NegativeIngredientDetectionsDefaultsKey)
             defaults.synchronize()
+            self.negativeIngredientDetectionsShown = valid
         }
     }
     
