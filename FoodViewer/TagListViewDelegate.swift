@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 // MARK: - TagListView Delegate Functions
 
@@ -44,9 +43,20 @@ public protocol TagListViewDelegate {
     /// Called when the TagListView did begin editing.
     ///func tagListViewDidBeginEditing(_ tagListView: TagListView)
     /// Called when the TagListView's content height changes.
-    func tagListView(_ tagListView: TagListView, didChange height: CGFloat)
     
     func tagListView(_ tagListView: TagListView, willDisplay tagView: TagView, at index: Int) -> TagView?
+    
+    /// Is it allowed to edit a Tag object at a given index?
+    func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool
+    
+    /// Is it allowed to move a Tag object at a given index?
+    func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool
+    
+    /// The Tag object at the source index has been moved to a destination index.
+    func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int)
+
+    /// Called if the user wants to delete all tags
+    func didClear(_ tagListView: TagListView)
 }
 
 
@@ -94,14 +104,14 @@ extension TagListViewDelegate {
     ///func tagListView(_ tagListView: TagListView, didChange text: String)
     /// Called when the TagListView did begin editing.
     ///func tagListViewDidBeginEditing(_ tagListView: TagListView)
-    /// Called when the TagListView's content height changes.
-    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-    }
     
     public func tagListView(_ tagListView: TagListView, willDisplay tagView: TagView, at index: Int) -> TagView? {
         return nil
     }
 
+    /// Called if the user wants to delete all tags
+    public func didClear(_ tagListView: TagListView) {
+    }
 }
 
 

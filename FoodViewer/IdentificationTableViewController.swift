@@ -1221,7 +1221,7 @@ extension IdentificationTableViewController: TagListViewButtonCellDelegate {
 }
 
 //
-// MARK: - TagListViewCellDelegate Functions
+// MARK: - BarcodeEditCellDelegate Functions
 //
 extension IdentificationTableViewController: BarcodeEditCellDelegate {
     
@@ -1432,37 +1432,16 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return("IdentificationTableViewController: TagListView titleForTagAt error")
         }
     }
-
-    /// Called if the user wants to delete all tags
-    public func didClear(_ tagListView: TagListView) {
-        let currentProductSection = tableStructure[tagListView.tag]
-        switch currentProductSection {
-        case .brands:
-            switch brandsToDisplay {
-            case .available(var list):
-                list.removeAll()
-                productPair?.update(brandTags: list)
-            default:
-                assert(true, "IdentificationTableViewController: How can I clear a tag when there are none")
-            }
-        case .packaging:
-            switch packagingToDisplay {
-            case .available(var list):
-                list.removeAll()
-                productPair?.update(packagingTags: list)
-            default:
-                assert(true, "IdentificationTableViewController: How can I delete a tag when there are none")
-
-            }
-        default:
-            return
-        }
-        tableView.reloadData()
-    }
     
     /// Which text should be displayed when the TagListView is collapsed?
     public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
         return "Collapsed"
+    }
+    
+    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+        // causes a crash
+        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
+        tableView.reloadData()
     }
 
 }
@@ -1557,12 +1536,6 @@ extension IdentificationTableViewController: TagListViewDelegate {
         tableView.reloadData()
     }
     
-    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        // causes a crash
-        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
-        tableView.reloadData()
-    }
-    
     public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
         
         let currentProductSection = tableStructure[tagListView.tag]
@@ -1591,6 +1564,33 @@ extension IdentificationTableViewController: TagListViewDelegate {
         }
     }
     
+    /// Called if the user wants to delete all tags
+    public func didClear(_ tagListView: TagListView) {
+        let currentProductSection = tableStructure[tagListView.tag]
+        switch currentProductSection {
+        case .brands:
+            switch brandsToDisplay {
+            case .available(var list):
+                list.removeAll()
+                productPair?.update(brandTags: list)
+            default:
+                assert(true, "IdentificationTableViewController: How can I clear a tag when there are none")
+            }
+        case .packaging:
+            switch packagingToDisplay {
+            case .available(var list):
+                list.removeAll()
+                productPair?.update(packagingTags: list)
+            default:
+                assert(true, "IdentificationTableViewController: How can I delete a tag when there are none")
+                
+            }
+        default:
+            return
+        }
+        tableView.reloadData()
+    }
+
 }
 //
 // MARK: - UITextField Delegate Functions

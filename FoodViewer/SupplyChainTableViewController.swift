@@ -1157,57 +1157,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
         return("error")
     }
     
-    /// Called if the user wants to delete all tags
-    public func didClear(_ tagListView: TagListView) {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        switch currentProductSection {
-        case .producer:
-            switch producerTagsToDisplay {
-            case .available:
-                productPair?.update(producer: [])
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
-        case .producerCode:
-            switch producerCodeTagsToDisplay {
-            case .available:
-                productPair?.update(producerCode: [])
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
-        case .ingredientOrigin:
-            switch ingredientOriginLocationTagsToDisplay {
-            case .available:
-                productPair?.update(ingredientsOrigin: [])
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
-        case .store:
-            switch storeTagsToDisplay {
-            case .available:
-                productPair?.update(stores: [])
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
-        case .location:
-            switch purchaseLocationTagsToDisplay {
-            case .available:
-                productPair?.update(purchaseLocation: [])
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
-        case .country:
-            switch countriesToDisplay {
-            case .available:
-                productPair?.update(countries: [])
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
-        case .sites:
-            productPair?.update(links: [])
-        default:
-            break
-        }
+    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadData()
     }
 
@@ -1408,10 +1358,6 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         }
     }
     
-    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.reloadData()
-    }
-    
     public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
         
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
@@ -1468,6 +1414,60 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         }
     }
     
+    /// Called if the user wants to delete all tags
+    public func didClear(_ tagListView: TagListView) {
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .producer:
+            switch producerTagsToDisplay {
+            case .available:
+                productPair?.update(producer: [])
+            default:
+                assert(true, "How can I clear a tag when there are none")
+            }
+        case .producerCode:
+            switch producerCodeTagsToDisplay {
+            case .available:
+                productPair?.update(producerCode: [])
+            default:
+                assert(true, "How can I clear a tag when there are none")
+            }
+        case .ingredientOrigin:
+            switch ingredientOriginLocationTagsToDisplay {
+            case .available:
+                productPair?.update(ingredientsOrigin: [])
+            default:
+                assert(true, "How can I clear a tag when there are none")
+            }
+        case .store:
+            switch storeTagsToDisplay {
+            case .available:
+                productPair?.update(stores: [])
+            default:
+                assert(true, "How can I clear a tag when there are none")
+            }
+        case .location:
+            switch purchaseLocationTagsToDisplay {
+            case .available:
+                productPair?.update(purchaseLocation: [])
+            default:
+                assert(true, "How can I clear a tag when there are none")
+            }
+        case .country:
+            switch countriesToDisplay {
+            case .available:
+                productPair?.update(countries: [])
+            default:
+                assert(true, "How can I clear a tag when there are none")
+            }
+        case .sites:
+            productPair?.update(links: [])
+        default:
+            break
+        }
+        tableView.reloadData()
+    }
+
 }
 
 // MARK: - UITextFieldDelegate Functions

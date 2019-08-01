@@ -88,6 +88,7 @@ class NutritionScoreTableViewCell: UITableViewCell {
     private func setup() {
         guard product != nil else { return }
         guard nutriScoreView != nil else { return }
+        // This is also used in the summary, but the levels are not defined
         //guard fatLevelLabel != nil else { return }
         //guard saturatedFatLevelLabel != nil else { return }
         //guard sugarLevelLabel != nil else { return }

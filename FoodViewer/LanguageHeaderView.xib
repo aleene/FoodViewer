@@ -18,14 +18,14 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IEf-tI-agI">
                     <rect key="frame" x="0.0" y="0.0" width="500" height="62"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irO-Ej-Ivl">
-                            <rect key="frame" x="18" y="0.0" width="44" height="62"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irO-Ej-Ivl">
+                            <rect key="frame" x="18" y="0.0" width="0.0" height="62"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGu-3P-7cA">
-                            <rect key="frame" x="62" y="0.0" width="30" height="62"/>
+                            <rect key="frame" x="18" y="0.0" width="30" height="62"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <connections>
                                 <action selector="changeLanguageButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="4F1-3h-beg"/>

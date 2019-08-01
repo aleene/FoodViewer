@@ -357,9 +357,7 @@ extension CategoriesTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        // Assume that the tag value corresponds to the section
         tableView.reloadData()
-        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
 
 }

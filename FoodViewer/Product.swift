@@ -704,6 +704,8 @@ class FoodProduct {
         }
     }
     
+    var novaEvaluation: [Int:Tags] = [:]
+
     /*
     struct UniqueContributors {
         var contributors: [Contributor] = []
@@ -1128,6 +1130,18 @@ class FoodProduct {
             return nil
         }
 
+        func decodeNovaString(_ string:String?, for level:String) -> [String] {
+            guard let validString = string else { return [] }
+            var array: [String] = []
+            let components = validString.components(separatedBy: " -- ")
+            for component in components {
+                let part = component.components(separatedBy: " : ")
+                if part.count > 1 && part[1] == level {
+                    array.append(part[0])
+                }
+            }
+            return array
+        }
 
         self.init()
         
@@ -1389,6 +1403,11 @@ class FoodProduct {
         
         novaGroupsTags = Tags(list: validProduct.nova_groups_tags)
         novaGroup = validProduct.nova_group
+        print("FoodProduct:nova_group_debug", validProduct.nova_group_debug)
+        novaEvaluation[0] = Tags(list:decodeNovaString(validProduct.nova_group_debug, for: "1"))
+        novaEvaluation[1] = Tags(list:decodeNovaString(validProduct.nova_group_debug, for: "2"))
+        novaEvaluation[2] = Tags(list:decodeNovaString(validProduct.nova_group_debug, for: "3"))
+        novaEvaluation[3] = Tags(list:decodeNovaString(validProduct.nova_group_debug, for: "4"))
         
         nutritionScore = [(NutritionItem.fat,
                            NutritionLevelQuantity.value(for:validProduct.nutrient_levels?.fat)),

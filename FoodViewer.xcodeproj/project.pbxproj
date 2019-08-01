@@ -202,6 +202,7 @@
 		518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */; };
 		518ED6DD2028B008002176A9 /* ProductStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED6DC2028B007002176A9 /* ProductStorage.swift */; };
 		518ED6DF2028BB00002176A9 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED6DE2028BB00002176A9 /* URLExtension.swift */; };
+		5191878722F09C8E003D848D /* LevelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5191878622F09C8E003D848D /* LevelTableViewCell.swift */; };
 		5192BE1120DA8AE40068C961 /* LabelWithBadgeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5192BE1020DA8AE40068C961 /* LabelWithBadgeTableViewCell.swift */; };
 		5193DC0E1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193DC0D1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift */; };
 		5193DC101F3E1A79009EE70B /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */; };
@@ -586,6 +587,7 @@
 		518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLanguageViewController.swift; sourceTree = "<group>"; };
 		518ED6DC2028B007002176A9 /* ProductStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductStorage.swift; sourceTree = "<group>"; };
 		518ED6DE2028BB00002176A9 /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = URLExtension.swift; path = FoodViewer/Extensions/URLExtension.swift; sourceTree = SOURCE_ROOT; };
+		5191878622F09C8E003D848D /* LevelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LevelTableViewCell.swift; path = Cells/LevelTableViewCell.swift; sourceTree = "<group>"; };
 		5192BE1020DA8AE40068C961 /* LabelWithBadgeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LabelWithBadgeTableViewCell.swift; path = Cells/LabelWithBadgeTableViewCell.swift; sourceTree = "<group>"; };
 		5193DC0D1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductImagesCollectionViewController.swift; path = Identification/ProductImagesCollectionViewController.swift; sourceTree = "<group>"; };
 		5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1225,6 +1227,7 @@
 		5184F57D1EB5ED09009ECF73 /* NutrimentScoreCells */ = {
 			isa = PBXGroup;
 			children = (
+				5191878622F09C8E003D848D /* LevelTableViewCell.swift */,
 				51A62CFD1F87D21E00B0A810 /* SetNutritionScoreTableViewCell.swift */,
 				51EE97F31D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift */,
 				5125AB8E1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift */,
@@ -1710,6 +1713,7 @@
 				51E1C36C2046C59100CB68B1 /* OFFProductUpdateAPI.swift in Sources */,
 				51F9666C202DA51E00CD58C3 /* OFFProductNutriments.swift in Sources */,
 				5157426C1CDB63B200BE8E2D /* RSCode128Generator.swift in Sources */,
+				5191878722F09C8E003D848D /* LevelTableViewCell.swift in Sources */,
 				515742691CDB63B200BE8E2D /* RSCode39Generator.swift in Sources */,
 				51075552202F647C0047EC09 /* OFFProductNutrimentValues.swift in Sources */,
 				512039EE1E5B3E9500BE62CB /* GKImageCropControllerDelegate.swift in Sources */,
@@ -2229,6 +2233,7 @@
 				CODE_SIGN_ENTITLEMENTS = FoodViewer/FoodViewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FoodViewer/Info.plist;
@@ -2252,6 +2257,7 @@
 				CODE_SIGN_ENTITLEMENTS = FoodViewer/FoodViewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = FoodViewer/Info.plist;

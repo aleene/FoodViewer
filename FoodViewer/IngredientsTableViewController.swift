@@ -1248,6 +1248,31 @@ extension IngredientsTableViewController: TagListViewDelegate {
             break
         }
     }
+    
+    /// Called if the user wants to delete all tags
+    public func didClear(_ tagListView: TagListView) {
+        switch tableStructure[tagListView.tag] {
+        case .labels:
+            switch labelsToDisplay {
+            case .available(var list):
+                list.removeAll()
+                productPair?.update(labelTags: list)
+            default:
+                assert(true, "How can I delete a tag when there are none")
+            }
+        case .traces:
+            switch tracesToDisplay {
+            case .available(var list):
+                list.removeAll()
+                productPair?.update(tracesTags: list)
+            default:
+                assert(true, "How can I clear a tag when there are none")
+            }
+        default:
+            return
+        }
+        tableView.reloadData()
+    }
 
 }
 
@@ -1343,33 +1368,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadData()
     }
-
-    /// Called if the user wants to delete all tags
-    public func didClear(_ tagListView: TagListView) {
-        switch tableStructure[tagListView.tag] {
-        case .labels:
-            switch labelsToDisplay {
-            case .available(var list):
-                list.removeAll()
-                productPair?.update(labelTags: list)
-            default:
-                assert(true, "How can I delete a tag when there are none")
-            }
-        case .traces:
-            switch tracesToDisplay {
-            case .available(var list):
-                list.removeAll()
-                productPair?.update(tracesTags: list)
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
-        default:
-            return
-        }
-        tableView.reloadData()
-    }
     
-
 }
 
 // MARK: - UINavigationControllerDelegate Functions

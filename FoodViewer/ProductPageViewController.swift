@@ -196,6 +196,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         } else if let vc = viewController(for: currentProductPage) as? CategoriesTableViewController {
             vc.refreshProduct()
 
+        } else if let vc = viewController(for: currentProductPage) as? NutritionScoreTableViewController {
+            vc.refreshProduct()
+
         } else if let vc = viewController(for: currentProductPage) as? ProductImagesCollectionViewController {
             vc.reloadImages()
         }

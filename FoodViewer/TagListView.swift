@@ -614,7 +614,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
 
             if allowsRemoval {
                 // note that the removeButton state is set in rearrange as it affects the layout.
-                if datasource?.tagListView(self, canEditTagAt: index) != nil && datasource!.tagListView(self, canEditTagAt: index)  {
+                if delegate?.tagListView(self, canEditTagAt: index) != nil && delegate!.tagListView(self, canEditTagAt: index)  {
                     tagView.state = .removable
                 } else {
                     tagView.state = .normal
@@ -800,7 +800,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             tagView.verticalPadding = self.verticalPadding
             tagView.textFont = self.textFont
             if allowsRemoval {
-                if datasource?.tagListView(self, canEditTagAt: tagView.tag) != nil && datasource!.tagListView(self, canEditTagAt: tagView.tag) {
+                if delegate?.tagListView(self, canEditTagAt: tagView.tag) != nil && delegate!.tagListView(self, canEditTagAt: tagView.tag) {
                     tagView.removeButtonIsEnabled = removeButtonIsEnabled
                     tagView.state = .removable
                 } else {
@@ -1027,7 +1027,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         if oldHeight < newFrame.height {
             frame = newFrame
             // print("new",frame.height)
-            delegate?.tagListView(self, didChange: frame.height)
+            datasource?.tagListView(self, didChange: frame.height)
         }
     }
     
@@ -1116,7 +1116,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     // MARK: - Tag handling
     
     private func removeTag(at index: Int) {
-        if datasource?.tagListView(self, canEditTagAt: index) != nil && datasource!.tagListView(self, canEditTagAt: index) {
+        if delegate?.tagListView(self, canEditTagAt: index) != nil && delegate!.tagListView(self, canEditTagAt: index) {
             delegate?.tagListView(self, willBeginEditingTagAt: index)
             delegate?.tagListView(self, didDeleteTagAt: index)
             reloadData(clearAll:false)
@@ -1192,7 +1192,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     }
     
     @objc internal func clearOnTap(_ sender: UITapGestureRecognizer) {
-        datasource?.didClear(self)
+        delegate?.didClear(self)
         // reload in case the user changed the data
         reloadData(clearAll: false)
     }
@@ -1243,7 +1243,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             case UIGestureRecognizerState.began:
                 self.longPressInitialIndex = index
                 if let sourceIndex = self.longPressInitialIndex {
-                    if let canMoveTag = datasource?.tagListView(self, canMoveTagAt: sourceIndex) {
+                    if let canMoveTag = delegate?.tagListView(self, canMoveTagAt: sourceIndex) {
                         // check if the user gives permission to move this tag
                         if canMoveTag {
                             // make only a snapshot if the tag is allowed to move
@@ -1338,7 +1338,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         func moveTagAt(_ fromIndex: Int, to toIndex: Int) {
             if fromIndex != toIndex {
                 // give the user the chance to move the data
-                datasource?.tagListView(self, moveTagAt: fromIndex, to: toIndex)
+                delegate?.tagListView(self, moveTagAt: fromIndex, to: toIndex)
                 self.reloadData(clearAll:false)
             }
         }

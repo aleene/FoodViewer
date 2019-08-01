@@ -29,7 +29,7 @@ class TagListViewLabelTableViewCell: UITableViewCell {
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
-            tagListView.alignment = .center
+            tagListView.alignment = alignment
             tagListView.normalColorScheme = scheme
             tagListView.removableColorScheme = ColorSchemes.removable
             tagListView.cornerRadius = 10
@@ -99,6 +99,12 @@ class TagListViewLabelTableViewCell: UITableViewCell {
         }
     }
     
+    var alignment: TagListView.Alignment = .center {
+        didSet {
+            tagListView.alignment = alignment
+        }
+    }
+   
     func reloadData() {
         tagListView.reloadData(clearAll: true)
     }

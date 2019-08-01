@@ -259,6 +259,7 @@ struct TranslatableStrings {
     static let NotSet = NSLocalizedString("Not set", comment: "Generic text if a value has not yet been set.")
     static let NoProductsListed = NSLocalizedString("No products listed", comment: "Text to indicate that the history of products is empty.")
     static let NoTranslation = NSLocalizedString("No translation", comment: "Text in a pickerView, when no translated text is available")
+    static let Nova = NSLocalizedString("Nova", comment: "Nova")
     static let Nutrients = NSLocalizedString("Nutrients", comment: "Generic text to indicate the nutrients of a product.")
     static let NutrimentsAvailability = NSLocalizedString("Nutriments Availability", comment: "Tableview header for the section with nutriments availability, i.e. whether the nutrients are on the package.")
     static let NutritionalScore = NSLocalizedString("Nutrition Score", comment: "Header for a table section showing the search for nutrition score")
