@@ -70,27 +70,24 @@ class CompletionStatesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if productPair != nil {
-            return 4
-        }
-        return 0
+        guard productPair?.remoteProduct != nil else { return 0 }
+        
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let validProduct = productPair?.remoteProduct {
-            switch section {
-            case 0:
-                
-                return validProduct.state.states.count
-            case 1:
-                return validProduct.contributors.count
-            case 2:
-                return validProduct.imageAddDates.count
-            case 3:
-                return validProduct.additionDate != nil ? 1 : 0
-            default:
-                break
-            }
+        guard let validProduct = productPair?.remoteProduct else { return 0 }
+        switch section {
+        case 0:
+            return validProduct.state.states.count
+        case 1:
+            return validProduct.contributors.count
+        case 2:
+            return validProduct.imageAddDates.count
+        case 3:
+            return validProduct.additionDate != nil ? 1 : 0
+        default:
+            break
         }
         return 0
     }
@@ -100,10 +97,14 @@ class CompletionStatesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let validProduct = productPair?.remoteProduct else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LastEditDate, for: indexPath)
+            return cell
+        }
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.CompletionState, for: indexPath) as! StateTableViewCell
             cell.delegate = delegate
-            let completion = productPair!.remoteProduct!.state.array[indexPath.row]
+            let completion = validProduct.state.array[indexPath.row]
             cell.state = completion.value
             cell.tag = indexPath.row
             cell.stateTitle = completion.description
@@ -143,7 +144,11 @@ class CompletionStatesTableViewController: UITableViewController {
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Contributors, for: indexPath) as? ContributorTableViewCell
             cell?.delegate = delegate
-            cell?.contributor = productPair!.remoteProduct!.contributors[indexPath.row]
+            if indexPath.row < validProduct.contributors.count {
+                cell?.contributor = validProduct.contributors[indexPath.row]
+            } else {
+                print("CompletionStatesTableViewController: Contributors row index ", indexPath.row," to large for count: ", validProduct.contributors.count)
+            }
             return cell!
                 
         } else if indexPath.section == 2 {
@@ -152,7 +157,7 @@ class CompletionStatesTableViewController: UITableViewController {
             formatter.dateStyle = .medium
             formatter.timeStyle = .none
             // the lastEditDates array contains at least one date, if we arrive here
-            let dates: [Date] = Array.init(productPair!.remoteProduct!.imageAddDates)
+            let dates: [Date] = Array.init(validProduct.imageAddDates)
             cell.textLabel!.text = formatter.string(from: dates[indexPath.row])
             let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.lastEditDateLongPress))
             cell.addGestureRecognizer(longPressGestureRecognizer)
@@ -165,7 +170,7 @@ class CompletionStatesTableViewController: UITableViewController {
             formatter.dateStyle = .medium
             formatter.timeStyle = .none
                 
-            if let validDate = productPair?.remoteProduct?.additionDate {
+            if let validDate = validProduct.additionDate {
                 cell.textLabel!.text = formatter.string(from: validDate)
             } else {
                 cell.textLabel!.text = Constants.NoCreationDateAvailable
