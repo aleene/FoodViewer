@@ -549,6 +549,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 headerView.buttonNotDoubleTap = buttonNotDoubleTap
                 header = productVersion.isRemote ? TranslatableStrings.NutritionFactsImageOriginal : TranslatableStrings.NutritionFactsImageEdited
             }
+            headerView.changeLanguageButton.tag = 0
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
             // add a dash to nice separate the title from the language button
