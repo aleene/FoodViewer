@@ -46,6 +46,9 @@
 /* TableViewController title for the allergen warnings setting scene. */
 "Allergen warnings" = "Allergeen waarschuwingen";
 
+/* Tag title for the number of allergens detected. */
+"Allergens" = "Allergenen";
+
 /* title of a segment of a segmented control, which lets the user set the application to scan products continuously. */
 "Allowed" = "Togestaan";
 
@@ -574,6 +577,9 @@
 
 /* Generic text if a value has not yet been set. */
 "Not set" = "Niet ingevuld";
+
+/* Title of a table section, which shows the nova evaluation tags for ingredients, additives and categories. */
+"Nova Evaluation Triggers" = "NOVA evaluatie triggers";
 
 /* Generic text to indicate the nutrients of a product. */
 "Nutrients" = "Voedingsstof";
