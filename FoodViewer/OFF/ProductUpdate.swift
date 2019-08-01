@@ -204,10 +204,10 @@ class ProductUpdate: OFFProductUpdateAPI {
         }
         
         switch validProduct.packagingOriginal {
-        case .available:
+        case .available: 
             // take into account the language of the tags
             // if a tag has no prefix, a prefix must be added
-            let list = validProduct.packagingOriginal.tags(withAdded: languageCodeForWrite, andRemoved: defaultLanguageCode)
+            let list = validProduct.packagingOriginal.tags(withAdded: languageCodeForWrite)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -220,7 +220,7 @@ class ProductUpdate: OFFProductUpdateAPI {
         switch validProduct.labelsOriginal {
         case .available:
             // take into account the language of the tags
-            let list = validProduct.labelsOriginal.tags(withAdded: languageCodeForWrite, andRemoved: defaultLanguageCode)
+            let list = validProduct.labelsOriginal.tags(withAdded: languageCodeForWrite)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -233,7 +233,7 @@ class ProductUpdate: OFFProductUpdateAPI {
         switch validProduct.tracesOriginal {
         case .available:
             // take into account the language of the tags
-            let list = validProduct.tracesOriginal.tags(withAdded: languageCodeForWrite, andRemoved: defaultLanguageCode)
+            let list = validProduct.tracesOriginal.tags(withAdded: languageCodeForWrite)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -246,7 +246,7 @@ class ProductUpdate: OFFProductUpdateAPI {
         switch validProduct.categoriesOriginal {
         case .available:
             // take into account the language of the tags
-            let list = validProduct.categoriesOriginal.tags(withAdded: languageCodeForWrite, andRemoved: defaultLanguageCode)
+            let list = validProduct.categoriesOriginal.tags(withAdded: languageCodeForWrite)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -282,7 +282,7 @@ class ProductUpdate: OFFProductUpdateAPI {
         
         switch validProduct.countriesOriginal {
         case .available:
-            let list = validProduct.countriesOriginal.tags(withAdded: languageCodeForWrite, andRemoved: defaultLanguageCode)
+            let list = validProduct.countriesOriginal.tags(withAdded: languageCodeForWrite)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         default:

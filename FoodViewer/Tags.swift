@@ -136,7 +136,19 @@ public enum Tags : Equatable {
         return []
     }
     
-    
+    // add a languageCode to tags that have no language and remove languageCode for another language
+    public func tags(withAdded languageCode: String) -> [String] {
+        switch self {
+        case let .available(list):
+            if !list.isEmpty {
+                return addPrefix(list, prefix: languageCode)
+            }
+        default:
+            break
+        }
+        return []
+    }
+
 //
 // MARK: - Single tag functions
 //
