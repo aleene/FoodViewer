@@ -29,13 +29,24 @@ class OFFplists {
         static let PlistExtension = "plist"
         static let AllergensFileName = "Allergens"
         static let AdditivesFileName = "Additives"
-        static let StatesFileName = "States"
-        static let CountriesFileName = "Countries"
-        static let GlobalLabelsFileName = "GlobalLabels"
+        static let AminoAcidsFileName = "Amino_acids"
         static let BrandsFileName = "Brands"
         static let CategoriesFileName = "Categories"
-        static let NutrientsFileName = "Nutrients"
+        static let CountriesFileName = "Countries"
+        static let GlobalLabelsFileName = "GlobalLabels"
+        // The OFF taxonomy is not good for the app.
+        // The plist needs several edits:
+        // - add the language iso with the two letter code
+        // - remove language synonyms (not needed)
+        // - capitalize languages
+        static let IngredientsFileName = "IngredientsEdited"
         static let LanguagesFileName = "Languages"
+        static let MineralsFileName = "Minerals"
+        static let NucleotidesFileName = "Nucleotides"
+        static let NutrientsFileName = "Nutriments"
+        static let OtherNutritionalSubstancesFileName = "Other_nutritional_substances"
+        static let StatesFileName = "States"
+        static let VitaminsFileName = "Vitamins"
         static let TaxonomyKey = "Taxonomy"
         static let Language = "en"
         static let LanguageDivider = ":"
@@ -47,26 +58,38 @@ class OFFplists {
     }
 
     
-    lazy var OFFstates: Set <VertexNew>? = nil
     lazy var OFFadditives: Set <VertexNew>? = nil
     lazy var OFFallergens: Set <VertexNew>? = nil
+    lazy var OFFaminoAcids: Set <VertexNew>? = nil
+    lazy var OFFcategories: Set <VertexNew>? = nil
     lazy var OFFcountries: Set <VertexNew>? = nil
     lazy var OFFglobalLabels: Set <VertexNew>? = nil
-    lazy var OFFcategories: Set <VertexNew>? = nil
-    lazy var OFFnutrients: Set <VertexNew>? = nil
+    lazy var OFFingredients: Set <VertexNew>? = nil
     lazy var OFFlanguages: Set <VertexNew>? = nil
+    lazy var OFFminerals: Set <VertexNew>? = nil
+    lazy var OFFnucleotides: Set <VertexNew>? = nil
+    lazy var OFFnutrients: Set <VertexNew>? = nil
+    lazy var OFFstates: Set <VertexNew>? = nil
+    lazy var OFFotherNutritionalSubstances: Set <VertexNew>? = nil
+    lazy var OFFvitamins: Set <VertexNew>? = nil
     lazy var nutrients: [(Nutrient, String, NutritionFactUnit)] = [] // tuple (nutrient enum, nutrient name in local language, default nutrient unit?)
     
     init() {
         // read all necessary plists in the background
-        OFFstates = readPlist(Constants.StatesFileName)
         OFFadditives = readPlist(Constants.AdditivesFileName)
         OFFallergens = readPlist(Constants.AllergensFileName)
+        OFFaminoAcids = readPlist(Constants.AminoAcidsFileName)
+        OFFcategories = readPlist(Constants.CategoriesFileName)
         OFFcountries = readPlist(Constants.CountriesFileName)
         OFFglobalLabels = readPlist(Constants.GlobalLabelsFileName)
-        OFFcategories = readPlist(Constants.CategoriesFileName)
-        OFFnutrients = readPlist(Constants.NutrientsFileName)
+        OFFingredients = readPlist(Constants.IngredientsFileName)
         OFFlanguages = readPlist(Constants.LanguagesFileName)
+        OFFminerals = readPlist(Constants.MineralsFileName)
+        OFFnucleotides = readPlist(Constants.NucleotidesFileName)
+        OFFnutrients = readPlist(Constants.NutrientsFileName)
+        OFFotherNutritionalSubstances = readPlist(Constants.OtherNutritionalSubstancesFileName)
+        OFFstates = readPlist(Constants.StatesFileName)
+        OFFvitamins = readPlist(Constants.VitaminsFileName)
         nutrients = localNutrients()
         if allLanguages.count == 0 {
             allLanguages = setupAllLanguages(Locale.preferredLanguages[0])
@@ -143,6 +166,25 @@ class OFFplists {
         return String(format:TextConstants.FileNotAvailable, Constants.AllergensFileName)
     }
 
+    func translateAminoAcids(_ key: String, language:String) -> String? {
+        if OFFallergens != nil {
+            let firstSplit = language.split(separator:"-").map(String.init)
+            
+            let vertex = VertexNew(key:key)
+            // find the Vertex.Node with the key
+            let index = OFFallergens!.firstIndex(of: vertex)
+            if  index != nil {
+                
+                let currentVertex = OFFaminoAcids![index!].leaves
+                let values = currentVertex[firstSplit[0]]
+                return  values != nil ? values![0].capitalized : key
+            } else {
+                return nil
+            }
+        }
+        return String(format:TextConstants.FileNotAvailable, Constants.AminoAcidsFileName)
+    }
+
     func translateCountries(_ key: String, language:String) -> String {
         if OFFcountries != nil {
             let firstSplit = language.split(separator:"-").map(String.init)
@@ -197,6 +239,24 @@ class OFFplists {
         return translate(OFFnutrients, file: Constants.NutrientsFileName, key: "en:" + key, language: language)
     }
     
+    func translateIngredient(_ key: String, language:String) -> String? {
+        if OFFallergens != nil {
+            let firstSplit = language.split(separator:"-").map(String.init)
+            
+            let vertex = VertexNew(key:key)
+            // find the Vertex.Node with the key
+            let index = OFFallergens!.firstIndex(of: vertex)
+            if  index != nil {
+                
+                let currentVertex = OFFingredients![index!].leaves
+                let values = currentVertex[firstSplit[0]]
+                return  values != nil ? values![0].capitalized : key
+            } else {
+                return nil
+            }
+        }
+        return String(format:TextConstants.FileNotAvailable, Constants.IngredientsFileName)
+    }
 
     func translateLanguage(_ key: String, language:String) -> String {
         return translate(OFFlanguages, file: Constants.LanguagesFileName, key: key, language: language)
@@ -360,6 +420,81 @@ class OFFplists {
         return language != nil ? language!.code : TextConstants.NoLanguage
     }
 
+    func translateMineral(_ key: String, language:String) -> String? {
+        if OFFallergens != nil {
+            let firstSplit = language.split(separator:"-").map(String.init)
+            
+            let vertex = VertexNew(key:key)
+            // find the Vertex.Node with the key
+            let index = OFFallergens!.firstIndex(of: vertex)
+            if  index != nil {
+                
+                let currentVertex = OFFminerals![index!].leaves
+                let values = currentVertex[firstSplit[0]]
+                return  values != nil ? values![0].capitalized : key
+            } else {
+                return nil
+            }
+        }
+        return String(format:TextConstants.FileNotAvailable, Constants.MineralsFileName)
+    }
+
+    func translateNucleotide(_ key: String, language:String) -> String? {
+        if OFFallergens != nil {
+            let firstSplit = language.split(separator:"-").map(String.init)
+            
+            let vertex = VertexNew(key:key)
+            // find the Vertex.Node with the key
+            let index = OFFallergens!.firstIndex(of: vertex)
+            if  index != nil {
+                
+                let currentVertex = OFFnucleotides![index!].leaves
+                let values = currentVertex[firstSplit[0]]
+                return  values != nil ? values![0].capitalized : key
+            } else {
+                return nil
+            }
+        }
+        return String(format:TextConstants.FileNotAvailable, Constants.NucleotidesFileName)
+    }
+
+    func translateOther(_ key: String, language:String) -> String? {
+        if OFFallergens != nil {
+            let firstSplit = language.split(separator:"-").map(String.init)
+            
+            let vertex = VertexNew(key:key)
+            // find the Vertex.Node with the key
+            let index = OFFallergens!.firstIndex(of: vertex)
+            if  index != nil {
+                
+                let currentVertex = OFFotherNutritionalSubstances![index!].leaves
+                let values = currentVertex[firstSplit[0]]
+                return  values != nil ? values![0].capitalized : key
+            } else {
+                return nil
+            }
+        }
+        return String(format:TextConstants.FileNotAvailable, Constants.OtherNutritionalSubstancesFileName)
+    }
+
+    func translateVitamins(_ key: String, language:String) -> String? {
+        if OFFallergens != nil {
+            let firstSplit = language.split(separator:"-").map(String.init)
+            
+            let vertex = VertexNew(key:key)
+            // find the Vertex.Node with the key
+            let index = OFFallergens!.firstIndex(of: vertex)
+            if  index != nil {
+                
+                let currentVertex = OFFvitamins![index!].leaves
+                let values = currentVertex[firstSplit[0]]
+                return  values != nil ? values![0].capitalized : key
+            } else {
+                return nil
+            }
+        }
+        return String(format:TextConstants.FileNotAvailable, Constants.VitaminsFileName)
+    }
 
 // MARK: - Read functions
     

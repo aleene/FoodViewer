@@ -21,10 +21,6 @@
 		5108280D210A3CD40089977D /* PendingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5108280C210A3CD40089977D /* PendingOperations.swift */; };
 		510A5B201EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A5B1F1EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift */; };
 		510A5B231EB8A7B90089AD01 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 510A5B251EB8A7B90089AD01 /* InfoPlist.strings */; };
-		510BA29820162A6A0028107B /* Additives.plist in Resources */ = {isa = PBXBuildFile; fileRef = 510BA29720162A690028107B /* Additives.plist */; };
-		510BA29A20162B3E0028107B /* Allergens.plist in Resources */ = {isa = PBXBuildFile; fileRef = 510BA29920162B3E0028107B /* Allergens.plist */; };
-		510BA29C20162BDA0028107B /* GlobalLabels.plist in Resources */ = {isa = PBXBuildFile; fileRef = 510BA29B20162BDA0028107B /* GlobalLabels.plist */; };
-		510BA29E20162C340028107B /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 510BA29D20162C330028107B /* Categories.plist */; };
 		510BA2A120163BDA0028107B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 510BA2A320163BDA0028107B /* Localizable.strings */; };
 		510D9FB41E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */; };
 		510D9FB61E71850400B95B1B /* NutritionalScoreUKTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */; };
@@ -176,7 +172,6 @@
 		5174997E22098A9D00C3ED3E /* OFFSearchProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174997D22098A9D00C3ED3E /* OFFSearchProducts.swift */; };
 		51749980220C592700C3ED3E /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174997F220C592600C3ED3E /* Search.swift */; };
 		5174A66C1D804C1A00BA61F1 /* ProductNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174A66B1D804C1900BA61F1 /* ProductNameTableViewCell.swift */; };
-		5174A6761D82F9AD00BA61F1 /* Languages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5174A6751D82F9AC00BA61F1 /* Languages.plist */; };
 		5176AAEB1CA44F5A00B0494A /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5176AAEA1CA44F5A00B0494A /* Address.swift */; };
 		517907F61F8BBC730017FCA0 /* SelectCompletionStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517907F51F8BBC730017FCA0 /* SelectCompletionStateViewController.swift */; };
 		517907F81F8E55580017FCA0 /* TextFieldWithButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517907F71F8E55570017FCA0 /* TextFieldWithButtonTableViewCell.swift */; };
@@ -226,18 +221,29 @@
 		51A37D59200F992F00AAF5D7 /* ImageLoadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A37D58200F992D00AAF5D7 /* ImageLoadError.swift */; };
 		51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */; };
 		51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */; };
-		51A4CAF31CF1C30B003F9763 /* Nutrients.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A4CAF21CF1C30B003F9763 /* Nutrients.plist */; };
 		51A62CFE1F87D21E00B0A810 /* SetNutritionScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A62CFD1F87D21E00B0A810 /* SetNutritionScoreTableViewCell.swift */; };
 		51A7DC7E1EE6BF5F00F231B0 /* LanguageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51A7DC7D1EE6BF5F00F231B0 /* LanguageHeaderView.xib */; };
 		51A7DC801EE6C04400F231B0 /* LanguageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A7DC7F1EE6C04400F231B0 /* LanguageHeaderView.swift */; };
+		51A99E3D22F5B96C000F82BF /* Other_nutritional_substances.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E2F22F5B967000F82BF /* Other_nutritional_substances.plist */; };
+		51A99E3E22F5B96C000F82BF /* GlobalLabels.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3022F5B969000F82BF /* GlobalLabels.plist */; };
+		51A99E3F22F5B96C000F82BF /* Nutriments.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3122F5B969000F82BF /* Nutriments.plist */; };
+		51A99E4022F5B96C000F82BF /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3222F5B96A000F82BF /* Categories.plist */; };
+		51A99E4122F5B96C000F82BF /* Additives.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3322F5B96A000F82BF /* Additives.plist */; };
+		51A99E4222F5B96C000F82BF /* Amino_acids.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3422F5B96A000F82BF /* Amino_acids.plist */; };
+		51A99E4322F5B96C000F82BF /* Vitamins.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3522F5B96A000F82BF /* Vitamins.plist */; };
+		51A99E4422F5B96C000F82BF /* Allergens.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3622F5B96B000F82BF /* Allergens.plist */; };
+		51A99E4522F5B96C000F82BF /* Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3722F5B96B000F82BF /* Countries.plist */; };
+		51A99E4622F5B96C000F82BF /* Ingredients.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3822F5B96B000F82BF /* Ingredients.plist */; };
+		51A99E4722F5B96C000F82BF /* Nucleotides.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3922F5B96B000F82BF /* Nucleotides.plist */; };
+		51A99E4822F5B96C000F82BF /* States.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3A22F5B96B000F82BF /* States.plist */; };
+		51A99E4922F5B96C000F82BF /* Minerals.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3B22F5B96C000F82BF /* Minerals.plist */; };
+		51A99E4A22F5B96C000F82BF /* Languages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3C22F5B96C000F82BF /* Languages.plist */; };
 		51AB5F1220342E8D004D74C7 /* OFFProductDetailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB5F1120342E8D004D74C7 /* OFFProductDetailed.swift */; };
 		51AB5F1420342E9D004D74C7 /* OFFProductSelectedImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB5F1320342E9D004D74C7 /* OFFProductSelectedImages.swift */; };
 		51AFB0051C73455E00598444 /* IdentificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */; };
 		51AFB00E1C74876E00598444 /* ContributorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB00D1C74876D00598444 /* ContributorTableViewCell.swift */; };
 		51B11D281E4F37C400823630 /* OFFHttpPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B11D271E4F37C400823630 /* OFFHttpPost.swift */; };
 		51B11D501E509DE900823630 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 51B11D4F1E509DE900823630 /* test.json */; };
-		51B14FFF1CB2DD8B00A57D42 /* States.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51B14FFE1CB2DD8B00A57D42 /* States.plist */; };
-		51B150051CB2DFA400A57D42 /* Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51B150041CB2DFA400A57D42 /* Countries.plist */; };
 		51B3838C1F89007E0086581C /* TranslatableStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B3838B1F89007E0086581C /* TranslatableStrings.swift */; };
 		51B3838E1F8936D30086581C /* ButtonWithSegmentedControlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B3838D1F8936D30086581C /* ButtonWithSegmentedControlTableViewCell.swift */; };
 		51B384F81FED515100F201AE /* OFFUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */; };
@@ -393,10 +399,6 @@
 		510A5B1F1EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodAfterOpeningTableViewCell.swift; sourceTree = "<group>"; };
 		510A5B241EB8A7B90089AD01 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		510A5B261EB8A8B50089AD01 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		510BA29720162A690028107B /* Additives.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Additives.plist; sourceTree = "<group>"; };
-		510BA29920162B3E0028107B /* Allergens.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Allergens.plist; sourceTree = "<group>"; };
-		510BA29B20162BDA0028107B /* GlobalLabels.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GlobalLabels.plist; sourceTree = "<group>"; };
-		510BA29D20162C330028107B /* Categories.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Categories.plist; sourceTree = "<group>"; };
 		510BA2A220163BDA0028107B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		510BA2A420163CA40028107B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionLevelQuantityTestSuite.swift; sourceTree = "<group>"; };
@@ -557,7 +559,6 @@
 		5174997D22098A9D00C3ED3E /* OFFSearchProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFSearchProducts.swift; path = API/OFFSearchProducts.swift; sourceTree = "<group>"; };
 		5174997F220C592600C3ED3E /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		5174A66B1D804C1900BA61F1 /* ProductNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductNameTableViewCell.swift; sourceTree = "<group>"; };
-		5174A6751D82F9AC00BA61F1 /* Languages.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Languages.plist; sourceTree = "<group>"; };
 		5176AAEA1CA44F5A00B0494A /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		517907F51F8BBC730017FCA0 /* SelectCompletionStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCompletionStateViewController.swift; sourceTree = "<group>"; };
 		517907F71F8E55570017FCA0 /* TextFieldWithButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextFieldWithButtonTableViewCell.swift; path = Cells/TextFieldWithButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -612,18 +613,29 @@
 		51A37D58200F992D00AAF5D7 /* ImageLoadError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageLoadError.swift; path = Model/ImageLoadError.swift; sourceTree = "<group>"; };
 		51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplyChainLocation.swift; sourceTree = "<group>"; };
-		51A4CAF21CF1C30B003F9763 /* Nutrients.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Nutrients.plist; sourceTree = "<group>"; };
 		51A62CFD1F87D21E00B0A810 /* SetNutritionScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetNutritionScoreTableViewCell.swift; path = Cells/SetNutritionScoreTableViewCell.swift; sourceTree = "<group>"; };
 		51A7DC7D1EE6BF5F00F231B0 /* LanguageHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LanguageHeaderView.xib; sourceTree = "<group>"; };
 		51A7DC7F1EE6C04400F231B0 /* LanguageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageHeaderView.swift; sourceTree = "<group>"; };
+		51A99E2F22F5B967000F82BF /* Other_nutritional_substances.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Other_nutritional_substances.plist; sourceTree = "<group>"; };
+		51A99E3022F5B969000F82BF /* GlobalLabels.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = GlobalLabels.plist; sourceTree = "<group>"; };
+		51A99E3122F5B969000F82BF /* Nutriments.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Nutriments.plist; sourceTree = "<group>"; };
+		51A99E3222F5B96A000F82BF /* Categories.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Categories.plist; sourceTree = "<group>"; };
+		51A99E3322F5B96A000F82BF /* Additives.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Additives.plist; sourceTree = "<group>"; };
+		51A99E3422F5B96A000F82BF /* Amino_acids.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Amino_acids.plist; sourceTree = "<group>"; };
+		51A99E3522F5B96A000F82BF /* Vitamins.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Vitamins.plist; sourceTree = "<group>"; };
+		51A99E3622F5B96B000F82BF /* Allergens.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Allergens.plist; sourceTree = "<group>"; };
+		51A99E3722F5B96B000F82BF /* Countries.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Countries.plist; sourceTree = "<group>"; };
+		51A99E3822F5B96B000F82BF /* Ingredients.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Ingredients.plist; sourceTree = "<group>"; };
+		51A99E3922F5B96B000F82BF /* Nucleotides.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Nucleotides.plist; sourceTree = "<group>"; };
+		51A99E3A22F5B96B000F82BF /* States.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = States.plist; sourceTree = "<group>"; };
+		51A99E3B22F5B96C000F82BF /* Minerals.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Minerals.plist; sourceTree = "<group>"; };
+		51A99E3C22F5B96C000F82BF /* Languages.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Languages.plist; sourceTree = "<group>"; };
 		51AB5F1120342E8D004D74C7 /* OFFProductDetailed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OFFProductDetailed.swift; path = OFFProductJson/OFFProductDetailed.swift; sourceTree = "<group>"; };
 		51AB5F1320342E9D004D74C7 /* OFFProductSelectedImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OFFProductSelectedImages.swift; path = OFFProductJson/OFFProductSelectedImages.swift; sourceTree = "<group>"; };
 		51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationTableViewController.swift; sourceTree = "<group>"; };
 		51AFB00D1C74876D00598444 /* ContributorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContributorTableViewCell.swift; sourceTree = "<group>"; };
 		51B11D271E4F37C400823630 /* OFFHttpPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFHttpPost.swift; sourceTree = "<group>"; };
 		51B11D4F1E509DE900823630 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
-		51B14FFE1CB2DD8B00A57D42 /* States.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = States.plist; sourceTree = "<group>"; };
-		51B150041CB2DFA400A57D42 /* Countries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Countries.plist; sourceTree = "<group>"; };
 		51B3838B1F89007E0086581C /* TranslatableStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslatableStrings.swift; sourceTree = "<group>"; };
 		51B3838D1F8936D30086581C /* ButtonWithSegmentedControlTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonWithSegmentedControlTableViewCell.swift; path = Cells/ButtonWithSegmentedControlTableViewCell.swift; sourceTree = "<group>"; };
 		51B384FA1FED52BD00F201AE /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageExtension.swift; path = FoodViewer/Extensions/UIImageExtension.swift; sourceTree = SOURCE_ROOT; };
@@ -1022,15 +1034,21 @@
 		514196B520839F1000528877 /* plist */ = {
 			isa = PBXGroup;
 			children = (
-				510BA29720162A690028107B /* Additives.plist */,
-				510BA29920162B3E0028107B /* Allergens.plist */,
-				510BA29D20162C330028107B /* Categories.plist */,
-				51B150041CB2DFA400A57D42 /* Countries.plist */,
-				510BA29B20162BDA0028107B /* GlobalLabels.plist */,
-				5174A6751D82F9AC00BA61F1 /* Languages.plist */,
+				51A99E3322F5B96A000F82BF /* Additives.plist */,
+				51A99E3622F5B96B000F82BF /* Allergens.plist */,
+				51A99E3422F5B96A000F82BF /* Amino_acids.plist */,
+				51A99E3222F5B96A000F82BF /* Categories.plist */,
+				51A99E3722F5B96B000F82BF /* Countries.plist */,
+				51A99E3022F5B969000F82BF /* GlobalLabels.plist */,
+				51A99E3822F5B96B000F82BF /* Ingredients.plist */,
+				51A99E3C22F5B96C000F82BF /* Languages.plist */,
+				51A99E3B22F5B96C000F82BF /* Minerals.plist */,
+				51A99E3922F5B96B000F82BF /* Nucleotides.plist */,
+				51A99E3122F5B969000F82BF /* Nutriments.plist */,
+				51A99E2F22F5B967000F82BF /* Other_nutritional_substances.plist */,
+				51A99E3A22F5B96B000F82BF /* States.plist */,
+				51A99E3522F5B96A000F82BF /* Vitamins.plist */,
 				5150C0751CBE81D900161616 /* ReferenceDailyIntakeValues.plist */,
-				51A4CAF21CF1C30B003F9763 /* Nutrients.plist */,
-				51B14FFE1CB2DD8B00A57D42 /* States.plist */,
 			);
 			name = plist;
 			sourceTree = "<group>";
@@ -1627,29 +1645,35 @@
 				517FC9311CD500C100CB89ED /* Localizable.strings in Resources */,
 				5169F086209CC85100134553 /* FoodProductsDB.csv in Resources */,
 				51A7DC7E1EE6BF5F00F231B0 /* LanguageHeaderView.xib in Resources */,
-				51B150051CB2DFA400A57D42 /* Countries.plist in Resources */,
+				51A99E3E22F5B96C000F82BF /* GlobalLabels.plist in Resources */,
 				51B11D501E509DE900823630 /* test.json in Resources */,
+				51A99E4322F5B96C000F82BF /* Vitamins.plist in Resources */,
 				517FC92A1CD5009A00CB89ED /* InfoPlist.strings in Resources */,
 				5150C0761CBE81D900161616 /* ReferenceDailyIntakeValues.plist in Resources */,
 				514196B320839EF000528877 /* BeautyProductsDB.csv in Resources */,
 				51E306A01C68E0B900485A8D /* Main.storyboard in Resources */,
 				5104F4AC1F9F3D01008D074F /* SearchHeaderView.xib in Resources */,
 				5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */,
-				51A4CAF31CF1C30B003F9763 /* Nutrients.plist in Resources */,
-				51B14FFF1CB2DD8B00A57D42 /* States.plist in Resources */,
+				51A99E4722F5B96C000F82BF /* Nucleotides.plist in Resources */,
+				51A99E4622F5B96C000F82BF /* Ingredients.plist in Resources */,
 				51F6693A1F4499190074AACB /* AddImageCollectionViewCell.xib in Resources */,
-				5174A6761D82F9AD00BA61F1 /* Languages.plist in Resources */,
+				51A99E4922F5B96C000F82BF /* Minerals.plist in Resources */,
 				514EEF9A1ED9B70000C4CF54 /* 4005900122063.json in Resources */,
+				51A99E3D22F5B96C000F82BF /* Other_nutritional_substances.plist in Resources */,
 				5184F5811EB5EF78009ECF73 /* NutriScoreView.xib in Resources */,
+				51A99E4022F5B96C000F82BF /* Categories.plist in Resources */,
+				51A99E4122F5B96C000F82BF /* Additives.plist in Resources */,
+				51A99E4222F5B96C000F82BF /* Amino_acids.plist in Resources */,
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
+				51A99E4A22F5B96C000F82BF /* Languages.plist in Resources */,
 				514196AF20839ED400528877 /* PetFoodProductsDB.csv in Resources */,
-				510BA29E20162C340028107B /* Categories.plist in Resources */,
-				510BA29C20162BDA0028107B /* GlobalLabels.plist in Resources */,
-				510BA29820162A6A0028107B /* Additives.plist in Resources */,
+				51A99E3F22F5B96C000F82BF /* Nutriments.plist in Resources */,
+				51A99E4522F5B96C000F82BF /* Countries.plist in Resources */,
+				51A99E4822F5B96C000F82BF /* States.plist in Resources */,
 				51CF42C71E02F48600C9AD91 /* TagView.xib in Resources */,
 				51DD35861EFEAB60000A8484 /* emb-30569c in Resources */,
 				514EEF9C1ED9B79100C4CF54 /* 7613034182067.json in Resources */,
-				510BA29A20162B3E0028107B /* Allergens.plist in Resources */,
+				51A99E4422F5B96C000F82BF /* Allergens.plist in Resources */,
 				51E5CC9C1CB1105E00216868 /* Keyboard.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
