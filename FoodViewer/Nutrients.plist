@@ -96,6 +96,10 @@
 			<array>
 				<string>Alcohol</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Alcohol</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Alcool</string>
@@ -114,9 +118,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Alpha-Linolensäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Alpha-linolenic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido alfa-linolénico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -135,6 +147,14 @@
 			<key>unit</key>
 			<array>
 				<string>µg</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Arachidonsaeure</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido araquidónico</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -194,9 +214,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Behensäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Behenic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido behénico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -224,6 +252,10 @@
 			<array>
 				<string>Beta carotene</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Beta-caroteno</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Bêta carotène</string>
@@ -231,6 +263,36 @@
 			<key>nl</key>
 			<array>
 				<string>Bêta-caroteen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:beta-glucan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Beta-Glucan</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Beta-glucan</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bêta-glucane</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>beta-glucano</string>
+			</array>
+			<key>unit</key>
+			<array>
+				<string>µg</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>beta-glucaan</string>
 			</array>
 		</dict>
 	</dict>
@@ -249,6 +311,10 @@
 			<key>en</key>
 			<array>
 				<string>Bicarbonate</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Bicarbonato</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -276,6 +342,12 @@
 			<array>
 				<string>Biotin</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Biotina</string>
+				<string> Vitamina B7</string>
+				<string> Vitamina H</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Biotine (Vitamine B8 / B7 / H)</string>
@@ -294,9 +366,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Buttersäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Butyric acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido butírico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -316,9 +396,17 @@
 			<array>
 				<string>mg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Coffein</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Caffeine</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>cafeina</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -346,6 +434,10 @@
 			<array>
 				<string>Calcium</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Calcio</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Calcium</string>
@@ -364,9 +456,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Caprinsäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Capric acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido cáprico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -386,9 +486,18 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Capronsäure </string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Caproic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido caproico</string>
+				<string> Acide hexanoïque</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -408,9 +517,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Caprylsäure </string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Caprylic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido caprílico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -438,6 +555,10 @@
 			<array>
 				<string>Carbohydrate</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Hidratos de carbono</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Glucides</string>
@@ -464,6 +585,11 @@
 			<array>
 				<string>Carbon footprint / CO2 emissions</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Huella de carbono</string>
+				<string> Emisiones de CO2</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Empreinte carbone / émissions de CO2</string>
@@ -471,6 +597,54 @@
 			<key>nl</key>
 			<array>
 				<string>Ecologische voetafdruk / CO2-uitstoot</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:carbon-footprint-from-meat-or-fish</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>nl</key>
+			<array>
+				<string>koolstofvoetafdruk voor vlees of vis</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Carbon footprint from meat or fish</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Empreinte carbone de la viande ou du poisson</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:carnitine</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>unit</key>
+			<array>
+				<string>mg</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Carnitin</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>carnitine</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Carnitine</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>carnitina</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Carnitine</string>
 			</array>
 		</dict>
 	</dict>
@@ -490,6 +664,10 @@
 			<array>
 				<string>Casein</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Caseína</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Caséine</string>
@@ -508,9 +686,18 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Cerotinsäure</string>
+				<string> Xerotinsaeure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Cerotic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido cerótico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -538,6 +725,10 @@
 			<array>
 				<string>Chloride</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>cloruro</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Chlorure</string>
@@ -564,6 +755,14 @@
 			<array>
 				<string>Chlorophyl</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Clorofilas</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>chlorophylles</string>
+			</array>
 			<key>nl</key>
 			<array>
 				<string>Chlorofyl</string>
@@ -586,6 +785,10 @@
 			<array>
 				<string>Cholesterol</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Colesterol</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Cholestérol</string>
@@ -593,6 +796,36 @@
 			<key>nl</key>
 			<array>
 				<string>Cholesterol</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:choline</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>unit</key>
+			<array>
+				<string>mg</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Choline</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Cholin</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Choline</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Colina</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Choline</string>
 			</array>
 		</dict>
 	</dict>
@@ -611,6 +844,10 @@
 			<key>en</key>
 			<array>
 				<string>Chromium</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Cromo</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -637,6 +874,10 @@
 			<key>en</key>
 			<array>
 				<string>Cocoa (minimum)</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Cacao (minimum)</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -690,6 +931,10 @@
 			<array>
 				<string>Copper</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>cobre</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Cuivre</string>
@@ -708,9 +953,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Dihomo-Gamma-Linolsäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Dihomo-gamma-linolenic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido dihomo-gamma-linolénico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -730,9 +983,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Docosahexaensäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Docosahexaenoic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido docosahexaenoico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -752,9 +1013,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Eicosapentaensäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Eicosapentaenoic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido eicosapentaenoico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -774,9 +1043,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Elaidinsäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Elaidic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido elaídico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -803,6 +1080,10 @@
 			<key>en</key>
 			<array>
 				<string>Energy</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Energía</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -848,9 +1129,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Erucasäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Erucic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido erúcico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -878,6 +1167,10 @@
 			<array>
 				<string>Fat</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Gordo</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Matières grasses / Lipides</string>
@@ -903,6 +1196,10 @@
 			<key>en</key>
 			<array>
 				<string>Dietary fiber</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Fibra alimentaria</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -930,6 +1227,10 @@
 			<array>
 				<string>Fluoride</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>fluoruro</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Fluorure</string>
@@ -937,6 +1238,24 @@
 			<key>nl</key>
 			<array>
 				<string>Fluor</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:folates-(total-folates)</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>unit</key>
+			<array>
+				<string>mg</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Folates (folates totaux)</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Folates (total folates)</string>
 			</array>
 		</dict>
 	</dict>
@@ -955,6 +1274,10 @@
 			<key>en</key>
 			<array>
 				<string>Fructose</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>fructosa</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -982,6 +1305,10 @@
 			<array>
 				<string>Fruits - vegetables and nuts (minimum)</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Score - Francia</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Fruits -  légumes et noix (minimum)</string>
@@ -1001,9 +1328,19 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Gamma-Linolensäure</string>
+				<string> Gamoleninsäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Gamma-linolenic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido gamma-linolénico</string>
+				<string> ácido gamolénico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1012,6 +1349,36 @@
 			<key>nl</key>
 			<array>
 				<string>Gamma-linoleenzuur</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:glycemic-index</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>unit</key>
+			<array>
+				<string></string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Glycemic Index</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Glykämischer Index</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Indice glycémique</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Índice glucémico</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>glykemische index</string>
 			</array>
 		</dict>
 	</dict>
@@ -1031,6 +1398,10 @@
 			<array>
 				<string>Glucose</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>glucosa</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Glucose</string>
@@ -1049,9 +1420,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Gondosäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Gondoic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido gondoico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1099,6 +1478,36 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:inositol</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>unit</key>
+			<array>
+				<string>mg</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>inositol</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Inositol</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>inositol</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>inositol</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>inositol</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:insoluble-fiber</key>
 	<dict>
 		<key>Languages</key>
@@ -1107,13 +1516,25 @@
 			<array>
 				<string>g</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Unlösliche Ballaststoffe</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Insoluble fiber</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Fibra insoluble</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Fibres insolubles</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Niet-fermenteerbare voedingsvezels</string>
 			</array>
 		</dict>
 	</dict>
@@ -1132,6 +1553,10 @@
 			<key>en</key>
 			<array>
 				<string>Iodine</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Yodo</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1159,6 +1584,10 @@
 			<array>
 				<string>Iron</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Hierro</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Fer</string>
@@ -1185,6 +1614,10 @@
 			<array>
 				<string>Lactose</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Lactosa</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Lactose</string>
@@ -1202,6 +1635,14 @@
 			<key>unit</key>
 			<array>
 				<string>µg</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Laurinsäure</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido láurico</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -1225,9 +1666,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Lignocerinsäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Lignoceric acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido lignocérico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1247,9 +1696,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Linolsäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Linoleic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido linoleico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1277,6 +1734,10 @@
 			<array>
 				<string>Magnesium</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Magnesio</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Magnésium</string>
@@ -1295,9 +1756,18 @@
 			<array>
 				<string>g</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Maltodextrine</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Maltodextrins</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Maltodextrinas</string>
+				<string> maltodextrina</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1325,6 +1795,10 @@
 			<array>
 				<string>Maltose</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>maltosa</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Maltose</string>
@@ -1351,6 +1825,10 @@
 			<array>
 				<string>Manganese</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Manganeso</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Manganèse</string>
@@ -1369,9 +1847,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Mead&apos;sche Säure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Mead acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido Mead</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1391,9 +1877,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Melissinsäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Melissic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido melísico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1402,6 +1896,36 @@
 			<key>nl</key>
 			<array>
 				<string>Melissinezuur</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:mineral</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Minerals</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Mineral</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Minéral</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Minerales</string>
+			</array>
+			<key>unit</key>
+			<array>
+				<string>mg</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Mineralen</string>
 			</array>
 		</dict>
 	</dict>
@@ -1420,6 +1944,10 @@
 			<key>en</key>
 			<array>
 				<string>Molybdenum</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>molibdeno</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1447,6 +1975,10 @@
 			<array>
 				<string>Monounsaturated fat</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Grasas monoinsaturadas</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Acides gras monoinsaturés</string>
@@ -1465,9 +1997,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Montansäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Montanic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido montánico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1487,9 +2027,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Myristinsäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Myristic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido mirístico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1509,9 +2057,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Nervonsäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Nervonic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido nervónico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1549,9 +2105,9 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
-			<key>New item</key>
+			<key>de</key>
 			<array>
-				<string></string>
+				<string>Nukleotide</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -1633,9 +2189,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Ölsäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Oleic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido oleico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1663,6 +2227,10 @@
 			<array>
 				<string>Omega 3 fatty acids</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Ácidos grasos Omega 3</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Acides gras Oméga 3</string>
@@ -1688,6 +2256,10 @@
 			<key>en</key>
 			<array>
 				<string>Omega 6 fatty acids</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácidos grasos Omega 6</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1715,6 +2287,10 @@
 			<array>
 				<string>Omega 9 fatty acids</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Ácidos grasos Omega 9</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Acides gras Oméga 9</string>
@@ -1733,9 +2309,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Palitinsäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Palmitic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido palmítico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1763,6 +2347,10 @@
 			<array>
 				<string>Vitamin B5 (Pantothenic acid)</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string> Vitamina B5 (ácido pantoténico)</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Vitamin B5 (Acide pantothénique)</string>
@@ -1781,11 +2369,19 @@
 			<array>
 				<string>none</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>pH-Wert</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>pH</string>
 			</array>
 			<key>en</key>
+			<array>
+				<string>pH</string>
+			</array>
+			<key>es</key>
 			<array>
 				<string>pH</string>
 			</array>
@@ -1811,6 +2407,10 @@
 			<array>
 				<string>Phosphorus</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Fósforo</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Phosphore</string>
@@ -1818,6 +2418,44 @@
 			<key>nl</key>
 			<array>
 				<string>Fosfor</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:phylloquinone</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>phylloquinone</string>
+				<string> vitamin K1</string>
+				<string> K1</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Phyllochinon</string>
+				<string> Phytomenadion</string>
+				<string> Vitamin K1</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>phylloquinone</string>
+				<string> phytoménadione</string>
+				<string> phytonadione</string>
+				<string>  vitamine K1</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>filoquinona</string>
+				<string> fitomenadiona</string>
+			</array>
+			<key>unit</key>
+			<array/>
+			<key>nl</key>
+			<array>
+				<string>fyllochinon</string>
+				<string> fytomenadion</string>
+				<string> Vitamine K1</string>
 			</array>
 		</dict>
 	</dict>
@@ -1831,11 +2469,15 @@
 			</array>
 			<key>de</key>
 			<array>
-				<string>mehrwertige Alkohole (Polyole)</string>
+				<string>Mehrwertige Alkohole (Polyole)</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Sugar alcohols (Polyols)</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Azúcares alcohólicos (Polialcoholes)</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1863,6 +2505,10 @@
 			<array>
 				<string>Polyunsaturated fat</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Grasas poliinsaturadas</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Acides gras polyinsaturés</string>
@@ -1889,6 +2535,10 @@
 			<array>
 				<string>Potassium</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Potasio</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Potassium</string>
@@ -1914,6 +2564,11 @@
 			<key>en</key>
 			<array>
 				<string>Proteins</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Proteínas</string>
+				<string> proteína</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1955,6 +2610,12 @@
 			<array>
 				<string>Salt</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Sal</string>
+				<string> sal común</string>
+				<string> sal de mesa</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Sel</string>
@@ -1973,9 +2634,17 @@
 			<array>
 				<string>g</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Salz Equivalent</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Salt equivalent</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Equivalente en sal</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -2003,6 +2672,10 @@
 			<array>
 				<string>Saturated fat</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Ácidos grasos saturados</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Acides gras saturés</string>
@@ -2028,6 +2701,10 @@
 			<key>en</key>
 			<array>
 				<string>Selenium</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>selenio</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -2077,6 +2754,11 @@
 			<array>
 				<string>Silica</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Sílice</string>
+				<string> óxido de silicio</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Silice</string>
@@ -2103,6 +2785,10 @@
 			<array>
 				<string>Sodium</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Sodio</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Sodium</string>
@@ -2121,9 +2807,17 @@
 			<array>
 				<string>g</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>lösliche Ballaststoffe</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Soluble fiber</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>fibra soluble</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -2147,6 +2841,10 @@
 			<array>
 				<string>Starch</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>almidón</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Amidon</string>
@@ -2165,9 +2863,17 @@
 			<array>
 				<string>µg</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Stearinsäure</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Stearic acid</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Ácido esteárico</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -2190,6 +2896,10 @@
 			<key>de</key>
 			<array>
 				<string>Saccharose</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>sacarosa</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -2220,6 +2930,10 @@
 			<key>en</key>
 			<array>
 				<string>Sugars</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Azúcares</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -2269,6 +2983,10 @@
 			<array>
 				<string>Taurine</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Taurina</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Taurine</string>
@@ -2294,6 +3012,11 @@
 			<key>en</key>
 			<array>
 				<string>Trans fat</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Grasas trans</string>
+				<string> Ácido graso trans</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -2349,6 +3072,11 @@
 			<array>
 				<string>Vitamin A</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>vitamina A</string>
+				<string> Vitamina A (Retinol)</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Vitamine A (rétinol)</string>
@@ -2374,6 +3102,10 @@
 			<key>en</key>
 			<array>
 				<string>Vitamin B1 (Thiamin)</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Vitamina b1 (Tiamina)</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -2401,6 +3133,10 @@
 			<array>
 				<string>Vitamin B12 (cobalamin)</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string> vitamina B12 (cobalamina)</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Vitamine B12 (cobalamine)</string>
@@ -2426,6 +3162,10 @@
 			<key>en</key>
 			<array>
 				<string>Vitamin B2 (Riboflavin)</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Vitamina b2 (Riboflavina)</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -2453,6 +3193,10 @@
 			<array>
 				<string>Vitamin B6 (Pyridoxin)</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Vitamina B6 ( piridoxina)</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Vitamine B6 (Pyridoxine)</string>
@@ -2478,6 +3222,10 @@
 			<key>en</key>
 			<array>
 				<string>Vitamin B9 (Folic acid / Folates)</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Vitamin B9 (Ácido fólico)</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -2505,6 +3253,11 @@
 			<array>
 				<string>Vitamin C (ascorbic acid)</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>vitamina C</string>
+				<string> ácido ascórbico</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Vitamine C (acide ascorbique)</string>
@@ -2530,6 +3283,10 @@
 			<key>en</key>
 			<array>
 				<string>Vitamin D</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>vitamina D</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -2557,6 +3314,10 @@
 			<array>
 				<string>Vitamin E</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Vitamina E</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Vitamine E (tocophérol)</string>
@@ -2583,6 +3344,10 @@
 			<array>
 				<string>Vitamin K</string>
 			</array>
+			<key>es</key>
+			<array>
+				<string>Vitamina K</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Vitamine K</string>
@@ -2603,19 +3368,90 @@
 			</array>
 			<key>de</key>
 			<array>
-				<string>Vitamin B3 / Vitamin PP (Niacin)</string>
+				<string>Vitamin B3 / PP (Niacin)</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Vitamin B3 / Vitamin PP (Niacin)</string>
+				<string>Vitamin B3 / PP (Niacin)</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string> Vitamina B3 / PP (Niacina)</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Vitamine B3 / Vitamine PP (Niacine)</string>
+				<string>Vitamine B3 / PP (Niacine)</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Niacine</string>
+				<string>Vitamine B3 / PP  (Niacine)</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:vitamins</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>unit</key>
+			<array>
+				<string>mg</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Vitamins</string>
+				<string> vitamin</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Vitamine</string>
+				<string> Vitamin</string>
+				<string> Vitaminmischung</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Vitamines</string>
+				<string> vitamine</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Vitaminas</string>
+				<string> vitamina</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Vitamines</string>
+				<string> vitaminen</string>
+				<string> Vitamine</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:water-hardness</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>unit</key>
+			<array>
+				<string></string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Obst - Gemüse und Nüsse</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Fruits - vegetables and nuts</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Fruits - légumes et noix</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Frutas - verduras y nueces</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Fruit - groenten en noten</string>
 			</array>
 		</dict>
 	</dict>
@@ -2632,6 +3468,10 @@
 				<string>Zink</string>
 			</array>
 			<key>en</key>
+			<array>
+				<string>Zinc</string>
+			</array>
+			<key>es</key>
 			<array>
 				<string>Zinc</string>
 			</array>

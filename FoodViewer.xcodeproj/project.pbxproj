@@ -95,6 +95,7 @@
 		5148F0F11DD3291500EF1B67 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F01DD3291500EF1B67 /* Language.swift */; };
 		5148F0F31DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F21DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift */; };
 		5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */; };
+		5149C5D622F6D9BB000EA690 /* Nutrients.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5149C5D522F6D9BB000EA690 /* Nutrients.plist */; };
 		514EEF9A1ED9B70000C4CF54 /* 4005900122063.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF991ED9B70000C4CF54 /* 4005900122063.json */; };
 		514EEF9C1ED9B79100C4CF54 /* 7613034182067.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */; };
 		514EFA82222FEBB3008FFD2A /* FoodViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EFA81222FEBB3008FFD2A /* FoodViewerUITests.swift */; };
@@ -226,7 +227,6 @@
 		51A7DC801EE6C04400F231B0 /* LanguageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A7DC7F1EE6C04400F231B0 /* LanguageHeaderView.swift */; };
 		51A99E3D22F5B96C000F82BF /* Other_nutritional_substances.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E2F22F5B967000F82BF /* Other_nutritional_substances.plist */; };
 		51A99E3E22F5B96C000F82BF /* GlobalLabels.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3022F5B969000F82BF /* GlobalLabels.plist */; };
-		51A99E3F22F5B96C000F82BF /* Nutriments.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3122F5B969000F82BF /* Nutriments.plist */; };
 		51A99E4022F5B96C000F82BF /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3222F5B96A000F82BF /* Categories.plist */; };
 		51A99E4122F5B96C000F82BF /* Additives.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3322F5B96A000F82BF /* Additives.plist */; };
 		51A99E4222F5B96C000F82BF /* Amino_acids.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3422F5B96A000F82BF /* Amino_acids.plist */; };
@@ -478,6 +478,17 @@
 		5148F0F01DD3291500EF1B67 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		5148F0F21DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectExpirationDateViewController.swift; sourceTree = "<group>"; };
 		5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNutrientsViewController.swift; sourceTree = "<group>"; };
+		5149C5D522F6D9BB000EA690 /* Nutrients.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Nutrients.plist; sourceTree = "<group>"; };
+		5149C5D722F6EC0B000EA690 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
+		5149C5D822F6EC0E000EA690 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		5149C5D922F6EE53000EA690 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5149C5DA22F6EE53000EA690 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5149C5DB22F6F174000EA690 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		5149C5DC22F6F177000EA690 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		5149C5DD22F6F177000EA690 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5149C5DE22F6F177000EA690 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5149C5DF22F6F178000EA690 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5149C5E022F6F178000EA690 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		514EEF991ED9B70000C4CF54 /* 4005900122063.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4005900122063.json; sourceTree = "<group>"; };
 		514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 7613034182067.json; sourceTree = "<group>"; };
 		514EFA7F222FEBB3008FFD2A /* FoodViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -618,7 +629,6 @@
 		51A7DC7F1EE6C04400F231B0 /* LanguageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageHeaderView.swift; sourceTree = "<group>"; };
 		51A99E2F22F5B967000F82BF /* Other_nutritional_substances.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Other_nutritional_substances.plist; sourceTree = "<group>"; };
 		51A99E3022F5B969000F82BF /* GlobalLabels.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = GlobalLabels.plist; sourceTree = "<group>"; };
-		51A99E3122F5B969000F82BF /* Nutriments.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Nutriments.plist; sourceTree = "<group>"; };
 		51A99E3222F5B96A000F82BF /* Categories.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Categories.plist; sourceTree = "<group>"; };
 		51A99E3322F5B96A000F82BF /* Additives.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Additives.plist; sourceTree = "<group>"; };
 		51A99E3422F5B96A000F82BF /* Amino_acids.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Amino_acids.plist; sourceTree = "<group>"; };
@@ -1044,11 +1054,11 @@
 				51A99E3C22F5B96C000F82BF /* Languages.plist */,
 				51A99E3B22F5B96C000F82BF /* Minerals.plist */,
 				51A99E3922F5B96B000F82BF /* Nucleotides.plist */,
-				51A99E3122F5B969000F82BF /* Nutriments.plist */,
 				51A99E2F22F5B967000F82BF /* Other_nutritional_substances.plist */,
 				51A99E3A22F5B96B000F82BF /* States.plist */,
 				51A99E3522F5B96A000F82BF /* Vitamins.plist */,
 				5150C0751CBE81D900161616 /* ReferenceDailyIntakeValues.plist */,
+				5149C5D522F6D9BB000EA690 /* Nutrients.plist */,
 			);
 			name = plist;
 			sourceTree = "<group>";
@@ -1616,6 +1626,8 @@
 				Base,
 				fr,
 				nl,
+				es,
+				de,
 			);
 			mainGroup = 5180B8FB1C5D3B57002DBD21;
 			productRefGroup = 5180B9051C5D3B57002DBD21 /* Products */;
@@ -1667,7 +1679,6 @@
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
 				51A99E4A22F5B96C000F82BF /* Languages.plist in Resources */,
 				514196AF20839ED400528877 /* PetFoodProductsDB.csv in Resources */,
-				51A99E3F22F5B96C000F82BF /* Nutriments.plist in Resources */,
 				51A99E4522F5B96C000F82BF /* Countries.plist in Resources */,
 				51A99E4822F5B96C000F82BF /* States.plist in Resources */,
 				51CF42C71E02F48600C9AD91 /* TagView.xib in Resources */,
@@ -1675,6 +1686,7 @@
 				514EEF9C1ED9B79100C4CF54 /* 7613034182067.json in Resources */,
 				51A99E4422F5B96C000F82BF /* Allergens.plist in Resources */,
 				51E5CC9C1CB1105E00216868 /* Keyboard.xib in Resources */,
+				5149C5D622F6D9BB000EA690 /* Nutrients.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2037,6 +2049,8 @@
 			children = (
 				510A5B241EB8A7B90089AD01 /* fr */,
 				510A5B261EB8A8B50089AD01 /* nl */,
+				5149C5DA22F6EE53000EA690 /* es */,
+				5149C5E022F6F178000EA690 /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2046,6 +2060,8 @@
 			children = (
 				510BA2A220163BDA0028107B /* fr */,
 				510BA2A420163CA40028107B /* nl */,
+				5149C5D922F6EE53000EA690 /* es */,
+				5149C5DF22F6F178000EA690 /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2055,6 +2071,7 @@
 			children = (
 				517FC92B1CD5009A00CB89ED /* fr */,
 				517FC9341CD5037000CB89ED /* nl */,
+				5149C5DE22F6F177000EA690 /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2064,6 +2081,7 @@
 			children = (
 				517FC9321CD500C100CB89ED /* fr */,
 				517FC9351CD5037200CB89ED /* nl */,
+				5149C5DD22F6F177000EA690 /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2074,6 +2092,8 @@
 				5180B9111C5D3B57002DBD21 /* Base */,
 				510A38ED1CD3B67A00BAEB61 /* fr */,
 				510A38EF1CD3B68300BAEB61 /* nl */,
+				5149C5D822F6EC0E000EA690 /* es */,
+				5149C5DC22F6F177000EA690 /* de */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -2084,6 +2104,8 @@
 				51E3069F1C68E0B900485A8D /* Base */,
 				510A38EC1CD3B67900BAEB61 /* fr */,
 				510A38EE1CD3B68200BAEB61 /* nl */,
+				5149C5D722F6EC0B000EA690 /* es */,
+				5149C5DB22F6F174000EA690 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

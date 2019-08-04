@@ -1,0 +1,1030 @@
+/* a space used for several purposes */
+" " = "  ";
+
+/* a warning to check the brackets used, they are unbalanced */
+" (WARNING: check brackets, they are unbalanced)" = "(Avertissement: contrôlez les accolades, il manque une)";
+
+/* a questionmark used for several purposes */
+"?" = "?";
+
+/* Added to a tableview section header to indicated the item has been edited. */
+"(Edited)" = "(Edité)";
+
+/* Image to indicate that the user who created the product. */
+"❤️" = "❤️";
+
+/* Image to indicate that the user who added information to the product. */
+"💭" = "💭";
+
+/* Image to indicate that the user who added or deleted information of the product. */
+"📝" = "📝";
+
+/* Image to indicate that the user took pictures of the product. */
+"📷" = "📷";
+
+/* Image to indicate that the user modified information of the product. */
+"🔦" = "🔦";
+
+/* Title of first segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value) */
+"100 mg/ml" = "100 mg/ml";
+
+/* String (in Segmented Control) to indicate the best nutritional score level */
+"A" = "A";
+
+/* Title of a button to indicate that the front image is missing. */
+"Add Front Image" = "Ajout image frontal";
+
+/* Title of a viewcontroller which allows the user to add a new language to the product languages. */
+"Add Language" = "Ajout langue";
+
+/* Title of a button in normal state allowing the user to add a nutrient */
+"Add Nutrient" = "Ajout nutriment";
+
+/* ViewController title, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels. */
+"Alert Preferences" = "Préférences avertissements";
+
+/* TableViewController title for the allergen warnings setting scene. */
+"Allergen warnings" = "Avertissements allergènes";
+
+/* Tag title for the number of allergens detected. */
+"Allergens" = "Allergènes";
+
+/* title of a segment of a segmented control, which lets the user set the application to scan products continuously. */
+"Allowed" = "Permis";
+
+/* ViewController/row title, which allows the user to set up the application. */
+"Application Preferences" = "Préférences appli";
+
+/* Title of a table section header, which display the app version nnumber and build number. */
+"Application version/build" = "Version/build appli";
+
+/* ViewController title, which allows to set an image to a language and image category (front/ingredients/nutrition). */
+"Assign Image" = "Assigne image";
+
+/* Reason string in TouchID authenticate alert */
+"Authenticate for OFF login" = "Authentifie pour OFF";
+
+/* Explanatory text in AlertViewController, which lets the user enter his username/password. */
+"Authentication with TouchID failed. Specify your password" = "Authentication avec TouchID échoué, spécifie ton mot de passe:";
+
+/* Text in a TagListView, when tags are available the product data. */
+"Available" = "Disponible";
+
+/* String in Segmented Control to indicate the second best nutritional score level */
+"B" = "B";
+
+/* Header for a table sectionshowing the appreciations of the bad nutrients */
+"Bad nutrients" = "Mauvais nutriments";
+
+/* Tableview sectionheader for Barcode */
+"Barcode" = "Code barre";
+
+/* Tableview sectionheader for Barcode, with edited main language */
+"Barcode (edited main language)" = "Code barre (édité)";
+
+/* Tableview sectionheader for Barcode, with original main language */
+"Barcode (original main language)" = "Code barre (non-édité)";
+
+/* Title of a segmented control. */
+"Beauty" = "Beauté";
+
+/* Title of ViewController with a list of all food products that has been viewed. */
+"Beauty Products" = "Produits Beauté";
+
+/* Cell title indicating the product belongs to the beverages category */
+"Beverages category" = "Bon nutriments";
+
+/* Tableview sectionheader for brands. */
+"Brands" = "Marques";
+
+/* Tableview sectionheader for the edited brands. */
+"Brands (edited)" = "Marques (édité)";
+
+/* Tableview sectionheader for the unedited brands. */
+"Brands (original)" = "Marques (non-édité)";
+
+/* Title of a segment of a segmented control, which lets the user set the button view toggle mode interface */
+"Button" = "Bouton";
+
+/* String in Segmented Control to indicate the thrid best nutritional score level */
+"C" = "C";
+
+/* Title of third segment in switch, which lets the user select between joule, kilo-calories or Calories */
+"Calories" = "Calories";
+
+/* String in button, to let the user indicate he does NOT want to search. */
+"Cancel" = "Annule";
+
+/* Text to indicate the product belongs to a category. */
+"Categories" = "Catégories";
+
+/* Edited text to indicate the product belongs to a category. */
+"Categories (edited)" = "Catégories (édité)";
+
+/* Original text to indicate the product belongs to a category. */
+"Categories (original)" = "Catégories (non-édité)";
+
+/* String in PickerViewController to indicate the checker role of a contributor */
+"Checker" = "Controleur";
+
+/* Cell title indicating the product belongs to the cheeses category */
+"Cheeses category" = "Catégorie fromages";
+
+/* Title of a button, which removes all items in the product search history. */
+"Clear History" = "Efface histoire";
+
+/* Tableview sectionheader for long product name */
+"Common Name" = "Dénomination générique";
+
+/* Viewcontroller title for page with community effort for product. */
+"Community Effort" = "Effort communauté";
+
+/* Header title of the tableview section, indicating whether the productdata is complete. */
+"Completeness" = "Exhaustivité";
+
+/* Label for a horizontal gauge that indicates the completion percentage of the product data. */
+"Completion" = "Taux de complèté";
+
+/* Generic string to indicate the completion states of a product. */
+"Completion States" = "Etats de complétion";
+
+/* Header of a table section, which allows the user to set a preference for continuous product scanning. */
+"Continous Scan" = "Scan continu";
+
+/* String in PickerViewController to indicate the creator role of a contributor (any role) */
+"Contributor" = "Contributeur";
+
+/* Generic string to indicate the completion states of a product. */
+"contributor name not set" = "nom contributeur pas défini";
+
+/* Header title of the tableview section, indicating whether which users did contribute. */
+"Contributors" = "Contributeurs";
+
+/* String in PickerViewController to indicate the corrector role of a corrector */
+"Corrector" = "Correcteur";
+
+/* Generic string (plural) to indicate the countries where the product is sold. */
+"Countries" = "Pays";
+
+/* Generic string (plural) to indicate the countries where the product is sold (edited). */
+"Countries (edited)" = "Pays (édité)";
+
+/* Generic string (plural) to indicate the countries where the product is sold (original). */
+"Countries (original)" = "Pays (non-édité)";
+
+/* Text to indicate the sales countries of a product. */
+"Countries where sold" = "Pays vendu";
+
+/* Title of a button, which opens a web-page that allows a user to create an OFF account. */
+"Create OFF Account" = "Crée compte OFF";
+
+/* String in picker, which lets the user select the search result order. Order on the creation dates. */
+"Creation date" = "Date de création";
+
+/* String in PickerViewController to indicate the creator role of a contributor */
+"Creator" = "Createur";
+
+/* Title of segment in segmentedControlto indicate the current local should be used. */
+"Current Locale" = "Lieu actuel";
+
+/* String in Segmented Control to indicate the fourth best nutritional score level */
+"D" = "D";
+
+/* Title of third segment in switch, which lets the user select between per daily value (per 100 mg/ml / per serving / per daily value) */
+"Daily Value" = "Valeur journalière";
+
+/* Description for NutritionData Daily Value per serving */
+"Daily Values (per serving)" = "Apport Journ.";
+
+/* String presented in a tagView if the data has been loaded */
+"Data is loaded" = "Data chargé";
+
+/* Title of a table section, which allows the user to define the default energy unit (joules, calories, kilocalories). */
+"Default energy unit" = "Défaut unité énergie";
+
+/* Title of a tableView section, which lets the user select between salt or sodium */
+"Default for salt/sodium" = "Défaut sel ou sodium";
+
+/* Title of table view section which allows the user to set the reference for nutrition facts (serving or 100g). */
+"Default nutrition facts style" = "Style par défaut tableau valeurs nutritionnelles";
+
+/* Title of table view section which allows the user to set who defines the table format (user or product). */
+"Default nutrition facts table style" = "Défaut style valeurs nutritionnelles";
+
+/* Title of a tableView section, which lets the user set the off account to use */
+"Default OpenFoodFacts account" = "Défaut compte OpenFoodFacts";
+
+/* String to indicate a product has not yet been retrieved from OFF yet and is only locally available */
+"Default product type" = "Défaut type produit";
+
+/* Title of abutton, which allows the user to view the details of a scanned product. */
+"Details" = "Détails";
+
+/* Text to indicate the detected allergens of a product. */
+"Detected Additives" = "Additives détectés";
+
+/* Text to indicate the detected allergens of a product. */
+"Detected Allergens" = "Allergènes détectés";
+
+/* Tableview section header, which list the detected minderals in an ingredients list. */
+"Detected Minerals" = "Minérales détectés";
+
+/* Tableview section header, which list the detected nucleotides in an ingredients list. */
+"Detected Nucleotides" = "Nucléotides détectés";
+
+/* Tableview section header, which list the detected other nutritional substances in an ingredients list. */
+"Detected Other Nutritional Substances" = "Autre Substances Nutritionnelles détectés";
+
+/* Tableview section header, which list the detected vitamins in an ingredients list. */
+"Detected Vitamins" = "Vitamines détectés";
+
+/* Title of a button in an alert sheet, which allows the user to discard alle changes to the local product. */
+"Discard" = "Jeter?";
+
+/* Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc */
+"Display Preferences" = "Préférences Affichage";
+
+/* SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
+"Do Not Show" = "Pas montrer";
+
+/* String in button, to let the user indicate he is ready with username/password input. */
+"Done" = "Fini";
+
+/* Title of a segment of a segmented control, which lets the user set doubletap view toggle mode interface */
+"Doubletap" = "Double tap";
+
+/* String in Segmented Control to indicate the fifth best (and last) nutrition score level */
+"E" = "E";
+
+/* Title of viewcontroller which allows editing of the product in a webview. */
+"Edit" = "Edité";
+
+/* String in picker, which lets the user select the search result order */
+"Edit date" = "Change ordre";
+
+/* Title of view controller, which allows editing of the nutrients */
+"Edit Nutrient" = "Modifie nutriment";
+
+/* Added to a tableview section header to indicated the item has been edited. */
+"Edited" = "Edité";
+
+/* String in PickerViewController to indicate the editor role of a contributor */
+"Editor" = "Editeur";
+
+/* Placeholder string in a textfield to explain the purpose of a beauty product barcode search */
+"Enter beauty product barcode." = "Saisis code barre produit beauté";
+
+/* Placeholder in a textField, where a user can enter characters to filter a list. */
+"Enter characters to filter the list." = "Saisis caractères pour filtrer ";
+
+/* Placeholder text for field where user should enter a city name. */
+"Enter city name" = "Nom de la ville";
+
+/* placeholder in a textField where the user can specify a search for contributors. */
+"Enter contributor name to search for" = "Saisis nom du contributeur";
+
+/* Placeholder text for field where user should enter a country name. */
+"Enter country name" = "Nom du pays";
+
+/* The user can tap the button to enter a date. */
+"Enter date" = "Saisis date";
+
+/* Placeholder string in a textfield to explain the purpose of a food product barcode search */
+"Enter food product barcode." = "Saisis code barre produit alimentaire";
+
+/* Placeholder string in a textfield to explain the purpose of a pet food barcode search */
+"Enter pet food product barcode." = "Saisis code barre produit animalier";
+
+/* Placeholder text for field where user should enter a postal code. */
+"Enter postal code" = "Code postal";
+
+/* Placeholder string in a textfield to explain the purpose of a product barcode search */
+"Enter product barcode." = "Saisis code barre produit";
+
+/* Placeholder text for field where user should enter a shop name. */
+"Enter shop name" = "Nom du magasin";
+
+/* Placeholder text for field where user should enter a street name. */
+"Enter street name" = "Nom de la rue";
+
+/* Placeholder text of a textView for the generic product name. */
+"Enter the generic name of the product" = "Nom générique";
+
+/* Placeholder text of a textView for the ingredients. */
+"Enter the ingredients of the product" = "Ingrédients";
+
+/* Placeholder text of a textView for the product name. */
+"Enter the name of the product" = "Nom produit";
+
+/* String to indicate the date, when the product was created on OFF. */
+"Entry Date" = "Date de creation";
+
+/* String of a button, to prefill the nutrients with the standard EU set. */
+"EU Set" = "UE";
+
+/* String in Segmented Control to indicate whether the corresponding tag should be EXCLUDED from the search. */
+"Exclude" = "Exclure";
+
+/* Header title of the tableview section, indicating the most recent expiration date. */
+"Expiration Date" = "Date limite d'utilisation";
+
+/* Text of a label that wil indicate the fat level (low/medium/high) by colour. */
+"Fat level" = "Taux de graisse";
+
+/* Title of SegmentedControl segment. */
+"Food" = "Aliments";
+
+/* Title of ViewController with a list of all food products that has been viewed. */
+"Food Products" = "Alimentaire";
+
+/* Explanatory text in AlertViewController, which shows the intended search */
+"for %@ in %@" = "pour %1$@ dans %2$@";
+
+/* Title for the viewcontroller with the front image */
+"Front Image" = "Image frontale";
+
+/* Title for the viewcontroller with the edited front image */
+"Front Image (edited)" = "Image frontale (édité)";
+
+/* Title for the viewcontroller with the original front image */
+"Front Image (original)" = "Image frontale (non-édité)";
+
+/* Viewcontroller title for page with images of the product */
+"Gallery" = "Gallerie";
+
+/* Tableview sectionheader for the edited long product name */
+"Generic Name (edited)" = "Gallerie (édité)";
+
+/* Tableview sectionheader for the original long product name */
+"Generic Name (original)" = "Gallerie (non-édité)";
+
+/* Header for a table section showing the appreciations of the good nutrients */
+"Good nutrients" = "Bons nutriments";
+
+/* Standard weight unit. */
+"gram (g)" = "gramme (g)";
+
+/* Description of the hierarchy tags in the json */
+"Hierarchy" = "Hierarchie";
+
+/* Title for the view controller with the product image, title, etc. */
+"Identification" = "Identification";
+
+/* Title for the viewcontroller with an enlarged image */
+"Image" = "Photo";
+
+/* Table Section Header with dates of the images */
+"Image Dates" = "Dates photos";
+
+/* String presented in a tagView if the image is currently being loaded */
+"Image is being loaded" = "Chargement photo active";
+
+/* String presented in a tagView if the image loading has failed */
+"Image loading has failed" = "Chargement photo échoué";
+
+/* String presented in a tagView if the image data contained no data */
+"Image was empty" = "Photo vide";
+
+/* String in Segmented Control to indicate whether the corresponding tag should be INCLUDED in the search. */
+"Include" = "Inclure";
+
+/* String in PickerViewController to indicate the informer role of a contributor */
+"Informer" = "Informeur";
+
+/* Text to indicate the ingredients of a product. */
+"Ingredients" = "Ingrédients";
+
+/* Text to indicate the edited ingredients of a product. */
+"Ingredients (edited)" = "Ingrédients (édité)";
+
+/* Text to indicate the original (unedited) ingredients of a product. */
+"Ingredients (original)" = "Ingrédients (non-édité)";
+
+/* Header title for the ingredients image section, i.e. the image of the package with the ingredients */
+"Ingredients Image" = "Photo ingrédients";
+
+/* Header title for the edited ingredients image section, i.e. the image of the package with the ingredients */
+"Ingredients Image (edited)" = "Photo ingrédients (édité)";
+
+/* Header title for the original ingredients image section, i.e. the image of the package with the ingredients */
+"Ingredients Image (original)" = "Photo ingrédients (non-édité)";
+
+/* Text in a tag when a new/edited product is seen. */
+"Ingredients will be analysed after upload by OFF" = "Ingrédients seront analysés après téléchargement par OFF";
+
+/* String presented in a tagView if nothing has happened yet */
+"Initialized" = "Initialisé";
+
+/* Description of the by OFF interpreted tags in the json */
+"Interpreted" = "Interpreté";
+
+/* Title of first segment in switch, which lets the user select between joules, kilo-calories or Calories */
+"Joules" = "Joules";
+
+/* Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories */
+"Kilocalories" = "Kilocalories";
+
+/* Generic string for labels on product */
+"Labels" = "Labels, certifications, récompenses";
+
+/* Generic string for edited labels on product */
+"Labels (edited)" = "Labels, certifications, récompenses (édités)";
+
+/* Generic string for original (unedited) labels on product */
+"Labels (original)" = "Labels, certifications, récompenses (non-édités)";
+
+/* Tableview sectionheader for languages on product */
+"Languages" = "Langues";
+
+/* Generic string to indicate the last date the product was edited */
+"Last Edit Date" = "Dernier date d'édition";
+
+/* String to indicate the level (score) of the product. */
+"Level" = "Niveau";
+
+/* Label to indicate whether any nutrients are indicated on the package */
+"Listed on package?" = "Noté sur l'emballage?";
+
+/* String presented in a tagView if there are more results available */
+"Load more results" = "Charger plus";
+
+/* Message as tag when the search is loading. */
+"Loading" = "Cherchant";
+
+/* Error message when the product failed to load. */
+"Loading Failed" = "Chargement échoué";
+
+/* Tableview sectionheader for main image of package. */
+"Main Image" = "Photo du produit";
+
+/* Generic string to indicate the manufaturer of the product. */
+"Manufacturer" = "Producteur";
+
+/* Standard weight unit divided by million. */
+"microgram (µm)" = "microgramme (µm)";
+
+/* Standard weight unit divided by thousand. */
+"milligram (mg)" = "milligramme (mg)";
+
+/* Title of a navigation bar, wich allows the user to adapt an image. */
+"Move/Scale" = "Bouge/adapte";
+
+/* Tableview sectionheader for product name */
+"Name" = "Nom du produit";
+
+/* Tableview sectionheader for the edited product name */
+"Name (edited)" = "Nom du produit (édité)";
+
+/* Tableview sectionheader for the original (non-edited) product name */
+"Name (original)" = "Nom du produit (non-édité)";
+
+/* Tableview sectionheader for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
+"Negative Ingredient Detections" = "Détections négatives ingrédients";
+
+/* Text in a tableview cell, when no brands are available in the product data. */
+"No brands indicated" = "Aucun marque indiqué";
+
+/* Value of the creation date field, if no valid date is available. */
+"no creation date available" = "pas de date de création disponible";
+
+/* Value of the edit date field, if no valid date is available. */
+"no edit date available" = "pas de date d'édition disponible";
+
+/* Title of cell when no expiration date is avalable */
+"No expiration date" = "DLU pas disponible";
+
+/* String if no generic name is available */
+"No generic name available" = "Pas de nom générique dispo";
+
+/* String presented in a tagView if no image is available */
+"No image available" = "Photo pas disponible";
+
+/* Tag indicating that no image in the correct language is available */
+"No image in the right language" = "Pas de photo dans la bonne langue";
+
+/* Text in a TagListView, when no ingredients are available in the product data. */
+"no ingredients specified" = "pas d'ingrédients spécifiés";
+
+/* Text for language of product, when there is no language defined. */
+"no language defined" = "pas de langue défini";
+
+/* Text for productname, when no productname is available in the product data. */
+"no name specified" = "pas de nom spécifié";
+
+/* Text of Label, indicating that the product has no nutrients defined */
+"No nutrients" = "Pas de nutriments";
+
+/* Text of Label, indicating that the product has no nutrients (edited) defined */
+"No nutrients (edited)" = "Pas de nutriments (édité)";
+
+/* Text of Label, indicating that the product has no nutrients (original) defined */
+"No nutrients (original)" = "Pas de nutriments (non-édité)";
+
+/* Text in a TagListView, when no nutrition data has been specified in the product data. */
+"no nutrition data available" = "pas d'info nutritionnelles spécifiés";
+
+/* Text in a TagListView, when no nutrition data has been specified in the product data. */
+"no nutrition data indicated" = "pas d'info nutritionnelles spécifiés";
+
+/* Text to indicate that the history of products is empty. */
+"No products listed" = "Pas de produits spécifiés";
+
+/* String if no quantity is available */
+"No quantity available" = "Pas des quantités disponible";
+
+/* String presented in a tagView if the site did not respond */
+"No reponse" = "Pas de réponse";
+
+/* String in TableView section when a search is not defined. */
+"No search defined" = "Requete pas défini";
+
+/* String in TableView section when a search is not yet carried out. */
+"No search result" = "Pas encore de résultats";
+
+/* Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour. */
+"no serving size available" = "pas de portion spécifié";
+
+/* Title for viewcontroller with detailed product images, when no title is given. */
+"No title" = "Pas de titre";
+
+/* Text in a pickerView, when no translated text is available */
+"No translation" = "Pas de traduction";
+
+/* tag of cell when no tags are available
+   Text for a cell, when no status title has been provided, such as 'completed', etc. */
+"none" = "aucun";
+
+/* First element of a pickerView where the user has to select an element in the picker. */
+"None selected" = "Rien sélectionné";
+
+/* Alert title, to indicate product should NOT be added */
+"Nope" = "Beuh";
+
+/* title o a segment of a segmented control, which prohibits the user to set the application to scan products continuously. */
+"Not allowed" = "Pas permis";
+
+/* Generic text if an action has not yet been done. */
+"Not done" = "Pas fait";
+
+/* Text in a TagListView, when the json provided an empty string. */
+"Not filled" = "Pas saisi";
+
+/* Text in a search TagListView, when tags can not be set up. */
+"Not searchable" = "Pas recherchable";
+
+/* Text of a button, indicating a contributor role is not selected */
+"not selected" = "Pas saisi";
+
+/* Generic text if a value has not yet been set. */
+"Not set" = "Pas définie";
+
+/* Title of a table section, which shows the nova evaluation tags for ingredients, additives and categories. */
+"Nova Evaluation Triggers" = "Déclencheurs NOVA";
+
+/* Generic text to indicate the nutrients of a product. */
+"Nutrients" = "Nutriments";
+
+/* Tableview header for the section with nutriments availability, i.e. whether the nutrients are on the package. */
+"Nutriments Availability" = "Disponibilité nutriments";
+
+/* Text in a TagListView, when no nutrition data is available on the package. */
+"nutrition data not on package" = "pas de valeurs nutri sur emballage";
+
+/* Text in a TagListView, when the nutrition data has been specified in the product data. */
+"nutrition data per serving and standard unit available" = "info nutritionnelle disponible par portion et unité standard";
+
+/* Text to indicate the nutrition facts of a product. */
+"Nutrition Facts" = "Composition nutritionnelle";
+
+/* Text to indicate the edited nutrition facts of a product. */
+"Nutrition Facts (edited)" = "Composition nutritionnelle (édité)";
+
+/* Text to indicate the original nutrition facts of a product. */
+"Nutrition Facts (original)" = "Composition nutritionnelle (non-édité)";
+
+/* Description for NutritionData per one kilogram */
+"Nutrition Facts (per 1 kg)" = "Comp. nutritionnelle (par kg)";
+
+/* Description for NutritionData per standard unit */
+"Nutrition Facts (per 100g/100ml)" = "Comp. nutritionnelle (par 100g/100ml)";
+
+/* Description for NutritionData per serving */
+"Nutrition Facts (per serving)" = "Comp. nutritionnelle (par portion)";
+
+/* Tableview header section for the image of the nutritional facts */
+"Nutrition Facts Image" = "Photo info nutritionnelles";
+
+/* Tableview header section for the edited image of the nutritional facts */
+"Nutrition Facts Image (edited)" = "Photo info nutritionnelles (édité)";
+
+/* Tableview header section for the original image of the nutritional facts */
+"Nutrition Facts Image (original)" = "Photo info nutritionnelles (non-édité)";
+
+/* Header for a table section showing the search for nutrition score */
+"Nutrition Score" = "Nutri-Score";
+
+/* Header for a table section showing the total results France */
+"Nutritional Score France" = "Score Nutritionelle France";
+
+/* Header for a table section showing the total results UK */
+"Nutritional Score UK" = "Score Nutritionelle UK";
+
+/* Header title of tableview section, indicating the websites for the product */
+"Official product website" = "Site officiele produit";
+
+/* Header title of tableview section, indicating the edited website for the product */
+"Official product website (edited)" = "Site officiele produit (édité)";
+
+/* Header title of tableview section, indicating the original website for the product */
+"Official product website (original)" = "Site officielle produit (non-édité)";
+
+/* String in button, to let the user indicate he wants to start the search. */
+"OK" = "OK";
+
+/* ViewController/row title, which allows the user to set his open food facts username. */
+"Open Food Facts Preferences" = "Préférences Open Food Facts";
+
+/* String for the Activity Action Screen */
+"Open in Safari" = "Ouvre dans Safari";
+
+/* Description of the original tags in the json */
+"Original" = "Original";
+
+/* Gallery header text presenting the original images */
+"Original Images" = "Images originaux";
+
+/* Generic string to indicate the origins of the ingredients */
+"Origins of ingredients" = "Origine ingrédients";
+
+/* Generic string to indicate the edited origins of the ingredients */
+"Origins of ingredients (edited)" = "Origine ingrédients (édité)";
+
+/* Generic string to indicate the original (non-edited) origins of the ingredients */
+"Origins of ingredients (original)" = "Origine ingrédients (non-édité)";
+
+/* Tableview section header, which list the detected other nutritional substances in an ingredients list. */
+"Other Nutritional Substances" = "Autre substances nutritionnelles";
+
+/* String presented in a tagView if this is not the current product type */
+"Other product type" = "Autre type de produit";
+
+/* Generic string to indicate the packager codes. */
+"Packager Code" = "Code emballeur";
+
+/* Tableview sectionheader for packaging. */
+"Packaging" = "Emballage";
+
+/* Tableview sectionheader for packaging, edited version. */
+"Packaging (edited)" = "Emballage (édité)";
+
+/* Tableview sectionheader for packaging, original version. */
+"Packaging (original)" = "Emballage (non-édité)";
+
+/* String in textField placeholder, to show that the user has to enter his password */
+"Password" = "Mot de passe";
+
+/* Text of 1st segment of a SegmentedControl, indicating the model of the nutrient values, i.e. per standard 100g or 100 ml */
+"Per 100 mg/ml" = "Par 100 mg/ml";
+
+/* Text of 2nd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving */
+"Per serving" = "Par portion";
+
+/* Fraction of total by volume */
+"percentage (%)" = "pourcentage (%)";
+
+/* Header title of tableview section, indicating period after opening for beauty products */
+"Period After Opening" = "Période après ouverture";
+
+/* Title in AlertViewController, which lets the user enter his username/password. */
+"Personal Account" = "Compte personel";
+
+/* Title of a segmented control. */
+"Petfood" = "Animaux";
+
+/* Title of ViewController with a list of all food products that has been viewed. */
+"Petfood Products" = "Animaux";
+
+/* String in PickerViewController to indicate the photographer role of a contributor */
+"Photographer" = "Photographe";
+
+/* Text to show if the user selects the scan tab */
+"Point the camera to the barcode of a product to recognize the product and get the product information." = "Pointez le caméra vers le code barre du produit pour le faire reconnaître et obtenir l'information du produit";
+
+/* Text of a label, which explains the user to point the camera of his device to a barcode to start working (do not exceed 30 letters). */
+"Point to a barcode to scan" = "Pointe le code barre d'un produit";
+
+/* String in picker, which lets the user select the search result order. Order on the popularity. */
+"Popularity" = "Popularité";
+
+/* Tableview header section for the size of a portion */
+"Portion size" = "Largeur portion";
+
+/* Tableview header section for the edited size of a portion */
+"Portion size (edited)" = "Largeur portion (édité)";
+
+/* Tableview header section for the original size of a portion */
+"Portion size (original)" = "Largeur portion (non-édité)";
+
+/* TableViewController title for the settings scene. */
+"Preferences" = "Réglages";
+
+/* Description of the prefixed corrected tags */
+"Prefix corrected" = "Préfix corrigé";
+
+/* Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion. */
+"Presentation format" = "Format de présentation";
+
+/* Header for section of tableView with information of the producer (name, geographic location). */
+"Producer" = "Producteur";
+
+/* Header for section of tableView with information of the edited producer (name, geographic location). */
+"Producer (edited)" = "Producteur (édité)";
+
+/* Header for section of tableView with information of the original (non-edited) producer (name, geographic location). */
+"Producer (original)" = "Producteur (non-édité)";
+
+/* Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666). */
+"Producer Codes" = "Code emballeur";
+
+/* Header for section of tableView with codes for the edited producer (EMB 123456 or FR.666.666). */
+"Producer Codes (edited)" = "Code emballeur (édité)";
+
+/* Header for section of tableView with codes for the original producer (EMB 123456 or FR.666.666). */
+"Producer Codes (oriiginal)" = "Code emballeur (non-édité)";
+
+/* Title of a segmented control. */
+"Product" = "Produit";
+
+/* Title of a segment in a UISegmentedControl, which indicates that the values of the product are leading. */
+"Product Defined" = "Produit défini";
+
+/* Alert message, when the product could not be retrieved from Internet. */
+"Product does not exist. Add?" = "Produit n'existe pas. Ajouter?";
+
+/* String presented in a tagView if the product has been loaded */
+"Product is loaded" = "Produit chargé";
+
+/* String presented in a tagView if the product is updated */
+"Product is updated" = "Produit changé";
+
+/* Title of a segmented control segment, which lets the user set the default language of the new product tag entries as Product Language */
+"Product Language" = "Langue produit";
+
+/* String presented in a tagView if the product list has been loaded */
+"Product list is loaded" = "Produits chargés";
+
+/* String presented in a tagView if the product is currently being loaded */
+"Product loading" = "En cours de charger produit";
+
+/* String presented in a tagView if the product loading has failed */
+"Product loading failed" = "Chargement produit échoué";
+
+/* String in picker, which lets the user select the search result order. Order on the product names. */
+"Product name" = "Nom produit";
+
+/* Secction title, to indicate the product name does not exist */
+"Product name missing" = "Nom produit manque";
+
+/* String presented in a tagView if no product is available on OFF */
+"Product not available" = "Produit pas disponible";
+
+/* String to indicate a product has not yet been retrieved from OFF yet and is only locally available */
+"Product not loaded" = "Produit pas chargé";
+
+/* Title of a page to indicate that the product has not been set by the user. */
+"Product not set" = "Produit non défini";
+
+/* Generic string to indicate the address (street/city/postalcode/country) where the product was bought */
+"Purchase address" = "Adresse d'achat";
+
+/* Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought */
+"Purchase address (edited)" = "Adresse d'achat (édité)";
+
+/* Generic string to indicate the address original (street/city/postalcode/country) where the product was bought */
+"Purchase address (original)" = "Adresse d'achat (non-édité)";
+
+/* Tableview sectionheader for size of package. */
+"Quantity" = "Quantité";
+
+/* Tableview sectionheader for the edited size of package. */
+"Quantity (edited)" = "Quantité (édité)";
+
+/* Tableview sectionheader for the original size of package. */
+"Quantity (original)" = "Quantité (non-édité)";
+
+/* String in button, to let the user indicate he wants to cancel username/password input. */
+"Reset application" = "Remet appli à zero";
+
+/* String presented in a tagView if a response was received */
+"Response received" = "Réponse reçu";
+
+/* Header for section of tableView with names of the stores where the product is sold. */
+"Sale Stores" = "Magasins de vente";
+
+/* Title of first segment in switch, which lets the user select between salt or sodium */
+"Salt" = "Sel";
+
+/* Text of a label that wil indicate the fat level (low/medium/high) by colour. */
+"Salt level" = "Taux sel";
+
+/* Product name of the product shown at first start */
+"Sample Product for Demonstration, the globally known M&M's" = "Produit de démonstration, les M&Ms connu globalement";
+
+/* Text of a label that will indicate the saturated fat level (low/medium/high) by colour. */
+"Saturated Fat level" = "Taux graisse saturé";
+
+/* Title in cell with the saturated fat to all fat ratio */
+"Saturated Fat to Total Fat ratio" = "Rapport Graisses Saturés sur Graisses Totals";
+
+/* Title of a button in an alert sheet, which allows the user to save any changes to the local product */
+"Save" = "Sauvegarde";
+
+/* The title of an alert sheet, which allows the user to save he product. */
+"Save Product Updates?" = "Sauvegarder?";
+
+/* Title of a tableview header, which shows the Nutrition Score and Nova Value */
+"Score Summary" = "Sommaire nutri-score";
+
+/* Prefix of a title of a Tableview controller */
+"Search" = "Cherche";
+
+/* Title of a Tableview controller, indicating the tableview shows search beauty products. */
+"Search Beauty Products" = "Cherche prod. de béauté";
+
+/* Title of a Tableview controller, indicating the tableview shows search food products. */
+"Search Food Products" = "Cherche prod. d'aliment.";
+
+/* String show to explain the purpose of a search field in a tableview cell */
+"Search in name, generic name, label, brand." = "Saisis un mot pour chercher dans nom, nom générique, label, marque";
+
+/* String presented in a tagView if the search query is currently being loaded */
+"Search loading" = "Chargement requete";
+
+/* Title of a Tableview controller, indicating the tableview shows search pet food products (note the width of the title is constrained). */
+"Search PetFood" = "Cherche prod. anim.";
+
+/* Title of a Tableview controller, indicating the tableview shows search products. */
+"Search Products" = "Cherche produits";
+
+/* String presented in a tagView for the search query */
+"Search query" = "Définition de requete";
+
+/* Part of a sentece indicating the number of search results */
+"search results" = "résultats de récherche";
+
+/* Indicating that a search has been defined */
+"Search set up" = "Requete définie";
+
+/* String to indicate the text, which will be used to search multiple fileds of a product. */
+"Search Text" = "Texte à chercher";
+
+/* Title of a Tableview controller, indicating a search is in progress. */
+"Searching" = "Cherchant";
+
+/* Title of a viewcontroller where the user has to select an element in the picker. */
+"Select" = "Choisis";
+
+/* Text of a label in a page, when the user has not selected a product. */
+"Select a product from the history." = "Sélectionne produit de l'histoire";
+
+/* Title of a picker row where the user has to select an element in the picker. */
+"Select Completion Status" = "Saisis état de complétion";
+
+/* Title of a viewcontroller where the user has to select a language in a pickerView list of languages. */
+"Select language" = "Sélectionne langue";
+
+/* First item in a pickerView, indicating what the user should do */
+"Select role" = "Choisit role";
+
+/* Gallery header text presenting the selected front images */
+"Selected Front Images" = "Photo du produit sélectionnées";
+
+/* Gallery header text presenting the selected ingredients images */
+"Selected Ingredients Images" = "Photos d'ingrédients sélectionnées";
+
+/* Gallery header text presenting the selected nutrition images */
+"Selected Nutrition Images" = "Photos de nutrition sélectionnées";
+
+/* Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value) */
+"Serving" = "Portion";
+
+/* Title of a segment in a segmentedControl indicating that the a search needs to be setup by tapping. */
+"Set" = "Définie";
+
+/* cell title label, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels. */
+"Set a warning for specific allergen(s)." = "Défini avertissage allergènes/traces";
+
+/* Title of second segment in switch, which  indicates the user can set another account */
+"Set Account" = "Défini compte";
+
+/* Title of a tableView section, which lets the user set warnings */
+"Set ingredient warnings" = "Défini avertissage ingrédients";
+
+/* Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc */
+"Set preferences for salt/sodium, kJ/kcal/Cal, etc." = "Défini ";
+
+/* TableView row label, which allows the user to set up the application. */
+"Set product type (food/beauty/petFood), reset, etc." = "Défini type produit";
+
+/* Row title, which allows the user to set his open food facts username. */
+"Set your OpenFoodFacts account." = "Défini ton compte Open Food Facts";
+
+/* Title of a tableview header  indicating that the corresding field has been set. */
+"Setup query" = "Définie requête";
+
+/* SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
+"Show" = "Montre";
+
+/* Title of third segment in switch, which lets the user select between salt or sodium */
+"Sodium" = "Sodium";
+
+/* Header for a table section showing the special categories */
+"Special categories" = "Catégories speciaux";
+
+/* Title in AlertViewController, which lets the user enter his username/password. */
+"Specify password" = "Spécifie mot de passe";
+
+/* Explanatory text in AlertViewController, which lets the user enter his username/password. */
+"Specify your credentials for OFF" = "Nom et mot de passe pour OFF";
+
+/* Title in AlertViewController, which lets the user decide if he wants to start a search. */
+"Start Search?" = "Commence Requete?";
+
+/* Generic string to indicate the stores where the product is sold. */
+"Stores" = "Magasins";
+
+/* Generic string to indicate the edited stores where the product is sold. */
+"Stores (edited)" = "Magasins (édité)";
+
+/* Generic string to indicate the original (non-edited) stores where the product is sold. */
+"Stores (original)" = "Magasins (non-édité)";
+
+/* Text of a label that will indicate the sugar level (low/medium/high) by colour. */
+"Sugar level" = "Taux sucres";
+
+/* Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations). */
+"Supply Chain" = "Circuit logistique";
+
+/* Alert title, to indicate product should be added */
+"Sure" = "Dac";
+
+/* Title of a segmented control segment, which lets the user set the default language of the new product tag entries as System Language */
+"System Language" = "Langue système";
+
+/* Title of a tableView section, which lets the user set the default language of the new product tag entries */
+"Tag Entry Language" = "Langue pour les tags";
+
+/* The title of an alert sheet, which allows the user to save he product. */
+"The local product has been changed. Should these changes be saved?" = "Le produit local a changé. Sauvegarder les changements?";
+
+/* An explanatory text in the common name field. */
+"This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Ce produit de démonstration vous montre comment une produit est présenté. Passez au pages suivants pour voir plus de détails sur le produit. Quand vous commencez à scanner, ce produit sera supprimé.";
+
+/* Text to indicate the traces of a product. */
+"Traces" = "Traces";
+
+/* Text to indicate the edited traces of a product. */
+"Traces (edited)" = "Traces (édité)";
+
+/* Text to indicate the original (un-edited) traces of a product. */
+"Traces (original)" = "Traces (non-édité)";
+
+/* Description of the interpreted tags in the json as translated by the taxonomy */
+"Translated" = "Traduit";
+
+/* tag of cell when no date was in off */
+"undefined" = "non défini";
+
+/* String (in Segmented Control/Tag) to indicate the nutritional score level is undefined (and will not be used in the search) */
+"Undefined" = "Pas defini";
+
+/* Text in a TagListView, when the field in the json was not present. */
+"Unknown" = "Inconnu";
+
+/* String presented in a tagView if an image is being uploaded */
+"Uploading image" = "Charger image";
+
+/* String of a button, to prefill the nutrients with the standard US set. */
+"US Set" = "US";
+
+/* Title of a button in a navigation bar, which allows the user to adapt an image and use the result. */
+"Use" = "Utilise";
+
+/* Title of a button to indicate that user can take an image with the Camera. */
+"Use Camera" = "Utilise camera";
+
+/* Title of a button to indicate that user can pick an image from Photos. */
+"Use Photos" = "Utilise photos";
+
+/* Title of a segment in a segmentedControl that this parameter will be set by the user. */
+"User defined" = "Défini par l'utilisateur";
+
+/* ViewController/row title, which allows the user to set the application preferences. */
+"User Preferences" = "Préférences utilisateur";
+
+/* String in textField placeholder, to show that the user has to enter his username. */
+"Username" = "Nom du compte";
+
+/* Title of a tableView section, which lets the user set the view toggle mode interface (double tap or button) */
+"View Toggle Mode" = "Mode de changement affichage";
+

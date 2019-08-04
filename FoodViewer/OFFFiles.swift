@@ -34,16 +34,21 @@ class OFFplists {
         static let CategoriesFileName = "Categories"
         static let CountriesFileName = "Countries"
         static let GlobalLabelsFileName = "GlobalLabels"
+        static let IngredientsFileName = "IngredientsEdited"
         // The OFF taxonomy is not good for the app.
         // The plist needs several edits:
         // - add the language iso with the two letter code
         // - remove language synonyms (not needed)
         // - capitalize languages
-        static let IngredientsFileName = "IngredientsEdited"
         static let LanguagesFileName = "Languages"
         static let MineralsFileName = "Minerals"
         static let NucleotidesFileName = "Nucleotides"
-        static let NutrientsFileName = "Nutriments"
+        // The OFF Nutriments taxonomy is not good for the app.
+        // Remove synonyms
+        // Capitalize
+        // chech en:fiber, en:carbohydrates, en:cocoa (minimum)
+        // add units
+        static let NutrientsFileName = "Nutrients"
         static let OtherNutritionalSubstancesFileName = "Other_nutritional_substances"
         static let StatesFileName = "States"
         static let VitaminsFileName = "Vitamins"

@@ -1,0 +1,12 @@
+/* Bundle name */
+"CFBundleName" = "FoodViewer";
+
+/* Privacy - Media Library Usage Description */
+"NSAppleMusicUsageDescription" = "Choisit image pour charger";
+
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "Utilisé pour scanner des codes barres";
+
+/* Privacy - Photo Library Usage Description */
+"NSPhotoLibraryUsageDescription" = "Utilisé pour sélectionner et charger des images";
+
