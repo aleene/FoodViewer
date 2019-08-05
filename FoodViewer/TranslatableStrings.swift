@@ -87,6 +87,8 @@ struct TranslatableStrings {
     static let CreatorUnicode = NSLocalizedString("❤️", comment: "Image to indicate that the user who created the product.")
     static let Countries = NSLocalizedString("Countries", comment: "Generic string (plural) to indicate the countries where the product is sold.")
     static let CountriesEdited = NSLocalizedString("Countries (edited)", comment: "Generic string (plural) to indicate the countries where the product is sold (edited).")
+    static let CountriesNormalized = NSLocalizedString("Countries (normalized)", comment: "Generic string (plural) to indicate the countries where the product is sold (original).")
+    static let CountriesTranslated = NSLocalizedString("Countries (translated)", comment: "Generic string (plural) to indicate the countries where the product is sold (original).")
     static let CountriesOriginal = NSLocalizedString("Countries (original)", comment: "Generic string (plural) to indicate the countries where the product is sold (original).")
     //static let CurrentLocale = NSLocalizedString("Current Locale", comment: "Title of segment in segmentedControlto indicate the current local should be used.")
 
@@ -351,6 +353,7 @@ struct TranslatableStrings {
     static let ProductWebSitesOriginal = NSLocalizedString("Official product website (original)", comment: "Header title of tableview section, indicating the original website for the product")
     static let PurchaseAddress = NSLocalizedString("Purchase address", comment: "Generic string to indicate the address (street/city/postalcode/country) where the product was bought")
     static let PurchaseAddressEdited = NSLocalizedString("Purchase address (edited)", comment: "Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought")
+    static let PurchaseAddressNormalized = NSLocalizedString("Purchase address (normalized)", comment: "Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought")
     static let PurchaseAddressOriginal = NSLocalizedString("Purchase address (original)", comment: "Generic string to indicate the address original (street/city/postalcode/country) where the product was bought")
 
 //
@@ -418,6 +421,7 @@ struct TranslatableStrings {
                                                comment: "Title in AlertViewController, which lets the user decide if he wants to start a search.")
     static let Stores = NSLocalizedString("Stores", comment: "Generic string to indicate the stores where the product is sold.")
     static let StoresEdited = NSLocalizedString("Stores (edited)", comment: "Generic string to indicate the edited stores where the product is sold.")
+    static let StoresNormalized = NSLocalizedString("Stores (normalized)", comment: "Generic string to indicate the original (normalized) stores where the product is sold.")
     static let StoresOriginal = NSLocalizedString("Stores (original)", comment: "Generic string to indicate the original (non-edited) stores where the product is sold.")
     static let SugarLevel = NSLocalizedString("Sugar level", comment: "Text of a label that will indicate the sugar level (low/medium/high) by colour.")
     static let SupplyChain = NSLocalizedString("Supply Chain", comment: "Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).")
