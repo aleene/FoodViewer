@@ -50,6 +50,7 @@ struct TranslatableStrings {
     static let Brands = NSLocalizedString("Brands", comment: "Tableview sectionheader for brands.")
     static let BrandsEdited = NSLocalizedString("Brands (edited)", comment: "Tableview sectionheader for the edited brands.")
     static let BrandsOriginal = NSLocalizedString("Brands (original)", comment: "Tableview sectionheader for the unedited brands.")
+    static let BrandsInterpreted = NSLocalizedString("Brands (interpreted)", comment: "Tableview sectionheader for the interpreted and normalised brands.")
 
 //
 // MARK: - CCCCCCCCCCCCCCCCCCCCCC strings
@@ -294,6 +295,7 @@ struct TranslatableStrings {
     static let Packaging = NSLocalizedString("Packaging", comment: "Tableview sectionheader for packaging.")
     static let PackagingEdited = NSLocalizedString("Packaging (edited)", comment: "Tableview sectionheader for packaging, edited version.")
     static let PackagingOriginal = NSLocalizedString("Packaging (original)", comment: "Tableview sectionheader for packaging, original version.")
+    static let PackagingInterpreted = NSLocalizedString("Packaging (interpreted)", comment: "Tableview sectionheader for packaging, interpreted version.")
     static let PackagerCodes = NSLocalizedString("Packager Code", comment: "Generic string to indicate the packager codes.")
     static let Password = NSLocalizedString("Password", comment: "String in textField placeholder, to show that the user has to enter his password")
     static let Percentage = NSLocalizedString("percentage (%)", comment: "Fraction of total by volume")

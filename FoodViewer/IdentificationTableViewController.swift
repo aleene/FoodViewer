@@ -73,22 +73,22 @@ class IdentificationTableViewController: UITableViewController {
     // private var selectedSection: Int? = nil
     
     fileprivate enum ProductVersion {
-        //case local
-        case remote
-        case new // mix of local and remote
+        case remoteUser // data as entered by the user
+        case remoteTags // data interpreted by off
+        case new // new data as entered by the user locally
         
         var isRemote: Bool {
             switch self {
-            case .remote:
-                return true
-            default:
+            case .new:
                 return false
+            default:
+                return true
             }
         }
     }
     
     // Determines which version of the product needs to be shown, the remote or local
-    
+    // Default is the edited product version and then the translated version
     fileprivate var productVersion: ProductVersion = .new
 
     
@@ -123,17 +123,14 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var nameToDisplay: Tags {
         get {
             switch productVersion {
-            case .remote:
+            case .remoteUser, .remoteTags:
+                // always show the remote product name
                 guard let validLanguageCode = displayLanguageCode else { return .empty }
                 guard let text = productPair?.remoteProduct?.nameLanguage[validLanguageCode] else { return .empty }
                 guard let validText = text else { return .empty }
                 return Tags.init(text: validText)
-            //case .local:
-            //    guard let validLanguageCode = currentLanguageCode else { return .empty }
-            //    guard let text = productPair?.localProduct?.nameLanguage[validLanguageCode] else { return .empty }
-            //    guard let validText = text else { return .empty }
-            //    return Tags.init(text: validText)
             case .new:
+                // show the local product name if available
                 guard let validLanguageCode = displayLanguageCode else { return .empty }
                 guard let text = productPair?.localProduct?.nameLanguage[validLanguageCode] ??
                     productPair?.remoteProduct?.nameLanguage[validLanguageCode] else { return .empty }
@@ -146,17 +143,14 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var genericNameToDisplay: Tags {
         get {
             switch productVersion {
-            case .remote:
+            case .remoteUser, .remoteTags:
+            // always show the remote product name
                 guard let validLanguageCode = displayLanguageCode else { return .empty }
                 guard let text = productPair?.remoteProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
                 guard let validText = text else { return .empty }
                 return Tags.init(text: validText)
-            //case .local:
-            //    guard let validLanguageCode = currentLanguageCode else { return .empty }
-            //    guard let text = productPair?.localProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
-            //    guard let validText = text else { return .empty }
-            //    return Tags.init(text: validText)
             case .new:
+                // show the local product name if available
                 guard let validLanguageCode = displayLanguageCode else { return .empty }
                 guard let text = productPair?.localProduct?.genericNameLanguage[validLanguageCode] ?? productPair?.remoteProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
                 guard let validText = text else { return .empty }
@@ -168,9 +162,11 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var primaryLanguageCodeToDisplay: String {
         get {
             switch productVersion {
-            case .remote:
+            case .remoteUser, .remoteTags:
+                // show the remote language
                 return productPair?.remoteProduct?.primaryLanguageCode ?? productPair?.localProduct?.primaryLanguageCode ?? TranslatableStrings.QuestionMark
             case .new:
+                // show the local language if available
                 return productPair?.localProduct?.primaryLanguageCode ?? productPair?.remoteProduct?.primaryLanguageCode ?? TranslatableStrings.QuestionMark
             }
         }
@@ -179,13 +175,12 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var quantityToDisplay: Tags {
         get {
             switch productVersion {
-            case .remote:
+            case .remoteUser, .remoteTags:
+                // show the remote quantity
                 guard let text = productPair?.remoteProduct?.quantity else { return .empty }
                 return Tags.init(text: text)
-            //case .local:
-            //    guard let text = productPair?.localProduct?.quantity else { return .empty }
-            //    return Tags.init(text: text)
             case .new:
+                // show the local quantity if available
                 guard let text = productPair?.localProduct?.quantity ??
                 productPair?.remoteProduct?.quantity else { return .empty }
                 return Tags.init(text: text)
@@ -196,17 +191,11 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var brandsToDisplay: Tags {
         get {
             switch productVersion {
-            case .remote:
-                switch showBrandTagsType {
-                case .interpreted:
-                    return productPair?.remoteProduct?.brandsInterpreted ?? .undefined
-                case .original:
-                    return productPair?.remoteProduct?.brandsOriginal ?? .undefined
-                default:
-                    return .undefined
-                }
-            //case .local:
-            //    return productPair?.localProduct?.brandsOriginal ?? .undefined
+            case .remoteUser:
+                // show the remote brand as entered by the user
+                return productPair?.remoteProduct?.brandsOriginal ?? .undefined
+            case .remoteTags:
+                return productPair?.remoteProduct?.brandsInterpreted ?? .undefined
             case .new:
                 if let oldTags = productPair?.localProduct?.brandsOriginal {
                     switch oldTags {
@@ -228,47 +217,16 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
     }
-
-    private struct TagsTypeDefault {
-        static let Brands: TagsType = .original
-        static let Packaging: TagsType = .prefixed
-        static let Languages: TagsType = .translated
-        static let Name: TagsType = .original
-        static let GenericName: TagsType = .original
-        static let Quantity: TagsType = .original
-    }
     
-    fileprivate var showPackagingTagsType: TagsType = TagsTypeDefault.Packaging
-    fileprivate var showBrandTagsType: TagsType = TagsTypeDefault.Brands
-    fileprivate var showNameTagsType: TagsType = TagsTypeDefault.Name
-    fileprivate var showGenericNameTagsType: TagsType = TagsTypeDefault.GenericName
-    fileprivate var showQuantityTagsType: TagsType = TagsTypeDefault.Quantity
-
-    private var showLanguagesTagsType: TagsType = TagsTypeDefault.Languages
-
     fileprivate var packagingToDisplay: Tags {
         get {
             switch productVersion {
-            case .remote:
-                return remotePackaging
-            //case .local:
-            //    return productPair?.localProduct?.packagingOriginal ?? .undefined
             case .new:
-                if let packaging = productPair?.localProduct?.packagingOriginal {
-                    switch packaging {
-                    case .available:
-                        return packaging
-                    default:
-                        break
-                    }
-                }
-                switch remotePackaging {
-                case .available:
-                    return remotePackaging
-                default:
-                    break
-                }
-                return .undefined
+                return productPair?.localProduct?.packagingInterpreted ?? productPair?.remoteProduct?.packagingOriginal ?? .undefined
+            case .remoteTags:
+                return productPair?.remoteProduct?.packagingInterpreted ?? .undefined
+            case .remoteUser:
+                return productPair?.remoteProduct?.packagingOriginal ?? .undefined
             }
         }
     }
@@ -276,10 +234,8 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var languagesToDisplay: Tags {
         get {
             switch productVersion {
-            case .remote:
+            case .remoteUser, .remoteTags:
                 return remoteLanguages
-            //case .local:
-            //    return productPair?.localProduct?.languageTags ?? .undefined
             case .new:
                 return productPair?.localProduct?.languageTags ?? remoteLanguages
             }
@@ -287,29 +243,22 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     private var remoteLanguages: Tags {
-        switch showLanguagesTagsType {
-        case .translated:
-            // show the languageCodes in a localized language
-            return productPair?.remoteProduct?.languageTags ?? .undefined
-        default:
-            return .undefined
-        }
+        // show the languageCodes in a localized language
+        return productPair?.remoteProduct?.languageTags ?? .undefined
     }
     
+    /*
     private var remotePackaging: Tags {
-        switch showPackagingTagsType {
-        case .interpreted:
+        switch productVersion {
+        case .new:
+            return productPair?.localProduct?.packagingOriginal ?? productPair?.remoteProduct?.packagingOriginal ?? .undefined
+        case .remoteTags, .remoteHierarchy, .remoteTranslated:
             return productPair?.remoteProduct?.packagingInterpreted ?? .undefined
-        case .original:
+        case .remoteUser:
             return productPair?.remoteProduct?.packagingOriginal ?? .undefined
-        case .hierarchy:
-            return productPair?.remoteProduct?.packagingHierarchy ?? .undefined
-        case .prefixed:
-            return productPair?.remoteProduct?.packagingOriginal.prefixed(withAdded:productPair?.remoteProduct?.primaryLanguageCode ?? "??", andRemoved:Locale.interfaceLanguageCode) ?? .undefined
-        case .translated:
-            return .undefined
         }
     }
+ */
 
     fileprivate var searchResult: String = ""
 
@@ -359,7 +308,6 @@ class IdentificationTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        //print(tableView.frame.size.width)
         switch tableStructure[indexPath.section] {
         case .barcode:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Barcode, for: indexPath) as! BarcodeTableViewCell
@@ -452,7 +400,6 @@ class IdentificationTableViewController: UITableViewController {
         case .brands:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
-            //print("Cell", cell.frame)
             
             cell.datasource = self
             cell.delegate = self
@@ -472,8 +419,6 @@ class IdentificationTableViewController: UITableViewController {
         case .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
-            //print("Cell", cell.frame)
-
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -538,12 +483,10 @@ class IdentificationTableViewController: UITableViewController {
     
     public var currentImage: (UIImage?, String) {
         switch productVersion {
-        //case .local:
-        //    return localFrontImage ?? (nil, TranslatableStrings.NoImageAvailable)
-        case .remote:
-            return remoteFrontImage ?? (nil, TranslatableStrings.NoImageAvailable)
         case .new:
             return localFrontImage ?? remoteFrontImage ?? ( nil,TranslatableStrings.NoImageAvailable)
+        default:
+            return remoteFrontImage ?? (nil, TranslatableStrings.NoImageAvailable)
         }
     }
     
@@ -681,7 +624,7 @@ class IdentificationTableViewController: UITableViewController {
         headerView.section = section
         headerView.delegate = self
         // do not add any button or double tap
-        headerView.buttonNotDoubleTap = nil
+        headerView.buttonNotDoubleTap = buttonNotDoubleTap
 
         headerView.changeViewModeButton.isHidden = true
         var header = tableStructure[section].header
@@ -692,23 +635,48 @@ class IdentificationTableViewController: UITableViewController {
             headerView.changeLanguageButton.isHidden = false
             switch currentProductSection {
             case .image:
+                header = TranslatableStrings.FrontImage
                 guard let localPair = localFrontImage else { break }
-                if localPair.0 != nil {
-                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                    header = productVersion.isRemote ? TranslatableStrings.FrontImageOriginal : TranslatableStrings.FrontImageEdited
+                switch productVersion {
+                case .new:
+                    if localPair.0 != nil {
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.FrontImageEdited
+                    }
+                default:
+                    header = TranslatableStrings.FrontImageOriginal
                 }
+
             case .name:
+                header = TranslatableStrings.Name
                 guard let validLanguageCode = displayLanguageCode else { break }
-                if productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
-                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                    header = productVersion.isRemote ? TranslatableStrings.NameOriginal : TranslatableStrings.NameEdited
+                
+                switch productVersion {
+                case .new:
+                    if productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.NameEdited
+                    }
+                default:
+                    header = TranslatableStrings.NameOriginal
                 }
+                
             case .genericName :
-                guard let validLanguageCode = displayLanguageCode else { break }
-                if productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
-                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                    header = productVersion.isRemote ? TranslatableStrings.GenericNameOriginal : TranslatableStrings.GenericNameEdited
+                header = TranslatableStrings.GenericName
+                guard let validLanguageCode = displayLanguageCode else {
+                    break
                 }
+
+                switch productVersion {
+                case .new:
+                    if productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.GenericNameEdited
+                    }
+                default:
+                    header = TranslatableStrings.GenericNameOriginal
+                }
+
             default:
                 break
             }
@@ -723,36 +691,46 @@ class IdentificationTableViewController: UITableViewController {
 
             switch currentProductSection {
             case .barcode:
-                guard productPair?.localProduct != nil else { break }
-                if productPair?.localProduct?.primaryLanguageCode != productPair?.remoteProduct?.primaryLanguageCode {
-                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                    header = productVersion.isRemote ? TranslatableStrings.BarcodeOriginal : TranslatableStrings.BarcodeEdited
+                // it is not possible to edit the barcode
+                header = TranslatableStrings.Barcode
+            case .brands:
+                header = TranslatableStrings.Brands
+                switch productVersion {
+                case .new:
+                    if productPair?.localProduct?.brandsOriginal != nil {
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.BrandsEdited }
+                case .remoteUser:
+                    header = TranslatableStrings.BrandsOriginal
+                case .remoteTags:
+                    header = TranslatableStrings.BrandsInterpreted
                 }
-                case .brands:
-                    if let newTags = productPair?.localProduct?.brandsOriginal {
-                        switch newTags {
-                        case .available:
-                            headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                            header = productVersion.isRemote ? TranslatableStrings.BrandsOriginal : TranslatableStrings.BrandsEdited
-                        default:
-                            break
-                        }
-                    }
+                
             case .packaging:
-                if let newTags = productPair?.localProduct?.packagingOriginal {
-                    switch newTags {
-                    case .available:
-                        headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                        header = productVersion.isRemote ? TranslatableStrings.PackagingOriginal : TranslatableStrings.PackagingEdited
-                    default:
-                        break
-                    }
+                header = TranslatableStrings.Packaging
+                switch productVersion {
+                case .new:
+                    if productPair?.localProduct?.packagingOriginal != nil {
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.PackagingEdited }
+                case .remoteUser:
+                    header = TranslatableStrings.PackagingOriginal
+                case .remoteTags:
+                    header = TranslatableStrings.PackagingInterpreted
                 }
+                
             case .quantity:
-                let quantityHasBeenEdited = productPair?.localProduct?.quantity == nil ? false : true
-                if quantityHasBeenEdited {
-                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                    header = productVersion.isRemote ? TranslatableStrings.QuantityOriginal : TranslatableStrings.QuantityEdited
+                header = TranslatableStrings.Quantity
+                switch productVersion {
+                case .new:
+                    if productPair?.localProduct?.quantity != nil {
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.QuantityEdited
+                    }
+                default:
+                    // the remote version has been requested OR
+                    // there is no local version
+                    header = TranslatableStrings.QuantityOriginal
                 }
 
             default:
@@ -968,11 +946,7 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     @objc func refreshProduct() {
-        showPackagingTagsType = TagsTypeDefault.Packaging
-        showBrandTagsType = TagsTypeDefault.Brands
-        showNameTagsType = TagsTypeDefault.Name
-        showGenericNameTagsType = TagsTypeDefault.GenericName
-        showQuantityTagsType = TagsTypeDefault.Quantity
+        productVersion = .new
         tableView.reloadData()
         
     }
@@ -1082,13 +1056,14 @@ class IdentificationTableViewController: UITableViewController {
     
 
     @objc func doubleTapOnTableView() {
+        // double tapping implies cycling through the product possibilities
         switch productVersion {
-        case .remote:
-            //productVersion = .local
-        //case .local:
-            productVersion = .new
         case .new:
-            productVersion = .remote
+            productVersion = .remoteTags
+        case .remoteTags:
+            productVersion = .remoteUser
+        case .remoteUser:
+            productVersion = productPair?.localProduct != nil ? .new : .remoteTags
         }
         tableView.reloadData()
     }
@@ -1117,7 +1092,6 @@ class IdentificationTableViewController: UITableViewController {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 70
         tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
-        // print("viewDidLoad", self.view.frame, self.parent?.view.frame)
         
     }
     
@@ -1240,18 +1214,9 @@ extension IdentificationTableViewController: TagListViewCellDelegate {
 
     // function to let the delegate know that a tag has been double tapped
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
-        let currentProductSection = tableStructure[tagListView.tag]
-        switch currentProductSection {
-        case .packaging:
-            showPackagingTagsType.cycle()
-        case .brands:
-            showBrandTagsType.cycle()
-        default:
-            return
-        }
-        tableView.reloadData()
     }
 }
+
 //
 // MARK: - ProductNameCellDelegate Functions
 //
@@ -1610,13 +1575,6 @@ extension IdentificationTableViewController: UITextFieldDelegate {
             if let validText = textField.text {
                 productPair?.update(quantity: validText)
             }
-            /*
-        case .barcodeSearch:
-            // barcode updated?
-            if let validText = textField.text {
-                query!.barcode = BarcodeType.ean8(validText, Preferences.manager.showProductType)
-            }
- */
         default:
             return
         }
@@ -1688,7 +1646,6 @@ extension IdentificationTableViewController: GKImagePickerDelegate {
     
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
         guard let validLanguageCode = displayLanguageCode else { return }
-        // print("front image", image.size)
         productPair?.update(frontImage: image, for: validLanguageCode)
         tableView.reloadData()
         imagePicker.dismiss(animated: true, completion: nil)

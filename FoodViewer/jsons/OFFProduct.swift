@@ -64,15 +64,18 @@ class OFFProduct: Codable {
     var image_url: String? = nil
     var images: [String:OFFProductImageDetailed]? = nil
     var informers_tags: [String]? = nil
-        var ingredients: [OFFProductIngredient]? = nil
-    var ingredients_debug: [String?]? = nil
+    // var ingredients: [OFFProductIngredient]? = nil
+    var ingredients_analysis_tags: [String?]? = nil // evaluation of ingredients
+    // var ingredients_debug: [String?]? = nil
     var ingredients_from_palm_oil_tags: [String]? = nil
-    var ingredients_ids_debug: [String]? = nil
-    var ingredients_n_tags: [String]? = nil
-    var ingredients_tags: [String]? = nil
+    // var ingredients_ids_debug: [String]? = nil
+    // var ingredients_n_tags: [String]? = nil
+    // var ingredients_tags: [String]? = nil // detected ingredients + parents
+    var ingredients_hierarchy: [String]? = nil
+    var ingredients_original_tags: [String]? = nil // detected ingredients
     var ingredients_text: String? = nil
     // ingredients_text_fr is handled in the child
-    var ingredients_text_debug: String? = nil
+    // var ingredients_text_debug: String? = nil
     var ingredients_that_may_be_from_palm_oil_tags: [String]? = nil
     var ingredients_text_with_allergens: String? = nil
     // var ingredients_text_with_allergens_fr is handled in the child
@@ -139,7 +142,9 @@ class OFFProduct: Codable {
     var stores: String? = nil
         var stores_tags: [String]? = nil
     var traces: String? = nil
+    var traces_from_user: String? = nil
     var traces_hierarchy: [String]? = nil
+    var traces_from_ingredients: String? = nil
         var traces_tags: [String]? = nil
     var unique_scans_n: Int? = nil
     var unknown_nutrients_tags: [String]? = nil

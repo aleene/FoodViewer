@@ -172,7 +172,7 @@ class OFFplists {
     }
 
     func translateAminoAcids(_ key: String, language:String) -> String? {
-        if OFFallergens != nil {
+        if OFFaminoAcids != nil {
             let firstSplit = language.split(separator:"-").map(String.init)
             
             let vertex = VertexNew(key:key)
@@ -426,7 +426,7 @@ class OFFplists {
     }
 
     func translateMineral(_ key: String, language:String) -> String? {
-        if OFFallergens != nil {
+        if OFFminerals != nil {
             let firstSplit = language.split(separator:"-").map(String.init)
             
             let vertex = VertexNew(key:key)
@@ -445,7 +445,7 @@ class OFFplists {
     }
 
     func translateNucleotide(_ key: String, language:String) -> String? {
-        if OFFallergens != nil {
+        if OFFnucleotides != nil {
             let firstSplit = language.split(separator:"-").map(String.init)
             
             let vertex = VertexNew(key:key)
@@ -464,7 +464,7 @@ class OFFplists {
     }
 
     func translateOther(_ key: String, language:String) -> String? {
-        if OFFallergens != nil {
+        if OFFotherNutritionalSubstances != nil {
             let firstSplit = language.split(separator:"-").map(String.init)
             
             let vertex = VertexNew(key:key)
@@ -482,23 +482,17 @@ class OFFplists {
         return String(format:TextConstants.FileNotAvailable, Constants.OtherNutritionalSubstancesFileName)
     }
 
-    func translateVitamins(_ key: String, language:String) -> String? {
-        if OFFallergens != nil {
-            let firstSplit = language.split(separator:"-").map(String.init)
-            
-            let vertex = VertexNew(key:key)
-            // find the Vertex.Node with the key
-            let index = OFFallergens!.firstIndex(of: vertex)
-            if  index != nil {
-                
-                let currentVertex = OFFvitamins![index!].leaves
-                let values = currentVertex[firstSplit[0]]
-                return  values != nil ? values![0].capitalized : key
-            } else {
-                return nil
-            }
+    func translateVitamin(_ key: String, language:String) -> String? {
+        guard let offPlist = OFFvitamins else {
+            return String(format:TextConstants.FileNotAvailable, Constants.VitaminsFileName)
         }
-        return String(format:TextConstants.FileNotAvailable, Constants.VitaminsFileName)
+        let firstSplit = language.split(separator:"-").map(String.init)
+            
+        let vertex = VertexNew(key:key)
+        // find the Vertex.Node with the key
+        guard let index = offPlist.firstIndex(of: vertex) else { return nil }
+        let values = offPlist[index].leaves[firstSplit[0]]
+        return values != nil ? values![0].capitalized : key
     }
 
 // MARK: - Read functions

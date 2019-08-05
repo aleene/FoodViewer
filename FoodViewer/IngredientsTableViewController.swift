@@ -89,6 +89,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         static let Traces: TagsType = .translated
         static let Allergens: TagsType = .translated
         static let Additives: TagsType = .translated
+        static let AminoAcids: TagsType = .translated
         static let Ingredients: TagsType = .original
         static let Minerals: TagsType = .translated
         static let Vitamins: TagsType = .translated
@@ -101,6 +102,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var tracesTagsTypeToShow: TagsType = TagsTypeDefault.Traces
     fileprivate var allergensTagsTypeToShow: TagsType = TagsTypeDefault.Allergens
     fileprivate var additivesTagsTypeToShow: TagsType = TagsTypeDefault.Additives
+    fileprivate var aminoAcidsTagsTypeToShow: TagsType = TagsTypeDefault.AminoAcids
     fileprivate var ingredientsTagsTypeToShow: TagsType = TagsTypeDefault.Ingredients
     fileprivate var mineralsTagsTypeToShow: TagsType = TagsTypeDefault.Minerals
     fileprivate var vitaminsTagsTypeToShow: TagsType = TagsTypeDefault.Vitamins
@@ -160,7 +162,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 // allergens have no local version and are determined by off
             //    return .empty
             case .remote, .new:
-                return productPair?.remoteProduct?.minerals ?? .undefined
+                switch mineralsTagsTypeToShow {
+                case .interpreted:
+                    return productPair?.remoteProduct?.minerals ?? .undefined
+                case .hierarchy, .original, .prefixed:
+                    return .undefined
+                case .translated:
+                    return productPair?.remoteProduct?.mineralsTranslated ?? .undefined
+                }
             }
         }
     }
@@ -172,7 +181,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 // allergens have no local version and are determined by off
             //    return .empty
             case .remote, .new:
-                return productPair?.remoteProduct?.vitamins ?? .undefined
+                switch vitaminsTagsTypeToShow {
+                case .interpreted:
+                    return productPair?.remoteProduct?.vitamins ?? .undefined
+                case .hierarchy, .original, .prefixed:
+                    return .undefined
+                case .translated:
+                    return productPair?.remoteProduct?.vitaminsTranslated ?? .undefined
+                }
             }
         }
     }
@@ -184,7 +200,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 // nucleotides have no local version and are determined by off
             //    return .empty
             case .remote, .new:
-                return productPair?.remoteProduct?.nucleotides ?? .undefined
+                switch nucleotidesTagsTypeToShow {
+                case .interpreted:
+                    return productPair?.remoteProduct?.nucleotides ?? .undefined
+                case .hierarchy, .original, .prefixed:
+                    return .undefined
+                case .translated:
+                    return productPair?.remoteProduct?.nucleotidesTranslated ?? .undefined
+                }
             }
         }
     }
@@ -196,7 +219,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 // otherNutritionalSubstances have no local version and are determined by off
             //    return .empty
             case .remote, .new:
-                return productPair?.remoteProduct?.otherNutritionalSubstances ?? .undefined
+                switch otherNutritionalSubstancesTagsTypeToShow {
+                case .interpreted:
+                    return productPair?.remoteProduct?.otherNutritionalSubstances ?? .undefined
+                case .hierarchy, .original, .prefixed:
+                    return .undefined
+                case .translated:
+                    return productPair?.remoteProduct?.otherNutritionalSubstancesTranslated ?? .undefined
+                }
             }
         }
     }
@@ -226,12 +256,16 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     private var remoteTraces: Tags {
         switch tracesTagsTypeToShow {
         case .interpreted:
+            // traces as a list of strings in data
             return productPair?.remoteProduct?.tracesInterpreted ?? .undefined
         case .hierarchy:
+            // traces as a list of strings in data
             return productPair?.remoteProduct?.tracesHierarchy ?? .undefined
         case .translated:
+            // the detected string is translated
             return productPair?.remoteProduct?.tracesTranslated ?? .undefined
         case .original:
+            // String as entered by the user
             return productPair?.remoteProduct?.tracesOriginal ?? .undefined
         case .prefixed:
             return .undefined
@@ -869,6 +903,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         allergensTagsTypeToShow = TagsTypeDefault.Allergens
         additivesTagsTypeToShow = TagsTypeDefault.Additives
         ingredientsTagsTypeToShow = TagsTypeDefault.Ingredients
+        aminoAcidsTagsTypeToShow = TagsTypeDefault.AminoAcids
+        mineralsTagsTypeToShow = TagsTypeDefault.Minerals
+        vitaminsTagsTypeToShow = TagsTypeDefault.Vitamins
+        otherNutritionalSubstancesTagsTypeToShow = TagsTypeDefault.OtherNutritionalSubstances
         tableStructure = setupSections()
         tableView.reloadData()
     }

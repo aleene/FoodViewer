@@ -12,4 +12,6 @@ struct OFFProductIngredient: Codable {
     let id: String
     let text: String
     let rank: Int?
+    let vegan: String
+    let vegetarian: String
 }

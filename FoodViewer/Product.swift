@@ -205,7 +205,7 @@ class FoodProduct {
 //                    if let translatedKey = OFFplists.manager.translateAllergens(trace, language:Locale.interfaceLanguageCode()) {
 //                        translatedTraces.append(translatedKey)
 //                    } else
-                        if let translatedKey = OFFplists.manager.translateAllergens(trace, language:Locale.preferredLanguages[0]) {
+                    if let translatedKey = OFFplists.manager.translateAllergens(trace, language:Locale.preferredLanguages[0]) {
                             translatedTraces.append(translatedKey)
                     } else {
                         translatedTraces.append(trace)
@@ -238,10 +238,94 @@ class FoodProduct {
     }
     
     var minerals: Tags = .undefined
+    var mineralsTranslated: Tags {
+        get {
+            switch nucleotides {
+            case .available(let minerals):
+                var translatedMinerals:[String] = []
+                for mineral in minerals {
+                    if let translatedKey = OFFplists.manager.translateMineral(mineral, language:Locale.interfaceLanguageCode) {
+                        translatedMinerals.append(translatedKey)
+                    } else if let translatedKey = OFFplists.manager.translateMineral(mineral, language:Locale.preferredLanguages[0]) {
+                        translatedMinerals.append(translatedKey)
+                    } else {
+                        translatedMinerals.append(mineral)
+                    }
+                }
+                return translatedMinerals.count == 0 ? .empty : .available(translatedMinerals)
+            default:
+                break
+            }
+            return .undefined
+        }
+    }
     var vitamins: Tags = .undefined
+    var vitaminsTranslated: Tags {
+        get {
+            switch vitamins {
+            case .available(let vitamins):
+                var translatedVitamins:[String] = []
+                for vitamin in vitamins {
+                    if let translatedKey = OFFplists.manager.translateVitamin(vitamin, language:Locale.interfaceLanguageCode) {
+                        translatedVitamins.append(translatedKey)
+                    } else if let translatedKey = OFFplists.manager.translateVitamin(vitamin, language:Locale.preferredLanguages[0]) {
+                        translatedVitamins.append(translatedKey)
+                    } else {
+                        translatedVitamins.append(vitamin)
+                    }
+                }
+                return translatedVitamins.count == 0 ? .empty : .available(translatedVitamins)
+            default:
+                break
+            }
+            return .undefined
+        }
+    }
     var nucleotides: Tags = .undefined
+    var nucleotidesTranslated: Tags {
+        get {
+            switch nucleotides {
+            case .available(let nucleotides):
+                var translatedNucleotides:[String] = []
+                for nucleotide in nucleotides {
+                    if let translatedKey = OFFplists.manager.translateNucleotide(nucleotide, language:Locale.interfaceLanguageCode) {
+                        translatedNucleotides.append(translatedKey)
+                    } else if let translatedKey = OFFplists.manager.translateNucleotide(nucleotide, language:Locale.preferredLanguages[0]) {
+                        translatedNucleotides.append(translatedKey)
+                    } else {
+                        translatedNucleotides.append(nucleotide)
+                    }
+                }
+                return translatedNucleotides.count == 0 ? .empty : .available(translatedNucleotides)
+            default:
+                break
+            }
+            return .undefined
+        }
+    }
     var otherNutritionalSubstances: Tags = .undefined
-    
+    var otherNutritionalSubstancesTranslated: Tags {
+        get {
+            switch otherNutritionalSubstances {
+            case .available(let otherNutritionalSubstances):
+                var translatedOther:[String] = []
+                for otherNutritionalSubstance in otherNutritionalSubstances {
+                    if let translatedKey = OFFplists.manager.translateNucleotide(otherNutritionalSubstance, language:Locale.interfaceLanguageCode) {
+                        translatedOther.append(translatedKey)
+                    } else if let translatedKey = OFFplists.manager.translateNucleotide(otherNutritionalSubstance, language:Locale.preferredLanguages[0]) {
+                        translatedOther.append(translatedKey)
+                    } else {
+                        translatedOther.append(otherNutritionalSubstance)
+                    }
+                }
+                return translatedOther.count == 0 ? .empty : .available(translatedOther)
+            default:
+                break
+            }
+            return .undefined
+        }
+    }
+
     var labelsInterpreted: Tags = .undefined
     var labelsOriginal: Tags = .undefined
     var labelsHierarchy: Tags = .undefined
