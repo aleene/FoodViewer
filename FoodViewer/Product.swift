@@ -727,6 +727,26 @@ class FoodProduct {
             }
         }
     }
+    var categoriesHierarchyTranslated: Tags {
+        get {
+            switch categoriesHierarchy {
+            case let .available(list):
+                if !list.isEmpty {
+                    var translatedList:[String] = []
+                    let preferredLanguage = Locale.preferredLanguages[0]
+                    for item in list {
+                        translatedList.append(OFFplists.manager.translateCategories(item, language:preferredLanguage))
+                    }
+                    return .available(translatedList)
+                } else {
+                    return .empty
+                }
+            default:
+                return .undefined
+            }
+        }
+    }
+
     
     var creator: String? = nil {
         didSet {
@@ -825,7 +845,6 @@ class FoodProduct {
         //mainUrlThumb = nil
         //mainImageUrl = nil
         //mainImageData = nil
-        packagingHierarchy = .undefined
         packagingInterpreted = .undefined
         packagingOriginal = .undefined
         quantity = nil

@@ -31,20 +31,23 @@ class CategoriesTableViewController: UITableViewController {
     }
 
     fileprivate enum ProductVersion {
-        //case local
-        case remote
-        case new
+        case remoteUser // data as entered by the user
+        case remoteTags // data interpreted by off
+        case remoteTagsHierarchy // tags with parents?
+        case remoteTagsTranslated // tags with parents?
+        case remoteTagsHierarchyTranslated // tags with parents?
+        case new // new data as entered by the user locally
         
         var isRemote: Bool {
             switch self {
-            case .remote:
-                return true
-            default:
+            case .new:
                 return false
+            default:
+                return true
             }
         }
     }
-    
+
     // Determines which version of the product needs to be shown, the remote or local
     
     fileprivate var productVersion: ProductVersion = .new
@@ -55,58 +58,25 @@ class CategoriesTableViewController: UITableViewController {
         case categories
     }
     
-    private struct TagsTypeDefault {
-        static let Categories: TagsType = .translated
-    }
-
-    fileprivate var showCategoriesTagsType: TagsType = TagsTypeDefault.Categories
-
     fileprivate var categoriesToDisplay: Tags {
         get {
             switch productVersion {
-
-            case .remote:
-                return remoteCategories
-            //case .local:
-            //    return productPair?.localProduct?.categoriesOriginal ?? .undefined
             case .new:
-                if let oldTags = productPair?.localProduct?.categoriesOriginal {
-                    switch oldTags {
-                    case .available:
-                        return oldTags
-                    default:
-                        break
-                    }
-                }
-                if let oldTags = productPair?.remoteProduct?.categoriesOriginal {
-                    switch oldTags {
-                    case .available:
-                        return remoteCategories
-                    default:
-                        break
-                    }
-                }
-                return .undefined
+                return productPair?.localProduct?.categoriesOriginal ?? productPair?.remoteProduct?.categoriesTranslated ?? .undefined
+            case .remoteTags:
+                return productPair?.remoteProduct?.categoriesInterpreted ?? .undefined
+            case .remoteTagsTranslated:
+                return productPair?.remoteProduct?.categoriesTranslated ?? .undefined
+            case .remoteTagsHierarchy:
+                return productPair?.remoteProduct?.categoriesHierarchy ?? .undefined
+            case .remoteTagsHierarchyTranslated:
+                return productPair?.remoteProduct?.categoriesHierarchyTranslated ?? .undefined
+            case .remoteUser:
+                return productPair?.remoteProduct?.categoriesOriginal ?? .undefined
             }
         }
     }
     
-    private var remoteCategories: Tags {
-        switch showCategoriesTagsType {
-        case .interpreted:
-            return productPair?.remoteProduct?.categoriesInterpreted ?? .undefined
-        case .original:
-            return productPair?.remoteProduct?.categoriesOriginal ?? .undefined
-        case .hierarchy:
-            return productPair?.remoteProduct?.categoriesHierarchy ?? .undefined
-        case .translated:
-            return productPair?.remoteProduct?.categoriesTranslated ?? .undefined
-        case .prefixed:
-            return .undefined
-        }
-
-    }
-
     // MARK: - Interface Functions
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
@@ -174,20 +144,28 @@ class CategoriesTableViewController: UITableViewController {
         headerView.delegate = self
         headerView.changeViewModeButton.isHidden = true
         headerView.changeLanguageButton.isHidden = true
-        headerView.buttonNotDoubleTap = nil
+        headerView.buttonNotDoubleTap = buttonNotDoubleTap
 
         switch currentProductSection {
         case .categories:
-            headerView.buttonIsEnabled = false
-                if let oldTags = productPair?.localProduct?.categoriesOriginal {
-                    switch oldTags {
-                    case .available:
-                        headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                        header = productVersion.isRemote ? TranslatableStrings.CategoriesOriginal : TranslatableStrings.CategoriesEdited
-                    default:
-                        break
-                    }
+            header = TranslatableStrings.Categories
+            switch productVersion {
+            case .new:
+                if productPair?.localProduct?.categoriesOriginal != nil {
+                    // the local version has been requested and is available
+                    header = TranslatableStrings.CategoriesEdited
                 }
+            case .remoteUser:
+                header = TranslatableStrings.CategoriesOriginal
+            case .remoteTags:
+                header = TranslatableStrings.CategoriesNormalized
+            case .remoteTagsTranslated:
+                header = TranslatableStrings.CategoriesTranslated
+            case .remoteTagsHierarchy:
+                header = TranslatableStrings.CategoriesHierarchy
+            case .remoteTagsHierarchyTranslated:
+                header = TranslatableStrings.CategoriesHierarchyTranslated
+            }
         }
         headerView.title = header
         return headerView
@@ -216,7 +194,7 @@ class CategoriesTableViewController: UITableViewController {
     // MARK: - Notification Handler Functions
         
     @objc func refreshProduct() {
-        showCategoriesTagsType = TagsTypeDefault.Categories
+        productVersion = .new
 
         tableView.reloadData()
     }
@@ -232,15 +210,20 @@ class CategoriesTableViewController: UITableViewController {
 
     @objc func doubleTapOnTableView() {
         switch productVersion {
-        case .remote:
-            //productVersion = .local
-            //delegate?.title = TranslatableStrings.Categories + " (Local)"
-        //case .local:
-            productVersion = .new
-            //delegate?.title = TranslatableStrings.Categories + " (New)"
         case .new:
-            productVersion = .remote
-            //delegate?.title = TranslatableStrings.Categories + " (OFF)"
+            productVersion = .remoteTags
+        case .remoteTags:
+            productVersion = .remoteTagsTranslated
+        case .remoteTagsTranslated//:
+            //productVersion = .remoteTagsHierarchy
+        //case
+        , .remoteTagsHierarchy//:
+            //productVersion = .remoteTagsHierarchyTranslated
+        //case
+            ,.remoteTagsHierarchyTranslated:
+            productVersion = .remoteUser
+        case .remoteUser:
+            productVersion = productPair?.localProduct != nil ? .new : .remoteTags
         }
         tableView.reloadData()
     }
@@ -307,12 +290,6 @@ extension CategoriesTableViewController: TagListViewCellDelegate {
     
     // function to let the delegate know that the switch changed
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        switch currentProductSection {
-        case .categories:
-            showCategoriesTagsType.cycle()
-            tableView.reloadData()
-        }
     }
 }
 
