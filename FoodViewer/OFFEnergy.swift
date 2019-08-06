@@ -22,7 +22,7 @@ class LocalizedEnergy : Energy {
 
     public var title: String {
         let preferredLanguage = Locale.preferredLanguages[0]
-        return OFFplists.manager.translateNutrients(LocalizedEnergy.key, language:preferredLanguage)
+        return OFFplists.manager.translateNutrient(LocalizedEnergy.key, language:preferredLanguage) ?? LocalizedEnergy.key
     }
     
 }

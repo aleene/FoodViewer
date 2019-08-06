@@ -155,7 +155,52 @@ class FoodProduct {
     }
     
     var ingredientsLanguage: [String:String?] = [:]
-    
+    var ingredientsTags: Tags = .undefined
+    var ingredientsTranslated: Tags {
+        get {
+            switch ingredientsTags {
+            case .available(let ingredients):
+                var translatedIngredients:[String] = []
+                for key in ingredients {
+                    if let translatedKey = OFFplists.manager.translateIngredient(key, language:Locale.interfaceLanguageCode) {
+                        translatedIngredients.append(translatedKey)
+                    } else if let translatedKey = OFFplists.manager.translateIngredient(key, language:Locale.preferredLanguages[0]) {
+                        translatedIngredients.append(translatedKey)
+                    } else {
+                        translatedIngredients.append(key)
+                    }
+                }
+                return translatedIngredients.count == 0 ? .empty : .available(translatedIngredients)
+            default:
+                break
+            }
+            return .undefined
+        }
+    }
+
+    var ingredientsHierarchy: Tags = .undefined
+    var ingredientsHierarchyTranslated: Tags {
+        get {
+            switch ingredientsHierarchy {
+            case .available(let ingredients):
+                var translatedIngredients:[String] = []
+                for key in ingredients {
+                    if let translatedKey = OFFplists.manager.translateIngredient(key, language:Locale.interfaceLanguageCode) {
+                        translatedIngredients.append(translatedKey)
+                    } else if let translatedKey = OFFplists.manager.translateIngredient(key, language:Locale.preferredLanguages[0]) {
+                        translatedIngredients.append(translatedKey)
+                    } else {
+                        translatedIngredients.append(key)
+                    }
+                }
+                return translatedIngredients.count == 0 ? .empty : .available(translatedIngredients)
+            default:
+                break
+            }
+            return .undefined
+        }
+    }
+
     var numberOfIngredients: String? = nil
 
     var containsPalm: Bool = false
@@ -171,9 +216,9 @@ class FoodProduct {
             case .available(let allergens):
                 var translatedAllergens:[String] = []
                 for allergenKey in allergens {
-                    if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:Locale.interfaceLanguageCode) {
+                    if let translatedKey = OFFplists.manager.translateAllergen(allergenKey, language:Locale.interfaceLanguageCode) {
                         translatedAllergens.append(translatedKey)
-                    } else if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:Locale.preferredLanguages[0]) {
+                    } else if let translatedKey = OFFplists.manager.translateAllergen(allergenKey, language:Locale.preferredLanguages[0]) {
                             translatedAllergens.append(translatedKey)
                     } else {
                         translatedAllergens.append(allergenKey)
@@ -187,6 +232,30 @@ class FoodProduct {
         }
     }
     
+    // returns the allergenKeys array in the current locale
+    var allergensHierarchyTranslated: Tags {
+        get {
+            switch allergensHierarchy {
+            case .available(let allergens):
+                var translatedAllergens:[String] = []
+                for allergenKey in allergens {
+                    if let translatedKey = OFFplists.manager.translateAllergen(allergenKey, language:Locale.interfaceLanguageCode) {
+                        translatedAllergens.append(translatedKey)
+                    } else if let translatedKey = OFFplists.manager.translateAllergen(allergenKey, language:Locale.preferredLanguages[0]) {
+                        translatedAllergens.append(translatedKey)
+                    } else {
+                        translatedAllergens.append(allergenKey)
+                    }
+                }
+                return translatedAllergens.count == 0 ? .empty : .available(translatedAllergens)
+            default:
+                break
+            }
+            return .undefined
+        }
+    }
+
+
     var allergensOriginal: Tags = .undefined
     var allergensHierarchy: Tags = .undefined
     var allergensInterpreted: Tags = .undefined
@@ -205,7 +274,7 @@ class FoodProduct {
 //                    if let translatedKey = OFFplists.manager.translateAllergens(trace, language:Locale.interfaceLanguageCode()) {
 //                        translatedTraces.append(translatedKey)
 //                    } else
-                    if let translatedKey = OFFplists.manager.translateAllergens(trace, language:Locale.preferredLanguages[0]) {
+                    if let translatedKey = OFFplists.manager.translateAllergen(trace, language:Locale.preferredLanguages[0]) {
                             translatedTraces.append(translatedKey)
                     } else {
                         translatedTraces.append(trace)
@@ -219,6 +288,30 @@ class FoodProduct {
         }
     }
     
+    // returns the allergenKeys array in the current locale
+    var tracesHierarchyTranslated: Tags {
+        get {
+            switch tracesHierarchy {
+            case .available(let traces):
+                var translatedTraces:[String] = []
+                for trace in traces {
+                    //                    if let translatedKey = OFFplists.manager.translateAllergens(trace, language:Locale.interfaceLanguageCode()) {
+                    //                        translatedTraces.append(translatedKey)
+                    //                    } else
+                    if let translatedKey = OFFplists.manager.translateAllergen(trace, language:Locale.preferredLanguages[0]) {
+                        translatedTraces.append(translatedKey)
+                    } else {
+                        translatedTraces.append(trace)
+                    }
+                }
+                return translatedTraces.count == 0 ? .empty : .available(translatedTraces)
+            default:
+                break
+            }
+            return .undefined
+        }
+    }
+
     var additivesInterpreted: Tags = .undefined
     var additivesOriginal: Tags = .undefined
     var additivesTranslated: Tags {
@@ -227,7 +320,7 @@ class FoodProduct {
             case .available(let additives):
                 var translatedAdditives:[String] = []
                 for additive in additives {
-                    translatedAdditives.append(OFFplists.manager.translateAdditives(additive, language:Locale.preferredLanguages[0]))
+                    translatedAdditives.append(OFFplists.manager.translateAdditive(additive, language:Locale.preferredLanguages[0]) ?? additive)
                 }
             return translatedAdditives.count == 0 ? .empty : .available(translatedAdditives)
             default:
@@ -240,7 +333,7 @@ class FoodProduct {
     var minerals: Tags = .undefined
     var mineralsTranslated: Tags {
         get {
-            switch nucleotides {
+            switch minerals {
             case .available(let minerals):
                 var translatedMinerals:[String] = []
                 for mineral in minerals {
@@ -259,6 +352,29 @@ class FoodProduct {
             return .undefined
         }
     }
+    var aminoAcids: Tags = .undefined
+    var aminoAcidsTranslated: Tags {
+        get {
+            switch aminoAcids {
+            case .available(let aminoAcids):
+                var translatedAminoAcids:[String] = []
+                for aminoAcid in aminoAcids {
+                    if let translatedKey = OFFplists.manager.translateAminoAcid(aminoAcid, language:Locale.interfaceLanguageCode) {
+                        translatedAminoAcids.append(translatedKey)
+                    } else if let translatedKey = OFFplists.manager.translateAminoAcid(aminoAcid, language:Locale.preferredLanguages[0]) {
+                        translatedAminoAcids.append(translatedKey)
+                    } else {
+                        translatedAminoAcids.append(aminoAcid)
+                    }
+                }
+                return translatedAminoAcids.count == 0 ? .empty : .available(translatedAminoAcids)
+            default:
+                break
+            }
+            return .undefined
+        }
+    }
+
     var vitamins: Tags = .undefined
     var vitaminsTranslated: Tags {
         get {
@@ -329,7 +445,50 @@ class FoodProduct {
     var labelsInterpreted: Tags = .undefined
     var labelsOriginal: Tags = .undefined
     var labelsHierarchy: Tags = .undefined
+    var labelsTranslated: Tags {
+        get {
+            switch labelsInterpreted {
+            case .available(let labels):
+                var translatedLabels:[String] = []
+                for label in labels {
+                    if let translatedKey = OFFplists.manager.translateGlobalLabel(label, language:Locale.interfaceLanguageCode) {
+                        translatedLabels.append(translatedKey)
+                    } else if let translatedKey = OFFplists.manager.translateGlobalLabel(label, language:Locale.preferredLanguages[0]) {
+                        translatedLabels.append(translatedKey)
+                    } else {
+                        translatedLabels.append(label)
+                    }
+                }
+                return translatedLabels.count == 0 ? .empty : .available(translatedLabels)
+            default:
+                break
+            }
+            return .undefined
+        }
+    }
     
+    var labelsHierarchyTranslated: Tags {
+        get {
+            switch labelsHierarchy {
+            case .available(let labels):
+                var translatedLabels:[String] = []
+                for label in labels {
+                    if let translatedKey = OFFplists.manager.translateGlobalLabel(label, language:Locale.interfaceLanguageCode) {
+                        translatedLabels.append(translatedKey)
+                    } else if let translatedKey = OFFplists.manager.translateGlobalLabel(label, language:Locale.preferredLanguages[0]) {
+                        translatedLabels.append(translatedKey)
+                    } else {
+                        translatedLabels.append(label)
+                    }
+                }
+                return translatedLabels.count == 0 ? .empty : .available(translatedLabels)
+            default:
+                break
+            }
+            return .undefined
+        }
+    }
+
     // usage parameters
     var servingSize: String? = nil
     
@@ -472,8 +631,8 @@ class FoodProduct {
                 var translatedCountries:[String] = []
                 let preferredLanguage = Locale.preferredLanguages[0]
                 for country in countries {
-                    let translatedKey = OFFplists.manager.translateCountries(country, language: preferredLanguage)
-                    translatedCountries.append(translatedKey)
+                    let translatedKey = OFFplists.manager.translateCountry(country, language: preferredLanguage) ?? country
+                    translatedCountries.append(translatedKey ?? country)
                 }
                 return translatedCountries.count == 0 ? .empty : Tags.init(list:translatedCountries)
             default:
@@ -716,7 +875,7 @@ class FoodProduct {
                     var translatedList:[String] = []
                     let preferredLanguage = Locale.preferredLanguages[0]
                     for item in list {
-                        translatedList.append(OFFplists.manager.translateCategories(item, language:preferredLanguage))
+                        translatedList.append(OFFplists.manager.translateCategory(item, language:preferredLanguage) ?? item)
                     }
                     return .available(translatedList)
                 } else {
@@ -735,7 +894,7 @@ class FoodProduct {
                     var translatedList:[String] = []
                     let preferredLanguage = Locale.preferredLanguages[0]
                     for item in list {
-                        translatedList.append(OFFplists.manager.translateCategories(item, language:preferredLanguage))
+                        translatedList.append(OFFplists.manager.translateCategory(item, language:preferredLanguage) ?? item)
                     }
                     return .available(translatedList)
                 } else {
@@ -842,6 +1001,8 @@ class FoodProduct {
         nameLanguage = [:]
         genericNameLanguage = [:]
         ingredientsLanguage = [:]
+        ingredientsTags = .undefined
+        ingredientsHierarchy = .undefined
         //mainUrlThumb = nil
         //mainImageUrl = nil
         //mainImageData = nil
@@ -1198,7 +1359,7 @@ class FoodProduct {
             nutritionItem.nutrient = nutrient
             
             // The translation of the key in the local language
-            nutritionItem.itemName = OFFplists.manager.translateNutrients(nutrient.rawValue, language:Locale.preferredLanguages[0])
+            nutritionItem.itemName = OFFplists.manager.translateNutrient(nutrient.rawValue, language:Locale.preferredLanguages[0])
             
             // Try to find the default unit for the current nutriment
             switch OFFplists.manager.unit(for: nutrient) {
@@ -1270,6 +1431,7 @@ class FoodProduct {
         tracesHierarchy = Tags(list: validProduct.traces_hierarchy)
         tracesInterpreted = Tags(list: validProduct.traces_tags)
 
+        aminoAcids = Tags(list: validProduct.amino_acids_tags)
         minerals = Tags(list: validProduct.minerals_tags)
         vitamins = Tags(list: validProduct.vitamins_tags)
         nucleotides = Tags(list: validProduct.nucleotides_tags)
@@ -1278,6 +1440,8 @@ class FoodProduct {
         nameLanguage = validProduct.product_names_
         ingredientsLanguage = validProduct.ingredients_texts_
         genericNameLanguage = validProduct.generic_names_
+        ingredientsTags = Tags(list: validProduct.ingredients_original_tags)
+        ingredientsHierarchy = Tags(list: validProduct.ingredients_hierarchy)
         
         if let validImageSizes = validProduct.selected_images?.front {
             for (key, value) in validImageSizes.display {
@@ -2169,24 +2333,6 @@ class FoodProduct {
         return availability == self.hasNutritionFacts ? true : false
     }
     
-    func translatedLabels() -> Tags {
-        switch labelsInterpreted {
-        case let .available(list):
-            if !list.isEmpty {
-                var translatedLabels:[String] = []
-                let preferredLanguage = Locale.preferredLanguages[0]
-                for label in list {
-                        translatedLabels.append(OFFplists.manager.translateGlobalLabels(label, language:preferredLanguage))
-                }
-                return .available(translatedLabels)
-            } else {
-                return .empty
-            }
-        default:
-            return .undefined
-        }
-    }
-
     // This calculated variable is needed for the creation of a OFF json
     var asOFFProductJson: OFFProductJson {
         

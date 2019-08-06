@@ -1,5 +1,5 @@
 /* a space used for several purposes */
-" " = "    ";
+" " = "     ";
 
 /* a warning to check the brackets used, they are unbalanced */
 " (WARNING: check brackets, they are unbalanced)" = "(WAARSCHUWING: controleer haakjes, niet in evenwicht)";
@@ -100,6 +100,9 @@
 /* Tableview sectionheader for the edited brands. */
 "Brands (edited)" = "Merken (bewerkt)";
 
+/* Tableview sectionheader for the interpreted and normalised brands. */
+"Brands (interpreted)" = "Merken (genormaliseerd)";
+
 /* Tableview sectionheader for the unedited brands. */
 "Brands (original)" = "Merken (onbewerkt)";
 
@@ -122,7 +125,19 @@
 "Categories (edited)" = "Categorieën (bewerkt)";
 
 /* Original text to indicate the product belongs to a category. */
+"Categories (hierarchy translated)" = "Categorieën (hiërarchie vertaald)";
+
+/* Original text to indicate the product belongs to a category. */
+"Categories (hierarchy)" = "Categorieën (hiërarchie)";
+
+/* Original text to indicate the product belongs to a category. */
+"Categories (normalized)" = "Categorieën (genormaliseerd)";
+
+/* Original text to indicate the product belongs to a category. */
 "Categories (original)" = "Categorieën (onbewerkt)";
+
+/* Original text to indicate the product belongs to a category. */
+"Categories (translated)" = "Categorieën (vertaald)";
 
 /* String in PickerViewController to indicate the checker role of a contributor */
 "Checker" = "Controleur";
@@ -170,7 +185,13 @@
 "Countries (edited)" = "Landen (bewerkt)";
 
 /* Generic string (plural) to indicate the countries where the product is sold (original). */
+"Countries (normalized)" = "Landen (genormaliseerd)";
+
+/* Generic string (plural) to indicate the countries where the product is sold (original). */
 "Countries (original)" = "Landen (onbewerkt)";
+
+/* Generic string (plural) to indicate the countries where the product is sold (original). */
+"Countries (translated)" = "Lanen (vertaald)";
 
 /* Text to indicate the sales countries of a product. */
 "Countries where sold" = "Verkooplanden";
@@ -220,23 +241,66 @@
 /* Title of abutton, which allows the user to view the details of a scanned product. */
 "Details" = "Details";
 
-/* Text to indicate the detected allergens of a product. */
+/* Text to indicate the detected additives of a product.
+   Text to indicate the detected detected additives (normalized)  of a product. */
 "Detected Additives" = "Gedetecteerde additieven";
+
+/* Text to indicate the detected additives (translated) of a product. */
+"Detected Additives (translated)" = "Gedetecteerde additieven (vertaald)";
 
 /* Text to indicate the detected allergens of a product. */
 "Detected Allergens" = "Gedetecteerde allergenen";
 
-/* Tableview section header, which list the detected minderals in an ingredients list. */
+/* Text to indicate the normalized detected allergens of a product. */
+"Detected Allergens (normalized)" = "Gedetecteerde allergenen (genormaliseerd)";
+
+/* Text to indicate the translated detected allergens of a product. */
+"Detected Allergens (translated)" = "Gedetecteerde allergenen (vertaald)";
+
+/* Text to indicate the detected aminoacids of a product. */
+"Detected Aminoacids" = "Gedetecteerde aminozuren";
+
+/* Text to indicate the normalized detected aminoacids of a product. */
+"Detected Aminoacids (normalized)" = "Gedetecteerde aminozuren (genormaliseerd)";
+
+/* Text to indicate the translated detected aminoacids of a product. */
+"Detected Aminoacids (translated)" = "Gedetecteerde aminozuren (vertaald)";
+
+/* Tableview section header, which list the detected minerals in an ingredients list. */
 "Detected Minerals" = "Gedetecteerde mineralen";
+
+/* Tableview section header, which list the normalized detected minerals in an ingredients list. */
+"Detected Minerals (normalized)" = "Gedetecteerde mineralen (genomaliseerd)";
+
+/* Tableview section header, which list the translated detected minerals in an ingredients list. */
+"Detected Minerals (translated)" = "Gedetecteerde mineralen (vertaald)";
 
 /* Tableview section header, which list the detected nucleotides in an ingredients list. */
 "Detected Nucleotides" = "Gedetecteerde nucleotiden";
 
+/* Tableview section header, which list the normalized detected nucleotides in an ingredients list. */
+"Detected Nucleotides (normalized)" = "gedetecteerde nucleotiden (genormaliseerd)";
+
+/* Tableview section header, which list the translated detected nucleotides in an ingredients list. */
+"Detected Nucleotides (translated)" = "Gedetecteerde nucleotiden (vertaald)";
+
 /* Tableview section header, which list the detected other nutritional substances in an ingredients list. */
 "Detected Other Nutritional Substances" = "Gedetecteerde overige voedingsmiddelen";
 
+/* Tableview section header, which list the normalized detected other nutritional substances in an ingredients list. */
+"Detected Other Nutritional Substances (normalized)" = "Gedetecteerde overige voedingsmiddelen (genormaliseerd)";
+
+/* Tableview section header, which list the translated detected other nutritional substances in an ingredients list. */
+"Detected Other Nutritional Substances (translated)" = "Gedetecteerde overige voedingsmiddelen (vertaald)";
+
 /* Tableview section header, which list the detected vitamins in an ingredients list. */
 "Detected Vitamins" = "Gedetecteerde vitaminen";
+
+/* Tableview section header, which list the normalized detected vitamins in an ingredients list. */
+"Detected Vitamins (normalized)" = "Gedetecteerde vitaminen (genormaliseerd)";
+
+/* Tableview section header, which list the translated detected vitamins in an ingredients list. */
+"Detected Vitamins (translated)" = "Gedetecteerde vitaminen (vertaald)";
 
 /* Title of a button in an alert sheet, which allows the user to discard alle changes to the local product. */
 "Discard" = "Verwijder";
@@ -427,10 +491,13 @@
 /* Generic string for labels on product */
 "Labels" = "Keur- en kenmerken";
 
-/* Generic string for edited labels on product */
+/* Tableview header string for edited labels on product */
 "Labels (edited)" = "Keur- en kenmerken (bewerkt)";
 
-/* Generic string for original (unedited) labels on product */
+/* Tableview header string for original (normalized) labels on product */
+"Labels (normalized)" = "Keur- en kenmerken (genormaliseerd)";
+
+/* Tableview header string for original (unedited) labels on product */
 "Labels (original)" = "Keur- en kenmerken (onbewerkt)";
 
 /* Tableview sectionheader for languages on product */
@@ -677,6 +744,9 @@
 /* Tableview sectionheader for packaging, edited version. */
 "Packaging (edited)" = "Verpakking (bewerkt)";
 
+/* Tableview sectionheader for packaging, interpreted version. */
+"Packaging (interpreted)" = "Verpakking (genormaliseerd)";
+
 /* Tableview sectionheader for packaging, original version. */
 "Packaging (original)" = "Verpakking (onbewerkt)";
 
@@ -799,6 +869,9 @@
 
 /* Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought */
 "Purchase address (edited)" = "Verkoopadres (bewerkt)";
+
+/* Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought */
+"Purchase address (normalized)" = "Verkoopadres (genormaliseerd)";
 
 /* Generic string to indicate the address original (street/city/postalcode/country) where the product was bought */
 "Purchase address (original)" = "Verkoopadres (onbewerkt)";
@@ -956,6 +1029,9 @@
 /* Generic string to indicate the edited stores where the product is sold. */
 "Stores (edited)" = "Winkels (bewerkt)";
 
+/* Generic string to indicate the original (normalized) stores where the product is sold. */
+"Stores (normalized)" = "Winkels (genormaliseerd)";
+
 /* Generic string to indicate the original (non-edited) stores where the product is sold. */
 "Stores (original)" = "Winkels (onbewerkt)";
 
@@ -986,8 +1062,14 @@
 /* Text to indicate the edited traces of a product. */
 "Traces (edited)" = "Sporen (bewerkt)";
 
+/* Text to indicate the original (normalized) traces of a product. */
+"Traces (normalized)" = "Sporen (genormaliseerd)";
+
 /* Text to indicate the original (un-edited) traces of a product. */
 "Traces (original)" = "Sporen (onbewerkt)";
+
+/* Text to indicate the original (normalized) traces of a product. */
+"Traces (translated)" = "Sporen (vertaald)";
 
 /* Description of the interpreted tags in the json as translated by the taxonomy */
 "Translated" = "Vertaald";

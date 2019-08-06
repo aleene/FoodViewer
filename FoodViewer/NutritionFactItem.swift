@@ -38,7 +38,7 @@ public struct NutritionFactItem {
     }
 
     public init(nutrient: Nutrient, unit: NutritionFactUnit) {
-        itemName = OFFplists.manager.translateNutrients(nutrient: nutrient, language:Locale.preferredLanguages[0])
+        itemName = OFFplists.manager.translateNutrient(nutrient: nutrient, language:Locale.preferredLanguages[0])
         standardValue = nil
         servingValue = nil
         standardValueUnit = unit

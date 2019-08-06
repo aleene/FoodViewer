@@ -41,7 +41,7 @@ class AllergenWarningDefaults {
                     let allergenWarning = allergen[Constants.WarningKey] as? Bool {
                     
                     // is there a valid translation found
-                    if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:preferredLanguage) {
+                    if let translatedKey = OFFplists.manager.translateAllergen(allergenKey, language:preferredLanguage) {
                         list.append((allergenKey, translatedKey, allergenWarning))
                     } else {
                         // the key no longer exists, rquires an update
@@ -55,7 +55,7 @@ class AllergenWarningDefaults {
             // the keys include the language "en:" component
             if let validAllergenKeyArray = allergenKeyArray {
                 for allergenKey in validAllergenKeyArray {
-                    if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:preferredLanguage) {
+                    if let translatedKey = OFFplists.manager.translateAllergen(allergenKey, language:preferredLanguage) {
                         list.append((allergenKey, translatedKey, false))
                     }
                 }

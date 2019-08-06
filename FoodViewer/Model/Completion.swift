@@ -15,7 +15,7 @@ public struct ProductCompletion: Hashable {
     var category: CompletionCategory = .productName
     
     var description: String {
-        return OFFplists.manager.translateStates(OFF.JSONkey(for: self), language:Locale.preferredLanguages[0])
+        return OFFplists.manager.translateState(OFF.JSONkey(for: self), language:Locale.preferredLanguages[0]) ?? OFF.JSONkey(for: self)
     }
     
     public func hash(into hasher: inout Hasher) {

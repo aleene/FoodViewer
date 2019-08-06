@@ -16,9 +16,9 @@ enum NatriumChloride {
         let preferredLanguage = Locale.preferredLanguages[0]
         switch self {
         case .salt:
-            return OFFplists.manager.translateNutrients(key, language:preferredLanguage)
+            return OFFplists.manager.translateNutrient(key, language:preferredLanguage) ?? key
         case .sodium:
-            return OFFplists.manager.translateNutrients(key, language:preferredLanguage)
+            return OFFplists.manager.translateNutrient(key, language:preferredLanguage) ?? key
         }
     }
     

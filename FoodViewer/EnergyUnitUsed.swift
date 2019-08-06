@@ -17,11 +17,11 @@ enum EnergyUnitUsed {
         let preferredLanguage = Locale.preferredLanguages[0]
         switch self {
         case .calories:
-            return OFFplists.manager.translateNutrients(LocalizedEnergy.key, language:preferredLanguage)
+            return OFFplists.manager.translateNutrient(LocalizedEnergy.key, language:preferredLanguage) ?? LocalizedEnergy.key
         case .kilocalorie:
-            return OFFplists.manager.translateNutrients(LocalizedEnergy.key, language:preferredLanguage)
+            return OFFplists.manager.translateNutrient(LocalizedEnergy.key, language:preferredLanguage) ?? LocalizedEnergy.key
         case .joule:
-            return OFFplists.manager.translateNutrients(LocalizedEnergy.key, language:preferredLanguage)
+            return OFFplists.manager.translateNutrient(LocalizedEnergy.key, language:preferredLanguage) ?? LocalizedEnergy.key
         }
     }
     

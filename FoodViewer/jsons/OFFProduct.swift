@@ -21,6 +21,7 @@ class OFFProduct: Codable {
     var allergens: String? = nil
     var allergens_hierarchy: [String]? = nil
     var allergens_tags: [String]? = nil
+    var amino_acids_tags: [String]? = nil
     var brands: String? = nil
         var brands_tags: [String]? = nil
     var categories: String? = nil
