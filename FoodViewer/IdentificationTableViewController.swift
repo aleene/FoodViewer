@@ -635,39 +635,44 @@ class IdentificationTableViewController: UITableViewController {
             headerView.changeLanguageButton.isHidden = false
             switch currentProductSection {
             case .image:
-                header = TranslatableStrings.FrontImage
-                guard let localPair = localFrontImage else { break }
-                guard localPair.0 != nil else { break }
-
                 switch productVersion {
                 case .new:
+                    if let localPair = localFrontImage,
+                        localPair.0 != nil {
                         // the local version has been requested and is available
-                    header = TranslatableStrings.FrontImageEdited
+                        header = TranslatableStrings.FrontImageEdited
+                    } else {
+                        header = TranslatableStrings.FrontImage
+                    }
                 default:
                         // the local version has been requested and is available
                     header = TranslatableStrings.FrontImageOriginal
                 }
 
             case .name:
-                header = TranslatableStrings.Name
-                guard let validLanguageCode = displayLanguageCode else { break }
-                guard productPair?.localProduct?.nameLanguage[validLanguageCode] != nil else { break }
                 switch productVersion {
                 case .new:
-                    // the local version has been requested and is available
-                    header = TranslatableStrings.NameEdited
+                    if let validLanguageCode = displayLanguageCode,
+                        productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.NameEdited
+                    } else {
+                        header = TranslatableStrings.Name
+                    }
                 default:
                     header = TranslatableStrings.NameOriginal
                 }
                 
             case .genericName :
-                header = TranslatableStrings.GenericName
-                guard let validLanguageCode = displayLanguageCode else { break }
-                guard productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil else { break }
                 switch productVersion {
                 case .new:
-                    // the local version has been requested and is available
-                    header = TranslatableStrings.GenericNameEdited
+                    if let validLanguageCode = displayLanguageCode,
+                        productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.GenericNameEdited
+                    } else {
+                        header = TranslatableStrings.GenericName
+                    }
                 default:
                     header = TranslatableStrings.GenericNameOriginal
                 }
@@ -689,12 +694,18 @@ class IdentificationTableViewController: UITableViewController {
                 // it is not possible to edit the barcode
                 header = TranslatableStrings.Barcode
             case .brands:
-                header = TranslatableStrings.Brands
                 switch productVersion {
                 case .new:
-                    if productPair?.localProduct?.brandsOriginal != nil {
-                        // the local version has been requested and is available
-                        header = TranslatableStrings.BrandsEdited
+                    if let newTags = productPair?.localProduct?.brandsOriginal {
+                        switch newTags {
+                        case .available:
+                            // the local version has been requested and is available
+                            header = TranslatableStrings.BrandsEdited
+                        default:
+                            header = TranslatableStrings.BrandsOriginal
+                        }
+                    } else {
+                        header = TranslatableStrings.Brands
                     }
                 case .remoteUser:
                     header = TranslatableStrings.BrandsOriginal
@@ -703,12 +714,18 @@ class IdentificationTableViewController: UITableViewController {
                 }
                 
             case .packaging:
-                header = TranslatableStrings.Packaging
                 switch productVersion {
                 case .new:
-                    if productPair?.localProduct?.packagingOriginal != nil {
-                        // the local version has been requested and is available
-                        header = TranslatableStrings.PackagingEdited
+                    if let newTags = productPair?.localProduct?.packagingOriginal {
+                        switch newTags {
+                        case .available:
+                            // the local version has been requested and is available
+                            header = TranslatableStrings.PackagingEdited
+                        default:
+                            header = TranslatableStrings.PackagingOriginal
+                        }
+                    } else {
+                        header = TranslatableStrings.Packaging
                     }
                 case .remoteUser:
                     header = TranslatableStrings.PackagingOriginal
@@ -717,13 +734,14 @@ class IdentificationTableViewController: UITableViewController {
                 }
                 
             case .quantity:
-                header = TranslatableStrings.Quantity
-                guard productPair?.localProduct?.quantity != nil else { break }
-
                 switch productVersion {
                 case .new:
-                    // the local version has been requested and is available
-                    header = TranslatableStrings.QuantityEdited
+                    if productPair?.localProduct?.quantity != nil {
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.QuantityEdited
+                    } else {
+                        header = TranslatableStrings.Quantity
+                    }
                 default:
                     // the remote version has been requested OR
                     // there is no local version

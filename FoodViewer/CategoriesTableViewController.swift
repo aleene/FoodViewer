@@ -148,12 +148,18 @@ class CategoriesTableViewController: UITableViewController {
 
         switch currentProductSection {
         case .categories:
-            header = TranslatableStrings.Categories
             switch productVersion {
             case .new:
-                if productPair?.localProduct?.categoriesOriginal != nil {
-                    // the local version has been requested and is available
-                    header = TranslatableStrings.CategoriesEdited
+                if let newCategories = productPair?.localProduct?.categoriesOriginal {
+                    switch newCategories {
+                    case .available:
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.CategoriesEdited
+                    default:
+                        header = TranslatableStrings.CategoriesTranslated
+                    }
+                } else {
+                    header = TranslatableStrings.Categories
                 }
             case .remoteUser:
                 header = TranslatableStrings.CategoriesOriginal
@@ -214,13 +220,7 @@ class CategoriesTableViewController: UITableViewController {
             productVersion = .remoteTags
         case .remoteTags:
             productVersion = .remoteTagsTranslated
-        case .remoteTagsTranslated//:
-            //productVersion = .remoteTagsHierarchy
-        //case
-        , .remoteTagsHierarchy//:
-            //productVersion = .remoteTagsHierarchyTranslated
-        //case
-            ,.remoteTagsHierarchyTranslated:
+        case .remoteTagsTranslated, .remoteTagsHierarchy, .remoteTagsHierarchyTranslated:
             productVersion = .remoteUser
         case .remoteUser:
             productVersion = productPair?.localProduct != nil ? .new : .remoteTags

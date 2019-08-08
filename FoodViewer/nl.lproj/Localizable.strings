@@ -32,7 +32,7 @@
 "A" = "A";
 
 /* Title of a button to indicate that the front image is missing. */
-"Add Front Image" = "Voog voorkantfoto toe";
+"Add Front Image" = "Voeg voorkantfoto toe";
 
 /* Title of a viewcontroller which allows the user to add a new language to the product languages. */
 "Add Language" = "Voeg taal toe";
@@ -83,7 +83,7 @@
 "Barcode (edited main language)" = "Streepjescode (bewerkt)";
 
 /* Tableview sectionheader for Barcode, with original main language */
-"Barcode (original main language)" = "Streepjescode (onbewerkt)";
+"Barcode (non-edited main language)" = "Streepjescode (onbewerkt)";
 
 /* Title of a segmented control. */
 "Beauty" = "Beauty";
@@ -104,7 +104,7 @@
 "Brands (interpreted)" = "Merken (genormaliseerd)";
 
 /* Tableview sectionheader for the unedited brands. */
-"Brands (original)" = "Merken (onbewerkt)";
+"Brands (non-edited)" = "Merken (onbewerkt)";
 
 /* Title of a segment of a segmented control, which lets the user set the button view toggle mode interface */
 "Button" = "Button";
@@ -131,10 +131,10 @@
 "Categories (hierarchy)" = "Categorieën (hiërarchie)";
 
 /* Original text to indicate the product belongs to a category. */
-"Categories (normalized)" = "Categorieën (genormaliseerd)";
+"Categories (non-edited)" = "Categorieën (onbewerkt)";
 
 /* Original text to indicate the product belongs to a category. */
-"Categories (original)" = "Categorieën (onbewerkt)";
+"Categories (normalized)" = "Categorieën (genormaliseerd)";
 
 /* Original text to indicate the product belongs to a category. */
 "Categories (translated)" = "Categorieën (vertaald)";
@@ -184,13 +184,13 @@
 /* Generic string (plural) to indicate the countries where the product is sold (edited). */
 "Countries (edited)" = "Landen (bewerkt)";
 
-/* Generic string (plural) to indicate the countries where the product is sold (original). */
+/* Generic string (plural) to indicate the countries where the product is sold (non-edited). */
+"Countries (non-edited)" = "Landen (onbewerkt)";
+
+/* Generic string (plural) to indicate the countries where the product is sold (normalized). */
 "Countries (normalized)" = "Landen (genormaliseerd)";
 
-/* Generic string (plural) to indicate the countries where the product is sold (original). */
-"Countries (original)" = "Landen (onbewerkt)";
-
-/* Generic string (plural) to indicate the countries where the product is sold (original). */
+/* Generic string (plural) to indicate the countries where the product is sold (translated). */
 "Countries (translated)" = "Lanen (vertaald)";
 
 /* Text to indicate the sales countries of a product. */
@@ -392,6 +392,12 @@
 /* Header title of the tableview section, indicating the most recent expiration date. */
 "Expiration Date" = "Uiterste houdbaarheidsdatum";
 
+/* Header title of the tableview section, indicating the edited most recent expiration date. */
+"Expiration Date (edited)" = "Uiterste houdbaarheidsdatum (bewerkt)";
+
+/* Header title of the tableview section, indicating the non-edited most recent expiration date. */
+"Expiration Date (non-edited)" = "Uiterste houdbaarheidsdatum (onbewerkt)";
+
 /* Text of a label that wil indicate the fat level (low/medium/high) by colour. */
 "Fat level" = "Vetgehalte";
 
@@ -405,13 +411,13 @@
 "for %@ in %@" = "naar %1$@ in %2$@";
 
 /* Title for the viewcontroller with the front image */
-"Front Image" = "voorkantfoto";
+"Front Image" = "Voorkantfoto";
 
 /* Title for the viewcontroller with the edited front image */
-"Front Image (edited)" = "voorkantfoto (bewerkt)";
+"Front Image (edited)" = "Voorkantfoto (bewerkt)";
 
 /* Title for the viewcontroller with the original front image */
-"Front Image (original)" = "voorkantfoto (onbewerkt)";
+"Front Image (non-edited)" = "Voorkantfoto (onbewerkt)";
 
 /* Viewcontroller title for page with images of the product */
 "Gallery" = "Fotogalerij";
@@ -420,7 +426,7 @@
 "Generic Name (edited)" = "Generieke productnaam (bewerkt)";
 
 /* Tableview sectionheader for the original long product name */
-"Generic Name (original)" = "Generieke productnaam (onbewerkt)";
+"Generic Name (non-edited)" = "Generieke productnaam (onbewerkt)";
 
 /* Header for a table section showing the appreciations of the good nutrients */
 "Good nutrients" = "Goede voedingsstoffen";
@@ -458,11 +464,21 @@
 /* Text to indicate the ingredients of a product. */
 "Ingredients" = "Ingrediënten";
 
-/* Text to indicate the edited ingredients of a product. */
+/* Text to indicate the edited ingredients of a product.
+   Text to indicate the hierarchy translated ingredients of a product. */
 "Ingredients (edited)" = "Ingrediënten (bewerkt)";
 
+/* Text to indicate the edited ingredients of a product. */
+"Ingredients (hierarchy)" = "Ingrediënten (hierarchy)";
+
 /* Text to indicate the original (unedited) ingredients of a product. */
-"Ingredients (original)" = "Ingrediënten (onbewerkt)";
+"Ingredients (non-edited)" = "Ingrediënten (onbewerkt)";
+
+/* Text to indicate the normalized ingredients of a product. */
+"Ingredients (normalized)" = "Ingrediënten (genormaliseerd)";
+
+/* Text to indicate the translated ingredients of a product. */
+"Ingredients (translated)" = "Ingrediënten (vertaald)";
 
 /* Header title for the ingredients image section, i.e. the image of the package with the ingredients */
 "Ingredients Image" = "Ingrediëntenfoto";
@@ -471,7 +487,7 @@
 "Ingredients Image (edited)" = "Ingrediëntenfoto (bewerkt)";
 
 /* Header title for the original ingredients image section, i.e. the image of the package with the ingredients */
-"Ingredients Image (original)" = "Ingrediëntenfoto (onbewerkt)";
+"Ingredients Image (non-edited)" = "Ingrediëntenfoto (onbewerkt)";
 
 /* Text in a tag when a new/edited product is seen. */
 "Ingredients will be analysed after upload by OFF" = "De ingrediënten worden door OFF geanalyseerd na upload";
@@ -494,11 +510,14 @@
 /* Tableview header string for edited labels on product */
 "Labels (edited)" = "Keur- en kenmerken (bewerkt)";
 
+/* Tableview header string for original (unedited) labels on product */
+"Labels (non-edited)" = "Keur- en kenmerken (onbewerkt)";
+
 /* Tableview header string for original (normalized) labels on product */
 "Labels (normalized)" = "Keur- en kenmerken (genormaliseerd)";
 
-/* Tableview header string for original (unedited) labels on product */
-"Labels (original)" = "Keur- en kenmerken (onbewerkt)";
+/* Tableview header string for original (translated) labels on product */
+"Labels (translated)" = "Keur- en kenmerken (vertaald)";
 
 /* Tableview sectionheader for languages on product */
 "Languages" = "Talen";
@@ -543,7 +562,7 @@
 "Name (edited)" = "Productnaam (bewerkt)";
 
 /* Tableview sectionheader for the original (non-edited) product name */
-"Name (original)" = "Productnaam (onbewerkt)";
+"Name (non-edited)" = "Productnaam (onbewerkt)";
 
 /* Tableview sectionheader for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
 "Negative Ingredient Detections" = "Niet gedetecteerde ingrediënten";
@@ -585,7 +604,7 @@
 "No nutrients (edited)" = "Geen voedingswaarden (bewerkt)";
 
 /* Text of Label, indicating that the product has no nutrients (original) defined */
-"No nutrients (original)" = "Geen voedingswaarden (onbewerkt)";
+"No nutrients (non-edited)" = "Geen voedingswaarden (onbewerkt)";
 
 /* Text in a TagListView, when no nutrition data has been specified in the product data. */
 "no nutrition data available" = "geen voedingswaarden aangegeven";
@@ -667,7 +686,7 @@
 "Nutrition Facts (edited)" = "Voedingswaarden (bewerkt)";
 
 /* Text to indicate the original nutrition facts of a product. */
-"Nutrition Facts (original)" = "Voedingswaarden (onbewerkt)";
+"Nutrition Facts (non-edited)" = "Voedingswaarden (onbewerkt)";
 
 /* Description for NutritionData per one kilogram */
 "Nutrition Facts (per 1 kg)" = "Voedingswaarden (per kg)";
@@ -685,7 +704,7 @@
 "Nutrition Facts Image (edited)" = "Voedingswaardenfoto (bewerkt)";
 
 /* Tableview header section for the original image of the nutritional facts */
-"Nutrition Facts Image (original)" = "Voedingswaardenfoto (onbewerkt)";
+"Nutrition Facts Image (non-edited)" = "Voedingswaardenfoto (onbewerkt)";
 
 /* Header for a table section showing the search for nutrition score */
 "Nutrition Score" = "Nutrition Score";
@@ -703,7 +722,7 @@
 "Official product website (edited)" = "Officiële product website (bewerkt)";
 
 /* Header title of tableview section, indicating the original website for the product */
-"Official product website (original)" = "Officiële product website (onbewerkt)";
+"Official product website (non-edited)" = "Officiële product website (onbewerkt)";
 
 /* String in button, to let the user indicate he wants to start the search. */
 "OK" = "OK";
@@ -720,6 +739,12 @@
 /* Gallery header text presenting the original images */
 "Original Images" = "Oorspronkelijke foto's";
 
+/* Gallery header text presenting the edited original images */
+"Original Images (edited)" = "Oorspronkelijke foto's (bewerkt)";
+
+/* Gallery header text presenting the non-edited original images */
+"Original Images (non-edited)" = "Oorspronkelijke foto's (onbewerkt)";
+
 /* Generic string to indicate the origins of the ingredients */
 "Origins of ingredients" = "Oorsprong ingrediënten";
 
@@ -727,7 +752,7 @@
 "Origins of ingredients (edited)" = "Oorsprong ingrediënten (bewerkt)";
 
 /* Generic string to indicate the original (non-edited) origins of the ingredients */
-"Origins of ingredients (original)" = "Oorsprong ingrediënten (onbewerkt)";
+"Origins of ingredients (non-edited)" = "Oorsprong ingrediënten (onbewerkt)";
 
 /* Tableview section header, which list the detected other nutritional substances in an ingredients list. */
 "Other Nutritional Substances" = "Overige voedingsmiddelen";
@@ -748,7 +773,7 @@
 "Packaging (interpreted)" = "Verpakking (genormaliseerd)";
 
 /* Tableview sectionheader for packaging, original version. */
-"Packaging (original)" = "Verpakking (onbewerkt)";
+"Packaging (non-edited)" = "Verpakking (onbewerkt)";
 
 /* String in textField placeholder, to show that the user has to enter his password */
 "Password" = "Wachtwoord";
@@ -764,6 +789,12 @@
 
 /* Header title of tableview section, indicating period after opening for beauty products */
 "Period After Opening" = "Periode na opening";
+
+/* Header title of tableview section, indicating period after opening for beauty products */
+"Period After Opening (edited)" = "Periode na opening (bewerkt)";
+
+/* Header title of tableview section, indicating period after opening for beauty products */
+"Period After Opening (non-edited)" = "Periode na opening (onbewerkt)";
 
 /* Title in AlertViewController, which lets the user enter his username/password. */
 "Personal Account" = "Persoonlijke account";
@@ -793,7 +824,7 @@
 "Portion size (edited)" = "Portiegrootte (bewerkt)";
 
 /* Tableview header section for the original size of a portion */
-"Portion size (original)" = "Portiegrootte (onbewerkt)";
+"Portion size (non-edited)" = "Portiegrootte (onbewerkt)";
 
 /* TableViewController title for the settings scene. */
 "Preferences" = "Instellingen";
@@ -811,7 +842,7 @@
 "Producer (edited)" = "Producent (bewerkt)";
 
 /* Header for section of tableView with information of the original (non-edited) producer (name, geographic location). */
-"Producer (original)" = "Producent (onbewerkt)";
+"Producer (non-edited)" = "Producent (onbewerkt)";
 
 /* Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666). */
 "Producer Codes" = "Producentcodes";
@@ -820,7 +851,7 @@
 "Producer Codes (edited)" = "Producentcodes (bewerkt)";
 
 /* Header for section of tableView with codes for the original producer (EMB 123456 or FR.666.666). */
-"Producer Codes (oriiginal)" = "Producentcodes (onbewerkt)";
+"Producer Codes (non-edited)" = "Producentcodes (onbewerkt)";
 
 /* Title of a segmented control. */
 "Product" = "Product";
@@ -870,11 +901,11 @@
 /* Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought */
 "Purchase address (edited)" = "Verkoopadres (bewerkt)";
 
+/* Generic string to indicate the address original (street/city/postalcode/country) where the product was bought */
+"Purchase address (non-edited)" = "Verkoopadres (onbewerkt)";
+
 /* Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought */
 "Purchase address (normalized)" = "Verkoopadres (genormaliseerd)";
-
-/* Generic string to indicate the address original (street/city/postalcode/country) where the product was bought */
-"Purchase address (original)" = "Verkoopadres (onbewerkt)";
 
 /* Tableview sectionheader for size of package. */
 "Quantity" = "Verpakkingsgrootte";
@@ -883,7 +914,7 @@
 "Quantity (edited)" = "Verpakkingsgrootte (bewerkt)";
 
 /* Tableview sectionheader for the original size of package. */
-"Quantity (original)" = "Verpakkingsgrootte (onbewerkt)";
+"Quantity (non-edited)" = "Verpakkingsgrootte (onbewerkt)";
 
 /* String in button, to let the user indicate he wants to cancel username/password input. */
 "Reset application" = "Reset app";
@@ -972,11 +1003,29 @@
 /* Gallery header text presenting the selected front images */
 "Selected Front Images" = "Geselecteerde productfoto";
 
+/* Gallery header text presenting the edited selected front images */
+"Selected Front Images (edited)" = "Geselecteerde productfoto (bewerkt)";
+
+/* Gallery header text presenting the non-edited selected front images */
+"Selected Front Images (non-edited)" = "Geselecteerde productfoto (onbewerkt)";
+
 /* Gallery header text presenting the selected ingredients images */
 "Selected Ingredients Images" = "Geselecteerde ingrediëntenfoto";
 
+/* Gallery header text presenting the edited selected ingredients images */
+"Selected Ingredients Images (edited)" = "Geselecteerde ingrediëntenfoto (bewerkt)";
+
+/* Gallery header text presenting the non-edited selected ingredients images */
+"Selected Ingredients Images (non-edited)" = "Geselecteerde ingrediëntenfoto (onbewerkt)";
+
 /* Gallery header text presenting the selected nutrition images */
 "Selected Nutrition Images" = "Geselecteerde voedingswaardenfoto";
+
+/* Gallery header text presenting the edited selected nutrition images */
+"Selected Nutrition Images (edited)" = "Geselecteerde voedingswaardenfoto (bewerkt)";
+
+/* Gallery header text presenting the non-edited selected nutrition images */
+"Selected Nutrition Images (non-edited)" = "Geselecteerde voedingswaardenfoto (onbewerkt)";
 
 /* Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value) */
 "Serving" = "Portie";
@@ -1029,11 +1078,11 @@
 /* Generic string to indicate the edited stores where the product is sold. */
 "Stores (edited)" = "Winkels (bewerkt)";
 
+/* Generic string to indicate the original (non-edited) stores where the product is sold. */
+"Stores (non-edited)" = "Winkels (onbewerkt)";
+
 /* Generic string to indicate the original (normalized) stores where the product is sold. */
 "Stores (normalized)" = "Winkels (genormaliseerd)";
-
-/* Generic string to indicate the original (non-edited) stores where the product is sold. */
-"Stores (original)" = "Winkels (onbewerkt)";
 
 /* Text of a label that will indicate the sugar level (low/medium/high) by colour. */
 "Sugar level" = "Suikergehalte";
@@ -1062,11 +1111,11 @@
 /* Text to indicate the edited traces of a product. */
 "Traces (edited)" = "Sporen (bewerkt)";
 
+/* Text to indicate the original (un-edited) traces of a product. */
+"Traces (non-edited)" = "Sporen (onbewerkt)";
+
 /* Text to indicate the original (normalized) traces of a product. */
 "Traces (normalized)" = "Sporen (genormaliseerd)";
-
-/* Text to indicate the original (un-edited) traces of a product. */
-"Traces (original)" = "Sporen (onbewerkt)";
 
 /* Text to indicate the original (normalized) traces of a product. */
 "Traces (translated)" = "Sporen (vertaald)";

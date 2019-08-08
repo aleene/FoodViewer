@@ -85,10 +85,8 @@ class SupplyChainTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
-                return productPair?.localProduct?.originsOriginal ?? productPair?.remoteProduct?.originsInterpreted ?? .undefined
-            case .remoteTags, .remoteTagsTranslated:
-                return productPair?.remoteProduct?.originsInterpreted ?? .undefined
-            case .remoteUser:
+                return productPair?.localProduct?.originsOriginal ?? productPair?.remoteProduct?.originsOriginal ?? .undefined
+            case .remoteTags, .remoteTagsTranslated, .remoteUser:
                 return productPair?.remoteProduct?.originsOriginal ?? .undefined
             }
         }
@@ -99,9 +97,7 @@ class SupplyChainTableViewController: UITableViewController {
             switch productVersion {
             case .new:
                 return productPair?.localProduct?.purchasePlacesOriginal ?? productPair?.remoteProduct?.purchasePlacesOriginal ?? .undefined
-            case .remoteTags, .remoteTagsTranslated:
-                return productPair?.remoteProduct?.purchasePlacesInterpreted ?? .undefined
-            case .remoteUser:
+            case .remoteTags, .remoteTagsTranslated, .remoteUser:
                 return productPair?.remoteProduct?.purchasePlacesOriginal ?? .undefined
             }
         }
@@ -124,7 +120,7 @@ class SupplyChainTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
-                return productPair?.localProduct?.countriesOriginal ?? productPair?.remoteProduct?.countriesInterpreted ?? .undefined
+                return productPair?.localProduct?.countriesOriginal ?? productPair?.remoteProduct?.countriesTranslated ?? .undefined
             case .remoteTags:
                 return productPair?.remoteProduct?.countriesInterpreted ?? .undefined
             case .remoteTagsTranslated:
@@ -513,107 +509,169 @@ class SupplyChainTableViewController: UITableViewController {
 
         switch currentProductSection {
         case .ingredientOrigin:
-            header = TranslatableStrings.IngredientOrigins
-            guard productPair?.localProduct?.originsOriginal != nil else { break }
-
             switch productVersion {
             case .new:
-                if productPair?.localProduct?.originsOriginal != nil {
-                    // the local version has been requested and is available
-                    header = TranslatableStrings.IngredientOriginsEdited
+                if let newTags = productPair?.localProduct?.originsOriginal {
+                    switch newTags {
+                    case .available:
+                        header = TranslatableStrings.IngredientOriginsEdited
+                    default:
+                    // if no edits have been made show simple headers
+                        header = TranslatableStrings.IngredientOriginsOriginal
+                    }
+                } else {
+                    header = TranslatableStrings.IngredientOrigins
                 }
             default:
                 header = TranslatableStrings.IngredientOriginsOriginal
             }
 
         case .producer:
-            header = TranslatableStrings.Producer
-            guard productPair?.localProduct?.manufacturingPlacesOriginal != nil else { break }
-
             switch productVersion {
             case .new:
-                if productPair?.localProduct?.manufacturingPlacesOriginal != nil {
-                    // the local version has been requested and is available
-                    header = TranslatableStrings.ProducerEdited
+                if let newTags = productPair?.localProduct?.manufacturingPlacesOriginal {
+                    switch newTags {
+                    case .available:
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.ProducerEdited
+                    default:
+                        header = TranslatableStrings.ProducerOriginal
+                    }
+                } else {
+                    header = TranslatableStrings.Producer
                 }
             default:
                 header = TranslatableStrings.ProducerOriginal
             }
 
         case .store:
-            header = TranslatableStrings.Stores
-
             switch productVersion {
             case .new:
-                if productPair?.localProduct?.storesOriginal != nil {
-                    // the local version has been requested and is available
-                    header = TranslatableStrings.StoresEdited
+                if let newTags = productPair?.localProduct?.storesOriginal {
+                    switch newTags {
+                    case .available:
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.StoresEdited
+                    default:
+                        header = TranslatableStrings.StoresOriginal
+                    }
+                } else {
+                    header = TranslatableStrings.Stores
                 }
-            case .remoteTags:
-                header = TranslatableStrings.StoresNormalized
             default:
                 header = TranslatableStrings.StoresOriginal
             }
 
         case .location:
-            header = TranslatableStrings.PurchaseAddress
-            
             switch productVersion {
             case .new:
-                if productPair?.localProduct?.purchasePlacesOriginal != nil {
-                    // the local version has been requested and is available
-                    header = TranslatableStrings.PurchaseAddressEdited
+                if let newTags = productPair?.localProduct?.purchasePlacesOriginal {
+                    switch newTags {
+                    case .available:
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.PurchaseAddressEdited
+                    default:
+                        header = TranslatableStrings.PurchaseAddressOriginal
+                    }
+                } else {
+                    header = TranslatableStrings.PurchaseAddress
                 }
-            case .remoteTags:
-                header = TranslatableStrings.PurchaseAddressNormalized
             default:
                 header = TranslatableStrings.PurchaseAddressOriginal
             }
 
         case .country:
-            header = TranslatableStrings.Countries
-            
             switch productVersion {
             case .new:
-                if productPair?.localProduct?.countriesOriginal != nil {
-                    // the local version has been requested and is available
-                    header = TranslatableStrings.CountriesEdited
+                if let newTags = productPair?.localProduct?.countriesOriginal {
+                    switch newTags {
+                    case .available:
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.CountriesEdited
+                    default:
+                        header = TranslatableStrings.CountriesNormalized
+                    }
+                } else {
+                    header = TranslatableStrings.Countries
                 }
             case .remoteTagsTranslated:
                 header = TranslatableStrings.CountriesTranslated
             case .remoteTags:
                 header = TranslatableStrings.CountriesNormalized
-            default:
+            case .remoteUser:
                 header = TranslatableStrings.CountriesOriginal
             }
             
         case .producerCode:
-            header = TranslatableStrings.ProductCodes
-            guard productPair?.localProduct?.embCodesOriginal != nil else { break }
             switch productVersion {
             case .new:
-                if productPair?.localProduct?.embCodesOriginal != nil {
-                    // the local version has been requested and is available
-                    header = TranslatableStrings.ProductCodesEdited
+                if let newTags = productPair?.localProduct?.embCodesOriginal {
+                switch newTags {
+                    case .available:
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.ProductCodesEdited
+                    default:
+                        header = TranslatableStrings.ProductCodesOriginal
+                    }
+                } else {
+                    header = TranslatableStrings.ProductCodes
                 }
             default:
                 header = TranslatableStrings.ProductCodesOriginal
             }
 
         case .sites:
-            header = TranslatableStrings.ProductWebSites
-            guard productPair?.localProduct?.links != nil else { break }
             switch productVersion {
             case .new:
-                if productPair?.localProduct?.links != nil {
-                    // the local version has been requested and is available
-                    header = TranslatableStrings.ProductWebSitesEdited
+                if productPair?.localProduct != nil {
+                    if productPair?.localProduct?.expirationDate != nil {
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.ProductWebSitesEdited
+                    } else {
+                        header = TranslatableStrings.ProductWebSitesOriginal
+                    }
+                } else {
+                    header = TranslatableStrings.ProductWebSites
                 }
             default:
                 header = TranslatableStrings.ProductWebSitesOriginal
             }
-        default:
-            break
+        case .map:
+            header = TranslatableStrings.Map
+
+        case .expirationDate:
+            switch productVersion {
+            case .new:
+                if productPair?.localProduct != nil {
+                    if productPair?.localProduct?.expirationDate != nil {
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.ExpirationDateEdited
+                    } else {
+                        header = TranslatableStrings.ExpirationDateOriginal
+                    }
+                } else {
+                    header = TranslatableStrings.ExpirationDate
+                }
+            default:
+                header = TranslatableStrings.ExpirationDateOriginal
+            }
+
+        case .periodAfterOpening:
+            switch productVersion {
+            case .new:
+                if productPair?.localProduct != nil {
+                    if productPair?.localProduct?.expirationDate != nil {
+                    // the local version has been requested and is available
+                        header = TranslatableStrings.PeriodAfterOpeningEdited
+                    } else {
+                        header = TranslatableStrings.PeriodAfterOpeningOriginal
+                    }
+                } else {
+                    header = TranslatableStrings.PeriodAfterOpening
+                }
+            default:
+                header = TranslatableStrings.PeriodAfterOpeningOriginal
+            }
         }
         headerView.title = header
         return headerView

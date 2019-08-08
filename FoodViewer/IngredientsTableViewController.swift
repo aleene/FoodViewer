@@ -518,12 +518,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
         switch currentProductSection {
         case .image, .ingredients : // Header with a language
-            headerView.changeLanguageButton.isHidden = false
+            headerView.changeLanguageButton.isHidden = true
             switch currentProductSection {
             case .image:
                 header = TranslatableStrings.IngredientsImage
                 guard localImageToShow != nil else { break }
-                
+                headerView.changeLanguageButton.isHidden = false
                 switch productVersion {
                 case .new:
                     // the local version has been requested and is available
@@ -532,15 +532,20 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     // the local version has been requested and is available
                     header = TranslatableStrings.IngredientsImageOriginal
                 }
+                headerView.title = header + " - "
 
             case .ingredients:
-                header = TranslatableStrings.Ingredients
-                guard let validLanguageCode = displayLanguageCode else { break }
-                guard productPair?.localProduct?.ingredientsLanguage[validLanguageCode] != nil else { break }
                 switch productVersion {
                 case .new:
-                    // the local version has been requested and is available
-                    header = TranslatableStrings.IngredientsEdited
+                    headerView.changeLanguageButton.isHidden = false
+                    if let validLanguageCode = displayLanguageCode,
+                        productPair?.localProduct?.ingredientsLanguage[validLanguageCode] != nil {
+                        // the local version has been requested and is available
+                        header = TranslatableStrings.IngredientsEdited
+                    } else {
+                        header = TranslatableStrings.Ingredients
+                    }
+                    headerView.title = header + " - "
                 case .remoteTags:
                     header = TranslatableStrings.IngredientsNormalized
                 case .remoteTagsTranslated:
@@ -550,15 +555,15 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 case .remoteTagsHierarchyTranslated:
                     header = TranslatableStrings.IngredientsHierarchyTranslated
                 default:
+                    headerView.changeLanguageButton.isHidden = false
                     header = TranslatableStrings.IngredientsOriginal
+                    headerView.title = header + " - "
                 }
             default:
                 break
             }
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
-            // add a dash to nice separate the title from the language button
-            headerView.title = header + " - "
             return headerView
         
         case .labels, .traces, .additives, .allergens, .aminoAcids, .minerals, .vitamins, .nucleotides, .otherNutritionalSubstances:
@@ -566,12 +571,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             
                 switch currentProductSection {
                 case .labels:
-                    header = TranslatableStrings.Labels
                     switch productVersion {
                     case .new:
-                        if productPair?.localProduct?.labelsOriginal != nil {
-                            // the local version has been requested and is available
-                            header = TranslatableStrings.LabelsEdited
+                        if let newTags = productPair?.localProduct?.labelsOriginal {
+                            switch newTags {
+                            case .available:
+                                // the local version has been requested and is available
+                                header = TranslatableStrings.LabelsEdited
+                            default:
+                                header = TranslatableStrings.LabelsOriginal
+                            }
+                        } else {
+                            header = TranslatableStrings.Labels
                         }
                     case .remoteUser:
                         header = TranslatableStrings.LabelsOriginal
@@ -582,12 +593,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     }
 
                 case .traces:
-                    header = TranslatableStrings.Traces
                     switch productVersion {
                     case .new:
-                        if productPair?.localProduct?.tracesOriginal != nil {
-                            // the local version has been requested and is available
-                            header = TranslatableStrings.TracesEdited
+                        if let newTags = productPair?.localProduct?.tracesOriginal {
+                            switch newTags {
+                            case .available:
+                                // the local version has been requested and is available
+                                header = TranslatableStrings.TracesEdited
+                            default:
+                                header = TranslatableStrings.TracesOriginal
+                            }
+                        } else {
+                            header = TranslatableStrings.Traces
                         }
                     case .remoteUser:
                         header = TranslatableStrings.TracesOriginal
@@ -667,15 +684,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             headerView.title = header
             return headerView
         }
-        return nil
-    }
-
-    private func addEdited(to string:String) -> String {
-        return string  + " " + "(" + TranslatableStrings.Edited + ")"
-    }
-
-    private func addOriginal(to string:String) -> String {
-        return string  + " " + "(" + TranslatableStrings.Original + ")"
     }
 
     fileprivate func nextLanguageCode() -> String {

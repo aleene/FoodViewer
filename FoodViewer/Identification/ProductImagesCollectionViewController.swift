@@ -394,39 +394,60 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                          withReuseIdentifier: Storyboard.CellIdentifier.SectionHeader,
                                                                          for: indexPath) as! GalleryCollectionReusableView
+        var newTitle = ""
         //1
         switch kind {
         //2
         case UICollectionView.elementKindSectionHeader:
-            var newTitle = tableStructure[indexPath.section].header
-            switch productVersion {
-            case .new:
-                switch tableStructure[indexPath.section] {
-                case .frontImages:
+            switch tableStructure[indexPath.section] {
+            case .frontImages:
+                switch productVersion {
+                case .new:
                     if productPair?.localProduct?.frontImages != nil && !productPair!.localProduct!.frontImages.isEmpty {
-                        newTitle += " (New)"
+                        newTitle = TranslatableStrings.SelectedFrontImagesEdited
+                    } else {
+                        newTitle = TranslatableStrings.SelectedFrontImages
                     }
-                case .ingredientsImages:
-                    if productPair?.localProduct?.ingredientsImages != nil && !productPair!.localProduct!.ingredientsImages.isEmpty {
-                        newTitle += " (New)"
-                    }
-                case .nutritionImages:
-                    if productPair?.localProduct?.nutritionImages != nil && !productPair!.localProduct!.nutritionImages.isEmpty {
-                        newTitle += " (New)"
-                    }
-                case .originalImages:
-                    if productPair?.localProduct?.images != nil && !productPair!.localProduct!.images.isEmpty {
-                        newTitle += " (New)"
-                    }
+                default:
+                    newTitle = TranslatableStrings.SelectedFrontImagesOriginal
                 }
-            default:
-                break
-            }
-            //3
-            headerView.label.text = newTitle
+            case .ingredientsImages:
+                switch productVersion {
+                case .new:
+                    if productPair?.localProduct?.ingredientsImages != nil && !productPair!.localProduct!.ingredientsImages.isEmpty {
+                        newTitle = TranslatableStrings.SelectedIngredientImagesEdited
+                    } else {
+                        newTitle = TranslatableStrings.SelectedIngredientImages
+                    }
+                default:
+                    newTitle = TranslatableStrings.SelectedIngredientImagesOriginal
+                }
+            case .nutritionImages:
+                switch productVersion {
+                case .new:
+                    if productPair?.localProduct?.nutritionImages != nil && !productPair!.localProduct!.nutritionImages.isEmpty {
+                        newTitle = TranslatableStrings.SelectedNutritionImagesEdited
+                    } else {
+                        newTitle = TranslatableStrings.SelectedNutritionImages
+                    }
+                default:
+                    newTitle = TranslatableStrings.SelectedNutritionImagesOriginal
+                }
+            case .originalImages:
+                switch productVersion {
+                case .new:
+                    if productPair?.localProduct?.images != nil && !productPair!.localProduct!.images.isEmpty {
+                        newTitle = TranslatableStrings.OriginalImagesEdited
+                    } else {
+                        newTitle = TranslatableStrings.OriginalImages
+                    }
+                default:
+                    newTitle = TranslatableStrings.OriginalImagesOriginal
 
+                }
+            }
+            headerView.label.text = newTitle
         default:
-            //4
             assert(false, "ProductImagesCollectionViewController: Unexpected element kind")
         }
         return headerView

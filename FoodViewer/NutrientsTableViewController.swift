@@ -259,33 +259,21 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     // The different sections of the tableView
     fileprivate enum SectionType {
-        case perUnit(Int, String)
-        case nutritionFacts(Int, String)
-        case addNutrient(Int, String)
-        case servingSize(Int, String)
-        case image(Int, String)
-        case noNutrimentsAvailable(Int, String)
-        
-        var header: String {
-            switch self {
-            case .perUnit(_, let headerTitle),
-                 .nutritionFacts(_, let headerTitle),
-                 .addNutrient(_, let headerTitle),
-                 .servingSize(_, let headerTitle),
-                 .image(_, let headerTitle),
-                 .noNutrimentsAvailable(_, let headerTitle):
-                return headerTitle
-            }
-        }
+        case perUnit(Int)
+        case nutritionFacts(Int)
+        case addNutrient(Int)
+        case servingSize(Int)
+        case image(Int)
+        case noNutrimentsAvailable(Int)
         
         var numberOfRows: Int {
             switch self {
-            case .perUnit(let numberOfRows, _),
-                 .nutritionFacts(let numberOfRows, _),
-                 .addNutrient(let numberOfRows, _),
-                 .servingSize(let numberOfRows, _),
-                 .image(let numberOfRows, _),
-                 .noNutrimentsAvailable(let numberOfRows, _):
+            case .perUnit(let numberOfRows),
+                 .nutritionFacts(let numberOfRows),
+                 .addNutrient(let numberOfRows),
+                 .servingSize(let numberOfRows),
+                 .image(let numberOfRows),
+                 .noNutrimentsAvailable(let numberOfRows):
                 return numberOfRows
             }
         }
@@ -300,7 +288,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // in editMode the nutritionFacts have a button added
         switch tableStructure[section] {
-        case .nutritionFacts(let numberOfRows, _):
+        case .nutritionFacts(let numberOfRows):
             if editMode {
                 return numberOfRows + 1
             }
@@ -530,7 +518,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var header = tableStructure[section].header
+        var header = ""
         var buttonNotDoubleTap: Bool {
             return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
         }
@@ -644,14 +632,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             static let PerUnit = 1
             static let NutrimentsAvailable = 1
         }
-        struct Header {
-            static let NutritionFactItems = TranslatableStrings.NutritionFacts
-            static let NutritionFactsImage = TranslatableStrings.NutritionFactsImage
-            static let ServingSize = TranslatableStrings.PortionSize
-            static let AddNutrient = "No Add Nutrient Header"
-            static let PerUnit = TranslatableStrings.PresentationFormat
-            static let NutrimentsAvailable = TranslatableStrings.NutrimentsAvailability
-        }
     }
     
     @objc func doubleTapOnSaltSodiumTableViewCell() {
@@ -695,8 +675,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if !hasNutritionFacts {
                 // the product has no nutriments indicated
                 sectionsAndRows.append( .noNutrimentsAvailable(
-                      TableSections.Size.NutrimentsAvailable,
-                      TableSections.Header.NutrimentsAvailable )
+                      TableSections.Size.NutrimentsAvailable )
                 )
             } else {
             /*
@@ -750,8 +729,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             
                 if editMode {
                     sectionsAndRows.append( .noNutrimentsAvailable(
-                          TableSections.Size.NutrimentsAvailable,
-                          TableSections.Header.NutrimentsAvailable )
+                          TableSections.Size.NutrimentsAvailable )
                     )
                 }
             
@@ -761,8 +739,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     switch validType {
                     case .food:
                         sectionsAndRows.append(.perUnit(
-                            TableSections.Size.PerUnit,
-                            TableSections.Header.PerUnit )
+                            TableSections.Size.PerUnit )
                         )
                     default: break
                     }
@@ -773,25 +750,21 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 if adaptedNutritionFacts.isEmpty {
                     // Show a tag indicating no nutrition facts have been specified
                     sectionsAndRows.append(.nutritionFacts(
-                        TableSections.Size.NutritionFactsEmpty,
-                        TableSections.Header.NutritionFactItems))
+                        TableSections.Size.NutritionFactsEmpty))
                 } else {
                     // show a list with nutrition facts
                     sectionsAndRows.append( .nutritionFacts(
-                        adaptedNutritionFacts.count,
-                        TableSections.Header.NutritionFactItems))
+                        adaptedNutritionFacts.count))
                 }
         
                 // Section 2 or 3 or 4 : serving size
             
                 sectionsAndRows.append( .servingSize(
-                    TableSections.Size.ServingSize,
-                    TableSections.Header.ServingSize))
+                    TableSections.Size.ServingSize))
         
                 // Section 3 or 4 or 5: image section
                 sectionsAndRows.append( .image(
-                    TableSections.Size.NutritionFactsImage,
-                    TableSections.Header.NutritionFactsImage))
+                    TableSections.Size.NutritionFactsImage))
         
         }
         return sectionsAndRows
