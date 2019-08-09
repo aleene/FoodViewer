@@ -19,7 +19,7 @@ class NutritionScoreTableViewCell: UITableViewCell {
     
     @IBOutlet weak var novaTitleLabel: UILabel! {
         didSet {
-            novaTitleLabel.text = "nova"
+            novaTitleLabel.text = TranslatableStrings.Nova
             setup()
         }
     }

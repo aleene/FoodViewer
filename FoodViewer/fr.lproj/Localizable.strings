@@ -83,7 +83,7 @@
 "Barcode (edited main language)" = "Code barre (édité)";
 
 /* Tableview sectionheader for Barcode, with original main language */
-"Barcode (original main language)" = "Code barre (non-édité)";
+"Barcode (non-edited main language)" = "Code barre (pas édité)";
 
 /* Title of a segmented control. */
 "Beauty" = "Beauté";
@@ -100,8 +100,11 @@
 /* Tableview sectionheader for the edited brands. */
 "Brands (edited)" = "Marques (édité)";
 
+/* Tableview sectionheader for the interpreted and normalised brands. */
+"Brands (interpreted)" = "Marques (interpreté)";
+
 /* Tableview sectionheader for the unedited brands. */
-"Brands (original)" = "Marques (non-édité)";
+"Brands (non-edited)" = "Marques (pas édité)";
 
 /* Title of a segment of a segmented control, which lets the user set the button view toggle mode interface */
 "Button" = "Bouton";
@@ -122,7 +125,19 @@
 "Categories (edited)" = "Catégories (édité)";
 
 /* Original text to indicate the product belongs to a category. */
-"Categories (original)" = "Catégories (non-édité)";
+"Categories (hierarchy translated)" = "Catégories (hiërarchie traduit)";
+
+/* Original text to indicate the product belongs to a category. */
+"Categories (hierarchy)" = "Catégories (hiërarchie)";
+
+/* Original text to indicate the product belongs to a category. */
+"Categories (non-edited)" = "Catégories (pas édité)";
+
+/* Original text to indicate the product belongs to a category. */
+"Categories (normalized)" = "Catégories (normalisé)";
+
+/* Original text to indicate the product belongs to a category. */
+"Categories (translated)" = "Catégories (traduit)";
 
 /* String in PickerViewController to indicate the checker role of a contributor */
 "Checker" = "Controleur";
@@ -169,8 +184,14 @@
 /* Generic string (plural) to indicate the countries where the product is sold (edited). */
 "Countries (edited)" = "Pays (édité)";
 
-/* Generic string (plural) to indicate the countries where the product is sold (original). */
-"Countries (original)" = "Pays (non-édité)";
+/* Generic string (plural) to indicate the countries where the product is sold (non-edited). */
+"Countries (non-edited)" = "Pays (pas édité)";
+
+/* Generic string (plural) to indicate the countries where the product is sold (normalized). */
+"Countries (normalized)" = "Pays (normalisé)";
+
+/* Generic string (plural) to indicate the countries where the product is sold (translated). */
+"Countries (translated)" = "Pays (traduit)";
 
 /* Text to indicate the sales countries of a product. */
 "Countries where sold" = "Pays vendu";
@@ -220,23 +241,66 @@
 /* Title of abutton, which allows the user to view the details of a scanned product. */
 "Details" = "Détails";
 
-/* Text to indicate the detected allergens of a product. */
+/* Text to indicate the detected additives of a product.
+   Text to indicate the detected detected additives (normalized)  of a product. */
 "Detected Additives" = "Additives détectés";
+
+/* Text to indicate the detected additives (translated) of a product. */
+"Detected Additives (translated)" = "Additives détectés (traduit)";
 
 /* Text to indicate the detected allergens of a product. */
 "Detected Allergens" = "Allergènes détectés";
 
-/* Tableview section header, which list the detected minderals in an ingredients list. */
+/* Text to indicate the normalized detected allergens of a product. */
+"Detected Allergens (normalized)" = "Allergènes détectés (normalisé)";
+
+/* Text to indicate the translated detected allergens of a product. */
+"Detected Allergens (translated)" = "Allergènes détectés (traduit)";
+
+/* Text to indicate the detected aminoacids of a product. */
+"Detected Aminoacids" = "\t\nAcides aminés";
+
+/* Text to indicate the normalized detected aminoacids of a product. */
+"Detected Aminoacids (normalized)" = "Acides aminés (normalisé)";
+
+/* Text to indicate the translated detected aminoacids of a product. */
+"Detected Aminoacids (translated)" = "Acides aminés (traduit)";
+
+/* Tableview section header, which list the detected minerals in an ingredients list. */
 "Detected Minerals" = "Minérales détectés";
+
+/* Tableview section header, which list the normalized detected minerals in an ingredients list. */
+"Detected Minerals (normalized)" = "Minérales détectés (normalisé)";
+
+/* Tableview section header, which list the translated detected minerals in an ingredients list. */
+"Detected Minerals (translated)" = "Minérales détectés (traduit)";
 
 /* Tableview section header, which list the detected nucleotides in an ingredients list. */
 "Detected Nucleotides" = "Nucléotides détectés";
 
+/* Tableview section header, which list the normalized detected nucleotides in an ingredients list. */
+"Detected Nucleotides (normalized)" = "Nucléotides détectés (normalisé)";
+
+/* Tableview section header, which list the translated detected nucleotides in an ingredients list. */
+"Detected Nucleotides (translated)" = "Nucléotides détectés (traduit)";
+
 /* Tableview section header, which list the detected other nutritional substances in an ingredients list. */
 "Detected Other Nutritional Substances" = "Autre Substances Nutritionnelles détectés";
 
+/* Tableview section header, which list the normalized detected other nutritional substances in an ingredients list. */
+"Detected Other Nutritional Substances (normalized)" = "Autre Substances Nutritionnelles détectés (normalisé)";
+
+/* Tableview section header, which list the translated detected other nutritional substances in an ingredients list. */
+"Detected Other Nutritional Substances (translated)" = "Autre Substances Nutritionnelles détectés (traduit)";
+
 /* Tableview section header, which list the detected vitamins in an ingredients list. */
 "Detected Vitamins" = "Vitamines détectés";
+
+/* Tableview section header, which list the normalized detected vitamins in an ingredients list. */
+"Detected Vitamins (normalized)" = "Vitamines détectés (normalisé)";
+
+/* Tableview section header, which list the translated detected vitamins in an ingredients list. */
+"Detected Vitamins (translated)" = "Vitamines détectés (traduit)";
 
 /* Title of a button in an alert sheet, which allows the user to discard alle changes to the local product. */
 "Discard" = "Jeter?";
@@ -328,6 +392,12 @@
 /* Header title of the tableview section, indicating the most recent expiration date. */
 "Expiration Date" = "Date limite d'utilisation";
 
+/* Header title of the tableview section, indicating the edited most recent expiration date. */
+"Expiration Date (edited)" = "Date limite d'utilisation (édité)";
+
+/* Header title of the tableview section, indicating the non-edited most recent expiration date. */
+"Expiration Date (non-edited)" = "Date limite d'utilisation (pas édité)";
+
 /* Text of a label that wil indicate the fat level (low/medium/high) by colour. */
 "Fat level" = "Taux de graisse";
 
@@ -347,7 +417,7 @@
 "Front Image (edited)" = "Image frontale (édité)";
 
 /* Title for the viewcontroller with the original front image */
-"Front Image (original)" = "Image frontale (non-édité)";
+"Front Image (non-edited)" = "Image frontale (pas édité)";
 
 /* Viewcontroller title for page with images of the product */
 "Gallery" = "Gallerie";
@@ -356,7 +426,7 @@
 "Generic Name (edited)" = "Gallerie (édité)";
 
 /* Tableview sectionheader for the original long product name */
-"Generic Name (original)" = "Gallerie (non-édité)";
+"Generic Name (non-edited)" = "Gallerie (pas édité)";
 
 /* Header for a table section showing the appreciations of the good nutrients */
 "Good nutrients" = "Bons nutriments";
@@ -394,11 +464,21 @@
 /* Text to indicate the ingredients of a product. */
 "Ingredients" = "Ingrédients";
 
-/* Text to indicate the edited ingredients of a product. */
+/* Text to indicate the edited ingredients of a product.
+   Text to indicate the hierarchy translated ingredients of a product. */
 "Ingredients (edited)" = "Ingrédients (édité)";
 
+/* Text to indicate the edited ingredients of a product. */
+"Ingredients (hierarchy)" = "Ingrédients (hiërarchie)";
+
 /* Text to indicate the original (unedited) ingredients of a product. */
-"Ingredients (original)" = "Ingrédients (non-édité)";
+"Ingredients (non-edited)" = "Ingrédients (pas édité)";
+
+/* Text to indicate the normalized ingredients of a product. */
+"Ingredients (normalized)" = "Ingrédients (normalisé)";
+
+/* Text to indicate the translated ingredients of a product. */
+"Ingredients (translated)" = "Ingrédients (traduit))";
 
 /* Header title for the ingredients image section, i.e. the image of the package with the ingredients */
 "Ingredients Image" = "Photo ingrédients";
@@ -407,7 +487,7 @@
 "Ingredients Image (edited)" = "Photo ingrédients (édité)";
 
 /* Header title for the original ingredients image section, i.e. the image of the package with the ingredients */
-"Ingredients Image (original)" = "Photo ingrédients (non-édité)";
+"Ingredients Image (non-edited)" = "Photo ingrédients (pas édité)";
 
 /* Text in a tag when a new/edited product is seen. */
 "Ingredients will be analysed after upload by OFF" = "Ingrédients seront analysés après téléchargement par OFF";
@@ -427,11 +507,17 @@
 /* Generic string for labels on product */
 "Labels" = "Labels, certifications, récompenses";
 
-/* Generic string for edited labels on product */
-"Labels (edited)" = "Labels, certifications, récompenses (édités)";
+/* Tableview header string for edited labels on product */
+"Labels (edited)" = "Labels, certifications, récompenses (édité)";
 
-/* Generic string for original (unedited) labels on product */
-"Labels (original)" = "Labels, certifications, récompenses (non-édités)";
+/* Tableview header string for original (unedited) labels on product */
+"Labels (non-edited)" = "Labels, certifications, récompenses (pas édité)";
+
+/* Tableview header string for original (normalized) labels on product */
+"Labels (normalized)" = "Labels, certifications, récompenses (normalisé)";
+
+/* Tableview header string for original (translated) labels on product */
+"Labels (translated)" = "Labels, certifications, récompenses (traduit)";
 
 /* Tableview sectionheader for languages on product */
 "Languages" = "Langues";
@@ -476,7 +562,7 @@
 "Name (edited)" = "Nom du produit (édité)";
 
 /* Tableview sectionheader for the original (non-edited) product name */
-"Name (original)" = "Nom du produit (non-édité)";
+"Name (non-edited)" = "Nom du produit (pas édité)";
 
 /* Tableview sectionheader for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
 "Negative Ingredient Detections" = "Détections négatives ingrédients";
@@ -518,7 +604,7 @@
 "No nutrients (edited)" = "Pas de nutriments (édité)";
 
 /* Text of Label, indicating that the product has no nutrients (original) defined */
-"No nutrients (original)" = "Pas de nutriments (non-édité)";
+"No nutrients (non-edited)" = "Pas de nutriments (pas édité)";
 
 /* Text in a TagListView, when no nutrition data has been specified in the product data. */
 "no nutrition data available" = "pas d'info nutritionnelles spécifiés";
@@ -578,6 +664,9 @@
 /* Generic text if a value has not yet been set. */
 "Not set" = "Pas définie";
 
+/* Text above the nova value. */
+"NOVA" = "NOVA";
+
 /* Title of a table section, which shows the nova evaluation tags for ingredients, additives and categories. */
 "Nova Evaluation Triggers" = "Déclencheurs NOVA";
 
@@ -600,7 +689,7 @@
 "Nutrition Facts (edited)" = "Composition nutritionnelle (édité)";
 
 /* Text to indicate the original nutrition facts of a product. */
-"Nutrition Facts (original)" = "Composition nutritionnelle (non-édité)";
+"Nutrition Facts (non-edited)" = "Composition nutritionnelle (épas dité)";
 
 /* Description for NutritionData per one kilogram */
 "Nutrition Facts (per 1 kg)" = "Comp. nutritionnelle (par kg)";
@@ -618,7 +707,7 @@
 "Nutrition Facts Image (edited)" = "Photo info nutritionnelles (édité)";
 
 /* Tableview header section for the original image of the nutritional facts */
-"Nutrition Facts Image (original)" = "Photo info nutritionnelles (non-édité)";
+"Nutrition Facts Image (non-edited)" = "Photo info nutritionnelles (pas édité)";
 
 /* Header for a table section showing the search for nutrition score */
 "Nutrition Score" = "Nutri-Score";
@@ -636,7 +725,7 @@
 "Official product website (edited)" = "Site officiele produit (édité)";
 
 /* Header title of tableview section, indicating the original website for the product */
-"Official product website (original)" = "Site officielle produit (non-édité)";
+"Official product website (non-edited)" = "Site officiele produit (pas édité)";
 
 /* String in button, to let the user indicate he wants to start the search. */
 "OK" = "OK";
@@ -653,6 +742,12 @@
 /* Gallery header text presenting the original images */
 "Original Images" = "Images originaux";
 
+/* Gallery header text presenting the edited original images */
+"Original Images (edited)" = "Images originaux (édité)";
+
+/* Gallery header text presenting the non-edited original images */
+"Original Images (non-edited)" = "Images originaux (pas édité)";
+
 /* Generic string to indicate the origins of the ingredients */
 "Origins of ingredients" = "Origine ingrédients";
 
@@ -660,7 +755,7 @@
 "Origins of ingredients (edited)" = "Origine ingrédients (édité)";
 
 /* Generic string to indicate the original (non-edited) origins of the ingredients */
-"Origins of ingredients (original)" = "Origine ingrédients (non-édité)";
+"Origins of ingredients (non-edited)" = "Origine ingrédients (pas édité)";
 
 /* Tableview section header, which list the detected other nutritional substances in an ingredients list. */
 "Other Nutritional Substances" = "Autre substances nutritionnelles";
@@ -677,8 +772,11 @@
 /* Tableview sectionheader for packaging, edited version. */
 "Packaging (edited)" = "Emballage (édité)";
 
+/* Tableview sectionheader for packaging, interpreted version. */
+"Packaging (interpreted)" = "Emballage (normalisé)";
+
 /* Tableview sectionheader for packaging, original version. */
-"Packaging (original)" = "Emballage (non-édité)";
+"Packaging (non-edited)" = "Emballage (pas édité)";
 
 /* String in textField placeholder, to show that the user has to enter his password */
 "Password" = "Mot de passe";
@@ -694,6 +792,12 @@
 
 /* Header title of tableview section, indicating period after opening for beauty products */
 "Period After Opening" = "Période après ouverture";
+
+/* Header title of tableview section, indicating period after opening for beauty products */
+"Period After Opening (edited)" = "Période après ouverture (édité)";
+
+/* Header title of tableview section, indicating period after opening for beauty products */
+"Period After Opening (non-edited)" = "Période après ouverture (pas édité)";
 
 /* Title in AlertViewController, which lets the user enter his username/password. */
 "Personal Account" = "Compte personel";
@@ -723,7 +827,7 @@
 "Portion size (edited)" = "Largeur portion (édité)";
 
 /* Tableview header section for the original size of a portion */
-"Portion size (original)" = "Largeur portion (non-édité)";
+"Portion size (non-edited)" = "Largeur portion (pas édité)";
 
 /* TableViewController title for the settings scene. */
 "Preferences" = "Réglages";
@@ -741,7 +845,7 @@
 "Producer (edited)" = "Producteur (édité)";
 
 /* Header for section of tableView with information of the original (non-edited) producer (name, geographic location). */
-"Producer (original)" = "Producteur (non-édité)";
+"Producer (non-edited)" = "Producteur (pas édité)";
 
 /* Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666). */
 "Producer Codes" = "Code emballeur";
@@ -750,7 +854,7 @@
 "Producer Codes (edited)" = "Code emballeur (édité)";
 
 /* Header for section of tableView with codes for the original producer (EMB 123456 or FR.666.666). */
-"Producer Codes (oriiginal)" = "Code emballeur (non-édité)";
+"Producer Codes (non-edited)" = "Code emballeur (pas édité)";
 
 /* Title of a segmented control. */
 "Product" = "Produit";
@@ -801,7 +905,10 @@
 "Purchase address (edited)" = "Adresse d'achat (édité)";
 
 /* Generic string to indicate the address original (street/city/postalcode/country) where the product was bought */
-"Purchase address (original)" = "Adresse d'achat (non-édité)";
+"Purchase address (non-edited)" = "Adresse d'achat (pas édité)";
+
+/* Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought */
+"Purchase address (normalized)" = "Adresse d'achat (normalisé)";
 
 /* Tableview sectionheader for size of package. */
 "Quantity" = "Quantité";
@@ -810,7 +917,7 @@
 "Quantity (edited)" = "Quantité (édité)";
 
 /* Tableview sectionheader for the original size of package. */
-"Quantity (original)" = "Quantité (non-édité)";
+"Quantity (non-edited)" = "Quantité (pas édité)";
 
 /* String in button, to let the user indicate he wants to cancel username/password input. */
 "Reset application" = "Remet appli à zero";
@@ -899,11 +1006,29 @@
 /* Gallery header text presenting the selected front images */
 "Selected Front Images" = "Photo du produit sélectionnées";
 
+/* Gallery header text presenting the edited selected front images */
+"Selected Front Images (edited)" = "Photo du produit sélectionnées (édité)";
+
+/* Gallery header text presenting the non-edited selected front images */
+"Selected Front Images (non-edited)" = "Photo du produit sélectionnées (pas édité)";
+
 /* Gallery header text presenting the selected ingredients images */
 "Selected Ingredients Images" = "Photos d'ingrédients sélectionnées";
 
+/* Gallery header text presenting the edited selected ingredients images */
+"Selected Ingredients Images (edited)" = "Photos d'ingrédients sélectionnées (édité)";
+
+/* Gallery header text presenting the non-edited selected ingredients images */
+"Selected Ingredients Images (non-edited)" = "Photos d'ingrédients sélectionnées (pas édité)";
+
 /* Gallery header text presenting the selected nutrition images */
 "Selected Nutrition Images" = "Photos de nutrition sélectionnées";
+
+/* Gallery header text presenting the edited selected nutrition images */
+"Selected Nutrition Images (edited)" = "Photos de nutrition sélectionnées (édité)";
+
+/* Gallery header text presenting the non-edited selected nutrition images */
+"Selected Nutrition Images (non-edited)" = "Photos de nutrition sélectionnées (pas édité)";
 
 /* Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value) */
 "Serving" = "Portion";
@@ -957,7 +1082,10 @@
 "Stores (edited)" = "Magasins (édité)";
 
 /* Generic string to indicate the original (non-edited) stores where the product is sold. */
-"Stores (original)" = "Magasins (non-édité)";
+"Stores (non-edited)" = "Magasins (pas édité)";
+
+/* Generic string to indicate the original (normalized) stores where the product is sold. */
+"Stores (normalized)" = "Magasins (normalisé)";
 
 /* Text of a label that will indicate the sugar level (low/medium/high) by colour. */
 "Sugar level" = "Taux sucres";
@@ -987,7 +1115,13 @@
 "Traces (edited)" = "Traces (édité)";
 
 /* Text to indicate the original (un-edited) traces of a product. */
-"Traces (original)" = "Traces (non-édité)";
+"Traces (non-edited)" = "Traces (pas édité)";
+
+/* Text to indicate the original (normalized) traces of a product. */
+"Traces (normalized)" = "Traces (normalisé)";
+
+/* Text to indicate the original (normalized) traces of a product. */
+"Traces (translated)" = "Traces (traduit)";
 
 /* Description of the interpreted tags in the json as translated by the taxonomy */
 "Translated" = "Traduit";

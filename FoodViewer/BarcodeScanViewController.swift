@@ -42,7 +42,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     
     @IBOutlet weak var NOVALabel: UILabel! {
         didSet {
-            NOVALabel.text = "nova"
+            NOVALabel.text = TranslatableStrings.Nova
         }
     }
     

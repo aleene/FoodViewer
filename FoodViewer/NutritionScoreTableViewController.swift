@@ -97,7 +97,7 @@ class NutritionScoreTableViewController: UITableViewController {
             static let Summary = TranslatableStrings.ScoreSummary
             static let Score = TranslatableStrings.NutritionalScore
             static let Levels = TranslatableStrings.Level
-            static let Nova = TranslatableStrings.Nova
+            static let Nova = TranslatableStrings.NovaEvaluationTriggers
         }
     }
 

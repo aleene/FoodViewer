@@ -30,6 +30,7 @@ class QuantityTableViewCell: UITableViewCell {
     
     @IBOutlet weak var eButton: UIButton! {
         didSet {
+            eButton.setTitle(TranslatableStrings.Estimate, for: .normal)
             eButton.isEnabled = editMode
         }
     }

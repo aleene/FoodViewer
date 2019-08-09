@@ -1,14 +1,8 @@
 /* Class = "UILabel"; text = "-15"; ObjectID = "0Ia-fi-3Hh"; */
 "0Ia-fi-3Hh.text" = "-15";
 
-/* Class = "UILabel"; text = "Title"; ObjectID = "1rX-wX-DbL"; */
-"1rX-wX-DbL.text" = "Titre";
-
 /* Class = "UILabel"; text = " 0"; ObjectID = "2vd-fY-j8y"; */
 "2vd-fY-j8y.text" = "0";
-
-/* Class = "UILabel"; text = "NOVA"; ObjectID = "6UW-OJ-baU"; */
-"6UW-OJ-baU.text" = "NOVA";
 
 /* Class = "UILabel"; text = "18"; ObjectID = "57B-be-2Bi"; */
 "57B-be-2Bi.text" = "18";
@@ -30,6 +24,9 @@
 
 /* Class = "UINavigationController"; title = "Products"; ObjectID = "hYb-mr-zvw"; */
 "hYb-mr-zvw.title" = "Produits";
+
+/* Class = "UITabBarItem"; title = "User"; ObjectID = "l6d-Us-aAN"; */
+"l6d-Us-aAN.title" = "Utilisateur";
 
 /* Class = "UILabel"; text = "NOVA"; ObjectID = "mFF-c4-dtr"; */
 "mFF-c4-dtr.text" = "NOVA";

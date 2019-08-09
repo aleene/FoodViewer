@@ -1139,7 +1139,7 @@
 "US Set" = "US";
 
 /* Title of a button in a navigation bar, which allows the user to adapt an image and use the result. */
-"Use" = "Brauche";
+"Use" = "Benütze";
 
 /* Title of a button to indicate that user can take an image with the Camera. */
 "Use Camera" = "Camera";
