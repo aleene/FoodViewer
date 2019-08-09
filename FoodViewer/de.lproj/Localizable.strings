@@ -1111,6 +1111,9 @@
 /* Text to indicate the edited traces of a product. */
 "Traces (edited)" = "Spuren (bearbeitet)";
 
+/* Text to indicate the original (un-edited) traces of a product. */
+"Traces (non-edited)" = "Spuren (unbearbeitet)";
+
 /* Text to indicate the original (normalized) traces of a product. */
 "Traces (normalized)" = "Spuren (genormaliseerd)";
 
