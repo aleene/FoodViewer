@@ -192,8 +192,9 @@ class SupplyChainTableViewController: UITableViewController {
     }
     
     fileprivate func checkedTags(_ tags:Tags?) -> Tags? {
-        if let validTags = tags {
-            return validTags.isAvailable ? validTags : .undefined
+        if let validTags = tags,
+            validTags.isAvailable {
+            return validTags
         }
         return nil
     }

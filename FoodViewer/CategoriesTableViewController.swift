@@ -62,21 +62,32 @@ class CategoriesTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
-                return productPair?.localProduct?.categoriesOriginal ?? productPair?.remoteProduct?.categoriesTranslated ?? .undefined
+                if let checked = checkedTags(productPair?.localProduct?.categoriesOriginal) {
+                    return checked
+                }
             case .remoteTags:
                 return productPair?.remoteProduct?.categoriesInterpreted ?? .undefined
-            case .remoteTagsTranslated:
-                return productPair?.remoteProduct?.categoriesTranslated ?? .undefined
             case .remoteTagsHierarchy:
                 return productPair?.remoteProduct?.categoriesHierarchy ?? .undefined
             case .remoteTagsHierarchyTranslated:
                 return productPair?.remoteProduct?.categoriesHierarchyTranslated ?? .undefined
             case .remoteUser:
                 return productPair?.remoteProduct?.categoriesOriginal ?? .undefined
+            default: break
             }
+            return productPair?.remoteProduct?.categoriesTranslated ?? .undefined
+
         }
     }
     
+    fileprivate func checkedTags(_ tags:Tags?) -> Tags? {
+        if let validTags = tags,
+            validTags.isAvailable {
+            return validTags
+        }
+        return nil
+    }
+
     // MARK: - Interface Functions
     
     @IBAction func refresh(_ sender: UIRefreshControl) {

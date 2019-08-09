@@ -214,8 +214,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
 
     fileprivate func availableTags(_ tags:Tags?) -> Tags? {
-        if let validTags = tags {
-            return validTags.isAvailable ? validTags : .undefined
+        if let validTags = tags,
+            validTags.isAvailable {
+            return validTags
         }
         return nil
     }

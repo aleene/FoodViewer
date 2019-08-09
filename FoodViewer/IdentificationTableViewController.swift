@@ -196,11 +196,12 @@ class IdentificationTableViewController: UITableViewController {
                 if let checked = checkedTags(productPair?.localProduct?.packagingOriginal) {
                     return checked
                 }
-            case .remoteTags:
-                return checkedTags(productPair?.remoteProduct?.packagingInterpreted) ?? .undefined
+                // no taxonomy in use
+            //case .remoteTags:
+            //    productPair?.remoteProduct?.packagingInterpreted ?? .undefined
             default: break
             }
-            return checkedTags(productPair?.remoteProduct?.packagingOriginal) ?? .undefined
+            return productPair?.remoteProduct?.packagingOriginal ?? .undefined
         }
     }
     
@@ -211,11 +212,12 @@ class IdentificationTableViewController: UITableViewController {
                 if let checked = checkedTags(productPair?.localProduct?.brandsOriginal) {
                     return checked
                 }
-            case .remoteTags:
-                return checkedTags(productPair?.remoteProduct?.brandsInterpreted) ?? .undefined
+                // no taxonomy in use
+            //case .remoteTags:
+            //    return productPair?.remoteProduct?.brandsInterpreted ?? .undefined
             default: break
             }
-            return checkedTags(productPair?.remoteProduct?.brandsOriginal) ?? .undefined
+            return productPair?.remoteProduct?.brandsOriginal ?? .undefined
         }
     }
 
@@ -228,13 +230,14 @@ class IdentificationTableViewController: UITableViewController {
                 }
             default: break
             }
-            return checkedTags(productPair?.remoteProduct?.languageTags) ?? .undefined
+            return productPair?.remoteProduct?.languageTags ?? .undefined
         }
     }
     
     fileprivate func checkedTags(_ tags:Tags?) -> Tags? {
-        if let validTags = tags {
-            return validTags.isAvailable ? validTags : .undefined
+        if let validTags = tags,
+            validTags.isAvailable {
+            return validTags
         }
         return nil
     }
