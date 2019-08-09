@@ -57,12 +57,13 @@ class SupplyChainTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
-                return productPair?.localProduct?.manufacturingPlacesOriginal ?? productPair?.remoteProduct?.manufacturingPlacesInterpreted ?? .undefined
-            case .remoteTags, .remoteTagsTranslated:
-                return productPair?.remoteProduct?.manufacturingPlacesInterpreted ?? .undefined
-            case .remoteUser:
-                return productPair?.remoteProduct?.manufacturingPlacesOriginal ?? .undefined
+                if let checked = checkedTags(productPair?.localProduct?.manufacturingPlacesOriginal) {
+                    return checked
+                }
+            // There is no taxonomy
+            default: break
             }
+            return productPair?.remoteProduct?.manufacturingPlacesOriginal ?? .undefined
         }
     }
     
@@ -71,12 +72,14 @@ class SupplyChainTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
-                return productPair?.localProduct?.embCodesOriginal ?? productPair?.remoteProduct?.embCodesOriginal ?? .undefined
+                if let checked = checkedTags(productPair?.localProduct?.embCodesOriginal) {
+                    return checked
+                }
             case .remoteTags, .remoteTagsTranslated:
                 return productPair?.remoteProduct?.embCodesInterpreted ?? .undefined
-            case .remoteUser:
-                return productPair?.remoteProduct?.embCodesOriginal ?? .undefined
+            default: break
             }
+            return productPair?.remoteProduct?.embCodesOriginal ?? .undefined
         }
     }
     
@@ -85,10 +88,13 @@ class SupplyChainTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
-                return productPair?.localProduct?.originsOriginal ?? productPair?.remoteProduct?.originsOriginal ?? .undefined
-            case .remoteTags, .remoteTagsTranslated, .remoteUser:
-                return productPair?.remoteProduct?.originsOriginal ?? .undefined
+                if let checked = checkedTags(productPair?.localProduct?.originsOriginal) {
+                    return checked
+                }
+            // There is no taxonomy
+            default: break
             }
+            return productPair?.remoteProduct?.originsOriginal ?? .undefined
         }
     }
     
@@ -96,10 +102,13 @@ class SupplyChainTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
-                return productPair?.localProduct?.purchasePlacesOriginal ?? productPair?.remoteProduct?.purchasePlacesOriginal ?? .undefined
-            case .remoteTags, .remoteTagsTranslated, .remoteUser:
-                return productPair?.remoteProduct?.purchasePlacesOriginal ?? .undefined
+                if let checked = checkedTags(productPair?.localProduct?.purchasePlacesOriginal) {
+                    return checked
+                }
+            // There is no taxonomy
+            default: break
             }
+            return productPair?.remoteProduct?.purchasePlacesOriginal ?? .undefined
         }
     }
     
@@ -107,12 +116,16 @@ class SupplyChainTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
-                return productPair?.localProduct?.storesOriginal ?? productPair?.remoteProduct?.storesOriginal ?? .undefined
-            case .remoteTags, .remoteTagsTranslated:
-                return productPair?.remoteProduct?.storesInterpreted ?? .undefined
-            case .remoteUser:
-                return productPair?.remoteProduct?.storesOriginal ?? .undefined
+                if let checked = checkedTags(productPair?.localProduct?.storesOriginal) {
+                    return checked
+                }
+            // There is no taxonomy
+            //case .remoteTags, .remoteTagsTranslated:
+            //    return productPair?.remoteProduct?.storesInterpreted ?? .undefined
+            default: break
             }
+            return productPair?.remoteProduct?.storesOriginal ?? .undefined
+
         }
     }
     
@@ -120,18 +133,21 @@ class SupplyChainTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
-                return productPair?.localProduct?.countriesOriginal ?? productPair?.remoteProduct?.countriesTranslated ?? .undefined
+                if let checked = checkedTags(productPair?.localProduct?.countriesOriginal) {
+                    return checked
+                }
             case .remoteTags:
                 return productPair?.remoteProduct?.countriesInterpreted ?? .undefined
-            case .remoteTagsTranslated:
-                if var list = productPair?.remoteProduct?.countriesTranslated.list {
-                    list = list.sorted(by: { $0 < $1 })
-                    return Tags.init(list:list)
-                } else {
-                    return .undefined
-                }
             case .remoteUser:
                 return productPair?.remoteProduct?.countriesOriginal ?? .undefined
+            default: break
+            }
+            // translated countries is default
+            if var list = productPair?.remoteProduct?.countriesTranslated.list {
+                list = list.sorted(by: { $0 < $1 })
+                return Tags.init(list:list)
+            } else {
+                return .undefined
             }
         }
     }
@@ -174,7 +190,13 @@ class SupplyChainTableViewController: UITableViewController {
             return .undefined
         }
     }
-
+    
+    fileprivate func checkedTags(_ tags:Tags?) -> Tags? {
+        if let validTags = tags {
+            return validTags.isAvailable ? validTags : .undefined
+        }
+        return nil
+    }
 
     fileprivate enum SectionType {
         case ingredientOrigin
@@ -517,7 +539,7 @@ class SupplyChainTableViewController: UITableViewController {
                         header = TranslatableStrings.IngredientOriginsEdited
                     default:
                     // if no edits have been made show simple headers
-                        header = TranslatableStrings.IngredientOriginsOriginal
+                        header = TranslatableStrings.IngredientOrigins
                     }
                 } else {
                     header = TranslatableStrings.IngredientOrigins
@@ -535,7 +557,7 @@ class SupplyChainTableViewController: UITableViewController {
                         // the local version has been requested and is available
                         header = TranslatableStrings.ProducerEdited
                     default:
-                        header = TranslatableStrings.ProducerOriginal
+                        header = TranslatableStrings.Producer
                     }
                 } else {
                     header = TranslatableStrings.Producer
@@ -553,7 +575,7 @@ class SupplyChainTableViewController: UITableViewController {
                         // the local version has been requested and is available
                         header = TranslatableStrings.StoresEdited
                     default:
-                        header = TranslatableStrings.StoresOriginal
+                        header = TranslatableStrings.Stores
                     }
                 } else {
                     header = TranslatableStrings.Stores
@@ -571,7 +593,7 @@ class SupplyChainTableViewController: UITableViewController {
                         // the local version has been requested and is available
                         header = TranslatableStrings.PurchaseAddressEdited
                     default:
-                        header = TranslatableStrings.PurchaseAddressOriginal
+                        header = TranslatableStrings.PurchaseAddress
                     }
                 } else {
                     header = TranslatableStrings.PurchaseAddress
@@ -589,7 +611,7 @@ class SupplyChainTableViewController: UITableViewController {
                         // the local version has been requested and is available
                         header = TranslatableStrings.CountriesEdited
                     default:
-                        header = TranslatableStrings.CountriesNormalized
+                        header = TranslatableStrings.Countries
                     }
                 } else {
                     header = TranslatableStrings.Countries
@@ -611,7 +633,7 @@ class SupplyChainTableViewController: UITableViewController {
                         // the local version has been requested and is available
                         header = TranslatableStrings.ProductCodesEdited
                     default:
-                        header = TranslatableStrings.ProductCodesOriginal
+                        header = TranslatableStrings.ProductCodes
                     }
                 } else {
                     header = TranslatableStrings.ProductCodes
@@ -628,7 +650,7 @@ class SupplyChainTableViewController: UITableViewController {
                         // the local version has been requested and is available
                         header = TranslatableStrings.ProductWebSitesEdited
                     } else {
-                        header = TranslatableStrings.ProductWebSitesOriginal
+                        header = TranslatableStrings.ProductWebSites
                     }
                 } else {
                     header = TranslatableStrings.ProductWebSites
@@ -647,7 +669,7 @@ class SupplyChainTableViewController: UITableViewController {
                         // the local version has been requested and is available
                         header = TranslatableStrings.ExpirationDateEdited
                     } else {
-                        header = TranslatableStrings.ExpirationDateOriginal
+                        header = TranslatableStrings.ExpirationDate
                     }
                 } else {
                     header = TranslatableStrings.ExpirationDate
@@ -664,7 +686,7 @@ class SupplyChainTableViewController: UITableViewController {
                     // the local version has been requested and is available
                         header = TranslatableStrings.PeriodAfterOpeningEdited
                     } else {
-                        header = TranslatableStrings.PeriodAfterOpeningOriginal
+                        header = TranslatableStrings.PeriodAfterOpening
                     }
                 } else {
                     header = TranslatableStrings.PeriodAfterOpening

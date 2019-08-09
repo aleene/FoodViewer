@@ -533,9 +533,16 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         switch currentProductSection {
         case .image :
             headerView.changeLanguageButton.isHidden = false
-            if localImageToShow != nil {
-                headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                header = productVersion.isRemote ? TranslatableStrings.NutritionFactsImageOriginal : TranslatableStrings.NutritionFactsImageEdited
+            switch productVersion {
+            case .new:
+                if localImageToShow != nil {
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
+                    header = TranslatableStrings.NutritionFactsImageEdited
+                } else {
+                header = TranslatableStrings.NutritionFactsImage
+                }
+            default:
+                header = TranslatableStrings.NutritionFactsImage
             }
             headerView.changeLanguageButton.tag = 0
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
@@ -548,14 +555,16 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             headerView.changeLanguageButton.isHidden = false
             headerView.changeLanguageButton.tag = 1
             switch productVersion {
-            case .remote:
-                break
             case .new:
                 if let facts = productPair?.localProduct?.nutritionFactsDict,
                     !facts.isEmpty {
                     headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                    header = productVersion.isRemote ? TranslatableStrings.NutritionFactsOriginal : TranslatableStrings.NutritionFactsEdited
+                    header = TranslatableStrings.NutritionFactsEdited
+                } else {
+                    header = TranslatableStrings.NutritionFacts
                 }
+            default:
+                header = TranslatableStrings.NutritionFacts
             }
             headerView.buttonText = currentNutritionFactsTableStyle.description
             headerView.buttonIsEnabled = true
@@ -564,27 +573,48 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             
         case .servingSize:
             headerView.changeLanguageButton.isHidden = true
-            if productPair?.localProduct?.servingSize != nil {
-                headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                header = productVersion.isRemote ? TranslatableStrings.PortionSizeOriginal : TranslatableStrings.PortionSizeEdited
+            switch productVersion {
+            case .new:
+                if productPair?.localProduct?.servingSize != nil {
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
+                    header = TranslatableStrings.PortionSizeEdited
+                } else {
+                    header = TranslatableStrings.PortionSize
+                }
+            default:
+                header = TranslatableStrings.PortionSize
             }
             headerView.title = header
             return headerView
 
         case .perUnit:
             headerView.changeLanguageButton.isHidden = true
-            if productPair?.localProduct?.nutritionFactsIndicationUnit != nil {
-                headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                header = productVersion.isRemote ? TranslatableStrings.PortionSizeOriginal : TranslatableStrings.PortionSizeEdited
+            switch productVersion {
+            case .new:
+                if productPair?.localProduct?.nutritionFactsIndicationUnit != nil {
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
+                    header = TranslatableStrings.PortionSizeEdited
+                } else {
+                    header = TranslatableStrings.PortionSize
+                }
+            default:
+                header = TranslatableStrings.PortionSize
             }
             headerView.title = header
             return headerView
 
         case .noNutrimentsAvailable:
             headerView.changeLanguageButton.isHidden = true
-            if productPair?.localProduct?.nutrimentFactsAvailability != nil {
-                headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                header = productVersion.isRemote ? TranslatableStrings.NoNutrientsOriginal : TranslatableStrings.NoNutrientsEdited
+            switch productVersion {
+            case .new:
+                if productPair?.localProduct?.nutrimentFactsAvailability != nil {
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
+                    header = TranslatableStrings.NoNutrientsEdited
+                } else {
+                    header = TranslatableStrings.NoNutrients
+                }
+            default:
+                header = TranslatableStrings.NoNutrients
             }
             headerView.title = header
             return headerView

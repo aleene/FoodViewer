@@ -84,6 +84,15 @@ public enum Tags : Equatable {
         return self
     }
     
+    public var isAvailable: Bool {
+        switch self {
+        case .available:
+            return true
+        default:
+            return false
+        }
+    }
+
     public static func ==(leftTag: Tags, rightTag: Tags) -> Bool {
         switch leftTag {
         case .available(let leftList):

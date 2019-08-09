@@ -72,10 +72,7 @@ class ProductUpdate: OFFProductUpdateAPI {
             return TagEntryLanguageDefaults.manager.productLanguageNotSystemLanguage ??  true
         }
         let languageCodeForWrite = useProductLanguageCode ? (productLanguageCode ?? interfaceLanguageCode) : interfaceLanguageCode
-        
-        // The OFF interface assumes that values are in english
-        let defaultLanguageCode = "en"
-        
+                
         var urlString = OFFWriteAPI.SecurePrefix
             + ( validProduct.type?.rawValue ?? ProductType.food.rawValue )
             + OFFWriteAPI.Domain

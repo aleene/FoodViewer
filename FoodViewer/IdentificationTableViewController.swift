@@ -188,78 +188,57 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
-    fileprivate var brandsToDisplay: Tags {
-        get {
-            switch productVersion {
-            case .remoteUser:
-                // show the remote brand as entered by the user
-                return productPair?.remoteProduct?.brandsOriginal ?? .undefined
-            case .remoteTags:
-                return productPair?.remoteProduct?.brandsInterpreted ?? .undefined
-            case .new:
-                if let oldTags = productPair?.localProduct?.brandsOriginal {
-                    switch oldTags {
-                    case .available:
-                        return oldTags
-                    default:
-                        break
-                    }
-                }
-                if let oldTags = productPair?.remoteProduct?.brandsOriginal {
-                    switch oldTags {
-                    case .available:
-                        return oldTags
-                    default:
-                        break
-                    }
-                }
-                return .undefined
-            }
-        }
-    }
     
     fileprivate var packagingToDisplay: Tags {
         get {
             switch productVersion {
             case .new:
-                return productPair?.localProduct?.packagingInterpreted ?? productPair?.remoteProduct?.packagingOriginal ?? .undefined
+                if let checked = checkedTags(productPair?.localProduct?.packagingOriginal) {
+                    return checked
+                }
             case .remoteTags:
-                return productPair?.remoteProduct?.packagingInterpreted ?? .undefined
-            case .remoteUser:
-                return productPair?.remoteProduct?.packagingOriginal ?? .undefined
+                return checkedTags(productPair?.remoteProduct?.packagingInterpreted) ?? .undefined
+            default: break
             }
+            return checkedTags(productPair?.remoteProduct?.packagingOriginal) ?? .undefined
         }
     }
     
+    fileprivate var brandsToDisplay: Tags {
+        get {
+            switch productVersion {
+            case .new:
+                if let checked = checkedTags(productPair?.localProduct?.brandsOriginal) {
+                    return checked
+                }
+            case .remoteTags:
+                return checkedTags(productPair?.remoteProduct?.brandsInterpreted) ?? .undefined
+            default: break
+            }
+            return checkedTags(productPair?.remoteProduct?.brandsOriginal) ?? .undefined
+        }
+    }
+
     fileprivate var languagesToDisplay: Tags {
         get {
             switch productVersion {
-            case .remoteUser, .remoteTags:
-                return remoteLanguages
             case .new:
-                return productPair?.localProduct?.languageTags ?? remoteLanguages
+                if let checked = checkedTags(productPair?.localProduct?.languageTags) {
+                    return checked
+                }
+            default: break
             }
+            return checkedTags(productPair?.remoteProduct?.languageTags) ?? .undefined
         }
     }
     
-    private var remoteLanguages: Tags {
-        // show the languageCodes in a localized language
-        return productPair?.remoteProduct?.languageTags ?? .undefined
+    fileprivate func checkedTags(_ tags:Tags?) -> Tags? {
+        if let validTags = tags {
+            return validTags.isAvailable ? validTags : .undefined
+        }
+        return nil
     }
     
-    /*
-    private var remotePackaging: Tags {
-        switch productVersion {
-        case .new:
-            return productPair?.localProduct?.packagingOriginal ?? productPair?.remoteProduct?.packagingOriginal ?? .undefined
-        case .remoteTags, .remoteHierarchy, .remoteTranslated:
-            return productPair?.remoteProduct?.packagingInterpreted ?? .undefined
-        case .remoteUser:
-            return productPair?.remoteProduct?.packagingOriginal ?? .undefined
-        }
-    }
- */
-
     fileprivate var searchResult: String = ""
 
     // MARK: - Action methods
@@ -702,7 +681,7 @@ class IdentificationTableViewController: UITableViewController {
                             // the local version has been requested and is available
                             header = TranslatableStrings.BrandsEdited
                         default:
-                            header = TranslatableStrings.BrandsOriginal
+                            header = TranslatableStrings.Brands
                         }
                     } else {
                         header = TranslatableStrings.Brands
@@ -722,7 +701,7 @@ class IdentificationTableViewController: UITableViewController {
                             // the local version has been requested and is available
                             header = TranslatableStrings.PackagingEdited
                         default:
-                            header = TranslatableStrings.PackagingOriginal
+                            header = TranslatableStrings.Packaging
                         }
                     } else {
                         header = TranslatableStrings.Packaging

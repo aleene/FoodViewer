@@ -35,48 +35,31 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var productVersion: ProductVersion = .new
     
     fileprivate enum SectionType {
-        case ingredients(Int, String)
-        case allergens(Int, String)
-        case minerals(Int, String)
-        case vitamins(Int, String)
-        case nucleotides(Int, String)
-        case otherNutritionalSubstances(Int, String)
-        case traces(Int, String)
-        case labels(Int, String)
-        case additives(Int, String)
-        case aminoAcids(Int, String)
-        case image(Int, String)
-
-        var header: String {
-            switch self {
-            case .ingredients(_, let headerTitle),
-                 .minerals(_, let headerTitle),
-                 .vitamins(_, let headerTitle),
-                 .nucleotides(_, let headerTitle),
-                 .otherNutritionalSubstances(_, let headerTitle),
-                 .allergens(_, let headerTitle),
-                 .traces(_, let headerTitle),
-                 .labels(_, let headerTitle),
-                 .additives(_, let headerTitle),
-                 .aminoAcids(_, let headerTitle),
-                 .image(_, let headerTitle):
-                return headerTitle
-            }
-        }
+        case ingredients(Int)
+        case allergens(Int)
+        case minerals(Int)
+        case vitamins(Int)
+        case nucleotides(Int)
+        case otherNutritionalSubstances(Int)
+        case traces(Int)
+        case labels(Int)
+        case additives(Int)
+        case aminoAcids(Int)
+        case image(Int)
         
         var numberOfRows: Int {
             switch self {
-            case .ingredients(let numberOfRows, _),
-                 .minerals(let numberOfRows, _),
-                 .vitamins(let numberOfRows, _),
-                 .nucleotides(let numberOfRows, _),
-                 .otherNutritionalSubstances(let numberOfRows, _),
-                 .allergens(let numberOfRows, _),
-                 .traces(let numberOfRows, _),
-                 .labels(let numberOfRows, _),
-                 .additives(let numberOfRows, _),
-                 .aminoAcids(let numberOfRows, _),
-                 .image(let numberOfRows, _):
+            case .ingredients(let numberOfRows),
+                 .minerals(let numberOfRows),
+                 .vitamins(let numberOfRows),
+                 .nucleotides(let numberOfRows),
+                 .otherNutritionalSubstances(let numberOfRows),
+                 .allergens(let numberOfRows),
+                 .traces(let numberOfRows),
+                 .labels(let numberOfRows),
+                 .additives(let numberOfRows),
+                 .aminoAcids(let numberOfRows),
+                 .image(let numberOfRows):
                 return numberOfRows
             }
         }
@@ -101,13 +84,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     let validText = text else { return .empty }
                 return Tags.init(text: validText)
             case .remoteTags:
-                return productPair?.remoteProduct?.ingredientsTags ?? .undefined
+                return availableTags(productPair?.remoteProduct?.ingredientsTags) ?? .undefined
             case .remoteTagsTranslated:
-                return productPair?.remoteProduct?.ingredientsTranslated ?? .undefined
+                return availableTags(productPair?.remoteProduct?.ingredientsTranslated) ?? .undefined
             case .remoteTagsHierarchy:
-                return productPair?.remoteProduct?.ingredientsHierarchy ?? .undefined
+                return availableTags(productPair?.remoteProduct?.ingredientsHierarchy) ?? .undefined
             case .remoteTagsHierarchyTranslated:
-                return productPair?.remoteProduct?.ingredientsHierarchyTranslated ?? .undefined
+                return availableTags(productPair?.remoteProduct?.ingredientsHierarchyTranslated) ?? .undefined
             default:
                 // always show the remote ingredients
                 guard let validLanguageCode = displayLanguageCode,
@@ -123,10 +106,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .remoteTags:
-                return productPair?.remoteProduct?.allergensInterpreted ?? .undefined
+                return availableTags(productPair?.remoteProduct?.allergensInterpreted) ?? .undefined
             default:
-                return productPair?.remoteProduct?.allergensTranslated ?? .undefined
-
+                return availableTags(productPair?.remoteProduct?.allergensTranslated) ?? .undefined
             }
         }
     }
@@ -135,9 +117,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .remoteTags:
-                return productPair?.remoteProduct?.minerals ?? .undefined
+                return availableTags(productPair?.remoteProduct?.minerals) ?? .undefined
             default:
-                return productPair?.remoteProduct?.mineralsTranslated ?? .undefined
+                return availableTags(productPair?.remoteProduct?.mineralsTranslated) ?? .undefined
             }
         }
     }
@@ -146,9 +128,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .remoteTags:
-                return productPair?.remoteProduct?.vitamins ?? .undefined
+                return availableTags(productPair?.remoteProduct?.vitamins) ?? .undefined
             default:
-                return productPair?.remoteProduct?.vitaminsTranslated ?? .undefined
+                return availableTags(productPair?.remoteProduct?.vitaminsTranslated) ?? .undefined
             }
         }
     }
@@ -157,9 +139,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .remoteTags:
-                return productPair?.remoteProduct?.nucleotides ?? .undefined
+                return availableTags(productPair?.remoteProduct?.nucleotides) ?? .undefined
             default:
-                return productPair?.remoteProduct?.nucleotidesTranslated ?? .undefined
+                return availableTags(productPair?.remoteProduct?.nucleotidesTranslated) ?? .undefined
             }
         }
     }
@@ -167,13 +149,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var otherNutritionalSubstancesToDisplay: Tags {
         get {
             switch productVersion {
-            case .new:
-                // local other nutritional substances do not exist
-                return productPair?.remoteProduct?.otherNutritionalSubstancesTranslated ?? .undefined
             case .remoteTags:
-                return productPair?.remoteProduct?.otherNutritionalSubstances ?? .undefined
+                return availableTags(productPair?.remoteProduct?.otherNutritionalSubstances) ?? .undefined
             default:
-                return productPair?.remoteProduct?.otherNutritionalSubstancesTranslated ?? .undefined
+                return availableTags(productPair?.remoteProduct?.otherNutritionalSubstancesTranslated) ?? .undefined
             }
         }
     }
@@ -182,14 +161,16 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .new:
-                return productPair?.localProduct?.tracesOriginal ?? productPair?.remoteProduct?.tracesTranslated ?? .undefined
+                if let checked = availableTags(productPair?.localProduct?.tracesOriginal) {
+                    return checked
+                }
             case .remoteTags:
-                return productPair?.remoteProduct?.tracesInterpreted ?? .undefined
+                return availableTags(productPair?.remoteProduct?.tracesInterpreted) ?? .undefined
             case .remoteUser:
-                return productPair?.remoteProduct?.tracesOriginal ?? .undefined
-            default:
-                return productPair?.remoteProduct?.tracesTranslated ?? .undefined
+                return availableTags(productPair?.remoteProduct?.tracesOriginal) ?? .undefined
+            default: break
             }
+            return availableTags(productPair?.remoteProduct?.tracesTranslated) ?? .undefined
         }
     }
     
@@ -197,9 +178,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .remoteTags:
-                return productPair?.remoteProduct?.additivesInterpreted ?? .undefined
+                return availableTags(productPair?.remoteProduct?.additivesInterpreted) ?? .undefined
             default:
-                return productPair?.remoteProduct?.additivesTranslated ?? .undefined
+                return availableTags(productPair?.remoteProduct?.additivesTranslated) ?? .undefined
             }
         }
     }
@@ -208,9 +189,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .remoteTags:
-                return productPair?.remoteProduct?.aminoAcids ?? .undefined
+                return availableTags(productPair?.remoteProduct?.aminoAcids) ?? .undefined
             default:
-                return productPair?.remoteProduct?.aminoAcidsTranslated ?? .undefined
+                return availableTags(productPair?.remoteProduct?.aminoAcidsTranslated) ?? .undefined
             }
         }
     }
@@ -219,16 +200,24 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .new:
-                return productPair?.localProduct?.labelsOriginal ?? productPair?.remoteProduct?.labelsTranslated ?? .undefined
+                if let checked = availableTags(productPair?.localProduct?.labelsOriginal) {
+                    return checked
+                }
             case .remoteTags:
-                return productPair?.remoteProduct?.labelsInterpreted ?? .undefined
+                return availableTags(productPair?.remoteProduct?.labelsInterpreted) ?? .undefined
             case .remoteUser:
-                return productPair?.remoteProduct?.labelsOriginal ?? .undefined
-            default:
-                return productPair?.remoteProduct?.labelsTranslated ?? .undefined
-
+                return availableTags(productPair?.remoteProduct?.labelsOriginal) ?? .undefined
+            default: break
             }
+            return availableTags(productPair?.remoteProduct?.labelsTranslated) ?? .undefined
         }
+    }
+
+    fileprivate func availableTags(_ tags:Tags?) -> Tags? {
+        if let validTags = tags {
+            return validTags.isAvailable ? validTags : .undefined
+        }
+        return nil
     }
 
     fileprivate var searchResult: String = ""
@@ -514,22 +503,23 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         headerView.delegate = self
         headerView.changeViewModeButton.isHidden = true
         headerView.buttonNotDoubleTap = buttonNotDoubleTap
-        var header = tableStructure[section].header
+        var header = ""
 
         switch currentProductSection {
         case .image, .ingredients : // Header with a language
             headerView.changeLanguageButton.isHidden = true
             switch currentProductSection {
             case .image:
-                header = TranslatableStrings.IngredientsImage
-                guard localImageToShow != nil else { break }
                 headerView.changeLanguageButton.isHidden = false
                 switch productVersion {
                 case .new:
+                    if localImageToShow != nil {
                     // the local version has been requested and is available
-                    header = TranslatableStrings.IngredientsImageEdited
+                        header = TranslatableStrings.IngredientsImageEdited
+                    } else {
+                        header = TranslatableStrings.IngredientsImage
+                    }
                 default:
-                    // the local version has been requested and is available
                     header = TranslatableStrings.IngredientsImageOriginal
                 }
                 headerView.title = header + " - "
@@ -579,7 +569,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                                 // the local version has been requested and is available
                                 header = TranslatableStrings.LabelsEdited
                             default:
-                                header = TranslatableStrings.LabelsOriginal
+                                header = TranslatableStrings.Labels
                             }
                         } else {
                             header = TranslatableStrings.Labels
@@ -601,7 +591,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                                 // the local version has been requested and is available
                                 header = TranslatableStrings.TracesEdited
                             default:
-                                header = TranslatableStrings.TracesOriginal
+                                header = TranslatableStrings.Traces
                             }
                         } else {
                             header = TranslatableStrings.Traces
@@ -714,18 +704,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             static let Labels = 1
             static let Image = 1
         }
-        struct Header {
-            static let Ingredients = TranslatableStrings.Ingredients
-            static let Minerals = TranslatableStrings.DetectedMinerals
-            static let Vitamins = TranslatableStrings.DetectedVitamins
-            static let Nucleotides = TranslatableStrings.DetectedNucleotides
-            static let OtherNutritionalSubstances = TranslatableStrings.DetectedOtherNutritionalSubstances
-            static let Allergens = TranslatableStrings.DetectedAllergens
-            static let Traces = TranslatableStrings.Traces
-            static let Additives = TranslatableStrings.DetectedAdditives
-            static let Labels = TranslatableStrings.Labels
-            static let Image = TranslatableStrings.IngredientsImage
-        }
     }
     
     private var currentProductType: ProductType {
@@ -743,40 +721,40 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
 
-        sectionsAndRows.append(.ingredients(TableSection.Size.Ingredients, TableSection.Header.Ingredients))
+        sectionsAndRows.append(.ingredients(TableSection.Size.Ingredients))
         // not needed for .product, .petFood and .beauty
         switch currentProductType {
         case .food:
             // 1:  allergens section
             if validProductPair.hasAllergens || show {
-                sectionsAndRows.append(.allergens(TableSection.Size.Allergens, TableSection.Header.Allergens))
+                sectionsAndRows.append(.allergens(TableSection.Size.Allergens))
             }
             if validProductPair.hasTraces || show {
                 // 2: traces section
-                sectionsAndRows.append(.traces(TableSection.Size.Traces, TableSection.Header.Traces))
+                sectionsAndRows.append(.traces(TableSection.Size.Traces))
             }
             
             if validProductPair.hasMinerals || show {
-                sectionsAndRows.append(.minerals(TableSection.Size.Minerals, TableSection.Header.Minerals))
+                sectionsAndRows.append(.minerals(TableSection.Size.Minerals))
             }
             if validProductPair.hasVitamins || show {
-                sectionsAndRows.append(.vitamins(TableSection.Size.Vitamins, TableSection.Header.Vitamins))
+                sectionsAndRows.append(.vitamins(TableSection.Size.Vitamins))
             }
             if validProductPair.hasNucleotides || show {
-                sectionsAndRows.append(.minerals(TableSection.Size.Nucleotides, TableSection.Header.Nucleotides))
+                sectionsAndRows.append(.minerals(TableSection.Size.Nucleotides))
             }
             if validProductPair.hasOtherNutritionalSubstances || show {
-                sectionsAndRows.append(.otherNutritionalSubstances(TableSection.Size.OtherNutritionalSubstances, TableSection.Header.OtherNutritionalSubstances))
+                sectionsAndRows.append(.otherNutritionalSubstances(TableSection.Size.OtherNutritionalSubstances))
             }
 
         default :
             break
         }
         if productPair!.hasAdditives {
-            sectionsAndRows.append(.additives(TableSection.Size.Additives, TableSection.Header.Additives))
+            sectionsAndRows.append(.additives(TableSection.Size.Additives))
         }
-        sectionsAndRows.append(.labels(TableSection.Size.Labels, TableSection.Header.Labels))
-        sectionsAndRows.append(.image(TableSection.Size.Image, TableSection.Header.Image))
+        sectionsAndRows.append(.labels(TableSection.Size.Labels))
+        sectionsAndRows.append(.image(TableSection.Size.Image))
         
         return sectionsAndRows
     }
@@ -1390,11 +1368,11 @@ extension IngredientsTableViewController: TagListViewDataSource {
             return vitaminsToDisplay.tag(at:index)!
         case .nucleotides:
             return nucleotidesToDisplay.tag(at:index)!
-        case .otherNutritionalSubstances(_, _):
+        case .otherNutritionalSubstances:
             return otherNutritionalSubstancesToDisplay.tag(at:index)!
         case .ingredients:
             return ingredientsToDisplay.tag(at:index)!
-        case .aminoAcids(_, _):
+        case .aminoAcids:
             return aminoAcidsToDisplay.tag(at:index)!
 
         }
