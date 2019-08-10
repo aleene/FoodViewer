@@ -183,6 +183,7 @@ static let DetectedMinerals = NSLocalizedString("Detected Minerals", comment: "T
     static let GoodNutrients = NSLocalizedString("Good nutrients", comment: "Header for a table section showing the appreciations of the good nutrients")
     
     //static let Hierarchy = NSLocalizedString("Hierarchy", comment: "Description of the hierarchy tags in the json")
+    static let History = NSLocalizedString("History", comment: "Title of the secnd Tabbar item of a TabBarVC")
     static let HunderdMgMl = NSLocalizedString("100 mg/ml", comment: "Title of first segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)")
 
 //
@@ -411,12 +412,14 @@ static let DetectedMinerals = NSLocalizedString("Detected Minerals", comment: "T
     static let SaltOrSodiumPreference = NSLocalizedString("Default for salt/sodium", comment: "Title of a tableView section, which lets the user select between salt or sodium")
     static let SampleGenericProductName = NSLocalizedString("This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.", comment: "An explanatory text in the common name field.")
     static let SampleProductName = NSLocalizedString("Sample Product for Demonstration, the globally known M&M's", comment: "Product name of the product shown at first start")
+    static let Scanner = NSLocalizedString("Scanner", comment: "Title of the first tab of a tabbarVC")
     static let ScanInstruction = NSLocalizedString("Point the camera to the barcode of a product to recognize the product and get the product information.", comment: "Text to show if the user selects the scan tab")
     static let SaturatedFatToFatRatio = NSLocalizedString("Saturated Fat to Total Fat ratio", comment: "Title in cell with the saturated fat to all fat ratio")
     static let SaturatedFatLevel = NSLocalizedString("Saturated Fat level", comment: "Text of a label that will indicate the saturated fat level (low/medium/high) by colour.")
     static let Save = NSLocalizedString("Save", comment: "Title of a button in an alert sheet, which allows the user to save any changes to the local product")
     // static let Search = NSLocalizedString("Search", comment: "Prefix of a title of a Tableview controller")
     static let ScoreSummary = NSLocalizedString("Score Summary", comment: "Title of a tableview header, which shows the Nutrition Score and Nova Value")
+    static let Search = NSLocalizedString("Search", comment: "Title of the third Tabbar item of a TabBarVC, which alows he user to set up and perform OFF searches")
     static let SearchFoodProducts = NSLocalizedString("Search Food Products", comment: "Title of a Tableview controller, indicating the tableview shows search food products.")
     static let SearchProducts = NSLocalizedString("Search Products", comment: "Title of a Tableview controller, indicating the tableview shows search products.")
     //static let SearchInNameEtc = NSLocalizedString("Search in name, generic name, label, brand.", comment: "String show to explain the purpose of a search field in a tableview cell")

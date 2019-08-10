@@ -10,6 +10,9 @@
 /* Added to a tableview section header to indicated the item has been edited. */
 "(Edited)" = "(Edité)";
 
+/* Title of a butoon which adds ℮ at the end of the string. */
+"+ ℮" = "";
+
 /* Image to indicate that the user who created the product. */
 "❤️" = "❤️";
 
@@ -436,6 +439,9 @@
 
 /* Description of the hierarchy tags in the json */
 "Hierarchy" = "Hierarchie";
+
+/* Title of the secnd Tabbar item of a TabBarVC */
+"History" = "Histoire";
 
 /* Title for the view controller with the product image, title, etc. */
 "Identification" = "Identification";
@@ -949,10 +955,14 @@
 /* The title of an alert sheet, which allows the user to save he product. */
 "Save Product Updates?" = "Sauvegarder?";
 
+/* Title of the first tab of a tabbarVC */
+"Scanner" = "Scanner";
+
 /* Title of a tableview header, which shows the Nutrition Score and Nova Value */
 "Score Summary" = "Sommaire nutri-score";
 
-/* Prefix of a title of a Tableview controller */
+/* Prefix of a title of a Tableview controller
+   Title of the third Tabbar item of a TabBarVC, which alows he user to set up and perform OFF searches */
 "Search" = "Cherche";
 
 /* Title of a Tableview controller, indicating the tableview shows search beauty products. */

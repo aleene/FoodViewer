@@ -437,6 +437,9 @@
 /* Description of the hierarchy tags in the json */
 "Hierarchy" = "Hierarchie";
 
+/* Title of the secnd Tabbar item of a TabBarVC */
+"History" = "Geschichte";
+
 /* Title for the view controller with the product image, title, etc. */
 "Identification" = "Identification";
 
@@ -663,6 +666,9 @@
 
 /* Generic text if a value has not yet been set. */
 "Not set" = "nicht eingestellt";
+
+/* Text above the nova value. */
+"NOVA" = "NOVA";
 
 /* Title of a table section, which shows the nova evaluation tags for ingredients, additives and categories. */
 "Nova Evaluation Triggers" = "NOVA Auswertungsauslöser";
@@ -946,10 +952,14 @@
 /* The title of an alert sheet, which allows the user to save he product. */
 "Save Product Updates?" = "Produktupdates speichern";
 
+/* Title of the first tab of a tabbarVC */
+"Scanner" = "Scanner";
+
 /* Title of a tableview header, which shows the Nutrition Score and Nova Value */
 "Score Summary" = "Beurteilungszusammenfassung";
 
-/* Prefix of a title of a Tableview controller */
+/* Prefix of a title of a Tableview controller
+   Title of the third Tabbar item of a TabBarVC, which alows he user to set up and perform OFF searches */
 "Search" = "Suchen";
 
 /* Title of a Tableview controller, indicating the tableview shows search beauty products. */

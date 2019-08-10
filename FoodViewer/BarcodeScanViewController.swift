@@ -441,6 +441,13 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
             // start out with the recents tab
             tabVC.selectedIndex = 0
             tabVC.delegate = self
+            if let controllers = tabVC.viewControllers,
+                controllers.count > 3 {
+                controllers[0].tabBarItem?.title = TranslatableStrings.Scanner
+                controllers[1].tabBarItem?.title = TranslatableStrings.History
+                controllers[2].tabBarItem?.title = TranslatableStrings.Search
+                controllers[3].tabBarItem?.title = TranslatableStrings.Preferences
+            }
         }
     }
     
