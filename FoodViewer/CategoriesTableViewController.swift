@@ -33,9 +33,9 @@ class CategoriesTableViewController: UITableViewController {
     fileprivate enum ProductVersion {
         case remoteUser // data as entered by the user
         case remoteTags // data interpreted by off
-        case remoteTagsHierarchy // tags with parents?
+        //case remoteTagsHierarchy // tags with parents?
         case remoteTagsTranslated // tags with parents?
-        case remoteTagsHierarchyTranslated // tags with parents?
+        //case remoteTagsHierarchyTranslated // tags with parents?
         case new // new data as entered by the user locally
         
         var isRemote: Bool {
@@ -67,10 +67,10 @@ class CategoriesTableViewController: UITableViewController {
                 }
             case .remoteTags:
                 return productPair?.remoteProduct?.categoriesInterpreted ?? .undefined
-            case .remoteTagsHierarchy:
-                return productPair?.remoteProduct?.categoriesHierarchy ?? .undefined
-            case .remoteTagsHierarchyTranslated:
-                return productPair?.remoteProduct?.categoriesHierarchyTranslated ?? .undefined
+            //case .remoteTagsHierarchy:
+            //    return productPair?.remoteProduct?.categoriesHierarchy ?? .undefined
+            //case .remoteTagsHierarchyTranslated:
+            //    return productPair?.remoteProduct?.categoriesHierarchyTranslated ?? .undefined
             case .remoteUser:
                 return productPair?.remoteProduct?.categoriesOriginal ?? .undefined
             default: break
@@ -178,10 +178,10 @@ class CategoriesTableViewController: UITableViewController {
                 header = TranslatableStrings.CategoriesNormalized
             case .remoteTagsTranslated:
                 header = TranslatableStrings.CategoriesTranslated
-            case .remoteTagsHierarchy:
-                header = TranslatableStrings.CategoriesHierarchy
-            case .remoteTagsHierarchyTranslated:
-                header = TranslatableStrings.CategoriesHierarchyTranslated
+            //case .remoteTagsHierarchy:
+                //header = TranslatableStrings.CategoriesHierarchy
+            //case .remoteTagsHierarchyTranslated:
+                //header = TranslatableStrings.CategoriesHierarchyTranslated
             }
         }
         headerView.title = header
@@ -231,7 +231,7 @@ class CategoriesTableViewController: UITableViewController {
             productVersion = .remoteTags
         case .remoteTags:
             productVersion = .remoteTagsTranslated
-        case .remoteTagsTranslated, .remoteTagsHierarchy, .remoteTagsHierarchyTranslated:
+        case .remoteTagsTranslated:
             productVersion = .remoteUser
         case .remoteUser:
             productVersion = productPair?.localProduct != nil ? .new : .remoteTags
