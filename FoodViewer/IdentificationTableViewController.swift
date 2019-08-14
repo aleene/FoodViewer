@@ -10,14 +10,6 @@ import UIKit
 import MobileCoreServices
 
 class IdentificationTableViewController: UITableViewController {
-
-    private struct TextConstants {
-        static let ShowIdentificationTitleX = TranslatableStrings.Image
-        static let ViewControllerTitleX = TranslatableStrings.Identification
-        static let NoCommonNameX = TranslatableStrings.NoGenericNameAvailable
-        static let NoNameX = TranslatableStrings.NoName
-        static let NoQuantityX = TranslatableStrings.NoQuantityAvailable
-    }
     
     // MARK: - public variables
     
@@ -74,7 +66,7 @@ class IdentificationTableViewController: UITableViewController {
     
     fileprivate enum ProductVersion {
         case remoteUser // data as entered by the user
-        case remoteTags // data interpreted by off
+        //case remoteTags // data interpreted by off
         case new // new data as entered by the user locally
         
         var isRemote: Bool {
@@ -123,7 +115,7 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var nameToDisplay: Tags {
         get {
             switch productVersion {
-            case .remoteUser, .remoteTags:
+            case .remoteUser:
                 // always show the remote product name
                 guard let validLanguageCode = displayLanguageCode else { return .empty }
                 guard let text = productPair?.remoteProduct?.nameLanguage[validLanguageCode] else { return .empty }
@@ -143,7 +135,7 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var genericNameToDisplay: Tags {
         get {
             switch productVersion {
-            case .remoteUser, .remoteTags:
+            case .remoteUser:
             // always show the remote product name
                 guard let validLanguageCode = displayLanguageCode else { return .empty }
                 guard let text = productPair?.remoteProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
@@ -162,7 +154,7 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var primaryLanguageCodeToDisplay: String {
         get {
             switch productVersion {
-            case .remoteUser, .remoteTags:
+            case .remoteUser:
                 // show the remote language
                 return productPair?.remoteProduct?.primaryLanguageCode ?? productPair?.localProduct?.primaryLanguageCode ?? TranslatableStrings.QuestionMark
             case .new:
@@ -175,7 +167,7 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var quantityToDisplay: Tags {
         get {
             switch productVersion {
-            case .remoteUser, .remoteTags:
+            case .remoteUser:
                 // show the remote quantity
                 guard let text = productPair?.remoteProduct?.quantity else { return .empty }
                 return Tags.init(text: text)
@@ -689,10 +681,11 @@ class IdentificationTableViewController: UITableViewController {
                     } else {
                         header = TranslatableStrings.Brands
                     }
-                case .remoteUser:
+                default:
+                //case .remoteUser:
                     header = TranslatableStrings.BrandsOriginal
-                case .remoteTags:
-                    header = TranslatableStrings.BrandsInterpreted
+                //case .remoteTags:
+                //    header = TranslatableStrings.BrandsInterpreted
                 }
                 
             case .packaging:
@@ -709,10 +702,11 @@ class IdentificationTableViewController: UITableViewController {
                     } else {
                         header = TranslatableStrings.Packaging
                     }
-                case .remoteUser:
+                default:
+                //case .remoteUser:
                     header = TranslatableStrings.PackagingOriginal
-                case .remoteTags:
-                    header = TranslatableStrings.PackagingInterpreted
+                //case .remoteTags:
+                //    header = TranslatableStrings.PackagingInterpreted
                 }
                 
             case .quantity:
@@ -1056,11 +1050,9 @@ class IdentificationTableViewController: UITableViewController {
         // double tapping implies cycling through the product possibilities
         switch productVersion {
         case .new:
-            productVersion = .remoteTags
-        case .remoteTags:
             productVersion = .remoteUser
         case .remoteUser:
-            productVersion = productPair?.localProduct != nil ? .new : .remoteTags
+            productVersion = .new
         }
         tableView.reloadData()
     }

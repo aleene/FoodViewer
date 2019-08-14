@@ -57,6 +57,13 @@ public struct NutritionFactItem {
     struct Constants {
         static let CaloriesPerJoule = Float(4.2)
     }
+    
+    public var value: Double? {
+        if let validString = standardValue {
+            return Double(validString)
+        }
+        return nil
+    }
 
     func valueInCalories(_ stringValue: String?) -> String {
         

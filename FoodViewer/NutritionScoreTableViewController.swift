@@ -90,7 +90,7 @@ class NutritionScoreTableViewController: UITableViewController {
         struct Size {
             static let Summary = 1
             static let ScoreUK = 8
-            static let ScoreFrance = 10
+            static let ScoreFrance = 11
             static let Nova = 4
         }
         struct Header {
@@ -141,58 +141,90 @@ class NutritionScoreTableViewController: UITableViewController {
         case .score:
             switch indexPath.row {
             case 1...4:
-                let index = indexPath.row - 1
+                var key = ""
+                switch indexPath.row - 1 {
+                case 0:
+                    key = Nutrient.energy.key
+                case 1:
+                    key = Nutrient.saturatedFat.key
+                case 2:
+                    key = Nutrient.sugars.key
+                default:
+                    key = Nutrient.sodium.key
+                }
                 switch showNutritionalScore {
                 case .france:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath) as? LeftNutrimentScoreTableViewCell
-                    if let score = productPair?.remoteProduct?.nutritionalScoreFR?.pointsA {
-                        cell!.nutrimentScore = (score[index].nutriment, score[index].points, 10, 0, .bad)
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath) as! LeftNutrimentScoreTableViewCell
+                    if let score = productPair?.remoteProduct?.nutritionalScoreFRDecoded?.pointsA[key] {
+                        cell.nutrimentScore = score
+                        cell.numBars = 10
+                        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
                     } else {
-                        cell!.nutrimentScore = nil
+                        cell.nutrimentScore = nil
                     }
-                    return cell!
+                    return cell
                 case .uk:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath) as? LeftNutrimentScoreTableViewCell
-                    if let score = productPair?.remoteProduct?.nutritionalScoreUK?.pointsA {
-                        cell!.nutrimentScore = (score[index].nutriment, score[index].points, 10, 0, .bad)
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath) as! LeftNutrimentScoreTableViewCell
+                    if let score = productPair?.remoteProduct?.nutritionalScoreUKDecoded?.pointsA[key] {
+                        cell.nutrimentScore = score
+                        cell.numBars = 10
+                        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
                     } else {
-                        cell!.nutrimentScore = nil
+                        cell.nutrimentScore = nil
                     }
-                    return cell!
+                    return cell
                 }
             case 5...7:
-                let index = indexPath.row - 5
+                var key = ""
+                switch indexPath.row - 5 {
+                case 0:
+                    key = Nutrient.fiber.key
+                case 1:
+                    key = Nutrient.proteins.key
+                default:
+                    key = Nutrient.fruitsVegetablesNuts.key
+                }
+
                 switch showNutritionalScore {
                 case .france:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath) as? NutrimentScoreTableViewCell
-                    if let score = productPair?.remoteProduct?.nutritionalScoreFR?.pointsC {
-                        cell!.nutrimentScore = (score[index].nutriment, score[index].points, 5, 0, .good)
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath) as! NutrimentScoreTableViewCell
+                    if let score = productPair?.remoteProduct?.nutritionalScoreFRDecoded?.pointsC[key] {
+                        cell.nutrimentScore = score
+                        cell.numBars = 5
+                        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
                     } else {
-                        cell!.nutrimentScore = nil
+                        cell.nutrimentScore = nil
                     }
-                    return cell!
+                    return cell
                 case .uk:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath) as? NutrimentScoreTableViewCell
-                    if let score = productPair?.remoteProduct?.nutritionalScoreUK?.pointsC {
-                        cell!.nutrimentScore = (score[index].nutriment, score[index].points, 5, 0, .good)
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath) as! NutrimentScoreTableViewCell
+                    if let score = productPair?.remoteProduct?.nutritionalScoreUKDecoded?.pointsC[key] {
+                        cell.nutrimentScore = score
+                        cell.numBars = 5
+                        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
                     } else {
-                        cell!.nutrimentScore = nil
+                        cell.nutrimentScore = nil
                     }
-                    return cell!
+                    return cell
                 }
             case 8:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath) as? ProductCategoryTableViewCell
-                cell!.belongsToCategory = productPair?.remoteProduct?.nutritionalScoreFR?.cheese
+                cell!.belongsToCategory = productPair?.remoteProduct?.nutritionalScoreFRDecoded?.isCheese
                 cell!.belongsToCategoryTitle = TranslatableStrings.CheesesCategory
                 return cell!
             case 9:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath)as? ProductCategoryTableViewCell
-                cell!.belongsToCategory = productPair?.remoteProduct?.nutritionalScoreFR?.beverage
+                cell!.belongsToCategory = productPair?.remoteProduct?.nutritionalScoreFRDecoded?.isBeverage
                 cell?.belongsToCategoryTitle = TranslatableStrings.BeveragesCategory
+                return cell!
+            case 10:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath)as? ProductCategoryTableViewCell
+                cell!.belongsToCategory = productPair?.remoteProduct?.nutritionalScoreFRDecoded?.isFat
+                cell?.belongsToCategoryTitle = TranslatableStrings.FatCategory
                 return cell!
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ColourCodedNutritionalScore, for: indexPath)as! ColourCodedNutritionalScoreTableViewCell
-                cell.score = productPair?.remoteProduct?.nutritionalScoreFR?.total
+                cell.score = productPair?.remoteProduct?.nutritionalScoreFRDecoded?.total
                 cell.delegate = delegate
                 return cell
             }

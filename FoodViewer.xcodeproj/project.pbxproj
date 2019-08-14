@@ -29,7 +29,6 @@
 		510D9FC31E72B8BD00B95B1B /* LocalizedNutritionalScoreFR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC21E72B8BD00B95B1B /* LocalizedNutritionalScoreFR.swift */; };
 		510D9FC51E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC41E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift */; };
 		510D9FC81E742E7800B95B1B /* NutritionFactUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC71E742E7800B95B1B /* NutritionFactUnitTest.swift */; };
-		510D9FCA1E7431B400B95B1B /* NutritionalScoreUK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC91E7431B400B95B1B /* NutritionalScoreUK.swift */; };
 		510DB60B205AF02500782DEE /* NutritionFactsLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510DB60A205AF02500782DEE /* NutritionFactsLabelStyle.swift */; };
 		5114592B1CB1368F00D25116 /* CompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592A1CB1368E00D25116 /* CompletionStatus.swift */; };
 		5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592C1CB1385100D25116 /* Taxonomy.swift */; };
@@ -285,6 +284,7 @@
 		51C2FF8C20E5081200B65509 /* UIButton+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF8420E5081100B65509 /* UIButton+Haneke.swift */; };
 		51C2FF8D20E5081200B65509 /* UIImage+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF8520E5081200B65509 /* UIImage+Haneke.swift */; };
 		51C2FF8E20E5081200B65509 /* String+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF8620E5081200B65509 /* String+Haneke.swift */; };
+		51C62E8E22FF101700F1BE91 /* NutriScoreFrance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C62E8D22FF101700F1BE91 /* NutriScoreFrance.swift */; };
 		51C769B41DDA0D010000D260 /* CaseCountable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C769B31DDA0D010000D260 /* CaseCountable.swift */; };
 		51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */; };
 		51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */; };
@@ -408,7 +408,6 @@
 		510D9FC21E72B8BD00B95B1B /* LocalizedNutritionalScoreFR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedNutritionalScoreFR.swift; sourceTree = "<group>"; };
 		510D9FC41E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreTestSuite.swift; sourceTree = "<group>"; };
 		510D9FC71E742E7800B95B1B /* NutritionFactUnitTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactUnitTest.swift; sourceTree = "<group>"; };
-		510D9FC91E7431B400B95B1B /* NutritionalScoreUK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreUK.swift; sourceTree = "<group>"; };
 		510DB60A205AF02500782DEE /* NutritionFactsLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NutritionFactsLabelStyle.swift; path = Model/NutritionFactsLabelStyle.swift; sourceTree = "<group>"; };
 		5114592A1CB1368E00D25116 /* CompletionStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatus.swift; sourceTree = "<group>"; };
 		5114592C1CB1385100D25116 /* Taxonomy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Taxonomy.swift; sourceTree = "<group>"; };
@@ -688,6 +687,7 @@
 		51C2FF8420E5081100B65509 /* UIButton+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Haneke.swift"; sourceTree = "<group>"; };
 		51C2FF8520E5081200B65509 /* UIImage+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Haneke.swift"; sourceTree = "<group>"; };
 		51C2FF8620E5081200B65509 /* String+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Haneke.swift"; sourceTree = "<group>"; };
+		51C62E8D22FF101700F1BE91 /* NutriScoreFrance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NutriScoreFrance.swift; path = Model/NutriScoreFrance.swift; sourceTree = "<group>"; };
 		51C769B31DDA0D010000D260 /* CaseCountable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaseCountable.swift; sourceTree = "<group>"; };
 		51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatesTableViewController.swift; sourceTree = "<group>"; };
@@ -870,7 +870,6 @@
 			isa = PBXGroup;
 			children = (
 				510D9FBF1E72B20C00B95B1B /* NutritionalScore.swift */,
-				510D9FC91E7431B400B95B1B /* NutritionalScoreUK.swift */,
 				5125AB881D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift */,
 				511C6ECD1D0C6E1D00E2E318 /* NutritionalScoreFR.swift */,
 				510D9FC21E72B8BD00B95B1B /* LocalizedNutritionalScoreFR.swift */,
@@ -1502,6 +1501,7 @@
 				519ACDFE1D9960C100B81D11 /* Defaults */,
 				51578C081DB23177005BEEF6 /* OFF */,
 				511459301CB1389C00D25116 /* Taxonomy */,
+				51C62E8D22FF101700F1BE91 /* NutriScoreFrance.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1808,7 +1808,6 @@
 				5193DC101F3E1A79009EE70B /* GalleryCollectionViewCell.swift in Sources */,
 				5104F4A81F9E5400008D074F /* SetLastEditDateViewController.swift in Sources */,
 				511DB4411E0ADC03009D4A4B /* ColorScheme.swift in Sources */,
-				510D9FCA1E7431B400B95B1B /* NutritionalScoreUK.swift in Sources */,
 				51E614941C8349AD00DAEE6C /* History.swift in Sources */,
 				51216E2A20B5ABAE004D356C /* NutritionFactsTableStyleSetter.swift in Sources */,
 				517BF2C61E44AF3800876E24 /* DynamicCustomSegue.swift in Sources */,
@@ -1920,6 +1919,7 @@
 				51F9665E202D9E4000CD58C3 /* OFFProductStates.swift in Sources */,
 				517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */,
 				5108280D210A3CD40089977D /* PendingOperations.swift in Sources */,
+				51C62E8E22FF101700F1BE91 /* NutriScoreFrance.swift in Sources */,
 				5125AB891D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift in Sources */,
 				51E1C36E2046C79E00CB68B1 /* ProductUpdate.swift in Sources */,
 				5174997E22098A9D00C3ED3E /* OFFSearchProducts.swift in Sources */,

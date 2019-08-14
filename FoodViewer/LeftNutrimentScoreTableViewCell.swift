@@ -10,38 +10,60 @@ import UIKit
 
 class LeftNutrimentScoreTableViewCell: UITableViewCell {
     
-    enum NutritionScoreType {
-        case good
-        case bad
-    }
-        
-    var nutrimentScore: (String, Int, Int, Int, NutritionScoreType)? = nil {
+    var nutrimentScore : NutritionalScore.NutrimentScore? = nil {
         didSet {
-            guard nutrimentScore != nil else { return }
-            nutrimentLabel.text = nutrimentScore!.0
-                
-            nutrimentScoreBarGaugeView.maxLimit = Float(nutrimentScore!.2)
-            nutrimentScoreBarGaugeView.numBars = nutrimentScore!.2
-            nutrimentScoreBarGaugeView.value = Float(nutrimentScore!.1)
-            nutrimentValue.text = "\(nutrimentScore!.1)"
-            nutrimentScoreBarGaugeView.dangerThreshold = nutrimentScoreBarGaugeView.maxLimit
-            nutrimentScoreBarGaugeView.warnThreshold = nutrimentScoreBarGaugeView.maxLimit
-                
-            switch nutrimentScore!.4 {
-            case .bad:
-                nutrimentScoreBarGaugeView.reverse = false
-                nutrimentScoreBarGaugeView.normalBarColor = .red
-            case .good:
-                nutrimentScoreBarGaugeView.reverse = true
-                nutrimentScoreBarGaugeView.normalBarColor = .green
-            }
+            setup()
         }
     }
+    
+    var title: String? = nil {
+        didSet {
+            setup()
+        }
+    }
+    
+    var numBars: Int = 1 {
+        didSet {
+            setup()
+        }
+    }
+    
+    var maxLimit: Int = 10 {
+        didSet {
+            setup()
+        }
+    }
+
+    var dangerThreshold: Int = 1 {
+        didSet {
+            setup()
+        }
+    }
+    
+    var warnThreshold: Int = 1 {
+        didSet {
+            setup()
+        }
+    }
+    
+    private func setup() {
+        guard let validNutrimentScore = nutrimentScore else { return }
+        nutrimentLabel.text = title
+        nutrimentScoreBarGaugeView.value = Float(validNutrimentScore.points)
+        nutrimentValue.text = "\(validNutrimentScore.points)"
+        nutrimentScoreBarGaugeView?.numBars = numBars
+        nutrimentScoreBarGaugeView?.maxLimit = Float(numBars)
+        nutrimentScoreBarGaugeView?.dangerThreshold = Float(numBars)
+        nutrimentScoreBarGaugeView.warnThreshold = Float(numBars)
+        nutrimentScoreBarGaugeView?.reverse = false
+        nutrimentScoreBarGaugeView?.normalBarColor = .red
+    }
+    
     @IBOutlet weak var nutrimentValue: UILabel!
         
     @IBOutlet weak var nutrimentScoreBarGaugeView: BarGaugeView! {
         didSet {
-            nutrimentScoreBarGaugeView.litEffect = false
+            nutrimentScoreBarGaugeView?.litEffect = false
         }
     }
         

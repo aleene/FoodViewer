@@ -1299,24 +1299,54 @@
 			</array>
 			<key>de</key>
 			<array>
-				<string>Obst - Gemüse und Nüsse (Minimum)</string>
+				<string>Obst, Gemüse und Nüsse</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Fruits - vegetables and nuts (minimum)</string>
+				<string>Fruits, vegetables and nuts</string>
 			</array>
 			<key>es</key>
 			<array>
-				<string>Score - Francia</string>
+				<string>Hortalizas, frutas y nueces</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Fruits -  légumes et noix (minimum)</string>
+				<string>Fruits, légumes et noix</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Fruit</string>
-				<string> groenten en noten (minimum)</string>
+				<string>Groenten, Fruit en Noten</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fruits-vegetables-nuts-estimate</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>unit</key>
+			<array>
+				<string>%</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Obst, Gemüse und Nüsse (Schätzung)</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Fruits,vegetables and nuts (estimate)</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Hortalizas, frutas y nueces (estimación)</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Fruits, légumes et noix (estimation)</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Groenten, Fruit en Noten (schatting)</string>
 			</array>
 		</dict>
 	</dict>

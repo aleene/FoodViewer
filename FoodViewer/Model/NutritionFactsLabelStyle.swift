@@ -227,7 +227,9 @@ enum NutritionFactsLabelStyle {
                     .transFat, .carbohydrates, .sugars,
                     .addedSugars, .fructose, .glucose, .lactose, .maltose, .maltodextrins, .polyols, .sucrose, .starch,
                     
-                    .fiber, .proteins, .salt, .sodium, .cholesterol, .vitaminA, .vitaminB1, .vitaminB2, .pantothenicAcid,
+                    .fiber, .proteins, .salt, .sodium, .fruitsVegetablesNuts, .fruitsVegetablesNutsEstimate,
+                    
+                    .cholesterol, .vitaminA, .vitaminB1, .vitaminB2, .pantothenicAcid,
                     .vitaminB6, .biotin, .vitaminB9, .vitaminB12, .vitaminC, .vitaminD, .vitaminE, .vitaminK, .vitaminPP,
                     
                     .butyricAcid, .caproicAcid, .caprylicAcid, .capricAcid, .lauricAcid, .myristicAcid,
@@ -247,7 +249,8 @@ enum NutritionFactsLabelStyle {
                     .transFat, .carbohydrates, .sugars,
                     .addedSugars, .fructose, .glucose, .lactose, .maltose, .maltodextrins, .polyols, .sucrose, .starch,
                     
-                    .fiber,  .sodium, .cholesterol, .vitaminA, .vitaminB1, .vitaminB2, .pantothenicAcid,
+                    .fiber,  .sodium, .fruitsVegetablesNuts, .fruitsVegetablesNutsEstimate,
+                    .cholesterol, .vitaminA, .vitaminB1, .vitaminB2, .pantothenicAcid,
                     .vitaminB6, .biotin, .vitaminB9, .vitaminB12, .vitaminC, .vitaminD, .vitaminE, .vitaminK, .vitaminPP,
                     
                     .butyricAcid, .caproicAcid, .caprylicAcid, .capricAcid, .lauricAcid, .myristicAcid,
@@ -266,7 +269,8 @@ enum NutritionFactsLabelStyle {
                      .cholesterol, .proteins,
                     .sugars, .addedSugars, .fructose, .glucose, .lactose, .maltose, .maltodextrins,
                     .polyols, .sucrose, .starch,
-                    .fiber, .sodium, .vitaminA, .vitaminB1, .vitaminB2, .pantothenicAcid,
+                    .fiber, .sodium, .fruitsVegetablesNuts, .fruitsVegetablesNutsEstimate,
+                    .vitaminA, .vitaminB1, .vitaminB2, .pantothenicAcid,
                     .vitaminB6, .biotin, .vitaminB9, .vitaminB12, .vitaminC, .vitaminD, .vitaminE, .vitaminK, .vitaminPP,
                     
                     .butyricAcid, .caproicAcid, .caprylicAcid, .capricAcid, .lauricAcid, .myristicAcid,

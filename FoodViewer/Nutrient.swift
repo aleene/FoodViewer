@@ -44,7 +44,8 @@ public enum Nutrient: String, CaseIterable {
     case fiber = "fiber"
     case fluoride = "fluoride"
     case fructose = "fructose"
-    // "fruits-vegetables-nuts_100g
+    case fruitsVegetablesNuts = "fruits-vegetables-nuts"
+    case fruitsVegetablesNutsEstimate = "fruits-vegetables-nuts-estimate"
     case gammaLinolenicAcid = "gamma-linolenic-acid"
     case glucose = "glucose"
     case gondoicAcid = "gondoic-acid"
@@ -80,6 +81,7 @@ public enum Nutrient: String, CaseIterable {
     case proteins = "proteins"
     case salt = "salt"
     case saturatedFat = "saturated-fat"
+    case saturatedFatRatio = "fr-sat-fat-for-fats"
     case selenium = "selenium"
     case serumProteins = "serum-proteins"
     case silica = "silica"

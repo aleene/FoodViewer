@@ -5,7 +5,7 @@
 //  Created by arnaud on 10/03/17.
 //  Copyright © 2017 Hovering Above. All rights reserved.
 //
-
+/*
 import Foundation
 
 class LocalizedNutritionalScoreFR: NutritionalScoreFR {
@@ -18,7 +18,7 @@ class LocalizedNutritionalScoreFR: NutritionalScoreFR {
     private func setup() {
         let preferredLanguage = Locale.preferredLanguages[0]
         
-        pointsA[0].nutriment = OFFplists.manager.translateNutrient(Constants.energyKey, language:preferredLanguage) ?? Constants.energyKey
+        pointsA[Key.Energy]?.nutriment = OFFplists.manager.translateNutrient(Key.Energy, language:preferredLanguage) ?? Key.Energy
         pointsA[1].nutriment = TranslatableStrings.SaturatedFatToFatRatio
         pointsA[2].nutriment = OFFplists.manager.translateNutrient(Constants.sugarsKey, language:preferredLanguage) ?? Constants.sugarsKey
         pointsA[3].nutriment = OFFplists.manager.translateNutrient(Constants.sodiumKey, language:preferredLanguage) ?? Constants.sodiumKey
@@ -28,4 +28,4 @@ class LocalizedNutritionalScoreFR: NutritionalScoreFR {
         pointsC[2].nutriment = OFFplists.manager.translateNutrient(Constants.proteinsKey, language:preferredLanguage) ?? Constants.proteinsKey
     }
 }
-
+*/

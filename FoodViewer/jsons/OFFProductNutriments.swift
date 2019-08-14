@@ -16,9 +16,9 @@ class OFFProductNutriments: Codable {
     private let keys = ["energy", "carbohydrates", "fat", "saturated-fat", "sugars", "proteins", "fiber", "salt",
                         "trans-fat","sodium", "cholesterol", "vitamin-a","vitamin-d",
                         "alcohol", "monounsaturated-fat","polyunsaturated-fat",
-                        "ph_100g","cocoa","fruits-vegetables-nuts_100g","fruits_vegetables_nuts_estimate_100g",
+                        "ph_100g","cocoa","fruits-vegetables-nuts","fruits-vegetables-nuts-estimate",
                         "vitamin-e","vitamin-k", "vitamin-c","vitamin-b1","vitamin-b2","vitamin-pp",
-                        "nutrition-score-fr_100g","nutrition-score-uk_100g", "nutrition_score_debug",
+                        "nutrition-score-fr","nutrition-score-uk", "nutrition_score_debug",
                         "vitamin-b6","vitamin-b9","vitamin-b12","biotin","pantothenic-acid",
                         "casein", "serum-proteins", "nucleotides",
         "sucrose", "glucose", "fructose", "lactose", "maltose", "maltodextrins", "starch", "polyols",
@@ -27,7 +27,7 @@ class OFFProductNutriments: Codable {
         "montanic-acid","melissic-acid", "omega-3-fat","alpha-linolenic-acid","eicosapentaenoic-acid",
         "docosahexaenoic-acid", "omega-6-fat","linoleic-acid", "arachidonic-acid", "gamma-linolenic-acid", "dihomo-gamma-linolenic-acid", "omega-9-fat","oleic-acid","elaidic-acid","gondoic-acid","mead-acid","erucic-acid", "nervonic-acid","silica","bicarbonate","potassium","chloride","calcium","phosphorus","iron",
         "magnesium","zinc","copper","manganese","fluoride","selenium","chromium","molybdenum","iodine",
-        "caffeine","taurine","carbon-footprint_100g",]
+        "caffeine","taurine","carbon-footprint"]
     
     private struct Constants {
         static let HunderdGram = "_100g"
