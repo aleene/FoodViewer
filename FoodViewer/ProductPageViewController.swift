@@ -664,7 +664,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     func askUserToSearch(for string: String, in component: SearchComponent) {
-        let searchMessage = TranslatableStrings.SearchMessage
         
         let parts = string.split(separator:":").map(String.init)
         var stringToUse = ""
@@ -675,7 +674,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
         
         let alertController = UIAlertController(title: TranslatableStrings.StartSearch,
-                                                message: String(format: searchMessage, stringToUse, component.description),
+                                                message: String(format: TranslatableStrings.SearchMessage, stringToUse, component.description),
                                                 preferredStyle:.alert)
         let ok = UIAlertAction(title: TranslatableStrings.OK,
                                style: .default)

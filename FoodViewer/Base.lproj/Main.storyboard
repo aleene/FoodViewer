@@ -1233,7 +1233,7 @@
             </objects>
             <point key="canvasLocation" x="-579" y="-1925"/>
         </scene>
-        <!--Products-->
+        <!--All Products Table View Controller-->
         <scene sceneID="B20-Pm-QF1">
             <objects>
                 <tableViewController title="" id="gMe-4s-6cz" customClass="AllProductsTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
@@ -2935,13 +2935,13 @@
                                             <rect key="frame" x="331.33333333333331" y="0.0" width="82.666666666666686" height="43.666666666666664"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edL-tS-gco">
-                                                    <rect key="frame" x="20.666666666666686" y="8" width="41" height="18"/>
+                                                    <rect key="frame" x="41.333333333333371" y="8" width="0.0" height="0.0"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="253" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qxp-Dq-WB0">
-                                                    <rect key="frame" x="20.666666666666686" y="24" width="41" height="41"/>
+                                                    <rect key="frame" x="41.333333333333371" y="6" width="0.0" height="0.0"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Qxp-Dq-WB0" secondAttribute="height" multiplier="1:1" id="fVd-Mb-BdE"/>
                                                     </constraints>
@@ -2983,7 +2983,7 @@
                                     <outlet property="sugarLevelLabel" destination="Vuk-V8-bKD" id="SKb-WS-X1q"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Left Nutriment Score Cell" id="zPg-pw-1ZC" customClass="LeftNutrimentScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Left Nutriment Score Cell" id="zPg-pw-1ZC" customClass="NutrimentScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zPg-pw-1ZC" id="AcA-dG-PGX">
@@ -3068,9 +3068,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="nutrimentLabel" destination="xw1-5d-vpz" id="EPb-PN-rsN"/>
-                                    <outlet property="nutrimentScoreBarGaugeView" destination="AmG-E5-bay" id="lau-aT-Fha"/>
-                                    <outlet property="nutrimentValue" destination="jjd-pb-eyV" id="Z0O-Cy-qvw"/>
+                                    <outlet property="nutrimentLabel" destination="xw1-5d-vpz" id="heX-dv-gfT"/>
+                                    <outlet property="nutrimentScoreBarGaugeView" destination="AmG-E5-bay" id="7Fv-pX-dq0"/>
+                                    <outlet property="nutrimentValue" destination="jjd-pb-eyV" id="f2q-li-SzZ"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Product Category Cell" id="6W2-KJ-661" customClass="ProductCategoryTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -4119,17 +4119,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wDs-54-nVu" customClass="NutriScoreView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="8" y="2.3333333333333321" width="315.33333333333331" height="39"/>
+                                            <rect key="frame" x="8" y="2.3333333333333321" width="356" height="39"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="253" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mFF-c4-dtr">
-                                            <rect key="frame" x="331.33333333333331" y="0.0" width="40.666666666666686" height="18"/>
+                                            <rect key="frame" x="372" y="0.0" width="0.0" height="0.0"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veC-TK-R1V">
-                                            <rect key="frame" x="331.33333333333331" y="14" width="40.666666666666686" height="0.0"/>
+                                            <rect key="frame" x="372" y="-4" width="0.0" height="0.0"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -4596,7 +4596,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PU9-ny-duI">
-                                                    <rect key="frame" x="170.66666666666666" y="0.0" width="33" height="22"/>
+                                                    <rect key="frame" x="172" y="0.0" width="30" height="22"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <state key="normal" title=""/>
                                                     <connections>
@@ -4872,7 +4872,7 @@
             </objects>
             <point key="canvasLocation" x="5471" y="4992"/>
         </scene>
-        <!--User-->
+        <!--Navigation Controller-->
         <scene sceneID="Bs2-OW-cj9">
             <objects>
                 <navigationController id="sAK-Zs-gzL" sceneMemberID="viewController">
@@ -4890,7 +4890,7 @@
             </objects>
             <point key="canvasLocation" x="-2348" y="-2285"/>
         </scene>
-        <!--Scanner-->
+        <!--Barcode Scan View Controller-->
         <scene sceneID="gf3-H0-SAR">
             <objects>
                 <viewController id="Mt9-fg-Ddf" customClass="BarcodeScanViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
@@ -5186,7 +5186,7 @@
             </objects>
             <point key="canvasLocation" x="-1468" y="-2285"/>
         </scene>
-        <!--Products-->
+        <!--Navigation Controller-->
         <scene sceneID="RSI-qe-sXU">
             <objects>
                 <navigationController title="" automaticallyAdjustsScrollViewInsets="NO" id="hYb-mr-zvw" sceneMemberID="viewController">
@@ -5753,11 +5753,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="279" height="22"/>
+                                            <rect key="frame" x="20" y="11" width="297" height="22"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="315" y="8" width="79" height="29"/>
+                                            <rect key="frame" x="333" y="8" width="61" height="29"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>

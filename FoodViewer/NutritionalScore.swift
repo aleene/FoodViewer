@@ -124,44 +124,6 @@ public class NutritionalScore {
         }
     }
     
-    private static let Keys = ["en:baby-foods",
-                               "en:baby-milks",
-                               "en:meal-replacements",
-                               "en:alcoholic-beverages",
-                               "en:coffees",
-                               "en:teas",
-                               "en:herbal-teas",
-                               "fr:levure",
-                               "fr:levures",
-                               "en:honeys",
-                               "en:vinegars",
-                               "en:pet-food",
-                               "en:non-food-products"]
-    // Food products that are not covered by the mandatory nutritional declaration are listed in Appendix V of regulation no. 1169/2011. They are:
-    //1. Unprocessed products that comprise a single ingredient or category of ingredients (such as fresh fruits or vegetables, cut raw meat, honey, etc.)
-    //2. Processed products where the only processing they have been subjected to is maturing and that comprise a single ingredient or category of ingredients
-    //Note: here the products in question are mainly meat products
-    //3. Waters intended for human consumption, including those where the only added ingredients are carbon dioxide and/or flavourings
-    //4. Herbs, spices or mixtures thereof
-    //5. Salt and salt substitutes
-    //6. Table top sweeteners
-    //7. Products covered by Directive 1999/4/EC of the European Parliament and of the Council of 22
-    //February 1999 relating to coffee extracts and chicory extracts, whole or milled coffee beans, and
-    //whole or milled decaffeinated coffee beans
-    //8. Herbal and fruit infusions, tea, decaffeinated tea, instant or soluble tea or tea extract, decaffeinated
-    //instant or soluble tea or tea extract, which do not contain other added ingredients than flavourings
-    //which do not modify the nutritional value of the tea
-    //9. Fermented vinegars and substitutes for vinegar, including those where the only added ingredients are flavourings
-    //10. Flavourings
-    //11. Food additives
-    //12. Processing aids
-    //13. Food enzymes
-    //14. Gelatine
-    //15. Jam setting compounds
-    //16. Yeasts
-    //17. Chewing gums
-    //18. Food in packaging or containers the largest surface of which has an area of less than 25 cm2
-    //19. Food, including handcrafted food, directly supplied by the manufacturer of small quantities of products to the final consumer or to local retail establishments directly supplying the final consumer
 
     // The arrays with A and C points are filled,
     // The NutrimentScores are nil, in order to detect whether a value is set or not
@@ -249,16 +211,33 @@ public class NutritionalScore {
             return sum
         }
     }
-
-    public static func isCovered(_ keys: [String]) -> Bool {
-        for key in keys {
-            if Keys.contains(key) {
-                return false
-            }
-        }
-        return true
-    }
     
+    public var decodedScore: Int? = nil
+    
+    public var isCovered = false
+
+    public var isMissing: Bool? = nil   
+
+    public var colour: UIColor {
+        if score <= -1 {
+            return Constant.LightGreen
+        } else if score <= 2 {
+            return Constant.DarkGreen
+        } else if score <= 10 {
+            return .yellow
+        } else if score <= 18 {
+            return .orange
+        } else {
+            return .red
+        }
+    }
+    //
+    // MARK: - Initialisers
+    //
+    
+    init() {
+    }
+
     init(energy: Double?, saturatedFat: Double?, sugars: Double?, sodium: Double?, fruitVegetablesNuts: Double?, fruitVegetablesNutsEstimated: Double?, fiber: Double?, proteins: Double?) {
         var nutrimentScore = NutrimentScore()
 
@@ -358,20 +337,51 @@ public class NutritionalScore {
         }
         self.init(energy: energy, saturatedFat: saturatedFat, sugars: sugars, sodium: sodium, fruitVegetablesNuts: fruitVegetablesNuts, fruitVegetablesNutsEstimated: fruitVegetablesNutsEstimated, fiber: fiber, proteins: proteins)
     }
-    public var colour: UIColor {
-        if score <= -1 {
-            return Constant.LightGreen
-        } else if score <= 2 {
-            return Constant.DarkGreen
-        } else if score <= 10 {
-            return .yellow
-        } else if score <= 18 {
-            return .orange
-        } else {
-            return .red
+    
+    convenience init(nutritionFactsDict: [String:NutritionFactItem]) {
+        
+        
+        var energy: Double? = nil
+        var sugars: Double? = nil
+        var saturatedFat: Double? = nil
+        var sodium: Double? = nil
+        var fiber: Double? = nil
+        var proteins: Double? = nil
+        var fruitVegetableNuts: Double? = nil
+        var fruitVegetableNutsEstimated: Double? = nil
+        
+        if let nutrientFact = nutritionFactsDict[Nutrient.energy.key] {
+            energy = nutrientFact.value
         }
+        if let nutrientFact = nutritionFactsDict[Nutrient.sugars.key] {
+            sugars = nutrientFact.value
+        }
+        if let nutrientFact = nutritionFactsDict[Nutrient.saturatedFat.key] {
+            saturatedFat = nutrientFact.value
+        }
+        if let nutrientFact = nutritionFactsDict[Nutrient.sodium.key] {
+            sodium = nutrientFact.value
+        }
+        if let nutrientFact = nutritionFactsDict[Nutrient.fiber.key] {
+            fiber = nutrientFact.value
+        }
+        if let nutrientFact = nutritionFactsDict[Nutrient.proteins.key] {
+            proteins = nutrientFact.value
+        }
+        if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNuts.key] {
+            fruitVegetableNuts = nutrientFact.value
+        }
+        if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNutsEstimate.key] {
+            fruitVegetableNutsEstimated = nutrientFact.value
+        }
+        
+        self.init(energy: energy, saturatedFat: saturatedFat, sugars: sugars, sodium: sodium, fruitVegetablesNuts: fruitVegetableNuts, fruitVegetablesNutsEstimated: fruitVegetableNutsEstimated, fiber: fiber, proteins: proteins)
+        
     }
 
+    //
+    // MARK: - Private variables and functions
+    //
     private var energy: Double = 0.0
     private var sugar: Double = 0.0
     private var sodium: Double = 0.0
@@ -389,4 +399,5 @@ public class NutritionalScore {
         return 0
     }
 
+    
 }

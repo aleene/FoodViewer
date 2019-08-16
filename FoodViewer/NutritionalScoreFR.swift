@@ -19,6 +19,47 @@ public class NutritionalScoreFR: NutritionalScore {
     // - a special calculation method for cheese
     // - a special calculation method for added fats
     
+    private static let Keys = ["en:baby-foods",
+                               "en:baby-milks",
+                               "en:meal-replacements",
+                               "en:alcoholic-beverages",
+                               "en:coffees",
+                               "en:teas",
+                               "en:herbal-teas",
+                               "en:yeasts",
+                               "fr:levure",
+                               "fr:levures",
+                               "en:honeys",
+                               "en:vinegars",
+                               "en:pet-food",
+                               "en:non-food-products"]
+    // Food products that are not covered by the mandatory nutritional declaration are listed in Appendix V of regulation no. 1169/2011. They are:
+    //1. Unprocessed products that comprise a single ingredient or category of ingredients (such as fresh fruits or vegetables, cut raw meat, honey, etc.)
+    //2. Processed products where the only processing they have been subjected to is maturing and that comprise a single ingredient or category of ingredients
+    //Note: here the products in question are mainly meat products
+    //3. Waters intended for human consumption, including those where the only added ingredients are carbon dioxide and/or flavourings
+    //4. Herbs, spices or mixtures thereof
+    //5. Salt and salt substitutes
+    //6. Table top sweeteners
+    //7. Products covered by Directive 1999/4/EC of the European Parliament and of the Council of 22
+    //February 1999 relating to coffee extracts and chicory extracts, whole or milled coffee beans, and
+    //whole or milled decaffeinated coffee beans
+    //8. Herbal and fruit infusions, tea, decaffeinated tea, instant or soluble tea or tea extract, decaffeinated
+    //instant or soluble tea or tea extract, which do not contain other added ingredients than flavourings
+    //which do not modify the nutritional value of the tea
+    //9. Fermented vinegars and substitutes for vinegar, including those where the only added ingredients are flavourings
+    //10. Flavourings
+    //11. Food additives
+    //12. Processing aids
+    //13. Food enzymes
+    //14. Gelatine
+    //15. Jam setting compounds
+    //16. Yeasts
+    //17. Chewing gums
+    //18. Food in packaging or containers the largest surface of which has an area of less than 25 cm2
+    //19. Food, including handcrafted food, directly supplied by the manufacturer of small quantities of products to the final consumer or to local retail establishments directly supplying the final consumer
+
+
     fileprivate struct Constant {
         struct PointsA {
             struct SaturatedFatToLipids {
@@ -81,6 +122,47 @@ public class NutritionalScoreFR: NutritionalScore {
         static let SaturatedFatRatio = "fr-sat-fat-for-fats"
     }
     
+    public var isAvailable = true
+    
+    override public var colour: UIColor {
+        if isBeverage {
+            if score <= 1 {
+                return Constant.DarkGreen
+            } else if score <= 5 {
+                return .yellow
+            } else if score <= 9 {
+                return .orange
+            } else {
+                return .red
+            }
+        } else {
+            if score <= -1 {
+                return Constant.LightGreen
+            } else if score <= 2 {
+                return Constant.DarkGreen
+            } else if score <= 10 {
+                return .yellow
+            } else if score <= 18 {
+                return .orange
+            } else {
+                return .red
+            }
+        }
+    }
+    //
+    // MARK: - Initialisers
+    //
+    
+    init(isAvailable:Bool) {
+        super.init()
+        self.isAvailable = isAvailable
+    }
+
+    init(isMissing:Bool) {
+        super.init()
+        self.isMissing = isMissing
+    }
+
     init(energy: Double?, saturatedFat: Double?, saturatedFatToTotalFatRatio: Double?, sugars: Double?, sodium: Double?, fiber: Double?, proteins: Double?, fruitsVegetableNuts: Double?, fruitsVegetableNutsEstimated: Double?, isBeverage: Bool, isFat: Bool, isCheese: Bool) {
         super.init(energy: energy, saturatedFat: saturatedFat, sugars: sugars, sodium: sodium, fruitVegetablesNuts: fruitsVegetableNuts, fruitVegetablesNutsEstimated: fruitsVegetableNutsEstimated, fiber: fiber, proteins: proteins)
         
@@ -182,6 +264,7 @@ public class NutritionalScoreFR: NutritionalScore {
         
         switch taxonomy {
         case .available(let list):
+
             for key in Key.Category.Beverages {
                 if list.contains(key) {
                     isBeverage = true
@@ -204,6 +287,7 @@ public class NutritionalScoreFR: NutritionalScore {
             // The categories are not defined
             break
         }
+        
         
         var energy: Double? = nil
         var sugars: Double? = nil
@@ -244,10 +328,17 @@ public class NutritionalScoreFR: NutritionalScore {
         }
 
         self.init(energy: energy, saturatedFat: saturatedFat, saturatedFatToTotalFatRatio: saturatedFatRatio, sugars: sugars, sodium: sodium, fiber: fiber, proteins: proteins, fruitsVegetableNuts: fruitVegetableNuts, fruitsVegetableNutsEstimated: fruitVegetableNutsEstimated, isBeverage: isBeverage, isFat: isFat, isCheese: isCheese)
+        
+        switch taxonomy {
+        case .available(let list):
+            isAvailable = isCovered(list)
+        default:
+            break
+        }
 
     }
-
-    // conclusion
+    
+    // Final NutriScore
     override public var total: Int? {
         get {
             if sumA < 11 || isCheese {
@@ -280,31 +371,10 @@ public class NutritionalScoreFR: NutritionalScore {
         }
     }
     
-    override public var colour: UIColor {
-        if isBeverage {
-            if score <= 1 {
-                return Constant.DarkGreen
-            } else if score <= 5 {
-                return .yellow
-            } else if score <= 9 {
-                return .orange
-            } else {
-                return .red
-            }
-        } else {
-            if score <= -1 {
-                return Constant.LightGreen
-            } else if score <= 2 {
-                return Constant.DarkGreen
-            } else if score <= 10 {
-                return .yellow
-            } else if score <= 18 {
-                return .orange
-            } else {
-                return .red
-            }
-        }
-    }
+
+    //
+    // MARK: - Private functions and variables
+    //
 
     fileprivate func points(_ value:Double, in table: [(Int,Double,Double)]) -> Int {
         for row in table {
@@ -315,4 +385,12 @@ public class NutritionalScoreFR: NutritionalScore {
         return 0
     }
 
+    public func isCovered(_ keys: [String]) -> Bool {
+        for key in keys {
+            if NutritionalScoreFR.Keys.contains(key) {
+                return false
+            }
+        }
+        return true
+    }
 }

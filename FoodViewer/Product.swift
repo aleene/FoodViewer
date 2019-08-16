@@ -1188,23 +1188,27 @@ class FoodProduct {
                  3  --
                  fr 17"
                  */
-                // print("\(validJsonString)")
                 
                 // is there useful info in the string?
                 if (validJsonString.contains("-- energy ")) {
-                    
                     var isBeverage = false
                     var isCheese = false
                     var isFat = false
                     var energy: Int? = nil
+                    var energyBeverage: Int? = nil
                     var sugars: Int? = nil
+                    var sugarsBeverage: Int? = nil
                     var saturatedFats: Int? = nil
+                    var saturatedFatsBeverage: Int? = nil
                     var saturatedFatRatio: Int? = nil
                     var sodium: Int? = nil
+                    var sodiumBeverage: Int? = nil
                     var fiber: Int? = nil
                     var fruitVegetablesNuts: Int? = nil
                     var proteins: Int? = nil
-                    
+                    var scoreUK: Int? = nil
+                    var scoreFrance: Int? = nil
+
                     // split on --, should give 4 parts: empty, nutriments, fsa, fr
                     let dashParts = validJsonString.components(separatedBy: "-- ")
                     var offset = 0
@@ -1221,18 +1225,13 @@ class FoodProduct {
                     // find the total fsa score
                     var spaceParts2 = dashParts[2+offset].components(separatedBy: " ")
                     if let validScore = Int.init(spaceParts2[1]) {
-                        //nutrionalScoreUK?.score = validScore
-                    } else {
-                        //nutrionalScoreUK?.score = 0
+                        scoreUK = validScore
                     }
                     
                     spaceParts2 = dashParts[3+offset].components(separatedBy: " ")
                     if let validScore = Int.init(spaceParts2[1]) {
-                        //nutrionalScoreFrance?.score = validScore
-                    } else {
-                        //nutrionalScoreFrance?.score = 0
+                        scoreFrance = validScore
                     }
-                    
                     
                     if isBeverage {
                         // the french calculation for beverages uses a different table and evaluation
@@ -1244,26 +1243,25 @@ class FoodProduct {
                         var spacePart = plusParts[0].components(separatedBy: " ")
                         // energy
 
-                        if let validValue = Int.init(spacePart[1]) {
-                            energy = validValue
+                        if let validValue = Int.init(spacePart[0]) {
+                            energyBeverage = validValue
                         }
                         // sat_fat
                         spacePart = plusParts[1].components(separatedBy: " ")
-                        if let validValue = Int.init(spacePart[1]) {
-                            saturatedFats = validValue
+                        if let validValue = Int.init(spacePart[0]) {
+                            saturatedFatsBeverage = validValue
                         }
                         // sugars
                         spacePart = plusParts[2].components(separatedBy: " ")
-                        if let validValue = Int.init(spacePart[1]) {
-                            sugars = validValue
+                        if let validValue = Int.init(spacePart[0]) {
+                            sugarsBeverage = validValue
                         }
                         // sodium
                         spacePart = plusParts[3].components(separatedBy: " ")
-                        if let validValue = Int.init(spacePart[1]) {
-                            sodium = validValue
+                        if let validValue = Int.init(spacePart[0]) {
+                            sodiumBeverage = validValue
                         }
-                        
-                    } else {
+                    }
                         // split on -,
                         let minusparts = dashParts[1+offset].components(separatedBy: " - ")
                             
@@ -1285,7 +1283,7 @@ class FoodProduct {
                             proteins = validValue
                         }
                             
-                        let plusParts = minusparts[0].components(separatedBy: " + ")
+                        var plusParts = minusparts[0].components(separatedBy: " + ")
                             
                         // energy
                         spacePart = plusParts[0].components(separatedBy: " ")
@@ -1302,7 +1300,7 @@ class FoodProduct {
                         // saturated fat ratio
                         spacePart = plusParts[2].components(separatedBy: " ")
                         if let validValue = Int.init(spacePart[1]) {
-                            saturatedFats = validValue
+                            saturatedFatRatio = validValue
                         }
                             
                         // sugars
@@ -1316,10 +1314,20 @@ class FoodProduct {
                         if let validValue = Int.init(spacePart[1]) {
                             sodium = validValue
                         }
-                    }
-                    nutritionalScoreUKDecoded = NutritionalScore.init(energyPoints: energy, saturatedFatPoints: saturatedFats, sugarPoints: sugars, sodiumPoints: sodium, fruitVegetablesNutsPoints: fruitVegetablesNuts, fiberPoints: fiber, proteinPoints: proteins)
                     
-                    nutritionalScoreFRDecoded = NutritionalScoreFR.init(energyPoints: energy, saturatedFatPoints: saturatedFats, saturatedFatToTotalFatRatioPoints: saturatedFatRatio, sugarPoints: sugars, sodiumPoints: sodium, fiberPoints: fiber, proteinPoints: proteins, fruitsVegetableNutsPoints: fruitVegetablesNuts, fruitsVegetableNutsEstimatedPoints: nil, isBeverage: isBeverage, isFat: isFat, isCheese: isCheese)
+                    nutritionalScoreUKDecoded = NutritionalScore.init(energyPoints: energy, saturatedFatPoints: saturatedFats, sugarPoints: sugars, sodiumPoints: sodium, fruitVegetablesNutsPoints: fruitVegetablesNuts, fiberPoints: fiber, proteinPoints: proteins)
+                    nutritionalScoreUKDecoded?.decodedScore = scoreUK
+                    
+                    if isBeverage {
+                        nutritionalScoreFRDecoded = NutritionalScoreFR.init(energyPoints: energyBeverage, saturatedFatPoints: saturatedFatsBeverage, saturatedFatToTotalFatRatioPoints: saturatedFatRatio, sugarPoints: sugarsBeverage, sodiumPoints: sodiumBeverage, fiberPoints: fiber, proteinPoints: proteins, fruitsVegetableNutsPoints: fruitVegetablesNuts, fruitsVegetableNutsEstimatedPoints: nil, isBeverage: isBeverage, isFat: isFat, isCheese: isCheese)
+                    } else {
+                        nutritionalScoreFRDecoded = NutritionalScoreFR.init(energyPoints: energy, saturatedFatPoints: saturatedFats, saturatedFatToTotalFatRatioPoints: saturatedFatRatio, sugarPoints: sugars, sodiumPoints: sodium, fiberPoints: fiber, proteinPoints: proteins, fruitsVegetableNutsPoints: fruitVegetablesNuts, fruitsVegetableNutsEstimatedPoints: nil, isBeverage: isBeverage, isFat: isFat, isCheese: isCheese)
+                    }
+                    nutritionalScoreFRDecoded?.decodedScore = scoreFrance
+                } else if validJsonString.contains("no nutriscore for category") {
+                    nutritionalScoreFRDecoded = NutritionalScoreFR.init(isAvailable: false)
+                } else if validJsonString.contains("missing") {
+                    nutritionalScoreFRDecoded = NutritionalScoreFR.init(isMissing: true)
                 }
             }
         }
@@ -1759,10 +1767,9 @@ class FoodProduct {
         add(fact: nutritionDecode(.fruitsVegetablesNutsEstimate, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FruitsVegetablesNutsEstimateKey]))
 
         decodeNutritionalScore(validProduct.nutrition_score_debug)
-        // nutritionalScoreUKCalculated = NutritionalScore.init(nutritionFactsDict: nutritionFactsDict)
+        nutritionalScoreUKCalculated = NutritionalScore.init(nutritionFactsDict: nutritionFactsDict)
         nutritionalScoreFRCalculated = NutritionalScoreFR.init(nutritionFactsDict: nutritionFactsDict, taxonomy: categoriesHierarchy)
-        //print("NS:", nutritionalScoreFRCalculated?.pointsA, nutritionalScoreFRDecoded?.pointsA)
-        //print(self.name, self.bestNutritionFactTableStyle)
+        // print("NS:", nutritionalScoreFRCalculated?.pointsA, nutritionalScoreFRDecoded?.pointsA)
     }
     
     init(product: FoodProduct) {

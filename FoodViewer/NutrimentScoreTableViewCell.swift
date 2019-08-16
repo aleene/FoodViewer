@@ -46,17 +46,32 @@ class NutrimentScoreTableViewCell: UITableViewCell {
         }
     }
     
+    var reverse: Bool = false {
+        didSet {
+            setup()
+        }
+    }
+    
+    var normalBarColor: UIColor = .red {
+        didSet {
+            setup()
+        }
+    }
     private func setup() {
         guard let validNutrimentScore = nutrimentScore else { return }
         nutrimentLabel.text = title
         nutrimentScoreBarGaugeView.value = Float(validNutrimentScore.points)
-        nutrimentValue.text = "\(-validNutrimentScore.points)"
+        if reverse {
+            nutrimentValue.text = "\(-validNutrimentScore.points)"
+        } else {
+            nutrimentValue.text = "\(validNutrimentScore.points)"
+        }
         nutrimentScoreBarGaugeView?.numBars = numBars
         nutrimentScoreBarGaugeView?.maxLimit = Float(numBars)
         nutrimentScoreBarGaugeView?.dangerThreshold = Float(numBars)
         nutrimentScoreBarGaugeView.warnThreshold = Float(numBars)
-        nutrimentScoreBarGaugeView?.reverse = true
-        nutrimentScoreBarGaugeView?.normalBarColor = .green
+        nutrimentScoreBarGaugeView?.reverse = reverse
+        nutrimentScoreBarGaugeView?.normalBarColor = normalBarColor
     }
 
     @IBOutlet weak var nutrimentValue: UILabel!
