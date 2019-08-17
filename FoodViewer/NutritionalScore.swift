@@ -104,15 +104,6 @@ public class NutritionalScore {
     }
 
     public struct Key {
-        //static let Energy = "energy"
-        //static let Sugars = "sugars"
-        //static let Sodium = "sodium"
-        // static let Fat = "fat"
-        //static let SaturatedFat = "saturated-fat"
-        //static let FruitsVegetablesNuts = "fruits-vegetables-nuts"
-        // static let FruitsVegetablesNutsEstimate = "fruits-vegetables-nuts-estimate"
-        //static let Fiber = "fiber"
-        //static let Proteins = "proteins"
         struct Category {
             static let Beverages = ["en:tea-based-beverages",
                                     "en:iced-teas",
@@ -122,6 +113,8 @@ public class NutritionalScore {
             static let Cheeses = ["en:cheeses"]
             static let Fats = ["en:fats"]
         }
+        static let PositiveNutrients = [Nutrient.energy, Nutrient.saturatedFat, Nutrient.saturatedFatRatio, Nutrient.sugars, Nutrient.sodium]
+        static let NegativeNutrients = [Nutrient.fiber, Nutrient.proteins, Nutrient.fruitsVegetablesNuts, Nutrient.fruitsVegetablesNutsEstimate]
     }
     
 
@@ -132,10 +125,12 @@ public class NutritionalScore {
                                                     Nutrient.sugars.key:nil,
                                                     Nutrient.sodium.key:nil ]
 
-    public var pointsC: [String:NutrimentScore?] = [Nutrient.fruitsVegetablesNuts.key:nil,
-                                                    Nutrient.fiber.key:nil,
-                                                    Nutrient.proteins.key:nil]
+    public var pointsC: [String:NutrimentScore?] = [Nutrient.fiber.key:nil,
+                                                    Nutrient.proteins.key:nil,
+                                                    Nutrient.fruitsVegetablesNuts.key:nil,
+                                                    Nutrient.fruitsVegetablesNutsEstimate.key:nil]
     public var score = 0
+    
     public var level = NutritionalScoreLevel()
     
     // Simple
@@ -231,6 +226,27 @@ public class NutritionalScore {
             return .red
         }
     }
+    
+    public func positiveKey(for index:Int) -> String? {
+        guard index >= 0 && index < pointsA.count else { return "NutritionalScore: positive index out of range" }
+        let nutrient = Key.PositiveNutrients[index]
+        if pointsA[nutrient.key] != nil {
+            return nutrient.key
+        } else {
+            return nil
+        }
+    }
+    
+    public func negativeKey(for index:Int) -> String? {
+        guard index >= 0 && index < pointsC.count else { return "NutritionalScore: negative index out of range" }
+        let nutrient = Key.PositiveNutrients[index]
+        if pointsA[nutrient.key] != nil {
+            return nutrient.key
+        } else {
+            return nil
+        }
+    }
+
     //
     // MARK: - Initialisers
     //

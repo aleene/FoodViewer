@@ -69,7 +69,7 @@ class NutrimentScoreTableViewCell: UITableViewCell {
         nutrimentScoreBarGaugeView?.numBars = numBars
         nutrimentScoreBarGaugeView?.maxLimit = Float(numBars)
         nutrimentScoreBarGaugeView?.dangerThreshold = Float(numBars)
-        nutrimentScoreBarGaugeView.warnThreshold = Float(numBars)
+        nutrimentScoreBarGaugeView?.warnThreshold = Float(numBars)
         nutrimentScoreBarGaugeView?.reverse = reverse
         nutrimentScoreBarGaugeView?.normalBarColor = normalBarColor
     }

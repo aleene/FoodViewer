@@ -60,6 +60,15 @@ class NutritionScoreTableViewController: UITableViewController {
     }
     
     fileprivate var tableStructure: [SectionType] = []
+    fileprivate var nutriScoreSectionStructure: [RowType] = []
+    
+    fileprivate enum RowType {
+        case summary(Int?)
+        case pointsA(String, NutritionalScore.NutrimentScore?)
+        case pointsC(String, NutritionalScore.NutrimentScore?)
+        case categories(Bool, String)
+        case error(String)
+    }
 
     fileprivate enum SectionType {
         case summary(Int, String)
@@ -107,23 +116,96 @@ class NutritionScoreTableViewController: UITableViewController {
     fileprivate var nutrientTags: Tags = .undefined
 
     fileprivate func setupSections() -> [SectionType] {
+        
+        func addRowsFR(for nutritionalScore: NutritionalScoreFR) {
+            nutriScoreSectionStructure = []
+            nutriScoreSectionStructure.append(.summary(nutritionalScore.total))
+            for (key,value) in nutritionalScore.pointsA {
+                nutriScoreSectionStructure.append(.pointsA(key, value))
+            }
+            for (key,value) in nutritionalScore.pointsC {
+                nutriScoreSectionStructure.append(.pointsC(key, value))
+            }
+            nutriScoreSectionStructure.append(.categories(nutritionalScore.isBeverage, TranslatableStrings.BeveragesCategory))
+            nutriScoreSectionStructure.append(.categories(nutritionalScore.isCheese, TranslatableStrings.CheesesCategory))
+            nutriScoreSectionStructure.append(.categories(nutritionalScore.isFat, TranslatableStrings.FatCategory))
+        }
+
+        func addRowsUK(for nutritionalScore: NutritionalScore) {
+            nutriScoreSectionStructure = []
+            nutriScoreSectionStructure.append(.summary(nutritionalScore.total))
+            for (key,value) in nutritionalScore.pointsA {
+                nutriScoreSectionStructure.append(.pointsA(key, value))
+            }
+            for (key,value) in nutritionalScore.pointsC {
+                nutriScoreSectionStructure.append(.pointsC(key, value))
+            }
+        }
+
         // The returnValue is an array with sections
         // And each element is a  section type with the number of rows and the section title
         //
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
         sectionsAndRows.append(.summary(TableSection.Size.Summary, TableSection.Header.Summary))
-        if let nutritionalScore = productPair?.remoteProduct?.nutritionalScoreFRDecoded, nutritionalScore.isAvailable {
-            switch showNutritionalScore {
-            case .franceDecoded, .franceCalculated:
-                sectionsAndRows.append(.score(TableSection.Size.ScoreFrance, TableSection.Header.Score))
-            case .ukDecoded, .ukCalculated:
-                sectionsAndRows.append(.score(TableSection.Size.ScoreUK, TableSection.Header.Score))
+        switch showNutritionalScore {
+        case .franceDecoded:
+            if let nutritionalScore = productPair?.remoteProduct?.nutritionalScoreFRDecoded, nutritionalScore.isAvailable {
+                addRowsFR(for:nutritionalScore)
+            } else {
+                if productPair?.remoteProduct == nil {
+                    nutriScoreSectionStructure.append(.error(TranslatableStrings.ProductNotAvailable))
+                } else if productPair?.remoteProduct?.nutritionalScoreFRDecoded == nil {
+                    nutriScoreSectionStructure.append(.error(TranslatableStrings.NutriscoreNotCalculable))
+                } else if !productPair!.remoteProduct!.nutritionalScoreFRDecoded!.isAvailable {
+                    nutriScoreSectionStructure.append(.error(TranslatableStrings.NutriscoreNotApplicable))
+                } else {
+                    nutriScoreSectionStructure.append(.error("NutritionScoreTableViewController: Product should show NutriScore"))
+                }
             }
-        } else {
-            sectionsAndRows.append(.score(1, TableSection.Header.Score))
+            sectionsAndRows.append(.score(nutriScoreSectionStructure.count, TableSection.Header.Score))
+        case .franceCalculated:
+            if let nutritionalScore = productPair?.remoteProduct?.nutritionalScoreFRCalculated, nutritionalScore.isAvailable {
+                addRowsFR(for:nutritionalScore)
+            } else {
+                if productPair?.remoteProduct == nil {
+                    nutriScoreSectionStructure.append(.error(TranslatableStrings.ProductNotAvailable))
+                } else if productPair?.remoteProduct?.nutritionalScoreFRCalculated == nil {
+                    nutriScoreSectionStructure.append(.error(TranslatableStrings.NutriscoreNotCalculable))
+                } else if !productPair!.remoteProduct!.nutritionalScoreFRCalculated!.isAvailable {
+                    nutriScoreSectionStructure.append(.error(TranslatableStrings.NutriscoreNotApplicable))
+                } else {
+                    nutriScoreSectionStructure.append(.error("NutritionScoreTableViewController: Product should show NutriScore"))
+                }
+            }
+            sectionsAndRows.append(.score(nutriScoreSectionStructure.count, TableSection.Header.Score))
+        case .ukDecoded:
+            if let nutritionalScore = productPair?.remoteProduct?.nutritionalScoreUKDecoded {
+                addRowsUK(for:nutritionalScore)
+            } else {
+                if productPair?.remoteProduct == nil {
+                    nutriScoreSectionStructure.append(.error(TranslatableStrings.ProductNotAvailable))
+                } else if productPair?.remoteProduct?.nutritionalScoreUKDecoded == nil {
+                    nutriScoreSectionStructure.append(.error(TranslatableStrings.NutriscoreNotCalculable))
+                } else {
+                    nutriScoreSectionStructure.append(.error("NutritionScoreTableViewController: Product should show NutriScore"))
+                }
+            }
+            sectionsAndRows.append(.score(nutriScoreSectionStructure.count, TableSection.Header.Score))
+        case .ukCalculated:
+            if let nutritionalScore = productPair?.remoteProduct?.nutritionalScoreUKCalculated {
+                addRowsUK(for:nutritionalScore)
+            } else {
+                if productPair?.remoteProduct == nil {
+                    nutriScoreSectionStructure.append(.error(TranslatableStrings.ProductNotAvailable))
+                } else if productPair?.remoteProduct?.nutritionalScoreUKCalculated == nil {
+                    nutriScoreSectionStructure.append(.error(TranslatableStrings.NutriscoreNotCalculable))
+                } else {
+                    nutriScoreSectionStructure.append(.error("NutritionScoreTableViewController: Product should show NutriScore"))
+                }
+            }
+            sectionsAndRows.append(.score(nutriScoreSectionStructure.count, TableSection.Header.Score))
         }
-        
         if let numberOfLevels = productPair?.remoteProduct?.nutritionScore?.count {
             if numberOfLevels > 0 {
                 sectionsAndRows.append(.levels(numberOfLevels, TableSection.Header.Levels))
@@ -149,253 +231,43 @@ class NutritionScoreTableViewController: UITableViewController {
             cell.product = productPair?.remoteProduct ?? productPair?.localProduct
             return cell
         case .score:
-            switch indexPath.row {
-            case 1...4:
-                var key = ""
-                switch indexPath.row - 1 {
-                case 0:
-                    key = Nutrient.energy.key
-                case 1:
-                    key = Nutrient.saturatedFat.key
-                case 2:
-                    key = Nutrient.sugars.key
-                default:
-                    key = Nutrient.sodium.key
-                }
-                switch showNutritionalScore {
-                case .franceDecoded:
-                    if let score = productPair?.remoteProduct?.nutritionalScoreFRDecoded?.pointsA[key],
-                        score != nil {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath) as! NutrimentScoreTableViewCell
-                        cell.nutrimentScore = score
-                        cell.numBars = 10
-                        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
-                        return cell
-                    } else {
-                        setNutrientTag(for: key)
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-                        cell.width = tableView.frame.size.width
-                        cell.datasource = self
-                        cell.delegate = self
-                        cell.tagListView?.alignment = .center
-                        cell.tag = indexPath.section * 10 + indexPath.row
-                        return cell
-                    }
-                case .franceCalculated:
-                    if let score = productPair?.remoteProduct?.nutritionalScoreFRCalculated?.pointsA[key],
-                        score != nil {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath) as! NutrimentScoreTableViewCell
-                        cell.nutrimentScore = score
-                        cell.numBars = 10
-                        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
-                        return cell
-                    } else {
-                        setNutrientTag(for: key)
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-                        cell.width = tableView.frame.size.width
-                        cell.datasource = self
-                        cell.delegate = self
-                        cell.tagListView?.alignment = .center
-                        cell.tag = indexPath.section * 10 + indexPath.row
-                        return cell
-                    }
-
-                case .ukDecoded:
-                    if let score = productPair?.remoteProduct?.nutritionalScoreUKDecoded?.pointsA[key],
-                        score != nil {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath) as! NutrimentScoreTableViewCell
-                        cell.nutrimentScore = score
-                        cell.numBars = 10
-                        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
-                        return cell
-                   } else {
-                        setNutrientTag(for: key)
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-                        cell.width = tableView.frame.size.width
-                        cell.datasource = self
-                        cell.delegate = self
-                        cell.tagListView?.alignment = .center
-                        cell.tag = indexPath.section * 10 + indexPath.row
-                        return cell
-                    }
-                case .ukCalculated:
-                    if let score = productPair?.remoteProduct?.nutritionalScoreUKCalculated?.pointsA[key],
-                        score != nil {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath) as! NutrimentScoreTableViewCell
-                        cell.nutrimentScore = score
-                        cell.numBars = 10
-                        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
-                        return cell
-                    } else {
-                        setNutrientTag(for: key)
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-                        cell.width = tableView.frame.size.width
-                        cell.datasource = self
-                        cell.delegate = self
-                        cell.tagListView?.alignment = .center
-                        cell.tag = indexPath.section * 10 + indexPath.row
-                        return cell
-                    }
-
-                }
-            case 5...7:
-                var key = ""
-                switch indexPath.row - 5 {
-                case 0:
-                    key = Nutrient.fiber.key
-                case 1:
-                    key = Nutrient.proteins.key
-                default:
-                    key = Nutrient.fruitsVegetablesNuts.key
-                }
-
-                switch showNutritionalScore {
-                case .franceDecoded:
-                    if let score = productPair?.remoteProduct?.nutritionalScoreFRDecoded?.pointsC[key],
-                        score != nil {
-                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath) as! NutrimentScoreTableViewCell
-                            cell.nutrimentScore = score
-                            cell.numBars = 5
-                            cell.reverse = true
-                            cell.normalBarColor = .green
-                            cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
-                            return cell
-                        } else {
-                            setNutrientTag(for: key)
-                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-                            cell.width = tableView.frame.size.width
-                            cell.datasource = self
-                            cell.delegate = self
-                            cell.tagListView?.alignment = .center
-                            cell.tag = indexPath.section * 10 + indexPath.row
-                            return cell
-                        }
-                case .franceCalculated:
-                    if let score = productPair?.remoteProduct?.nutritionalScoreFRCalculated?.pointsC[key],
-                        score != nil {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath) as! NutrimentScoreTableViewCell
-                        cell.nutrimentScore = score
-                        cell.numBars = 5
-                        cell.reverse = true
-                        cell.normalBarColor = .green
-                        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
-                        return cell
-                    } else {
-                        setNutrientTag(for: key)
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-                        cell.width = tableView.frame.size.width
-                        cell.datasource = self
-                        cell.delegate = self
-                        cell.tagListView?.alignment = .center
-                        cell.tag = indexPath.section * 10 + indexPath.row
-                        return cell
-                    }
-
-                case .ukDecoded:
-                    if let score = productPair?.remoteProduct?.nutritionalScoreUKDecoded?.pointsC[key],
-                        score != nil {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath) as! NutrimentScoreTableViewCell
-                        cell.nutrimentScore = score
-                        cell.numBars = 5
-                        cell.reverse = true
-                        cell.normalBarColor = .green
-                        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
-                        return cell
-                    } else {
-                        setNutrientTag(for: key)
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-                        cell.width = tableView.frame.size.width
-                        cell.datasource = self
-                        cell.delegate = self
-                        cell.tagListView?.alignment = .center
-                        cell.tag = indexPath.section * 10 + indexPath.row
-                        return cell
-                    }
-                case .ukCalculated:
-                    if let score = productPair?.remoteProduct?.nutritionalScoreUKCalculated?.pointsC[key],
-                        score != nil {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath) as! NutrimentScoreTableViewCell
-                        cell.nutrimentScore = score
-                        cell.numBars = 5
-                        cell.reverse = true
-                        cell.normalBarColor = .green
-                        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
-                        return cell
-                    } else {
-                        setNutrientTag(for: key)
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-                        cell.width = tableView.frame.size.width
-                        cell.datasource = self
-                        cell.delegate = self
-                        cell.tagListView?.alignment = .center
-                        cell.tag = indexPath.section * 10 + indexPath.row
-                        return cell
-                    }
-                }
-            case 8:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath) as? ProductCategoryTableViewCell
-                cell!.belongsToCategory = productPair?.remoteProduct?.nutritionalScoreFRDecoded?.isCheese
-                cell!.belongsToCategoryTitle = TranslatableStrings.CheesesCategory
-                return cell!
-            case 9:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath)as? ProductCategoryTableViewCell
-                cell!.belongsToCategory = productPair?.remoteProduct?.nutritionalScoreFRDecoded?.isBeverage
-                cell?.belongsToCategoryTitle = TranslatableStrings.BeveragesCategory
-                return cell!
-            case 10:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath)as? ProductCategoryTableViewCell
-                cell!.belongsToCategory = productPair?.remoteProduct?.nutritionalScoreFRDecoded?.isFat
-                cell?.belongsToCategoryTitle = TranslatableStrings.FatCategory
-                return cell!
-            default:
-                if let nutritionalScore = productPair?.remoteProduct?.nutritionalScoreFRDecoded, nutritionalScore.isAvailable {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ColourCodedNutritionalScore, for: indexPath)as! ColourCodedNutritionalScoreTableViewCell
-                    switch showNutritionalScore {
-                    case .franceDecoded:
-                        cell.score = productPair?.remoteProduct?.nutritionalScoreFRDecoded?.total
-                    case .ukDecoded:
-                        cell.score = productPair?.remoteProduct?.nutritionalScoreUKDecoded?.total
-                    case .ukCalculated:
-                        cell.score = productPair?.remoteProduct?.nutritionalScoreUKCalculated?.total
-                    case .franceCalculated:
-                        cell.score = productPair?.remoteProduct?.nutritionalScoreFRCalculated?.total
-                    }
-                    cell.delegate = delegate
-                    return cell
+            switch nutriScoreSectionStructure[indexPath.row] {
+            case .summary(let value):
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ColourCodedNutritionalScore, for: indexPath) as! ColourCodedNutritionalScoreTableViewCell
+                cell.score = value
+                cell.delegate = delegate
+                return cell
+            case .pointsA(let key, let value):
+                if let validValue = value {
+                    return nutrimentScoreTableViewCell(for:key, with:validValue, towards:false, at:indexPath, and:Storyboard.CellIdentifier.LeftNutrimentScore)
                 } else {
-                    // the score can not be shown:
-                    // - the product is not available
-                    // - the data is not available
-                    // - the product is not covered
-                    switch showNutritionalScore {
-                    case .franceDecoded:
-                        if productPair?.remoteProduct == nil {
-                            scoreTags = .available([TranslatableStrings.ProductNotAvailable])
-                        } else if productPair?.remoteProduct?.nutritionalScoreFRDecoded == nil {
-                            scoreTags = .available([TranslatableStrings.NutriscoreNotCalculable])
-                        } else if !productPair!.remoteProduct!.nutritionalScoreFRDecoded!.isAvailable {
-                            scoreTags = .available([TranslatableStrings.NutriscoreNotApplicable])
-                        } else {
-                            scoreTags = .available(["NutritionScoreTableViewController: Product should show NutriScore"])
-                        }
-                    default:
-                        scoreTags = .available(["NutritionScoreTableViewController: Why is this shown?"])
-                    }
-
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-                    cell.width = tableView.frame.size.width
-                    cell.datasource = self
-                    cell.delegate = self
-                    cell.tagListView?.alignment = .center
-                    cell.tag = indexPath.section * 10 + indexPath.row
-                    return cell
+                    setNutrientTag(for: key)
+                    return tagCell(at:indexPath)
                 }
+            case .pointsC(let key, let value):
+                if let validValue = value {
+                    return nutrimentScoreTableViewCell(for:key, with:validValue, towards:true, at:indexPath, and:Storyboard.CellIdentifier.RightNutrimentScore)
+                } else {
+                    setNutrientTag(for: key)
+                    return tagCell(at:indexPath)
+                }
+
+            case .categories(let value, let string):
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath)as? ProductCategoryTableViewCell
+                cell!.belongsToCategory = value
+                cell?.belongsToCategoryTitle = string
+                return cell!
+                
+            case .error(let string):
+                scoreTags = .available([string])
+                return tagCell(at:indexPath)
             }
             
         case .levels:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Level, for: indexPath) as! LevelTableViewCell
             cell.nutritionLevel = productPair?.remoteProduct?.nutritionScore?[indexPath.row]
             return cell
+            
         case .nova:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -405,6 +277,26 @@ class NutritionScoreTableViewController: UITableViewController {
             cell.tag = indexPath.section * 10 + indexPath.row
             return cell
         }
+    }
+    
+    private func tagCell(at indexPath:IndexPath) -> TagListViewTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
+        cell.width = tableView.frame.size.width
+        cell.datasource = self
+        cell.delegate = self
+        cell.tagListView?.alignment = .center
+        cell.tag = indexPath.section * 10 + indexPath.row
+        return cell
+    }
+    
+    private func nutrimentScoreTableViewCell(for key:String, with score: NutritionalScore.NutrimentScore, towards reverse:Bool, at indexPath:IndexPath, and identifier:String) -> NutrimentScoreTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! NutrimentScoreTableViewCell
+        cell.nutrimentScore = score
+        cell.numBars = reverse ? 5 : 10
+        cell.reverse = reverse
+        cell.normalBarColor = reverse ? .green : .red
+        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
+        return cell
     }
     
     private func setNutrientTag(for key: String) {
