@@ -242,14 +242,14 @@ class NutritionScoreTableViewController: UITableViewController {
                     return nutrimentScoreTableViewCell(for:key, with:validValue, towards:false, at:indexPath, and:Storyboard.CellIdentifier.LeftNutrimentScore)
                 } else {
                     setNutrientTag(for: key)
-                    return tagCell(at:indexPath)
+                    return tagCell(at:indexPath, with:ColorSchemes.none)
                 }
             case .pointsC(let key, let value):
                 if let validValue = value {
                     return nutrimentScoreTableViewCell(for:key, with:validValue, towards:true, at:indexPath, and:Storyboard.CellIdentifier.RightNutrimentScore)
                 } else {
                     setNutrientTag(for: key)
-                    return tagCell(at:indexPath)
+                    return tagCell(at:indexPath, with:ColorSchemes.none)
                 }
 
             case .categories(let value, let string):
@@ -260,7 +260,7 @@ class NutritionScoreTableViewController: UITableViewController {
                 
             case .error(let string):
                 scoreTags = .available([string])
-                return tagCell(at:indexPath)
+                return tagCell(at:indexPath, with:ColorSchemes.error)
             }
             
         case .levels:
@@ -279,11 +279,12 @@ class NutritionScoreTableViewController: UITableViewController {
         }
     }
     
-    private func tagCell(at indexPath:IndexPath) -> TagListViewTableViewCell {
+    private func tagCell(at indexPath:IndexPath, with colour:ColorScheme) -> TagListViewTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
         cell.width = tableView.frame.size.width
         cell.datasource = self
         cell.delegate = self
+        cell.tagListView.normalColorScheme = colour
         cell.tagListView?.alignment = .center
         cell.tag = indexPath.section * 10 + indexPath.row
         return cell
@@ -430,23 +431,23 @@ extension NutritionScoreTableViewController: TagListViewDataSource {
         func count(_ tags: Tags) -> Int {
             switch tags {
             case .undefined:
-                tagListView.normalColorScheme = ColorSchemes.error
+                //tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
-                tagListView.normalColorScheme = ColorSchemes.none
+                //tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
             case let .available(list):
-                tagListView.normalColorScheme = ColorSchemes.normal
+                //tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             case .notSearchable:
-                tagListView.normalColorScheme = ColorSchemes.error
+                //tagListView.normalColorScheme = ColorSchemes.error
                 return 1
             }
         }
-        let section = tagListView.tag % 10
-        let row = tagListView.tag / 10
+        let row = tagListView.tag % 10
+        let section = tagListView.tag / 10
         switch section {
-        case 2:
+        case 1:
             if row == 0 {
                 return count(scoreTags)
             } else {

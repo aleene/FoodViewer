@@ -2716,6 +2716,36 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:fr-sat-fat-for-fats</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>unit</key>
+			<array>
+				<string></string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Gesättigte / alle Fettsäuren</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Saturated / total fat </string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Saturados / ácidos grasos </string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Saturés / acides gras</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Verzadigd / totaal vet</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:selenium</key>
 	<dict>
 		<key>Languages</key>

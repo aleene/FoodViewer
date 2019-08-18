@@ -1053,11 +1053,11 @@
 				51A99E3C22F5B96C000F82BF /* Languages.plist */,
 				51A99E3B22F5B96C000F82BF /* Minerals.plist */,
 				51A99E3922F5B96B000F82BF /* Nucleotides.plist */,
+				5149C5D522F6D9BB000EA690 /* Nutrients.plist */,
 				51A99E2F22F5B967000F82BF /* Other_nutritional_substances.plist */,
 				51A99E3A22F5B96B000F82BF /* States.plist */,
 				51A99E3522F5B96A000F82BF /* Vitamins.plist */,
 				5150C0751CBE81D900161616 /* ReferenceDailyIntakeValues.plist */,
-				5149C5D522F6D9BB000EA690 /* Nutrients.plist */,
 			);
 			name = plist;
 			sourceTree = "<group>";
