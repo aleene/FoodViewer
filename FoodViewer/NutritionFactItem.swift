@@ -65,6 +65,28 @@ public struct NutritionFactItem {
         return nil
     }
 
+    public var gramValue: Double? {
+        if let validString = standardValue {
+            if let validUnit = standardValueUnit {
+                switch validUnit {
+                case .Milligram:
+                    if let validDouble = Double(validString) {
+                        return validDouble / 1000.0
+                    }
+                case .Microgram:
+                    if let validDouble = Double(validString) {
+                        return validDouble / 1000000.0
+                    }
+                case .Gram:
+                    return Double(validString)
+                default:
+                    break
+                }
+            }
+        }
+        return nil
+    }
+
     func valueInCalories(_ stringValue: String?) -> String {
         
         if let value = stringValue {

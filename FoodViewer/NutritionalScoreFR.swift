@@ -24,11 +24,12 @@ public class NutritionalScoreFR: NutritionalScore {
                                "en:meal-replacements",
                                "en:alcoholic-beverages",
                                "en:coffees",
+                               "en:food-additives",
                                "en:teas",
                                "en:herbal-teas",
                                "en:yeasts",
                                "fr:levure",
-                               "fr:levures",
+                               "fr:levures", "fr:Levures",
                                "en:honeys",
                                "en:vinegars",
                                "en:pet-food",
@@ -303,28 +304,28 @@ public class NutritionalScoreFR: NutritionalScore {
             energy = nutrientFact.value
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.sugars.key] {
-            sugars = nutrientFact.value
+            sugars = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.saturatedFat.key] {
-            saturatedFat = nutrientFact.value
+            saturatedFat = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.saturatedFatRatio.key] {
-            saturatedFatRatio = nutrientFact.value
+            saturatedFatRatio = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.sodium.key] {
-            sodium = nutrientFact.value
+            sodium = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.fiber.key] {
-            fiber = nutrientFact.value
+            fiber = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.proteins.key] {
-            proteins = nutrientFact.value
+            proteins = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNuts.key] {
-            fruitVegetableNuts = nutrientFact.value
+            fruitVegetableNuts = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNutsEstimate.key] {
-            fruitVegetableNutsEstimated = nutrientFact.value
+            fruitVegetableNutsEstimated = nutrientFact.gramValue
         }
 
         self.init(energy: energy, saturatedFat: saturatedFat, saturatedFatToTotalFatRatio: saturatedFatRatio, sugars: sugars, sodium: sodium, fiber: fiber, proteins: proteins, fruitsVegetableNuts: fruitVegetableNuts, fruitsVegetableNutsEstimated: fruitVegetableNutsEstimated, isBeverage: isBeverage, isFat: isFat, isCheese: isCheese)

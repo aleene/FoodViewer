@@ -136,7 +136,7 @@ public class NutritionalScore {
     // Simple
     public var total: Int? {
         // If a food or drink scores 11 or more ‘A’ points
-        if sumA < 11 {
+         if sumA < 11 {
             return sumA - sumC
         } else {
         // then it can not score points for protein unless it also scores 5 points for fruit, veg and nuts
@@ -227,24 +227,24 @@ public class NutritionalScore {
         }
     }
     
-    public func positiveKey(for index:Int) -> String? {
-        guard index >= 0 && index < pointsA.count else { return "NutritionalScore: positive index out of range" }
-        let nutrient = Key.PositiveNutrients[index]
-        if pointsA[nutrient.key] != nil {
-            return nutrient.key
-        } else {
-            return nil
+    public var sortedPointsA: [(String, NutritionalScore.NutrimentScore?)] {
+        var array: [(String, NutritionalScore.NutrimentScore?)] = []
+        for nutrient in Key.PositiveNutrients {
+            if let point = pointsA[nutrient.key] {
+                array.append((nutrient.key, point))
+            }
         }
+        return array
     }
     
-    public func negativeKey(for index:Int) -> String? {
-        guard index >= 0 && index < pointsC.count else { return "NutritionalScore: negative index out of range" }
-        let nutrient = Key.PositiveNutrients[index]
-        if pointsA[nutrient.key] != nil {
-            return nutrient.key
-        } else {
-            return nil
+    public var sortedPointsC: [(String, NutritionalScore.NutrimentScore?)] {
+        var array: [(String, NutritionalScore.NutrimentScore?)] = []
+        for nutrient in Key.NegativeNutrients {
+            if let point = pointsC[nutrient.key] {
+                array.append((nutrient.key, point))
+            }
         }
+        return array
     }
 
     //
@@ -370,25 +370,25 @@ public class NutritionalScore {
             energy = nutrientFact.value
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.sugars.key] {
-            sugars = nutrientFact.value
+            sugars = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.saturatedFat.key] {
-            saturatedFat = nutrientFact.value
+            saturatedFat = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.sodium.key] {
-            sodium = nutrientFact.value
+            sodium = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.fiber.key] {
-            fiber = nutrientFact.value
+            fiber = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.proteins.key] {
-            proteins = nutrientFact.value
+            proteins = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNuts.key] {
-            fruitVegetableNuts = nutrientFact.value
+            fruitVegetableNuts = nutrientFact.gramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNutsEstimate.key] {
-            fruitVegetableNutsEstimated = nutrientFact.value
+            fruitVegetableNutsEstimated = nutrientFact.gramValue
         }
         
         self.init(energy: energy, saturatedFat: saturatedFat, sugars: sugars, sodium: sodium, fruitVegetablesNuts: fruitVegetableNuts, fruitVegetablesNutsEstimated: fruitVegetableNutsEstimated, fiber: fiber, proteins: proteins)
@@ -398,6 +398,7 @@ public class NutritionalScore {
     //
     // MARK: - Private variables and functions
     //
+    
     private var energy: Double = 0.0
     private var sugar: Double = 0.0
     private var sodium: Double = 0.0
@@ -408,7 +409,7 @@ public class NutritionalScore {
 
     fileprivate func points(_ value:Double, in table: [(Int,Double,Double)]) -> Int {
         for row in table {
-            if value > row.1 && value < row.2 {
+            if value >= row.1 && value < row.2 {
                 return row.0
             }
         }

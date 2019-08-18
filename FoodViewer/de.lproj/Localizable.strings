@@ -401,6 +401,9 @@
 /* Text of a label that wil indicate the fat level (low/medium/high) by colour. */
 "Fat level" = "Fettgehalt";
 
+/* Cell title indicating the product belongs to the fats category */
+"Fats category" = "Kategorie Fette und Öle";
+
 /* Title of SegmentedControl segment. */
 "Food" = "Lebensmittel";
 
@@ -673,11 +676,23 @@
 /* Title of a table section, which shows the nova evaluation tags for ingredients, additives and categories. */
 "Nova Evaluation Triggers" = "NOVA Auswertungsauslöser";
 
+/* Tag text to indicate that nutrient data for the named nutrient %@ is unavailable. */
+"Nutrient data for %@ unavailable" = "Daten für %@ nicht vorhanden";
+
+/* Tag text to indicate that nutrient data is unavailable. */
+"Nutrient data unavailable" = "Nährstoffe Daten nicht vorhanden";
+
 /* Generic text to indicate the nutrients of a product. */
 "Nutrients" = "Nährstoffe";
 
 /* Tableview header for the section with nutriments availability, i.e. whether the nutrients are on the package. */
 "Nutriments Availability" = "Verfügbarheit Nährstoffe";
+
+/* Text to indicate that the nutriscore is not applicable to this product (type). */
+"NutriScore not Applicable" = "NutriScore nicht geltend";
+
+/* Text to indicate that the nutriscore can not be calculated due to missing data. */
+"NutriScore not calculable" = "NutriScore nicht berechenbar";
 
 /* Text in a TagListView, when no nutrition data is available on the package. */
 "nutrition data not on package" = "Keine Nährstoffe auf dem Produkt";
@@ -712,14 +727,20 @@
 /* Tableview header section for the original image of the nutritional facts */
 "Nutrition Facts Image (non-edited)" = "Foto der Nährwertangaben (unbearbeitet)";
 
-/* Header for a table section showing the search for nutrition score */
-"Nutrition Score" = "Nutrition Score";
+/* Header page that shows the various nutritional scores for the product */
+"Nutrition Scores" = "Ernährungsbeurteilungen";
 
-/* Header for a table section showing the total results France */
-"Nutritional Score France" = "Nutrition Score Frankreich";
+/* Header for a table section showing the total results France calculated by FoodViewer */
+"Nutritional Score France (FV)" = "Ernährungsauswertung Frankreich (FV)";
 
-/* Header for a table section showing the total results UK */
-"Nutritional Score UK" = "Nutrition Score Vereinigtes Königreich";
+/* Header for a table section showing the total results France calculated by OFF */
+"Nutritional Score France (OFF)" = "Ernährungsauswertung Frankreich (OFF)";
+
+/* Header for a table section showing the total results UK calculated by FoodViewer */
+"Nutritional Score UK (FV)" = "Ernährungsauswertung Großbritannien (FV)";
+
+/* Header for a table section showing the total results UK calculated by OFF */
+"Nutritional Score UK (OFF)" = "Ernährungsauswertung Großbritannien (OFF)";
 
 /* Header title of tableview section, indicating the websites for the product */
 "Official product website" = "Offizielle Produkt Web-Links";

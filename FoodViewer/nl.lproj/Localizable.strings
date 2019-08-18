@@ -1,5 +1,5 @@
 /* a space used for several purposes */
-" " = "     ";
+" " = " ";
 
 /* a warning to check the brackets used, they are unbalanced */
 " (WARNING: check brackets, they are unbalanced)" = "(WAARSCHUWING: controleer haakjes, niet in evenwicht)";
@@ -401,6 +401,9 @@
 /* Text of a label that wil indicate the fat level (low/medium/high) by colour. */
 "Fat level" = "Vetgehalte";
 
+/* Cell title indicating the product belongs to the fats category */
+"Fats category" = "Vettencategorie";
+
 /* Title of SegmentedControl segment. */
 "Food" = "Voedsel";
 
@@ -673,11 +676,23 @@
 /* Title of a table section, which shows the nova evaluation tags for ingredients, additives and categories. */
 "Nova Evaluation Triggers" = "NOVA evaluatie triggers";
 
+/* Tag text to indicate that nutrient data for the named nutrient %@ is unavailable. */
+"Nutrient data for %@ unavailable" = "%@ data niet beschikbaar";
+
+/* Tag text to indicate that nutrient data is unavailable. */
+"Nutrient data unavailable" = "Voedingsdata niet beschikbaar";
+
 /* Generic text to indicate the nutrients of a product. */
 "Nutrients" = "Voedingsstof";
 
 /* Tableview header for the section with nutriments availability, i.e. whether the nutrients are on the package. */
 "Nutriments Availability" = "Beschikbaarheid Voedingsstoffen";
+
+/* Text to indicate that the nutriscore is not applicable to this product (type). */
+"NutriScore not Applicable" = "Nutri Score niet toepasbaar";
+
+/* Text to indicate that the nutriscore can not be calculated due to missing data. */
+"NutriScore not calculable" = "Nutri Score niet te bepalen";
 
 /* Text in a TagListView, when no nutrition data is available on the package. */
 "nutrition data not on package" = "geen voedingswaarden op verpakking";
@@ -712,14 +727,20 @@
 /* Tableview header section for the original image of the nutritional facts */
 "Nutrition Facts Image (non-edited)" = "Voedingswaardenfoto (onbewerkt)";
 
-/* Header for a table section showing the search for nutrition score */
-"Nutrition Score" = "Nutrition Score";
+/* Header page that shows the various nutritional scores for the product */
+"Nutrition Scores" = "Voedingsbeoordelingen";
 
-/* Header for a table section showing the total results France */
-"Nutritional Score France" = "Voedingswaardescore Frankrijk";
+/* Header for a table section showing the total results France calculated by FoodViewer */
+"Nutritional Score France (FV)" = "Voedingsscore Frankrijk (FV)";
 
-/* Header for a table section showing the total results UK */
-"Nutritional Score UK" = "UK Voedingswaardescore";
+/* Header for a table section showing the total results France calculated by OFF */
+"Nutritional Score France (OFF)" = "Voedingsscore Frankrijk (OFF)";
+
+/* Header for a table section showing the total results UK calculated by FoodViewer */
+"Nutritional Score UK (FV)" = "Voedingsscore Groot-Brittanië (FV)";
+
+/* Header for a table section showing the total results UK calculated by OFF */
+"Nutritional Score UK (OFF)" = "Voedingsscore Groot-Brittanië (OFF)";
 
 /* Header title of tableview section, indicating the websites for the product */
 "Official product website" = "Officiële product website";

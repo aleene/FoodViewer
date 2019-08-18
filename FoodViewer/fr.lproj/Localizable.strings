@@ -161,7 +161,7 @@
 "Completeness" = "Exhaustivité";
 
 /* Label for a horizontal gauge that indicates the completion percentage of the product data. */
-"Completion" = "Taux de complèté";
+"Completion" = "Achèvement";
 
 /* Generic string to indicate the completion states of a product. */
 "Completion States" = "Etats de complétion";
@@ -345,13 +345,13 @@
 "Enter characters to filter the list." = "Saisis caractères pour filtrer ";
 
 /* Placeholder text for field where user should enter a city name. */
-"Enter city name" = "Nom de la ville";
+"Enter city name" = "Saisis nom de la ville";
 
 /* placeholder in a textField where the user can specify a search for contributors. */
 "Enter contributor name to search for" = "Saisis nom du contributeur";
 
 /* Placeholder text for field where user should enter a country name. */
-"Enter country name" = "Nom du pays";
+"Enter country name" = "Saisis nom du pays";
 
 /* The user can tap the button to enter a date. */
 "Enter date" = "Saisis date";
@@ -369,19 +369,19 @@
 "Enter product barcode." = "Saisis code barre produit";
 
 /* Placeholder text for field where user should enter a shop name. */
-"Enter shop name" = "Nom du magasin";
+"Enter shop name" = "Saisis nom du magasin";
 
 /* Placeholder text for field where user should enter a street name. */
-"Enter street name" = "Nom de la rue";
+"Enter street name" = "Saisis nom de la rue";
 
 /* Placeholder text of a textView for the generic product name. */
-"Enter the generic name of the product" = "Nom générique";
+"Enter the generic name of the product" = "Saisis nom générique";
 
 /* Placeholder text of a textView for the ingredients. */
 "Enter the ingredients of the product" = "Ingrédients";
 
 /* Placeholder text of a textView for the product name. */
-"Enter the name of the product" = "Nom produit";
+"Enter the name of the product" = "Saisis nom produit";
 
 /* String to indicate the date, when the product was created on OFF. */
 "Entry Date" = "Date de creation";
@@ -403,6 +403,9 @@
 
 /* Text of a label that wil indicate the fat level (low/medium/high) by colour. */
 "Fat level" = "Taux de graisse";
+
+/* Cell title indicating the product belongs to the fats category */
+"Fats category" = "Catégorie Graisses et Huiles";
 
 /* Title of SegmentedControl segment. */
 "Food" = "Aliments";
@@ -426,10 +429,10 @@
 "Gallery" = "Gallerie";
 
 /* Tableview sectionheader for the edited long product name */
-"Generic Name (edited)" = "Gallerie (édité)";
+"Generic Name (edited)" = "Nom générique (édité)";
 
 /* Tableview sectionheader for the original long product name */
-"Generic Name (non-edited)" = "Gallerie (pas édité)";
+"Generic Name (non-edited)" = "Nom générique (pas édité)";
 
 /* Header for a table section showing the appreciations of the good nutrients */
 "Good nutrients" = "Bons nutriments";
@@ -676,11 +679,23 @@
 /* Title of a table section, which shows the nova evaluation tags for ingredients, additives and categories. */
 "Nova Evaluation Triggers" = "Déclencheurs NOVA";
 
+/* Tag text to indicate that nutrient data for the named nutrient %@ is unavailable. */
+"Nutrient data for %@ unavailable" = "Valeurs pour %@ pas disponible";
+
+/* Tag text to indicate that nutrient data is unavailable. */
+"Nutrient data unavailable" = "Valeurs nutritionnelles pas disponible";
+
 /* Generic text to indicate the nutrients of a product. */
 "Nutrients" = "Nutriments";
 
 /* Tableview header for the section with nutriments availability, i.e. whether the nutrients are on the package. */
 "Nutriments Availability" = "Disponibilité nutriments";
+
+/* Text to indicate that the nutriscore is not applicable to this product (type). */
+"NutriScore not Applicable" = "NutriScore pas applicable";
+
+/* Text to indicate that the nutriscore can not be calculated due to missing data. */
+"NutriScore not calculable" = "NutriScore indéterminable";
 
 /* Text in a TagListView, when no nutrition data is available on the package. */
 "nutrition data not on package" = "pas de valeurs nutri sur emballage";
@@ -715,14 +730,20 @@
 /* Tableview header section for the original image of the nutritional facts */
 "Nutrition Facts Image (non-edited)" = "Photo info nutritionnelles (pas édité)";
 
-/* Header for a table section showing the search for nutrition score */
-"Nutrition Score" = "Nutri-Score";
+/* Header page that shows the various nutritional scores for the product */
+"Nutrition Scores" = "Évaluations nutritionnelles";
 
-/* Header for a table section showing the total results France */
-"Nutritional Score France" = "Score Nutritionelle France";
+/* Header for a table section showing the total results France calculated by FoodViewer */
+"Nutritional Score France (FV)" = "Score nutritionnel France (FV)";
 
-/* Header for a table section showing the total results UK */
-"Nutritional Score UK" = "Score Nutritionelle UK";
+/* Header for a table section showing the total results France calculated by OFF */
+"Nutritional Score France (OFF)" = "Score nutritionnel France (OFF)";
+
+/* Header for a table section showing the total results UK calculated by FoodViewer */
+"Nutritional Score UK (FV)" = "Score nutritionnel  Royaume-Uni (FV)";
+
+/* Header for a table section showing the total results UK calculated by OFF */
+"Nutritional Score UK (OFF)" = "Score nutritionnel Royaume-Uni (OFF)";
 
 /* Header title of tableview section, indicating the websites for the product */
 "Official product website" = "Site officiele produit";

@@ -118,12 +118,11 @@ class NutritionScoreTableViewController: UITableViewController {
     fileprivate func setupSections() -> [SectionType] {
         
         func addRowsFR(for nutritionalScore: NutritionalScoreFR) {
-            nutriScoreSectionStructure = []
             nutriScoreSectionStructure.append(.summary(nutritionalScore.total))
-            for (key,value) in nutritionalScore.pointsA {
+            for (key,value) in nutritionalScore.sortedPointsA {
                 nutriScoreSectionStructure.append(.pointsA(key, value))
             }
-            for (key,value) in nutritionalScore.pointsC {
+            for (key,value) in nutritionalScore.sortedPointsC {
                 nutriScoreSectionStructure.append(.pointsC(key, value))
             }
             nutriScoreSectionStructure.append(.categories(nutritionalScore.isBeverage, TranslatableStrings.BeveragesCategory))
@@ -134,10 +133,10 @@ class NutritionScoreTableViewController: UITableViewController {
         func addRowsUK(for nutritionalScore: NutritionalScore) {
             nutriScoreSectionStructure = []
             nutriScoreSectionStructure.append(.summary(nutritionalScore.total))
-            for (key,value) in nutritionalScore.pointsA {
+            for (key,value) in nutritionalScore.sortedPointsA {
                 nutriScoreSectionStructure.append(.pointsA(key, value))
             }
-            for (key,value) in nutritionalScore.pointsC {
+            for (key,value) in nutritionalScore.sortedPointsC {
                 nutriScoreSectionStructure.append(.pointsC(key, value))
             }
         }
@@ -147,6 +146,7 @@ class NutritionScoreTableViewController: UITableViewController {
         //
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
+        nutriScoreSectionStructure = []
         sectionsAndRows.append(.summary(TableSection.Size.Summary, TableSection.Header.Summary))
         switch showNutritionalScore {
         case .franceDecoded:
