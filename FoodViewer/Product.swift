@@ -970,6 +970,46 @@ class FoodProduct {
     }
     
     var novaEvaluation: [Int:Tags] = [:]
+    var novaEvaluationTranslated: [Int:Tags] {
+        var novaTranslated: [Int:Tags] = [:]
+        for nova in novaEvaluation {
+            switch nova.value {
+            case .available(let list):
+                var listTranslated : [String] = []
+                for item in list {
+                    let parts = item.split(separator: "/")
+                    if parts.count > 0 {
+                        if parts[0] == "ingredients" {
+                            if let translated = OFFplists.manager.translateIngredient(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                                listTranslated.append("ingredients:" + translated)
+                            } else {
+                                listTranslated.append(item)
+                            }
+                        } else if parts[0] == "additives" {
+                            if let translated = OFFplists.manager.translateAdditive(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                                listTranslated.append("additives:" + translated)
+                            } else {
+                                listTranslated.append(item)
+                            }
+                        } else if parts[0] == "categories" {
+                            if let translated = OFFplists.manager.translateCategory(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                                listTranslated.append("categories:" + translated)
+                            } else {
+                                listTranslated.append(item)
+                            }
+                        } else {
+                            listTranslated.append(item)
+                        }
+                    }
+                }
+                novaTranslated[nova.key] = .available(listTranslated)
+
+            default:
+                novaTranslated[nova.key] = nova.value
+            }
+        }
+        return novaTranslated
+    }
 
     /*
     struct UniqueContributors {

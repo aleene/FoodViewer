@@ -481,7 +481,7 @@ extension NutritionScoreTableViewController: TagListViewDataSource {
                 return title(nutrientTags)
             }
         default:
-            if let tags = productPair?.remoteProduct?.novaEvaluation[row] {
+            if let tags = productPair?.remoteProduct?.novaEvaluationTranslated[row] {
                 return title(tags)
             } else {
                 return "NutritionScoreTableViewController: Product nil"
