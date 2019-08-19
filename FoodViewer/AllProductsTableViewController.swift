@@ -381,6 +381,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
     }
+    
 }
 
 // MARK: - UIGestureRecognizerDelegate Functions

@@ -63,45 +63,31 @@ class OFFplists {
     }
 
     
-    lazy var OFFadditives: Set <VertexNew>? = nil
-    lazy var OFFallergens: Set <VertexNew>? = nil
-    lazy var OFFaminoAcids: Set <VertexNew>? = nil
-    lazy var OFFcategories: Set <VertexNew>? = nil
-    lazy var OFFcountries: Set <VertexNew>? = nil
-    lazy var OFFglobalLabels: Set <VertexNew>? = nil
-    lazy var OFFingredients: Set <VertexNew>? = nil
-    lazy var OFFlanguages: Set <VertexNew>? = nil
-    lazy var OFFminerals: Set <VertexNew>? = nil
-    lazy var OFFnucleotides: Set <VertexNew>? = nil
-    lazy var OFFnutrients: Set <VertexNew>? = nil
-    lazy var OFFstates: Set <VertexNew>? = nil
-    lazy var OFFotherNutritionalSubstances: Set <VertexNew>? = nil
-    lazy var OFFvitamins: Set <VertexNew>? = nil
-    lazy var nutrients: [(Nutrient, String, NutritionFactUnit)] = [] // tuple (nutrient enum, nutrient name in local language, default nutrient unit?)
+    private var OFFadditives: Set <VertexNew>? = nil
     
-    init() {
-        // read all necessary plists in the background
-        OFFadditives = readPlist(Constants.AdditivesFileName)
-        OFFallergens = readPlist(Constants.AllergensFileName)
-        OFFaminoAcids = readPlist(Constants.AminoAcidsFileName)
-        OFFcategories = readPlist(Constants.CategoriesFileName)
-        OFFcountries = readPlist(Constants.CountriesFileName)
-        OFFglobalLabels = readPlist(Constants.GlobalLabelsFileName)
-        OFFingredients = readPlist(Constants.IngredientsFileName)
-        OFFlanguages = readPlist(Constants.LanguagesFileName)
-        OFFminerals = readPlist(Constants.MineralsFileName)
-        OFFnucleotides = readPlist(Constants.NucleotidesFileName)
-        OFFnutrients = readPlist(Constants.NutrientsFileName)
-        OFFotherNutritionalSubstances = readPlist(Constants.OtherNutritionalSubstancesFileName)
-        OFFstates = readPlist(Constants.StatesFileName)
-        OFFvitamins = readPlist(Constants.VitaminsFileName)
-        nutrients = localNutrients()
-        if allLanguages.count == 0 {
-            allLanguages = setupAllLanguages(Locale.preferredLanguages[0])
-        }
+    public var OFFallergens: Set <VertexNew>? = nil
+    private var OFFaminoAcids: Set <VertexNew>? = nil
+    private var OFFcategories: Set <VertexNew>? = nil
+    private var OFFcountries: Set <VertexNew>? = nil
+    private var OFFglobalLabels: Set <VertexNew>? = nil
+    private var OFFingredients: Set <VertexNew>? = nil
+    private var OFFlanguages: Set <VertexNew>? = nil
+    private var OFFminerals: Set <VertexNew>? = nil
+    private var OFFnucleotides: Set <VertexNew>? = nil
+    private var OFFnutrients: Set <VertexNew>? = nil
+    private var OFFstates: Set <VertexNew>? = nil
+    private var OFFotherNutritionalSubstances: Set <VertexNew>? = nil
+    private var OFFvitamins: Set <VertexNew>? = nil
+    
+    // tuple (nutrient enum, nutrient name in local language, default nutrient unit?)
+    public var nutrients: [(Nutrient, String, NutritionFactUnit)] {
+        return localNutrients()
     }
     
-    var allStateKeys: [String] {
+    init() {
+    }
+    
+    public var allStateKeys: [String] {
         guard OFFstates != nil else { return [] }
         var stateKeys: [String] = []
         for state in OFFstates! {
@@ -116,6 +102,12 @@ class OFFplists {
 // MARK: - Nutrient functions
 //
     func nutrientText(at index: Int, languageCode key: String) -> (Nutrient, String, NutritionFactUnit)? {
+        if OFFlanguages == nil {
+            OFFlanguages = readPlist(Constants.LanguagesFileName)
+        }
+        if OFFnutrients == nil {
+            OFFnutrients = readPlist(Constants.NutrientsFileName)
+        }
         if index >= 0 && OFFnutrients != nil && index <= OFFlanguages!.count {
             let currentVertex = OFFnutrients![OFFnutrients!.index(OFFnutrients!.startIndex, offsetBy: index)]
             let firstSplit = key.split(separator:"-").map(String.init)
@@ -147,6 +139,9 @@ class OFFplists {
     
     private func localNutrients() -> [(Nutrient, String, NutritionFactUnit)] {
         var nutrients: [(Nutrient, String, NutritionFactUnit)] = []
+        if OFFnutrients == nil {
+            OFFnutrients = readPlist(Constants.NutrientsFileName)
+        }
         if let nutrientVerteces = OFFnutrients {
             for (index,_) in nutrientVerteces.enumerated() {
                 let nutrientTuple = nutrientText(at:index, languageCode:Locale.preferredLanguages[0])
@@ -167,6 +162,9 @@ class OFFplists {
 
     // function to find the unit for a specific nutrient
     func unit(for nutrient: Nutrient) -> NutritionFactUnit {
+        if OFFnutrients == nil {
+            OFFnutrients = readPlist(Constants.NutrientsFileName)
+        }
         // find nutrient
         if let nutrientVerteces = OFFnutrients {
             for vertex in nutrientVerteces {
@@ -195,6 +193,9 @@ class OFFplists {
 //
     
     func language(atIndex index: Int, languageCode key: String) -> String? {
+        if OFFlanguages == nil {
+            OFFlanguages = readPlist(Constants.LanguagesFileName)
+        }
         if index >= 0 && OFFlanguages != nil && index <= OFFlanguages!.count {
             let currentVertex = OFFlanguages![OFFlanguages!.index(OFFlanguages!.startIndex, offsetBy: index)].leaves
             let values = currentVertex[key]
@@ -204,10 +205,15 @@ class OFFplists {
         }
     }
 
-    var allLanguages: [Language] = []
+    public var allLanguages: [Language] {
+        return setupAllLanguages(Locale.preferredLanguages[0])
+    }
     
     private func setupAllLanguages(_ localeLanguage: String) -> [Language] {
         var languages: [Language] = []
+        if OFFlanguages == nil {
+            OFFlanguages = readPlist(Constants.LanguagesFileName)
+        }
         guard OFFlanguages != nil else { return languages }
         let firstSplit = localeLanguage.split(separator:"-").map(String.init)
 
@@ -258,6 +264,9 @@ class OFFplists {
 //
 
     func translateAdditive(_ key: String, language:String) -> String? {
+        if OFFadditives == nil {
+            OFFadditives = readPlist(Constants.AdditivesFileName)
+        }
         if let taxonomy = OFFadditives {
             return translate(key, into: language, for: taxonomy)
         }
@@ -265,6 +274,9 @@ class OFFplists {
     }
     
     func translateAllergen(_ key: String, language:String) -> String? {
+        if OFFallergens == nil {
+            OFFallergens = readPlist(Constants.AllergensFileName)
+        }
         if let taxonomy = OFFallergens {
             return translate(key, into: language, for: taxonomy)
         }
@@ -272,6 +284,9 @@ class OFFplists {
     }
 
     func translateAminoAcid(_ key: String, language:String) -> String? {
+        if OFFaminoAcids == nil {
+            OFFaminoAcids = readPlist(Constants.AminoAcidsFileName)
+        }
         if let taxonomy = OFFaminoAcids {
             return translate(key, into: language, for: taxonomy)
         }
@@ -279,6 +294,9 @@ class OFFplists {
     }
     
     func translateCategory(_ key: String, language:String) -> String? {
+        if OFFcategories == nil {
+            OFFcategories = readPlist(Constants.CategoriesFileName)
+        }
         if let taxonomy = OFFcategories {
             return translate(key, into: language, for: taxonomy)
         }
@@ -286,6 +304,9 @@ class OFFplists {
     }
 
     func translateCountry(_ key: String, language:String) -> String? {
+        if OFFcountries == nil {
+            OFFcountries = readPlist(Constants.CountriesFileName)
+        }
         if let taxonomy = OFFcountries {
             return translate(key, into: language, for: taxonomy)
         }
@@ -293,6 +314,9 @@ class OFFplists {
     }
 
     func translateGlobalLabel(_ key: String, language:String) -> String? {
+        if OFFglobalLabels == nil {
+            OFFglobalLabels = readPlist(Constants.GlobalLabelsFileName)
+        }
         if let taxonomy = OFFglobalLabels {
             return translate(key, into: language, for: taxonomy)
         } else {
@@ -301,6 +325,9 @@ class OFFplists {
     }
 
     func translateIngredient(_ key: String, language:String) -> String? {
+        if OFFingredients == nil {
+            OFFingredients = readPlist(Constants.IngredientsFileName)
+        }
         if let taxonomy = OFFingredients {
             return translate(key, into: language, for: taxonomy)
         }
@@ -315,6 +342,9 @@ class OFFplists {
     }
 
     func translateMineral(_ key: String, language:String) -> String? {
+        if OFFminerals == nil {
+            OFFminerals = readPlist(Constants.MineralsFileName)
+        }
         if let taxonomy = OFFminerals {
             return translate(key, into: language, for: taxonomy)
         }
@@ -322,6 +352,9 @@ class OFFplists {
     }
 
     func translateNucleotide(_ key: String, language:String) -> String? {
+        if OFFnucleotides == nil {
+            OFFnucleotides = readPlist(Constants.NucleotidesFileName)
+        }
         if let taxonomy = OFFnucleotides {
             return translate(key, into: language, for: taxonomy)
         }
@@ -334,6 +367,9 @@ class OFFplists {
 
     func translateNutrient(_ key: String, language:String) -> String? {
         // remark that the key has been extended with a language for in order to be consistent with the other taxonomy keys.
+        if OFFnutrients == nil {
+            OFFnutrients = readPlist(Constants.NutrientsFileName)
+        }
         if let taxonomy = OFFnutrients {
             return translate("en:" + key, into: language, for: taxonomy)
         }
@@ -341,6 +377,9 @@ class OFFplists {
     }
 
     func translateOther(_ key: String, language:String) -> String? {
+        if OFFotherNutritionalSubstances == nil {
+            OFFotherNutritionalSubstances = readPlist(Constants.OtherNutritionalSubstancesFileName)
+        }
         if let taxonomy = OFFotherNutritionalSubstances {
             return translate(key, into: language, for: taxonomy)
         }
@@ -348,6 +387,9 @@ class OFFplists {
     }
     
     func translateState(_ key: String, language:String) -> String? {
+        if OFFstates == nil {
+            OFFstates = readPlist(Constants.StatesFileName)
+        }
         if let taxonomy = OFFstates {
             return translate(key, into: language, for: taxonomy)
         }
@@ -355,6 +397,9 @@ class OFFplists {
     }
 
     func translateVitamin(_ key: String, language:String) -> String? {
+        if OFFvitamins == nil {
+            OFFvitamins = readPlist(Constants.VitaminsFileName)
+        }
         guard let taxonomy = OFFvitamins else {
             return String(format:TextConstants.FileNotAvailable, Constants.VitaminsFileName)
         }
@@ -398,6 +443,23 @@ class OFFplists {
             }
         }
         return nil
+    }
+    
+    public func flushTaxonomies() {
+        OFFadditives = nil
+        OFFallergens = nil
+        OFFaminoAcids = nil
+        OFFcategories = nil
+        OFFcountries = nil
+        OFFglobalLabels = nil
+        OFFingredients = nil
+        OFFlanguages = nil
+        OFFminerals = nil
+        OFFnucleotides = nil
+        OFFnutrients = nil
+        OFFotherNutritionalSubstances = nil
+        OFFstates = nil
+        OFFvitamins = nil
     }
 }
 

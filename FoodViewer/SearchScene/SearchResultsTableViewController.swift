@@ -351,7 +351,9 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
     
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
+        OFFplists.manager.flushTaxonomies()
     }
+
 }
 
 // MARK: - ButtonCellDelegate Functions

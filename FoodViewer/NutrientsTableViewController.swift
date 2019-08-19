@@ -1333,6 +1333,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
+        OFFplists.manager.flushTaxonomies()
     }
 
 }

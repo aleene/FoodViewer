@@ -728,7 +728,9 @@ class SingleSearchProductTableViewController: UITableViewController {
     
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
+        OFFplists.manager.flushTaxonomies()
     }
+
 }
 
 //

@@ -156,7 +156,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
         }
     }
-
+    
     fileprivate var tracesToDisplay: Tags {
         get {
             switch productVersion {
@@ -730,10 +730,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             if validProductPair.hasAllergens || show {
                 sectionsAndRows.append(.allergens(TableSection.Size.Allergens))
             }
-            if validProductPair.hasTraces || show {
-                // 2: traces section
-                sectionsAndRows.append(.traces(TableSection.Size.Traces))
-            }
+            
+            // 2: traces section
+            sectionsAndRows.append(.traces(TableSection.Size.Traces))
             
             if validProductPair.hasMinerals || show {
                 sectionsAndRows.append(.minerals(TableSection.Size.Minerals))
@@ -1037,6 +1036,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
+        OFFplists.manager.flushTaxonomies()
     }
 
 }
@@ -1324,6 +1324,8 @@ extension IngredientsTableViewController: TagListViewDataSource {
             }
         }
 
+        print ("IngredientsTableViewController:",tagListView.tag, tableStructure.count - 1)
+        guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else { return  0 }
         switch tableStructure[tagListView.tag] {
         case .additives:
             return detectedCount(additivesToDisplay)
@@ -1352,6 +1354,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else { return  "IngredientsTableViewController: tag out of bounds" }
         switch tableStructure[tagListView.tag] {
         case .additives:
             return additivesToDisplay.tag(at:index)!

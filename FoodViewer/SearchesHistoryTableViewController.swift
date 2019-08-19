@@ -604,7 +604,9 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
+        OFFplists.manager.flushTaxonomies()
     }
+
 }
 
 // MARK: - SearchHeaderDelegate Functions

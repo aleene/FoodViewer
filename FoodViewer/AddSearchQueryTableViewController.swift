@@ -449,6 +449,11 @@ class AddSearchQueryTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
 
     }
+    
+    override func didReceiveMemoryWarning() {
+        OFFProducts.manager.flushImages()
+        OFFplists.manager.flushTaxonomies()
+    }
 
 }
 
