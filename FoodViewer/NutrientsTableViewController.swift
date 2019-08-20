@@ -378,21 +378,24 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     cell?.nutritionDisplayFactItem = adaptedNutritionFacts[indexPath.row]
                     cell?.delegate = self
                     cell?.tag = indexPath.section * 100 + indexPath.row
+                    let buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
+
                     // only add taps gestures when NOT in editMode
+                    // and when a button is NOT required
                     if  (adaptedNutritionFacts[indexPath.row].nutrient.rawValue ==   NatriumChloride.salt.key) ||
                            (adaptedNutritionFacts[indexPath.row].nutrient.rawValue == NatriumChloride.sodium.key) {
-                        if !editMode {
+                        if !editMode && !buttonNotDoubleTap {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:  #selector(NutrientsTableViewController.doubleTapOnSaltSodiumTableViewCell))
                             doubleTapGestureRecognizer.numberOfTapsRequired = 2
                             doubleTapGestureRecognizer.numberOfTouchesRequired = 1
                             doubleTapGestureRecognizer.cancelsTouchesInView = false
                             doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
-                            }
-                            cell?.toggleViewModeButton.isHidden = editMode ? true : false
+                        }
+                        cell?.toggleViewModeButton.isHidden = editMode ? true : !buttonNotDoubleTap
                     } else if  (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) ||
                         (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) {
-                        if !editMode {
+                        if !editMode && !buttonNotDoubleTap {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
                             doubleTapGestureRecognizer.numberOfTapsRequired = 2
                             doubleTapGestureRecognizer.numberOfTouchesRequired = 1
@@ -400,7 +403,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
                         }
-                        cell?.toggleViewModeButton.isHidden = editMode ? true : false
+                        cell?.toggleViewModeButton.isHidden = editMode ? true : !buttonNotDoubleTap
                     } else {
                         cell?.toggleViewModeButton.isHidden = true
                     }
