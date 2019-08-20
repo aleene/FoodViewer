@@ -785,12 +785,11 @@ class IdentificationTableViewController: UITableViewController {
                 if let vc = segue.destination as? ImageViewController,
                     let validLanguageCode = displayLanguageCode {
                     vc.imageTitle = TranslatableStrings.Identification
-                    // is there an updated image?
-                    if let localProduct = productPair?.localProduct,
-                        !localProduct.frontImages.isEmpty {
-                        vc.imageData = localProduct.image(for:validLanguageCode, of:.front)
+                    if let images = productPair?.localProduct?.frontImages,
+                        !images.isEmpty {
+                        vc.imageData = productPair!.localProduct!.image(for:validLanguageCode, of:.front)
                     } else {
-                        vc.imageData = productPair?.localProduct?.image(for:validLanguageCode, of:.front)
+                        vc.imageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.front)
                     }
                 }
             case Storyboard.SegueIdentifier.ShowNamesLanguages:
