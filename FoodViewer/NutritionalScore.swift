@@ -155,7 +155,7 @@ public class NutritionalScore {
                 return sumA - validFiberNutrimentScore.points
             }
         }
-        return nil
+        return sumA
     }
     
     public struct NutrimentScore {

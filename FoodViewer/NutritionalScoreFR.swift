@@ -150,6 +150,39 @@ public class NutritionalScoreFR: NutritionalScore {
             }
         }
     }
+    
+    // Final NutriScore
+    override public var total: Int? {
+        get {
+            if sumA < 11 || isCheese {
+                return super.sumA - super.sumC
+            } else {
+                // then it can not score points for protein unless it also scores 5 points for fruit, veg and nuts
+                if let fruitVegetableNuts = pointsC[Nutrient.fruitsVegetablesNuts.key],
+                    let fruitVegetableNutsValue = fruitVegetableNuts {
+                    // If a food or drink scores 5 points for fruit, veg & nuts the ‘A’ nutrient cut-off no longer applies.
+                    if fruitVegetableNutsValue.points == 5 {
+                        // use all C points
+                        return super.sumA - super.sumC
+                    } else {
+                        if let fiber = pointsC[Nutrient.fiber.key],
+                            let fiberValue = fiber {
+                            //use fiber and fruitVegetableNut points
+                            return super.sumA - (fiberValue.points + fruitVegetableNutsValue.points)
+                        } else {
+                            //use only fruitVegetableNut points
+                            return super.sumA - fruitVegetableNutsValue.points
+                        }
+                    }
+                } else if let fiberNutrimentScore = pointsC[Nutrient.fiber.key],
+                    let validFiberNutrimentScore = fiberNutrimentScore {
+                    // use only fiber points
+                    return super.sumA - validFiberNutrimentScore.points
+                }
+            }
+            return super.sumA
+        }
+    }
     //
     // MARK: - Initialisers
     //
@@ -339,38 +372,6 @@ public class NutritionalScoreFR: NutritionalScore {
 
     }
     
-    // Final NutriScore
-    override public var total: Int? {
-        get {
-            if sumA < 11 || isCheese {
-                return super.sumA - super.sumC
-            } else {
-                // then it can not score points for protein unless it also scores 5 points for fruit, veg and nuts
-                if let fruitVegetableNuts = pointsC[Nutrient.fruitsVegetablesNuts.key],
-                    let fruitVegetableNutsValue = fruitVegetableNuts {
-                    // If a food or drink scores 5 points for fruit, veg & nuts the ‘A’ nutrient cut-off no longer applies.
-                    if fruitVegetableNutsValue.points == 5 {
-                        // use all C points
-                        return super.sumA - super.sumC
-                    } else {
-                        if let fiber = pointsC[Nutrient.fiber.key],
-                            let fiberValue = fiber {
-                            //use fiber and fruitVegetableNut points
-                            return super.sumA - (fiberValue.points + fruitVegetableNutsValue.points)
-                        } else {
-                            //use only fruitVegetableNut points
-                            return super.sumA - fruitVegetableNutsValue.points
-                        }
-                    }
-                } else if let fiberNutrimentScore = pointsC[Nutrient.fiber.key],
-                    let validFiberNutrimentScore = fiberNutrimentScore {
-                    // use only fiber points
-                    return super.sumA - validFiberNutrimentScore.points
-                }
-            }
-            return nil
-        }
-    }
     
 
     //

@@ -266,6 +266,20 @@ class NutritionScoreTableViewController: UITableViewController {
         case .levels:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Level, for: indexPath) as! LevelTableViewCell
             cell.nutritionLevel = productPair?.remoteProduct?.nutritionScore?[indexPath.row]
+            if let validNutrient = productPair?.remoteProduct?.nutritionFactsDict[Nutrient.salt.key] {
+                cell.saltValue = validNutrient.gramValue
+            }
+            if let validNutrient = productPair?.remoteProduct?.nutritionFactsDict[Nutrient.sugars.key] {
+                cell.sugarValue = validNutrient.gramValue
+            }
+            if let validNutrient = productPair?.remoteProduct?.nutritionFactsDict[Nutrient.fat.key] {
+                cell.fatValue = validNutrient.gramValue
+
+            }
+            if let validNutrient = productPair?.remoteProduct?.nutritionFactsDict[Nutrient.saturatedFat.key] {
+                cell.saturatedFatValue = validNutrient.gramValue
+
+            }
             return cell
             
         case .nova:

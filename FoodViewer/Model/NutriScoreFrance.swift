@@ -5,7 +5,7 @@
 //  Created by arnaud on 10/08/2019.
 //  Copyright © 2019 Hovering Above. All rights reserved.
 //
-
+/*
 import Foundation
 import UIKit
 
@@ -279,3 +279,4 @@ struct NutriScoreFrance {
     }
     
 }
+*/

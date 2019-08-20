@@ -1323,8 +1323,10 @@ extension IngredientsTableViewController: TagListViewDataSource {
             }
         }
 
-        print ("IngredientsTableViewController:",tagListView.tag, tableStructure.count - 1)
-        guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else { return  0 }
+        guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else {
+            print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
+            return  1
+        }
         switch tableStructure[tagListView.tag] {
         case .additives:
             return detectedCount(additivesToDisplay)
