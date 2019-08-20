@@ -40,6 +40,9 @@
 /* Title of a button in normal state allowing the user to add a nutrient */
 "Add Nutrient" = "Nährwert hinzufügen";
 
+/* Text to indicate a specific additive. */
+"Additve %@" = "Zusatzmittel %@";
+
 /* ViewController title, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels. */
 "Alert Preferences" = "Warnung-Einstellungen";
 
@@ -138,6 +141,9 @@
 
 /* Original text to indicate the product belongs to a category. */
 "Categories (translated)" = "Kategorien (übersetzt)";
+
+/* Text to indicate a specific additive. */
+"Category %@" = "%@ Kategorie";
 
 /* String in PickerViewController to indicate the checker role of a contributor */
 "Checker" = "Prüfer";
@@ -466,6 +472,9 @@
 
 /* String in PickerViewController to indicate the informer role of a contributor */
 "Informer" = "Hinweisgeber";
+
+/* Text to indicate a specific ingredient. */
+"Ingredient %@" = "Zutate %@";
 
 /* Text to indicate the ingredients of a product. */
 "Ingredients" = "Zutaten";

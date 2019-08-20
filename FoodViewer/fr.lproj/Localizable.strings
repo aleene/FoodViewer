@@ -43,6 +43,9 @@
 /* Title of a button in normal state allowing the user to add a nutrient */
 "Add Nutrient" = "Ajout nutriment";
 
+/* Text to indicate a specific additive. */
+"Additve %@" = "Additive %@";
+
 /* ViewController title, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels. */
 "Alert Preferences" = "Préférences avertissements";
 
@@ -142,6 +145,9 @@
 /* Original text to indicate the product belongs to a category. */
 "Categories (translated)" = "Catégories (traduit)";
 
+/* Text to indicate a specific additive. */
+"Category %@" = "Catégorie %@";
+
 /* String in PickerViewController to indicate the checker role of a contributor */
 "Checker" = "Controleur";
 
@@ -197,7 +203,7 @@
 "Countries (translated)" = "Pays (traduit)";
 
 /* Text to indicate the sales countries of a product. */
-"Countries where sold" = "Pays vendu";
+"Countries where sold" = "Pays de vente";
 
 /* Title of a button, which opens a web-page that allows a user to create an OFF account. */
 "Create OFF Account" = "Crée compte OFF";
@@ -469,6 +475,9 @@
 
 /* String in PickerViewController to indicate the informer role of a contributor */
 "Informer" = "Informeur";
+
+/* Text to indicate a specific ingredient. */
+"Ingredient %@" = "Ingrédient %@";
 
 /* Text to indicate the ingredients of a product. */
 "Ingredients" = "Ingrédients";

@@ -528,7 +528,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             case .ingredients:
                 switch productVersion {
                 case .new:
-                    headerView.changeLanguageButton.isHidden = false
                     if let validLanguageCode = displayLanguageCode,
                         productPair?.localProduct?.ingredientsLanguage[validLanguageCode] != nil {
                         // the local version has been requested and is available
@@ -536,7 +535,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     } else {
                         header = TranslatableStrings.Ingredients
                     }
-                    headerView.title = header + " - "
+                    headerView.changeLanguageButton.isHidden = false
                 case .remoteTags:
                     header = TranslatableStrings.IngredientsNormalized
                 case .remoteTagsTranslated:
@@ -548,11 +547,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 default:
                     headerView.changeLanguageButton.isHidden = false
                     header = TranslatableStrings.IngredientsOriginal
-                    headerView.title = header + " - "
                 }
             default:
                 break
             }
+            headerView.title = headerView.changeLanguageButton.isHidden ? header : header + " - "
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
             return headerView

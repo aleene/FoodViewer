@@ -981,19 +981,19 @@ class FoodProduct {
                     if parts.count > 0 {
                         if parts[0] == "ingredients" {
                             if let translated = OFFplists.manager.translateIngredient(String(parts[1]), language: Locale.interfaceLanguageCode) {
-                                listTranslated.append("ingredients:" + translated)
+                                listTranslated.append(String(format: TranslatableStrings.IngredientSpecific, translated))
                             } else {
                                 listTranslated.append(item)
                             }
                         } else if parts[0] == "additives" {
                             if let translated = OFFplists.manager.translateAdditive(String(parts[1]), language: Locale.interfaceLanguageCode) {
-                                listTranslated.append("additives:" + translated)
+                                listTranslated.append(String(format: TranslatableStrings.AdditiveSpecific, translated))
                             } else {
                                 listTranslated.append(item)
                             }
                         } else if parts[0] == "categories" {
                             if let translated = OFFplists.manager.translateCategory(String(parts[1]), language: Locale.interfaceLanguageCode) {
-                                listTranslated.append("categories:" + translated)
+                                listTranslated.append(String(format: TranslatableStrings.CategorySpecific, translated))
                             } else {
                                 listTranslated.append(item)
                             }
