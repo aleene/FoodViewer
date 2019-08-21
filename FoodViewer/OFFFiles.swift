@@ -445,7 +445,7 @@ class OFFplists {
         return nil
     }
     
-    public func flushTaxonomies() {
+    public func flush() {
         OFFadditives = nil
         OFFallergens = nil
         OFFaminoAcids = nil
