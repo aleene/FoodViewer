@@ -709,7 +709,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        OFFplists.manager.flushTaxonomies()
+        OFFplists.manager.flush()
         // Dispose of any resources that can be recreated.
     }
 

@@ -414,7 +414,7 @@ class CompletionStatesTableViewController: UITableViewController {
 
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
-        OFFplists.manager.flushTaxonomies()
+        OFFplists.manager.flush()
     }
 
     // Can I change this to a protocol?

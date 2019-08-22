@@ -199,6 +199,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         } else if let vc = viewController(for: currentProductPage) as? NutritionScoreTableViewController {
             vc.refreshProduct()
 
+        } else if let vc = viewController(for: currentProductPage) as? DietCompliancyTableViewController {
+            vc.refreshProduct()
+
         } else if let vc = viewController(for: currentProductPage) as? ProductImagesCollectionViewController {
             vc.reloadImages()
         }
@@ -230,7 +233,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 
         } else if viewController is ProductImagesCollectionViewController {
                 return .gallery
-            
+
+        } else if viewController is DietCompliancyTableViewController {
+            return .dietCompliancy
+
         } else if viewController is NotSetPageViewController {
             return .notSet
             
@@ -253,7 +259,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // define the pages (and order), which will be shown
             switch currentProductType {
             case .food:
-                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .nutritionScore, .completion]
+                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .nutritionScore, .dietCompliancy, .completion]
             case .beauty:
                 pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
             case .petFood:
@@ -273,6 +279,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         completionStatusVC.delegate = self
         nutritionScoreVC.delegate = self
         galleryVC.delegate = self
+        dietCompliancyVC.delegate = self
     }
     
 
@@ -308,7 +315,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             
         case .gallery:
             galleryVC.delegate = self
-            
+
+        case .dietCompliancy:
+            dietCompliancyVC.delegate = self
+
         case .notSet:
             break
         }
@@ -327,6 +337,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         static let CommunityEffortVCIdentifier = "CommunityEffortTableViewController"
         static let NutritionalScoreVCIdentifier = "NutritionScoreTableViewController"
         static let ProductImagesVCIdentifier = "ProductImagesCollectionViewController"
+        static let DietCompliancyVCIdentifier = "DietCompliancyTableViewController"
         static let NotSetVCIdentifier = "NotSetViewController"
         static let ConfirmProductViewControllerSegue = "Confirm Product Segue"
     }
@@ -350,6 +361,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             return completionStatusVC
         case .supplyChain:
             return supplyChainVC
+        case .dietCompliancy:
+            return dietCompliancyVC
         case .notSet:
             return notSetVC
         }
@@ -401,6 +414,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     fileprivate let nutritionScoreVC: NutritionScoreTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NutritionalScoreVCIdentifier) as! NutritionScoreTableViewController
 
     fileprivate let galleryVC: ProductImagesCollectionViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.ProductImagesVCIdentifier) as! ProductImagesCollectionViewController
+
+    fileprivate let dietCompliancyVC: DietCompliancyTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.DietCompliancyVCIdentifier) as! DietCompliancyTableViewController
 
     fileprivate let notSetVC: NotSetPageViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NotSetVCIdentifier) as! NotSetPageViewController
 

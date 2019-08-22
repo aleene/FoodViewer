@@ -17,6 +17,7 @@ public enum ProductPage {
     case nutritionScore
     case categories
     case completion
+    case dietCompliancy
     case supplyChain
     case notSet
 
@@ -38,6 +39,8 @@ public enum ProductPage {
             return TranslatableStrings.CommunityEffort
         case .supplyChain:
             return TranslatableStrings.SupplyChain
+        case .dietCompliancy:
+            return TranslatableStrings.DietCompliancy
         case .notSet:
             return TranslatableStrings.ProductNotSet
         }

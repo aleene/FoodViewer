@@ -125,6 +125,7 @@ static let DetectedMinerals = NSLocalizedString("Detected Minerals", comment: "T
     static let DetectedVitamins = NSLocalizedString("Detected Vitamins", comment: "Tableview section header, which list the detected vitamins in an ingredients list.")
     static let DetectedVitaminsNormalized = NSLocalizedString("Detected Vitamins (normalized)", comment: "Tableview section header, which list the normalized detected vitamins in an ingredients list.")
     static let DetectedVitaminsTranslated = NSLocalizedString("Detected Vitamins (translated)", comment: "Tableview section header, which list the translated detected vitamins in an ingredients list.")
+    static let DietCompliancy = NSLocalizedString("Diet Compliancy", comment: "Title of a tableView, which shows how well a product conforms to a set of diet profiles.")
     static let Discard = NSLocalizedString("Discard", comment: "Title of a button in an alert sheet, which allows the user to discard alle changes to the local product.")
     static let DisplayPreferences = NSLocalizedString("Display Preferences", comment: "Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc")
     static let DisplayPreferencesExtended = NSLocalizedString("Set preferences for salt/sodium, kJ/kcal/Cal, etc.", comment: "Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc")
