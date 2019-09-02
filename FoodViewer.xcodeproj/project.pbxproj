@@ -95,6 +95,7 @@
 		5149C5D622F6D9BB000EA690 /* Nutrients.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5149C5D522F6D9BB000EA690 /* Nutrients.plist */; };
 		514C0BEA230D770200FE9AF7 /* Diets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C0BE9230D770200FE9AF7 /* Diets.swift */; };
 		514C0BEC230EC6EE00FE9AF7 /* DietCompliancyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C0BEB230EC6EE00FE9AF7 /* DietCompliancyTableViewController.swift */; };
+		514C0BEF230ECFF700FE9AF7 /* DietLevelsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C0BEE230ECFF700FE9AF7 /* DietLevelsTableViewCell.swift */; };
 		514EEF9A1ED9B70000C4CF54 /* 4005900122063.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF991ED9B70000C4CF54 /* 4005900122063.json */; };
 		514EEF9C1ED9B79100C4CF54 /* 7613034182067.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */; };
 		514EFA82222FEBB3008FFD2A /* FoodViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EFA81222FEBB3008FFD2A /* FoodViewerUITests.swift */; };
@@ -484,6 +485,7 @@
 		5149C5DA22F6EE53000EA690 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		514C0BE9230D770200FE9AF7 /* Diets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Diets.swift; path = Taxonomies/Diets.swift; sourceTree = "<group>"; };
 		514C0BEB230EC6EE00FE9AF7 /* DietCompliancyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DietCompliancyTableViewController.swift; path = DietCompliancy/DietCompliancyTableViewController.swift; sourceTree = "<group>"; };
+		514C0BEE230ECFF700FE9AF7 /* DietLevelsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DietLevelsTableViewCell.swift; path = Cells/DietLevelsTableViewCell.swift; sourceTree = "<group>"; };
 		514EEF991ED9B70000C4CF54 /* 4005900122063.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4005900122063.json; sourceTree = "<group>"; };
 		514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 7613034182067.json; sourceTree = "<group>"; };
 		514EFA7F222FEBB3008FFD2A /* FoodViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1079,6 +1081,14 @@
 			name = sampleJson;
 			sourceTree = "<group>";
 		};
+		514C0BED230ECFA300FE9AF7 /* DietCompliancyCells */ = {
+			isa = PBXGroup;
+			children = (
+				514C0BEE230ECFF700FE9AF7 /* DietLevelsTableViewCell.swift */,
+			);
+			name = DietCompliancyCells;
+			sourceTree = "<group>";
+		};
 		514EFA80222FEBB3008FFD2A /* FoodViewerUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1438,7 +1448,10 @@
 		51DAD3771C5F757A00895513 /* ProductTableCells */ = {
 			isa = PBXGroup;
 			children = (
+				51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */,
 				51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */,
+				513E00971F867F2C003153D4 /* TagListViewLabelTableViewCell.swift */,
+				51DA03221F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift */,
 				51FB32301CF75B4500A17312 /* SetWarningTableViewCell.swift */,
 				51AFB0081C734CD900598444 /* IdentificationCells */,
 				517AAD4B1C7DB5B800B12F3C /* IngredientsCell */,
@@ -1446,9 +1459,7 @@
 				51BED0C21CE1BF67006ED62B /* SupplyChainCells */,
 				5184F57D1EB5ED09009ECF73 /* NutrimentScoreCells */,
 				51AFB00F1C74877700598444 /* ContributorsCell */,
-				51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */,
-				51DA03221F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift */,
-				513E00971F867F2C003153D4 /* TagListViewLabelTableViewCell.swift */,
+				514C0BED230ECFA300FE9AF7 /* DietCompliancyCells */,
 				517AAD261C7B4D0700B12F3C /* Product Cells */,
 				51B741711F966EC90025F8A1 /* ProductImageTableViewCell.swift */,
 			);
@@ -1957,6 +1968,7 @@
 				51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */,
 				51B721741DD5F268003AF608 /* AddNutrientViewController.swift in Sources */,
 				5124D88B1E3E4DBE00C36F90 /* MainLanguageViewController.swift in Sources */,
+				514C0BEF230ECFF700FE9AF7 /* DietLevelsTableViewCell.swift in Sources */,
 				514FC915213E7BB6007577FC /* CSV.swift in Sources */,
 				5104F4AA1F9E55FB008D074F /* LastEditDateTableViewCell.swift in Sources */,
 				51C2FF7420E507A000B65509 /* Fetch.swift in Sources */,

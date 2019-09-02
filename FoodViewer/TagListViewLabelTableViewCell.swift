@@ -77,7 +77,8 @@ class TagListViewLabelTableViewCell: UITableViewCell {
     
     var width: CGFloat = CGFloat(320.0) {
         didSet {
-            tagListView?.frame.size.width = width - Constants.Margin - label.frame.size.width
+           tagListView?.frame.size.width = width
+            // tagListView?.frame.size.width = width - Constants.Margin - label.frame.size.width
         }
     }
     

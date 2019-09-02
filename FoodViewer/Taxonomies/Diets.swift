@@ -17,40 +17,55 @@ class Diets {
         static let PlistExtension = "plist"
         struct Key {
             static let Languages = "Languages"
+            static let Levels = "Levels"
+            static let Order = "Order"
+            static let Neutral = "Neutral"
+            static let Taxonomies = "Taxonomies"
+            static let Additives = "Additives"
+            static let Categories = "Categories"
+            static let Ingredients = "Ingredients"
+            static let Labels = "Labels"
+            static let Other = "Other"
+            static let Traces = "Traces"
         }
     }
     
-    private struct Diet {
+    fileprivate struct Diet {
         var key: String // the diet key
         var languages: [Language] // the diet names in multipe languages
         var levels: [Level]
+        var neutralLevel: Int?
     }
     
-    private struct Language {
+    fileprivate struct Language {
         var key: String
         var names: [String]
     }
     
-    private struct Level {
+    fileprivate struct Level {
         var key: String
         var order: Int
         var languages: [Language]
         var taxonomies: [Taxonomy]
     }
     
-    private struct Taxonomy {
+    fileprivate struct Taxonomy {
         var key: String
-        var names: [String]
+        var names: [[String]]  // the first one is the key, the others parents
     }
     
-    var count: Int {
-        return all.count
+    var count: Int? {
+        checkInit()
+        return all!.count
     }
     
-    private var all: [Diet] = []
+    fileprivate var all: [Diet]? = nil
     
-    func name(for index:Int, in languageCode:String) -> String? {
-        guard index > 0 && index < count else { return nil }
+    public func name(for index:Int, in languageCode:String) -> String? {
+        checkInit()
+        guard let validCount = count else { return nil }
+        guard index >= 0 else { return nil }
+        guard index < validCount else { return nil }
         if let languageName = sort(on: languageCode)[index].languages.first,
             let name = languageName.names.first {
                 return name
@@ -59,11 +74,287 @@ class Diets {
         }
     }
     
-    //private var all: [String:Any]? = nil
+    // The order is used here as identifier for the level
+    public func labelName(for index:Int, and order:Int, in languageCode:String) -> String? {
+        checkInit()
+        guard let validCount = count else { return nil }
+        guard index >= 0 else { return nil }
+        guard index < validCount else { return nil }
+        
+        for level in sort(on: languageCode)[index].levels {
+            if level.order == order {
+                for language in level.languages {
+                    if language.key == languageCode {
+                        return language.names.first
+                    }
+                }
+            }
+        }
+        return nil
+    }
+
     
-    private func sort(on languageCode:String) -> [Diet] {
+    fileprivate func numberOfLevels(forDietAt index:Int) -> Int? {
+        guard let diet = all?[index] else { return nil }
+        return diet.levels.count
+    }
+    
+    fileprivate func order(forDietAt index:Int, and level:Int) -> Int? {
+        guard let diet = all?[index] else { return nil }
+        return diet.levels[level].order
+    }
+    
+    public func conclusion(_ product:FoodProduct, withDietAt index:Int) -> Int? {
+        guard let diet = all?[index] else { return nil }
+        guard let neutralLevel = diet.neutralLevel else { return nil }
+        var neutralIndex: Int? = nil
+        var numberOfLevelsWithMatches = 0
+        var lowestLevelWithAMatch: Int? = nil
+        var highestLevelWithAMatch: Int? = nil
+        if let numberOfLevels = numberOfLevels(forDietAt: index) {
+            var matchedDiet: [(Int,[String])] = []
+            for levelIndex in 0...numberOfLevels - 1 {
+                if let order = order(forDietAt: index, and: levelIndex) {
+                    let matchedTags = match(product, withDietAt: index, in: order)
+                    matchedDiet.append((order,matchedTags))
+                }
+            }
+            let sortedMatchedDiet : [(Int,[String])] = matchedDiet.sorted(by: { x, y in
+                return x.0 < y.0 })
+            for (levelIndex, (order,matches)) in sortedMatchedDiet.enumerated() {
+                if matches.count > 0 {
+                    if let lowest = lowestLevelWithAMatch {
+                        if levelIndex < lowest {
+                            lowestLevelWithAMatch = levelIndex
+                        }
+                    } else {
+                        lowestLevelWithAMatch = levelIndex
+                    }
+                    if let highest = highestLevelWithAMatch {
+                        if levelIndex > highest {
+                            highestLevelWithAMatch = levelIndex
+                        }
+                    } else {
+                        highestLevelWithAMatch = levelIndex
+                    }
+                    
+                    if matches.count != 0 {
+                        numberOfLevelsWithMatches += 1
+                    }
+                }
+                if order == neutralLevel {
+                    neutralIndex = levelIndex
+                }
+            }
+
+        }
+        if let validNeutralIndex = neutralIndex {
+            if highestLevelWithAMatch != nil && highestLevelWithAMatch! > validNeutralIndex {
+                return highestLevelWithAMatch!
+            }
+            if lowestLevelWithAMatch != nil && lowestLevelWithAMatch! < validNeutralIndex {
+                return lowestLevelWithAMatch!
+            }
+        }
+        // None of the levels has a match so we assume the neutral level must be compliant
+        if numberOfLevelsWithMatches == 0 {
+            return neutralIndex
+        }
+        return nil
+    }
+    
+    public func matches(_ product:FoodProduct?, in languageCode:String) -> [[(Int,[String])]] {
+        guard product != nil else { return [] }
+        guard count != nil else { return [] }
+        var matchesPerDietPerLevel: [[(Int,[String])]] = []
+        for dietIndex in 0...count! - 1 {
+            if let numberOfLevels = numberOfLevels(forDietAt: dietIndex) {
+                var matchedDiet: [(Int,[String])] = []
+                for levelIndex in 0...numberOfLevels - 1 {
+                    if let order = order(forDietAt: dietIndex, and: levelIndex) {
+                        let matchedTags = match(product!, withDietAt: dietIndex, in: order)
+                        matchedDiet.append((order,matchedTags))
+                    }
+                }
+                let sortedMatchedDiet : [(Int,[String])] = filter(matchedDiet.sorted(by: { x, y in
+                    return x.0 < y.0 }))
+                
+                matchesPerDietPerLevel.append(translate(sortedMatchedDiet))
+            }
+        }
+        return matchesPerDietPerLevel
+    }
+    
+    private func translate(_ matches: [(Int,[String])]) -> [(Int,[String])] {
+        var translatedMatches: [(Int,[String])] = []
+        translatedMatches = matches
+        for index in 0...translatedMatches.count - 1 {
+            var newTag: [String] = []
+            for tag in translatedMatches[index].1 {
+                let parts = tag.split(separator: "/")
+                if parts.count > 0 {
+                    if parts[0] == Constant.Key.Ingredients {
+                        if let translated = OFFplists.manager.translateIngredient(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                            newTag.append(translated)
+                        } else {
+                            newTag.append(String(parts[1]))
+                        }
+                    } else if parts[0] == Constant.Key.Additives {
+                        if let translated = OFFplists.manager.translateAdditive(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                            newTag.append(translated)
+                        } else {
+                            newTag.append(String(parts[1]))
+                        }
+                    } else if parts[0] == Constant.Key.Categories {
+                        if let translated = OFFplists.manager.translateCategory(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                            newTag.append(translated)
+                        } else {
+                            newTag.append(String(parts[1]))
+                        }
+                    } else if parts[0] == Constant.Key.Traces {
+                        if let translated = OFFplists.manager.translateAdditive(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                            newTag.append(translated)
+                        } else {
+                            newTag.append(String(parts[1]))
+                        }
+                    } else if parts[0] == Constant.Key.Traces {
+                        if let translated = OFFplists.manager.translateGlobalLabel(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                            newTag.append(translated)
+                        } else {
+                            newTag.append(String(parts[1]))
+                        }
+                    } else {
+                        newTag.append(String(parts[1]))
+                    }
+                }
+            }
+            translatedMatches[index].1 = newTag
+        }
+        return translatedMatches
+    }
+    
+    private func filter(_ matches: [(Int,[String])]) -> [(Int,[String])] {
+        var filteredMatches: [(Int,[String])] = []
+        filteredMatches = matches
+        var remove = false
+        // each tag in a level should be checked against all tags in OTHER levels
+        for index in 0...matches.count - 1 {
+            let tags = filteredMatches[index].1
+            for (_, tag) in tags.enumerated() {
+                for index2 in 0...matches.count - 1 {
+                    if index == index2 { continue }
+                    if let present = filteredMatches[index2].1.firstIndex(of: tag) {
+                        filteredMatches[index2].1.remove(at: present)
+                        remove = true
+                    }
+                }
+                if remove {
+                    if let present = filteredMatches[index].1.firstIndex(of: tag) {
+                        filteredMatches[index].1.remove(at: present)
+                        remove = false
+                    }
+                    
+                }
+            }
+        }
+        return filteredMatches
+    }
+    
+    private func match(_ product:FoodProduct, withDietAt index:Int, in order:Int) -> [String] {
+        var matchedTags: [String] = []
+        checkInit()
+        for level in all![index].levels {
+            if level.order == order {
+                for taxonomy in level.taxonomies {
+                    for name in taxonomy.names {
+                        if taxonomy.key == Constant.Key.Categories,
+                            name.count >= 0 {
+                            switch product.categoriesHierarchy {
+                            case .available(let tags):
+                                if tags.contains(name[0]) {
+                                        matchedTags.append(Constant.Key.Categories + "/" + name[0])
+                                }
+                            default: break
+                            }
+                        }
+                        if taxonomy.key == Constant.Key.Labels,
+                            name.count >= 0  {
+                            switch product.labelsInterpreted {
+                            case .available(let tags):
+                                if tags.contains(name[0]) {
+                                    matchedTags.append(Constant.Key.Labels + "/" + name[0])
+                                    if name.count == 2 {
+                                        matchedTags.append(Constant.Key.Labels + "/" + name[1])
+                                    }
+                                }
+                            default: break
+                            }
+                        }
+                        if taxonomy.key == Constant.Key.Additives,
+                            name.count >= 0  {
+                            switch product.additivesInterpreted {
+                            case .available(let tags):
+                                if tags.contains(name[0]) {
+                                    matchedTags.append(Constant.Key.Additives + "/" + name[0])
+                                    if name.count == 2 {
+                                        matchedTags.append(Constant.Key.Additives + "/" + name[1])
+                                    }
+                                }
+                            default: break
+                            }
+                        }
+                        if taxonomy.key == Constant.Key.Traces,
+                            name.count >= 0  {
+                            switch product.tracesInterpreted {
+                            case .available(let tags):
+                                if tags.contains(name[0]) {
+                                    matchedTags.append(Constant.Key.Traces + "/" + name[0])
+                                    if name.count == 2 {
+                                        matchedTags.append(Constant.Key.Traces + "/" + name[1])
+                                    }
+                                }
+                            default: break
+                            }
+                        }
+                        
+                        if taxonomy.key == Constant.Key.Ingredients,
+                            name.count >= 0  {
+                            switch product.ingredientsHierarchy {
+                            case .available(let tags):
+                                if tags.contains(name[0]) {
+                                    matchedTags.append(Constant.Key.Ingredients + "/" + name[0])
+                                    if name.count == 2 {
+                                        matchedTags.append(Constant.Key.Ingredients + "/" + name[1])
+                                    }
+                                }
+                            default: break
+                            }
+                        }
+                        if taxonomy.key == Constant.Key.Other,
+                            name.count >= 0  {
+                            switch product.otherNutritionalSubstances {
+                            case .available(let tags):
+                                if tags.contains(name[0]) {
+                                    matchedTags.append(Constant.Key.Other + "/" + name[0])
+                                    if name.count == 2 {
+                                        matchedTags.append(Constant.Key.Other + "/" + name[1])
+                                    }
+                                }
+                            default: break
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return matchedTags
+    }
+    
+    fileprivate func sort(on languageCode:String) -> [Diet] {
+        checkInit()
+        guard let validAll = all else { return [] }
         var sortedDiets: [Diet] = []
-        for diet in all {
+        for diet in validAll {
             let languages = diet.languages
             var newLanguages: [Language] = []
             for language in languages {
@@ -74,9 +365,15 @@ class Diets {
                     }
                 }
             }
-            sortedDiets.append(Diet(key: diet.key, languages: newLanguages, levels:diet.levels))
+            sortedDiets.append(Diet(key: diet.key, languages: newLanguages, levels:diet.levels, neutralLevel: diet.neutralLevel))
         }
         return sortedDiets.sorted(by: { $0.languages.first!.names.first! < $1.languages.first!.names.first! })
+    }
+    
+    fileprivate func checkInit() {
+        if all == nil {
+            read()
+        }
     }
     
     fileprivate func read() {
@@ -91,6 +388,7 @@ class Diets {
                                 // a valid diet has been defined
                                 var languages: [Language] = []
                                 var levels: [Level] = []
+                                var neutralLevel: Int? = nil
                                 for (languagesKey, languagesValue) in validDiet {
                                     if languagesKey == Constant.Key.Languages {
                                         if let validLanguagesDict = languagesValue as? [String:Any] {
@@ -106,20 +404,27 @@ class Diets {
                                         } else {
                                             assert(true, "Diets: Diet languages dictionary malformatted")
                                         }
-                                    } else if languagesKey == "Levels" {
+                                    } else if languagesKey == Constant.Key.Neutral {
+                                        if let neutral = languagesValue as? Int {
+                                            neutralLevel = neutral
+                                        } else {
+                                            assert(true, "Diets: Diet neutral malformatted")
+                                        }
+
+                                    } else if languagesKey == Constant.Key.Levels {
                                         if let validLevelsDict = languagesValue as? [String:Any] {
                                             // loop over all levels of the current diet
                                             for (levelKey, levelDict) in validLevelsDict {
                                                 var level = Level.init(key:levelKey, order: 0, languages: [], taxonomies: [])
                                                 if let validLevel = levelDict as? [String:Any] {
                                                     for (levelElementKey, levelElement) in validLevel {
-                                                        if levelElementKey == "Order" {
+                                                        if levelElementKey == Constant.Key.Order {
                                                             if let validOrder = levelElement as? Int {
                                                                 level.order = validOrder
                                                             } else {
                                                                 assert(true, "Diets: Order does not contain an Int")
                                                             }
-                                                        } else if levelElementKey == "Languages" {
+                                                        } else if levelElementKey == Constant.Key.Languages {
                                                             if let validLanguagesDict = levelElement as? [String:Any] {
                                                                 var languages: [Language] = []
                                                                 for (languageCode, languageCodeValue) in validLanguagesDict {
@@ -134,23 +439,31 @@ class Diets {
                                                             } else {
                                                                 assert(true, "Diet: Level languages dictionary malformatted")
                                                             }
-                                                        } else if levelElementKey == "Taxonomies" {
+                                                        } else if levelElementKey == Constant.Key.Taxonomies {
                                                             var taxonomies: [Taxonomy] = []
                                                             if let validTaxonomiesDict = levelElement as? [String:Any] {
                                                                 for (taxonomyKey, taxonomyValue) in validTaxonomiesDict {
                                                                     var taxonomy = Taxonomy(key: taxonomyKey, names: [])
-                                                                    if taxonomyKey == "Ingredients",
-                                                                        let values = taxonomyValue as? String {
-                                                                        taxonomy.names = [values]
-                                                                    } else if taxonomyKey == "Additives",
-                                                                        let values = taxonomyValue as? String {
-                                                                        taxonomy.names = [values]
-                                                                    } else if taxonomyKey == "Categories",
-                                                                        let values = taxonomyValue as? String {
-                                                                        taxonomy.names = [values]
-                                                                    } else if taxonomyKey == "Other",
-                                                                        let values = taxonomyValue as? String {
-                                                                        taxonomy.names = [values]
+                                                                    if taxonomyKey == Constant.Key.Ingredients {
+                                                                        if let values = taxonomyValue as? [[String]] {
+                                                                            taxonomy.names = values
+                                                                        }
+                                                                    } else if taxonomyKey == Constant.Key.Additives {
+                                                                        if let values = taxonomyValue as? [[String]] {
+                                                                            taxonomy.names = values
+                                                                        }
+                                                                    } else if taxonomyKey == Constant.Key.Categories {
+                                                                        if let values = taxonomyValue as? [[String]] {
+                                                                            taxonomy.names = values
+                                                                        }
+                                                                    } else if taxonomyKey == Constant.Key.Labels {
+                                                                        if let values = taxonomyValue as? [[String]] {
+                                                                            taxonomy.names = values
+                                                                        }
+                                                                    } else if taxonomyKey == Constant.Key.Other {
+                                                                        if let values = taxonomyValue as? [[String]] {
+                                                                            taxonomy.names = values
+                                                                        }
                                                                     } else {
                                                                         assert(true, "Diet: Taxonomy with a wrong key or array")
                                                                     }
@@ -177,7 +490,10 @@ class Diets {
                                     }
                                     
                                 }
-                                all.append(Diet(key: validKey, languages: languages, levels:levels))
+                                if all == nil {
+                                    all = []
+                                }
+                                all!.append(Diet(key: validKey, languages: languages, levels:levels, neutralLevel: neutralLevel))
                             }
                         }
                     }
