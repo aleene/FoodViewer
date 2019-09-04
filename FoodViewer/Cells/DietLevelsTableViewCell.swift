@@ -53,6 +53,12 @@ class DietLevelsTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var toggleViewModeButton: UIButton! {
+        didSet {
+            setButtonOrDoubletap(buttonNotDoubleTap)
+        }
+    }
+
     var one: String? = nil {
         didSet {
             setup()
@@ -139,7 +145,7 @@ class DietLevelsTableViewCell: UITableViewCell {
     
     private func setButtonOrDoubletap(_ useButton:Bool?) {
         guard let validUseButton = useButton else { return }
-        //toggleViewModeButton?.isHidden = !validUseButton
+        toggleViewModeButton?.isHidden = !validUseButton
         if !validUseButton {
             let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DietLevelsTableViewCell.cellTapped))
             doubleTapGestureRecognizer.numberOfTapsRequired = 2

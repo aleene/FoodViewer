@@ -3627,6 +3627,13 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLq-0m-maz">
+                                            <rect key="frame" x="381" y="28.666666666666664" width="25" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="RLq-0m-maz" secondAttribute="height" multiplier="1:1" id="HjQ-5n-tpV"/>
+                                            </constraints>
+                                            <state key="normal" image="TripleTap"/>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="yxA-3x-5Ry" firstAttribute="centerY" secondItem="LSZ-ds-X6U" secondAttribute="centerY" id="23c-IF-8Gl"/>
@@ -3640,6 +3647,8 @@
                                         <constraint firstItem="jvB-mU-zRa" firstAttribute="centerY" secondItem="eQ6-aL-7Zv" secondAttribute="centerY" id="T5J-E9-3QQ"/>
                                         <constraint firstItem="yxA-3x-5Ry" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kb4-BD-oXR" secondAttribute="leading" constant="10" id="V7s-3o-DJl"/>
                                         <constraint firstItem="jvB-mU-zRa" firstAttribute="leading" secondItem="eQ6-aL-7Zv" secondAttribute="trailing" constant="16" id="X5Z-4o-z5c"/>
+                                        <constraint firstItem="RLq-0m-maz" firstAttribute="centerY" secondItem="Kb4-BD-oXR" secondAttribute="centerY" id="Ywt-gG-jPo"/>
+                                        <constraint firstAttribute="trailing" secondItem="RLq-0m-maz" secondAttribute="trailing" constant="8" id="eCv-RZ-oCb"/>
                                         <constraint firstItem="LSZ-ds-X6U" firstAttribute="height" secondItem="4aW-pw-OS3" secondAttribute="height" id="hcM-Zj-mND"/>
                                         <constraint firstItem="eQ6-aL-7Zv" firstAttribute="height" secondItem="4aW-pw-OS3" secondAttribute="height" id="j8N-Ju-0XL"/>
                                         <constraint firstItem="yxA-3x-5Ry" firstAttribute="trailing" secondItem="LSZ-ds-X6U" secondAttribute="leading" constant="-16" id="mGz-D8-cf5"/>
@@ -3655,6 +3664,7 @@
                                     <outlet property="level3Label" destination="4aW-pw-OS3" id="o0a-MP-fcW"/>
                                     <outlet property="level4Label" destination="eQ6-aL-7Zv" id="9tP-b2-Fpg"/>
                                     <outlet property="level5Label" destination="jvB-mU-zRa" id="Qdg-fU-aGR"/>
+                                    <outlet property="toggleViewModeButton" destination="RLq-0m-maz" id="2ix-Vv-zQx"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Diet TagListView Cell Identifier" id="lgc-ui-exj" customClass="TagListViewLabelTableViewCell" customModule="FoodViewer" customModuleProvider="target">

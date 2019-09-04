@@ -56,10 +56,8 @@ class Diets {
     
     var count: Int? {
         checkInit()
-        return all!.count
+        return all.count
     }
-    
-    fileprivate var all: [Diet]? = nil
     
     public func name(for index:Int, in languageCode:String) -> String? {
         checkInit()
@@ -94,28 +92,30 @@ class Diets {
     }
 
     
-    fileprivate func numberOfLevels(forDietAt index:Int) -> Int? {
-        guard let diet = all?[index] else { return nil }
+    fileprivate var all: [String:Diet] = [:]
+
+    fileprivate func numberOfLevels(forDietWith key:String) -> Int? {
+        guard let diet = all[key] else { return nil }
         return diet.levels.count
     }
     
-    fileprivate func order(forDietAt index:Int, and level:Int) -> Int? {
-        guard let diet = all?[index] else { return nil }
+    fileprivate func order(forDietWith key:String, and level:Int) -> Int? {
+        guard let diet = all[key] else { return nil }
         return diet.levels[level].order
     }
     
-    public func conclusion(_ product:FoodProduct, withDietAt index:Int) -> Int? {
-        guard let diet = all?[index] else { return nil }
-        guard let neutralLevel = diet.neutralLevel else { return nil }
+    public func conclusion(_ product:FoodProduct, withDietAt index:Int, in languageCode:String) -> Int? {
+        let diets = sort(on: languageCode)
+        guard let neutralLevel = diets[index].neutralLevel else { return nil }
         var neutralIndex: Int? = nil
         var numberOfLevelsWithMatches = 0
         var lowestLevelWithAMatch: Int? = nil
         var highestLevelWithAMatch: Int? = nil
-        if let numberOfLevels = numberOfLevels(forDietAt: index) {
+        if let numberOfLevels = numberOfLevels(forDietWith: diets[index].key) {
             var matchedDiet: [(Int,[String])] = []
             for levelIndex in 0...numberOfLevels - 1 {
-                if let order = order(forDietAt: index, and: levelIndex) {
-                    let matchedTags = match(product, withDietAt: index, in: order)
+                if let order = order(forDietWith: diets[index].key, and: levelIndex) {
+                    let matchedTags = match(product, withDietWith: diets[index].key, in: order)
                     matchedDiet.append((order,matchedTags))
                 }
             }
@@ -167,12 +167,12 @@ class Diets {
         guard product != nil else { return [] }
         guard count != nil else { return [] }
         var matchesPerDietPerLevel: [[(Int,[String])]] = []
-        for dietIndex in 0...count! - 1 {
-            if let numberOfLevels = numberOfLevels(forDietAt: dietIndex) {
+        for diet in all {
+            if let numberOfLevels = numberOfLevels(forDietWith: diet.key) {
                 var matchedDiet: [(Int,[String])] = []
                 for levelIndex in 0...numberOfLevels - 1 {
-                    if let order = order(forDietAt: dietIndex, and: levelIndex) {
-                        let matchedTags = match(product!, withDietAt: dietIndex, in: order)
+                    if let order = order(forDietWith: diet.key, and: levelIndex) {
+                        let matchedTags = match(product!, withDietWith: diet.key, in: order)
                         matchedDiet.append((order,matchedTags))
                     }
                 }
@@ -260,10 +260,11 @@ class Diets {
         return filteredMatches
     }
     
-    private func match(_ product:FoodProduct, withDietAt index:Int, in order:Int) -> [String] {
+    private func match(_ product:FoodProduct, withDietWith key:String, in order:Int) -> [String] {
         var matchedTags: [String] = []
+        guard let validDiet = all[key] else { return [] }
         checkInit()
-        for level in all![index].levels {
+        for level in validDiet.levels {
             if level.order == order {
                 for taxonomy in level.taxonomies {
                     for name in taxonomy.names {
@@ -352,10 +353,9 @@ class Diets {
     
     fileprivate func sort(on languageCode:String) -> [Diet] {
         checkInit()
-        guard let validAll = all else { return [] }
         var sortedDiets: [Diet] = []
-        for diet in validAll {
-            let languages = diet.languages
+        for diet in all {
+            let languages = diet.value.languages
             var newLanguages: [Language] = []
             for language in languages {
                 if language.names.first != nil {
@@ -365,13 +365,13 @@ class Diets {
                     }
                 }
             }
-            sortedDiets.append(Diet(key: diet.key, languages: newLanguages, levels:diet.levels, neutralLevel: diet.neutralLevel))
+            sortedDiets.append(Diet(key: diet.key, languages: newLanguages, levels:diet.value.levels, neutralLevel: diet.value.neutralLevel))
         }
         return sortedDiets.sorted(by: { $0.languages.first!.names.first! < $1.languages.first!.names.first! })
     }
     
     fileprivate func checkInit() {
-        if all == nil {
+        if all.count == 0 {
             read()
         }
     }
@@ -490,10 +490,7 @@ class Diets {
                                     }
                                     
                                 }
-                                if all == nil {
-                                    all = []
-                                }
-                                all!.append(Diet(key: validKey, languages: languages, levels:levels, neutralLevel: neutralLevel))
+                                all[validKey] = Diet(key: validKey, languages: languages, levels:levels, neutralLevel: neutralLevel)
                             }
                         }
                     }
@@ -508,7 +505,7 @@ class Diets {
     }
     
     public func flush() {
-        all = []
+        all = [:]
     }
     
 }

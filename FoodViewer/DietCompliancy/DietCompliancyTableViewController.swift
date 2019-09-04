@@ -66,10 +66,10 @@ class DietCompliancyTableViewController: UITableViewController {
             cell.four = "\(matchesPerDietPerLevel[indexPath.section][3].1.count)"
             cell.five = "\(matchesPerDietPerLevel[indexPath.section][4].1.count)"
             if productPair?.remoteProduct != nil {
-                cell.conclusion = diets.conclusion(productPair!.remoteProduct!, withDietAt: indexPath.section)
+                cell.conclusion = diets.conclusion(productPair!.remoteProduct!, withDietAt: indexPath.section, in: Locale.interfaceLanguageCode)
             }
             cell.delegate = self
-            cell.buttonNotDoubleTap = false
+            cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
             cell.tag = indexPath.section
             return cell
         default:
