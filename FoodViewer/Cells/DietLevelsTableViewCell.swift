@@ -59,6 +59,10 @@ class DietLevelsTableViewCell: UITableViewCell {
         }
     }
 
+    @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
+        cellTapped()
+    }
+    
     var one: String? = nil {
         didSet {
             setup()
