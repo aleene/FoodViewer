@@ -34,6 +34,7 @@ class Preferences {
             }
         }
     }
+    var selectedDiets = ["en:vegan"]
     
     var editMode: Bool = false
     

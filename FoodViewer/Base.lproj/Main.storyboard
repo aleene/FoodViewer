@@ -270,7 +270,120 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47q-wK-1CI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-579" y="-1095"/>
+            <point key="canvasLocation" x="-580" y="-1277"/>
+        </scene>
+        <!--Diet Selector Table View Controller-->
+        <scene sceneID="dgQ-OU-Ob7">
+            <objects>
+                <tableViewController id="Ffa-Ai-B1C" customClass="DietSelectorTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Mlq-Xi-7pP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="Set Diet Cell" id="Zqf-Mc-8G3" customClass="SetWarningTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zqf-Mc-8G3" id="5xp-NJ-Ho8">
+                                    <rect key="frame" x="0.0" y="0.0" width="362" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5u-Mm-dHE">
+                                            <rect key="frame" x="16" y="8.0000000000000018" width="289" height="27.666666666666671"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BQu-Ri-E5h">
+                                            <rect key="frame" x="297" y="6.3333333333333321" width="51" height="30.999999999999996"/>
+                                            <connections>
+                                                <action selector="stateSwitchToggled:" destination="Zqf-Mc-8G3" eventType="valueChanged" id="O0N-fY-VsI"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="H5u-Mm-dHE" firstAttribute="top" secondItem="5xp-NJ-Ho8" secondAttribute="top" constant="8" id="9qB-C0-ZPG"/>
+                                        <constraint firstItem="H5u-Mm-dHE" firstAttribute="leading" secondItem="5xp-NJ-Ho8" secondAttribute="leading" constant="16" id="Dqd-k4-OlT"/>
+                                        <constraint firstAttribute="bottom" secondItem="H5u-Mm-dHE" secondAttribute="bottom" constant="8" id="ZyR-Jf-XuS"/>
+                                        <constraint firstAttribute="trailing" secondItem="BQu-Ri-E5h" secondAttribute="trailing" constant="16" id="oXE-4f-jeU"/>
+                                        <constraint firstItem="H5u-Mm-dHE" firstAttribute="trailing" secondItem="BQu-Ri-E5h" secondAttribute="leading" constant="8" id="whz-cW-oX2"/>
+                                        <constraint firstItem="BQu-Ri-E5h" firstAttribute="centerY" secondItem="5xp-NJ-Ho8" secondAttribute="centerY" id="z5A-QC-Bab"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="stateLabel" destination="H5u-Mm-dHE" id="1DI-tg-zZJ"/>
+                                    <outlet property="stateSwitch" destination="BQu-Ri-E5h" id="9BE-4J-w8a"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Ffa-Ai-B1C" id="WPU-gJ-mnK"/>
+                            <outlet property="delegate" destination="Ffa-Ai-B1C" id="7yr-47-49y"/>
+                        </connections>
+                    </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <segue destination="Aj8-Wc-C69" kind="show" identifier="Show Diet Triggers Segue" id="Ewj-d7-pTW"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EMd-e0-4ke" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1236" y="-1246"/>
+        </scene>
+        <!--Show Diet Triggers Table View Controller-->
+        <scene sceneID="HhH-zp-Ppf">
+            <objects>
+                <tableViewController id="Aj8-Wc-C69" customClass="ShowDietTriggersTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ddu-TG-7AT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Diet Trigger Tags Cell" id="IhZ-qY-jbX" customClass="TagListViewLabelTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IhZ-qY-jbX" id="kNI-jT-9Nq" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nnH-7E-mjj">
+                                            <rect key="frame" x="8" y="8.0000000000000018" width="398" height="27.666666666666671"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hho-M2-f3Y">
+                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="14"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5sA-YE-FGq" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                                    <rect key="frame" x="20" y="14" width="358" height="13.666666666666664"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="nnH-7E-mjj" secondAttribute="bottom" constant="8" id="AGW-Ps-zbL"/>
+                                        <constraint firstAttribute="trailing" secondItem="nnH-7E-mjj" secondAttribute="trailing" constant="8" id="DQR-jF-eTu"/>
+                                        <constraint firstItem="nnH-7E-mjj" firstAttribute="top" secondItem="kNI-jT-9Nq" secondAttribute="top" constant="8" id="Q87-ck-1hz"/>
+                                        <constraint firstItem="nnH-7E-mjj" firstAttribute="leading" secondItem="kNI-jT-9Nq" secondAttribute="leading" constant="8" id="cWi-LA-lMY"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="newLabel" destination="hho-M2-f3Y" id="Rf1-jM-lUj"/>
+                                    <outlet property="tagListView" destination="5sA-YE-FGq" id="fzx-bO-PrH"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Aj8-Wc-C69" id="FzA-Q0-eGk"/>
+                            <outlet property="delegate" destination="Aj8-Wc-C69" id="8uD-UJ-t5Z"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="83u-x1-eax" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1236.231884057971" y="-536.41304347826087"/>
         </scene>
         <!--Not Set Page View Controller-->
         <scene sceneID="jKm-PS-kei">
@@ -844,7 +957,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1dh-0f-93d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-579" y="-3686"/>
+            <point key="canvasLocation" x="-581" y="-3217"/>
         </scene>
         <!--Application Preferences Table View Controller-->
         <scene sceneID="sVl-BB-x9W">
@@ -1049,7 +1162,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MuA-W8-ay3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-579.71014492753625" y="-2700"/>
+            <point key="canvasLocation" x="-580" y="-2567"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="haz-kS-KCO">
@@ -5344,6 +5457,7 @@
                         <segue destination="x3J-Z2-tIT" kind="show" identifier="Show Alert Preferences Segue" id="1Cb-Cj-eeb"/>
                         <segue destination="ZsW-i7-UuO" kind="show" identifier="Show Application Preferences Segue" id="mq2-WE-l0z"/>
                         <segue destination="WvM-ac-0rh" kind="show" identifier="Show Open Food Facts Preferences Segue" id="S4z-Ku-yoP"/>
+                        <segue destination="Ffa-Ai-B1C" kind="show" identifier="Show Selected Diets Segue" id="Z4S-PU-qU4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lbv-Wg-AIZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5917,11 +6031,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="279" height="22"/>
+                                            <rect key="frame" x="20" y="11" width="297" height="22"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="315" y="8" width="79" height="29"/>
+                                            <rect key="frame" x="333" y="8" width="61" height="29"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>

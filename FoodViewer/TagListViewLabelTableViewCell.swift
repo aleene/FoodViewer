@@ -14,7 +14,7 @@ class TagListViewLabelTableViewCell: UITableViewCell {
         static let Margin = CGFloat( 8.0 )
     }
     
-    @IBOutlet weak var label: UILabel! {
+    @IBOutlet weak var newLabel: UILabel! {
         didSet {
             setLabelText()
         }
@@ -23,30 +23,30 @@ class TagListViewLabelTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryLabel: UILabel!
     
     private func setLabelText() {
-        label.text = labelText
+        newLabel?.text = labelText
     }
     
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
-            tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
-            tagListView.alignment = alignment
-            tagListView.normalColorScheme = scheme
-            tagListView.removableColorScheme = ColorSchemes.removable
-            tagListView.cornerRadius = 10
-            tagListView.removeButtonIsEnabled = true
-            tagListView.clearButtonIsEnabled = true
-            tagListView.frame.size.width = self.frame.size.width
+            tagListView?.textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+            tagListView?.alignment = alignment
+            tagListView?.normalColorScheme = scheme
+            tagListView?.removableColorScheme = ColorSchemes.removable
+            tagListView?.cornerRadius = 10
+            tagListView?.removeButtonIsEnabled = true
+            tagListView?.clearButtonIsEnabled = true
+            tagListView?.frame.size.width = self.frame.size.width
             
-            tagListView.datasource = datasource
-            tagListView.delegate = delegate
-            tagListView.allowsRemoval = editMode
-            tagListView.allowsCreation = editMode
-            tagListView.tag = tag
-            tagListView.prefixLabelText = nil
+            tagListView?.datasource = datasource
+            tagListView?.delegate = delegate
+            tagListView?.allowsRemoval = editMode
+            tagListView?.allowsCreation = editMode
+            tagListView?.tag = tag
+            tagListView?.prefixLabelText = nil
             
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListViewTableViewCell.tagListViewDoubleTapped))
             tapGestureRecognizer.numberOfTapsRequired = 2
-            tagListView.addGestureRecognizer(tapGestureRecognizer)
+            tagListView?.addGestureRecognizer(tapGestureRecognizer)
         }
     }
     

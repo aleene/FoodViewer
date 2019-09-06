@@ -19,6 +19,7 @@ class UserTableViewController: UITableViewController {
     fileprivate struct Storyboard {
         fileprivate struct Segue {
             static let Alerts = "Show Alert Preferences Segue"
+            static let Diets = "Show Selected Diets Segue"
             static let DisplayPreferences = "Show Display Preferences Segue"
             static let OpenFoodFacts = "Show Open Food Facts Preferences Segue"
             static let Application = "Show Application Preferences Segue"
@@ -31,7 +32,7 @@ class UserTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,10 +45,12 @@ class UserTableViewController: UITableViewController {
         case 0:
             cell.textLabel?.text = TranslatableStrings.AlertPreferencesExtended
         case 1:
-            cell.textLabel?.text = TranslatableStrings.DisplayPreferencesExtended
+            cell.textLabel?.text = TranslatableStrings.SelectedDietsPreferencesExtended
         case 2:
-            cell.textLabel?.text = TranslatableStrings.OpenFoodFactsPreferencesExtended
+            cell.textLabel?.text = TranslatableStrings.DisplayPreferencesExtended
         case 3:
+            cell.textLabel?.text = TranslatableStrings.OpenFoodFactsPreferencesExtended
+        case 4:
             cell.textLabel?.text = TranslatableStrings.ApplicationPreferencesExtended
         default:
             break
@@ -60,10 +63,12 @@ class UserTableViewController: UITableViewController {
         case 0:
             performSegue(withIdentifier: Storyboard.Segue.Alerts, sender: self)
         case 1:
-            performSegue(withIdentifier: Storyboard.Segue.DisplayPreferences, sender: self)
+            performSegue(withIdentifier: Storyboard.Segue.Diets, sender: self)
         case 2:
-            performSegue(withIdentifier: Storyboard.Segue.OpenFoodFacts, sender: self)
+            performSegue(withIdentifier: Storyboard.Segue.DisplayPreferences, sender: self)
         case 3:
+            performSegue(withIdentifier: Storyboard.Segue.OpenFoodFacts, sender: self)
+        case 4:
             performSegue(withIdentifier: Storyboard.Segue.Application, sender: self)
         default:
             break
@@ -75,10 +80,12 @@ class UserTableViewController: UITableViewController {
         case 0:
             return TranslatableStrings.AlertPreferences
         case 1:
-            return TranslatableStrings.DisplayPreferences
+            return TranslatableStrings.SelectedDietsPreferences
         case 2:
-            return TranslatableStrings.OpenFoodFactsPreferences
+            return TranslatableStrings.DisplayPreferences
         case 3:
+            return TranslatableStrings.OpenFoodFactsPreferences
+        case 4:
             return TranslatableStrings.ApplicationPreferences
         default:
             return nil

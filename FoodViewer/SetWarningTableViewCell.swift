@@ -8,6 +8,13 @@
 
 import UIKit
 
+protocol SetWarningTableViewCellDelegate: class {
+    
+    // function to let the delegate know that the switch changed
+    func setWarningTableViewCell(_ sender: SetWarningTableViewCell, receivedActionOn stateSwitch:UISwitch)
+    
+}
+
 class SetWarningTableViewCell: UITableViewCell {
     
     var state: Bool = false {
@@ -29,8 +36,14 @@ class SetWarningTableViewCell: UITableViewCell {
     
     @IBOutlet weak var stateSwitch: UISwitch! {
         didSet {
-            stateSwitch.isEnabled = false
+            stateSwitch.isEnabled = true
         }
     }
     
+    @IBAction func stateSwitchToggled(_ sender: UISwitch) {
+        delegate?.setWarningTableViewCell(self, receivedActionOn: stateSwitch)
+    }
+    
+    var delegate: SetWarningTableViewCellDelegate? = nil
+
 }

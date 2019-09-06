@@ -77,7 +77,7 @@ class DietCompliancyTableViewController: UITableViewController {
             cell.width = tableView.frame.size.width
             //cell.scheme = ColorSchemes.error
             cell.datasource = self
-            cell.labelText = diets.labelName(for: indexPath.section, and: matchesPerDietPerLevel[indexPath.section][indexPath.row - 1].0, in: Locale.interfaceLanguageCode) ?? "label name not set"
+            cell.labelText = diets.levelName(for: indexPath.section, and: matchesPerDietPerLevel[indexPath.section][indexPath.row - 1].0, in: Locale.interfaceLanguageCode) ?? "level name not set"
             //cell.delegate = self
             cell.tag = indexPath.section * 10 + indexPath.row
             cell.accessoryType = .none

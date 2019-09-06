@@ -54,26 +54,40 @@ class Diets {
         var names: [[String]]  // the first one is the key, the others parents
     }
     
-    var count: Int? {
+    public var count: Int? {
         checkInit()
         return all.count
     }
     
     public func name(for index:Int, in languageCode:String) -> String? {
+        if let (_, name) = keyAndName(for:index, in:languageCode) {
+            return name
+        }
+        return nil
+    }
+    
+    public func key(for index:Int, in languageCode:String) -> String? {
+        if let (key, _) = keyAndName(for:index, in:languageCode) {
+            return key
+        }
+        return nil
+    }
+
+    public func keyAndName(for index:Int, in languageCode:String) -> (String, String)? {
         checkInit()
         guard let validCount = count else { return nil }
         guard index >= 0 else { return nil }
         guard index < validCount else { return nil }
         if let languageName = sort(on: languageCode)[index].languages.first,
             let name = languageName.names.first {
-                return name
+            return (sort(on: languageCode)[index].key,name)
         } else {
             return nil
         }
     }
     
     // The order is used here as identifier for the level
-    public func labelName(for index:Int, and order:Int, in languageCode:String) -> String? {
+    public func levelName(for index:Int, and order:Int, in languageCode:String) -> String? {
         checkInit()
         guard let validCount = count else { return nil }
         guard index >= 0 else { return nil }
@@ -81,17 +95,78 @@ class Diets {
         
         for level in sort(on: languageCode)[index].levels {
             if level.order == order {
-                for language in level.languages {
-                    if language.key == languageCode {
-                        return language.names.first
-                    }
-                }
+                return levelName(for:level, in:languageCode)
             }
         }
         return nil
     }
-
     
+    private func levelCount(for index:Int, in languageCode:String) -> Int {
+        checkInit()
+        guard let validCount = count else { return 0 }
+        guard index >= 0 else { return 0 }
+        guard index < validCount else { return 0 }
+        return sort(on: languageCode)[index].levels.count
+    }
+    
+    private func taxonomiesCount(for index:Int, and level:Int, in languageCode:String) -> Int {
+        checkInit()
+        guard let validCount = count else { return 0 }
+        guard index >= 0 else { return 0 }
+        guard index < validCount else { return 0 }
+        return sort(on: languageCode)[index].levels[level].taxonomies.count
+    }
+    
+    // provides the triggers for each taxonomy, each level in a specific diet and a language
+    // [(localised level_name, [(localised taxonomy name, [localised tags])])]
+    public func triggers(forDiet index:Int, in languageCode:String) -> [(String, [(String, [String])])] {
+        guard count != nil else { return [] }
+        var triggers: [(String, [(String, [String])])] = []
+        for level in sort(on: languageCode)[index].levels.sorted(by: { $0.order < $1.order }) {
+            var result: [(String, [String])] = []
+            for taxonomy in level.taxonomies {
+                var taxo: [String] = []
+                for name in taxonomy.names {
+                    if let validTag = name.first {
+                        taxo.append(taxonomy.key + "/" + validTag)
+                    }
+                }
+                let taxName = taxonomyName(for:taxonomy, in:languageCode) ?? "Diets:No tax language defined"
+                result.append( (taxName, translate(taxo)) )
+            }
+            let name = levelName(for:level, in:languageCode) ?? "Diets:No level language defined"
+            triggers.append( (name, result) )
+        }
+        return triggers
+    }
+    
+    fileprivate func levelName(for level:Level, in languageCode:String) -> String? {
+        for language in level.languages {
+            if language.key == languageCode {
+                return language.names.first
+            }
+        }
+        return nil
+    }
+    
+    fileprivate func taxonomyName(for taxonomy:Taxonomy, in languageCode:String) -> String? {
+        if taxonomy.key == Constant.Key.Additives {
+            return TranslatableStrings.Additives
+        } else if taxonomy.key == Constant.Key.Categories {
+            return TranslatableStrings.Categories
+        } else if taxonomy.key == Constant.Key.Ingredients {
+            return TranslatableStrings.Ingredients
+        } else if taxonomy.key == Constant.Key.Labels {
+            return TranslatableStrings.Labels
+        } else if taxonomy.key == Constant.Key.Other {
+            return TranslatableStrings.OtherNutritionalSubstances
+        } else if taxonomy.key == Constant.Key.Traces {
+            return TranslatableStrings.Traces
+        }
+
+        return nil
+    }
+
     fileprivate var all: [String:Diet] = [:]
 
     fileprivate func numberOfLevels(forDietWith key:String) -> Int? {
@@ -189,50 +264,54 @@ class Diets {
         var translatedMatches: [(Int,[String])] = []
         translatedMatches = matches
         for index in 0...translatedMatches.count - 1 {
-            var newTag: [String] = []
-            for tag in translatedMatches[index].1 {
-                let parts = tag.split(separator: "/")
-                if parts.count > 0 {
-                    if parts[0] == Constant.Key.Ingredients {
-                        if let translated = OFFplists.manager.translateIngredient(String(parts[1]), language: Locale.interfaceLanguageCode) {
-                            newTag.append(translated)
-                        } else {
-                            newTag.append(String(parts[1]))
-                        }
-                    } else if parts[0] == Constant.Key.Additives {
-                        if let translated = OFFplists.manager.translateAdditive(String(parts[1]), language: Locale.interfaceLanguageCode) {
-                            newTag.append(translated)
-                        } else {
-                            newTag.append(String(parts[1]))
-                        }
-                    } else if parts[0] == Constant.Key.Categories {
-                        if let translated = OFFplists.manager.translateCategory(String(parts[1]), language: Locale.interfaceLanguageCode) {
-                            newTag.append(translated)
-                        } else {
-                            newTag.append(String(parts[1]))
-                        }
-                    } else if parts[0] == Constant.Key.Traces {
-                        if let translated = OFFplists.manager.translateAdditive(String(parts[1]), language: Locale.interfaceLanguageCode) {
-                            newTag.append(translated)
-                        } else {
-                            newTag.append(String(parts[1]))
-                        }
-                    } else if parts[0] == Constant.Key.Traces {
-                        if let translated = OFFplists.manager.translateGlobalLabel(String(parts[1]), language: Locale.interfaceLanguageCode) {
-                            newTag.append(translated)
-                        } else {
-                            newTag.append(String(parts[1]))
-                        }
-                    } else {
-                        newTag.append(String(parts[1]))
-                    }
-                }
-            }
-            translatedMatches[index].1 = newTag
+            translatedMatches[index].1 = translate(translatedMatches[index].1)
         }
         return translatedMatches
     }
     
+    private func translate(_ tags: [String]) -> [String] {
+        var newTag: [String] = []
+        for tag in tags {
+            let parts = tag.split(separator: "/")
+            if parts.count > 0 {
+                if parts[0] == Constant.Key.Ingredients {
+                    if let translated = OFFplists.manager.translateIngredient(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                        newTag.append(translated)
+                    } else {
+                        newTag.append(String(parts[1]))
+                    }
+                } else if parts[0] == Constant.Key.Additives {
+                    if let translated = OFFplists.manager.translateAdditive(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                        newTag.append(translated)
+                    } else {
+                        newTag.append(String(parts[1]))
+                    }
+                } else if parts[0] == Constant.Key.Categories {
+                    if let translated = OFFplists.manager.translateCategory(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                        newTag.append(translated)
+                    } else {
+                        newTag.append(String(parts[1]))
+                    }
+                } else if parts[0] == Constant.Key.Traces {
+                    if let translated = OFFplists.manager.translateAdditive(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                        newTag.append(translated)
+                    } else {
+                        newTag.append(String(parts[1]))
+                    }
+                } else if parts[0] == Constant.Key.Labels {
+                    if let translated = OFFplists.manager.translateGlobalLabel(String(parts[1]), language: Locale.interfaceLanguageCode) {
+                        newTag.append(translated)
+                    } else {
+                        newTag.append(String(parts[1]))
+                    }
+                } else {
+                    newTag.append(String(parts[1]))
+                }
+            }
+        }
+        return newTag
+    }
+
     private func filter(_ matches: [(Int,[String])]) -> [(Int,[String])] {
         var filteredMatches: [(Int,[String])] = []
         filteredMatches = matches
@@ -369,7 +448,7 @@ class Diets {
         }
         return sortedDiets.sorted(by: { $0.languages.first!.names.first! < $1.languages.first!.names.first! })
     }
-    
+
     fileprivate func checkInit() {
         if all.count == 0 {
             read()
