@@ -156,6 +156,8 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
                 products.loadProductPair(at: indexPath.row) //make sure the next set is loaded
                 let productPair = products.productPair(at: indexPath.row)
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath)
+
+                cell.backgroundColor = allergenAndTraceWarningColour(for: productPair)
                 cell.textLabel?.text = productPair?.name ?? TranslatableStrings.NoName
                 cell.detailTextLabel?.text = productPair?.brand ?? TranslatableStrings.NoBrandsIndicated
                 if let language = productPair?.primaryLanguageCode,
@@ -169,8 +171,8 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
                         break
                     }
                 }
-
                 return cell
+                
             case .productNotAvailable,
                 .loading,
                 .loadingFailed:
@@ -191,6 +193,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
                 cell.tag = tagValue(for: validFetchResult)
                 cell.scheme = ColorSchemes.normal
                 return cell
+                
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
                 cell.datasource = self
@@ -204,9 +207,32 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
             cell.tag = tagValue(for: .initialized)
             cell.scheme = ColorSchemes.normal
             return cell
-     }
+        }
     }
     
+    fileprivate func allergenAndTraceWarningColour(for productPair:ProductPair?) -> UIColor {
+        if let validProduct = productPair?.remoteProduct?.tracesInterpreted ?? productPair?.localProduct?.tracesInterpreted {
+            switch validProduct {
+            case .available(let validKeys):
+                if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
+                    return UIColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+            }
+            default:
+                break
+            }
+        }
+        if let validProduct = productPair?.remoteProduct?.allergensInterpreted ?? productPair?.localProduct?.allergensInterpreted {
+            switch validProduct {
+            case .available(let validKeys):
+                if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
+                    return UIColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+            }
+            default:
+                break
+            }
+        }
+        return .white
+    }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedProductPair = products.productPair(at: indexPath.row)

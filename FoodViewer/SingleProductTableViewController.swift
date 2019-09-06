@@ -368,102 +368,13 @@ class SingleProductTableViewController: UITableViewController {
             }
             return cell
         }
-        //let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-        //return cell
     }
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         selectedPageIndex = indexPath.row
         showProductPage()
     }
-    
-    /*
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let tempView = UIView.init(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 25))
-        let label = UILabel.init(frame: CGRect(x: 10, y: 5, width: tableView.frame.size.width, height: 20))
-        tempView.backgroundColor = UIColor.gray
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = UIColor.white
-        if let validFetchResult = products.productPair(at: section)?.status {
-            switch validFetchResult {
-            case .available:
-                if let validProduct = products.productPair(at: section)?.remoteProduct ?? products.productPair(at: section)?.localProduct,
-                    let languageCode = products.productPair(at: section)?.primaryLanguageCode {
-                    label.text = products.productPair(at: section)?.remoteProduct?.nameLanguage[languageCode] ?? products.productPair(at: section)?.localProduct?.nameLanguage[languageCode] ?? Constants.Tag.ProductNameMissing
-                    switch validProduct.tracesInterpreted {
-                    case .available(let validKeys):
-                        if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                            tempView.backgroundColor = UIColor.red
-                        }
-                    default:
-                        break
-                    }
-                    switch validProduct.tracesInterpreted {
-                    case .available(let validKeys):
-                        if !validKeys.isEmpty {
-                            let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
-                            if warn {
-                                tempView.backgroundColor = UIColor.red
-                            }
-                        }
-                    default:
-                        break
-                    }
-                } else {
-                    assert(true, "remoteStatus is available, but there is no product")
-                }
-            case .loading(let barcodeString):
-                label.text = barcodeString
-            case.loadingFailed(let error):
-                label.text = error
-                // Can we supply a specific error message?
-                if error.contains("NSCocoaErrorDomain Code=256") {
-                    // The error message when the server can not be reached:
-                    // "Error Domain=NSCocoaErrorDomain Code=256 \"The file “7610207742059.json” couldn’t be opened.\" UserInfo={NSURL=http://world.openfoodfacts.org/api/v0/product/7610207742059.json}"
-                    let parts = error.components(separatedBy: ".json")
-                    if !parts.isEmpty {
-                        let partsTwo = parts[0].components(separatedBy:"\'")
-                        if partsTwo.count > 1 {
-                            label.text = partsTwo[1]
-                        }
-                    }
-                }
-                
-            default:
-                label.text = products.productPair(at: section)?.barcodeType.asString
-            }
-        } else {
-            label.text = Constants.Tag.NoProductsInHistory
-        }
-        
-        tempView.addSubview(label)
-        tempView.tag = section
-        return tempView
-    }
- */
-    
-    // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
-    override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 44
-    }
-    
-    /*
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let validFetchResult = products.productPair(at: section)?.remoteStatus {
-            switch validFetchResult {
-            case .more:
-                // no header required in this case
-                return 0.0
-            default:
-                break
-            }
-        }
-        return UITableViewAutomaticDimension
-    }
- */
     
     // MARK: - Scene changes
     
