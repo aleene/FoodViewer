@@ -123,17 +123,18 @@ class DietLevelsTableViewCell: UITableViewCell {
         
         if let validConclusion = conclusion {
             switch validConclusion {
-            case 0:
+            case -2:
                 level1Label?.backgroundColor = .red
-            case 1:
+            case -1:
                 level2Label?.backgroundColor = .orange
-            case 2:
+            case 0:
                 level3Label?.backgroundColor = .yellow
-            case 3:
+            case 1:
                 level4Label?.backgroundColor = .green
-            case 4:
+            case 2:
                 level5Label?.backgroundColor = .blue
-            default: break
+            default:
+                break
             }
         }
 

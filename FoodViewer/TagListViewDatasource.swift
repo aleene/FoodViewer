@@ -16,6 +16,8 @@ public protocol TagListViewDataSource {
     /// What is the title for the Tag object at a given index?
     func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String
     
+    func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme?
+    
     /// What are the number of Tag objects in the TagListView?
     func numberOfTagsIn(_ tagListView: TagListView) -> Int
     
@@ -24,6 +26,7 @@ public protocol TagListViewDataSource {
     /// Which text should be displayed when the TagListView is collapsed?
     func tagListViewCollapsedText(_ tagListView: TagListView) -> String
 }
+
 
 extension TagListViewDataSource {
     

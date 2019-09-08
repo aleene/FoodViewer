@@ -143,5 +143,11 @@ extension ShowDietTriggersTableViewController: TagListViewDataSource {
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         let row = tagListView.tag % 10
         let section = (tagListView.tag - row) / 10
-        tableView.reloadRows(at: [IndexPath(row: row, section: section)], with: .bottom)}
+        tableView.reloadRows(at: [IndexPath(row: row, section: section)], with: .bottom)
     }
+    
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return nil
+    }
+
+}

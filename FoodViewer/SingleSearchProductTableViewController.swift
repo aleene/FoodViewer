@@ -853,6 +853,9 @@ extension SingleSearchProductTableViewController: TagListViewDataSource {
         return "Collapsed"
     }
     
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return nil
+    }
 }
 
 // MARK: - TagListView Delegate Functions

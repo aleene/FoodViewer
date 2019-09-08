@@ -72,6 +72,17 @@ class Diets {
         }
         return nil
     }
+    
+    public func name(forDietWith key:String, in languageCode:String)-> String? {
+        checkInit()
+        guard let validLanguages = all[key]?.languages else { return nil }
+        for language in validLanguages {
+            if language.key == languageCode {
+                return language.names.first 
+            }
+        }
+        return nil
+    }
 
     public func keyAndName(for index:Int, in languageCode:String) -> (String, String)? {
         checkInit()
@@ -170,27 +181,34 @@ class Diets {
     fileprivate var all: [String:Diet] = [:]
 
     fileprivate func numberOfLevels(forDietWith key:String) -> Int? {
+        checkInit()
         guard let diet = all[key] else { return nil }
         return diet.levels.count
     }
     
     fileprivate func order(forDietWith key:String, and level:Int) -> Int? {
+        checkInit()
         guard let diet = all[key] else { return nil }
         return diet.levels[level].order
     }
     
     public func conclusion(_ product:FoodProduct, withDietAt index:Int, in languageCode:String) -> Int? {
         let diets = sort(on: languageCode)
-        guard let neutralLevel = diets[index].neutralLevel else { return nil }
+        return conclusion(product, forDietWith:diets[index].key)
+    }
+    
+    public func conclusion(_ product:FoodProduct, forDietWith key:String) -> Int? {
+        checkInit()
+        guard let neutralLevel = all[key]?.neutralLevel else { return nil }
         var neutralIndex: Int? = nil
         var numberOfLevelsWithMatches = 0
         var lowestLevelWithAMatch: Int? = nil
         var highestLevelWithAMatch: Int? = nil
-        if let numberOfLevels = numberOfLevels(forDietWith: diets[index].key) {
+        if let numberOfLevels = numberOfLevels(forDietWith:key) {
             var matchedDiet: [(Int,[String])] = []
             for levelIndex in 0...numberOfLevels - 1 {
-                if let order = order(forDietWith: diets[index].key, and: levelIndex) {
-                    let matchedTags = match(product, withDietWith: diets[index].key, in: order)
+                if let order = order(forDietWith:key, and:levelIndex) {
+                    let matchedTags = match(product, withDietWith: key, in: order)
                     matchedDiet.append((order,matchedTags))
                 }
             }
@@ -221,28 +239,28 @@ class Diets {
                     neutralIndex = levelIndex
                 }
             }
-
+            
         }
         if let validNeutralIndex = neutralIndex {
             if highestLevelWithAMatch != nil && highestLevelWithAMatch! > validNeutralIndex {
-                return highestLevelWithAMatch!
+                return highestLevelWithAMatch! - validNeutralIndex
             }
             if lowestLevelWithAMatch != nil && lowestLevelWithAMatch! < validNeutralIndex {
-                return lowestLevelWithAMatch!
+                return lowestLevelWithAMatch! - validNeutralIndex
             }
         }
         // None of the levels has a match so we assume the neutral level must be compliant
         if numberOfLevelsWithMatches == 0 {
-            return neutralIndex
+            return 0
         }
         return nil
     }
-    
+
     public func matches(_ product:FoodProduct?, in languageCode:String) -> [[(Int,[String])]] {
         guard product != nil else { return [] }
         guard count != nil else { return [] }
         var matchesPerDietPerLevel: [[(Int,[String])]] = []
-        for diet in all {
+        for diet in sort(on: languageCode) {
             if let numberOfLevels = numberOfLevels(forDietWith: diet.key) {
                 var matchedDiet: [(Int,[String])] = []
                 for levelIndex in 0...numberOfLevels - 1 {
@@ -312,6 +330,7 @@ class Diets {
         return newTag
     }
 
+    // Remove tags that are found on multiple levels
     private func filter(_ matches: [(Int,[String])]) -> [(Int,[String])] {
         var filteredMatches: [(Int,[String])] = []
         filteredMatches = matches
@@ -353,7 +372,10 @@ class Diets {
                             case .available(let tags):
                                 if tags.contains(name[0]) {
                                         matchedTags.append(Constant.Key.Categories + "/" + name[0])
+                                } else if name.count == 2 {
+                                    matchedTags.append(Constant.Key.Categories + "/" + name[1])
                                 }
+
                             default: break
                             }
                         }

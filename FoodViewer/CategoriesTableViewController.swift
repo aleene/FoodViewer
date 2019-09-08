@@ -313,17 +313,11 @@ extension CategoriesTableViewController: TagListViewDataSource {
         
         func count(_ tags: Tags) -> Int {
             switch tags {
-            case .undefined:
-                tagListView.normalColorScheme = ColorSchemes.error
-                return editMode ? 0 : 1
-            case .empty:
-                tagListView.normalColorScheme = ColorSchemes.none
+            case .undefined, .empty:
                 return editMode ? 0 : 1
             case let .available(list):
-                tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
-            case .notSearchable:
-                tagListView.normalColorScheme = ColorSchemes.error
+            default:
                 return 1
             }
         }
@@ -348,7 +342,31 @@ extension CategoriesTableViewController: TagListViewDataSource {
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadData()
     }
-
+    
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        
+        func count(_ tags: Tags) -> ColorScheme {
+            switch tags {
+            case .undefined, .notSearchable:
+                return ColorSchemes.error
+            case .empty:
+                return ColorSchemes.none
+            case let .available(list):
+                if list[index].contains(":") {
+                    return ColorScheme(text: .white, background: .orange, border: .orange)
+                } else {
+                    return ColorSchemes.normal
+                }
+            }
+        }
+        
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        
+        switch currentProductSection {
+        case .categories :
+            return count(categoriesToDisplay)
+        }
+    }
 }
 
 

@@ -520,6 +520,9 @@ extension CompletionStatesTableViewController: TagListViewDataSource {
         return Tags.empty.description()
     }
     
+    public     func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return nil
+    }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         // Assume that the tag value corresponds to the section

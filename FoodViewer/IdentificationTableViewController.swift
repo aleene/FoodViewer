@@ -1387,6 +1387,10 @@ extension IdentificationTableViewController: TagListViewDataSource {
         }
     }
     
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return nil
+    }
+
     /// Which text should be displayed when the TagListView is collapsed?
     public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
         return "Collapsed"

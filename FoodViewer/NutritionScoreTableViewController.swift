@@ -59,6 +59,10 @@ class NutritionScoreTableViewController: UITableViewController {
         }
     }
     
+    fileprivate struct Constant {
+        static let Multiplier = 100
+    }
+    
     fileprivate var tableStructure: [SectionType] = []
     fileprivate var nutriScoreSectionStructure: [RowType] = []
     
@@ -288,7 +292,7 @@ class NutritionScoreTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             cell.tagListView?.alignment = .left
-            cell.tag = indexPath.section * 10 + indexPath.row
+            cell.tag = encode(indexPath)
             return cell
         }
     }
@@ -300,10 +304,20 @@ class NutritionScoreTableViewController: UITableViewController {
         cell.delegate = self
         cell.tagListView.normalColorScheme = colour
         cell.tagListView?.alignment = .center
-        cell.tag = indexPath.section * 10 + indexPath.row
+        cell.tag = encode(indexPath)
         return cell
     }
     
+    fileprivate func encode(_ indexPath:IndexPath) -> Int {
+        return indexPath.section * Constant.Multiplier + indexPath.row
+    }
+    
+    fileprivate func decode(_ tag:Int) -> IndexPath {
+        let row = tag % Constant.Multiplier
+        let section = (tag - row) / Constant.Multiplier
+        return IndexPath(row: row, section: section)
+
+    }
     private func nutrimentScoreTableViewCell(for key:String, with score: NutritionalScore.NutrimentScore, towards reverse:Bool, at indexPath:IndexPath, and identifier:String) -> NutrimentScoreTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! NutrimentScoreTableViewCell
         cell.nutrimentScore = score
@@ -445,38 +459,28 @@ extension NutritionScoreTableViewController: TagListViewDataSource {
         
         func count(_ tags: Tags) -> Int {
             switch tags {
-            case .undefined:
-                //tagListView.normalColorScheme = ColorSchemes.error
-                return editMode ? 0 : 1
-            case .empty:
-                //tagListView.normalColorScheme = ColorSchemes.none
+            case .undefined, .empty:
                 return editMode ? 0 : 1
             case let .available(list):
-                //tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             case .notSearchable:
-                //tagListView.normalColorScheme = ColorSchemes.error
                 return 1
             }
         }
-        let row = tagListView.tag % 10
-        let section = tagListView.tag / 10
-        switch section {
+        switch decode(tagListView.tag).section {
         case 1:
-            if row == 0 {
+            if decode(tagListView.tag).row == 0 {
                 return count(scoreTags)
             } else {
                 return count(nutrientTags)
             }
         default:
-            guard let tags = productPair?.remoteProduct?.novaEvaluation[row] else { return 1 }
+            guard let tags = productPair?.remoteProduct?.novaEvaluation[decode(tagListView.tag).row] else { return 1 }
             return count(tags)
         }
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        // print("height", tagListView.frame.size.height)
-        
         func title(_ tags: Tags) -> String {
             switch tags {
             case .undefined, .empty, .notSearchable:
@@ -485,50 +489,51 @@ extension NutritionScoreTableViewController: TagListViewDataSource {
                 return tags.tag(at:index) ?? "NutritionScoreTableViewController: Tag index out of bounds"
             }
         }
-        let row = tagListView.tag % 10
-        let section = (tagListView.tag - row) / 10
-        switch section {
+        switch decode(tagListView.tag).section {
         case 1:
-            if row == 0 {
+            if decode(tagListView.tag).row == 0 {
                 return title(scoreTags) }
             else {
                 return title(nutrientTags)
             }
         default:
-            if let tags = productPair?.remoteProduct?.novaEvaluationTranslated[row] {
+            if let tags = productPair?.remoteProduct?.novaEvaluationTranslated[decode(tagListView.tag).row] {
                 return title(tags)
             } else {
                 return "NutritionScoreTableViewController: Product nil"
                 
             }
         }
-
     }
     
+    func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        func count(_ tags: Tags) -> ColorScheme {
+            switch tags {
+            case .undefined, .empty:
+                return ColorScheme(text: .white, background: .orange, border: .orange)
+            case let .available(list):
+                return ColorScheme(text: .white, background: .green, border: .green)
+            case .notSearchable:
+                return ColorScheme(text: .white, background: .red, border: .red)
+            }
+        }
+        switch decode(tagListView.tag).section {
+        case 1:
+            if decode(tagListView.tag).row == 0 {
+                return count(scoreTags)
+            } else {
+                return count(nutrientTags)
+            }
+        default:
+            guard let tags = productPair?.remoteProduct?.novaEvaluation[decode(tagListView.tag).row] else { return ColorScheme(text: .white, background: .red, border: .red) }
+            return count(tags)
+        }
+    }
+
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadData()
     }
 
-}
-
-//
-// MARK: - TagListViewDelegate Functions
-//
-
-extension NutritionScoreTableViewController: TagListViewDelegate {
-    
-    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
-    }
-    
 }
 
 //

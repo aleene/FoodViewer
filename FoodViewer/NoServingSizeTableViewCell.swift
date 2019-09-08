@@ -81,4 +81,8 @@ extension NoServingSizeTableViewCell: TagListViewDataSource {
         }
     }
     
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return nil
+    }
+
 }

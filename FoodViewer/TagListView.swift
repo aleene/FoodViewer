@@ -608,10 +608,14 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             tagView = TagView(title: datasource?.tagListView(self, titleForTagAt: index) ?? "Default Title" )
             tagView.delegate = self
             tagView.tag = index
-            tagView.normalColorScheme = normalColorScheme
             tagView.removableColorScheme = removableColorScheme
             tagView.selectedColorScheme = selectedColorScheme
+            
+            if let scheme = datasource?.tagListView(self, colorSchemeForTagAt: index) { tagView.normalColorScheme = scheme
+            } else {
+                tagView.normalColorScheme = normalColorScheme
 
+            }
             if allowsRemoval {
                 // note that the removeButton state is set in rearrange as it affects the layout.
                 if delegate?.tagListView(self, canEditTagAt: index) != nil && delegate!.tagListView(self, canEditTagAt: index)  {

@@ -1163,6 +1163,13 @@ extension IngredientsTableViewController: UITextViewDelegate {
 
 extension IngredientsTableViewController: TagListViewDelegate {
     
+    func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
+    }
+    
+    
+    func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
+        return false
+    }
     
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
         switch tableStructure[tagListView.tag] {
@@ -1383,10 +1390,18 @@ extension IngredientsTableViewController: TagListViewDataSource {
         }
     }
     
+    func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return nil
+    }
+
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadData()
     }
     
+    func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
+        return "Collapsed text"
+    }
+
 }
 
 // MARK: - UINavigationControllerDelegate Functions

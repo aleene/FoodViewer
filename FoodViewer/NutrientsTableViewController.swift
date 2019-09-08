@@ -1697,6 +1697,10 @@ extension NutrientsTableViewController: TagListViewDataSource {
         }
         return("tagListView error")
     }
+    
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return nil
+    }
 }
 
 // MARK: - UIImagePickerControllerDelegate Functions

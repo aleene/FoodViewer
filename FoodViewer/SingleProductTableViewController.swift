@@ -26,18 +26,16 @@ class SingleProductTableViewController: UITableViewController {
         }
         
         // The tag-value of a cell is used to codify the type of cell
-        // The product index is given by the ProductMultiplier, i.e. section * multipier
-        // The product loading status (ProductFetchStatus.rawValue) is the remainer if < Offset.Image
-        // image-loading status (ImageFetchResult) is the remainer if > Offset.Image < Offset.SearchQuery
-        // searchQuery (add Offset.SearchQuery) is the remainer if > Offset.SearchQuery
-        //
-        //
+        // All values >= 10 are used for defining rows
+        // Values below 10 are used to encode the download status
+        // There are no sections, so encoding/decoding is not needed
         
         struct TagValue {
-            static let Image = 10
+            struct Row {
+                static let Image = 10
+                static let Diets = 20
+            }
             struct Product {
-                // if there is a list of products, their tag values start at 1000
-                static let Multiplier = 1000
                 // no list of products yet, so the status of the query is encoded as:
                 static let Initialized = 0
                 static let NotLoaded = 1
@@ -169,6 +167,7 @@ class SingleProductTableViewController: UITableViewController {
         case nutritionScore
         case categories
         case completion
+        case diets
         case supplyChain
         
         // map the row types to corresponding product sections
@@ -190,6 +189,8 @@ class SingleProductTableViewController: UITableViewController {
                 return .completion
             case .supplyChain:
                 return .supplyChain
+            case .diets:
+                return .dietCompliancy
             }
         }
     }
@@ -198,7 +199,7 @@ class SingleProductTableViewController: UITableViewController {
     private var tableStructure: [RowType] {
         switch currentProductType {
         case .food:
-            return [.name, .image, .nutritionScore, .ingredientsAllergensTraces, .nutritionFacts, .supplyChain, .categories, .completion]
+            return [.name, .image, .nutritionScore, .ingredientsAllergensTraces, .diets, .nutritionFacts, .supplyChain, .categories, .completion]
         case .petFood:
             return [.name, .image, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
         case .beauty:
@@ -213,13 +214,9 @@ class SingleProductTableViewController: UITableViewController {
             static let Name = "Single Product Name Cell Identifier"
             static let Image = "Single Product Image Cell Identifier"
             static let Ingredients = "Single Product Ingredients Cell Identifier"
-            //static let IngredientsPage = "Ingredients Page Cell"
-            //static let Countries = "Countries Cell"
-            //static let NutritionFacts = "Product Nutrition Facts Name Cell"
             static let NutritionScore = "Single Product Nutrition Score Cell Identifier"
             static let Categories = "Single Product Categories Cell Identifier"
             static let Completion = "Single Product Completion State Cell Identifier"
-            //static let Producer = "Product Producer Cell"
             static let TagListView = "Single Product TagListView Cell Identifier"
         }
         struct SegueIdentifier {
@@ -264,7 +261,8 @@ class SingleProductTableViewController: UITableViewController {
                 switch result {
                 case .success(let image):
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
-                            cell.productImage = image
+                        cell.productImage = image
+                    cell.tag = Constants.TagValue.Row.Image
                     return cell
                 default:
                     break
@@ -272,6 +270,7 @@ class SingleProductTableViewController: UITableViewController {
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             return cell
+            
         case .ingredientsAllergensTraces:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! IngredientsPageTableViewCell
                     
@@ -304,7 +303,14 @@ class SingleProductTableViewController: UITableViewController {
                 }
             }
             return cell
-                    
+            
+        case .diets:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            cell.datasource = self
+            cell.width = tableView.frame.size.width
+            cell.tag = Constants.TagValue.Row.Diets
+            return cell
+            
         case .ingredients:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
                     cell.labelText = TranslatableStrings.Ingredients
@@ -375,7 +381,7 @@ class SingleProductTableViewController: UITableViewController {
         selectedPageIndex = indexPath.row
         showProductPage()
     }
-    
+
     // MARK: - Scene changes
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -686,39 +692,8 @@ extension SingleProductTableViewController: GKImagePickerDelegate {
 extension SingleProductTableViewController: ButtonCellDelegate {
     // function to let the delegate know that a button was tapped
     func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton) {
-        /*
-        if sender.tag < 0 {
-            showAlertAddFrontImage(forProductWith: -1 * sender.tag)
-        } else {
-            products.fetchSearchProductsForNextPage()
-        }
- */
     }
 }
-/*
-// MARK: - SearchHeaderDelegate Functions
-
-extension SingleProductTableViewController: SearchHeaderDelegate {
-    
-    func sortButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSortOrder, sender: button)
-    }
-    
-    func clearButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
-        if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
-            switch validFetchResult {
-            case .searchQuery(let query):
-                query.clear()
-                products.reloadAll()
-                tableView.reloadData()
-            default:
-                break
-            }
-            
-        }
-    }
-}
- */
 
 // MARK: - UIGestureRecognizerDelegate Functions
 
@@ -764,54 +739,72 @@ extension SingleProductTableViewController: TagListViewCellDelegate {
 extension SingleProductTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        if tagListView.tag == Constants.TagValue.Row.Image {
+            return 1
+        } else if tagListView.tag == Constants.TagValue.Row.Diets {
+            if (selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct) != nil {
+                return SelectedDietsDefaults.manager.selected.count
+            }
+        }
         return 1
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        
-        // find the product that has been tapped on
-        //let productIndex = Int( tagListView.tag / Constants.Offset.ProductMultiplier )
-        // find the status of the product
-        let code = tagListView.tag % Constants.TagValue.Product.Multiplier
-        
-        if code >= Constants.TagValue.Image {
-            return ImageFetchResult.description(for: code - Constants.TagValue.Image)
+        if tagListView.tag == Constants.TagValue.Row.Image {
+            return ImageFetchResult.description(for: Constants.TagValue.Row.Image)
+        } else if tagListView.tag == Constants.TagValue.Row.Diets {
+            if let validProduct = selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct {
+            let dietKey = SelectedDietsDefaults.manager.selected[index]
+            let conclusion = Diets.manager.conclusion(validProduct, forDietWith:dietKey)
+            let name = Diets.manager.name(forDietWith: dietKey, in:Locale.interfaceLanguageCode)
+            return (name ?? "No diet name found ") + "\(conclusion ?? 0)"
+            }
         }
         
-        return ProductFetchStatus.description(for: code)
+        return ProductFetchStatus.description(for: tagListView.tag)
     }
     
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        if tagListView.tag == Constants.TagValue.Row.Diets {
+            if let validProduct = selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct {
+                let dietKey = SelectedDietsDefaults.manager.selected[index]
+                guard let validConclusion = Diets.manager.conclusion(validProduct, forDietWith:dietKey) else { return nil }
+                switch validConclusion {
+                case -13:
+                    return ColorScheme(text: .white, background: .purple, border: .purple)
+                case -2:
+                    return ColorScheme(text: .white, background: .red, border: .red)
+                case -1:
+                    return ColorScheme(text: .white, background: .orange, border: .orange)
+                case 0:
+                    return ColorScheme(text: .black, background: .yellow, border: .lightGray)
+                case 1:
+                    return ColorScheme(text: .white, background: .green, border: .green)
+                case 2:
+                    return ColorScheme(text: .white, background: .darkGray, border: .darkGray)
+                case 3:
+                    return ColorScheme(text: .white, background: .black, border: .black)
+                default:
+                    return ColorScheme(text: .black, background: .white, border: .white)
+                }
+            }
+        } else if tagListView.tag == Constants.TagValue.Row.Image {
+            return ColorScheme(text: .white, background: .red, border: .red)
+        }
+        return nil
+    }
+
     /// Which text should be displayed when the TagListView is collapsed?
     public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
         return "Collapsed"
     }
     
-}
-
-// MARK: - TagListView Delegate Functions
-
-extension SingleProductTableViewController: TagListViewDelegate {
-    
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadData()
         //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
-    
-    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
-        
-        // find the product that has been tapped on
-        let productIndex = Int( tagListView.tag / Constants.TagValue.Product.Multiplier )
-        // find the status of the product
-        let code = tagListView.tag % Constants.TagValue.Product.Multiplier
-        // try to reload the product
-        if code == ProductFetchStatus.productNotLoaded("").rawValue  ||
-            code == ProductFetchStatus.loadingFailed("").rawValue {
-            _ = products.loadProductPair(at: productIndex)
-        }
-    }
-    
-}
 
+}
 
 // MARK: - UIPopoverPresentationControllerDelegate Functions
 

@@ -443,27 +443,20 @@ extension SearchResultsTableViewController: TagListViewDataSource {
         return title(for: tagListView.tag)
     }
     
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return nil
+    }
+
     /// Which text should be displayed when the TagListView is collapsed?
     public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
         return "Collapsed"
     }
     
-}
-
-// MARK: - TagListView Delegate Functions
-
-extension SearchResultsTableViewController: TagListViewDelegate {
-    
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadData()
     }
-    
-    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
-        
-    }
-    
-}
 
+}
 
 // MARK: - UIPopoverPresentationControllerDelegate Functions
 

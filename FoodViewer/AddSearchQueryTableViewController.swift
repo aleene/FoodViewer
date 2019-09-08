@@ -570,6 +570,25 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
         }
     }
     
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return nil
+    }
+
+    /// Which text should be displayed when the TagListView is collapsed?
+    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
+        return "Collapsed"
+    }
+    
+}
+//
+// MARK: - TagListViewDelegate Functions
+//
+extension AddSearchQueryTableViewController: TagListViewDelegate {
+    
+    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
+
+    }
+    
     /// Called if the user wants to delete all tags
     public func didClear(_ tagListView: TagListView) {
         let currentProductSection = tableStructure[tagListView.tag]
@@ -602,7 +621,7 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
             default:
                 assert(true, "AddSearchQueryTableViewController: How can I clear a tag when there are none")
             }
-
+            
         case .languagesSearch:
             switch searchLanguagesToDisplay {
             case .available(var list):
@@ -627,7 +646,7 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
             default:
                 assert(true, "AddSearchQueryTableViewController: How can I clear a tag when there are none")
             }
-
+            
         case .tracesSearch:
             switch searchTracesToDisplay {
             case .available(var list):
@@ -636,7 +655,7 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
             default:
                 assert(true, "AddSearchQueryTableViewController: How can I clear a tag when there are none")
             }
-
+            
         case .labelsSearch:
             switch searchLabelsToDisplay {
             case .available(var list):
@@ -645,7 +664,7 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
             default:
                 assert(true, "AddSearchQueryTableViewController: How can I clear a tag when there are none")
             }
-
+            
         case .additivesSearch:
             switch searchAdditivesToDisplay {
             case .available(var list):
@@ -654,7 +673,7 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
             default:
                 assert(true, "AddSearchQueryTableViewController: How can I clear a tag when there are none")
             }
-
+            
         case .ingredientOriginSearch:
             switch searchIngredientOriginLocationTagsToDisplay {
             case .available(var list):
@@ -663,7 +682,7 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
             default:
                 assert(true, "AddSearchQueryTableViewController: How can I clear a tag when there are none")
             }
-
+            
         case .producerSearch(_, _):
             switch searchProducerTagsToDisplay {
             case .available(var list):
@@ -672,7 +691,7 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
             default:
                 assert(true, "AddSearchQueryTableViewController: How can I clear a tag when there are none")
             }
-
+            
         case .producerCodeSearch:
             switch searchProducerCodeTagsToDisplay {
             case .available(var list):
@@ -681,7 +700,7 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
             default:
                 assert(true, "AddSearchQueryTableViewController: How can I clear a tag when there are none")
             }
-
+            
         case .locationSearch:
             switch searchPurchaseLocationTagsToDisplay {
             case .available(var list):
@@ -690,7 +709,7 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
             default:
                 assert(true, "AddSearchQueryTableViewController: How can I clear a tag when there are none")
             }
-
+            
         case .storeSearch:
             switch searchStoreTagsToDisplay {
             case .available(var list):
@@ -699,7 +718,7 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
             default:
                 assert(true, "AddSearchQueryTableViewController: How can I clear a tag when there are none")
             }
-
+            
         case .countrySearch:
             switch searchCountriesToDisplay {
             case .available(var list):
@@ -716,25 +735,9 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
             default:
                 assert(true, "AddSearchQueryTableViewController: How can I clear a tag when there are none")
             }
-
+            
         }
     }
-    
-    /// Which text should be displayed when the TagListView is collapsed?
-    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
-        return "Collapsed"
-    }
-    
-}
-//
-// MARK: - TagListViewDelegate Functions
-//
-extension AddSearchQueryTableViewController: TagListViewDelegate {
-    
-    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
-
-    }
-    
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
         switch tableStructure[tagListView.tag] {
         case .brandsSearch:

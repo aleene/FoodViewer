@@ -139,6 +139,10 @@ extension DietCompliancyTableViewController: TagListViewDataSource {
         tableView.reloadData()
     }
     
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return nil
+    }
+
 }
 
 //

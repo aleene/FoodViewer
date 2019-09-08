@@ -705,26 +705,9 @@ extension SearchesHistoryTableViewController: TagListViewCellDelegate {
 
 extension SearchesHistoryTableViewController: TagListViewDataSource {
     
+    
+    
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        
-        // is this a searchQuery section?
-        //if tagListView.tag >= Constants.TagValue.Search.Query {
-            //if let validFetchResult = products.searchStatus {
-        /*
-                switch products.searchStatus {
-                case .searchQuery(let query):
-                    let searchPairs = query.searchPairsWithArray()
-                    let index = tagListView.tag - Constants.TagValue.Search.Query
-                    if index > 0 && index < searchPairs.count && !query.isEmpty {
-                        return searchPairs[index].1.count
-                    }
-                default:
-                    break
-                }
-                
-            //}
-        //}
- */
         return 1
     }
     
@@ -732,23 +715,17 @@ extension SearchesHistoryTableViewController: TagListViewDataSource {
         return title(for:tagListView.tag)
     }
     
+    func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return ColorScheme(text: .white, background: .green, border: .green)
+    }
+    
     /// Which text should be displayed when the TagListView is collapsed?
     public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
         return "Collapsed"
     }
     
-}
-
-// MARK: - TagListView Delegate Functions
-
-extension SearchesHistoryTableViewController: TagListViewDelegate {
-    
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadData()
     }
-    
-    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
-        
-    }
-    
+
 }

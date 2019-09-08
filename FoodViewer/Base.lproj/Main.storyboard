@@ -1783,7 +1783,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7zc-x4-DgC" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="348" height="22"/>
+                                            <rect key="frame" x="20" y="11" width="340" height="22"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
@@ -1792,7 +1792,7 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="7zc-x4-DgC" secondAttribute="bottom" id="0AJ-VZ-Lnu"/>
                                         <constraint firstItem="7zc-x4-DgC" firstAttribute="top" secondItem="Has-sh-buQ" secondAttribute="topMargin" id="3EH-Rb-d0Z"/>
                                         <constraint firstItem="7zc-x4-DgC" firstAttribute="leading" secondItem="Has-sh-buQ" secondAttribute="leadingMargin" id="cB0-pC-PjH"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="7zc-x4-DgC" secondAttribute="trailing" id="mqf-Zg-FKn"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="7zc-x4-DgC" secondAttribute="trailing" constant="8" id="mqf-Zg-FKn"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -3812,7 +3812,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="label" destination="EyV-L4-cTN" id="84o-Oa-l5C"/>
+                                    <outlet property="newLabel" destination="EyV-L4-cTN" id="X4B-kk-GZT"/>
                                     <outlet property="tagListView" destination="Ymu-TA-dbH" id="0t0-YS-DT1"/>
                                 </connections>
                             </tableViewCell>
@@ -5471,7 +5471,7 @@
                     <tabBarItem key="tabBarItem" systemItem="history" id="qml-Z8-ZBg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tRv-W4-6M9">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
