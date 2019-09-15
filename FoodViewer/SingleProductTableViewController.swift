@@ -307,7 +307,7 @@ class SingleProductTableViewController: UITableViewController {
         case .diets:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.datasource = self
-            cell.width = tableView.frame.size.width
+            cell.width = tableView.frame.size.width - 16
             cell.tag = Constants.TagValue.Row.Diets
             return cell
             
@@ -755,9 +755,9 @@ extension SingleProductTableViewController: TagListViewDataSource {
         } else if tagListView.tag == Constants.TagValue.Row.Diets {
             if let validProduct = selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct {
             let dietKey = SelectedDietsDefaults.manager.selected[index]
-            let conclusion = Diets.manager.conclusion(validProduct, forDietWith:dietKey)
-            let name = Diets.manager.name(forDietWith: dietKey, in:Locale.interfaceLanguageCode)
-            return (name ?? "No diet name found ") + "\(conclusion ?? 0)"
+            //let conclusion = Diets.manager.conclusion(validProduct, forDietWith:dietKey)
+            return Diets.manager.name(forDietWith: dietKey, in:Locale.interfaceLanguageCode) ?? "No diet name found "
+            // return (name ?? "No diet name found ") + "\(conclusion ?? 0)"
             }
         }
         
