@@ -131,7 +131,6 @@ class OFFProduct: Codable {
     var purchase_places: String? = nil
         var purchase_places_tags: [String]? = nil
         var quantity: String? = nil
-    var rev: Int? = nil
     var scans_n: Int? = nil
     var selected_images: OFFProductSelectedImages? = nil
     var server: String? = nil

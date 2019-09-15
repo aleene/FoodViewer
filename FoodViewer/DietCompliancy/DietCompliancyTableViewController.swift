@@ -56,15 +56,19 @@ class DietCompliancyTableViewController: UITableViewController {
         return 1
     }
 
+    private func values(forDietAt index:Int) -> [Int] {
+        var vals: [Int] = []
+        for level in matchesPerDietPerLevel[index] {
+            vals.append(level.1.count)
+        }
+        return vals
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Diet Levels Cell Identifier", for: indexPath) as! DietLevelsTableViewCell
-            cell.one = "\(matchesPerDietPerLevel[indexPath.section][0].1.count )"
-            cell.two = "\(matchesPerDietPerLevel[indexPath.section][1].1.count)"
-            cell.three = "\(matchesPerDietPerLevel[indexPath.section][2].1.count)"
-            cell.four = "\(matchesPerDietPerLevel[indexPath.section][3].1.count)"
-            cell.five = "\(matchesPerDietPerLevel[indexPath.section][4].1.count)"
+            cell.values = values(forDietAt: indexPath.section)
             if productPair?.remoteProduct != nil {
                 cell.conclusion = diets.conclusion(productPair!.remoteProduct!, withDietAt: indexPath.section, in: Locale.interfaceLanguageCode)
             }

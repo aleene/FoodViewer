@@ -366,15 +366,15 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
-            if editMode,
-                let oldTags = productPair?.localProduct?.tracesOriginal {
-                switch oldTags {
-                case .available:
-                    cell.editMode = productVersion.isRemote ? false : true
-                default:
-                    break
-                }
-            }
+            //if editMode,
+            //    let oldTags = productPair?.localProduct?.tracesOriginal {
+            //    switch oldTags {
+            //    case .available:
+            //        cell.editMode = productVersion.isRemote ? false : true
+            //    default:
+            //        break
+            //    }
+            //}
             cell.tag = indexPath.section
             return cell
 
@@ -1168,7 +1168,12 @@ extension IngredientsTableViewController: TagListViewDelegate {
     
     
     func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
-        return false
+        switch tableStructure[tagListView.tag] {
+        case .traces, .labels:
+            return true
+        default:
+            return false
+        }
     }
     
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {

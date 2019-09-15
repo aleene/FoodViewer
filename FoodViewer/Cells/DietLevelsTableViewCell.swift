@@ -18,6 +18,13 @@ protocol DietLevelsTableViewCellDelegate: class {
 
 class DietLevelsTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var level0Label: UILabel! {
+        didSet {
+            level0Label?.layer.cornerRadius = CGFloat(level0Label?.bounds.size.height ?? 25) / CGFloat(2.0)
+            level0Label?.clipsToBounds = true
+        }
+    }
+    
     @IBOutlet weak var level1Label: UILabel! {
         didSet {
             level1Label?.layer.cornerRadius = CGFloat(level1Label?.bounds.size.height ?? 25) / CGFloat(2.0)
@@ -59,39 +66,18 @@ class DietLevelsTableViewCell: UITableViewCell {
         }
     }
 
+    @IBOutlet weak var level6Label: UILabel! {
+        didSet {
+            level6Label?.layer.cornerRadius = CGFloat(level6Label?.bounds.size.height ?? 25) / CGFloat(2.0)
+            level6Label?.clipsToBounds = true
+        }
+    }
+    
     @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
         cellTapped()
     }
     
-    var one: String? = nil {
-        didSet {
-            setup()
-        }
-    }
-
-    var two: String? = nil {
-        didSet {
-            setup()
-        }
-    }
-
-    var three: String? = nil {
-        didSet {
-            setup()
-        }
-    }
-
-    var four: String? = nil {
-        didSet {
-            setup()
-        }
-    }
-
-    var five: String? = nil {
-        didSet {
-            setup()
-        }
-    }
+    var values: [Int] = []
     
     var conclusion: Int? = nil {
         didSet {
@@ -114,15 +100,50 @@ class DietLevelsTableViewCell: UITableViewCell {
         guard level4Label != nil else { return }
         guard level5Label != nil else { return }
         
-        level1Label?.text = one
-        level2Label?.text = two
-        level3Label?.text = three
-        level4Label?.text = four
-        level5Label?.text = five
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumSignificantDigits = 1
+        if values.count == 7 {
+            level0Label?.text = formatter.string(from: NSNumber(integerLiteral:values[0]))
+            level1Label?.text = formatter.string(from: NSNumber(integerLiteral:values[1]))
+            level2Label?.text = formatter.string(from: NSNumber(integerLiteral:values[2]))
+            level3Label?.text = formatter.string(from: NSNumber(integerLiteral:values[3]))
+            level4Label?.text = formatter.string(from: NSNumber(integerLiteral:values[4]))
+            level5Label?.text = formatter.string(from: NSNumber(integerLiteral:values[5]))
+            level6Label?.text = formatter.string(from: NSNumber(integerLiteral:values[6]))
+        } else if values.count == 6 {
+            level0Label?.text = formatter.string(from: NSNumber(integerLiteral:values[0]))
+            level1Label?.text = formatter.string(from: NSNumber(integerLiteral:values[1]))
+            level2Label?.text = formatter.string(from: NSNumber(integerLiteral:values[2]))
+            level3Label?.text = formatter.string(from: NSNumber(integerLiteral:values[3]))
+            level4Label?.text = formatter.string(from: NSNumber(integerLiteral:values[4]))
+            level5Label?.text = formatter.string(from: NSNumber(integerLiteral:values[5]))
+        } else if values.count == 5 {
+            level1Label?.text = formatter.string(from: NSNumber(integerLiteral:values[0]))
+            level2Label?.text = formatter.string(from: NSNumber(integerLiteral:values[1]))
+            level3Label?.text = formatter.string(from: NSNumber(integerLiteral:values[2]))
+            level4Label?.text = formatter.string(from: NSNumber(integerLiteral:values[3]))
+            level5Label?.text = formatter.string(from: NSNumber(integerLiteral:values[4]))
+        } else if values.count == 4 {
+            level1Label?.text = formatter.string(from: NSNumber(integerLiteral:values[0]))
+            level2Label?.text = formatter.string(from: NSNumber(integerLiteral:values[1]))
+            level3Label?.text = formatter.string(from: NSNumber(integerLiteral:values[2]))
+            level4Label?.text = formatter.string(from: NSNumber(integerLiteral:values[3]))
+        } else if values.count == 3 {
+            level2Label?.text = formatter.string(from: NSNumber(integerLiteral:values[0]))
+            level3Label?.text = formatter.string(from: NSNumber(integerLiteral:values[1]))
+            level4Label?.text = formatter.string(from: NSNumber(integerLiteral:values[2]))
+        } else if values.count == 2 {
+            
+        } else if values.count == 1 {
+            level3Label?.text = formatter.string(from: NSNumber(integerLiteral:values[0]))
+        }
         resetColors()
         
         if let validConclusion = conclusion {
             switch validConclusion {
+            case -3:
+                level0Label?.backgroundColor = .purple
             case -2:
                 level1Label?.backgroundColor = .red
             case -1:
@@ -133,6 +154,8 @@ class DietLevelsTableViewCell: UITableViewCell {
                 level4Label?.backgroundColor = .green
             case 2:
                 level5Label?.backgroundColor = .blue
+            case 3:
+                level6Label?.backgroundColor = .black
             default:
                 break
             }
