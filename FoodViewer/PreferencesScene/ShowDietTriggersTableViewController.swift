@@ -16,6 +16,12 @@ class ShowDietTriggersTableViewController: UITableViewController {
         static let DietTriggers = "Diet Trigger Tags Cell"
     }
     
+    fileprivate struct Constant {
+        static let TagListViewHeight = CGFloat(44.0)
+        static let LabelHeight = CGFloat(16.0)
+        static let VerticalSpacing = CGFloat(8.0)
+    }
+    
     var dietIndex: Int? = nil {
         didSet {
             if dietIndex != nil {
@@ -36,6 +42,8 @@ class ShowDietTriggersTableViewController: UITableViewController {
     // the level info is an array of tuples (taxonomy name and array of triggers
     private var tableData: [(String,[(String,[String])])] = []
 
+    private var heights: [IndexPath:CGFloat] = [:]
+    
     var key: String? {
         if let validDietIndex = dietIndex {
             return Diets.manager.key(for:validDietIndex, in:Locale.interfaceLanguageCode)
@@ -72,15 +80,24 @@ class ShowDietTriggersTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let cell = tableView.cellForRow(at: indexPath) as? TagListViewLabelTableViewCell {
-            return cell.newLabel.frame.height + cell.tagListView.frame.height + CGFloat (3 * 8.0)
+        if tableView.cellForRow(at: indexPath) as? TagListViewLabelTableViewCell != nil {
+            return Constant.LabelHeight + (heights[indexPath] ?? Constant.TagListViewHeight) + 3 * Constant.VerticalSpacing
         }
-        return UITableView.automaticDimension
+        return Constant.LabelHeight + Constant.TagListViewHeight + 3 * Constant.VerticalSpacing
     }
     
     private func setupTableData() {
         guard let validDietIndex = dietIndex else { return }
         tableData = Diets.manager.triggers(forDiet: validDietIndex, in: Locale.interfaceLanguageCode)
+        if tableData.count > 0 {
+            for section in 0...tableData.count - 1 {
+                if tableData[section].1.count > 0 {
+                    for row in 0...tableData[section].1.count - 1 {
+                        heights[IndexPath(row: row, section: section)] = CGFloat(Constant.TagListViewHeight)
+                    }
+                }
+            }
+        }
     }
     
     private func setTitle() {
@@ -103,8 +120,6 @@ class ShowDietTriggersTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 88.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -143,6 +158,7 @@ extension ShowDietTriggersTableViewController: TagListViewDataSource {
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         let row = tagListView.tag % 10
         let section = (tagListView.tag - row) / 10
+        heights[IndexPath(row: row, section: section)] = height
         tableView.reloadRows(at: [IndexPath(row: row, section: section)], with: .bottom)
     }
     

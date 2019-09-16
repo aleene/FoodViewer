@@ -421,7 +421,7 @@ class Diets {
                         
                         if taxonomy.key == Constant.Key.Ingredients,
                             name.count >= 0  {
-                            switch product.ingredientsHierarchy {
+                            switch product.ingredientsTags {
                             case .available(let tags):
                                 if tags.contains(name[0]) {
                                     matchedTags.append(Constant.Key.Ingredients + "/" + name[0])

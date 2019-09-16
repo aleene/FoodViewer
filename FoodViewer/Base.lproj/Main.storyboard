@@ -342,31 +342,29 @@
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Diet Trigger Tags Cell" id="IhZ-qY-jbX" customClass="TagListViewLabelTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IhZ-qY-jbX" id="kNI-jT-9Nq" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IhZ-qY-jbX" id="kNI-jT-9Nq">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nnH-7E-mjj">
-                                            <rect key="frame" x="8" y="8" width="398" height="27.666666666666671"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hho-M2-f3Y">
-                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="14"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5sA-YE-FGq" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="14" width="358" height="13.666666666666664"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </view>
-                                            </subviews>
-                                        </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hho-M2-f3Y">
+                                            <rect key="frame" x="16" y="7.9999999999999991" width="382" height="15.666666666666664"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="5sA-YE-FGq" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="31.666666666666671" width="382" height="4"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="nnH-7E-mjj" secondAttribute="bottom" constant="8" id="AGW-Ps-zbL"/>
-                                        <constraint firstAttribute="trailing" secondItem="nnH-7E-mjj" secondAttribute="trailing" constant="8" id="DQR-jF-eTu"/>
-                                        <constraint firstItem="nnH-7E-mjj" firstAttribute="top" secondItem="kNI-jT-9Nq" secondAttribute="top" constant="8" id="Q87-ck-1hz"/>
-                                        <constraint firstItem="nnH-7E-mjj" firstAttribute="leading" secondItem="kNI-jT-9Nq" secondAttribute="leading" constant="8" id="cWi-LA-lMY"/>
+                                        <constraint firstItem="5sA-YE-FGq" firstAttribute="top" secondItem="hho-M2-f3Y" secondAttribute="bottom" constant="8" id="SZL-PL-Id6"/>
+                                        <constraint firstItem="hho-M2-f3Y" firstAttribute="top" secondItem="kNI-jT-9Nq" secondAttribute="top" constant="8" id="dGi-wS-in9"/>
+                                        <constraint firstAttribute="bottom" secondItem="5sA-YE-FGq" secondAttribute="bottom" constant="7.9999999999999929" id="dwP-Ph-QNi"/>
+                                        <constraint firstAttribute="trailing" secondItem="hho-M2-f3Y" secondAttribute="trailing" constant="16" id="kNP-bC-LUv"/>
+                                        <constraint firstAttribute="trailing" secondItem="5sA-YE-FGq" secondAttribute="trailing" constant="16" id="q48-Rh-vdz"/>
+                                        <constraint firstItem="hho-M2-f3Y" firstAttribute="leading" secondItem="kNI-jT-9Nq" secondAttribute="leading" constant="16" id="sC1-wf-uui"/>
+                                        <constraint firstItem="5sA-YE-FGq" firstAttribute="leading" secondItem="kNI-jT-9Nq" secondAttribute="leading" constant="16" id="uor-bN-h8G"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -6061,11 +6059,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="297" height="22"/>
+                                            <rect key="frame" x="20" y="11" width="279" height="22"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="333" y="8" width="61" height="29"/>
+                                            <rect key="frame" x="315" y="8" width="79" height="29"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>
