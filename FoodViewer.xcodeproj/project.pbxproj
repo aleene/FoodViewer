@@ -755,6 +755,8 @@
 		51F0752920A339E900C2D15C /* CSVWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSVWriter.swift; path = "../../../.Trash/CSV.swift-master/Sources/CSVWriter.swift"; sourceTree = "<group>"; };
 		51F0752B20A339F700C2D15C /* CSVReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSVReader.swift; path = "../../../.Trash/CSV.swift-master/Sources/CSVReader.swift"; sourceTree = "<group>"; };
 		51F0752D20A33A0600C2D15C /* CSVError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSVError.swift; path = "../../../.Trash/CSV.swift-master/Sources/CSVError.swift"; sourceTree = "<group>"; };
+		51F3C1AC232E88500026B2AD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		51F3C1AD232E88500026B2AD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		51F669371F4499190074AACB /* AddImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		51F669381F4499190074AACB /* AddImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		51F669401F49CB620074AACB /* IngredientsPageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsPageTableViewCell.swift; sourceTree = "<group>"; };
@@ -2104,6 +2106,7 @@
 				517FC92B1CD5009A00CB89ED /* fr */,
 				517FC9341CD5037000CB89ED /* nl */,
 				518E2C7322F9E1D6007FC124 /* de */,
+				51F3C1AC232E88500026B2AD /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2114,6 +2117,7 @@
 				517FC9321CD500C100CB89ED /* fr */,
 				517FC9351CD5037200CB89ED /* nl */,
 				518E2C7222F9E1D4007FC124 /* de */,
+				51F3C1AD232E88500026B2AD /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

@@ -43,6 +43,9 @@
 /* Title of a button in normal state allowing the user to add a nutrient */
 "Add Nutrient" = "Ajout nutriment";
 
+/* Text to indicate the additives of a product. */
+"Additives" = "Additives";
+
 /* Text to indicate a specific additive. */
 "Additve %@" = "Additive %@";
 
@@ -310,6 +313,9 @@
 
 /* Tableview section header, which list the translated detected vitamins in an ingredients list. */
 "Detected Vitamins (translated)" = "Vitamines détectés (traduit)";
+
+/* Title of a tableView, which shows how well a product conforms to a set of diet profiles. */
+"Diet Compliancy" = "Information régimes";
 
 /* Title of a button in an alert sheet, which allows the user to discard alle changes to the local product. */
 "Discard" = "Jeter?";
@@ -591,6 +597,9 @@
 /* Value of the creation date field, if no valid date is available. */
 "no creation date available" = "pas de date de création disponible";
 
+/* Title of a viewController, when no diet has been selected. */
+"no diet selected" = "Aucun régime sélectionné";
+
 /* Value of the edit date field, if no valid date is available. */
 "no edit date available" = "pas de date d'édition disponible";
 
@@ -793,7 +802,8 @@
 /* Generic string to indicate the original (non-edited) origins of the ingredients */
 "Origins of ingredients (non-edited)" = "Origine ingrédients (pas édité)";
 
-/* Tableview section header, which list the detected other nutritional substances in an ingredients list. */
+/* Tableview section header, which list the detected other nutritional substances in an ingredients list.
+   Tableview section header, which list the other nutritional substances in an ingredients list. */
 "Other Nutritional Substances" = "Autre substances nutritionnelles";
 
 /* String presented in a tagView if this is not the current product type */
@@ -1043,6 +1053,12 @@
 /* First item in a pickerView, indicating what the user should do */
 "Select role" = "Choisit role";
 
+/* Text of a tableview row, which allows the user to select diets */
+"Select the diets, that you want the app to highlight in the product summary." = "Sélectionne les régimes, qui doivent mis en avant dans le sommaire du produit.";
+
+/* Title of a tableview section, which allows the user to select diets */
+"Selected Diets" = "Régimes sélectionés";
+
 /* Gallery header text presenting the selected front images */
 "Selected Front Images" = "Photo du produit sélectionnées";
 
@@ -1081,6 +1097,9 @@
 
 /* Title of second segment in switch, which  indicates the user can set another account */
 "Set Account" = "Défini compte";
+
+/* Title of a tableView, in which a user can select rows (diets) to display. */
+"Set Diets to Display" = "Sélectionne le régime à montrer";
 
 /* Title of a tableView section, which lets the user set warnings */
 "Set ingredient warnings" = "Défini avertissage ingrédients";

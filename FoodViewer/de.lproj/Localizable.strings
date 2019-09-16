@@ -790,7 +790,8 @@
 /* Generic string to indicate the original (non-edited) origins of the ingredients */
 "Origins of ingredients (non-edited)" = "Herkunft Zutaten (unbearbeitet)";
 
-/* Tableview section header, which list the detected other nutritional substances in an ingredients list. */
+/* Tableview section header, which list the detected other nutritional substances in an ingredients list.
+   Tableview section header, which list the other nutritional substances in an ingredients list. */
 "Other Nutritional Substances" = "Übrige Nährstoffe";
 
 /* String presented in a tagView if this is not the current product type */
