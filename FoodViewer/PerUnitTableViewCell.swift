@@ -16,7 +16,12 @@ protocol PerUnitCellDelegate: class {
 
 class PerUnitTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var perUnitSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var perUnitSegmentedControl: UISegmentedControl! {
+        didSet {
+            perUnitSegmentedControl.setTitle(TranslatableStrings.Per100mgml, forSegmentAt: 0)
+            perUnitSegmentedControl.setTitle(TranslatableStrings.PerServing, forSegmentAt: 1)
+        }
+    }
     
     @IBAction func PerUnitSegmentedControlTapped(_ sender: UISegmentedControl) {
         // call the delegate to indicate a change has occurred
