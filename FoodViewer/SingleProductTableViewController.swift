@@ -753,7 +753,7 @@ extension SingleProductTableViewController: TagListViewDataSource {
         if tagListView.tag == Constants.TagValue.Row.Image {
             return ImageFetchResult.description(for: Constants.TagValue.Row.Image)
         } else if tagListView.tag == Constants.TagValue.Row.Diets {
-            if let validProduct = selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct {
+            if (selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct) != nil{
             let dietKey = SelectedDietsDefaults.manager.selected[index]
             //let conclusion = Diets.manager.conclusion(validProduct, forDietWith:dietKey)
             return Diets.manager.name(forDietWith: dietKey, in:Locale.interfaceLanguageCode) ?? "No diet name found "

@@ -511,7 +511,7 @@ extension NutritionScoreTableViewController: TagListViewDataSource {
             switch tags {
             case .undefined, .empty:
                 return ColorScheme(text: .white, background: .orange, border: .orange)
-            case let .available(list):
+            case .available:
                 return ColorScheme(text: .white, background: .green, border: .green)
             case .notSearchable:
                 return ColorScheme(text: .white, background: .red, border: .red)

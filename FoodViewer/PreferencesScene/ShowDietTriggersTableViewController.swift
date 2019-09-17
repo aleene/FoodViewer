@@ -18,7 +18,7 @@ class ShowDietTriggersTableViewController: UITableViewController {
     
     fileprivate struct Constant {
         static let TagListViewHeight = CGFloat(44.0)
-        static let LabelHeight = CGFloat(16.0)
+        static let LabelHeight = CGFloat(20.0)
         static let VerticalSpacing = CGFloat(8.0)
     }
     
@@ -80,10 +80,11 @@ class ShowDietTriggersTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView.cellForRow(at: indexPath) as? TagListViewLabelTableViewCell != nil {
+        //let cell = tableView.cellForRow(at: indexPath)
+        //if let cell = tableView.cellForRow(at: indexPath) as? TagListViewLabelTableViewCell {
             return Constant.LabelHeight + (heights[indexPath] ?? Constant.TagListViewHeight) + 3 * Constant.VerticalSpacing
-        }
-        return Constant.LabelHeight + Constant.TagListViewHeight + 3 * Constant.VerticalSpacing
+        //}
+        //return Constant.TagListViewHeight + 2 * Constant.VerticalSpacing
     }
     
     private func setupTableData() {

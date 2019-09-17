@@ -133,20 +133,28 @@ class Diets {
     public func triggers(forDiet index:Int, in languageCode:String) -> [(String, [(String, [String])])] {
         guard count != nil else { return [] }
         var triggers: [(String, [(String, [String])])] = []
-        for level in sort(on: languageCode)[index].levels.sorted(by: { $0.order < $1.order }) {
-            var result: [(String, [String])] = []
-            for taxonomy in level.taxonomies {
-                var taxo: [String] = []
-                for name in taxonomy.names {
-                    if let validTag = name.first {
-                        taxo.append(taxonomy.key + "/" + validTag)
+        if sort(on: languageCode)[index].levels.count > 0 {
+            for level in sort(on: languageCode)[index].levels.sorted(by: { $0.order < $1.order }) {
+                var result: [(String, [String])] = []
+                if level.taxonomies.count > 0 {
+                    for taxonomy in level.taxonomies {
+                        var taxo: [String] = []
+                        for name in taxonomy.names {
+                            if let validTag = name.first {
+                             taxo.append(taxonomy.key + "/" + validTag)
+                            }
+                        }
+                        let taxName = taxonomyName(for:taxonomy, in:languageCode) ?? "Diets:No tax language defined"
+                        result.append( (taxName, translate(taxo)) )
                     }
+                    let name = levelName(for:level, in:languageCode) ?? "Diets:No level language defined"
+                    triggers.append( (name, result) )
+                } else {
+                    triggers.append( ("No taxonomies for this level defined", []) )
                 }
-                let taxName = taxonomyName(for:taxonomy, in:languageCode) ?? "Diets:No tax language defined"
-                result.append( (taxName, translate(taxo)) )
             }
-            let name = levelName(for:level, in:languageCode) ?? "Diets:No level language defined"
-            triggers.append( (name, result) )
+        } else {
+            triggers.append( ("No triggers for any level defined", []) )
         }
         return triggers
     }
@@ -242,11 +250,17 @@ class Diets {
             
         }
         if let validNeutralIndex = neutralIndex {
+            // A high match means claimed or certified
             if highestLevelWithAMatch != nil && highestLevelWithAMatch! > validNeutralIndex {
                 return highestLevelWithAMatch! - validNeutralIndex
             }
+            // A low match means adverse indicators have been found
             if lowestLevelWithAMatch != nil && lowestLevelWithAMatch! < validNeutralIndex {
                 return lowestLevelWithAMatch! - validNeutralIndex
+            }
+            // Only positive matches are found
+            if highestLevelWithAMatch != nil && highestLevelWithAMatch! == validNeutralIndex {
+                return highestLevelWithAMatch! - validNeutralIndex
             }
         }
         // None of the levels has a match so we assume the neutral level must be compliant
@@ -269,10 +283,12 @@ class Diets {
                         matchedDiet.append((order,matchedTags))
                     }
                 }
-                let sortedMatchedDiet : [(Int,[String])] = filter(matchedDiet.sorted(by: { x, y in
-                    return x.0 < y.0 }))
+                // let sortedMatchedDiet : [(Int,[String])] = filter(matchedDiet.sorted(by: { x, y in
+                //    return x.0 < y.0 }))
                 
-                matchesPerDietPerLevel.append(translate(sortedMatchedDiet))
+            matchesPerDietPerLevel.append(translate(matchedDiet.sorted(by:
+                { x, y in return x.0 < y.0
+                }) ))
             }
         }
         return matchesPerDietPerLevel
@@ -385,9 +401,9 @@ class Diets {
                             case .available(let tags):
                                 if tags.contains(name[0]) {
                                     matchedTags.append(Constant.Key.Labels + "/" + name[0])
-                                    if name.count == 2 {
-                                        matchedTags.append(Constant.Key.Labels + "/" + name[1])
-                                    }
+                                    //if name.count == 2 {
+                                    //    matchedTags.append(Constant.Key.Labels + "/" + name[1])
+                                    //}
                                 }
                             default: break
                             }
@@ -398,9 +414,9 @@ class Diets {
                             case .available(let tags):
                                 if tags.contains(name[0]) {
                                     matchedTags.append(Constant.Key.Additives + "/" + name[0])
-                                    if name.count == 2 {
-                                        matchedTags.append(Constant.Key.Additives + "/" + name[1])
-                                    }
+                                    //if name.count == 2 {
+                                    //    matchedTags.append(Constant.Key.Additives + "/" + name[1])
+                                    //}
                                 }
                             default: break
                             }
@@ -411,9 +427,9 @@ class Diets {
                             case .available(let tags):
                                 if tags.contains(name[0]) {
                                     matchedTags.append(Constant.Key.Traces + "/" + name[0])
-                                    if name.count == 2 {
-                                        matchedTags.append(Constant.Key.Traces + "/" + name[1])
-                                    }
+                                    //if name.count == 2 {
+                                    //    matchedTags.append(Constant.Key.Traces + "/" + name[1])
+                                    //}
                                 }
                             default: break
                             }
@@ -425,9 +441,9 @@ class Diets {
                             case .available(let tags):
                                 if tags.contains(name[0]) {
                                     matchedTags.append(Constant.Key.Ingredients + "/" + name[0])
-                                    if name.count == 2 {
-                                        matchedTags.append(Constant.Key.Ingredients + "/" + name[1])
-                                    }
+                                    //if name.count == 2 {
+                                    //    matchedTags.append(Constant.Key.Ingredients + "/" + name[1])
+                                    //}
                                 }
                             default: break
                             }
@@ -438,9 +454,9 @@ class Diets {
                             case .available(let tags):
                                 if tags.contains(name[0]) {
                                     matchedTags.append(Constant.Key.Other + "/" + name[0])
-                                    if name.count == 2 {
-                                        matchedTags.append(Constant.Key.Other + "/" + name[1])
-                                    }
+                                    //if name.count == 2 {
+                                    //    matchedTags.append(Constant.Key.Other + "/" + name[1])
+                                    //}
                                 }
                             default: break
                             }

@@ -5,7 +5,7 @@
 "?" = "?";
 
 /* Added to a tableview section header to indicated the item has been edited. */
-"(Edited)" = "(Redacté)";
+"(Edited)" = "(Editado)";
 
 /* Image to indicate that the user who created the product. */
 "❤️" = "❤️";
@@ -323,62 +323,216 @@
 /* Title of a segment of a segmented control, which lets the user set doubletap view toggle mode interface */
 "Doubletap" = "Doble toque";
 
+/* String in Segmented Control to indicate the fifth best (and last) nutrition score level */
+"E" = "E";
+
 /* Title of viewcontroller which allows editing of the product in a webview. */
-"Edit" = "Edité";
+"Edit" = "Editar";
+
+/* String in picker, which lets the user select the search result order */
+"Edit date" = "Editar fecha";
 
 /* Title of view controller, which allows editing of the nutrients */
-"Edit Nutrient" = "Modifie nutriment";
+"Edit Nutrient" = "Editar nutriente";
+
+/* Added to a tableview section header to indicated the item has been edited. */
+"Edited" = "Editado";
+
+/* String in PickerViewController to indicate the editor role of a contributor */
+"Editor" = "Editor/a";
+
+/* Placeholder string in a textfield to explain the purpose of a beauty product barcode search */
+"Enter beauty product barcode." = "Ingrese código de barras de producto cosmetico";
+
+/* Placeholder in a textField, where a user can enter characters to filter a list. */
+"Enter characters to filter the list." = "Ingrese caracteres para filtrar la lista";
 
 /* Placeholder text for field where user should enter a city name. */
-"Enter city name" = "Nom de la ville";
+"Enter city name" = "Ingrese el nombre de la ciudad";
+
+/* placeholder in a textField where the user can specify a search for contributors. */
+"Enter contributor name to search for" = "Ingrese el nombre del contribuyente";
 
 /* Placeholder text for field where user should enter a country name. */
-"Enter country name" = "Nom du pays";
+"Enter country name" = "Ingrese el nombre del país";
+
+/* The user can tap the button to enter a date. */
+"Enter date" = "Ingrese fecha";
+
+/* Placeholder string in a textfield to explain the purpose of a food product barcode search */
+"Enter food product barcode." = "Ingrese el código de barras del producto alimenticio";
+
+/* Placeholder string in a textfield to explain the purpose of a pet food barcode search */
+"Enter pet food product barcode." = "Ingrese el código de barras del producto alimenticio para mascotas";
 
 /* Placeholder text for field where user should enter a postal code. */
-"Enter postal code" = "Code postal";
+"Enter postal code" = "Ingrese el código postal";
+
+/* Placeholder string in a textfield to explain the purpose of a product barcode search */
+"Enter product barcode." = "Ingrese el código de barras del producto";
 
 /* Placeholder text for field where user should enter a shop name. */
-"Enter shop name" = "Nom du magasin";
+"Enter shop name" = "Ingrese el nombre de la tienda";
 
 /* Placeholder text for field where user should enter a street name. */
-"Enter street name" = "Nom de la rue";
+"Enter street name" = "Ingrese el nombre de la calle";
+
+/* Placeholder text of a textView for the generic product name. */
+"Enter the generic name of the product" = "Ingrese denominación general del producto";
+
+/* Placeholder text of a textView for the ingredients. */
+"Enter the ingredients of the product" = "Igrese los ingredientes del producto";
+
+/* Placeholder text of a textView for the product name. */
+"Enter the name of the product" = "Ingrese el nombre del producto";
+
+/* String to indicate the date, when the product was created on OFF. */
+"Entry Date" = "Fecha de entrada";
+
+/* String of a button, to prefill the nutrients with the standard EU set. */
+"EU Set" = "Conjunto UE";
+
+/* String in Segmented Control to indicate whether the corresponding tag should be EXCLUDED from the search. */
+"Exclude" = "Excluir";
 
 /* Header title of the tableview section, indicating the most recent expiration date. */
-"Expiration Date" = "Date limite d'utilisation";
+"Expiration Date" = "Fecha de caducidad";
+
+/* Header title of the tableview section, indicating the edited most recent expiration date. */
+"Expiration Date (edited)" = "Fecha de caducidad (editado)";
+
+/* Header title of the tableview section, indicating the non-edited most recent expiration date. */
+"Expiration Date (non-edited)" = "Fecha de caducidad (no editado)";
+
+/* Text of a label that wil indicate the fat level (low/medium/high) by colour. */
+"Fat level" = "Nivel de grasa";
+
+/* Cell title indicating the product belongs to the fats category */
+"Fats category" = "Categoría de grasa";
+
+/* Title of SegmentedControl segment. */
+"Food" = "Alimento";
+
+/* Title of ViewController with a list of all food products that has been viewed. */
+"Food Products" = "Producto alimenticio";
+
+/* Title for the viewcontroller with the front image */
+"Front Image" = "Imagen frontal";
+
+/* Title for the viewcontroller with the edited front image */
+"Front Image (edited)" = "Imagen frontal (editado)";
+
+/* Title for the viewcontroller with the original front image */
+"Front Image (non-edited)" = "Imagen frontal (no editado)";
+
+/* Viewcontroller title for page with images of the product */
+"Gallery" = "Pinacoteca";
+
+/* Tableview sectionheader for the edited long product name */
+"Generic Name (edited)" = "Denominación general (editado)";
+
+/* Tableview sectionheader for the original long product name */
+"Generic Name (non-edited)" = "Denominación general (no editado)";
 
 /* Header for a table section showing the appreciations of the good nutrients */
-"Good nutrients" = "Bons nutriments";
+"Good nutrients" = "Buenos nutrientes";
 
 /* Standard weight unit. */
 "gram (g)" = "gramme (g)";
 
+/* Description of the hierarchy tags in the json */
+"Hierarchy" = "Jerarquía";
+
+/* Title of the secnd Tabbar item of a TabBarVC */
+"History" = "Historia";
+
 /* Title for the view controller with the product image, title, etc. */
-"Identification" = "Identification";
+"Identification" = "Identificación";
 
 /* Title for the viewcontroller with an enlarged image */
-"Image" = "Photo";
+"Image" = "Foto";
+
+/* Table Section Header with dates of the images */
+"Image Dates" = "Fechas de fotos";
 
 /* String presented in a tagView if the image is currently being loaded */
-"Image is being loaded" = "Chargement photo active";
+"Image is being loaded" = "Foto se está cargando";
 
 /* String presented in a tagView if the image loading has failed */
 "Image loading has failed" = "Chargement photo échoué";
 
 /* String presented in a tagView if the image data contained no data */
-"Image was empty" = "Photo vide";
+"Image was empty" = "Carga de la foto ha fallado";
+
+/* String in Segmented Control to indicate whether the corresponding tag should be INCLUDED in the search. */
+"Include" = "Incluir";
+
+/* String in PickerViewController to indicate the informer role of a contributor */
+"Informer" = "informador/a";
+
+/* Text to indicate a specific ingredient. */
+"Ingredient %@" = "Ingrediente %@";
 
 /* Text to indicate the ingredients of a product. */
-"Ingredients" = "Ingrédients";
+"Ingredients" = "Ingredientes";
+
+/* Text to indicate the edited ingredients of a product.
+   Text to indicate the hierarchy translated ingredients of a product. */
+"Ingredients (edited)" = "Ingredientes (editado)";
+
+/* Text to indicate the edited ingredients of a product. */
+"Ingredients (hierarchy)" = "Ingredientes (jerarquía)";
+
+/* Text to indicate the original (unedited) ingredients of a product. */
+"Ingredients (non-edited)" = "Ingredientes (no editado)";
+
+/* Text to indicate the normalized ingredients of a product. */
+"Ingredients (normalized)" = "Ingredientes (normalizado)";
+
+/* Text to indicate the translated ingredients of a product. */
+"Ingredients (translated)" = "Ingredientes (traducido)";
 
 /* Header title for the ingredients image section, i.e. the image of the package with the ingredients */
-"Ingredients Image" = "Photo de la liste des ingrédients";
+"Ingredients Image" = "Foto de los ingredientes";
+
+/* Header title for the edited ingredients image section, i.e. the image of the package with the ingredients */
+"Ingredients Image (edited)" = "Foto de los ingredientes (editado)";
+
+/* Header title for the original ingredients image section, i.e. the image of the package with the ingredients */
+"Ingredients Image (non-edited)" = "Foto de los ingredientes (no editado)";
+
+/* Text in a tag when a new/edited product is seen. */
+"Ingredients will be analysed after upload by OFF" = "Los ingredientes se analizarán después de cargarlos en OFF";
 
 /* String presented in a tagView if nothing has happened yet */
-"Initialized" = "Initialisé";
+"Initialized" = "Inicializado";
+
+/* Description of the by OFF interpreted tags in the json */
+"Interpreted" = "Interpretado";
+
+/* Title of first segment in switch, which lets the user select between joules, kilo-calories or Calories */
+"Joules" = "Joules";
+
+/* Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories */
+"Kilocalories" = "Kilocalorías";
 
 /* Generic string for labels on product */
-"Labels" = "Labels, certifications, récompenses";
+"Labels" = "Etiquetas, certificaciones, premios";
+
+/* Tableview header string for edited labels on product */
+"Labels (edited)" = "Etiquetas, certificaciones, premios (editado)";
+
+/* Tableview header string for original (unedited) labels on product */
+"Labels (non-edited)" = "Etiquetas, certificaciones, premios (no editado)";
+
+/* Tableview header string for original (normalized) labels on product */
+"Labels (normalized)" = "Etiquetas, certificaciones, premios (normalizado)";
+
+/* Tableview header string for original (translated) labels on product */
+"Labels (translated)" = "Etiquetas, certificaciones, premios (traducido)";
+
+/* Tableview sectionheader for languages on product */
+"Languages" = "Idiomas";
 
 /* Tableview sectionheader for main image of package. */
 "Main Image" = "Photo du produit";
