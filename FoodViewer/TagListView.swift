@@ -449,7 +449,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         collapsedLabel.font = self.textFont
         collapsedLabel.text = self.datasource?.tagListViewCollapsedText(self) ?? "Not setup"
         collapsedLabel.textColor = .green //Constants.defaultTextInputColor
-        collapsedLabel.backgroundColor = .white
+        collapsedLabel.backgroundColor = .clear
         collapsedLabel.minimumScaleFactor = 5.0 / collapsedLabel.font.pointSize
         collapsedLabel.adjustsFontSizeToFitWidth = true
         return collapsedLabel

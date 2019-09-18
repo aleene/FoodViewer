@@ -5339,6 +5339,12 @@
                                                     <constraint firstAttribute="width" secondItem="Wiu-9U-iJ8" secondAttribute="height" multiplier="4.5:1" id="UmZ-0A-AuX"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UDD-2s-BDp" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="69.333333333333258" width="138" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="3pP-bJ-sBS"/>
+                                                </constraints>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGR-GV-Ryl">
                                                 <rect key="frame" x="69" y="116.66666666666663" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
@@ -5359,11 +5365,14 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Mxs-l2-WoZ" firstAttribute="centerX" secondItem="vGR-GV-Ryl" secondAttribute="centerX" id="5He-Vx-NVx"/>
+                                            <constraint firstItem="UDD-2s-BDp" firstAttribute="centerY" secondItem="b4R-zW-KNU" secondAttribute="centerY" constant="-8" id="7Uo-6o-sMu"/>
                                             <constraint firstItem="Wiu-9U-iJ8" firstAttribute="centerX" secondItem="b4R-zW-KNU" secondAttribute="centerX" id="Pe2-T9-6Vz"/>
                                             <constraint firstItem="vGR-GV-Ryl" firstAttribute="bottom" secondItem="Mxs-l2-WoZ" secondAttribute="top" id="TN3-Xt-0Kp"/>
                                             <constraint firstAttribute="bottom" secondItem="Mxs-l2-WoZ" secondAttribute="bottom" constant="8" id="cXd-5o-a2J"/>
+                                            <constraint firstItem="UDD-2s-BDp" firstAttribute="width" secondItem="b4R-zW-KNU" secondAttribute="width" id="hAf-L4-Ulk"/>
                                             <constraint firstItem="Wiu-9U-iJ8" firstAttribute="top" secondItem="b4R-zW-KNU" secondAttribute="top" constant="8" id="rhZ-Gc-zET"/>
                                             <constraint firstItem="Mxs-l2-WoZ" firstAttribute="centerX" secondItem="b4R-zW-KNU" secondAttribute="centerX" id="wmY-c5-f4p"/>
+                                            <constraint firstItem="UDD-2s-BDp" firstAttribute="leading" secondItem="b4R-zW-KNU" secondAttribute="leading" id="ypP-SB-hBn"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -5434,6 +5443,7 @@
                         <outlet property="saturatedFatLabel" destination="sos-Xt-r5t" id="r7A-dH-HCE"/>
                         <outlet property="searchTextField" destination="kIa-1N-FJx" id="3xc-hQ-8dL"/>
                         <outlet property="sugarLabel" destination="TQs-j9-Hjz" id="jnv-Et-i8Y"/>
+                        <outlet property="tagListView" destination="UDD-2s-BDp" id="xK6-aX-48p"/>
                         <outlet property="viewProductButton" destination="bC2-P1-4OY" id="dbL-mP-T2Y"/>
                     </connections>
                 </viewController>
@@ -6059,11 +6069,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="297" height="22"/>
+                                            <rect key="frame" x="20" y="11" width="279" height="22"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="333" y="8" width="61" height="29"/>
+                                            <rect key="frame" x="315" y="8" width="79" height="29"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>

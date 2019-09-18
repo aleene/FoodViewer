@@ -16,8 +16,9 @@ The app maintains a history of searches carried out by the user. The maximum siz
 The app uses the various taxonomies defined by OFF (status, allergens, additives, global labels, categories). These are used for translation purpose. It helps also to pinpoint tags, which are either not yet translated or are not a part of a taxonomy yet.
 
 ## Requirements
-This application is written in Swift 2.2 using Xcode 7.3. Target is IOS 9.2
+This application is written in Swift 2.2 using Xcode 7.3. Target is IOS 9.2 and up.
 
 ## Version History
 
 - 1.4 supports editing and updating of fields
+- 3.3 diet support. A diet page shows how well a product fits 24 diets. The user can select one or more of these diets and obtain a diet conclusion in the product summary. 

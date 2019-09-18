@@ -139,6 +139,9 @@ open class TagView: UIView {
     }
     
     private func reloadStyles() {
+        layer.backgroundColor = UIColor.clear.cgColor
+        backgroundColor = UIColor.clear
+        layer.shadowColor = UIColor.clear.cgColor
         if isHighlighted {
             shadow.backgroundColor = removableColorScheme.backgroundColor
             label.textColor = removableColorScheme.textColor

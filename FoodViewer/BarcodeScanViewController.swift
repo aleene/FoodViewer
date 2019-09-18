@@ -123,6 +123,27 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         }
     }
     
+    @IBOutlet weak var tagListView: TagListView! {
+        didSet {
+            tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+            tagListView?.alignment = .left
+            tagListView?.backgroundColor = .clear
+            //tagListView.normalColorScheme = scheme
+            //tagListView.removableColorScheme = ColorSchemes.removable
+            tagListView?.cornerRadius = 10
+            tagListView?.removeButtonIsEnabled = false
+            tagListView?.clearButtonIsEnabled = false
+            //tagListView.frame.size.width = self.frame.size.width
+            
+            tagListView?.datasource = self
+            // tagListView.delegate = self as? TagListViewDelegate
+            tagListView?.allowsRemoval = false
+            tagListView?.allowsCreation = false
+            tagListView?.tag = 0
+            tagListView?.prefixLabelText = nil
+        }
+    }
+    
     private var score: NutritionalScoreLevel? = nil {
         didSet {
             if let validScore = score {
@@ -242,7 +263,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                     self.quantityLabel.text = scannedProductPair?.localProduct?.quantity ?? scannedProductPair?.remoteProduct?.quantity
                     self.nova = scannedProductPair?.localProduct?.novaGroup ?? scannedProductPair!.remoteProduct?.novaGroup
                     self.score = scannedProductPair?.remoteProduct?.nutritionGrade ?? scannedProductPair?.localProduct?.nutritionGrade
-                    
+                    tagListView?.reloadData(clearAll: true)
                     if let nutritionLevels = scannedProductPair?.remoteProduct?.nutritionScore ?? scannedProductPair?.localProduct?.nutritionScore {
                         for level in nutritionLevels {
                             switch level.0 {
@@ -293,7 +314,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                             default:
                                 break
                             }
-                            productView.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+                            productView.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.6)
 
                             if let validProduct = scannedProductPair?.remoteProduct?.tracesInterpreted ?? scannedProductPair?.localProduct?.tracesInterpreted {
                                 switch validProduct {
@@ -508,6 +529,61 @@ extension BarcodeScanViewController: UITabBarControllerDelegate {
         // The user tapped on one of the tabs, so the selected/scanned product will be reset.
         scannedProductPair = nil
         products.currentScannedProduct = nil
+    }
+    
+}
+
+// MARK: - TagListView DataSource Functions
+
+extension BarcodeScanViewController: TagListViewDataSource {
+    
+    public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        return scannedProductPair != nil ? SelectedDietsDefaults.manager.selected.count : 0
+    }
+    
+    public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        if scannedProductPair != nil {
+            let dietKey = SelectedDietsDefaults.manager.selected[index]
+                //let conclusion = Diets.manager.conclusion(validProduct, forDietWith:dietKey)
+            return Diets.manager.name(forDietWith: dietKey, in:Locale.interfaceLanguageCode) ?? "No diet name found "
+                // return (name ?? "No diet name found ") + "\(conclusion ?? 0)"
+        }
+        
+        return ProductFetchStatus.description(for: tagListView.tag)
+    }
+    
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+            if let validProduct = scannedProductPair?.remoteProduct {
+                let dietKey = SelectedDietsDefaults.manager.selected[index]
+                guard let validConclusion = Diets.manager.conclusion(validProduct, forDietWith:dietKey) else { return nil }
+                switch validConclusion {
+                case -13:
+                    return ColorScheme(text: .white, background: .purple, border: .purple)
+                case -2:
+                    return ColorScheme(text: .white, background: .red, border: .red)
+                case -1:
+                    return ColorScheme(text: .white, background: .orange, border: .orange)
+                case 0:
+                    return ColorScheme(text: .black, background: .yellow, border: .lightGray)
+                case 1:
+                    return ColorScheme(text: .white, background: .green, border: .green)
+                case 2:
+                    return ColorScheme(text: .white, background: .darkGray, border: .darkGray)
+                case 3:
+                    return ColorScheme(text: .white, background: .black, border: .black)
+                default:
+                    return ColorScheme(text: .black, background: .white, border: .white)
+                }
+            }
+        return nil
+    }
+    
+    /// Which text should be displayed when the TagListView is collapsed?
+    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
+        return "Collapsed"
+    }
+    
+    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
     }
     
 }
