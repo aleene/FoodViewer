@@ -139,9 +139,6 @@ open class TagView: UIView {
     }
     
     private func reloadStyles() {
-        layer.backgroundColor = UIColor.clear.cgColor
-        backgroundColor = UIColor.clear
-        layer.shadowColor = UIColor.clear.cgColor
         if isHighlighted {
             shadow.backgroundColor = removableColorScheme.backgroundColor
             label.textColor = removableColorScheme.textColor
@@ -339,6 +336,7 @@ open class TagView: UIView {
         let nib = UINib(nibName: String(describing: type), bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil).first! as! UIView
         view.frame = bounds
+        view.backgroundColor = .clear
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(view)
     }

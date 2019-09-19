@@ -126,7 +126,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
-            tagListView?.alignment = .left
+            tagListView?.alignment = .center
             tagListView?.backgroundColor = .clear
             //tagListView.normalColorScheme = scheme
             //tagListView.removableColorScheme = ColorSchemes.removable
