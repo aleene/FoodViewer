@@ -749,7 +749,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         default :
             break
         }
-        if productPair!.hasAdditives {
+        if validProductPair.hasAdditives {
             sectionsAndRows.append(.additives(TableSection.Size.Additives))
         }
         sectionsAndRows.append(.labels(TableSection.Size.Labels))

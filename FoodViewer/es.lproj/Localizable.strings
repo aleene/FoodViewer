@@ -164,7 +164,7 @@
 "Completeness" = "Lo completo";
 
 /* Label for a horizontal gauge that indicates the completion percentage of the product data. */
-"Completion" = "Finalzación";
+"Completion" = "Finalización";
 
 /* Generic string to indicate the completion states of a product. */
 "Completion States" = "Estado de finalización";
@@ -319,6 +319,9 @@
 
 /* Title of a table section, which lets the user select nutrient display option (per 100 mg or serving */
 "Display Unit" = "Unidad para uso";
+
+/* Title of a table section, which lets the user select nutrient display option (per 100 mg or serving */
+"Display Unit (edited)" = "Unidad para uso (editado)";
 
 /* SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
 "Do Not Show" = "No mostrar";
