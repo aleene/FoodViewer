@@ -320,6 +320,12 @@
 /* Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc */
 "Display Preferences" = "Productdetailvoorkeuren";
 
+/* Title of a table section, which lets the user select nutrient display option (per 100 mg or serving */
+"Display Unit" = "Presentatie-eenheid";
+
+/* Title of a table section, which lets the user select nutrient display option (per 100 mg or serving */
+"Display Unit (edited)" = "Presentatie-eenheid (bewerkt)";
+
 /* SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
 "Do Not Show" = "Toon niet";
 

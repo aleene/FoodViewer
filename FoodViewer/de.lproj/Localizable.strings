@@ -40,6 +40,9 @@
 /* Title of a button in normal state allowing the user to add a nutrient */
 "Add Nutrient" = "Nährwert hinzufügen";
 
+/* Text to indicate the additives of a product. */
+"Additives" = "Zusätze";
+
 /* Text to indicate a specific additive. */
 "Additve %@" = "Zusatzmittel %@";
 
@@ -308,11 +311,20 @@
 /* Tableview section header, which list the translated detected vitamins in an ingredients list. */
 "Detected Vitamins (translated)" = "Gefunden Vitamine (übersetzt)";
 
+/* Title of a tableView, which shows how well a product conforms to a set of diet profiles. */
+"Diet Compliancy" = "Diät-Compliance";
+
 /* Title of a button in an alert sheet, which allows the user to discard alle changes to the local product. */
 "Discard" = "Verwerfen";
 
 /* Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc */
 "Display Preferences" = "Anzeigeeinstellungen";
+
+/* Title of a table section, which lets the user select nutrient display option (per 100 mg or serving */
+"Display Unit" = "Anzeige-einheit";
+
+/* Title of a table section, which lets the user select nutrient display option (per 100 mg or serving */
+"Display Unit (edited)" = "Anzeige-einheit ()";
 
 /* SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
 "Do Not Show" = "Zeig nicht";
@@ -587,6 +599,9 @@
 
 /* Value of the creation date field, if no valid date is available. */
 "no creation date available" = "Kein Eintragungsdatum angegeben";
+
+/* Title of a viewController, when no diet has been selected. */
+"no diet selected" = "kein Diät gewählt";
 
 /* Value of the edit date field, if no valid date is available. */
 "no edit date available" = "Kein Bearbeitungsdatum angegeben";
@@ -1041,6 +1056,12 @@
 /* First item in a pickerView, indicating what the user should do */
 "Select role" = "Rolle auswählen";
 
+/* Text of a tableview row, which allows the user to select diets */
+"Select the diets, that you want the app to highlight in the product summary." = "Wählen Sie die Diäten aus, die die App hervorheben soll";
+
+/* Title of a tableview section, which allows the user to select diets */
+"Selected Diets" = "Ausgewählte Diäten";
+
 /* Gallery header text presenting the selected front images */
 "Selected Front Images" = "Ausgewählte Produktfoto (Vorderseite)";
 
@@ -1079,6 +1100,9 @@
 
 /* Title of second segment in switch, which  indicates the user can set another account */
 "Set Account" = "Definiere ein OFF-Benutzerkonto";
+
+/* Title of a tableView, in which a user can select rows (diets) to display. */
+"Set Diets to Display" = "Lege die anzuzeigende Diäte fest";
 
 /* Title of a tableView section, which lets the user set warnings */
 "Set ingredient warnings" = "Zutatenwarnungen einstellen";

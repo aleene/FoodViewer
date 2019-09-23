@@ -596,12 +596,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             case .new:
                 if productPair?.localProduct?.nutritionFactsIndicationUnit != nil {
                     headerView.buttonNotDoubleTap = buttonNotDoubleTap
-                    header = TranslatableStrings.PortionSizeEdited
+                    header = TranslatableStrings.DisplayUnitEdited
                 } else {
-                    header = TranslatableStrings.PortionSize
+                    header = TranslatableStrings.DisplayUnit
                 }
             default:
-                header = TranslatableStrings.PortionSize
+                header = TranslatableStrings.DisplayUnit
             }
             headerView.title = header
             return headerView
