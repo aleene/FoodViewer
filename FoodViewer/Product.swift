@@ -1323,7 +1323,7 @@ class FoodProduct {
                             proteins = validValue
                         }
                             
-                        var plusParts = minusparts[0].components(separatedBy: " + ")
+                        let plusParts = minusparts[0].components(separatedBy: " + ")
                             
                         // energy
                         spacePart = plusParts[0].components(separatedBy: " ")

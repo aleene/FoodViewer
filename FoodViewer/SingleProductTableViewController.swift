@@ -14,6 +14,13 @@ class SingleProductTableViewController: UITableViewController {
 
     fileprivate struct Constants {
         
+        struct Height {
+            static let TagListCell = CGFloat(50.0)
+        }
+        struct Margin {
+            static let TagListCell = CGFloat(20.0)
+        }
+
         struct AlertSheet {
             static let Message = TranslatableStrings.ProductDoesNotExistAlertSheetMessage
             static let ActionTitleForCancel = TranslatableStrings.ProductDoesNotExistAlertSheetActionTitleForCancel
@@ -70,6 +77,7 @@ class SingleProductTableViewController: UITableViewController {
         }
     }
     
+    private var tagCellHeight = Constants.Height.TagListCell
     
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
@@ -381,6 +389,16 @@ class SingleProductTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedPageIndex = indexPath.row
         showProductPage()
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch tableStructure[indexPath.row] {
+        case .diets:
+            return tagCellHeight
+        default:
+            break
+        }
+        return UITableView.automaticDimension
     }
 
     // MARK: - Scene changes
@@ -801,8 +819,8 @@ extension SingleProductTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+        tagCellHeight = height + Constants.Margin.TagListCell
         tableView.reloadData()
-        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
 
 }

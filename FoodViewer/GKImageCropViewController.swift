@@ -77,7 +77,7 @@
     private func _setupCancelButton() {
         self.cancelButton = UIButton.init(type: .custom)
         self.cancelButton?.addTarget(self, action: #selector(GKImageCropViewController._actionCancel), for: .touchUpInside)
-        self.cancelButton?.frame = CGRect.init(x: 0, y: 0, width: 90, height: 30)
+
         self.cancelButton?.titleLabel?.shadowOffset = CGSize.init(width: 0, height: -1)
         self.cancelButton?.setTitle(TranslatableStrings.Cancel, for: .normal)
         self.cancelButton?.titleLabel?.font = UIFont.systemFont(ofSize: 20)
@@ -116,6 +116,7 @@
         if self.toolbar != nil {
             self.toolbar!.isTranslucent = true
             self.toolbar!.barStyle = .blackOpaque
+            // print(self.toolbar?.frame)
             self.view.addSubview(self.toolbar!)
         }
         self._setupCancelButton()
@@ -160,29 +161,19 @@
         // iPad + .Camera: show toolbar
         // iPad + .Roll: show navigation bar
         self._setupCropView()
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
+        self._setupToolbar()
+
+        //if UIDevice.current.userInterfaceIdiom == .phone {
             // print("iPhone frame", self.view.frame)
-            self._setupToolbar()
             // self._setupNavigationBar()
-        } else {
+        //} else {
             // print("iPad frame", self.view.frame)
             // I should select what to use here based on .camera or .roll
             // let sourceType = self.delegate?.sourceType
-            if let st = sourceType {
-                if st == .camera {
-                    self._setupToolbar()
-                } else {
-                    self._setupNavigationBar()
-                }
-            } else {
-                if self.parent != nil {
-                    self._setupNavigationBar()
-                } else {
-                    self._setupToolbar()
-                }
-            }
-        }
+            //} else {
+            //    self._setupToolbar()
+            //}
+      //  }
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
