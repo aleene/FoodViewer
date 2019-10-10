@@ -10,6 +10,15 @@ import UIKit
 
 class CategoriesTableViewController: UITableViewController {
 
+    fileprivate struct Constants {
+        struct CellHeight {
+            static let TagListViewCell = CGFloat(27.0)
+        }
+        struct CellMargin {
+            static let ContentView = CGFloat(11.0)
+        }
+    }
+
     // MARK: - Public functions / variables
     
     var delegate: ProductPageViewController? = nil {
@@ -51,6 +60,8 @@ class CategoriesTableViewController: UITableViewController {
     // Determines which version of the product needs to be shown, the remote or local
     
     fileprivate var productVersion: ProductVersion = .new
+
+    private var tagListViewHeight: CGFloat = Constants.CellHeight.TagListViewCell
 
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
@@ -97,7 +108,7 @@ class CategoriesTableViewController: UITableViewController {
         }
     }
     
-    // MARK: - TableView Datasource Functions
+    // MARK: - TableView Functions
     
     fileprivate struct Storyboard {
         struct CellIdentifier {
@@ -187,6 +198,10 @@ class CategoriesTableViewController: UITableViewController {
         headerView.title = header
         return headerView
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tagListViewHeight + 2 * Constants.CellMargin.ContentView
+    }
 
     struct TableStructure {
         static let CategoriesSectionHeader = TranslatableStrings.Categories
@@ -212,7 +227,6 @@ class CategoriesTableViewController: UITableViewController {
         
     @objc func refreshProduct() {
         productVersion = .new
-
         tableView.reloadData()
     }
 
@@ -340,7 +354,10 @@ extension CategoriesTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.reloadData()
+        if abs(tagListViewHeight - height) > CGFloat(3.0) {
+            tagListViewHeight = height
+            tableView.reloadData()
+        }
     }
     
     public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
