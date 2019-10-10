@@ -15,10 +15,10 @@ class SingleProductTableViewController: UITableViewController {
     fileprivate struct Constants {
         
         struct Height {
-            static let TagListCell = CGFloat(50.0)
+            static let TagListCell = CGFloat(27.0)
         }
         struct Margin {
-            static let TagListCell = CGFloat(20.0)
+            static let TagListCell = CGFloat(11.0)
         }
 
         struct AlertSheet {
@@ -394,7 +394,7 @@ class SingleProductTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch tableStructure[indexPath.row] {
         case .diets:
-            return tagCellHeight
+            return tagCellHeight + 2 * Constants.Margin.TagListCell
         default:
             break
         }
@@ -819,8 +819,10 @@ extension SingleProductTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tagCellHeight = height + Constants.Margin.TagListCell
-        tableView.reloadData()
+        if abs(tagCellHeight - height) > CGFloat(3.0) {
+            tagCellHeight = height
+            tableView.reloadData()
+        }
     }
 
 }

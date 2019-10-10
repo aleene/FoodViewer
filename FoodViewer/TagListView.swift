@@ -54,7 +54,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         /// margin between clear button and trailing edge
         static let defaultHorizontalClearPadding: CGFloat = 30.0
         /// Default margin between tag rows
-        static let defaultVerticalMargin: CGFloat = 1.5
+        static let defaultVerticalMargin: CGFloat = 0.0
         /// Default margin outside a tag row
         static let defaultHorizontalMargin: CGFloat = 2.0
         /// Default offset for shadow

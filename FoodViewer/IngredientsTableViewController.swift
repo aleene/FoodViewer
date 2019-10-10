@@ -34,37 +34,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     // Determines which version of the product needs to be shown, the remote or local
     fileprivate var productVersion: ProductVersion = .new
     
-    fileprivate enum SectionType {
-        case ingredients(Int)
-        case allergens(Int)
-        case minerals(Int)
-        case vitamins(Int)
-        case nucleotides(Int)
-        case otherNutritionalSubstances(Int)
-        case traces(Int)
-        case labels(Int)
-        case additives(Int)
-        case aminoAcids(Int)
-        case image(Int)
-        
-        var numberOfRows: Int {
-            switch self {
-            case .ingredients(let numberOfRows),
-                 .minerals(let numberOfRows),
-                 .vitamins(let numberOfRows),
-                 .nucleotides(let numberOfRows),
-                 .otherNutritionalSubstances(let numberOfRows),
-                 .allergens(let numberOfRows),
-                 .traces(let numberOfRows),
-                 .labels(let numberOfRows),
-                 .additives(let numberOfRows),
-                 .aminoAcids(let numberOfRows),
-                 .image(let numberOfRows):
-                return numberOfRows
-            }
-        }
-    }
-    
     fileprivate var ingredientsImage: UIImage? = nil {
         didSet {
             refreshProduct()
@@ -271,6 +240,38 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     // MARK: - Table view data source
     
+    fileprivate enum SectionType {
+        case ingredients(Int)
+        case allergens(Int)
+        case minerals(Int)
+        case vitamins(Int)
+        case nucleotides(Int)
+        case otherNutritionalSubstances(Int)
+        case traces(Int)
+        case labels(Int)
+        case additives(Int)
+        case aminoAcids(Int)
+        case image(Int)
+        
+        var numberOfRows: Int {
+            switch self {
+            case .ingredients(let numberOfRows),
+                 .minerals(let numberOfRows),
+                 .vitamins(let numberOfRows),
+                 .nucleotides(let numberOfRows),
+                 .otherNutritionalSubstances(let numberOfRows),
+                 .allergens(let numberOfRows),
+                 .traces(let numberOfRows),
+                 .labels(let numberOfRows),
+                 .additives(let numberOfRows),
+                 .aminoAcids(let numberOfRows),
+                 .image(let numberOfRows):
+                return numberOfRows
+            }
+        }
+    }
+    
+    private var tagListViewHeight: [Int:CGFloat] = [:]
 
     fileprivate struct Storyboard {
         struct CellIdentifier {
@@ -296,6 +297,15 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
+    fileprivate struct Constants {
+        struct CellHeight {
+            static let TagListViewCell = CGFloat(44.0)
+        }
+        struct CellMargin {
+            static let ContentView = CGFloat(8.0)
+        }
+    }
+
     fileprivate struct TextConstants {
         static let ShowIdentificationTitle = TranslatableStrings.Image
     }
@@ -474,6 +484,15 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return nil
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch tableStructure[indexPath.section] {
+        case .image, .ingredients:
+            return UITableView.automaticDimension
+        default:
+            let height = tagListViewHeight[indexPath.section] ?? Constants.CellHeight.TagListViewCell
+            return height + 2 * Constants.CellMargin.ContentView
+        }
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedSection = indexPath.section
@@ -720,30 +739,44 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
-
+        var rowIndex = 0
+        
         sectionsAndRows.append(.ingredients(TableSection.Size.Ingredients))
+        rowIndex += 1
         // not needed for .product, .petFood and .beauty
         switch currentProductType {
         case .food:
             // 1:  allergens section
             if validProductPair.hasAllergens || show {
                 sectionsAndRows.append(.allergens(TableSection.Size.Allergens))
+                tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+                rowIndex += 1
             }
             
             // 2: traces section
             sectionsAndRows.append(.traces(TableSection.Size.Traces))
-            
+            tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+            rowIndex += 1
+
             if validProductPair.hasMinerals || show {
                 sectionsAndRows.append(.minerals(TableSection.Size.Minerals))
+                tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+                rowIndex += 1
             }
             if validProductPair.hasVitamins || show {
                 sectionsAndRows.append(.vitamins(TableSection.Size.Vitamins))
+                tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+                rowIndex += 1
             }
             if validProductPair.hasNucleotides || show {
                 sectionsAndRows.append(.minerals(TableSection.Size.Nucleotides))
+                tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+                rowIndex += 1
             }
             if validProductPair.hasOtherNutritionalSubstances || show {
                 sectionsAndRows.append(.otherNutritionalSubstances(TableSection.Size.OtherNutritionalSubstances))
+                tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+                rowIndex += 1
             }
 
         default :
@@ -751,8 +784,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
         if validProductPair.hasAdditives {
             sectionsAndRows.append(.additives(TableSection.Size.Additives))
+            tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+            rowIndex += 1
         }
         sectionsAndRows.append(.labels(TableSection.Size.Labels))
+        tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
         sectionsAndRows.append(.image(TableSection.Size.Image))
         
         return sectionsAndRows
@@ -1400,6 +1436,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
     }
 
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+        tagListViewHeight[tagListView.tag] = height
         tableView.reloadData()
     }
     

@@ -20,47 +20,9 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
     }
-    
-    fileprivate var tableStructure: [SectionType] = []
-    
-    fileprivate enum SectionType {
-        case barcode(Int, String)
-        case name(Int, String)
-        case genericName(Int, String)
-        case languages(Int, String)
-        case brands(Int, String)
-        case packaging(Int, String)
-        case quantity(Int, String)
-        case image(Int, String)
         
-        var header: String {
-            switch self {
-            case .barcode(_, let headerTitle),
-                 .name(_, let headerTitle),
-                 .genericName(_, let headerTitle),
-                 .languages(_, let headerTitle),
-                 .brands(_, let headerTitle),
-                 .packaging(_, let headerTitle),
-                 .quantity(_, let headerTitle),
-                 .image(_, let headerTitle):
-                return headerTitle
-            }
-        }
+    // MARK: - Fileprivate Functions/variables
         
-        var numberOfRows: Int {
-            switch self {
-            case .barcode(let numberOfRows, _),
-                 .name(let numberOfRows, _),
-                 .genericName(let numberOfRows, _),
-                 .languages(let numberOfRows, _),
-                 .brands(let numberOfRows, _),
-                 .packaging(let numberOfRows, _),
-                 .quantity(let numberOfRows, _),
-                 .image(let numberOfRows, _):
-                return numberOfRows
-            }
-        }
-    }
     
     // private var selectedSection: Int? = nil
     
@@ -88,7 +50,6 @@ class IdentificationTableViewController: UITableViewController {
         return delegate?.productPair
     }
     
-    
     var editMode: Bool {
         return delegate?.editMode ?? false
     }
@@ -109,8 +70,6 @@ class IdentificationTableViewController: UITableViewController {
     private var displayLanguageCode: String? {
         return currentLanguageCode ?? productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
     }
-    
-// MARK: - Fileprivate Functions/variables
     
     fileprivate var nameToDisplay: Tags {
         get {
@@ -180,7 +139,6 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
-    
     fileprivate var packagingToDisplay: Tags {
         get {
             switch productVersion {
@@ -246,8 +204,51 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
-    // MARK: - Table view data source
+    // MARK: - Tableview methods
 
+    fileprivate var tableStructure: [SectionType] = []
+    
+    fileprivate enum SectionType {
+        case barcode(Int, String)
+        case name(Int, String)
+        case genericName(Int, String)
+        case languages(Int, String)
+        case brands(Int, String)
+        case packaging(Int, String)
+        case quantity(Int, String)
+        case image(Int, String)
+        
+        var header: String {
+            switch self {
+            case .barcode(_, let headerTitle),
+                 .name(_, let headerTitle),
+                 .genericName(_, let headerTitle),
+                 .languages(_, let headerTitle),
+                 .brands(_, let headerTitle),
+                 .packaging(_, let headerTitle),
+                 .quantity(_, let headerTitle),
+                 .image(_, let headerTitle):
+                return headerTitle
+            }
+        }
+        
+        var numberOfRows: Int {
+            switch self {
+            case .barcode(let numberOfRows, _),
+                 .name(let numberOfRows, _),
+                 .genericName(let numberOfRows, _),
+                 .languages(let numberOfRows, _),
+                 .brands(let numberOfRows, _),
+                 .packaging(let numberOfRows, _),
+                 .quantity(let numberOfRows, _),
+                 .image(let numberOfRows, _):
+                return numberOfRows
+            }
+        }
+    }
+
+    private var tagListViewHeight: [Int:CGFloat] = [:]
+    
     fileprivate struct Storyboard {
         struct CellIdentifier {
             static let TextField = "Identification Basic Cell"
@@ -573,7 +574,12 @@ class IdentificationTableViewController: UITableViewController {
     }
         
     fileprivate struct Constants {
-        static let CellContentViewMargin = CGFloat(8)
+        struct CellHeight {
+            static let TagListViewCell = CGFloat(27.0)
+        }
+        struct CellMargin {
+            static let ContentView = CGFloat(11.0)
+        }
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -735,6 +741,15 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 3,4,5:
+            let height = tagListViewHeight[indexPath.section] ?? Constants.CellHeight.TagListViewCell
+            return height + 2 * Constants.CellMargin.ContentView
+        default:
+            return UITableView.automaticDimension
+        }
+    }
     fileprivate struct TableSection {
         struct Size {
             static let Barcode = 1
@@ -767,8 +782,11 @@ class IdentificationTableViewController: UITableViewController {
         sectionsAndRows.append(.barcode(TableSection.Size.Barcode, TableSection.Header.Barcode))
         sectionsAndRows.append(.name(TableSection.Size.Name, TableSection.Header.Name))
         sectionsAndRows.append(.genericName(TableSection.Size.CommonName, TableSection.Header.CommonName))
+        tagListViewHeight[3] = Constants.CellHeight.TagListViewCell
         sectionsAndRows.append(.languages(TableSection.Size.Languages, TableSection.Header.Languages))
+        tagListViewHeight[4] = Constants.CellHeight.TagListViewCell
         sectionsAndRows.append(.brands(TableSection.Size.Brands, TableSection.Header.Brands))
+        tagListViewHeight[5] = Constants.CellHeight.TagListViewCell
         sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
         sectionsAndRows.append(.quantity(TableSection.Size.Quantity, TableSection.Header.Quantity))
         sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
@@ -1397,9 +1415,11 @@ extension IdentificationTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        // causes a crash
-        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
-        tableView.reloadData()
+        if let cellHeight = tagListViewHeight[tagListView.tag],
+            abs(cellHeight - height) > CGFloat(3.0) {
+            tagListViewHeight[tagListView.tag] = height
+            tableView.reloadData()
+        }
     }
 
 }
