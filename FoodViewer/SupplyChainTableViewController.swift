@@ -198,23 +198,16 @@ class SupplyChainTableViewController: UITableViewController {
         }
         return nil
     }
-
-    fileprivate enum SectionType {
-        case ingredientOrigin
-        case producer
-        case producerCode
-        case location
-        case store
-        case country
-        case map
-        case expirationDate
-        case sites
-        case periodAfterOpening
-    }
     
     fileprivate struct Constants {
         static let ViewControllerTitle = TranslatableStrings.SupplyChain
         static let NoExpirationDate = TranslatableStrings.NoExpirationDate
+        struct CellHeight {
+            static let TagListViewCell = CGFloat(27.0)
+        }
+        struct CellMargin {
+            static let ContentView = CGFloat(11.0)
+        }
     }
 
     // MARK: - Interface Functions
@@ -272,6 +265,21 @@ class SupplyChainTableViewController: UITableViewController {
         return Preferences.manager.showProductType
     }
 
+    fileprivate enum SectionType {
+        case ingredientOrigin
+        case producer
+        case producerCode
+        case location
+        case store
+        case country
+        case map
+        case expirationDate
+        case sites
+        case periodAfterOpening
+    }
+    
+    private var tagListViewHeight: [Int:CGFloat] = [:]
+
     fileprivate func setupTableSections() -> [(SectionType,Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
@@ -280,53 +288,60 @@ class SupplyChainTableViewController: UITableViewController {
         //
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
-            switch currentProductType {
-            case .beauty:
-                sectionsAndRows.append((
-                    SectionType.periodAfterOpening,
-                    TableStructure.PAOSectionSize,
-                    TableStructure.PAOSectionHeader))
-            default:
-                sectionsAndRows.append((
-                    SectionType.expirationDate,
-                    TableStructure.ExpirationDateSectionSize,
-                    TableStructure.ExpirationDateSectionHeader))
-            }
+        switch currentProductType {
+        case .beauty:
+            sectionsAndRows.append((
+                SectionType.periodAfterOpening,
+                TableStructure.PAOSectionSize,
+                TableStructure.PAOSectionHeader))
+        default:
+            sectionsAndRows.append((
+                SectionType.expirationDate,
+                TableStructure.ExpirationDateSectionSize,
+                TableStructure.ExpirationDateSectionHeader))
+        }
         // ingredient origin section
         sectionsAndRows.append((
             SectionType.ingredientOrigin,
             TableStructure.IngredientOriginSectionSize,
             TableStructure.IngredientOriginSectionHeader))
+        tagListViewHeight[1] = Constants.CellHeight.TagListViewCell
         // producer section
         sectionsAndRows.append((
             SectionType.producer,
             TableStructure.ProducerSectionSize,
             TableStructure.ProducerSectionHeader))
+        tagListViewHeight[2] = Constants.CellHeight.TagListViewCell
         // producer codes section
         sectionsAndRows.append((
             SectionType.producerCode,
             TableStructure.ProducerCodeSectionSize,
             TableStructure.ProducerCodeSectionHeader))
+        tagListViewHeight[3] = Constants.CellHeight.TagListViewCell
         // producer sites
         sectionsAndRows.append((
             SectionType.sites,
             TableStructure.SitesSectionSize,
             TableStructure.SitesSectionHeader))
+        tagListViewHeight[4] = Constants.CellHeight.TagListViewCell
         // stores section
         sectionsAndRows.append((
             SectionType.store,
             TableStructure.StoresSectionSize,
             TableStructure.StoresSectionHeader))
+        tagListViewHeight[5] = Constants.CellHeight.TagListViewCell
         // purchase Location section
         sectionsAndRows.append((
             SectionType.location,
             TableStructure.LocationSectionSize,
             TableStructure.LocationSectionHeader))
+        tagListViewHeight[6] = Constants.CellHeight.TagListViewCell
         // countries section
         sectionsAndRows.append((
             SectionType.country,
             TableStructure.CountriesSectionSize,
             TableStructure.CountriesSectionHeader))
+        tagListViewHeight[7] = Constants.CellHeight.TagListViewCell
         //sectionsAndRows.append((
         //    SectionType.map,
         //    TableStructure.MapSectionSize,
@@ -713,6 +728,17 @@ class SupplyChainTableViewController: UITableViewController {
             }
         }
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return UITableView.automaticDimension
+        default:
+            let height = tagListViewHeight[indexPath.section] ?? Constants.CellHeight.TagListViewCell
+            return height + 2 * Constants.CellMargin.ContentView
+        }
+    }
+
 //
 // MARK: - Notification handlers
 //
@@ -1002,7 +1028,11 @@ extension SupplyChainTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.reloadData()
+        if let cellHeight = tagListViewHeight[tagListView.tag],
+            abs(cellHeight - height) > CGFloat(3.0) {
+            tagListViewHeight[tagListView.tag] = height
+            tableView.reloadData()
+        }
     }
 
     public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {

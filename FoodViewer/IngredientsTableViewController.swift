@@ -299,10 +299,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     fileprivate struct Constants {
         struct CellHeight {
-            static let TagListViewCell = CGFloat(44.0)
+            static let TagListViewCell = CGFloat(27.0)
         }
         struct CellMargin {
-            static let ContentView = CGFloat(8.0)
+            static let ContentView = CGFloat(11.0)
         }
     }
 
@@ -1436,8 +1436,11 @@ extension IngredientsTableViewController: TagListViewDataSource {
     }
 
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tagListViewHeight[tagListView.tag] = height
-        tableView.reloadData()
+        if let cellHeight = tagListViewHeight[tagListView.tag],
+            abs(cellHeight - height) > CGFloat(3.0) {
+            tagListViewHeight[tagListView.tag] = height
+            tableView.reloadData()
+        }
     }
     
     func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
