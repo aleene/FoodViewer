@@ -103,30 +103,28 @@ class NutritionScoreTableViewCell: UITableViewCell {
         guard nutriScoreView != nil else { return }
         guard novaValueLabel != nil else { return }
 
-        /*
         if let score = product?.nutritionGrade {
             switch  score {
             case .a:
-                self.backgroundColor = regionHasNutritionalScoreLogo() ? .systemBackground : .systemGreen
+                //self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .green
                 nutriScoreView?.currentScore = NutriScoreView.Score.A
             case .b:
-                self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .systemYellow
+                //self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .yellow
                 nutriScoreView?.currentScore = NutriScoreView.Score.B
             case .c:
-                self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .systemOrange
+                //self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .orange
                 nutriScoreView?.currentScore = NutriScoreView.Score.C
             case .d:
-                self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .systemPink
+                //self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .magenta
                 nutriScoreView?.currentScore = NutriScoreView.Score.D
             case .e:
-                self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .systemRed
+                //self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .red
                 nutriScoreView?.currentScore = NutriScoreView.Score.E
             default:
-                self.backgroundColor = nil
+                //self.backgroundColor = nil
                 nutriScoreView?.currentScore = nil
             }
         }
-         */
     }
     
     private func setNova() {

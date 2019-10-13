@@ -488,7 +488,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
         var image = UIImage(named: "Clear")!
         // this is needed to adapt the color of the image to
-        image = image.withRenderingMode(.alwaysTemplate)
+       // image = image.withRenderingMode(.alwaysTemplate)
         
         var clearImageView = UIImageView()
         if Clear.ViewSize > Clear.ImageSize {
@@ -501,7 +501,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
         clearImageView.contentMode = .scaleAspectFit
         clearImageView.image = image
-        clearImageView.tintColor = self.removableColorScheme.borderColor
+        //clearImageView.tintColor = self.removableColorScheme.borderColor
         
         // put the image in another view in order to have a margin around the image
         let clearView = UIView(frame: CGRect.init(x: 0, y: 0, width: Clear.ViewSize, height: Clear.ViewSize))

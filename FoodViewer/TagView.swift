@@ -202,9 +202,9 @@ open class TagView: UIView {
     open var removeButtonIsEnabled = false {
         didSet {
             if removeButtonIsEnabled {
-                var image = UIImage(named: "Clear")!
+                let image = UIImage(named: "Clear")!
                 // this is needed to adapt the color of the image
-                image = image.withRenderingMode(.alwaysTemplate)
+                //image = image.withRenderingMode(.alwaysTemplate)
 
                 removeImageView.contentMode = .scaleAspectFit
                 removeImageView.image = image
