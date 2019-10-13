@@ -210,7 +210,7 @@ open class TagView: UIView {
                 removeImageView.image = image
 
                 removeImageViewWidthConstraint.constant = Constants.RemoveButtonWidth
-                setRemoveImageViewColor()
+                //setRemoveImageViewColor()
                 tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagView.removeButtonTapped(_:)))
                 removeImageView.addGestureRecognizer(tapGestureRecognizer)
             } else {
@@ -223,7 +223,12 @@ open class TagView: UIView {
     }
     
     private func setRemoveImageViewColor() {
-        removeImageView?.tintColor = ColorSchemes.removable.borderColor
+        if #available(iOS 13.0, *) {
+            removeImageView?.tintColor = ColorScheme(text: .white, background: .systemFill, border: .systemFill).borderColor
+        } else {
+            removeImageView?.tintColor = ColorScheme(text: .white, background: .darkGray, border: .black).borderColor
+        }
+
     }
     
     /// Handles Tap (TouchUpInside)

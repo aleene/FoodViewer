@@ -27,7 +27,11 @@ class TagListViewAddImageTableViewCell: UITableViewCell {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
             tagListView.alignment = .center
             tagListView.normalColorScheme = scheme
-            tagListView.removableColorScheme = ColorSchemes.removable
+            if #available(iOS 13.0, *) {
+                tagListView.removableColorScheme = ColorScheme(text: .secondaryLabel, background: .secondarySystemFill, border: .systemBackground)
+            } else {
+                tagListView.removableColorScheme = ColorScheme(text: .white, background: .darkGray, border: .black)
+            }
             tagListView.cornerRadius = 10
             tagListView.removeButtonIsEnabled = true
             tagListView.clearButtonIsEnabled = true
