@@ -77,11 +77,11 @@ class GKImageCropOverlayView: UIView {
         let widthSpan = CGFloat(floor(width / 2 - cropSize.width / 2))
         
         //fill outer rect
-        UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5).set()
+        UIColor.white.withAlphaComponent(0.5).set()
         UIRectFill(self.bounds)
         
         //fill inner border
-        UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5).set()
+        UIColor.black.withAlphaComponent(0.5).set()
         UIRectFrame(CGRect.init(x: widthSpan - 2, y: heightSpan - 2, width: cropSize.width + 4, height: cropSize.height + 4))
         
         //fill inner rect

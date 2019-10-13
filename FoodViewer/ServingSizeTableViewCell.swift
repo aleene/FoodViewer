@@ -29,17 +29,23 @@ class ServingSizeTableViewCell: UITableViewCell {
 
     
     private func setTextFieldStyle() {
+        if #available(iOS 13.0, *) {
+            servingSizeTextField.backgroundColor = editMode ? .secondarySystemFill : .systemBackground
+            servingSizeTextField?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.systemBackground.cgColor
+            servingSizeTextField.textColor = editMode ? .secondaryLabel : .label
+        } else {
+            servingSizeTextField.backgroundColor = editMode ? .groupTableViewBackground : .white
+            servingSizeTextField?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.white.cgColor
+            servingSizeTextField.textColor = .white
+        }
+
         if editMode {
             servingSizeTextField.layer.borderWidth = 0.5
-            servingSizeTextField.backgroundColor = UIColor.groupTableViewBackground
             servingSizeTextField.layer.cornerRadius = 5
-            servingSizeTextField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             servingSizeTextField.clipsToBounds = true
         } else {
             servingSizeTextField.borderStyle = .roundedRect
             servingSizeTextField.layer.borderWidth = 0.5
-            servingSizeTextField.layer.borderColor = UIColor.white.cgColor
-            servingSizeTextField.backgroundColor = UIColor.white
 
         }
     }

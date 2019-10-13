@@ -15,8 +15,8 @@ public struct ColorScheme {
     
     init() {
         textColor  = .white
-        backgroundColor = .blue
-        borderColor = .blue
+        backgroundColor = .systemBlue
+        borderColor = .systemBlue
     }
     
     init(text textColor: UIColor, background backgroundColor: UIColor, border borderColor: UIColor) {

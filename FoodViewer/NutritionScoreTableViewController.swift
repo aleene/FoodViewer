@@ -323,7 +323,7 @@ class NutritionScoreTableViewController: UITableViewController {
         cell.nutrimentScore = score
         cell.numBars = reverse ? 5 : 10
         cell.reverse = reverse
-        cell.normalBarColor = reverse ? .green : .red
+        cell.normalBarColor = reverse ? .systemGreen : .systemRed
         cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
         return cell
     }
@@ -510,11 +510,11 @@ extension NutritionScoreTableViewController: TagListViewDataSource {
         func count(_ tags: Tags) -> ColorScheme {
             switch tags {
             case .undefined, .empty:
-                return ColorScheme(text: .white, background: .orange, border: .orange)
+                return ColorScheme(text: .white, background: .systemOrange, border: .systemOrange)
             case .available:
-                return ColorScheme(text: .white, background: .green, border: .green)
+                return ColorScheme(text: .white, background: .systemGreen, border: .systemGreen)
             case .notSearchable:
-                return ColorScheme(text: .white, background: .red, border: .red)
+                return ColorScheme(text: .white, background: .systemRed, border: .systemRed)
             }
         }
         switch decode(tagListView.tag).section {
@@ -525,7 +525,7 @@ extension NutritionScoreTableViewController: TagListViewDataSource {
                 return count(nutrientTags)
             }
         default:
-            guard let tags = productPair?.remoteProduct?.novaEvaluation[decode(tagListView.tag).row] else { return ColorScheme(text: .white, background: .red, border: .red) }
+            guard let tags = productPair?.remoteProduct?.novaEvaluation[decode(tagListView.tag).row] else { return ColorScheme(text: .white, background: .systemRed, border: .systemRed) }
             return count(tags)
         }
     }

@@ -215,15 +215,24 @@ public class NutritionalScore {
 
     public var colour: UIColor {
         if score <= -1 {
-            return Constant.LightGreen
+            if #available(iOS 11.0, *) {
+                return UIColor.init(named: "LightGreen") ?? .systemGreen
+            } else {
+                return Constant.LightGreen
+            }
+
         } else if score <= 2 {
-            return Constant.DarkGreen
+            if #available(iOS 11.0, *) {
+                return UIColor.init(named: "DarkGreen") ?? .systemGreen
+            } else {
+                return Constant.DarkGreen
+            }
         } else if score <= 10 {
-            return .yellow
+            return .systemYellow
         } else if score <= 18 {
-            return .orange
+            return .systemOrange
         } else {
-            return .red
+            return .systemRed
         }
     }
     

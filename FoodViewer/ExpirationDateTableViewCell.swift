@@ -54,7 +54,11 @@ class ExpirationDateTableViewCell: UITableViewCell {
         expirationDateTextField?.tag = tag
         expirationDateTextField?.isEnabled = false
         expirationDateButton?.isHidden = !editMode
-        expirationDateTextField?.backgroundColor = UIColor.white // editMode ? UIColor.groupTableViewBackground : UIColor.white
+        if #available(iOS 13.0, *) {
+            expirationDateTextField?.backgroundColor = editMode ? .secondarySystemBackground : .systemBackground
+        } else {
+            expirationDateTextField?.backgroundColor = editMode ? .lightGray : .white
+        }
         expirationDateTextField?.borderStyle = .none // editMode ? .roundedRect : .none
     }
 

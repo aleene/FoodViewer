@@ -9,7 +9,7 @@ import UIKit
 import QuartzCore
 
 open class RSCornersLayer: CALayer {
-    @objc open var strokeColor = UIColor.green.cgColor
+    @objc open var strokeColor = UIColor.systemGreen.cgColor
     @objc open var strokeWidth: CGFloat = 2
     @objc open var drawingCornersArray: Array<Array<CGPoint>> = []
     @objc open var cornersArray: Array<[Any]> = [] {

@@ -14,7 +14,7 @@ open class RSFocusMarkLayer: CALayer {
     // Use camera.app's focus mark sight as default
     @objc open var sight: CGFloat = 6
     // Use camera.app's focus mark color as default
-    @objc open var strokeColor = UIColor("#ffcc00").cgColor
+    @objc open var strokeColor = UIColor.systemYellow.cgColor
     @objc open var strokeWidth: CGFloat = 1
     @objc open var delay: CFTimeInterval = 1
     @objc open var canDraw = false

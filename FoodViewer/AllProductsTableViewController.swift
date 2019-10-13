@@ -215,7 +215,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
             switch validProduct {
             case .available(let validKeys):
                 if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                    return UIColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+                    return UIColor.systemRed.withAlphaComponent(0.4)
             }
             default:
                 break
@@ -225,13 +225,17 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
             switch validProduct {
             case .available(let validKeys):
                 if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                    return UIColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+                    return UIColor.systemRed.withAlphaComponent(0.4)
             }
             default:
                 break
             }
         }
-        return .white
+        if #available(iOS 13.0, *) {
+            return .systemBackground
+        } else {
+            return .white
+        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

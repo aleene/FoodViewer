@@ -61,16 +61,22 @@ class IngredientsFullTableViewCell: UITableViewCell {
         textView?.delegate = delegate as? UITextViewDelegate
         textView?.tag = textViewTag
         textView?.isEditable = editMode
+        
+        if #available(iOS 13.0, *) {
+            textView.backgroundColor = editMode ? .secondarySystemFill : .systemBackground
+            textView?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.systemBackground.cgColor
+            textView.textColor = editMode ? .secondaryLabel : .label
+        } else {
+            textView.backgroundColor = editMode ? .groupTableViewBackground : .white
+            textView?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.white.cgColor
+            textView.textColor = .white
+        }
 
         if editMode {
-            textView?.backgroundColor = UIColor.groupTableViewBackground
             textView?.layer.cornerRadius = 5
-            textView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             textView?.clipsToBounds = true
             textView?.isScrollEnabled = true
         } else {
-            textView?.backgroundColor = UIColor.white
-            textView?.layer.borderColor = UIColor.white.cgColor
             textView?.isScrollEnabled = false
         }
         setButtonOrDoubletap(buttonNotDoubleTap)
@@ -78,7 +84,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
         if editMode {
             if unAttributedIngredients.count > 0 {
                 // needed to reset the color of the text. It is not actually shown.
-                textView?.attributedText = NSMutableAttributedString(string: "fake text", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black,  NSAttributedString.Key.font: UIFont.systemFont(ofSize: (textView.font?.pointSize)!)])
+                textView?.attributedText = NSMutableAttributedString(string: "fake text", attributes: [NSAttributedString.Key.foregroundColor : UIColor.clear,  NSAttributedString.Key.font: UIFont.systemFont(ofSize: (textView.font?.pointSize)!)])
                 textView?.text = unAttributedIngredients
             } else {
                 textView?.text = ""
@@ -135,11 +141,16 @@ class IngredientsFullTableViewCell: UITableViewCell {
                 if !text.isEmpty {
                     // defined the attributes for allergen text
                     let fontSize = (textView.font?.pointSize)!
+                    var noAttributes: [NSAttributedString.Key:Any] = [:]
                     // let currentFont = (textView.font?.fontName)!
                     // textView.font = UIFont(name: ()!, size: fontSize)!
 
-                    let allergenAttributes = [NSAttributedString.Key.foregroundColor : UIColor.red, NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]
-                    let noAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black,  NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]
+                    let allergenAttributes = [NSAttributedString.Key.foregroundColor : UIColor.systemRed, NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]
+                    if #available(iOS 13.0, *) {
+                        noAttributes = [NSAttributedString.Key.foregroundColor : UIColor.label,  NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]
+                    } else {
+                        noAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white,  NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]
+                    }
                     // create a attributable string
                     let myString = NSMutableAttributedString(string: "", attributes: noAttributes)
                     let components = text.components(separatedBy: "_")

@@ -69,13 +69,22 @@ class QuantityTableViewCell: UITableViewCell {
         if editMode {
             textField.backgroundColor = UIColor.groupTableViewBackground
             textField.layer.cornerRadius = 5
-            textField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+            if #available(iOS 13.0, *) {
+                textField.layer.borderColor = UIColor.secondarySystemFill.cgColor
+            } else {
+                textField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+            }
             textField.clipsToBounds = true
             
         } else {
             textField.borderStyle = .roundedRect
-            textField.backgroundColor = UIColor.white
-            textField.layer.borderColor = UIColor.white.cgColor
+            if #available(iOS 13.0, *) {
+                textField.backgroundColor = .systemBackground
+                textField.layer.borderColor = UIColor.systemBackground.cgColor
+            } else {
+                textField.backgroundColor = .clear
+                textField.layer.borderColor = UIColor.clear.cgColor
+            }
         }
     }
     

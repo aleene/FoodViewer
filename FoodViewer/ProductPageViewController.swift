@@ -501,14 +501,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     @objc func changeConfirmButtonToSuccess() {
-        confirmBarButtonItem.tintColor = .green
+        confirmBarButtonItem.tintColor = .systemGreen
         //NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
 
         _ = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(ProductPageViewController.resetSaveButtonColor), userInfo: nil, repeats: false)
     }
   
     @objc func changeConfirmButtonToFailure() {
-        confirmBarButtonItem.tintColor = .red
+        confirmBarButtonItem.tintColor = .systemRed
         Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(ProductPageViewController.resetSaveButtonColor), userInfo: nil, repeats: false)
     }
     

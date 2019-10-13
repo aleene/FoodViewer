@@ -660,7 +660,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         self.refresher = UIRefreshControl()
-        self.refresher.tintColor = UIColor.red
+        self.refresher.tintColor = .systemRed
         self.refresher.addTarget(self, action: #selector(ProductImagesCollectionViewController.refresh(sender:)), for: .valueChanged)
         self.collectionView!.alwaysBounceVertical = true
         self.collectionView?.addSubview(refresher)

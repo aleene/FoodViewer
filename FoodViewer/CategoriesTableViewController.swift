@@ -370,7 +370,7 @@ extension CategoriesTableViewController: TagListViewDataSource {
                 return ColorSchemes.none
             case let .available(list):
                 if list[index].contains(":") {
-                    return ColorScheme(text: .white, background: .orange, border: .orange)
+                    return ColorScheme(text: .white, background: .systemOrange, border: .systemOrange)
                 } else {
                     return ColorSchemes.normal
                 }

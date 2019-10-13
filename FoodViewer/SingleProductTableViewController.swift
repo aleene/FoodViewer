@@ -790,15 +790,15 @@ extension SingleProductTableViewController: TagListViewDataSource {
                 guard let validConclusion = Diets.manager.conclusion(validProduct, forDietWith:dietKey) else { return nil }
                 switch validConclusion {
                 case -13:
-                    return ColorScheme(text: .white, background: .purple, border: .purple)
+                    return ColorScheme(text: .white, background: .systemPurple, border: .systemPurple)
                 case -2:
-                    return ColorScheme(text: .white, background: .red, border: .red)
+                    return ColorScheme(text: .white, background: .systemRed, border: .systemRed)
                 case -1:
-                    return ColorScheme(text: .white, background: .orange, border: .orange)
+                    return ColorScheme(text: .white, background: .systemOrange, border: .systemOrange)
                 case 0:
-                    return ColorScheme(text: .black, background: .yellow, border: .lightGray)
+                    return ColorScheme(text: .black, background: .systemYellow, border: .lightGray)
                 case 1:
-                    return ColorScheme(text: .white, background: .green, border: .green)
+                    return ColorScheme(text: .white, background: .systemGreen, border: .systemGreen)
                 case 2:
                     return ColorScheme(text: .white, background: .darkGray, border: .darkGray)
                 case 3:
@@ -808,7 +808,7 @@ extension SingleProductTableViewController: TagListViewDataSource {
                 }
             }
         } else if tagListView.tag == Constants.TagValue.Row.Image {
-            return ColorScheme(text: .white, background: .red, border: .red)
+            return ColorScheme(text: .white, background: .systemRed, border: .systemRed)
         }
         return nil
     }

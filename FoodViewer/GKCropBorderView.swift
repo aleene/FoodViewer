@@ -40,7 +40,7 @@ class GKCropBorderView: UIView {
     override func draw(_ rect: CGRect) {
         // Drawing code
         if let ctx = UIGraphicsGetCurrentContext() {
-            ctx.setStrokeColor(UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5).cgColor)
+            ctx.setStrokeColor(UIColor.black.withAlphaComponent(0.5).cgColor)
             ctx.setLineWidth(1.5)
             ctx.addRect(CGRect.init(x: CGFloat(Constant.kHandleDiameter / 2),
                                     y: CGFloat(Constant.kHandleDiameter / 2),
@@ -52,7 +52,7 @@ class GKCropBorderView: UIView {
     
             let handleRectArray = calculateAllNeededHandleRects()
             for handleRect in handleRectArray {
-                ctx.setFillColor(UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.95).cgColor)
+                ctx.setFillColor(UIColor.black.withAlphaComponent(0.95).cgColor)
                 ctx.fillEllipse(in: handleRect)
             }
         }

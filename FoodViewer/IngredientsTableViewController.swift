@@ -343,7 +343,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 cell.editMode = productVersion.isRemote ? false : true
             }
 
-            cell.textView.textColor = .gray
+            //cell.textView.textColor = .gray
             switch ingredientsToDisplay {
             case .available(let array):
                 if !array.isEmpty && !array.first!.isEmpty {
@@ -1159,7 +1159,11 @@ extension IngredientsTableViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == TranslatableStrings.PlaceholderIngredients {
             textView.text = ""
-            textView.textColor = .black
+            if #available(iOS 13.0, *) {
+                textView.textColor = .tertiaryLabel
+            } else {
+                textView.textColor = .lightGray
+            }
         }
     }
 
@@ -1174,7 +1178,11 @@ extension IngredientsTableViewController: UITextViewDelegate {
             if let validText = textView.text {
                 if (textView.text == "") {
                     textView.text = TranslatableStrings.PlaceholderIngredients
-                    textView.textColor = .lightGray
+                    if #available(iOS 13.0, *) {
+                        textView.textColor = .secondaryLabel
+                    } else {
+                        textView.textColor = .gray
+                    }
                 } else if
                     let validLanguageCode = displayLanguageCode {
                     productPair?.update(ingredients: validText, in: validLanguageCode)

@@ -308,7 +308,7 @@ class IdentificationTableViewController: UITableViewController {
             }
 
             cell.name = editMode ? TranslatableStrings.PlaceholderProductName : nil
-            cell.nameTextView.textColor = .gray
+            //cell.nameTextView.textColor = .gray
             if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
                 cell.isMultilingual = validNumberOfProductLanguages > 1 ? true : false
             }
@@ -317,7 +317,7 @@ class IdentificationTableViewController: UITableViewController {
             case .available(let array):
                 if !array.isEmpty && !array.first!.isEmpty {
                     cell.name = array.first
-                    cell.nameTextView.textColor = .black
+                    //cell.nameTextView.textColor = .black
                 }
             default:
                 break
@@ -336,12 +336,12 @@ class IdentificationTableViewController: UITableViewController {
                 }
             }
             cell.name = editMode ? TranslatableStrings.PlaceholderGenericProductName : nil
-            cell.nameTextView.textColor = .gray
+            //cell.nameTextView.textColor = .gray
             switch genericNameToDisplay {
             case .available(let array):
                 if !array.isEmpty && !array.first!.isEmpty {
                     cell.name = array.first
-                    cell.nameTextView.textColor = .black
+                    //cell.nameTextView.textColor = .black
                 }
             default:
                 break
@@ -1295,7 +1295,11 @@ extension IdentificationTableViewController: UITextViewDelegate {
         if textView.text == TranslatableStrings.PlaceholderProductName ||
             textView.text == TranslatableStrings.PlaceholderGenericProductName {
             textView.text = ""
-            textView.textColor = .black
+            if #available(iOS 13.0, *) {
+                textView.textColor = .tertiaryLabel
+            } else {
+                textView.textColor = .lightGray
+            }
         }
     }
     
@@ -1311,7 +1315,11 @@ extension IdentificationTableViewController: UITextViewDelegate {
             if let validText = textView.text {
                 if validText.isEmpty {
                     textView.text = TranslatableStrings.PlaceholderProductName
-                    textView.textColor = .lightGray
+                    if #available(iOS 13.0, *) {
+                        textView.textColor = .secondaryLabel
+                    } else {
+                        textView.textColor = .gray
+                    }
                 } else if let validCurrentLanguageCode = displayLanguageCode {
                     productPair?.update(name: validText, in: validCurrentLanguageCode)
                 }
@@ -1321,7 +1329,11 @@ extension IdentificationTableViewController: UITextViewDelegate {
             if let validText = textView.text {
                 if validText.isEmpty {
                     textView.text = TranslatableStrings.PlaceholderGenericProductName
-                    textView.textColor = .lightGray
+                    if #available(iOS 13.0, *) {
+                        textView.textColor = .secondaryLabel
+                    } else {
+                        textView.textColor = .gray
+                    }
                 } else if let validCurrentLanguageCode = displayLanguageCode {
                     productPair?.update(genericName: validText, in: validCurrentLanguageCode)
                 }

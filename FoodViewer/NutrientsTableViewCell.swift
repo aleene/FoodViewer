@@ -61,18 +61,28 @@ class NutrientsTableViewCell: UITableViewCell {
     var editMode: Bool = false {
         didSet {
             unitButton.isEnabled = editMode
+            textField.layer.cornerRadius = 5
+            if #available(iOS 13.0, *) {
+                textField.backgroundColor = editMode ? .secondarySystemFill : .systemBackground
+                textField?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.systemBackground.cgColor
+                textField.textColor = editMode ? .secondaryLabel : .label
+            } else {
+                textField.backgroundColor = editMode ? .groupTableViewBackground : .white
+                textField?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.white.cgColor
+                textField.textColor = .white
+            }
+
             if editMode {
-                textField.backgroundColor = UIColor.groupTableViewBackground
-                textField.layer.cornerRadius = 5
-                textField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
                 textField.clipsToBounds = true
-                unitButton.setTitleColor(.gray, for: .normal)
+                unitButton.setTitleColor(.systemGray, for: .normal)
 
             } else {
-                textField.layer.cornerRadius = 5
-                textField.backgroundColor = .white
                 textField.borderStyle = .none
-                unitButton.setTitleColor(.black, for: .normal)
+                if #available(iOS 13.0, *) {
+                    unitButton.setTitleColor(.label, for: .normal)
+                } else {
+                    unitButton.setTitleColor(.black, for: .normal)
+                }
 
             }
         }

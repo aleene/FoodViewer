@@ -30,9 +30,9 @@ open class TagView: UIView {
         /// Default text font
         static let defaultTextFont: UIFont = UIFont.preferredFont(forTextStyle: .body)
         /// Default color, highlighted and selected backgroundColor, shadowColor
-        static let defaultBackgroundColor = UIColor.blue
+        static let defaultBackgroundColor = UIColor.systemBlue
         /// Default color and selected border Color
-        static let defaultBorderColor: UIColor = .blue
+        static let defaultBorderColor: UIColor = .systemBlue
         /// Default padding add to top and bottom of tag wrt font height
         static let defaultVerticalPadding: CGFloat = 5.0
         /// Default padding between view objects

@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "openfoodfacts-logo-no-tagline.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "SplashScreen-OFF-Large-Any.png",
       "scale" : "2x"
     },
     {

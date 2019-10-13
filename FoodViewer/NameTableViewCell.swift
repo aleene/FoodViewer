@@ -17,20 +17,16 @@ class NameTableViewCell: UITableViewCell {
     
     var productBrand: [String]? = nil {
         didSet {
-            if let brand = productBrand?.first {
-                brandLabel.text = brand 
-            } else {
-                brandLabel.text = TranslatableStrings.NoBrandsIndicated
-            }
-            //print ("name xxx", self.frame)
+            brandLabel.text = productBrand?.first ?? TranslatableStrings.NoBrandsIndicated
+            //if let brand = productBrand?.first {
+            //    brandLabel.text = brand
+            //} else {
+            //    brandLabel.text = TranslatableStrings.NoBrandsIndicated
+            //}
         }
 
     }
 
-    @IBOutlet weak var brandLabel: UILabel! {
-        didSet {
-            //print ("name yyy", self.frame)
-        }
-    }
+    @IBOutlet weak var brandLabel: UILabel!
 
 }

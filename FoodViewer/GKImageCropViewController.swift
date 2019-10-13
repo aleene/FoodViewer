@@ -81,7 +81,7 @@
         self.cancelButton?.titleLabel?.shadowOffset = CGSize.init(width: 0, height: -1)
         self.cancelButton?.setTitle(TranslatableStrings.Cancel, for: .normal)
         self.cancelButton?.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-        self.cancelButton?.setTitleShadowColor(UIColor.init(red: 0.118, green: 0.247, blue: 0.455, alpha: 1), for: .normal)
+        self.cancelButton?.setTitleShadowColor(.systemBlue, for: .normal)
     }
     
     private func _setupUseButton() {
@@ -92,7 +92,7 @@
         self.useButton?.frame = CGRect.init(x: 0, y: 0, width: 90, height: 30)
         self.useButton?.addTarget(self, action: #selector(GKImageCropViewController._actionUse), for: .touchUpInside)
         self.useButton?.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-        self.useButton?.setTitleShadowColor(UIColor.init(red: 0.118, green: 0.247, blue: 0.455, alpha: 1), for: .normal)
+        self.useButton?.setTitleShadowColor(.systemBlue, for: .normal)
     }
     
     private func _toolbarBackgroundImage() -> UIImage? {
@@ -126,7 +126,7 @@
         info.text = TranslatableStrings.MoveScale
         info.textColor = UIColor.white
         info.backgroundColor = UIColor.clear
-        info.shadowColor = UIColor.init(red: 0.827, green: 0.831, blue: 0.839, alpha: 1)
+        info.shadowColor = .systemBlue
         info.shadowOffset = CGSize.init(width: 0, height: 1)
         info.font = UIFont.boldSystemFont(ofSize: 18)
         info.sizeToFit()

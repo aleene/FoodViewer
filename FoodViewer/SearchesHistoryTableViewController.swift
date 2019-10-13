@@ -716,7 +716,7 @@ extension SearchesHistoryTableViewController: TagListViewDataSource {
     }
     
     func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
-        return ColorScheme(text: .white, background: .green, border: .green)
+        return ColorScheme(text: .white, background: .systemGreen, border: .systemGreen)
     }
     
     /// Which text should be displayed when the TagListView is collapsed?

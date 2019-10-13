@@ -85,9 +85,9 @@ class BarGaugeView: UIView {
     public var outerBorderLineWidth: Float = 2.0
     public var outerBorderInsetWidth: Float = 1.0
     public var myBackgroundColor: UIColor = .black
-    public var normalBarColor: UIColor = .green
-    public var warningBarColor: UIColor = .yellow
-    public var dangerBarColor: UIColor = .red
+    public var normalBarColor: UIColor = .systemGreen
+    public var warningBarColor: UIColor = .systemYellow
+    public var dangerBarColor: UIColor = .systemRed
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -109,7 +109,11 @@ class BarGaugeView: UIView {
     
     private func setDefaults()
     {
-        self.backgroundColor = .clear
+        if #available(iOS 13.0, *) {
+            self.backgroundColor = .systemBackground
+        } else {
+            self.backgroundColor = .white
+        }
         // Misc.
         self.clearsContextBeforeDrawing = false
         self.isOpaque = false

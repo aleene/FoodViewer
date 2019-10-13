@@ -70,7 +70,7 @@ class LanguageHeaderView: UITableViewHeaderFooterView {
     var buttonIsEnabled = false {
         didSet {
             changeLanguageButton.isEnabled = buttonIsEnabled
-            buttonIsEnabled ? changeLanguageButton.setTitleColor(.blue, for: .normal) : changeLanguageButton.setTitleColor(.darkGray, for: .normal)
+            buttonIsEnabled ? changeLanguageButton.setTitleColor(.systemBlue, for: .normal) : changeLanguageButton.setTitleColor(.darkGray, for: .normal)
         }
     }
     

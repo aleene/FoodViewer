@@ -81,18 +81,23 @@ class ProductNameTableViewCell: UITableViewCell {
         nameTextView?.tag = tag
         nameTextView?.isEditable = editMode
         nameTextView?.isScrollEnabled = editMode
-        nameTextView.backgroundColor = editMode ? UIColor.groupTableViewBackground : UIColor.white
+        if #available(iOS 13.0, *) {
+            nameTextView.backgroundColor = editMode ? .secondarySystemFill : .systemBackground
+            nameTextView?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.systemBackground.cgColor
+            nameTextView.textColor = editMode ? .secondaryLabel : .label
+        } else {
+            nameTextView.backgroundColor = editMode ? .groupTableViewBackground : .white
+            nameTextView?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.white.cgColor
+            nameTextView.textColor = .white
+        }
         
         if editMode {
-            nameTextView?.backgroundColor = UIColor.groupTableViewBackground
             nameTextView?.layer.cornerRadius = 5
-            nameTextView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             nameTextView?.clipsToBounds = true
             toggleViewModeButton?.isHidden = true
             // nameTextField.removeGestureRecognizer(tapGestureRecognizer)
         } else {
             setButtonOrDoubletap(buttonNotDoubleTap)
-            nameTextView?.layer.borderColor = UIColor.white.cgColor
             toggleViewModeButton?.isHidden = !isMultilingual
         }
         //print ("ProductNameTableViewCell: setTextView", self.frame)

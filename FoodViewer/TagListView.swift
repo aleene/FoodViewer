@@ -40,13 +40,13 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         /// Default color and selected textColor
         static let defaultTextColor: UIColor = UIColor.white
         /// Default color and selected textColor
-        static let defaultTextInputColor: UIColor = UIColor(red: 38/255.0, green: 39/255.0, blue: 41/255.0, alpha: 1.0)
+        static let defaultTextInputColor: UIColor = .black
         /// Default text font
         static let defaultTextFont: UIFont = UIFont.preferredFont(forTextStyle: .body)
         /// Default color, highlighted and selected backgroundColor, shadowColor
-        static let defaultBackgroundColor: UIColor = UIColor.blue
+        static let defaultBackgroundColor: UIColor = UIColor.systemBlue
         /// Default color and selected border Color
-        static let defaultBorderColor: UIColor = UIColor.blue
+        static let defaultBorderColor: UIColor = UIColor.systemBlue
         /// Default padding add to top and bottom of tag wrt font height
         static let defaultVerticalPadding: CGFloat = 5.0
         /// Default padding between view objects
@@ -418,9 +418,13 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     fileprivate lazy var inputTextField: UITextField = {
         let inputTextField = BackspaceTextField()
         inputTextField.keyboardType = self.inputTextViewKeyboardType
-        inputTextField.textColor = .black // self.removableColorScheme.textColor
-        // inputTextField.backgroundColor = .red
-        // inputTextField.borderColor = .blue
+        if #available(iOS 13.0, *) {
+            inputTextField.textColor = .label
+            inputTextField.backgroundColor = .secondarySystemBackground
+        } else {
+            inputTextField.textColor = .black
+            inputTextField.backgroundColor = .lightGray
+        } // self.removableColorScheme.textColor
         inputTextField.font = self.textFont
         inputTextField.autocorrectionType = self.autocorrectionType
         inputTextField.autocapitalizationType = self.autocapitalizationType

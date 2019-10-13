@@ -128,7 +128,11 @@ public class NutritionalScoreFR: NutritionalScore {
     override public var colour: UIColor {
         if isBeverage {
             if score <= 1 {
-                return Constant.DarkGreen
+                if #available(iOS 11.0, *) {
+                    return UIColor.init(named: "DarkGreen") ?? .systemGreen
+                } else {
+                    return Constant.DarkGreen
+                }
             } else if score <= 5 {
                 return .yellow
             } else if score <= 9 {
@@ -138,9 +142,18 @@ public class NutritionalScoreFR: NutritionalScore {
             }
         } else {
             if score <= -1 {
-                return Constant.LightGreen
+                if #available(iOS 11.0, *) {
+                    return UIColor.init(named: "LightGreen") ?? .systemGreen
+                } else {
+                    return Constant.LightGreen
+                }
+
             } else if score <= 2 {
-                return Constant.DarkGreen
+                if #available(iOS 11.0, *) {
+                    return UIColor.init(named: "DarkGreen") ?? .systemGreen
+                } else {
+                    return Constant.DarkGreen
+                }
             } else if score <= 10 {
                 return .yellow
             } else if score <= 18 {

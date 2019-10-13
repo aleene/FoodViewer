@@ -97,19 +97,19 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                 case "1":
                     NOVAValueLabel.text = nova
                     NOVAValueLabel.textColor = .white
-                    NOVAValueLabel.backgroundColor = .green
+                    NOVAValueLabel.backgroundColor = .systemGreen
                case "2":
                     NOVAValueLabel.text = nova
                     NOVAValueLabel.textColor = .white
-                    NOVAValueLabel.backgroundColor = .yellow
+                    NOVAValueLabel.backgroundColor = .systemYellow
                 case "3":
                     NOVAValueLabel.text = nova
                     NOVAValueLabel.textColor = .white
-                    NOVAValueLabel.backgroundColor = .orange
+                    NOVAValueLabel.backgroundColor = .systemOrange
                 case "4":
                     NOVAValueLabel.text = nova
                     NOVAValueLabel.textColor = .white
-                    NOVAValueLabel.backgroundColor = .red
+                    NOVAValueLabel.backgroundColor = .systemRed
                 default:
                     NOVAValueLabel.text = "?"
                     NOVAValueLabel.textColor = .black
@@ -270,57 +270,57 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                             case .fat:
                                 switch level.1 {
                                 case .low:
-                                    self.fatLabel.backgroundColor = .green
+                                    self.fatLabel.backgroundColor = .systemGreen
                                 case .moderate:
-                                    self.fatLabel.backgroundColor = .orange
+                                    self.fatLabel.backgroundColor = .systemOrange
                                 case .high:
-                                    self.fatLabel.backgroundColor = .red
+                                    self.fatLabel.backgroundColor = .systemRed
                                 default:
                                     break
                                 }
                             case .saturatedFat:
                                 switch level.1 {
                                 case .low:
-                                    self.saturatedFatLabel.backgroundColor = .green
+                                    self.saturatedFatLabel.backgroundColor = .systemGreen
                                 case .moderate:
-                                    self.saturatedFatLabel.backgroundColor = .orange
+                                    self.saturatedFatLabel.backgroundColor = .systemOrange
                                 case .high:
-                                    self.saturatedFatLabel.backgroundColor = .red
+                                    self.saturatedFatLabel.backgroundColor = .systemRed
                                 default:
                                     break
                                 }
                             case .sugar:
                                 switch level.1 {
                                 case .low:
-                                    self.sugarLabel.backgroundColor = .green
+                                    self.sugarLabel.backgroundColor = .systemGreen
                                 case .moderate:
-                                    self.sugarLabel.backgroundColor = .orange
+                                    self.sugarLabel.backgroundColor = .systemOrange
                                 case .high:
-                                    self.sugarLabel.backgroundColor = .red
+                                    self.sugarLabel.backgroundColor = .systemRed
                                 default:
                                     break
                                 }
                             case .salt:
                                 switch level.1 {
                                 case .low:
-                                    self.saltLabel.backgroundColor = .green
+                                    self.saltLabel.backgroundColor = .systemGreen
                                 case .moderate:
-                                    self.saltLabel.backgroundColor = .orange
+                                    self.saltLabel.backgroundColor = .systemOrange
                                 case .high:
-                                    self.saltLabel.backgroundColor = .red
+                                    self.saltLabel.backgroundColor = .systemRed
                                 default:
                                     break
                                 }
                             default:
                                 break
                             }
-                            productView.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.6)
+                            productView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
 
                             if let validProduct = scannedProductPair?.remoteProduct?.tracesInterpreted ?? scannedProductPair?.localProduct?.tracesInterpreted {
                                 switch validProduct {
                                 case .available(let validKeys):
                                     if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                                        productView.backgroundColor = UIColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
+                                        productView.backgroundColor = UIColor.systemRed.withAlphaComponent(0.5)
                                     }
                                 default:
                                     break
@@ -330,7 +330,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                                 switch validProduct {
                                 case .available(let validKeys):
                                     if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                                        productView.backgroundColor = UIColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
+                                        productView.backgroundColor = UIColor.systemRed.withAlphaComponent(0.5)
                                     }
                                 default:
                                     break
@@ -374,9 +374,9 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     }
     
     private func setupScanning() {
-        self.focusMarkLayer.strokeColor = UIColor.red.cgColor
+        self.focusMarkLayer.strokeColor = UIColor.systemRed.cgColor
         
-        self.cornersLayer.strokeColor = UIColor.yellow.cgColor
+        self.cornersLayer.strokeColor = UIColor.systemYellow.cgColor
         
         // MARK: NOTE: If you want to detect specific barcode types, you should update the types
         var types = self.output.availableMetadataObjectTypes
@@ -558,15 +558,15 @@ extension BarcodeScanViewController: TagListViewDataSource {
                 guard let validConclusion = Diets.manager.conclusion(validProduct, forDietWith:dietKey) else { return nil }
                 switch validConclusion {
                 case -13:
-                    return ColorScheme(text: .white, background: .purple, border: .purple)
+                    return ColorScheme(text: .white, background: .systemPurple, border: .systemPurple)
                 case -2:
-                    return ColorScheme(text: .white, background: .red, border: .red)
+                    return ColorScheme(text: .white, background: .systemRed, border: .systemRed)
                 case -1:
-                    return ColorScheme(text: .white, background: .orange, border: .orange)
+                    return ColorScheme(text: .white, background: .systemOrange, border: .systemOrange)
                 case 0:
-                    return ColorScheme(text: .black, background: .yellow, border: .lightGray)
+                    return ColorScheme(text: .black, background: .systemYellow, border: .lightGray)
                 case 1:
-                    return ColorScheme(text: .white, background: .green, border: .green)
+                    return ColorScheme(text: .white, background: .systemGreen, border: .systemGreen)
                 case 2:
                     return ColorScheme(text: .white, background: .darkGray, border: .darkGray)
                 case 3:

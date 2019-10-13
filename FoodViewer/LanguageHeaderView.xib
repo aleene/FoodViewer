@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,13 +17,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="500" height="62"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irO-Ej-Ivl">
-                            <rect key="frame" x="18" y="0.0" width="0.0" height="62"/>
+                            <rect key="frame" x="18" y="14.5" width="0.0" height="33"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGu-3P-7cA">
-                            <rect key="frame" x="18" y="0.0" width="30" height="62"/>
+                            <rect key="frame" x="18" y="16" width="30" height="30"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <connections>
                                 <action selector="changeLanguageButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="4F1-3h-beg"/>
@@ -37,26 +35,25 @@
                                 <constraint firstAttribute="width" secondItem="XCP-Bf-bCN" secondAttribute="height" multiplier="1:1" id="lrg-RQ-OqD"/>
                                 <constraint firstAttribute="height" constant="30" id="rgV-PK-hYc"/>
                             </constraints>
-                            <state key="normal" title="Button" image="TripleTap"/>
+                            <state key="normal" image="TripleTap"/>
                             <connections>
                                 <action selector="changeViewModeButtonTapped:" destination="-2" eventType="touchUpInside" id="DB7-p1-EBQ"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.96965009787472023" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="XCP-Bf-bCN" firstAttribute="centerY" secondItem="IEf-tI-agI" secondAttribute="centerY" id="1N5-4y-Qma"/>
                         <constraint firstAttribute="trailing" secondItem="XCP-Bf-bCN" secondAttribute="trailing" constant="8" id="3TG-99-cWC"/>
                         <constraint firstItem="irO-Ej-Ivl" firstAttribute="leading" secondItem="IEf-tI-agI" secondAttribute="leading" constant="18" id="7WW-Xr-Ifn"/>
-                        <constraint firstItem="JGu-3P-7cA" firstAttribute="baseline" secondItem="irO-Ej-Ivl" secondAttribute="baseline" id="7ov-ce-neh"/>
+                        <constraint firstItem="irO-Ej-Ivl" firstAttribute="centerY" secondItem="JGu-3P-7cA" secondAttribute="centerY" id="9Lh-Vl-jop"/>
                         <constraint firstItem="JGu-3P-7cA" firstAttribute="leading" secondItem="irO-Ej-Ivl" secondAttribute="trailing" id="Wsl-IF-zpK"/>
-                        <constraint firstItem="irO-Ej-Ivl" firstAttribute="height" secondItem="IEf-tI-agI" secondAttribute="height" id="jHh-mH-6yH"/>
-                        <constraint firstItem="JGu-3P-7cA" firstAttribute="centerY" secondItem="irO-Ej-Ivl" secondAttribute="centerY" id="lWr-Bs-Og5"/>
-                        <constraint firstItem="JGu-3P-7cA" firstAttribute="top" secondItem="IEf-tI-agI" secondAttribute="top" id="rQk-jr-H7n"/>
+                        <constraint firstItem="XCP-Bf-bCN" firstAttribute="firstBaseline" secondItem="irO-Ej-Ivl" secondAttribute="firstBaseline" id="kHz-He-rel"/>
                         <constraint firstItem="irO-Ej-Ivl" firstAttribute="centerY" secondItem="IEf-tI-agI" secondAttribute="centerY" id="usN-Nw-uFP"/>
                     </constraints>
                 </view>
             </subviews>
+            <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="IEf-tI-agI" secondAttribute="bottom" id="4ZD-Wf-X6G"/>
                 <constraint firstAttribute="trailing" secondItem="IEf-tI-agI" secondAttribute="trailing" id="VT2-og-PfB"/>
