@@ -2377,7 +2377,6 @@
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Rz-b9-RSw" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
                                             <rect key="frame" x="20" y="11" width="354.66666666666669" height="0.33333333333333393"/>
-                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                     </subviews>
                                     <constraints>
@@ -2537,7 +2536,6 @@
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jS4-uQ-H7j" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
                                             <rect key="frame" x="20" y="11" width="374" height="0.33333333333333393"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
                                     <constraints>
@@ -4088,6 +4086,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="L6w-sV-5ra" userLabel="FooterView">
+                            <rect key="frame" x="0.0" y="441.66666793823242" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Single Search Product Categories Cell Identifier" id="Ufe-td-yzP" customClass="LabelWithBadgeTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="48.333332061767578"/>
@@ -4354,10 +4357,8 @@
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q4D-Xc-ZxL" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
                                             <rect key="frame" x="20" y="11" width="354.66666666666669" height="0.33333333333333393"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="q4D-Xc-ZxL" firstAttribute="leading" secondItem="Snc-Tf-G9K" secondAttribute="leadingMargin" id="0Tg-aE-95T"/>
                                         <constraint firstItem="q4D-Xc-ZxL" firstAttribute="top" secondItem="Snc-Tf-G9K" secondAttribute="topMargin" id="al2-7w-Zcg"/>
@@ -4378,7 +4379,6 @@
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wDs-54-nVu" customClass="NutriScoreView" customModule="FoodViewer" customModuleProvider="target">
                                             <rect key="frame" x="8" y="2.3333333333333321" width="362.66666666666669" height="39"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="253" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mFF-c4-dtr">
                                             <rect key="frame" x="378.66666666666669" y="0.0" width="0.0" height="0.0"/>
@@ -4393,7 +4393,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="wDs-54-nVu" firstAttribute="height" secondItem="tsc-Jz-qyg" secondAttribute="height" multiplier="0.9" id="4AZ-cA-La2"/>
                                         <constraint firstItem="mFF-c4-dtr" firstAttribute="centerX" secondItem="veC-TK-R1V" secondAttribute="centerX" id="6SD-hu-uOu"/>
@@ -4427,12 +4426,11 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56t-eT-pCJ">
                                             <rect key="frame" x="20" y="11" width="354.66666666666669" height="0.33333333333333393"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="56t-eT-pCJ" firstAttribute="top" secondItem="ufv-96-LdY" secondAttribute="topMargin" id="9wM-3t-vcI"/>
                                         <constraint firstItem="56t-eT-pCJ" firstAttribute="leading" secondItem="ufv-96-LdY" secondAttribute="leadingMargin" id="LzT-MN-HxQ"/>
@@ -4459,10 +4457,8 @@
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Tb-GU-RyO" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
                                             <rect key="frame" x="26" y="11" width="348.66666666666669" height="0.33333333333333393"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="3Tb-GU-RyO" secondAttribute="bottom" id="DKR-NB-ySO"/>
                                         <constraint firstItem="3Tb-GU-RyO" firstAttribute="top" secondItem="GGc-CQ-mWA" secondAttribute="topMargin" id="Ogc-m5-uyN"/>
@@ -4950,11 +4946,11 @@
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -6294,8 +6290,8 @@
         <image name="User" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NIk-rX-rWX"/>
+        <segue reference="ntk-NT-VGC"/>
         <segue reference="ujd-uM-re2"/>
-        <segue reference="TJD-zt-Jpp"/>
+        <segue reference="z8D-RP-i6i"/>
     </inferredMetricsTieBreakers>
 </document>

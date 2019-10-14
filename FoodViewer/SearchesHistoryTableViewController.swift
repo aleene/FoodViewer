@@ -100,7 +100,6 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var tagValue = Constants.TagValue.Search.NotDefined
-        print(searches.allSearchQueries.count)
         if searches.allSearchQueries.count > 0 {
             let search = searches.allSearchQueries[indexPath.section]
             tagValue = tag(for: indexPath, for: search)
