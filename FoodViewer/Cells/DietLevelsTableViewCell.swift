@@ -18,44 +18,48 @@ protocol DietLevelsTableViewCellDelegate: class {
 
 class DietLevelsTableViewCell: UITableViewCell {
     
+    private struct Constant {
+        static let Divisor = 2.5
+        static let Height = CGFloat(25.0)
+    }
     @IBOutlet weak var level0Label: UILabel! {
         didSet {
-            level0Label?.layer.cornerRadius = CGFloat(level0Label?.bounds.size.height ?? 25) / CGFloat(2.0)
+            level0Label?.layer.cornerRadius = CGFloat(level0Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
             level0Label?.clipsToBounds = true
         }
     }
     
     @IBOutlet weak var level1Label: UILabel! {
         didSet {
-            level1Label?.layer.cornerRadius = CGFloat(level1Label?.bounds.size.height ?? 25) / CGFloat(2.0)
+            level1Label?.layer.cornerRadius = CGFloat(level1Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
             level1Label?.clipsToBounds = true
         }
     }
     
     @IBOutlet weak var level2Label: UILabel! {
         didSet {
-            level2Label?.layer.cornerRadius = CGFloat(level2Label?.bounds.size.height ?? 25) / CGFloat(2.0)
+            level2Label?.layer.cornerRadius = CGFloat(level2Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
             level2Label?.clipsToBounds = true
         }
     }
     
     @IBOutlet weak var level3Label: UILabel! {
         didSet {
-            level3Label?.layer.cornerRadius = CGFloat(level3Label?.bounds.size.height ?? 25) / CGFloat(2.0)
+            level3Label?.layer.cornerRadius = CGFloat(level3Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
             level3Label?.clipsToBounds = true
         }
     }
     
     @IBOutlet weak var level4Label: UILabel! {
         didSet {
-            level4Label?.layer.cornerRadius = CGFloat(level4Label?.bounds.size.height ?? 25) / CGFloat(2.0)
+            level4Label?.layer.cornerRadius = CGFloat(level4Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
             level4Label?.clipsToBounds = true
         }
     }
     
     @IBOutlet weak var level5Label: UILabel! {
         didSet {
-            level5Label?.layer.cornerRadius = CGFloat(level5Label?.bounds.size.height ?? 25) / CGFloat(2.0)
+            level5Label?.layer.cornerRadius = CGFloat(level5Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
             level5Label?.clipsToBounds = true
         }
     }
@@ -68,7 +72,7 @@ class DietLevelsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var level6Label: UILabel! {
         didSet {
-            level6Label?.layer.cornerRadius = CGFloat(level6Label?.bounds.size.height ?? 25) / CGFloat(2.0)
+            level6Label?.layer.cornerRadius = CGFloat(level6Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
             level6Label?.clipsToBounds = true
         }
     }
