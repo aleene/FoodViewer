@@ -40,7 +40,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         /// Default color and selected textColor
         static let defaultTextColor: UIColor = UIColor.white
         /// Default color and selected textColor
-        static let defaultTextInputColor: UIColor = .black
+        //static let defaultTextInputColor: UIColor = .
         /// Default text font
         static let defaultTextFont: UIFont = UIFont.preferredFont(forTextStyle: .body)
         /// Default color, highlighted and selected backgroundColor, shadowColor
@@ -100,9 +100,11 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
     }
     /// Input textView text color.
-    @IBInspectable open dynamic var inputTextViewTextColor = Constants.defaultTextInputColor{
+    @IBInspectable open dynamic var inputTextViewTextColor = UIColor.black {
         didSet {
-            inputTextField.textColor = inputTextViewTextColor
+            if #available(iOS 13.0, *) {
+                inputTextField.textColor = .label
+            }
         }
     }
     
@@ -428,7 +430,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         inputTextField.font = self.textFont
         inputTextField.autocorrectionType = self.autocorrectionType
         inputTextField.autocapitalizationType = self.autocapitalizationType
-        inputTextField.tintColor = .black
+        inputTextField.tintColor = .systemGray
         // inputTextView.isScrollEnabled = false
         // inputTextView.textContainer.lineBreakMode = .byWordWrapping
         inputTextField.delegate = self
