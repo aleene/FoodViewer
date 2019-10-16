@@ -110,43 +110,40 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                 if indexPath.row < search.componentsCount  {
                     // Search labels with switches to include or exclude the label
                     //  -- tag values as tags and inclusion as labelText
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as? TagListViewLabelTableViewCell //
-                    cell!.datasource = self
-                    cell!.tag = tagValue
-                    cell!.categoryLabel.text = search.category(for:indexPath.row) ?? TranslatableStrings.NotSet
-                    cell!.labelText = search.text(for:indexPath.row) ?? ""
-                    cell!.width = tableView.frame.size.width
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
+                    cell.datasource = self
+                    cell.tag = tagValue
+                    cell.categoryLabel.text = search.category(for:indexPath.row) ?? TranslatableStrings.NotSet
+                    cell.labelText = search.text(for:indexPath.row) ?? ""
+                    cell.width = tableView.frame.size.width
                 // cell.accessoryType = .none
-                    return cell!
-                } else {
-                //} else if (indexPath.row == search.componentsCount) ||
-                   // (!search.isDefined && indexPath.row == 1) {
-            
+                    return cell
+                }
+            }
             // cell for the sortOrder
             // if there is a search query, the penultimate (row n)
             // if there is no search query the last (row 1)
-            
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Label, for: indexPath) as! NameTableViewCell //
-                    cell.brandLabel.text = "Results sorted by " + ( search.sortOrder?.description ?? "No sort order defined" )
-                    cell.accessoryType = .disclosureIndicator
-                    return cell
-                }
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell
-                cell.delegate = self
-                cell.tag = tagValue
-                cell.editMode = true
-                switch search.status {
-                case .loaded, .loading, .partiallyLoaded:
-                    cell.title = "Show search results"
-                case .notLoaded:
-                    cell.title = "Load search results"
-                default:
-                    cell.title = "????"
-                }
-                cell.accessoryType = .none
+            if (search.isDefined && indexPath.row == search.componentsCount) ||
+                (!search.isDefined && indexPath.row == 1) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Label, for: indexPath) as! NameTableViewCell //
+                cell.brandLabel.text = "Results sorted by " + ( search.sortOrder?.description ?? "No sort order defined" )
+                cell.accessoryType = .disclosureIndicator
                 return cell
             }
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell
+            cell.delegate = self
+            cell.tag = tagValue
+            cell.editMode = true
+            switch search.status {
+            case .loaded, .loading, .partiallyLoaded:
+                cell.title = "Show search results"
+            case .notLoaded:
+                cell.title = "Load search results"
+            default:
+                cell.title = "????"
+            }
+            cell.accessoryType = .none
+            return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell
             cell.delegate = self
