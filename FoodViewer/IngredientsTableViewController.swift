@@ -271,7 +271,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
-    private var tagListViewHeight: [Int:CGFloat] = [:]
+    private var cellHeight: [Int:CGFloat] = [:]
 
     fileprivate struct Storyboard {
         struct CellIdentifier {
@@ -357,7 +357,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.isMultilingual =  (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false 
             cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
 
-            // print("cell frame", cell.frame)
+            print("cell frame", cell.frame)
             return cell
             }
 
@@ -422,9 +422,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 cell.width = tableView.frame.size.width
                 cell.scheme = ColorSchemes.error
                 cell.editMode = editMode
+                // tag must be set before the datasource is set
+                cell.tag = indexPath.section
                 cell.datasource = self
                 cell.delegate = self
-                cell.tag = indexPath.section
                 cell.accessoryType = .none
                 return cell
             }
@@ -486,10 +487,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch tableStructure[indexPath.section] {
-        case .image, .ingredients:
+        case .image:
             return UITableView.automaticDimension
+        case .ingredients:
+            return cellHeight[0] ?? 44.0
         default:
-            let height = tagListViewHeight[indexPath.section] ?? Constants.CellHeight.TagListViewCell
+            let height = cellHeight[indexPath.section] ?? Constants.CellHeight.TagListViewCell
             return height + 2 * Constants.CellMargin.ContentView
         }
     }
@@ -742,6 +745,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         var rowIndex = 0
         
         sectionsAndRows.append(.ingredients(TableSection.Size.Ingredients))
+        cellHeight[0] = 44.0
         rowIndex += 1
         // not needed for .product, .petFood and .beauty
         switch currentProductType {
@@ -749,33 +753,33 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             // 1:  allergens section
             if validProductPair.hasAllergens || show {
                 sectionsAndRows.append(.allergens(TableSection.Size.Allergens))
-                tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+                cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
                 rowIndex += 1
             }
             
             // 2: traces section
             sectionsAndRows.append(.traces(TableSection.Size.Traces))
-            tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+            cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
             rowIndex += 1
 
             if validProductPair.hasMinerals || show {
                 sectionsAndRows.append(.minerals(TableSection.Size.Minerals))
-                tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+                cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
                 rowIndex += 1
             }
             if validProductPair.hasVitamins || show {
                 sectionsAndRows.append(.vitamins(TableSection.Size.Vitamins))
-                tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+                cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
                 rowIndex += 1
             }
             if validProductPair.hasNucleotides || show {
                 sectionsAndRows.append(.minerals(TableSection.Size.Nucleotides))
-                tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+                cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
                 rowIndex += 1
             }
             if validProductPair.hasOtherNutritionalSubstances || show {
                 sectionsAndRows.append(.otherNutritionalSubstances(TableSection.Size.OtherNutritionalSubstances))
-                tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+                cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
                 rowIndex += 1
             }
 
@@ -784,11 +788,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
         if validProductPair.hasAdditives {
             sectionsAndRows.append(.additives(TableSection.Size.Additives))
-            tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+            cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
             rowIndex += 1
         }
         sectionsAndRows.append(.labels(TableSection.Size.Labels))
-        tagListViewHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+        cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
         sectionsAndRows.append(.image(TableSection.Size.Image))
         
         return sectionsAndRows
@@ -1126,6 +1130,15 @@ extension IngredientsTableViewController: TagListViewAddImageCellDelegate {
 // MARK: - IngredientsFullCellDelegate Delegate Functions
 
 extension IngredientsTableViewController: IngredientsFullCellDelegate {
+    
+    func ingredientsFullTableViewCell(_ sender: IngredientsFullTableViewCell, heightChangedTo height: CGFloat) {
+        // only do the layouting if it is really necessary
+        if abs(cellHeight[0] ?? 44.0 - height) > 2.0 {
+            cellHeight[0] = height
+            tableView.setNeedsLayout()
+        }
+    }
+    
 
     func ingredientsFullTableViewCell(_ sender: IngredientsFullTableViewCell, receivedActionOn textView:UITextView) {
         textView.endEditing(true)
@@ -1160,7 +1173,7 @@ extension IngredientsTableViewController: UITextViewDelegate {
         if textView.text == TranslatableStrings.PlaceholderIngredients {
             textView.text = ""
             if #available(iOS 13.0, *) {
-                textView.textColor = .tertiaryLabel
+                textView.textColor = .label
             } else {
                 textView.textColor = .lightGray
             }
@@ -1176,10 +1189,10 @@ extension IngredientsTableViewController: UITextViewDelegate {
         switch tableStructure[textView.tag] {
         case .ingredients:
             if let validText = textView.text {
-                if (textView.text == "") {
+                if validText.isEmpty {
                     textView.text = TranslatableStrings.PlaceholderIngredients
                     if #available(iOS 13.0, *) {
-                        textView.textColor = .secondaryLabel
+                        textView.textColor = .placeholderText
                     } else {
                         textView.textColor = .gray
                     }
@@ -1444,10 +1457,10 @@ extension IngredientsTableViewController: TagListViewDataSource {
     }
 
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        if let cellHeight = tagListViewHeight[tagListView.tag],
-            abs(cellHeight - height) > CGFloat(3.0) {
-            tagListViewHeight[tagListView.tag] = height
-            tableView.reloadData()
+        if let validHeight = cellHeight[tagListView.tag],
+            abs(validHeight - height) > CGFloat(3.0) {
+            cellHeight[tagListView.tag] = height
+            tableView.setNeedsLayout()
         }
     }
     
