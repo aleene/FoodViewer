@@ -68,8 +68,8 @@ class ShowDietTriggersTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.DietTriggers, for: indexPath) as! TagListViewLabelTableViewCell
         cell.width = tableView.frame.size.width
         cell.tag = indexPath.section * 10 + indexPath.row
-        cell.datasource = self
         cell.labelText = tableData[indexPath.section].1[indexPath.row].0
+        cell.datasource = self
         return cell
         
     }

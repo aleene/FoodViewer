@@ -314,10 +314,10 @@ class SingleProductTableViewController: UITableViewController {
             
         case .diets:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.datasource = self
             cell.tagListView.alignment = .left
             cell.width = tableView.frame.size.width - 16
             cell.tag = Constants.TagValue.Row.Diets
+            cell.datasource = self
             return cell
             
         case .ingredients:

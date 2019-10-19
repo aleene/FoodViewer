@@ -354,20 +354,20 @@ class AddSearchQueryTableViewController: UITableViewController {
         case .barcodeSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Barcode, for: indexPath) as! BarcodeEditTableViewCell
             cell.barcode = search?.query?.barcode
-            // cell.datasource = self
-            cell.delegate = self
             cell.editMode = true
             cell.tag = indexPath.section
             cell.barcodeTextField.placeholder = TranslatableStrings.Barcode
+            // cell.datasource = self
+            cell.delegate = self
             return cell
 
         case .textSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
             cell.editMode = true
             cell.tag = indexPath.section
+            cell.datasource = self
+            cell.delegate = self
             return cell
             
         case .brandsSearch,
@@ -386,8 +386,6 @@ class AddSearchQueryTableViewController: UITableViewController {
              .categorySearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
             cell.editMode = true
             cell.allowInclusionEdit = true
             cell.tag = indexPath.section
@@ -424,6 +422,8 @@ class AddSearchQueryTableViewController: UITableViewController {
                  .textSearch:
                 break
             }
+            cell.datasource = self
+            cell.delegate = self
             return cell
         }
     }

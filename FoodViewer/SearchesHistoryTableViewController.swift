@@ -131,7 +131,6 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell
-            cell.delegate = self
             cell.tag = tagValue
             cell.editMode = true
             switch search.status {
@@ -143,14 +142,15 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                 cell.title = "????"
             }
             cell.accessoryType = .none
+            cell.delegate = self
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell
-            cell.delegate = self
             cell.tag = tagValue
             cell.editMode = true
             cell.title = "Create search query"
                 cell.accessoryType = .none
+            cell.delegate = self
             return cell
         }
     }

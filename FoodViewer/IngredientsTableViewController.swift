@@ -356,8 +356,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
             cell.isMultilingual =  (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false 
             cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
-
-            print("cell frame", cell.frame)
+            print(cell.frame.size.height)
             return cell
             }
 
@@ -1205,6 +1204,12 @@ extension IngredientsTableViewController: UITextViewDelegate {
         default:
             break
         }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let fixedWidth = textView.frame.size.width
+        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        textView.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
     }
     
     func textViewHeightForAttributedText(text: NSAttributedString, andWidth width: CGFloat) -> CGFloat {

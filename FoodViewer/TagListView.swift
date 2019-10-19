@@ -19,7 +19,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     
     open var datasource: TagListViewDataSource? = nil {
         didSet {
-            reloadData(clearAll:true)
+            // reloadData(clearAll:true)
         }
     }
     

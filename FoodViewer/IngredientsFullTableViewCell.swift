@@ -28,19 +28,19 @@ class IngredientsFullTableViewCell: UITableViewCell {
             static let DefaultHeight = CGFloat(44.0)
             static let Margin = CGFloat(8.0)
         }
+        struct IngredientsTextView {
+            static let DefaultHeight = CGFloat(37.0) // height for a single row of text
+        }
     }
     
-    private var oldHeight = Constant.Cell.DefaultHeight
+    private var oldTextViewHeight = Constant.IngredientsTextView.DefaultHeight
 
     @IBOutlet weak var textView: UITextView! {
         didSet {
             textView.isScrollEnabled = false
             var textViewFrame = textView.frame
-            textViewFrame.size.height = Constant.Cell.DefaultHeight - 2 * Constant.Cell.Margin
+            textViewFrame.size.height = Constant.IngredientsTextView.DefaultHeight
             textView.frame = textViewFrame
-
-            oldHeight = frame.size.height
-            
             setupTextView()
         }
     }
@@ -103,36 +103,30 @@ class IngredientsFullTableViewCell: UITableViewCell {
             } else {
                 textView?.text = nil
             }
-            //print(textView?.text, self.frame.size, textView.frame.size)
-            // let fixedWidth = self.frame.size.width - 20.0 - 32.0
-            // let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-            // textView.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-            // print(textView?.text, self.frame.size, textView.frame.size)
-            //print(self.frame.size, textView.frame.size)
         } else {
             if attributedIngredients.length > 0 {
                 textView?.attributedText = attributedIngredients
             } else {
-                print("textView before",textView?.text,textView?.attributedText.description,textView.frame.height)
+                print("textView before",textView?.text,textView?.attributedText.description, textView.frame.height)
                 textView?.attributedText = nil
                 textView?.text = Constant.NoIngredientsText
                 print("textView after",textView.frame.height)
             }
         }
-        textView?.sizeToFit()
-        let textViewHeight = textView.frame.height
-        let height = textViewHeight + 2 * Constant.Cell.Margin
+        let fixedWidth = textView.frame.size.width
+        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        textView.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+        
+        let height = newSize.height + 2 * Constant.Cell.Margin
         var newFrame = frame
         newFrame.size.height = height
         frame = newFrame
-        print("TVC Cell height before",oldHeight, frame.size.height, textViewHeight)
+        print("TextView height before ", oldTextViewHeight, "new height ", newSize.height)
         // self.frame.size.height = textView.frame.size.height
-        if abs(oldHeight - frame.size.height) > Constant.Cell.HeightChangeTrigger {
-            print("TVC Cell heights",oldHeight, frame.size.height)
-            oldHeight = frame.size.height
-            delegate?.ingredientsFullTableViewCell(self, heightChangedTo: frame.size.height)
-        }
-
+        //if abs(oldTextViewHeight - newSize.height) > Constant.Cell.HeightChangeTrigger {
+            oldTextViewHeight = newSize.height
+            delegate?.ingredientsFullTableViewCell(self, heightChangedTo: newSize.height + 2 * Constant.Cell.Margin)
+        //}
     }
     
     var editMode: Bool = false {

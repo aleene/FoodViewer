@@ -177,35 +177,35 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
                 .loading,
                 .loadingFailed:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
-                cell.datasource = self
-                cell.delegate = self
                 // encode the product number and result into the tag
                 cell.tag = indexPath.row * Constants.TagValue.Product.Multiplier + validFetchResult.rawValue
                 // cell.width = tableView.frame.size.width
                 cell.scheme = ColorSchemes.error
                 cell.accessoryType = .none
+                cell.datasource = self
+                cell.delegate = self
                 return cell
                     
             case .initialized, .productNotLoaded:
                 products.loadProductPair(at: indexPath.row)
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.datasource = self
                 cell.tag = tagValue(for: validFetchResult)
                 cell.scheme = ColorSchemes.normal
+                cell.datasource = self
                 return cell
                 
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.datasource = self
                 cell.tag = validFetchResult.rawValue + Constants.TagValue.Product.Multiplier * indexPath.row
                 cell.scheme = ColorSchemes.normal
+                cell.datasource = self
                 return cell
                 }
         } else { // No validFetchResult
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.datasource = self
             cell.tag = tagValue(for: .initialized)
             cell.scheme = ColorSchemes.normal
+            cell.datasource = self
             return cell
         }
     }

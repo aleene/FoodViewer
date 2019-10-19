@@ -86,9 +86,9 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
         }
         // This should cover all exceptions
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-        cell.datasource = self
         cell.tag = tag(for: indexPath, for: search)
         cell.scheme = ColorSchemes.normal
+        cell.datasource = self
         return cell
     }
     
