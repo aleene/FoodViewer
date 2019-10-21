@@ -720,8 +720,9 @@ class IdentificationTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 3,4,5:
+        let currentProductSection = tableStructure[indexPath.section]
+        switch currentProductSection {
+        case .brands, .packaging, .languages:
             let height = tagListViewHeight[indexPath.section] ?? Constants.CellHeight.TagListViewCell
             return height + 2 * Constants.CellMargin.ContentView
         default:
