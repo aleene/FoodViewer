@@ -355,12 +355,7 @@ class IdentificationTableViewController: UITableViewController {
         case .languages:
             if editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewButton, for: indexPath) as! TagListViewButtonTableViewCell
-                cell.width = tableView.frame.size.width
-                cell.datasource = self
-                cell.delegate = self
-                cell.editMode = editMode
-                cell.tag = indexPath.section
-                
+                cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
@@ -1259,11 +1254,11 @@ extension IdentificationTableViewController: TagListViewAddImageCellDelegate {
 //
 // MARK: - TagListViewSegmentedControlCellDelegate Functions
 //
-extension IdentificationTableViewController: TagListViewSegmentedControlCellDelegate {
-    
-    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
-    }
-}
+//extension IdentificationTableViewController: TagListViewSegmentedControlCellDelegate {
+//
+//    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
+//    }
+//}
 //
 // MARK: - TextView Delegate Functions
 //

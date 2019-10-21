@@ -66,10 +66,7 @@ class ShowDietTriggersTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.DietTriggers, for: indexPath) as! TagListViewLabelTableViewCell
-        cell.width = tableView.frame.size.width
-        cell.tag = indexPath.section * 10 + indexPath.row
-        cell.labelText = tableData[indexPath.section].1[indexPath.row].0
-        cell.datasource = self
+        cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: indexPath.section * 10 + indexPath.row, prefixLabelText: nil, scheme: nil, text: tableData[indexPath.section].1[indexPath.row].0, text2: nil)
         return cell
         
     }
@@ -80,11 +77,7 @@ class ShowDietTriggersTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //let cell = tableView.cellForRow(at: indexPath)
-        //if let cell = tableView.cellForRow(at: indexPath) as? TagListViewLabelTableViewCell {
-            return Constant.LabelHeight + (heights[indexPath] ?? Constant.TagListViewHeight) + 3 * Constant.VerticalSpacing
-        //}
-        //return Constant.TagListViewHeight + 2 * Constant.VerticalSpacing
+        return Constant.LabelHeight + (heights[indexPath] ?? Constant.TagListViewHeight) + 3 * Constant.VerticalSpacing
     }
     
     private func setupTableData() {

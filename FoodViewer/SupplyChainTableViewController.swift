@@ -903,11 +903,11 @@ extension SupplyChainTableViewController: PurchacePlaceCellDelegate {
 //
 // MARK: - TagListViewSegmentedControlCellDelegate Functions
 //
-extension SupplyChainTableViewController: TagListViewSegmentedControlCellDelegate {
-    
-    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
-    }
-}
+//extension SupplyChainTableViewController: TagListViewSegmentedControlCellDelegate {
+//
+//    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
+//    }
+//}
 
 // MARK: - UIPopoverPresentationControllerDelegate Functions
 

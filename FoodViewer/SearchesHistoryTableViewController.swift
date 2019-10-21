@@ -111,12 +111,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                     // Search labels with switches to include or exclude the label
                     //  -- tag values as tags and inclusion as labelText
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
-                    cell.datasource = self
-                    cell.tag = tagValue
-                    cell.categoryLabel.text = search.category(for:indexPath.row) ?? TranslatableStrings.NotSet
-                    cell.labelText = search.text(for:indexPath.row) ?? ""
-                    cell.width = tableView.frame.size.width
-                // cell.accessoryType = .none
+                    cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: tagValue, prefixLabelText: nil, scheme: nil, text: search.text(for:indexPath.row) ?? "", text2:search.category(for:indexPath.row) ?? TranslatableStrings.NotSet)
                     return cell
                 }
             }

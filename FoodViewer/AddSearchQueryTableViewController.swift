@@ -382,45 +382,41 @@ class AddSearchQueryTableViewController: UITableViewController {
              .countrySearch,
              .categorySearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.editMode = true
-            cell.allowInclusionEdit = true
-            cell.tag = indexPath.section
+            var inclusion = false
             switch tableStructure[indexPath.section] {
             case .brandsSearch:
-                cell.inclusion = search?.query?.brands.1 ?? true
+                inclusion = search?.query?.brands.1 ?? true
             case .languagesSearch:
-                cell.inclusion = search?.query?.languages.1 ?? true
+                inclusion = search?.query?.languages.1 ?? true
             case .packagingSearch:
-                cell.inclusion = search?.query?.packaging.1 ?? true
+                inclusion = search?.query?.packaging.1 ?? true
             case .allergensSearch:
-                cell.inclusion = search?.query?.allergens.1 ?? true
+                inclusion = search?.query?.allergens.1 ?? true
             case .tracesSearch:
-                cell.inclusion = search?.query?.traces.1 ?? true
+                inclusion = search?.query?.traces.1 ?? true
             case .labelsSearch:
-                cell.inclusion = search?.query?.labels.1 ?? true
+                inclusion = search?.query?.labels.1 ?? true
             case .additivesSearch:
-                cell.inclusion = search?.query?.additives.1 ?? true
+                inclusion = search?.query?.additives.1 ?? true
             case .ingredientOriginSearch:
-                cell.inclusion = search?.query?.origins.1 ?? true
+                inclusion = search?.query?.origins.1 ?? true
             case .producerSearch:
-                cell.inclusion = search?.query?.manufacturing_places.1 ?? true
+                inclusion = search?.query?.manufacturing_places.1 ?? true
             case .producerCodeSearch:
-                cell.inclusion = search?.query?.emb_codes.1 ?? true
+                inclusion = search?.query?.emb_codes.1 ?? true
             case .locationSearch:
-                cell.inclusion = search?.query?.purchase_places.1 ?? true
+                inclusion = search?.query?.purchase_places.1 ?? true
             case .storeSearch:
-                cell.inclusion = search?.query?.stores.1 ?? true
+                inclusion = search?.query?.stores.1 ?? true
             case .countrySearch:
-                cell.inclusion = search?.query?.countries.1 ?? true
+                inclusion = search?.query?.countries.1 ?? true
             case .categorySearch:
-                cell.inclusion = search?.query?.categories.1 ?? true
+                inclusion = search?.query?.categories.1 ?? true
             case .barcodeSearch,
                  .textSearch:
                 break
             }
-            cell.datasource = self
-            cell.delegate = self
+            cell.setup(datasource: self, delegate: self, editMode: true, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil, inclusion: inclusion, inclusionEditAllowed:true)
             return cell
         }
     }

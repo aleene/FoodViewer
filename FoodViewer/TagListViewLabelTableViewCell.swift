@@ -22,6 +22,10 @@ class TagListViewLabelTableViewCell: UITableViewCell {
     
     @IBOutlet weak var categoryLabel: UILabel!
     
+    private func setLabelText2() {
+        categoryLabel?.text = labelText
+    }
+
     private func setLabelText() {
         newLabel?.text = labelText
     }
@@ -29,8 +33,6 @@ class TagListViewLabelTableViewCell: UITableViewCell {
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView?.textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
-            tagListView?.alignment = alignment
-            tagListView?.normalColorScheme = scheme
             if #available(iOS 13.0, *) {
                 tagListView.removableColorScheme = ColorScheme(text: .secondaryLabel, background: .secondarySystemFill, border: .systemBackground)
             } else {
@@ -41,10 +43,6 @@ class TagListViewLabelTableViewCell: UITableViewCell {
             tagListView?.clearButtonIsEnabled = true
             tagListView?.frame.size.width = self.frame.size.width
             
-            tagListView?.datasource = datasource
-            tagListView?.delegate = delegate
-            tagListView?.allowsRemoval = editMode
-            tagListView?.allowsCreation = editMode
             tagListView?.tag = tag
             tagListView?.prefixLabelText = nil
             
@@ -54,62 +52,46 @@ class TagListViewLabelTableViewCell: UITableViewCell {
         }
     }
     
-    var datasource: TagListViewDataSource? = nil {
-        didSet {
-            tagListView?.datasource = datasource
+    func setup(datasource:TagListViewDataSource?, delegate:TagListViewDelegate?, editMode:Bool?, width:CGFloat?, tag:Int?, prefixLabelText:String?, scheme:ColorScheme?, text: String?, text2: String?) {
+        tagListView?.datasource = datasource
+        tagListView?.delegate = delegate
+        if let validEditMode = editMode {
+            self.tagListView?.allowsRemoval = validEditMode
+            self.tagListView?.allowsCreation = validEditMode
+
         }
+        if let validWidth = width {
+            tagListView?.frame.size.width = validWidth
+        }
+        if let validTag = tag {
+            self.tag = validTag
+            tagListView?.tag = validTag
+        }
+        tagListView?.prefixLabelText = prefixLabelText
+        if let validScheme = scheme {
+            tagListView?.normalColorScheme = validScheme
+        }
+        if let validText = text {
+            labelText = validText
+        }
+        if let validText = text2 {
+            categoryLabelText = validText
+        }
+        tagListView.reloadData(clearAll: true)
     }
     
-    var labelText: String = "" {
+    private var labelText: String = "" {
         didSet {
             setLabelText()
         }
     }
-    
-    var delegate: TagListViewDelegate? = nil {
+
+    private var categoryLabelText: String = "" {
         didSet {
-            tagListView?.delegate = delegate
+            setLabelText2()
         }
     }
-    
-    var editMode: Bool = false {
-        didSet {
-            tagListView?.allowsRemoval = editMode
-            tagListView?.allowsCreation = editMode
-        }
-    }
-    
-    var width: CGFloat = CGFloat(320.0) {
-        didSet {
-           tagListView?.frame.size.width = width
-            // tagListView?.frame.size.width = width - Constants.Margin - label.frame.size.width
-        }
-    }
-    
-    var scheme = ColorSchemes.normal {
-        didSet {
-            tagListView?.normalColorScheme = scheme
-        }
-    }
-    
-    override var tag: Int {
-        didSet {
-            tagListView?.tag = tag
-        }
-    }
-    
-    var prefixLabelText: String? = nil {
-        didSet {
-            tagListView?.prefixLabelText = prefixLabelText
-        }
-    }
-    
-    var alignment: TagListView.Alignment = .center {
-        didSet {
-            tagListView.alignment = alignment
-        }
-    }
-   
+
     func reloadData() {
         tagListView.reloadData(clearAll: true)
     }

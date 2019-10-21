@@ -78,13 +78,8 @@ class DietCompliancyTableViewController: UITableViewController {
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewLabelTableViewCell
-            cell.width = tableView.frame.size.width
-            //cell.scheme = ColorSchemes.error
-            cell.tag = indexPath.section * 10 + indexPath.row
-            cell.datasource = self
-            cell.labelText = diets.levelName(for: indexPath.section, and: matchesPerDietPerLevel[indexPath.section][indexPath.row - 1].0, in: Locale.interfaceLanguageCode) ?? "level name not set"
-            //cell.delegate = self
             cell.accessoryType = .none
+            cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: indexPath.section * 10 + indexPath.row, prefixLabelText: nil, scheme: nil, text: diets.levelName(for: indexPath.section, and: matchesPerDietPerLevel[indexPath.section][indexPath.row - 1].0, in: Locale.interfaceLanguageCode) ?? "level name not set", text2: nil)
             return cell
             
         }

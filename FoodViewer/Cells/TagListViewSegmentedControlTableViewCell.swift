@@ -32,10 +32,8 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-                //segmentedControl.setImage(UIImage.init(named: "NotOK"), forSegmentAt: Constants.SegmentedControlIndex.Excluded)
-                //segmentedControl.setImage(UIImage.init(named: "CheckMark"), forSegmentAt: Constants.SegmentedControlIndex.Included)
             segmentedControl.selectedSegmentIndex = Constants.SegmentedControlIndex.Included
-            segmentedControl.isEnabled = allowInclusionEdit && editMode
+            setupSegmentedControl()
         }
     }
     
@@ -48,7 +46,6 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
             tagListView.alignment = .center
-            tagListView.normalColorScheme = scheme
             if #available(iOS 13.0, *) {
                 tagListView.removableColorScheme = ColorScheme(text: .secondaryLabel, background: .secondarySystemFill, border: .systemBackground)
             } else {
@@ -59,10 +56,6 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
             tagListView.clearButtonIsEnabled = true
             //tagListView.frame.size.width = self.frame.size.width
                 
-            tagListView.datasource = datasource
-            setupTagListViewDelegate()
-            tagListView.allowsRemoval = editMode
-            tagListView.allowsCreation = editMode
             tagListView.tag = tag
             tagListView.prefixLabelText = nil
                 
@@ -72,30 +65,50 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
         }
     }
     
-    var inclusion: Bool = true {
-        didSet {
-            segmentedControl.selectedSegmentIndex = inclusion ? Constants.SegmentedControlIndex.Included : Constants.SegmentedControlIndex.Excluded
-        }
-    }
     
-    var allowInclusionEdit: Bool = true {
-        didSet {
-            segmentedControl.isEnabled = allowInclusionEdit && editMode
+    func setup(datasource:TagListViewDataSource?, delegate:TagListViewSegmentedControlCellDelegate?, editMode:Bool?, width:CGFloat?, tag:Int?, prefixLabelText:String?, scheme:ColorScheme?, inclusion:Bool?, inclusionEditAllowed:Bool?) {
+        tagListView?.datasource = datasource
+        tagListView?.delegate = delegate as? TagListViewDelegate
+        self.delegate = delegate
+        if let validEditMode = editMode {
+            self.tagListView?.allowsRemoval = validEditMode
+            self.tagListView?.allowsCreation = validEditMode
+            self.editMode = validEditMode
         }
+        if let validWidth = width {
+            let dus = validWidth - 2 * Constants.Margin - segmentedControl.frame.size.width
+            tagListView?.frame.size.width = dus
+        }
+        if let validTag = tag {
+            segmentedControl.tag = validTag
+            tagListView?.tag = validTag
+        }
+        tagListView?.prefixLabelText = prefixLabelText
+        if let validScheme = scheme {
+            tagListView?.normalColorScheme = validScheme
+        }
+        if let validInclusion = inclusion {
+            self.inclusion = validInclusion
+        }
+        if let validInclusionEditAllowed = inclusionEditAllowed {
+            self.inclusionEditIsAllowed = validInclusionEditAllowed
+        }
+        tagListView.reloadData(clearAll: true)
     }
 
+    private var inclusion: Bool = true {
+           didSet {
+               segmentedControl.selectedSegmentIndex = inclusion ? Constants.SegmentedControlIndex.Included : Constants.SegmentedControlIndex.Excluded
+           }
+       }
     
-    var datasource: TagListViewDataSource? = nil {
+    private var inclusionEditIsAllowed: Bool = true {
         didSet {
-            tagListView?.datasource = datasource
+            setupSegmentedControl()
         }
     }
         
-    var delegate: TagListViewSegmentedControlCellDelegate? = nil {
-        didSet {
-            setupTagListViewDelegate()
-        }
-    }
+    private var delegate: TagListViewSegmentedControlCellDelegate? = nil
     
     private func setupTagListViewDelegate() {
         if delegate is TagListViewDelegate {
@@ -105,47 +118,15 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
         }
     }
     
-    var editMode: Bool = false {
+    private var editMode: Bool = false {
         didSet {
-            tagListView?.allowsRemoval = editMode
-            tagListView?.allowsCreation = editMode
-            segmentedControl.isEnabled = allowInclusionEdit && editMode
+            setupSegmentedControl()
         }
     }
     
-    var width: CGFloat = CGFloat(320.0) {
-        didSet {
-            // for some reason the width of the tagListView is not well set by the storyboard
-            // also correct for the clear tags button
-            let dus = self.width - 2 * Constants.Margin - segmentedControl.frame.size.width
-            tagListView?.frame.size.width = dus
-            // print ("sel",self.width, segmentedControl.frame.size.width, dus)
-
-        }
+    private func setupSegmentedControl() {
+        segmentedControl.isEnabled = inclusionEditIsAllowed && editMode
     }
     
-    var scheme = ColorSchemes.normal {
-        didSet {
-            tagListView?.normalColorScheme = scheme
-        }
-    }
-        
-    override var tag: Int {
-        didSet {
-            tagListView?.tag = tag
-            segmentedControl.tag = tag
-        }
-    }
-        
-    var prefixLabelText: String? = nil {
-        didSet {
-            tagListView?.prefixLabelText = prefixLabelText
-        }
-    }
-        
-    func reloadData() {
-        tagListView.reloadData(clearAll: true)
-    }
-
 }
-    
+

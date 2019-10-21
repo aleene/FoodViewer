@@ -1113,11 +1113,11 @@ extension IngredientsTableViewController: IngredientsFullCellDelegate {
 
 // MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions
 
-extension IngredientsTableViewController: TagListViewSegmentedControlCellDelegate {
-    
-    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
-    }
-}
+//extension IngredientsTableViewController: TagListViewSegmentedControlCellDelegate {
+//
+//    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
+//    }
+//}
 
 
 // MARK: - TextView Delegate Functions
