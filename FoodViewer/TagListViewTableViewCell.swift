@@ -26,7 +26,6 @@ class TagListViewTableViewCell: UITableViewCell {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
             tagListView.alignment = .center
-            tagListView.normalColorScheme = scheme
             if #available(iOS 13.0, *) {
                 tagListView.removableColorScheme = ColorScheme(text: .secondaryLabel, background: .secondarySystemFill, border: .systemBackground)
             } else {
@@ -34,14 +33,7 @@ class TagListViewTableViewCell: UITableViewCell {
             }
             tagListView.cornerRadius = 10
             tagListView.removeButtonIsEnabled = true
-            tagListView.clearButtonIsEnabled = true
-            //tagListView.frame.size.width = self.frame.size.width
-            
-            tagListView.datasource = datasource
-            tagListView.delegate = delegate as? TagListViewDelegate
-            tagListView.allowsRemoval = editMode
-            tagListView.allowsCreation = editMode
-            tagListView.tag = tag
+            tagListView.clearButtonIsEnabled = true            
             tagListView.prefixLabelText = nil
             
             let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListViewTableViewCell.tagListViewSingleTapped))
@@ -55,54 +47,30 @@ class TagListViewTableViewCell: UITableViewCell {
         }
     }
     
-    var datasource: TagListViewDataSource? = nil {
-        didSet {
-            tagListView?.datasource = datasource
+    func setup(datasource:TagListViewDataSource?, delegate:TagListViewCellDelegate?, editMode:Bool?, width:CGFloat?, tag:Int?, prefixLabelText:String?, scheme:ColorScheme?) {
+        tagListView?.datasource = datasource
+        tagListView?.delegate = delegate as? TagListViewDelegate
+        self.delegate = delegate
+        if let validEditMode = editMode {
+            tagListView?.allowsRemoval = validEditMode
+            tagListView?.allowsCreation = validEditMode
         }
-    }
-    
-    var delegate: TagListViewCellDelegate? = nil {
-        didSet {
-            tagListView?.delegate = delegate as? TagListViewDelegate
+        if let validWidth = width {
+            tagListView?.frame.size.width = validWidth
         }
-    }
-    
-    var editMode: Bool = false {
-        didSet {
-            tagListView?.allowsRemoval = editMode
-            tagListView?.allowsCreation = editMode
+        if let validTag = tag {
+            self.tag = validTag
+            tagListView?.tag = validTag
         }
-    }
-    
-    var width: CGFloat = CGFloat(320.0) {
-        didSet {
-            tagListView?.frame.size.width = width
-            //print("TLV", tagListView.frame)
+        tagListView?.prefixLabelText = prefixLabelText
+        if let validScheme = scheme {
+            tagListView?.normalColorScheme = validScheme
         }
-    }
-    
-    var scheme = ColorSchemes.normal {
-        didSet {
-            tagListView?.normalColorScheme = scheme
-        }
-    }
-
-    override var tag: Int {
-        didSet {
-            tagListView?.tag = tag
-        }
-    }
-    
-    var prefixLabelText: String? = nil {
-        didSet {
-            tagListView?.prefixLabelText = prefixLabelText
-        }
-    }
-        
-    func reloadData() {
         tagListView.reloadData(clearAll: true)
     }
     
+    private var delegate: TagListViewCellDelegate? = nil
+
     @objc func tagListViewDoubleTapped() {
         delegate?.tagListViewTableViewCell(self, receivedDoubleTapOn: tagListView)
     }

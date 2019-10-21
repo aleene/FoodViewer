@@ -363,11 +363,8 @@ class AddSearchQueryTableViewController: UITableViewController {
 
         case .textSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.editMode = true
-            cell.tag = indexPath.section
-            cell.datasource = self
-            cell.delegate = self
+            cell.setup(datasource: self, delegate: self, editMode: true, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+
             return cell
             
         case .brandsSearch,

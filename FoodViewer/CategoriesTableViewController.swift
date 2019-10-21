@@ -23,7 +23,7 @@ class CategoriesTableViewController: UITableViewController {
     
     var delegate: ProductPageViewController? = nil {
         didSet {
-            if delegate != oldValue {
+            if delegate != oldValue && delegate != nil {
                 tableView.reloadData()
             }
         }
@@ -138,19 +138,20 @@ class CategoriesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-        cell.width = tableView.frame.size.width
-        cell.tag = indexPath.section
-        cell.editMode = editMode
+        //cell.width = tableView.frame.size.width
+        //cell.tag = indexPath.section
+        var tagListEditMode = editMode
         if let oldTags = productPair?.localProduct?.categoriesOriginal {
             switch oldTags {
             case .available:
-                cell.editMode = productVersion.isRemote ? false : true
+                tagListEditMode = productVersion.isRemote ? false : true
             default:
                 break
             }
         }
-        cell.delegate = self
-        cell.datasource = self
+        //cell.delegate = self
+        //cell.datasource = self
+        cell.setup(datasource: self, delegate: self, editMode: tagListEditMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
         return cell
     }
 
@@ -270,7 +271,10 @@ class CategoriesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         tableStructureForProduct = setupTableSections()
-        tableView.reloadData()
+        
+        if delegate != nil {
+            tableView.reloadData()
+        }
 
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name: .ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)

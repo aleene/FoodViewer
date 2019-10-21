@@ -368,18 +368,14 @@ class SupplyChainTableViewController: UITableViewController {
         switch currentProductSection {
         case .producer, .producerCode, .sites, .ingredientOrigin, .country:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.tag = indexPath.section
-            cell.delegate = self
-            cell.datasource = self
-            cell.editMode = editMode
+            var tagListViewEditMode = editMode
             if editMode {
                 switch currentProductSection {
                 case .producer:
                     if let oldTags = productPair?.localProduct?.manufacturingPlacesOriginal {
                         switch oldTags {
                         case .available:
-                            cell.editMode = !productVersion.isRemote
+                            tagListViewEditMode = !productVersion.isRemote
                         default:
                             break
                         }
@@ -388,20 +384,20 @@ class SupplyChainTableViewController: UITableViewController {
                     if let oldTags = productPair?.localProduct?.embCodesOriginal {
                         switch oldTags {
                         case .available:
-                            cell.editMode = !productVersion.isRemote
+                            tagListViewEditMode = !productVersion.isRemote
                         default:
                             break
                         }
                     }
                 case .sites:
                     if productPair?.localProduct?.links != nil {
-                        cell.editMode = !productVersion.isRemote
+                        tagListViewEditMode = !productVersion.isRemote
                     }
                 case .ingredientOrigin:
                     if let oldTags = productPair?.localProduct?.originsOriginal {
                         switch oldTags {
                         case .available:
-                            cell.editMode = !productVersion.isRemote
+                            tagListViewEditMode = !productVersion.isRemote
                         default:
                             break
                         }
@@ -410,7 +406,7 @@ class SupplyChainTableViewController: UITableViewController {
                 if let oldTags = productPair?.localProduct?.countriesOriginal {
                     switch oldTags {
                     case .available:
-                        cell.editMode = !productVersion.isRemote
+                        tagListViewEditMode = !productVersion.isRemote
                     default:
                         break
                     }
@@ -419,6 +415,7 @@ class SupplyChainTableViewController: UITableViewController {
                     break
                 }
             }
+            cell.setup(datasource: self, delegate: self, editMode: tagListViewEditMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
             
         case .store:
@@ -461,15 +458,7 @@ class SupplyChainTableViewController: UITableViewController {
         case .map:
             // This is just have some harmless code here
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.tag = indexPath.section
-            cell.delegate = self
-            cell.datasource = self
-            cell.editMode = editMode
-
-            
-            //let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MapCellIdentifier, for: indexPath) as! MapTableViewCell
-            //cell.product = product!
+            cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
             
         case .expirationDate:

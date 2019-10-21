@@ -315,9 +315,7 @@ class SingleProductTableViewController: UITableViewController {
         case .diets:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.tagListView.alignment = .left
-            cell.width = tableView.frame.size.width - 16
-            cell.tag = Constants.TagValue.Row.Diets
-            cell.datasource = self
+            cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width - 16, tag: Constants.TagValue.Row.Diets, prefixLabelText: nil, scheme: nil)
             return cell
             
         case .ingredients:

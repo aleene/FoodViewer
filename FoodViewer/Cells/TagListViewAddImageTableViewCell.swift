@@ -26,7 +26,6 @@ class TagListViewAddImageTableViewCell: UITableViewCell {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
             tagListView.alignment = .center
-            tagListView.normalColorScheme = scheme
             if #available(iOS 13.0, *) {
                 tagListView.removableColorScheme = ColorScheme(text: .secondaryLabel, background: .secondarySystemFill, border: .systemBackground)
             } else {
@@ -37,62 +36,43 @@ class TagListViewAddImageTableViewCell: UITableViewCell {
             tagListView.clearButtonIsEnabled = true
             tagListView.frame.size.width = self.frame.size.width
             
-            tagListView.datasource = datasource
             tagListView.delegate = nil
             tagListView.allowsRemoval = false
             tagListView.allowsCreation = false
             tagListView.tag = tag
             tagListView.prefixLabelText = nil
-            
-            //let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListViewTableViewCell.tagListViewTapped))
-            //tapGestureRecognizer.numberOfTapsRequired = 2
-            //tagListView.addGestureRecognizer(tapGestureRecognizer)
         }
     }
     
-    var datasource: TagListViewDataSource? = nil {
-        didSet {
-            tagListView?.datasource = datasource
+    func setup(datasource:TagListViewDataSource?, delegate:TagListViewAddImageCellDelegate?, editMode:Bool?, width:CGFloat?, tag:Int?, prefixLabelText:String?, scheme:ColorScheme?) {
+        tagListView?.datasource = datasource
+        tagListView?.delegate = delegate as? TagListViewDelegate
+        self.delegate = delegate
+        if let validEditMode = editMode {
+            self.editMode = validEditMode
         }
-    }
-    
-    var delegate: TagListViewAddImageCellDelegate? = nil {
-        didSet {
-            tagListView?.delegate = delegate as? TagListViewDelegate
+        if let validWidth = width {
+            tagListView?.frame.size.width = validWidth
         }
+        if let validTag = tag {
+            self.tag = validTag
+            tagListView?.tag = validTag
+        }
+        tagListView?.prefixLabelText = prefixLabelText
+        if let validScheme = scheme {
+            tagListView?.normalColorScheme = validScheme
+        }
+        tagListView.reloadData(clearAll: true)
     }
-    
-    var editMode: Bool = false {
+
+    private var editMode: Bool = false {
         didSet {
             takePhotoButton?.isHidden = !editMode
             selectFromCameraRollButton?.isHidden = !editMode
         }
     }
     
-    var width: CGFloat = CGFloat(320.0) {
-        didSet {
-            tagListView?.frame.size.width = width - Constants.Margin
-            // print("Cell", tagListView.frame.size.width)
-        }
-    }
-    
-    var scheme = ColorSchemes.normal {
-        didSet {
-            tagListView?.normalColorScheme = scheme
-        }
-    }
-    
-    override var tag: Int {
-        didSet {
-            tagListView?.tag = tag
-        }
-    }
-    
-    var prefixLabelText: String? = nil {
-        didSet {
-            tagListView?.prefixLabelText = prefixLabelText
-        }
-    }
+    private var delegate: TagListViewAddImageCellDelegate? = nil
     
     func reloadData() {
         tagListView.reloadData(clearAll: true)

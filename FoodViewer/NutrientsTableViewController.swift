@@ -354,23 +354,23 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             } else {
                 if adaptedNutritionFacts.isEmpty {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell
-                    cell?.tag = indexPath.section
-                    cell?.width = tableView.frame.size.width
-                    cell?.datasource = self
+
+                    var tagListViewColorScheme: ColorScheme? = nil
                     if let available = productPair?.remoteProduct?.nutritionFactsAreAvailable {
                         nutritionFactsTagTitle = available.description()
                         switch available {
                         case .perServing, .perStandardUnit, .perServingAndStandardUnit:
-                            cell?.scheme = ColorSchemes.normal
+                            tagListViewColorScheme = ColorSchemes.normal
                         case .notOnPackage:
-                            cell?.scheme = ColorSchemes.error
+                            tagListViewColorScheme = ColorSchemes.error
                         case .notIndicated, .notAvailable:
-                            cell?.scheme = ColorSchemes.error
+                            tagListViewColorScheme = ColorSchemes.error
                         }
                     } else {
                         nutritionFactsTagTitle = NutritionAvailability.notIndicated.description()
-                        cell?.scheme = ColorSchemes.error
+                        tagListViewColorScheme = ColorSchemes.error
                     }
+                    cell?.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: tagListViewColorScheme)
                     return cell!
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFact, for: indexPath) as? NutrientsTableViewCell
@@ -442,13 +442,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             } else {
                 // Show a tag with the option to set an image
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewAddImage, for: indexPath) as! TagListViewAddImageTableViewCell
-                cell.width = tableView.frame.size.width
-                cell.scheme = ColorSchemes.error
-                cell.editMode = editMode
-                cell.datasource = self
-                cell.delegate = self
-                cell.tag = indexPath.section
                 cell.accessoryType = .none
+                cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: ColorSchemes.error)
                 return cell
             }
 

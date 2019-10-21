@@ -381,8 +381,6 @@ class SingleSearchProductTableViewController: UITableViewController {
             }
             return cell
         }
-        //let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-        //return cell
     }
     
     

@@ -327,11 +327,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             switch productVersion {
             case .remoteTags, .remoteTagsHierarchy, .remoteTagsTranslated, .remoteTagsHierarchyTranslated:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.width = tableView.frame.size.width
-                cell.datasource = self
-                cell.delegate = self
-                cell.editMode = false
-                cell.tag = indexPath.section
+                cell.setup(datasource: self, delegate: self, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
                 return cell
             default:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! IngredientsFullTableViewCell
@@ -362,46 +358,17 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
         case .allergens, .additives, .minerals, .vitamins, .nucleotides, .otherNutritionalSubstances, .aminoAcids:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = false
-            cell.tag = indexPath.section
+            cell.setup(datasource: self, delegate: self, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
 
         case .traces:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            //if editMode,
-            //    let oldTags = productPair?.localProduct?.tracesOriginal {
-            //    switch oldTags {
-            //    case .available:
-            //        cell.editMode = productVersion.isRemote ? false : true
-            //    default:
-            //        break
-            //    }
-            //}
-            cell.tag = indexPath.section
+            cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
 
         case .labels:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            if let oldTags = productPair?.localProduct?.labelsOriginal {
-                switch oldTags {
-                case .available:
-                    cell.editMode = productVersion.isRemote ? false : true
-                default:
-                    break
-                }
-            }
-            cell.tag = indexPath.section
+            cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
         
         case .image:
@@ -418,14 +385,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 searchResult = TranslatableStrings.NoImageAvailable
                 // Show a tag with the option to set an image
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewAddImage, for: indexPath) as! TagListViewAddImageTableViewCell
-                cell.width = tableView.frame.size.width
-                cell.scheme = ColorSchemes.error
-                cell.editMode = editMode
-                // tag must be set before the datasource is set
-                cell.tag = indexPath.section
-                cell.datasource = self
-                cell.delegate = self
                 cell.accessoryType = .none
+                cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: ColorSchemes.error)
                 return cell
             }
         }

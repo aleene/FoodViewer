@@ -178,34 +178,25 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
                 .loadingFailed:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
                 // encode the product number and result into the tag
-                cell.tag = indexPath.row * Constants.TagValue.Product.Multiplier + validFetchResult.rawValue
-                // cell.width = tableView.frame.size.width
-                cell.scheme = ColorSchemes.error
                 cell.accessoryType = .none
-                cell.datasource = self
-                cell.delegate = self
+                cell.setup(datasource: self, delegate: self, editMode: false, width: nil, tag: indexPath.row * Constants.TagValue.Product.Multiplier + validFetchResult.rawValue, prefixLabelText: nil, scheme: ColorSchemes.error)
                 return cell
                     
             case .initialized, .productNotLoaded:
                 products.loadProductPair(at: indexPath.row)
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.tag = tagValue(for: validFetchResult)
-                cell.scheme = ColorSchemes.normal
-                cell.datasource = self
+                cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: tagValue(for: validFetchResult), prefixLabelText: nil, scheme: ColorSchemes.normal)
+
                 return cell
                 
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.tag = validFetchResult.rawValue + Constants.TagValue.Product.Multiplier * indexPath.row
-                cell.scheme = ColorSchemes.normal
-                cell.datasource = self
+                cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: validFetchResult.rawValue + Constants.TagValue.Product.Multiplier * indexPath.row, prefixLabelText: nil, scheme: ColorSchemes.normal)
                 return cell
                 }
         } else { // No validFetchResult
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.tag = tagValue(for: .initialized)
-            cell.scheme = ColorSchemes.normal
-            cell.datasource = self
+            cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: tagValue(for: .initialized), prefixLabelText: nil, scheme: ColorSchemes.normal)
             return cell
         }
     }

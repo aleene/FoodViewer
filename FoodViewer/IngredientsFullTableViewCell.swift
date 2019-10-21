@@ -107,10 +107,10 @@ class IngredientsFullTableViewCell: UITableViewCell {
             if attributedIngredients.length > 0 {
                 textView?.attributedText = attributedIngredients
             } else {
-                print("textView before",textView?.text,textView?.attributedText.description, textView.frame.height)
+                //print("textView before",textView?.text,textView?.attributedText.description, textView.frame.height)
                 textView?.attributedText = nil
                 textView?.text = Constant.NoIngredientsText
-                print("textView after",textView.frame.height)
+                //print("textView after",textView.frame.height)
             }
         }
         let fixedWidth = textView.frame.size.width

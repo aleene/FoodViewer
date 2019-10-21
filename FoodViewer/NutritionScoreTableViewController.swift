@@ -288,23 +288,15 @@ class NutritionScoreTableViewController: UITableViewController {
             
         case .nova:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
             cell.tagListView?.alignment = .left
-            cell.tag = encode(indexPath)
+            cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: encode(indexPath), prefixLabelText: nil, scheme: nil)
             return cell
         }
     }
     
     private func tagCell(at indexPath:IndexPath, with colour:ColorScheme) -> TagListViewTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-        cell.width = tableView.frame.size.width
-        cell.datasource = self
-        cell.delegate = self
-        cell.tagListView.normalColorScheme = colour
-        cell.tagListView?.alignment = .center
-        cell.tag = encode(indexPath)
+        cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: encode(indexPath), prefixLabelText: nil, scheme: nil)
         return cell
     }
     
