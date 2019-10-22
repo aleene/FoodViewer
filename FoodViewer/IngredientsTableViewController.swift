@@ -352,7 +352,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
             cell.isMultilingual =  (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false 
             cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
-            print(cell.frame.size.height)
+            // jkhfkhdprint(cell.frame.size.height)
             return cell
             }
 
@@ -1171,6 +1171,13 @@ extension IngredientsTableViewController: UITextViewDelegate {
         let fixedWidth = textView.frame.size.width
         let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
         textView.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+        let newCellHeight = newSize.height + 16.0
+        if abs(newCellHeight - (cellHeight[0] ?? 44.0)) > 2.0 {
+            cellHeight[0] = newCellHeight
+// https://stackoverflow.com/questions/9309929/i-do-not-want-animation-in-the-begin-updates-end-updates-block-for-uitableview
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
     }
     
     func textViewHeightForAttributedText(text: NSAttributedString, andWidth width: CGFloat) -> CGFloat {

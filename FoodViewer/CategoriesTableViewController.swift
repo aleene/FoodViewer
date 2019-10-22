@@ -360,7 +360,7 @@ extension CategoriesTableViewController: TagListViewDataSource {
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         if abs(tagListViewHeight - height) > CGFloat(3.0) {
             tagListViewHeight = height
-            tableView.reloadData()
+            tableView.setNeedsLayout()
         }
     }
     

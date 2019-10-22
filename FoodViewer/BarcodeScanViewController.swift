@@ -584,6 +584,7 @@ extension BarcodeScanViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+        
     }
     
 }

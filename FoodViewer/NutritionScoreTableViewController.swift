@@ -523,7 +523,7 @@ extension NutritionScoreTableViewController: TagListViewDataSource {
     }
 
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.reloadData()
+        tableView.setNeedsLayout()
     }
 
 }

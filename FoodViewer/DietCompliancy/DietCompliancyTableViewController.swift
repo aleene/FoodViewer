@@ -135,7 +135,7 @@ extension DietCompliancyTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.reloadData()
+        tableView.setNeedsLayout()
     }
     
     public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {

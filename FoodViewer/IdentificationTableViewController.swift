@@ -1409,7 +1409,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         if let cellHeight = tagListViewHeight[tagListView.tag],
             abs(cellHeight - height) > CGFloat(3.0) {
             tagListViewHeight[tagListView.tag] = height
-            tableView.reloadData()
+            tableView.setNeedsLayout()
         }
     }
 

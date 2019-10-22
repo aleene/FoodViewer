@@ -121,7 +121,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
         var newFrame = frame
         newFrame.size.height = height
         frame = newFrame
-        print("TextView height before ", oldTextViewHeight, "new height ", newSize.height)
+        //print("TextView height before ", oldTextViewHeight, "new height ", newSize.height)
         // self.frame.size.height = textView.frame.size.height
         //if abs(oldTextViewHeight - newSize.height) > Constant.Cell.HeightChangeTrigger {
             oldTextViewHeight = newSize.height

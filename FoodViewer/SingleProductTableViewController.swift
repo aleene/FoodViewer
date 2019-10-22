@@ -819,7 +819,7 @@ extension SingleProductTableViewController: TagListViewDataSource {
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         if abs(tagCellHeight - height) > CGFloat(3.0) {
             tagCellHeight = height
-            tableView.reloadData()
+            tableView.setNeedsLayout()
         }
     }
 

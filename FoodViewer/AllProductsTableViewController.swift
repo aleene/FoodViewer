@@ -481,8 +481,7 @@ extension AllProductsTableViewController: TagListViewDataSource {
 extension AllProductsTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.reloadData()
-        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
+        tableView.setNeedsLayout()
     }
     
     public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
