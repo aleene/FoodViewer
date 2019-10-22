@@ -277,6 +277,7 @@ class SingleProductTableViewController: UITableViewController {
                 }
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: Constants.TagValue.Row.Image, prefixLabelText: nil, scheme: nil)
             return cell
             
         case .ingredientsAllergensTraces:
@@ -768,7 +769,19 @@ extension SingleProductTableViewController: TagListViewDataSource {
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         if tagListView.tag == Constants.TagValue.Row.Image {
-            return ImageFetchResult.description(for: Constants.TagValue.Row.Image)
+            if let language = selectedProductPair?.primaryLanguageCode,
+                let frontImages = selectedProductPair?.remoteProduct?.frontImages ?? selectedProductPair?.localProduct?.frontImages,
+                !frontImages.isEmpty,
+                let result = frontImages[language]?.small?.fetch() {
+                switch result {
+                case .uploading:
+                    return ImageFetchResult.description(for: Constants.TagValue.Row.Image)
+                default:
+                    break
+                }
+            }
+            return TranslatableStrings.NoImageAvailable
+
         } else if tagListView.tag == Constants.TagValue.Row.Diets {
             if (selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct) != nil{
             let dietKey = SelectedDietsDefaults.manager.selected[index]
