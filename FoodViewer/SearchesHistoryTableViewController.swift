@@ -389,6 +389,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                 validSearch.isDefined {
                 searches.allSearchQueries.append(validSearch)
                 selectedSearch = validSearch
+                tableView.reloadData()
             }
         }
     }

@@ -135,7 +135,6 @@ class OFFProduct: Codable {
     var selected_images: OFFProductSelectedImages? = nil
     var server: String? = nil
         var serving_size: String? = nil
-    var sortkey: Int? = nil
     var states: String? = nil
     var states_hierarchy: [OFFProductStates]? = nil
         var states_tags: [OFFProductStates]? = nil

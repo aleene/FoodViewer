@@ -81,6 +81,13 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
                         }
                     }
                     return cell
+                } else if indexPath.row == validSearch.productPairs.count {
+                    // if there is a row beyound the number of search results, show a button
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell
+                    cell.delegate = self
+                    cell.editMode = true
+                    cell.title = TranslatableStrings.LoadMoreResults
+                    return cell
                 }
             }
         }
@@ -109,6 +116,9 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
                     selectedProductPair = validSearch.productPair(at: indexPath.row)
                     selectedSearch = validSearch
                     performSegue(withIdentifier: Storyboard.SegueIdentifier.ProductVC, sender: self)
+                } else if indexPath.row == validSearch.productPairs.count {
+                    // start loading more
+                    search?.fetchSearchProductsForNextPage()
                 }
             }
         }

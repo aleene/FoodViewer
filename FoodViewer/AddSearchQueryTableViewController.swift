@@ -1087,7 +1087,7 @@ extension AddSearchQueryTableViewController: TagListViewDelegate {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.setNeedsLayout()
+        tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {

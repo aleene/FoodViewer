@@ -284,6 +284,7 @@ class SingleSearchProductTableViewController: UITableViewController {
                 }
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: indexPath.row, prefixLabelText: nil, scheme: nil)
             return cell
         case .ingredientsAllergensTraces:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! IngredientsPageTableViewCell

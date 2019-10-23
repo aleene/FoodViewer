@@ -348,6 +348,7 @@
 		51F96668202DA44A00CD58C3 /* OFFProductIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F96667202DA44A00CD58C3 /* OFFProductIngredient.swift */; };
 		51F9666A202DA48800CD58C3 /* OFFProductImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F96669202DA48800CD58C3 /* OFFProductImage.swift */; };
 		51F9666C202DA51E00CD58C3 /* OFFProductNutriments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F9666B202DA51E00CD58C3 /* OFFProductNutriments.swift */; };
+		51FA7B802360775700FF2A4E /* ProhibitedBrands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FA7B7F2360775700FF2A4E /* ProhibitedBrands.swift */; };
 		51FB32291CF2139D00A17312 /* ReferenceDailyIntakeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */; };
 		51FB322D1CF44E8A00A17312 /* BarcodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FB322C1CF44E8A00A17312 /* BarcodeTableViewCell.swift */; };
 		51FB322F1CF7589700A17312 /* AllergenWarningsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FB322E1CF7589700A17312 /* AllergenWarningsTableViewController.swift */; };
@@ -768,6 +769,7 @@
 		51F96667202DA44A00CD58C3 /* OFFProductIngredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductIngredient.swift; sourceTree = "<group>"; };
 		51F96669202DA48800CD58C3 /* OFFProductImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductImage.swift; sourceTree = "<group>"; };
 		51F9666B202DA51E00CD58C3 /* OFFProductNutriments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductNutriments.swift; sourceTree = "<group>"; };
+		51FA7B7F2360775700FF2A4E /* ProhibitedBrands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProhibitedBrands.swift; path = Model/OFF/ProhibitedBrands.swift; sourceTree = "<group>"; };
 		51FB32261CF1F4D100A17312 /* Macadamia.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Macadamia.json; sourceTree = "<group>"; };
 		51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceDailyIntakeList.swift; sourceTree = "<group>"; };
 		51FB322C1CF44E8A00A17312 /* BarcodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeTableViewCell.swift; sourceTree = "<group>"; };
@@ -909,6 +911,7 @@
 				511459351CB1391300D25116 /* VertexNew.swift */,
 				5114592C1CB1385100D25116 /* Taxonomy.swift */,
 				514C0BE9230D770200FE9AF7 /* Diets.swift */,
+				51FA7B7F2360775700FF2A4E /* ProhibitedBrands.swift */,
 			);
 			name = Taxonomy;
 			sourceTree = "<group>";
@@ -1785,6 +1788,7 @@
 				512039EE1E5B3E9500BE62CB /* GKImageCropControllerDelegate.swift in Sources */,
 				51F669431F4B164D0074AACB /* ImagesPageTableViewCell.swift in Sources */,
 				51C2FF8A20E5081200B65509 /* NSHTTPURLResponse+Haneke.swift in Sources */,
+				51FA7B802360775700FF2A4E /* ProhibitedBrands.swift in Sources */,
 				518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */,
 				5148F0F31DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift in Sources */,
 				51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */,

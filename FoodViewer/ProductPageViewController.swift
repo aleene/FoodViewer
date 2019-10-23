@@ -11,6 +11,13 @@ import LocalAuthentication
 
 class ProductPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ProductUpdatedProtocol {
     
+    private struct Constant {
+        struct Button {
+            static let Edit = "Edit"
+            static let Save = "Checkmark"
+            static let NotEditable = "NotOK"
+        }
+    }
 // MARK: - Interface Actions
     
     @IBOutlet weak var confirmBarButtonItem: UIBarButtonItem! {
@@ -125,9 +132,27 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     var productPair: ProductPair? = nil {
         didSet {
-            //initPages()
-            confirmBarButtonItem?.isEnabled = productPair?.updateIsAllowed ?? true
-            guard let validProductPair = productPair else { return }
+            guard let validProductPair = productPair else {
+                confirmBarButtonItem?.isEnabled = false
+                return
+            }
+            if editIsProhibited {
+                confirmBarButtonItem?.isEnabled = false
+                if let image = UIImage.init(named: Constant.Button.NotEditable) {
+                    confirmBarButtonItem.image = image
+                    confirmBarButtonItem.tintColor = .systemRed
+                }
+            } else {
+                if let image = UIImage.init(named: Constant.Button.Edit) {
+                    confirmBarButtonItem.image = image
+                    if #available(iOS 13.0, *) {
+                        confirmBarButtonItem.tintColor = .link
+                    } else {
+                        confirmBarButtonItem.tintColor = .systemBlue
+                    }
+                }
+                confirmBarButtonItem?.isEnabled = productPair?.updateIsAllowed ?? true
+            }
             if oldValue == nil ||
                 validProductPair.barcodeType.asString != oldValue!.barcodeType.asString {
                 if oldValue == nil {
@@ -137,6 +162,19 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 currentLanguageCode = validProductPair.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
             }
         }
+    }
+    
+    private var editIsProhibited: Bool {
+        // This should check the brand of the current product against the prohibited brands.
+        if let validBrands = productPair?.remoteProduct?.brandsInterpreted {
+            switch validBrands {
+            case .available(let brands):
+                return ProhibitedBrands.manager.contains(brands: brands)
+            default:
+                break
+            }
+        }
+        return false
     }
     
     var currentProductPage: ProductPage = .notSet {
@@ -172,8 +210,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 Preferences.manager.editMode = editMode
             }
             // change look edit button
-            let buttonText = "CheckMark"
-            if let image = UIImage.init(named: editMode ? buttonText  : "Edit") {
+            if let image = UIImage.init(named: editMode ? Constant.Button.Save  : Constant.Button.Edit) {
                 confirmBarButtonItem.image = image
             }
         }
@@ -501,20 +538,23 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     @objc func changeConfirmButtonToSuccess() {
-        confirmBarButtonItem.tintColor = .systemGreen
-        //NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
+        confirmBarButtonItem?.tintColor = .systemGreen
 
         _ = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(ProductPageViewController.resetSaveButtonColor), userInfo: nil, repeats: false)
     }
   
     @objc func changeConfirmButtonToFailure() {
-        confirmBarButtonItem.tintColor = .systemRed
+        confirmBarButtonItem?.tintColor = .systemRed
         Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(ProductPageViewController.resetSaveButtonColor), userInfo: nil, repeats: false)
     }
     
     // function to reset the SaveButton to the default IOS color
     @objc func resetSaveButtonColor() {
-        confirmBarButtonItem.tintColor = self.view.tintColor
+        if #available(iOS 13.0, *) {
+            confirmBarButtonItem.tintColor = .link
+        } else {
+            confirmBarButtonItem.tintColor = .systemBlue
+        }
     }
     
     @objc func setPrefixedTitle(_ notification: Notification) {
@@ -761,13 +801,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // set look edit button
-        if let image = UIImage.init(named: editMode ? "CheckMark"  : "Edit") {
-            confirmBarButtonItem.image = image
-        }
-
-
+    
         /*
         //Initialize the toolbar
         let toolbar = UIToolbar()
