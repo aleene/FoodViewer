@@ -14,7 +14,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     private struct Constant {
         struct Button {
             static let Edit = "Edit"
-            static let Save = "Checkmark"
+            static let Save = "CheckMark"
             static let NotEditable = "NotOK"
         }
     }
@@ -22,12 +22,20 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     @IBOutlet weak var confirmBarButtonItem: UIBarButtonItem! {
         didSet {
-            confirmBarButtonItem.isEnabled = productPair?.updateIsAllowed ?? true
+            setupEditButton()
+        }
+    }
+    
+    @IBOutlet weak var actionButton: UIBarButtonItem! {
+        didSet {
+            actionButton.isEnabled = productPair == nil ? false : true
         }
     }
     
     @IBAction func actionButtonTapped(_ sender: UIBarButtonItem) {
             
+        guard productPair != nil else { return }
+        
         var sharingItems = [AnyObject]()
             
         if let text = productPair?.name {
@@ -129,30 +137,29 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 //
 // MARK: - Public variables and functions
 //
+    private enum SourcePage {
+        case singleProductTableViewController
+    }
+    
+    private var originPage: SourcePage? = nil
+    
+    var sourcePage: Any? = nil {
+        didSet {
+            guard let validSourcePage = sourcePage else { return }
+            if validSourcePage is SingleProductTableViewController {
+                originPage = .singleProductTableViewController
+            }
+        }
+    }
     
     var productPair: ProductPair? = nil {
         didSet {
+            setupEditButton()
             guard let validProductPair = productPair else {
-                confirmBarButtonItem?.isEnabled = false
+                actionButton?.isEnabled = false
                 return
             }
-            if editIsProhibited {
-                confirmBarButtonItem?.isEnabled = false
-                if let image = UIImage.init(named: Constant.Button.NotEditable) {
-                    confirmBarButtonItem.image = image
-                    confirmBarButtonItem.tintColor = .systemRed
-                }
-            } else {
-                if let image = UIImage.init(named: Constant.Button.Edit) {
-                    confirmBarButtonItem.image = image
-                    if #available(iOS 13.0, *) {
-                        confirmBarButtonItem.tintColor = .link
-                    } else {
-                        confirmBarButtonItem.tintColor = .systemBlue
-                    }
-                }
-                confirmBarButtonItem?.isEnabled = productPair?.updateIsAllowed ?? true
-            }
+            actionButton?.isEnabled = true
             if oldValue == nil ||
                 validProductPair.barcodeType.asString != oldValue!.barcodeType.asString {
                 if oldValue == nil {
@@ -164,6 +171,38 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
+    private func setupEditButton() {
+        guard let validProductPair = productPair else {
+            confirmBarButtonItem?.isEnabled = false
+            return
+        }
+        confirmBarButtonItem.isEnabled = validProductPair.updateIsAllowed
+        
+        if editIsProhibited {
+            confirmBarButtonItem?.isEnabled = false
+            if let image = UIImage.init(named: Constant.Button.NotEditable) {
+                confirmBarButtonItem.image = image
+                confirmBarButtonItem.tintColor = .systemRed
+            }
+        } else {
+            // change look edit button
+            if editMode {
+                if let image = UIImage.init(named: Constant.Button.Save) {
+                    confirmBarButtonItem.image = image
+                }
+            } else {
+            if let image = UIImage.init(named: Constant.Button.Edit) {
+                confirmBarButtonItem.image = image
+                }
+            }
+               // if #available(iOS 13.0, *) {
+             //       confirmBarButtonItem.tintColor = .link
+             //   } else {
+              //      confirmBarButtonItem.tintColor = .systemBlue
+             //   }
+        }
+
+    }
     private var editIsProhibited: Bool {
         // This should check the brand of the current product against the prohibited brands.
         if let validBrands = productPair?.remoteProduct?.brandsInterpreted {
@@ -206,18 +245,15 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     public var editMode: Bool = Preferences.manager.editMode {
         didSet {
             if editMode != oldValue {
+                setupEditButton()
                 refreshPageInterface()
                 Preferences.manager.editMode = editMode
-            }
-            // change look edit button
-            if let image = UIImage.init(named: editMode ? Constant.Button.Save  : Constant.Button.Edit) {
-                confirmBarButtonItem.image = image
             }
         }
     }
     
     private func refreshPageInterface() {
-        title = prefixedTitle
+        setTitle()
         if let vc = viewController(for: currentProductPage) as? IdentificationTableViewController {
             vc.refreshProduct()
             
@@ -426,13 +462,31 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
         return temp
     }
-
-    private var prefixedTitle: String {
+    
+    private func setTitle() {
         switch currentProductPage {
         case .notSet:
-            return currentProductPage.description
+                 if let vc = self.parent as? UINavigationController {
+                     if let vc2 = vc.parent as? UISplitViewController {
+                         let vc2s = vc2.viewControllers
+                         if vc2s.count > 1 {
+                             if let vc3 = vc2s[0] as? UINavigationController {
+                                 let vc3s = vc3.viewControllers
+                                 if vc3s.count > 0 {
+                                     if vc3s[0] is AllProductsTableViewController {
+                                         title = "All History Products"
+                                     } else if vc3s[0] is SearchesHistoryTableViewController {
+                                         title = "All Search Queries"
+                                     } else if vc3s[0] is SearchResultsTableViewController {
+                                         title = "All Search Products"
+                                     }
+                                 }
+                             }
+                         }
+                     }
+                 }
         default:
-            return currentProductPage.description + " " + prefix
+            title = currentProductPage.description + " " + prefix
         }
     }
     
@@ -516,7 +570,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
         
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        self.title = prefixedTitle
+        setTitle()
     }
     
     // MARK: - Notification Functions
@@ -562,12 +616,16 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let barcodeString = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
             if let validBarcodeString = productPair?.barcodeType.asString {
                 if barcodeString == validBarcodeString {
-                    title = prefixedTitle
+                    setTitle()
                 }
             }
         }
     }
-        
+    
+    @objc func changeTitle(_ notification: Notification) {
+        setTitle()
+    }
+
 //
 // MARK: - Authentication
 //
@@ -796,12 +854,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         initPages()
         dataSource = self
         delegate = self
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
+        
+        setTitle()
+
         /*
         //Initialize the toolbar
         let toolbar = UIToolbar()
@@ -836,14 +895,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         //Add the toolbar as a subview to the navigation controller.
         self.navigationController?.view.addSubview(toolbar)
 */
-        title = prefixedTitle
-
         // listen if a product is set outside of the MasterViewController
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToFailure), name:.ProductUpdateFailed, object:nil)
-        //NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.searchStarted), name:.SearchStarted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.setPrefixedTitle(_:)), name:.ProductPairUpdated, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeTitle(_:)), name:.SearchLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.alertUser(_:)), name:.ProductLoadingError, object:nil)
     }
     

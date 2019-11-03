@@ -103,8 +103,6 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
         guard products.count > 0 else { return }
         tableView.reloadData()
     }
-
-    // var productPageViewController: ProductPageViewController? = nil
     
     // Function to set the title of this viewController
     // It is important to set the title at the right moment in the lifecycle

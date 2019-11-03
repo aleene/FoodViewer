@@ -38,9 +38,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     fileprivate func startInterface(at index:Int) {
         setTitle()
     }
-    
-    // var productPageViewController: ProductPageViewController? = nil
-    
+        
     // Function to set the title of this viewController
     // It is important to set the title at the right moment in the lifecycle
     // Just after reloading the data seems to be the best moment.
@@ -111,7 +109,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                     // Search labels with switches to include or exclude the label
                     //  -- tag values as tags and inclusion as labelText
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
-                    cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: tagValue, prefixLabelText: nil, scheme: nil, text: search.text(for:indexPath.row) ?? "", text2:search.category(for:indexPath.row) ?? TranslatableStrings.NotSet)
+                    cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: tagValue, prefixLabelText: nil, scheme: nil, text: search.category(for:indexPath.row) ?? "", text2:search.text(for:indexPath.row) ?? TranslatableStrings.NotSet)
                     return cell
                 }
             }
@@ -162,7 +160,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                     } else if indexPath.row == validSearch.componentsCount {
                         performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectSortOrder, sender: self)
                     } else if indexPath.row == validSearch.componentsCount + 1 {
-                    performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSearchResults, sender: self)
+                        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSearchResults, sender: self)
                     }
                 } else if
                     // the penultimate row
@@ -361,7 +359,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                 }
             case Storyboard.SegueIdentifier.AddSearch:
                 if let vc = segue.destination as? AddSearchQueryTableViewController {
-                    vc.search = selectedSearch
+                    vc.search = nil
                 }
 
             default: break

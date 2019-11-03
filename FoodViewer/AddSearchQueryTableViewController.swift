@@ -281,6 +281,8 @@ class AddSearchQueryTableViewController: UITableViewController {
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
     }
+    
+    private var cellHeights: [Int:CGFloat] = [:]
 
     fileprivate func setupSections() -> [SectionType] {
         // The returnValue is an array with sections
@@ -288,38 +290,86 @@ class AddSearchQueryTableViewController: UITableViewController {
         //
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
-         sectionsAndRows.append(.barcodeSearch(TableSection.Size.Barcode, TableSection.Header.Barcode))
-         sectionsAndRows.append(.textSearch(TableSection.Size.Name, TableSection.Header.Name))
-         sectionsAndRows.append(.languagesSearch(TableSection.Size.Languages, TableSection.Header.Languages))
+        var row = 0
+        sectionsAndRows.append(.barcodeSearch(TableSection.Size.Barcode, TableSection.Header.Barcode))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+        
+        sectionsAndRows.append(.textSearch(TableSection.Size.Name, TableSection.Header.Name))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+
+        sectionsAndRows.append(.languagesSearch(TableSection.Size.Languages, TableSection.Header.Languages))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+
          sectionsAndRows.append(.brandsSearch(TableSection.Size.Brands, TableSection.Header.Brands))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+
          sectionsAndRows.append(.packagingSearch(TableSection.Size.Packaging, TableSection.Header.Packaging))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+
         //sectionsAndRows.append(.ingredientsSearch(TableSection.Size.Ingredients, TableSection.Header.Ingredients))
         // not needed for .petFood, .product and .beauty
         switch currentProductType {
         case .food:
             // 1:  allergens section
             sectionsAndRows.append(.allergensSearch(TableSection.Size.Allergens, TableSection.Header.Allergens))
+            cellHeights[row] = Constants.Cell.DefaultHeight
+            row += 1
+
             // 2: traces section
             sectionsAndRows.append(.tracesSearch(TableSection.Size.Traces, TableSection.Header.Traces))
+            cellHeights[row] = Constants.Cell.DefaultHeight
+            row += 1
+            
         default :
             break
         }
         sectionsAndRows.append(.additivesSearch(TableSection.Size.Additives, TableSection.Header.Additives))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+
         sectionsAndRows.append(.labelsSearch(TableSection.Size.Labels, TableSection.Header.Labels))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+
         // ingredient origin section
         //sectionsAndRows.append((
         sectionsAndRows.append(.ingredientOriginSearch(TableSection.Size.IngredientOrigin, TableSection.Header.IngredientOrigin))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+
         // producer section
         sectionsAndRows.append(.producerSearch(TableSection.Size.Producer, TableSection.Header.Producer))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+
         // producer codes section
         sectionsAndRows.append(.producerCodeSearch(TableSection.Size.ProducerCode, TableSection.Header.ProducerCode))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+
         // stores section
         sectionsAndRows.append(.storeSearch(TableSection.Size.Stores, TableSection.Header.Stores))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+
         // purchase Location section
         sectionsAndRows.append(.locationSearch(TableSection.Size.Location, TableSection.Header.Location))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+
         // countries section
         sectionsAndRows.append(.countrySearch(TableSection.Size.Countries, TableSection.Header.Countries))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
+
         sectionsAndRows.append(.categorySearch(TableSection.Size.Categories, TableSection.Header.Categories))
+        cellHeights[row] = Constants.Cell.DefaultHeight
+        row += 1
 
         return sectionsAndRows
     }
@@ -344,6 +394,10 @@ class AddSearchQueryTableViewController: UITableViewController {
     }
 
     fileprivate struct Constants {
+        struct Cell {
+            static let DefaultHeight = CGFloat(44.0)
+            static let HeightChangeTrigger = CGFloat(3.0)
+        }
         static let CellContentViewMargin = CGFloat(8)
         static let CellContentViewMarginSegmentedControl = CGFloat(100)
     }
@@ -426,7 +480,7 @@ class AddSearchQueryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return cellHeights[indexPath.section] ?? Constants.Cell.DefaultHeight
     }
     
     override func viewDidLoad() {
@@ -437,10 +491,7 @@ class AddSearchQueryTableViewController: UITableViewController {
         }
         tableStructure = setupSections()
         title = "Define Search"
-        self.tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = true
-        tableView.rowHeight = UITableView.automaticDimension
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -1087,7 +1138,10 @@ extension AddSearchQueryTableViewController: TagListViewDelegate {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.reloadData()
+        if abs(height - (cellHeights[tagListView.tag] ?? Constants.Cell.DefaultHeight)) > Constants.Cell.HeightChangeTrigger {
+            cellHeights[tagListView.tag] = height
+            tableView.setNeedsDisplay()
+        }
     }
     
     public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {

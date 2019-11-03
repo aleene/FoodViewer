@@ -23,7 +23,7 @@ class TagListViewLabelTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryLabel: UILabel!
     
     private func setLabelText2() {
-        categoryLabel?.text = labelText
+        categoryLabel?.text = categoryLabelText
     }
 
     private func setLabelText() {

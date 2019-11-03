@@ -39,11 +39,12 @@ class Search {
             return .uninitialized
         } else {
             if componentsCount > 0 {
-                if productPairs.count > 0 {
-                    return loadStatus
-                } else {
-                    return .notLoaded
-                }
+                return loadStatus
+                //if productPairs.count > 0 {
+                //    return loadStatus
+                //} else {
+                //    return .notLoaded
+                //}
             } else {
                 return .initialized
             }

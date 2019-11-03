@@ -1034,7 +1034,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
  */
  
-        if oldHeight < newFrame.height {
+        if abs (oldHeight - newFrame.height) > 0.1 {
             frame = newFrame
             // print("new",frame.height)
             datasource?.tagListView(self, didChange: frame.height)
