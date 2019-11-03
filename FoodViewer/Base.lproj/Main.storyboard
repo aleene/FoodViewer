@@ -21,7 +21,6 @@
                         <subviews>
                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="PDX-Vz-ruS">
                                 <rect key="frame" x="0.0" y="56" width="414" height="660"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </pickerView>
                             <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="2Ii-RI-BND">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -32,6 +31,7 @@
                                 </items>
                             </navigationBar>
                         </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="PDX-Vz-ruS" firstAttribute="leading" secondItem="0hk-6M-W3a" secondAttribute="leading" id="2Wr-HX-Yvf"/>
                             <constraint firstItem="eHS-nQ-Fdi" firstAttribute="top" secondItem="PDX-Vz-ruS" secondAttribute="bottom" id="CFa-wE-QNs"/>
@@ -322,7 +322,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMd-e0-4ke" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1236" y="-1246"/>
+            <point key="canvasLocation" x="-1468" y="-1277"/>
         </scene>
         <!--Show Diet Triggers Table View Controller-->
         <scene sceneID="HhH-zp-Ppf">
@@ -373,7 +373,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="83u-x1-eax" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1236.231884057971" y="-536.41304347826087"/>
+            <point key="canvasLocation" x="-1468" y="-536"/>
         </scene>
         <!--Not Set Page View Controller-->
         <scene sceneID="jKm-PS-kei">
@@ -759,6 +759,7 @@
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HpT-nA-5RE">
                                             <rect key="frame" x="373" y="43.666666666666664" width="25" height="1"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="3BC-0d-hGI"/>
                                                 <constraint firstAttribute="width" constant="25" id="nge-5a-HDw"/>
@@ -3556,7 +3557,7 @@
                                                 <constraint firstAttribute="width" constant="25" id="AfY-vz-gtw"/>
                                                 <constraint firstAttribute="width" secondItem="6OB-LJ-Hmd" secondAttribute="height" multiplier="1:1" id="FZf-9g-fIe"/>
                                             </constraints>
-                                            <state key="normal" image="ClearBlue"/>
+                                            <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="buttonTapped:" destination="ze3-ij-q0C" eventType="touchUpInside" id="w9I-Xj-AVp"/>
                                             </connections>
@@ -4007,6 +4008,7 @@
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uJ5-V0-vsV">
                                             <rect key="frame" x="279" y="43.666666666666664" width="25" height="1"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="25" id="0EY-8O-A3x"/>
                                                 <constraint firstAttribute="height" constant="1" id="dHL-CV-4fy"/>
@@ -4074,7 +4076,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jrg-Ju-tn5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="119" y="4670"/>
+            <point key="canvasLocation" x="117" y="4668"/>
         </scene>
         <!--Single Search Product Table View Controller-->
         <scene sceneID="blz-V6-sTt">
@@ -4755,7 +4757,7 @@
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fks-yA-Tbr">
                                             <rect key="frame" x="373" y="43.666666666666664" width="25" height="1"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="25" id="7Nv-k7-TRR"/>
                                                 <constraint firstAttribute="height" constant="1" id="Co4-oH-Sb7"/>
@@ -4952,9 +4954,11 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="PnH-HO-Mzj" secondAttribute="trailing" id="3j5-dQ-com"/>
                                     <constraint firstItem="PnH-HO-Mzj" firstAttribute="leading" secondItem="KL0-pq-7Ws" secondAttribute="leading" id="bgC-7q-hjc"/>
@@ -4966,6 +4970,7 @@
                                 </connections>
                             </scrollView>
                         </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="KL0-pq-7Ws" firstAttribute="leading" secondItem="uFx-FY-aLO" secondAttribute="leading" id="1m1-Aj-sNk"/>
                             <constraint firstItem="KL0-pq-7Ws" firstAttribute="top" secondItem="uFx-FY-aLO" secondAttribute="top" id="Cex-l4-a12"/>
@@ -6040,7 +6045,7 @@
                                         </textView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4Z-mc-9Ph">
                                             <rect key="frame" x="348" y="-17" width="50" height="50.333333333333336"/>
-                                            <state key="normal" image="ClearGrey"/>
+                                            <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="clearTextViewButtonTapped:" destination="5y9-Bc-FlV" eventType="touchUpInside" id="9lq-Ic-N4N"/>
                                             </connections>
@@ -6109,7 +6114,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FZj-4h-Gl8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="2sv-rD-vU7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-71.014492753623188" y="3654.6195652173915"/>
+            <point key="canvasLocation" x="100" y="3655"/>
         </scene>
         <!--Set Sort Order View Controller-->
         <scene sceneID="h5T-Tt-jEV">
@@ -6160,7 +6165,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5z5-eh-uLy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="xjd-YS-Sel" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="732" y="3656"/>
+            <point key="canvasLocation" x="1029" y="3655"/>
         </scene>
         <!--Select Language And Image Type View Controller-->
         <scene sceneID="N9V-q1-oQM">
@@ -6270,7 +6275,6 @@
         <image name="CameraRoll" width="25" height="25"/>
         <image name="CheckMark" width="25" height="25"/>
         <image name="Clear" width="25" height="25"/>
-        <image name="ClearBlue" width="25" height="25"/>
         <image name="ClearGrey" width="25" height="25"/>
         <image name="Edit" width="25" height="25"/>
         <image name="Heart" width="25" height="25"/>
@@ -6279,7 +6283,7 @@
         <image name="User" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NIk-rX-rWX"/>
-        <segue reference="TJD-zt-Jpp"/>
+        <segue reference="LXh-Zn-OsY"/>
+        <segue reference="Jg3-Zr-U6z"/>
     </inferredMetricsTieBreakers>
 </document>
