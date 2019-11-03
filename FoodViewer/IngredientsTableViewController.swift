@@ -300,6 +300,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate struct Constants {
         struct CellHeight {
             static let TagListViewCell = CGFloat(27.0)
+            static let TagListViewAddImageCell = 2 * CGFloat(25.0) + CGFloat(8.0)
         }
         struct CellMargin {
             static let ContentView = CGFloat(11.0)
@@ -448,7 +449,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch tableStructure[indexPath.section] {
         case .image:
-            return UITableView.automaticDimension
+            if imageToShow != nil {
+                // The height is determined by the image
+                return UITableView.automaticDimension
+            } else {
+                // the height is determined by the buttons
+                let height = Constants.CellHeight.TagListViewAddImageCell
+                return height + 2 * Constants.CellMargin.ContentView
+            }
         case .ingredients:
             return cellHeight[0] ?? 44.0
         default:

@@ -622,6 +622,33 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
     }
     
+    fileprivate struct Constants {
+        struct CellHeight {
+            //static let TagListViewCell = CGFloat(27.0)
+            static let TagListViewAddImageCell = 2 * CGFloat(25.0) + CGFloat(8.0)
+        }
+        struct CellMargin {
+            static let ContentView = CGFloat(11.0)
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch tableStructure[indexPath.section] {
+        case .image:
+            if currentImage != nil {
+                // The height is determined by the image
+                return UITableView.automaticDimension
+            } else {
+                // the height is determined by the buttons
+                let height = Constants.CellHeight.TagListViewAddImageCell
+                return height + 2 * Constants.CellMargin.ContentView
+            }
+        default:
+            return UITableView.automaticDimension
+        }
+
+    }
+    
     private func setSupport(on view:UIView, forDoubleTap support:Bool) {
         // Add doubletapping to the TableView. Any double tap on headers is now received,
         // and used for changing the productVersion (local and remote)

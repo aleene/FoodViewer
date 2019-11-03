@@ -525,7 +525,7 @@
                                                 <constraint firstAttribute="height" constant="20" id="JF8-xn-29O"/>
                                                 <constraint firstAttribute="width" constant="20" id="wBt-hq-UyN"/>
                                             </constraints>
-                                            <state key="normal" image="ClearGrey"/>
+                                            <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="clearTextViewButtonTapped:" destination="cxD-3X-5h8" eventType="touchUpInside" id="u3L-xf-XA2"/>
                                             </connections>
@@ -6125,7 +6125,6 @@
                         <subviews>
                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="3TJ-87-VCD">
                                 <rect key="frame" x="0.0" y="56" width="414" height="660"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                             </pickerView>
                             <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="rLE-Ku-nsT">

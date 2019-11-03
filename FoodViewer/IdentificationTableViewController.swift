@@ -554,6 +554,8 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate struct Constants {
         struct CellHeight {
             static let TagListViewCell = CGFloat(27.0)
+            // This is the cell with two buttons on the right, which allow the user to add an image.
+            static let TagListViewAddImageCell = CGFloat(25.0) + CGFloat(8.0) + CGFloat(25.0)
         }
         struct CellMargin {
             static let ContentView = CGFloat(11.0)
@@ -725,6 +727,15 @@ class IdentificationTableViewController: UITableViewController {
         case .brands, .packaging, .languages:
             let height = tagListViewHeight[indexPath.section] ?? Constants.CellHeight.TagListViewCell
             return height + 2 * Constants.CellMargin.ContentView
+        case .image:
+            if currentImage.0 != nil {
+                // The height is determined by the image
+                return UITableView.automaticDimension
+            } else {
+                // the height is determnined by the buttons
+                let height = Constants.CellHeight.TagListViewAddImageCell
+                return height + 2 * Constants.CellMargin.ContentView
+            }
         default:
             return UITableView.automaticDimension
         }
