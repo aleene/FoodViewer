@@ -695,7 +695,7 @@
 "Not set" = "Niet ingevuld";
 
 /* Text above the nova value. */
-"NOVA" = "\nNOVA";
+"NOVA" = "NOVA";
 
 /* Title of a table section, which shows the nova evaluation tags for ingredients, additives and categories. */
 "Nova Evaluation Triggers" = "NOVA evaluatie triggers";

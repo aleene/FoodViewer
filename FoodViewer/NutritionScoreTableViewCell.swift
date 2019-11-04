@@ -19,7 +19,7 @@ class NutritionScoreTableViewCell: UITableViewCell {
     @IBOutlet weak var novaTitleLabel: UILabel! {
         didSet {
             novaTitleLabel.text = TranslatableStrings.Nova
-            setup()
+            novaTitleLabel.textColor = .gray
         }
     }
     
@@ -133,8 +133,8 @@ class NutritionScoreTableViewCell: UITableViewCell {
         
         if let nova = product?.novaGroup {
             switch nova {
-            case "1":
-                novaValueLabel?.text = nova
+            case "1", "1.0":
+                novaValueLabel?.text = "1"
                 novaValueLabel?.textColor = .white
                 novaValueLabel?.backgroundColor = .systemGreen
             case "2":
