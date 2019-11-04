@@ -122,17 +122,7 @@ class SingleProductTableViewController: UITableViewController {
     // Just after reloading the data seems to be the best moment.
     
     fileprivate func setTitle() {
-        switch currentProductType {
-        case .food:
-            title = TranslatableStrings.FoodProducts
-        case .petFood:
-            title = TranslatableStrings.PetFoodProducts
-        case .beauty:
-            title = TranslatableStrings.BeautyProducts
-        case .product:
-            title = TranslatableStrings.SearchProducts
-        }
-        guard title != nil else { return }
+        title = selectedProductPair?.name ?? TranslatableStrings.NoName
     }
     
     // MARK: - Table view methods and vars
@@ -559,6 +549,7 @@ class SingleProductTableViewController: UITableViewController {
                         }
                     }
                 }
+                setTitle()
                 let visibleIndexPaths = self.tableView.indexPathsForVisibleRows
                 let indexPathForProductPair = IndexPath(row: 0, section: index)
                 if let validVisibleIndexPaths = visibleIndexPaths,
@@ -662,9 +653,7 @@ class SingleProductTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let validName = selectedProductPair?.name {
-            title = validName
-        }
+        setTitle()
         refreshInterface()
     }
     
