@@ -622,18 +622,6 @@ class SingleProductTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 80.0
         tableView.allowsSelection = true
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        // add the back button
-        if let rightNavController = splitViewController?.viewControllers.last as? UINavigationController,
-            let detailViewController = rightNavController.topViewController as? UIPageViewController {
-                detailViewController.navigationItem.leftItemsSupplementBackButton = true
-                detailViewController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-        }
-        
         // Is there a scanned product?
         if let validSelectedProductIndex = products.currentScannedProduct {
             startInterface(at: validSelectedProductIndex)
@@ -648,6 +636,19 @@ class SingleProductTableViewController: UITableViewController {
         }
         
         showProductPage()
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // add the back button
+        if let rightNavController = splitViewController?.viewControllers.last as? UINavigationController,
+            let detailViewController = rightNavController.topViewController as? UIPageViewController {
+                detailViewController.navigationItem.leftItemsSupplementBackButton = true
+                detailViewController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        }
+        
         
         // Notifications coming from ProductPair,
         // which indicate that something in the productPair has changed

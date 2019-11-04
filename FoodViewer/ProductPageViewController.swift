@@ -160,8 +160,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 return
             }
             actionButton?.isEnabled = true
+            // Has the productPair changed?
             if oldValue == nil ||
                 validProductPair.barcodeType.asString != oldValue!.barcodeType.asString {
+                currentProductPage = .identification
                 if oldValue == nil {
                     initPages()
                 }
@@ -730,6 +732,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     @IBAction func unwindConfirmProductForDone(_ segue:UIStoryboardSegue) {
+        
     }
     
     @IBAction func unwindExtendLanguagesForDone(_ segue:UIStoryboardSegue) {
