@@ -196,10 +196,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     func enter() {
         view.endEditing(true)
         if let validBarcode = activeTextField.text,
-            !validBarcode.isEmpty,
-            validBarcode.count == 8 ||
-            validBarcode.count == 13 ||
-            validBarcode.count == 10 {
+            !validBarcode.isEmpty {
             self.scannedProductPair = self.products.createProductPair(with:BarcodeType(barcodeString:validBarcode, type: preferences.showProductType))
             showProductData()
         }
@@ -234,7 +231,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                     validBarcode != self.currentBarcode {
                     self.currentBarcode = validBarcode
                     self.scannedProductPair = self.products.createProductPair(with:BarcodeType(typeCode: barcode.type.rawValue, value:validBarcode, type: self.preferences.showProductType))
-                    print("Barcode found: type= " +  barcode.type.rawValue + " value=" + self.currentBarcode)
+                    //print("Barcode found: type= " +  barcode.type.rawValue + " value=" + self.currentBarcode)
                     // create this barcode in the history and launch te fetch
                     DispatchQueue.main.async(execute: {
                         if let continuousScanIsSet = ContinuousScanDefaults.manager.allowContinuousScan,
