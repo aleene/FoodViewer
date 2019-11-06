@@ -67,13 +67,17 @@ class QuantityTableViewCell: UITableViewCell {
     
     private func setTextFieldStyle() {
         if editMode {
-            textField.backgroundColor = UIColor.groupTableViewBackground
             textField.layer.cornerRadius = 5
             if #available(iOS 13.0, *) {
-                textField.layer.borderColor = UIColor.secondarySystemFill.cgColor
+                textField.backgroundColor = .secondarySystemBackground
+                textField.textColor = .secondaryLabel
+                textField.layer.borderColor = UIColor.darkGray.cgColor
             } else {
-                textField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+                textField.layer.borderColor = UIColor.darkGray.cgColor
+                textField.textColor = .black
+                textField.backgroundColor = UIColor.groupTableViewBackground
             }
+            textField.layer.borderColor = UIColor.darkGray.cgColor
             textField.clipsToBounds = true
             
         } else {
@@ -81,9 +85,11 @@ class QuantityTableViewCell: UITableViewCell {
             if #available(iOS 13.0, *) {
                 textField.backgroundColor = .systemBackground
                 textField.layer.borderColor = UIColor.systemBackground.cgColor
+                textField.textColor = .label
             } else {
-                textField.backgroundColor = .clear
-                textField.layer.borderColor = UIColor.clear.cgColor
+                textField.backgroundColor = .white
+                textField.layer.borderColor = UIColor.white.cgColor
+                textField.textColor = .black
             }
         }
     }

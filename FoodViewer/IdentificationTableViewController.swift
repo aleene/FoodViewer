@@ -1285,11 +1285,11 @@ extension IdentificationTableViewController: UITextViewDelegate {
         if textView.text == TranslatableStrings.PlaceholderProductName ||
             textView.text == TranslatableStrings.PlaceholderGenericProductName {
             textView.text = ""
-            if #available(iOS 13.0, *) {
-                textView.textColor = .tertiaryLabel
-            } else {
-                textView.textColor = .lightGray
-            }
+        }
+        if #available(iOS 13.0, *) {
+            textView.textColor = .label
+        } else {
+            textView.textColor = .black
         }
     }
     
@@ -1577,6 +1577,14 @@ extension IdentificationTableViewController: TagListViewDelegate {
 //
 extension IdentificationTableViewController: UITextFieldDelegate {
 
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if #available(iOS 13.0, *) {
+            textField.textColor = .label
+        } else {
+            textField.textColor = .black
+        }
+    }
+    
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.isFirstResponder { textField.resignFirstResponder() }
         return true
@@ -1593,6 +1601,12 @@ extension IdentificationTableViewController: UITextFieldDelegate {
         default:
             return
         }
+        if #available(iOS 13.0, *) {
+            textField.textColor = .secondaryLabel
+        } else {
+            textField.textColor = .black
+        }
+
         tableView.reloadData()
     }
     

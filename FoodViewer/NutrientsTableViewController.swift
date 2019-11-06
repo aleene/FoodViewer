@@ -1595,6 +1595,14 @@ extension NutrientsTableViewController: SearchNutrientsCellDelegate {
 
 extension NutrientsTableViewController: UITextFieldDelegate {
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if #available(iOS 13.0, *) {
+            textField.textColor = .label
+        } else {
+            textField.textColor = .darkGray
+        }
+    }
+    
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.isFirstResponder { textField.resignFirstResponder() }
         return true
@@ -1672,6 +1680,11 @@ extension NutrientsTableViewController: UITextFieldDelegate {
             }
         default:
             break
+        }
+        if #available(iOS 13.0, *) {
+            textField.textColor = .secondaryLabel
+        } else {
+            textField.textColor = .black
         }
         tableView.reloadData()
     }

@@ -79,12 +79,12 @@ class IngredientsFullTableViewCell: UITableViewCell {
         
         if #available(iOS 13.0, *) {
             textView.backgroundColor = editMode ? .secondarySystemBackground : .systemBackground
-            textView?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.systemBackground.cgColor
+            textView?.layer.borderColor = editMode ? UIColor.darkGray.cgColor : UIColor.systemBackground.cgColor
             textView.textColor = editMode ? .secondaryLabel : .label
         } else {
             textView.backgroundColor = editMode ? .groupTableViewBackground : .white
             textView?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.white.cgColor
-            textView.textColor = .white
+            textView.textColor = .black
         }
         if editMode {
             textView?.layer.cornerRadius = 5

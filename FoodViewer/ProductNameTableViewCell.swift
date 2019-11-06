@@ -82,13 +82,13 @@ class ProductNameTableViewCell: UITableViewCell {
         nameTextView?.isEditable = editMode
         nameTextView?.isScrollEnabled = editMode
         if #available(iOS 13.0, *) {
-            nameTextView.backgroundColor = editMode ? .secondarySystemFill : .systemBackground
-            nameTextView?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.systemBackground.cgColor
+            nameTextView.backgroundColor = editMode ? .secondarySystemBackground : .systemBackground
+            nameTextView?.layer.borderColor = editMode ? UIColor.darkGray.cgColor : UIColor.systemBackground.cgColor
             nameTextView.textColor = editMode ? .secondaryLabel : .label
         } else {
             nameTextView.backgroundColor = editMode ? .groupTableViewBackground : .white
-            nameTextView?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.white.cgColor
-            nameTextView.textColor = .white
+            nameTextView?.layer.borderColor = editMode ? UIColor.darkGray.cgColor : UIColor.white.cgColor
+            nameTextView.textColor = .black
         }
         
         if editMode {

@@ -1140,11 +1140,11 @@ extension IngredientsTableViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == TranslatableStrings.PlaceholderIngredients {
             textView.text = ""
-            if #available(iOS 13.0, *) {
-                textView.textColor = .label
-            } else {
-                textView.textColor = .lightGray
-            }
+        }
+        if #available(iOS 13.0, *) {
+            textView.textColor = .label
+        } else {
+            textView.textColor = .darkGray
         }
     }
 
@@ -1167,6 +1167,11 @@ extension IngredientsTableViewController: UITextViewDelegate {
                 } else if
                     let validLanguageCode = displayLanguageCode {
                     productPair?.update(ingredients: validText, in: validLanguageCode)
+                    if #available(iOS 13.0, *) {
+                        textView.textColor = .secondaryLabel
+                    } else {
+                        textView.textColor = .black
+                    }
                     tableView.reloadData()
                 }
             }

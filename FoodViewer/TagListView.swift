@@ -439,9 +439,9 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         inputTextField.inputAccessoryView = self.inputTextViewAccessoryView
         inputTextField.accessibilityLabel = self.inputTextViewAccessibilityLabel
         inputTextField.textAlignment = .left
-        inputTextField.layer.backgroundColor = UIColor.groupTableViewBackground.cgColor
+        //inputTextField.layer.backgroundColor = UIColor.groupTableViewBackground.cgColor
         inputTextField.layer.cornerRadius = 5
-        inputTextField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        inputTextField.layer.borderColor = UIColor.darkGray.cgColor
         inputTextField.layer.borderWidth = self.borderWidth
         inputTextField.clipsToBounds = true
 
