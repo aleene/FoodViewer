@@ -148,7 +148,8 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let validFetchResult = products.productPair(at: indexPath.row)?.status {
+        // The list should reflect the status on OFF
+        if let validFetchResult = products.productPair(at: indexPath.row)?.remoteStatus {
             switch validFetchResult {
             case .available, .updated:
                 products.loadProductPair(at: indexPath.row) //make sure the next set is loaded
@@ -168,6 +169,8 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
                     default:
                         break
                     }
+                } else {
+                    cell.imageView?.image = nil
                 }
                 return cell
                 

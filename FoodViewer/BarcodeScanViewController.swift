@@ -28,6 +28,14 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         }
     }
     
+    @IBOutlet weak var takePhotoButton: UIButton! {
+        didSet {
+            takePhotoButton.setTitle("Take Photos", for: .normal)
+            takePhotoButton.isHidden = true
+
+        }
+    }
+    
     @IBOutlet weak var productView: UIView!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -260,6 +268,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                     self.quantityLabel.text = scannedProductPair?.localProduct?.quantity ?? scannedProductPair?.remoteProduct?.quantity
                     self.nova = scannedProductPair?.localProduct?.novaGroup ?? scannedProductPair!.remoteProduct?.novaGroup
                     self.score = scannedProductPair?.remoteProduct?.nutritionGrade ?? scannedProductPair?.localProduct?.nutritionGrade
+                    self.takePhotoButton.isHidden = true
                     tagListView?.reloadData(clearAll: true)
                     if let nutritionLevels = scannedProductPair?.remoteProduct?.nutritionScore ?? scannedProductPair?.localProduct?.nutritionScore {
                         for level in nutritionLevels {
@@ -337,10 +346,11 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                     }
                     showImage()
                     
+                    
             case .productNotAvailable:
                 setupViews()
-                self.instructionTextView.text = TranslatableStrings.ProductNotAvailable
-            
+                self.instructionTextView.text = "This barcode is not yet listed on OFF. Please take some photos, so the data can be added."
+                self.takePhotoButton.isHidden = false
             case .loadingFailed(let error):
                 setupViews()
                 self.instructionTextView.text = error
@@ -400,23 +410,21 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         }
         switch preferences.showProductType {
         case .food:
-            nutriScoreView?.isHidden = false
-            NOVALabel?.isHidden = false
-            NOVAValueLabel?.isHidden = false
-            fatLabel?.isHidden = false
-            saturatedFatLabel?.isHidden = false
-            sugarLabel?.isHidden = false
-            saltLabel?.isHidden = false
+            productElementsAreHidden(false)
         default:
-            nutriScoreView?.isHidden = true
-            NOVALabel?.isHidden = true
-            NOVAValueLabel?.isHidden = true
-            fatLabel?.isHidden = true
-            saturatedFatLabel?.isHidden = true
-            sugarLabel?.isHidden = true
-            saltLabel?.isHidden = true
+            productElementsAreHidden(true)
         }
         productView.backgroundColor = UIColor.black
+    }
+    
+    private func productElementsAreHidden(_ hide: Bool) {
+        nutriScoreView?.isHidden = hide
+        NOVALabel?.isHidden = hide
+        NOVAValueLabel?.isHidden = hide
+        fatLabel?.isHidden = hide
+        saturatedFatLabel?.isHidden = hide
+        sugarLabel?.isHidden = hide
+        saltLabel?.isHidden = hide
     }
     
     // function is called if an product image has been retrieved via an asynchronous process
@@ -472,13 +480,29 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     private func setupViews() {
         DispatchQueue.main.async(execute: {
             if self.scannedProductPair == nil {
-                self.instructionView.isHidden = false
-                self.productView.isHidden = !self.instructionView.isHidden
+                self.hideProductInterfaceElements = true
+                self.takePhotoButton.isHidden = true
             } else {
-                self.instructionView.isHidden = true
-                self.productView.isHidden = !self.instructionView.isHidden
+                switch self.scannedProductPair!.status {
+                case .available, .updated:
+                    self.hideProductInterfaceElements = false
+                    self.takePhotoButton.isHidden = true
+                case .productNotAvailable:
+                    self.hideProductInterfaceElements = true
+                    self.takePhotoButton.isHidden = false
+                default:
+                    self.hideProductInterfaceElements = true
+                    self.takePhotoButton.isHidden = true
+                }
             }
         })
+    }
+    
+    private var hideProductInterfaceElements: Bool = true {
+        didSet {
+            self.productView.isHidden = hideProductInterfaceElements
+            self.instructionView.isHidden = !hideProductInterfaceElements
+        }
     }
     
     override func viewDidLoad() {

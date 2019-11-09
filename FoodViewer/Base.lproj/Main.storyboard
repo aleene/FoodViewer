@@ -1859,12 +1859,12 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="i4S-YV-4Hl">
-                                            <rect key="frame" x="16" y="11" width="255" height="22"/>
+                                            <rect key="frame" x="16" y="11" width="230" height="22"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n6f-Eo-nth">
-                                            <rect key="frame" x="279" y="13.333333333333334" width="25" height="17.333333333333329"/>
+                                            <rect key="frame" x="254" y="13.333333333333334" width="50" height="17.333333333333329"/>
                                             <state key="normal" image="Agenda"/>
                                             <connections>
                                                 <action selector="expirationDateButtonTapped:" destination="czo-g1-vd4" eventType="touchUpInside" id="nwy-89-gdc"/>
@@ -1979,10 +1979,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2BL-yl-kgW" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="255" height="22"/>
+                                            <rect key="frame" x="16" y="11" width="230" height="22"/>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lT4-Ds-Nqq">
-                                            <rect key="frame" x="279" y="9.6666666666666643" width="25" height="25"/>
+                                            <rect key="frame" x="254" y="-3" width="50" height="50"/>
                                             <state key="normal" image="Heart"/>
                                             <connections>
                                                 <segue destination="jNk-e2-kVa" kind="presentation" identifier="Favorit Shops Segue 2" modalPresentationStyle="formSheet" id="GUZ-MJ-1ik"/>
@@ -5167,19 +5167,26 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XXO-gd-gvp" userLabel="Instruction View">
                                 <rect key="frame" x="0.0" y="466.33333333333331" width="414" height="220.66666666666669"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1TV-Xf-Pc3">
-                                        <rect key="frame" x="16" y="16" width="382" height="188.66666666666666"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1TV-Xf-Pc3">
+                                        <rect key="frame" x="16" y="16" width="382" height="147.66666666666666"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GNV-RJ-BqM">
+                                        <rect key="frame" x="180" y="179.66666666666669" width="54" height="33"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
+                                    <constraint firstItem="1TV-Xf-Pc3" firstAttribute="bottom" secondItem="GNV-RJ-BqM" secondAttribute="top" constant="-16" id="2PM-pI-Cwv"/>
                                     <constraint firstItem="1TV-Xf-Pc3" firstAttribute="top" secondItem="XXO-gd-gvp" secondAttribute="top" constant="16" id="5JX-sa-zQA"/>
-                                    <constraint firstAttribute="bottom" secondItem="1TV-Xf-Pc3" secondAttribute="bottom" constant="16" id="DUb-wh-TPb"/>
                                     <constraint firstItem="1TV-Xf-Pc3" firstAttribute="leading" secondItem="XXO-gd-gvp" secondAttribute="leading" constant="16" id="P5P-Qi-iHm"/>
+                                    <constraint firstItem="GNV-RJ-BqM" firstAttribute="centerX" secondItem="XXO-gd-gvp" secondAttribute="centerX" id="axU-WB-wpn"/>
+                                    <constraint firstAttribute="bottom" secondItem="GNV-RJ-BqM" secondAttribute="bottom" constant="8" id="bLj-5m-5V2"/>
                                     <constraint firstAttribute="trailing" secondItem="1TV-Xf-Pc3" secondAttribute="trailing" constant="16" id="mBH-Xz-blt"/>
                                 </constraints>
                             </view>
@@ -5401,6 +5408,7 @@
                         <outlet property="searchTextField" destination="kIa-1N-FJx" id="3xc-hQ-8dL"/>
                         <outlet property="sugarLabel" destination="TQs-j9-Hjz" id="jnv-Et-i8Y"/>
                         <outlet property="tagListView" destination="UDD-2s-BDp" id="xK6-aX-48p"/>
+                        <outlet property="takePhotoButton" destination="GNV-RJ-BqM" id="qcL-Vy-ejh"/>
                         <outlet property="viewProductButton" destination="bC2-P1-4OY" id="dbL-mP-T2Y"/>
                     </connections>
                 </viewController>
