@@ -22,6 +22,8 @@ open class GKImagePicker: NSObject {
         }
     }
     
+    var tag: Int = 0
+    
     var cropSize = CGSize.zero
     
     var delegate: GKImagePickerDelegate? = nil

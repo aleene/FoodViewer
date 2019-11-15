@@ -21,6 +21,13 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(scanBarcodes), userInfo: nil, repeats: false)
     }
     
+    // This variable defined the languageCode that must be used to display the product data
+    // This is either the languageCode selected by the user or the best match for the current product
+    private var displayLanguageCode: String? {
+        return scannedProductPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
+    }
+
+    
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
             setupProductType()
@@ -30,10 +37,14 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     
     @IBOutlet weak var takePhotoButton: UIButton! {
         didSet {
-            takePhotoButton.setTitle("Take Photos", for: .normal)
+            takePhotoButton.setTitle(TranslatableStrings.TakePhotos, for: .normal)
             takePhotoButton.isHidden = true
-
         }
+    }
+    
+    @IBAction func takePhotoButtonTapped(_ sender: UIButton) {
+        // open the product in the History tab
+        self.switchToHistoryTab()
     }
     
     @IBOutlet weak var productView: UIView!
@@ -259,10 +270,11 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     }
     
     @objc func showProductData() {
-            if let validFetchResult = scannedProductPair?.status  {
+            if let validFetchResult = scannedProductPair?.remoteStatus  {
                 switch validFetchResult {
                 case .available, .updated:
                     resetSearch()
+                    setupViews()
                     self.nameLabel.text = scannedProductPair?.localProduct?.name ?? scannedProductPair?.remoteProduct?.name ?? TranslatableStrings.NoName
                     self.brandLabel.text = scannedProductPair?.brand ?? TranslatableStrings.NoBrandsIndicated
                     self.quantityLabel.text = scannedProductPair?.localProduct?.quantity ?? scannedProductPair?.remoteProduct?.quantity
@@ -349,7 +361,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                     
             case .productNotAvailable:
                 setupViews()
-                self.instructionTextView.text = "This barcode is not yet listed on OFF. Please take some photos, so the data can be added."
+                self.instructionTextView.text = TranslatableStrings.TakePhotosInstruction
                 self.takePhotoButton.isHidden = false
             case .loadingFailed(let error):
                 setupViews()
@@ -454,12 +466,12 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     
     @objc func doubleTapOnProductView() {
         if let allowContinuousScan = ContinuousScanDefaults.manager.allowContinuousScan {
-        ContinuousScanDefaults.manager.set(!allowContinuousScan)
+            ContinuousScanDefaults.manager.set(!allowContinuousScan)
         } else {
             ContinuousScanDefaults.manager.set(true)
         }
     }
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -483,7 +495,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                 self.hideProductInterfaceElements = true
                 self.takePhotoButton.isHidden = true
             } else {
-                switch self.scannedProductPair!.status {
+                switch self.scannedProductPair!.remoteStatus {
                 case .available, .updated:
                     self.hideProductInterfaceElements = false
                     self.takePhotoButton.isHidden = true

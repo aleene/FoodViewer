@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -374,6 +375,160 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="83u-x1-eax" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1468" y="-536"/>
+        </scene>
+        <!--Not Available View Controller-->
+        <scene sceneID="oG4-9F-ua8">
+            <objects>
+                <viewController id="82u-yi-DA5" customClass="NotAvailableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LSl-9W-YD7"/>
+                        <viewControllerLayoutGuide type="bottom" id="Rsb-yt-Avg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wQR-XL-0Mb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="DPa-bo-L15">
+                                <rect key="frame" x="20" y="267.33333333333331" width="374" height="201.33333333333331"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeG-Za-zY7">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nlY-Le-SF8">
+                                        <rect key="frame" x="0.0" y="20.333333333333371" width="374" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="367-QF-ee0">
+                                                <rect key="frame" x="0.0" y="0.0" width="183" height="30"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="takeFrontImageButtonTapped:" destination="82u-yi-DA5" eventType="touchUpInside" id="MMf-cn-XEP"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cP5-F1-q6f">
+                                                <rect key="frame" x="191" y="0.0" width="183" height="30"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="selectFrontImageButtonTapped:" destination="82u-yi-DA5" eventType="touchUpInside" id="XPw-6B-zSR"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8E-wu-wSQ">
+                                        <rect key="frame" x="0.0" y="50.333333333333371" width="374" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="31i-aM-XH2">
+                                        <rect key="frame" x="0.0" y="70.666666666666686" width="374" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCB-vh-iqi">
+                                                <rect key="frame" x="0.0" y="0.0" width="187" height="30"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="takeIngredientsImageButtonTapped:" destination="82u-yi-DA5" eventType="touchUpInside" id="rvQ-M0-JZb"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOG-wy-wCG">
+                                                <rect key="frame" x="187" y="0.0" width="187" height="30"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="selectIngredientsImageButtonTapped:" destination="82u-yi-DA5" eventType="touchUpInside" id="PY8-7S-3XU"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JfA-LN-f87">
+                                        <rect key="frame" x="0.0" y="100.66666666666669" width="374" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="eWj-E0-VQh">
+                                        <rect key="frame" x="0.0" y="121" width="374" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmA-BP-yLX">
+                                                <rect key="frame" x="0.0" y="0.0" width="187" height="30"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="takeNutritionImageButtonTapped:" destination="82u-yi-DA5" eventType="touchUpInside" id="JkX-gw-5nv"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVF-qE-Tf2">
+                                                <rect key="frame" x="187" y="0.0" width="187" height="30"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="selectNutritionImageButtonTapped:" destination="82u-yi-DA5" eventType="touchUpInside" id="Nci-5N-GAo"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cue-nE-YvL">
+                                        <rect key="frame" x="0.0" y="151" width="374" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kFg-Tq-uwK">
+                                        <rect key="frame" x="0.0" y="171.33333333333337" width="374" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFB-FI-87w">
+                                                <rect key="frame" x="0.0" y="0.0" width="187" height="30"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="takeOtherImageButtonTapped:" destination="82u-yi-DA5" eventType="touchUpInside" id="50M-lG-oHU"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tFy-lg-dje">
+                                                <rect key="frame" x="187" y="0.0" width="187" height="30"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="selectOtherImageButtonTapped:" destination="82u-yi-DA5" eventType="touchUpInside" id="a1V-z6-Qxe"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="nlY-Le-SF8" firstAttribute="leading" secondItem="DPa-bo-L15" secondAttribute="leading" id="0bS-Ob-PIQ"/>
+                                    <constraint firstItem="kFg-Tq-uwK" firstAttribute="leading" secondItem="DPa-bo-L15" secondAttribute="leading" id="2cE-lk-MCy"/>
+                                    <constraint firstAttribute="trailing" secondItem="eWj-E0-VQh" secondAttribute="trailing" id="7nI-NC-RvZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="31i-aM-XH2" secondAttribute="trailing" id="Am2-HA-Uj9"/>
+                                    <constraint firstAttribute="trailing" secondItem="nlY-Le-SF8" secondAttribute="trailing" id="QKq-jb-ld2"/>
+                                    <constraint firstItem="eWj-E0-VQh" firstAttribute="leading" secondItem="DPa-bo-L15" secondAttribute="leading" id="g7L-qc-J1l"/>
+                                    <constraint firstAttribute="trailing" secondItem="kFg-Tq-uwK" secondAttribute="trailing" id="rv1-58-AO4"/>
+                                    <constraint firstItem="31i-aM-XH2" firstAttribute="leading" secondItem="DPa-bo-L15" secondAttribute="leading" id="sc8-g3-cFl"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="DPa-bo-L15" secondAttribute="trailing" id="6LM-YT-nqq"/>
+                            <constraint firstItem="DPa-bo-L15" firstAttribute="leading" secondItem="wQR-XL-0Mb" secondAttribute="leadingMargin" id="UCR-5a-DE1"/>
+                            <constraint firstItem="DPa-bo-L15" firstAttribute="centerY" secondItem="wQR-XL-0Mb" secondAttribute="centerY" id="yxE-MY-0I6"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addFrontImageLabel" destination="AeG-Za-zY7" id="Lfv-O3-LSP"/>
+                        <outlet property="addIngredientImageLabel" destination="r8E-wu-wSQ" id="OXT-IS-XH3"/>
+                        <outlet property="addNutritionImageLabel" destination="JfA-LN-f87" id="xBK-MM-hWw"/>
+                        <outlet property="addOtherImageLabel" destination="Cue-nE-YvL" id="KLK-Ad-Qql"/>
+                        <outlet property="selectFrontImageButton" destination="cP5-F1-q6f" id="PnW-yN-dI1"/>
+                        <outlet property="selectIngredientsImageButton" destination="VOG-wy-wCG" id="RQh-en-d5V"/>
+                        <outlet property="selectNutritionImageButton" destination="gVF-qE-Tf2" id="J0Y-SV-EgD"/>
+                        <outlet property="selectOtherImageButton" destination="tFy-lg-dje" id="E6K-0Y-mUL"/>
+                        <outlet property="takeFrontImageButton" destination="367-QF-ee0" id="Buw-pm-H3g"/>
+                        <outlet property="takeIngredientsImageButton" destination="PCB-vh-iqi" id="wOx-5o-D1x"/>
+                        <outlet property="takeNutritionImageButton" destination="kmA-BP-yLX" id="6KN-BC-536"/>
+                        <outlet property="takeOtherImageButton" destination="jFB-FI-87w" id="2V7-Sq-Krg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3ba-KH-dh8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2436.231884057971" y="4560.326086956522"/>
         </scene>
         <!--Not Set Page View Controller-->
         <scene sceneID="jKm-PS-kei">
@@ -5178,6 +5333,9 @@
                                         <rect key="frame" x="180" y="179.66666666666669" width="54" height="33"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="takePhotoButtonTapped:" destination="Mt9-fg-Ddf" eventType="touchUpInside" id="JVg-aZ-k3e"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>

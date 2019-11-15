@@ -20,6 +20,7 @@ public enum ProductPage {
     case dietCompliancy
     case supplyChain
     case notSet
+    case notAvailable
 
     var description: String {
         switch self {
@@ -43,6 +44,8 @@ public enum ProductPage {
             return TranslatableStrings.DietCompliancy
         case .notSet:
             return TranslatableStrings.ProductNotSet
+        case .notAvailable:
+            return TranslatableStrings.ProductNotAvailable
         }
     }
     

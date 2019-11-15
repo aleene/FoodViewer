@@ -10,9 +10,9 @@ import UIKit
 import MobileCoreServices
 
 class IdentificationTableViewController: UITableViewController {
-    
-    // MARK: - public variables
-    
+//
+// MARK: - public variables
+//
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
@@ -20,12 +20,14 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
     }
-        
-    // MARK: - Fileprivate Functions/variables
-        
     
-    // private var selectedSection: Int? = nil
-    
+    var editMode: Bool {
+        return delegate?.editMode ?? false
+    }
+
+//
+// MARK: - Fileprivate Functions/variables
+//
     fileprivate enum ProductVersion {
         case remoteUser // data as entered by the user
         //case remoteTags // data interpreted by off
@@ -45,13 +47,8 @@ class IdentificationTableViewController: UITableViewController {
     // Default is the edited product version and then the translated version
     fileprivate var productVersion: ProductVersion = .new
 
-    
     fileprivate var productPair: ProductPair? {
         return delegate?.productPair
-    }
-    
-    var editMode: Bool {
-        return delegate?.editMode ?? false
     }
 
     // The languageCode as defined by the user (double tapping/selecting)
@@ -429,10 +426,8 @@ class IdentificationTableViewController: UITableViewController {
                 cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: ColorSchemes.error)
                 return cell
             }
-
         }
     }
-    
     
     public var currentImage: (UIImage?, String) {
         switch productVersion {

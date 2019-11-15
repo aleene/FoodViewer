@@ -127,13 +127,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             //        newImages = validImages
             //    }
             case .remote:
-                if let validImages = productPair?.remoteProduct?.images {
-                    newImages = validImages
-                }
+                newImages = productPair?.remoteProduct?.images ?? [:]
             case .new:
-                if let validImages = productPair?.localProduct?.images {
-                    newImages = validImages
-                }
+                newImages = productPair?.localProduct?.images ?? [:]
                 if let validImages = productPair?.remoteProduct?.images {
                     let images = validImages
                     newImages = newImages.merging(images, uniquingKeysWith: { (first, last) in last } )
@@ -284,11 +280,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         // If there are updated images, only show those
         switch tableStructure[section] {
         case .frontImages:
-            return frontImages.count
+            return editMode ? frontImages.count + 1 : frontImages.count
         case .ingredientsImages:
-            return ingredientsImages.count
+            return editMode ? ingredientsImages.count + 1 : ingredientsImages.count
         case .nutritionImages:
-            return nutritionImages.count
+            return editMode ? nutritionImages.count + 1 : nutritionImages.count
         case .originalImages:
             // Allow the user to add an image when in editMode
             return editMode ? originalImages.count + 1 : originalImages.count
@@ -299,8 +295,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         
         switch tableStructure[indexPath.section] {
         case .frontImages: // Front Images
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
             if frontImages.count > 0 && indexPath.row < frontImages.count {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
+
                 let key = keyTuples(for:Array(frontImages.keys))[indexPath.row].0
                 if let result = frontImages[key]?.largest?.fetch() {
                     switch result {
@@ -311,15 +308,20 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     }
                 }
                 cell.label.text = keyTuples(for:Array(frontImages.keys))[indexPath.row].1
+          //  }
+                cell.indexPath = indexPath
+                cell.editMode = editMode
+                cell.delegate = self
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
+                cell.addImageFromCameraButton?.addTarget(self, action: #selector(ProductImagesCollectionViewController.takePhotoButtonTapped), for: .touchUpInside)
+                cell.addImageFromCameraRoll?.addTarget(self, action: #selector(ProductImagesCollectionViewController.useCameraRollButtonTapped), for: .touchUpInside)
+                return cell
             }
-            cell.indexPath = indexPath
-            cell.editMode = editMode
-            cell.delegate = self
-            return cell
-        
         case .ingredientsImages:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
             if indexPath.row < ingredientsImages.count && ingredientsImages.count > 0 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                 let key = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row].0
                 if let result = ingredientsImages[key]?.largest?.fetch() {
                     switch result {
@@ -330,15 +332,21 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     }
                 }
                 cell.label.text = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row].1
+                cell.indexPath = indexPath
+                cell.editMode = editMode
+                cell.delegate = self
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
+                cell.addImageFromCameraButton?.addTarget(self, action: #selector(ProductImagesCollectionViewController.takePhotoButtonTapped), for: .touchUpInside)
+                cell.addImageFromCameraRoll?.addTarget(self, action: #selector(ProductImagesCollectionViewController.useCameraRollButtonTapped), for: .touchUpInside)
+
+                return cell
             }
-            cell.indexPath = indexPath
-            cell.editMode = editMode
-            cell.delegate = self
-            return cell
-            
+
         case .nutritionImages:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
             if indexPath.row < nutritionImages.count && nutritionImages.count > 0 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                 let key = keyTuples(for:Array(nutritionImages.keys))[indexPath.row].0
                 if let result = nutritionImages[key]?.largest?.fetch() {
                     switch result {
@@ -349,19 +357,24 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     }
                 }
                 cell.label.text = keyTuples(for:Array(nutritionImages.keys))[indexPath.row].1
+                cell.indexPath = indexPath
+                cell.editMode = editMode
+                cell.delegate = self
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
+                cell.addImageFromCameraButton?.addTarget(self, action: #selector(ProductImagesCollectionViewController.takePhotoButtonTapped), for: .touchUpInside)
+                cell.addImageFromCameraRoll?.addTarget(self, action: #selector(ProductImagesCollectionViewController.useCameraRollButtonTapped), for: .touchUpInside)
+
+                return cell
             }
-            cell.indexPath = indexPath
-            cell.editMode = editMode
-            cell.delegate = self
-            return cell
-            
+
         default:
             // in editMode the last element of a row is an add button
             if editMode && indexPath.row == originalImages.count {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
                 cell.addImageFromCameraButton?.addTarget(self, action: #selector(ProductImagesCollectionViewController.takePhotoButtonTapped), for: .touchUpInside)
                 cell.addImageFromCameraRoll?.addTarget(self, action: #selector(ProductImagesCollectionViewController.useCameraRollButtonTapped), for: .touchUpInside)
-
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
@@ -602,7 +615,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         }
     }
-
+    
     @objc func reloadImages() {
         collectionView?.reloadData()
     }

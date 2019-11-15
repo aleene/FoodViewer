@@ -9,10 +9,10 @@
 import Foundation
 
 enum ImageTypeCategory: Int {
-    case front = 0
+    case general = 0
+    case front
     case ingredients
     case nutrition
-    case general
     
     // These decriptions are used in the deselect/update API's to OFF
     var description: String {

@@ -157,7 +157,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath)
 
                 cell.backgroundColor = allergenAndTraceWarningColour(for: productPair)
-                cell.textLabel?.text = productPair?.name ?? TranslatableStrings.NoName
+                cell.textLabel?.text = productPair?.name ?? productPair?.barcodeType.asString
                 cell.detailTextLabel?.text = productPair?.brand ?? TranslatableStrings.NoBrandsIndicated
                 if let language = productPair?.primaryLanguageCode,
                     let frontImages = productPair?.remoteProduct?.frontImages ?? productPair?.localProduct?.frontImages,

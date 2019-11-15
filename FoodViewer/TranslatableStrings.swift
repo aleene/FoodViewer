@@ -490,6 +490,8 @@ struct TranslatableStrings {
     static let TagEntryLanguageSystem = NSLocalizedString("System Language", comment: "Title of a segmented control segment, which lets the user set the default language of the new product tag entries as System Language")
     static let TagEntryLanguageProduct = NSLocalizedString("Product Language", comment: "Title of a segmented control segment, which lets the user set the default language of the new product tag entries as Product Language")
     static let Traces = NSLocalizedString("Traces", comment: "Text to indicate the traces of a product.")
+    static let TakePhotos = NSLocalizedString("Take Photos", comment: "String of a button which urges the user to take photos of the (new) product.")
+    static let TakePhotosInstruction = NSLocalizedString("This barcode is not yet listed on OFF. Please take some photos, so the data can be added.", comment: "String, which urges the user to take photos of the (new) product.")
     static let TracesEdited = NSLocalizedString("Traces (edited)", comment: "Text to indicate the edited traces of a product.")
     static let TracesOriginal = NSLocalizedString("Traces (non-edited)", comment: "Text to indicate the original (un-edited) traces of a product.")
     static let TracesNormalized = NSLocalizedString("Traces (normalized)", comment: "Text to indicate the original (normalized) traces of a product.")
