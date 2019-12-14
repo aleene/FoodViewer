@@ -1075,23 +1075,53 @@
 			</array>
 			<key>de</key>
 			<array>
-				<string>Energie</string>
+				<string>Energie (kJ)</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Energy</string>
+				<string>Energy (kJ)</string>
 			</array>
 			<key>es</key>
 			<array>
-				<string>Energía</string>
+				<string>Energía (kJ)</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Énergie</string>
+				<string>Énergie (kJ)</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Energie</string>
+				<string>Energie (kJ)</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:energy-kcal</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>unit</key>
+			<array>
+				<string>kcal</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Energie (kcal)</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Energy (kcal)</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Energía (kcal)</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Énergie (kcal)</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Energie (kcal)</string>
 			</array>
 		</dict>
 	</dict>

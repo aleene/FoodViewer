@@ -60,7 +60,6 @@ class NutrientsTableViewCell: UITableViewCell {
     
     var editMode: Bool = false {
         didSet {
-            unitButton.isEnabled = editMode
             textField.layer.cornerRadius = 5
             if #available(iOS 13.0, *) {
                 textField.backgroundColor = editMode ? .secondarySystemFill : .systemBackground
@@ -85,6 +84,7 @@ class NutrientsTableViewCell: UITableViewCell {
                 }
 
             }
+            setupUnitButton()
         }
     }
     
@@ -93,6 +93,25 @@ class NutrientsTableViewCell: UITableViewCell {
         didSet {
             textField?.tag = tag
             unitButton?.tag = tag
+        }
+    }
+    
+    var unitButtonIsEnabled: Bool = false {
+        didSet {
+            setupUnitButton()
+        }
+    }
+    
+    private func setupUnitButton() {
+        unitButton.isEnabled = unitButtonIsEnabled
+        if unitButton.isEnabled {
+            unitButton.setTitleColor(.systemGray, for: .normal)
+        } else {
+            if #available(iOS 13.0, *) {
+                unitButton.setTitleColor(.label, for: .normal)
+            } else {
+                unitButton.setTitleColor(.black, for: .normal)
+            }
         }
     }
     

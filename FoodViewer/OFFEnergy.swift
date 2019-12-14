@@ -26,3 +26,23 @@ class LocalizedEnergy : Energy {
     }
     
 }
+
+class LocalizedEnergyKcal : Energy {
+    
+    enum UnitsToUse {
+        case calories
+        case joule
+    }
+    
+    static let key = "energy-kcal"
+    static let prefixKey = "en:energy-kcal"
+    
+    public var baseUnit: UnitsToUse = .calories
+
+    public var title: String {
+        let preferredLanguage = Locale.preferredLanguages[0]
+        return OFFplists.manager.translateNutrient(LocalizedEnergyKcal.key, language:preferredLanguage) ?? LocalizedEnergyKcal.key
+    }
+    
+}
+

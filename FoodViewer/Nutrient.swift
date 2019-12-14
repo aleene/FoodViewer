@@ -38,6 +38,7 @@ public enum Nutrient: String, CaseIterable {
     case eicosapentaenoicAcid = "eicosapentaenoic-acid"
     case elaidicAcid = "elaidic-acid"
     case energy = "energy"
+    case energyKcal = "energy-kcal"
     case energyFromFat = "energy-from-fat"
     case erucicAcid = "erucic-acid"
     case fat = "fat"
@@ -124,7 +125,7 @@ public enum Nutrient: String, CaseIterable {
     
     func unit(for style:NutritionFactsLabelStyle) -> NutritionFactUnit {
         switch self {
-        case .energy:
+        case .energy, .energyKcal:
             switch style.energyUnit {
             case .calories:
                 return .Calories

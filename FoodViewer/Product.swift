@@ -498,16 +498,16 @@ class FoodProduct {
         get {
             // Figures out whether a nutrition fact contains values per serving and/or standard
                 if !nutritionFactsDict.isEmpty {
-                    if nutritionFactsDict.first?.value.servingValue != nil &&
-                        !nutritionFactsDict.first!.value.servingValue!.isEmpty &&
-                        nutritionFactsDict.first?.value.standardValue != nil &&
-                        !nutritionFactsDict.first!.value.standardValue!.isEmpty {
+                    if nutritionFactsDict.first?.value.serving != nil &&
+                        !nutritionFactsDict.first!.value.serving!.isEmpty &&
+                        nutritionFactsDict.first?.value.standard != nil &&
+                        !nutritionFactsDict.first!.value.standard!.isEmpty {
                         return .perServingAndStandardUnit
-                    } else if nutritionFactsDict.first?.value.servingValue != nil &&
-                        !nutritionFactsDict.first!.value.servingValue!.isEmpty {
+                    } else if nutritionFactsDict.first?.value.serving != nil &&
+                        !nutritionFactsDict.first!.value.serving!.isEmpty {
                         return .perServing
-                    } else if nutritionFactsDict.first?.value.standardValue != nil &&
-                        !nutritionFactsDict.first!.value.standardValue!.isEmpty {
+                    } else if nutritionFactsDict.first?.value.standard != nil &&
+                        !nutritionFactsDict.first!.value.standard!.isEmpty {
                         return .perStandardUnit
                     }
                 }
@@ -1387,31 +1387,34 @@ class FoodProduct {
             // Try to find the default unit for the current nutriment
             switch OFFplists.manager.unit(for: nutrient) {
             case .Milligram, .Microgram:
-                nutritionItem.standardValueUnit = .Gram
+                nutritionItem.unit = .Gram
             default:
-                nutritionItem.standardValueUnit = OFFplists.manager.unit(for: nutrient)
+                nutritionItem.unit = OFFplists.manager.unit(for: nutrient)
             }
-            nutritionItem.servingValueUnit = nutritionItem.standardValueUnit
             
-            if let unit = nutritionItem.standardValueUnit {
+            if let unit = nutritionItem.unit {
                 switch unit {
                 case .Gram: // requires normalization
                     // per100g has already been transformed by OFF to gram
                     var (value, unit) = NutritionFactUnit.normalize(validValues.per100g)
-                    nutritionItem.standardValue = value
-                    nutritionItem.standardValueUnit = unit
-                    
+                    nutritionItem.standard = value
+
+                    (value, unit) = NutritionFactUnit.normalize(validValues.value)
+                    nutritionItem.value = value
+                    nutritionItem.unit = unit
+
                     (value, unit) = NutritionFactUnit.normalize(validValues.serving)
-                    nutritionItem.servingValue = value
-                    nutritionItem.servingValueUnit = unit
+                    nutritionItem.serving = value
                 default: // does not require normalization
-                    nutritionItem.standardValue = validValues.per100g
-                    nutritionItem.servingValue = validValues.serving
+                    nutritionItem.standard = validValues.per100g
+                    nutritionItem.serving = validValues.serving
+                    nutritionItem.value = validValues.value
                 }
+                nutritionItem.serving = validValues.value
             }
             
             // only add a fact if it has valid values
-            if nutritionItem.standardValue != nil || nutritionItem.servingValue != nil {
+            if nutritionItem.standard != nil || nutritionItem.serving != nil {
                 return nutritionItem
             }
             return nil
@@ -1710,6 +1713,7 @@ class FoodProduct {
         // Warning: the order of these nutrients is important. It will be displayed as such.
         
         add(fact: nutritionDecode(.energy, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.EnergyKey]))
+        add(fact: nutritionDecode(.energyKcal, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.EnergyKcalKey]))
         add(fact: nutritionDecode(.fat, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FatKey]))
         add(fact: nutritionDecode(.monounsaturatedFat, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MonounsaturatedFatKey]))
         add(fact: nutritionDecode(.polyunsaturatedFat, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PolyunsaturatedFatKey]))

@@ -347,7 +347,7 @@ public class NutritionalScoreFR: NutritionalScore {
         var fruitVegetableNutsEstimated: Double? = nil
 
         if let nutrientFact = nutritionFactsDict[Nutrient.energy.key] {
-            energy = nutrientFact.value
+            energy = nutrientFact.standardAsDouble
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.sugars.key] {
             sugars = nutrientFact.gramValue

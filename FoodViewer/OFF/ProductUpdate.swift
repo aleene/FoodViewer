@@ -170,18 +170,18 @@ class ProductUpdate: OFFProductUpdateAPI {
         
         if validProduct.type != nil && validProduct.type != .beauty {
             for fact in validProduct.nutritionFactsDict {
-                if let validValue = fact.value.standardValue {
+                if let validValue = fact.value.value {
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal + validValue)
                             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
-                } else if let validValue = fact.value.servingValue {
+                } else if let validValue = fact.value.serving {
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal + validValue)
                             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPerServing)
                 }
                         
-                if let validValueUnit = fact.value.standardValueUnit?.short() {
+                if let validValueUnit = fact.value.unit?.short() {
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
                             urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
-                } else if let validValueUnit = fact.value.servingValueUnit?.short() {
+                } else if let validValueUnit = fact.value.unit?.short() {
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
                     urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
                 }

@@ -59,7 +59,7 @@ enum NutritionFactsLabelStyle {
         case .world, .china:
             return [.energy, .proteins, .fat, .saturatedFat, .transFat, .carbohydrates, .sugars, .sodium]
         case .europe:
-            return [.energy, .fat, .saturatedFat, .carbohydrates, .sugars, .proteins, .salt]
+            return [.energy, .energyKcal, .fat, .saturatedFat, .carbohydrates, .sugars, .proteins, .salt]
         case .australia:
             return [.energy, .proteins, .fat, .saturatedFat, .carbohydrates, .sugars, .sodium]
         case .india:
@@ -223,7 +223,7 @@ enum NutritionFactsLabelStyle {
         switch self {
         // Salt, Protein before Salt
         case .europe:
-            return [.energy, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
+            return [.energy, .energyKcal, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
                     .transFat, .carbohydrates, .sugars,
                     .addedSugars, .fructose, .glucose, .lactose, .maltose, .maltodextrins, .polyols, .sucrose, .starch,
                     

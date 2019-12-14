@@ -11,12 +11,12 @@ import Foundation
 struct OFFProductNutrimentValues {
     
     // These can be let's, however the json does provide them only piece by piece
-    var base: String? = nil
-    var per100g: String? = nil
-    var serving: String? = nil
-    var value: String? = nil
+    var base: String? = nil // i.e. "energy-kj
+    var per100g: String? = nil // i.e. energy-kj_100g
+    var serving: String? = nil // i.e. energy-kj_serving
+    var value: String? = nil // i.e. energy-kj_value
     var label: String? = nil
-    var unit: String? = nil
+    var unit: String? = nil // i.e. energy-kj_unit. The unit refers to the value.
     
     var isEmpty: Bool {
         return base == nil &&

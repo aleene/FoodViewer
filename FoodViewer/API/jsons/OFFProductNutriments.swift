@@ -13,7 +13,7 @@ class OFFProductNutriments: Codable {
     // These keys are taken from https://en.wiki.openfoodfacts.org/API
     // these keys are sorted by popularity
     // firs the stand eu keys, than the standard us keys
-    private let keys = ["energy", "carbohydrates", "fat", "saturated-fat", "sugars", "proteins", "fiber", "salt",
+    private let keys = ["energy", "energy-kcal", "carbohydrates", "fat", "saturated-fat", "sugars", "proteins", "fiber", "salt",
                         "trans-fat","sodium", "cholesterol", "vitamin-a","vitamin-d",
                         "alcohol", "monounsaturated-fat","polyunsaturated-fat",
                         "ph_100g","cocoa","fruits-vegetables-nuts","fruits-vegetables-nuts-estimate",
@@ -150,11 +150,11 @@ class OFFProductNutriments: Codable {
         self.init()
         for nutritionFact in nutritionFactsDict {
             self.nutriments[nutritionFact.key] = OFFProductNutrimentValues(base: nil,
-                                                                  per100g: nutritionFact.value.standardValue,
-                                                                  serving: nutritionFact.value.servingValue,
-                                                                  value: nil,
+                                                                  per100g: nutritionFact.value.standard,
+                                                                  serving: nutritionFact.value.serving,
+                                                                  value: nutritionFact.value.value,
                                                                   label: nil,
-                                                                  unit: nutritionFact.value.standardValueUnit?.short())
+                                                                  unit: nutritionFact.value.unit?.short())
         }
     }
     

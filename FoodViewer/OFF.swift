@@ -634,6 +634,7 @@ struct OFFReadAPIkeysJSON {
     static let SugarsKey = "sugars"
     static let AddedSugarsKey = "added-sugars"
     static let EnergyKey = "energy"
+    static let EnergyKcalKey = "energy-kcal"
     static let EnergyFromFatKey = "energy-from-fat"
     static let ProteinsKey = "proteins"
     static let CaseinKey = "casein"

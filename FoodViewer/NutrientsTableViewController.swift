@@ -124,26 +124,69 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 default:
                     newFact = fact.value
                 }
-            } else if fact.key == LocalizedEnergy.key {
-                switch currentEnergyDisplayMode {
-                // show energy as Calories (US)
+            // In Europe energy data on the package is available in kJ and kcal
+            // Due to regulation conversion between the two is not possible
+            // SO, both fields need to be entered/available.
+                
+            // Has the data been entered in kJ?
+            } else if fact.key == Nutrient.energy.rawValue  {
+                let useEnergyDisplayMode = editMode ? .joule : currentEnergyDisplayMode
+                switch useEnergyDisplayMode {
+                    // show energy as Calories (US)
                 case .calories:
                     newFact = NutritionFactItem.init(
-                            name: EnergyUnitUsed.calories.description(),
-                                                             standard: fact.value.valueInCalories(fact.value.standardValue),
-                                                             serving: fact.value.valueInCalories(fact.value.servingValue),
-                                                             unit: EnergyUnitUsed.calories.unit(),
-                                                             nutrient: .energy)
-                // show energy as kcalorie
+                            name: OFFplists.manager.translateNutrient(nutrient: .energy, language:Locale.preferredLanguages[0]),
+                            standard: fact.value.valueInCalories(fact.value.standard),
+                            value: fact.value.valueInCalories(fact.value.value),
+                            serving: fact.value.valueInCalories(fact.value.serving),
+                            unit: EnergyUnitUsed.calories.unit(),
+                            nutrient: .energy)
+                    // show energy as kcalorie
                 case .kilocalorie:
-                    newFact = NutritionFactItem.init(name: EnergyUnitUsed.kilocalorie.description(),
-                                                             standard: fact.value.valueInCalories(fact.value.standardValue),
-                                                             serving: fact.value.valueInCalories(fact.value.servingValue),
-                                                             unit: EnergyUnitUsed.kilocalorie.unit(),
-                                                             nutrient: .energy)
-                case .joule:
-                    // this assumes that fact is in Joule
+                    newFact = NutritionFactItem.init(
+                        name: OFFplists.manager.translateNutrient(nutrient: .energy, language:Locale.preferredLanguages[0]),
+                        standard: fact.value.valueInCalories(fact.value.standard),
+                        value: fact.value.valueInCalories(fact.value.value),
+                        serving: fact.value.valueInCalories(fact.value.serving),
+                        unit: EnergyUnitUsed.kilocalorie.unit(),
+                        nutrient: .energy)
+                default:
+                    // no conversion necessary
                     newFact = fact.value
+                }
+                
+            // Has the data been entered in kcal?
+            } else if fact.key == Nutrient.energyKcal.rawValue {
+                let useEnergyDisplayMode = editMode ? .kilocalorie : currentEnergyDisplayMode
+                switch useEnergyDisplayMode {
+                    // show energy as Calories (US)
+                case .calories:
+                    newFact = NutritionFactItem.init(
+                            name: OFFplists.manager.translateNutrient(nutrient: .energyKcal, language:Locale.preferredLanguages[0]),
+                            standard: fact.value.valueInCalories(fact.value.standard),
+                            value: fact.value.value,
+                            serving: fact.value.valueInCalories(fact.value.serving),
+                            unit: EnergyUnitUsed.calories.unit(),
+                            nutrient: .energyKcal)
+                    // show energy as kcalorie
+                case .kilocalorie:
+                    newFact = NutritionFactItem.init(
+                        name: OFFplists.manager.translateNutrient(nutrient: .energyKcal, language:Locale.preferredLanguages[0]),
+                        standard: fact.value.valueInCalories(fact.value.standard),
+                        value: fact.value.value,
+                        serving: fact.value.valueInCalories(fact.value.serving),
+                        unit: EnergyUnitUsed.kilocalorie.unit(),
+                        nutrient: .energyKcal)
+                default:
+                    newFact = NutritionFactItem.init(
+                        name: OFFplists.manager.translateNutrient(nutrient: .energyKcal, language:Locale.preferredLanguages[0]),
+                        standard: fact.value.standard,
+                        value: nil,
+                        serving: nil,
+                        unit: EnergyUnitUsed.joule.unit(),
+                        nutrient: .energyKcal)
+
+                    newFact?.unit = .Joule
                 }
             } else {
                 newFact = fact.value
@@ -174,12 +217,18 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         displayFact.name = fact.itemName
         switch currentNutritionQuantityDisplayMode {
         case .perStandard:
-            let localizedValue = fact.localeStandardValue(editMode: editMode)
-            displayFact.value = fact.standardValue != nil ? localizedValue : ""
-            displayFact.unit = fact.standardValueUnit
+            if let validValue = fact.value, !validValue.isEmpty {
+                displayFact.value = validValue
+            } else {
+                displayFact.value = fact.localeStandardValue(editMode: editMode)
+            }
+            displayFact.unit = fact.unit
         case .perThousandGram:
-            let localizedValue = fact.localeThousandValue(editMode: editMode)
-            displayFact.value = fact.standardValue != nil ? localizedValue : ""
+            if let validValue = fact.value, !validValue.isEmpty {
+                displayFact.value = validValue
+            } else {
+                displayFact.value = fact.localeThousandValue(editMode: editMode)
+            }
             switch fact.nutrient {
             case .fat, .proteins, .fiber:
                 displayFact.unit = .Percent
@@ -187,8 +236,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 displayFact.unit = .Gram
             }
         case .perServing:
-            displayFact.value = fact.servingValue != nil ? fact.localeServingValue(editMode: editMode) : ""
-            displayFact.unit = fact.servingValueUnit
+            displayFact.value = fact.serving != nil ? fact.localeServingValue(editMode: editMode) : ""
+            displayFact.unit = fact.unit
         case .perDailyValue:
             displayFact.value = fact.dailyFractionPerServing != nil ? fact.localeDailyValue : ""
             displayFact.unit = NutritionFactUnit.None // The numberformatter already provides a % sign
@@ -392,9 +441,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
                         }
+                        cell?.unitButtonIsEnabled = editMode ? true : false
                         cell?.toggleViewModeButton.isHidden = editMode ? true : !buttonNotDoubleTap
                     } else if  (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) ||
-                        (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) {
+                        (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergyKcal.key) {
                         if !editMode && !buttonNotDoubleTap {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
                             doubleTapGestureRecognizer.numberOfTapsRequired = 2
@@ -403,8 +453,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
                         }
+                        // In editMode the user may not change the units. They are fixed to kJ and kcal.
+                        cell?.unitButtonIsEnabled = false
                         cell?.toggleViewModeButton.isHidden = editMode ? true : !buttonNotDoubleTap
                     } else {
+                        cell?.unitButtonIsEnabled = editMode ? true : false
                         cell?.toggleViewModeButton.isHidden = true
                     }
                     cell?.editMode = editMode
@@ -1017,9 +1070,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     newNutrient.itemName = newNutrientTuple.1
                     switch currentNutritionQuantityDisplayMode {
                     case .perServing:
-                        newNutrient.servingValueUnit = newNutrientTuple.2
+                        newNutrient.unit = newNutrientTuple.2
                     case .perStandard:
-                        newNutrient.standardValueUnit = newNutrientTuple.2
+                        newNutrient.unit = newNutrientTuple.2
                     default:
                         break
                     }
@@ -1042,11 +1095,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     // this value has been changed
                     switch currentNutritionQuantityDisplayMode {
                     case .perServing:
-                        editedNutritionFact.servingValueUnit = vc.selectedNutritionUnit
-                        editedNutritionFact.servingValue = adaptedNutritionFacts[nutrientRow].value
+                        editedNutritionFact.unit = vc.selectedNutritionUnit
+                        editedNutritionFact.serving = adaptedNutritionFacts[nutrientRow].value
                     case .perStandard:
-                        editedNutritionFact.standardValueUnit = vc.selectedNutritionUnit
-                        editedNutritionFact.standardValue = adaptedNutritionFacts[nutrientRow].value
+                        editedNutritionFact.unit = vc.selectedNutritionUnit
+                        editedNutritionFact.standard = adaptedNutritionFacts[nutrientRow].value
                     default:
                         break
                     }
@@ -1375,7 +1428,7 @@ extension NutrientsTableViewController: NutrientsCellDelegate {
                 (adaptedNutritionFacts[row].nutrient.rawValue == NatriumChloride.sodium.key) {
                 doubleTapOnSaltSodiumTableViewCell()
             } else if  (adaptedNutritionFacts[row].nutrient.key == LocalizedEnergy.key) ||
-                (adaptedNutritionFacts[row].nutrient.key == LocalizedEnergy.key) {
+                (adaptedNutritionFacts[row].nutrient.key == LocalizedEnergyKcal.key) {
                doubleTapOnEnergyTableViewCell()
             }
         }
@@ -1394,6 +1447,10 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         // Energy
         if !productPair!.remoteProduct!.nutritionFactsContain(.energy) {
             productPair?.update(fact: NutritionFactItem.init(nutrient: .energy, unit: .Joule))
+        }
+        // Energy kcal
+        if !productPair!.remoteProduct!.nutritionFactsContain(.energyKcal) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .energyKcal, unit: .KiloCalories))
         }
         // Fat
         if !productPair!.remoteProduct!.nutritionFactsContain(.fat) {
@@ -1635,40 +1692,40 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                 editedNutritionFact.nutrient = adaptedNutritionFacts[row].nutrient
                 editedNutritionFact.itemName = adaptedNutritionFacts[row].name
                 if currentNutritionQuantityDisplayMode == .perStandard {
-                    editedNutritionFact.standardValueUnit = adaptedNutritionFacts[row].unit
+                    editedNutritionFact.unit = adaptedNutritionFacts[row].unit
 
                     // this value has been changed
                     if let text = textField.text {
-                        editedNutritionFact.standardValue = String(text.map {
+                        editedNutritionFact.standard = String(text.map {
                             $0 == "," ? "." : $0
                         })
                     }
                 } else if currentNutritionQuantityDisplayMode == .perServing {
-                    editedNutritionFact.servingValueUnit = adaptedNutritionFacts[row].unit
+                    editedNutritionFact.unit = adaptedNutritionFacts[row].unit
 
                     // this value has been changed
                     if let text = textField.text {
-                        editedNutritionFact.servingValue = String(text.map {
+                        editedNutritionFact.serving = String(text.map {
                             $0 == "," ? "." : $0
                         })
                     }
                 } else if currentNutritionQuantityDisplayMode == .perThousandGram {
-                    editedNutritionFact.standardValueUnit = adaptedNutritionFacts[row].unit
+                    editedNutritionFact.unit = adaptedNutritionFacts[row].unit
                     
                     // this value has been changed
                     if let validText = textField.text {
-                        editedNutritionFact.standardValue = String(validText.map {
+                        editedNutritionFact.value = String(validText.map {
                             $0 == "," ? "." : $0
                         })
                         if let validType = type,
-                            let validValue = editedNutritionFact.standardValue {
+                            let validValue = editedNutritionFact.value {
                             switch validType {
                             case .petFood:
                                 if let floatValue = Float(validValue) {
                                     // floatValue = floatValue / 10.0
                                     let numberFormatter = NumberFormatter()
                                     numberFormatter.numberStyle = .decimal
-                                    editedNutritionFact.standardValue = numberFormatter.string(from: NSNumber(value: floatValue))
+                                    editedNutritionFact.value = numberFormatter.string(from: NSNumber(value: floatValue))
                                 }
                             default: break
                             }
