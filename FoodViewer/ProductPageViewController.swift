@@ -176,7 +176,8 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
             default:
                 break
             }
-
+            // If a product image is on screen, get rid of it.
+            popImageViewController()
             setViewControllers(
                     [viewController(for:currentProductPage)],
                     direction: .forward,
@@ -185,6 +186,18 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
             refreshPageInterface()
         }
     }
+    
+    private func popImageViewController () {
+        if let splitVC = self.splitViewController,
+            splitVC.viewControllers.count > 1,
+            let navVC = splitVC.viewControllers[1] as? UINavigationController,
+            navVC.children.count > 1,
+            navVC.children[1] is ImageViewController {
+            navVC.popViewController(animated: true)
+        }
+
+    }
+    
     // The languageCode for the language in which the fields are shown
     var currentLanguageCode: String? = nil {
         didSet {

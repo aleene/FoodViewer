@@ -35,7 +35,7 @@ class OpenFoodFactsRequest {
         do {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .secondsSince1970
-            print(String(data: data, encoding: .utf8)!)
+            //print(String(data: data, encoding: .utf8)!)
 
             let productJson = try decoder.decode(OFFProductJson.self, from:data)
 
