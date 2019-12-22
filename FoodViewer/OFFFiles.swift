@@ -412,7 +412,7 @@ class OFFplists {
         if let index = taxonomy.firstIndex(of: VertexNew(key:key)) {
             let currentVertex = taxonomy[index].leaves
             if let values = currentVertex[firstSplit] {
-                return  values[0].capitalized
+                return  values[0] //.capitalized
             }
         }
         return nil
@@ -446,6 +446,7 @@ class OFFplists {
     }
     
     public func flush() {
+        print("OFFFiles: flushing")
         OFFadditives = nil
         OFFallergens = nil
         OFFaminoAcids = nil

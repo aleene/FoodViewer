@@ -155,7 +155,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
                 products.loadProductPair(at: indexPath.row) //make sure the next set is loaded
                 let productPair = products.productPair(at: indexPath.row)
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath)
-
+                // cell.isEditing = true
                 cell.backgroundColor = allergenAndTraceWarningColour(for: productPair)
                 cell.textLabel?.text = productPair?.name ?? productPair?.barcodeType.asString
                 cell.detailTextLabel?.text = productPair?.brand ?? TranslatableStrings.NoBrandsIndicated
@@ -235,6 +235,21 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
         performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowProductSegue, sender: self)
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            products.removeProductPair(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+ 
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         // if the user starts scrolling the barcode search focus can be reset
         products.currentScannedProduct = nil
@@ -359,7 +374,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80.0
         tableView.allowsSelection = true
-
+        //tableView.isEditing = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -407,7 +422,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
 }
 
 // MARK: - UIGestureRecognizerDelegate Functions
-    
+/*
 extension AllProductsTableViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -419,6 +434,7 @@ extension AllProductsTableViewController: UIGestureRecognizerDelegate {
         return gestureRecognizer.isEqual(self.downTwoFingerSwipe) ? true : false
     }
 }
+ */
     
 // MARK: - UITabBarControllerDelegate Functions
     

@@ -65,9 +65,11 @@ class OFFProducts {
                 allProductPairs[0].localStatus = .loading( allProductPairs[0].barcodeType.asString )
                 MostRecentProduct().load() { (product: FoodProduct?) in
                     if let validProduct = product {
-                        self.allProductPairs[0].localProduct = product
-                        self.allProductPairs[0].barcodeType = BarcodeType.mostRecent(validProduct.barcode.asString, validProduct.type)
-                        self.allProductPairs[0].updateIsAllowed = true
+                        if let mostRecentProductIndex = self.indexOfProductPair(with: product?.barcode) {
+                         self.allProductPairs[mostRecentProductIndex].localProduct = product
+                            self.allProductPairs[mostRecentProductIndex].barcodeType = BarcodeType.mostRecent(validProduct.barcode.asString, validProduct.type)
+                            self.allProductPairs[mostRecentProductIndex].updateIsAllowed = true
+                        }
                     }
                 }
                 loadProductPairRange(around: 0)
@@ -123,10 +125,16 @@ class OFFProducts {
     }
     
     func removeAllProductPairs() {
-        storedHistory = History()
         allProductPairs = []
         loadSampleProductPair()
     }
+    
+    func removeProductPair(at index: Int) {
+        storedHistory.remove(allProductPairs[index].barcodeType)
+        allProductPairs.remove(at: index)
+        resetCurrentProductPairs()
+    }
+
 
 //
 //  MARK: ProductPair Element Functions
