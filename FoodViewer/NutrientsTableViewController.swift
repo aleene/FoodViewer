@@ -1696,9 +1696,10 @@ extension NutrientsTableViewController: UITextFieldDelegate {
 
                     // this value has been changed
                     if let text = textField.text {
-                        editedNutritionFact.standard = String(text.map {
+                        editedNutritionFact.value = String(text.map {
                             $0 == "," ? "." : $0
                         })
+                        
                     }
                 } else if currentNutritionQuantityDisplayMode == .perServing {
                     editedNutritionFact.unit = adaptedNutritionFacts[row].unit

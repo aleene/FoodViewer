@@ -278,7 +278,6 @@ class NutritionScoreTableViewController: UITableViewController {
             }
             if let validNutrient = productPair?.remoteProduct?.nutritionFactsDict[Nutrient.fat.key] {
                 cell.fatValue = validNutrient.gramValue
-
             }
             if let validNutrient = productPair?.remoteProduct?.nutritionFactsDict[Nutrient.saturatedFat.key] {
                 cell.saturatedFatValue = validNutrient.gramValue
