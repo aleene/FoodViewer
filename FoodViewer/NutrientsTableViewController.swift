@@ -999,7 +999,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 if let vc = segue.destination as? SelectNutrientUnitViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
                     if let button = sender as? UIButton {
-                        if button.superview?.superview?.superview as? NutrientsTableViewCell != nil {
+                        if button.superview?.superview as? NutrientsTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
                                 ppc.permittedArrowDirections = .any
