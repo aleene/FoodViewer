@@ -241,7 +241,9 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
             if let controllers = tabVC.viewControllers,
                 controllers.count > 1,
                 let firstSplit = controllers[1] as? UISplitViewController,
+                firstSplit.viewControllers.count > 0,
                 let navController = firstSplit.viewControllers[0] as? UINavigationController,
+                navController.children.count > 0,
                 let controller = navController.children[0] as? AllProductsTableViewController {
                 controller.start()
             }
