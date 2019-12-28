@@ -56,12 +56,12 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
             tagListView.clearButtonIsEnabled = true
             //tagListView.frame.size.width = self.frame.size.width
                 
-            tagListView.tag = tag
-            tagListView.prefixLabelText = nil
+            tagListView?.tag = tag
+            tagListView?.prefixLabelText = nil
                 
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListViewTableViewCell.tagListViewDoubleTapped))
                 tapGestureRecognizer.numberOfTapsRequired = 2
-                tagListView.addGestureRecognizer(tapGestureRecognizer)
+                tagListView?.addGestureRecognizer(tapGestureRecognizer)
         }
     }
     
@@ -128,5 +128,19 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
         segmentedControl.isEnabled = inclusionEditIsAllowed && editMode
     }
     
+    func willDisappear() {
+        // remove the gestures that this class addded
+        if let gestures = tagListView?.gestureRecognizers {
+            for gesture in gestures {
+                // remove double tap gesture
+                if let tapGesture = gesture as? UITapGestureRecognizer,
+                    tapGesture.numberOfTouchesRequired == 2 {
+                    tagListView?.removeGestureRecognizer(gesture)
+                }
+            }
+        }
+        tagListView.willDisappear()
+    }
+
 }
 

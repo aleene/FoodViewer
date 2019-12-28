@@ -123,4 +123,8 @@ class NutrientsTableViewCell: UITableViewCell {
             nutrientsCellDelegate = delegate
         }
     }
+    
+    func willDisappear() {
+        // remove any gestures when the cell disappears.
+    }
 }

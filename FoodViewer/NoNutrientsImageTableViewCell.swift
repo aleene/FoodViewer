@@ -54,5 +54,8 @@ class NoNutrientsImageTableViewCell: UITableViewCell {
         tagListView.reloadData(clearAll: true)
     }
     
+    func willDisappear() {
+        tagListView.willDisappear()
+    }
 }
 

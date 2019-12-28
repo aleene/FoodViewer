@@ -46,6 +46,10 @@ class EmptyNutrientsTableViewCell: UITableViewCell {
             }
         }
     }
+    
+    func willDisappear() {
+        tagListView.willDisappear()
+    }
 
 }
 

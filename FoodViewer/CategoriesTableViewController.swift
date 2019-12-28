@@ -154,6 +154,12 @@ class CategoriesTableViewController: UITableViewController {
         cell.setup(datasource: self, delegate: self, editMode: tagListEditMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let validCell = cell as? TagListViewTableViewCell {
+            validCell.willDisappear()
+        }
+    }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
        
@@ -200,6 +206,12 @@ class CategoriesTableViewController: UITableViewController {
         return headerView
     }
     
+    override func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
+        if let validView = view as? LanguageHeaderView {
+            validView.willDisappear()
+        }
+    }
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tagListViewHeight + 2 * Constants.CellMargin.ContentView
     }

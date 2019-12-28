@@ -544,7 +544,18 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        if let validGestureRecognizers = productView?.gestureRecognizers {
+            for gesture in validGestureRecognizers {
+                if let doubleTapGesture = gesture as? UITapGestureRecognizer,
+                    doubleTapGesture.numberOfTapsRequired == 2,
+                    doubleTapGesture.numberOfTouchesRequired == 1 {
+                    productView?.removeGestureRecognizer(gesture)
+                }
+            }
+        }
+        
         NotificationCenter.default.removeObserver(self)
+
         super.viewDidDisappear(animated)
     }
     

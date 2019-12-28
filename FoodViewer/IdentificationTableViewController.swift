@@ -430,6 +430,19 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let validCell = cell as? TagListViewTableViewCell {
+            validCell.willDisappear()
+        } else if let validCell = cell as? ProductNameTableViewCell {
+            validCell.willDisappear()
+        } else if let validCell = cell as? TagListViewAddImageTableViewCell {
+            validCell.willDisappear()
+        } else if let validCell = cell as? TagListViewButtonTableViewCell {
+            validCell.willDisappear()
+        }
+        
+    }
+
     public var currentImage: (UIImage?, String) {
         switch productVersion {
         case .new:
@@ -714,6 +727,12 @@ class IdentificationTableViewController: UITableViewController {
             
         default:
             return nil
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
+        if let validView = view as? LanguageHeaderView {
+            validView.willDisappear()
         }
     }
 
@@ -1259,14 +1278,6 @@ extension IdentificationTableViewController: TagListViewAddImageCellDelegate {
     }
     
 }
-//
-// MARK: - TagListViewSegmentedControlCellDelegate Functions
-//
-//extension IdentificationTableViewController: TagListViewSegmentedControlCellDelegate {
-//
-//    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
-//    }
-//}
 //
 // MARK: - TextView Delegate Functions
 //

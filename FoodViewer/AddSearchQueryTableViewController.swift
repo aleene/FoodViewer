@@ -475,6 +475,16 @@ class AddSearchQueryTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let validCell = cell as? TagListViewTableViewCell {
+            validCell.willDisappear()
+        } else if let validCell = cell as? TagListViewSegmentedControlTableViewCell {
+            validCell.willDisappear()
+        }
+
+        
+    }
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return tableStructure[section].header
     }

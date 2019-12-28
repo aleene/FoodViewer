@@ -202,6 +202,12 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let validCell = cell as? TagListViewTableViewCell {
+            validCell.willDisappear()
+        }
+    }
+    
     fileprivate func allergenAndTraceWarningColour(for productPair:ProductPair?) -> UIColor {
         if let validProduct = productPair?.remoteProduct?.tracesInterpreted ?? productPair?.localProduct?.tracesInterpreted {
             switch validProduct {

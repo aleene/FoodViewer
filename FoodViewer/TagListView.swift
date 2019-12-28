@@ -1206,6 +1206,26 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         // reload in case the user changed the data
         reloadData(clearAll: false)
     }
+    
+    func willDisappear() {
+        if let validGestureRecognizers = self.gestureRecognizers {
+            for gesture in validGestureRecognizers {
+                if gesture is UITapGestureRecognizer {
+                    self.removeGestureRecognizer(gesture)
+                }
+            }
+        }
+        if let validGestureRecognizers = clearView.gestureRecognizers {
+            for gesture in validGestureRecognizers {
+                if gesture is UITapGestureRecognizer {
+                    self.removeGestureRecognizer(gesture)
+                }
+            }
+        }
+        for tagView in tagViews {
+            tagView.willDisappear()
+        }
+    }
 //
 // MARK: - Drag & Drop support
 //

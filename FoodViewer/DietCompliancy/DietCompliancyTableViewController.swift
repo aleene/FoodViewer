@@ -85,6 +85,14 @@ class DietCompliancyTableViewController: UITableViewController {
         }
     }
 
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let validCell = cell as? TagListViewLabelTableViewCell {
+            validCell.willDisappear()
+        } else if let validCell = cell as? DietLevelsTableViewCell {
+            validCell.willDisappear()
+        }
+    }
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return diets.name(for: section, in: Locale.interfaceLanguageCode)
     }

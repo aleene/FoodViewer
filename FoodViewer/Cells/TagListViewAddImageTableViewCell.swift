@@ -78,6 +78,9 @@ class TagListViewAddImageTableViewCell: UITableViewCell {
         tagListView.reloadData(clearAll: true)
     }
     
+    func willDisappear() {
+        tagListView.willDisappear()
+    }
     func tagListViewTapped() {
         // delegate?.tagListViewAddImageTableViewCell(self, receivedDoubleTapOn: tagListView)
     }

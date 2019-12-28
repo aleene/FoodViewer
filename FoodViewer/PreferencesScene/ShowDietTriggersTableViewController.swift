@@ -71,6 +71,12 @@ class ShowDietTriggersTableViewController: UITableViewController {
         
     }
     
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let validCell = cell as? TagListViewLabelTableViewCell {
+            validCell.willDisappear()
+        }
+    }
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return tableData[section].0
 

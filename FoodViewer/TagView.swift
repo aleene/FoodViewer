@@ -260,6 +260,26 @@ open class TagView: UIView {
 
     }
     
+    func willDisappear() {
+        if let validGestureRecognizers = self.gestureRecognizers {
+            for gesture in validGestureRecognizers {
+                if gesture is UILongPressGestureRecognizer {
+                    self.removeGestureRecognizer(gesture)
+                } else if gesture is UITapGestureRecognizer {
+                    self.removeGestureRecognizer(gesture)
+                }
+            }
+        }
+        if let validGestureRecognizers = removeImageView?.gestureRecognizers {
+            for gesture in validGestureRecognizers {
+                if gesture is UITapGestureRecognizer {
+                    removeImageView?.removeGestureRecognizer(gesture)
+                }
+            }
+        }
+        
+    }
+    
     // MARK: - layout
     
     override open var intrinsicContentSize: CGSize {

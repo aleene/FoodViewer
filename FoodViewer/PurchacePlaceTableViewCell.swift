@@ -47,6 +47,19 @@ class PurchacePlaceTableViewCell: UITableViewCell {
 
         }
     }
+    
+    func willDisappear() {
+        // remove double tap gesture
+        if let gestures = tagListView?.gestureRecognizers {
+            for gesture in gestures {
+                if let tapGesture = gesture as? UITapGestureRecognizer,
+                    tapGesture.numberOfTouchesRequired == 2 {
+                    tagListView?.removeGestureRecognizer(gesture)
+                }
+            }
+        }
+        tagListView?.willDisappear()
+    }
 
     @IBOutlet weak var favoriteButton: UIButton! {
         didSet {

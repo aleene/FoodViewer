@@ -394,6 +394,12 @@ class SingleSearchProductTableViewController: UITableViewController {
         showProductPage()
     }
     
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let validCell = cell as? TagListViewTableViewCell {
+            validCell.willDisappear()
+        }
+    }
+
     /*
      override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
      

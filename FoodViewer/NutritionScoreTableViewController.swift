@@ -328,6 +328,14 @@ class NutritionScoreTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let validCell = cell as? TagListViewTableViewCell {
+            validCell.willDisappear()
+        } else if let validCell = cell as? ColourCodedNutritionalScoreTableViewCell {
+            validCell.willDisappear()
+        }
+    }
+
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let currentProductSection = tableStructure[section]
         
@@ -359,6 +367,12 @@ class NutritionScoreTableViewController: UITableViewController {
             headerView.title = tableStructure[section].header
         }
         return headerView
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
+        if let validView = view as? LanguageHeaderView {
+            validView.willDisappear()
+        }
     }
 
     func refreshProduct() {

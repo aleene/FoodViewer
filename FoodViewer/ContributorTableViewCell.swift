@@ -139,5 +139,17 @@ class ContributorTableViewCell: UITableViewCell {
         delegate?.search(for: contributor!.name, in: .corrector)
     }
 
+    func willDisappear() {
+        let labels = [nameLabel, creatorLabel, editorLabel]
+        for label in labels {
+            guard let validGestureRecognizers = label?.gestureRecognizers else { return }
+            for gesture in validGestureRecognizers {
+                if gesture is UILongPressGestureRecognizer {
+                    label?.removeGestureRecognizer(gesture)
+                }
+            }
+        }
+    }
+
 }
 

@@ -49,6 +49,10 @@ class NoServingSizeTableViewCell: UITableViewCell {
         }
         return newList
     }
+    
+    func willDisappear() {
+        tagListView.willDisappear()
+    }
 }
 
 extension NoServingSizeTableViewCell: TagListViewDataSource {

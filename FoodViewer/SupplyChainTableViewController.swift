@@ -703,6 +703,12 @@ class SupplyChainTableViewController: UITableViewController {
         headerView.title = header
         return headerView
     }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
+        if let validView = view as? LanguageHeaderView {
+            validView.willDisappear()
+        }
+    }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -727,6 +733,14 @@ class SupplyChainTableViewController: UITableViewController {
             return height + 2 * Constants.CellMargin.ContentView
         }
     }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let validCell = cell as? PurchacePlaceTableViewCell {
+            validCell.willDisappear()
+        }
+    }
+
+    
 
 //
 // MARK: - Notification handlers
@@ -901,16 +915,8 @@ extension SupplyChainTableViewController: PurchacePlaceCellDelegate {
     }
 }
 //
-// MARK: - TagListViewSegmentedControlCellDelegate Functions
-//
-//extension SupplyChainTableViewController: TagListViewSegmentedControlCellDelegate {
-//
-//    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
-//    }
-//}
-
 // MARK: - UIPopoverPresentationControllerDelegate Functions
-
+//
 extension SupplyChainTableViewController: UIPopoverPresentationControllerDelegate {
     
     // MARK: - Popover delegation functions

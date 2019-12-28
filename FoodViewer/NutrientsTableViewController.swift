@@ -561,6 +561,29 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
         return nil
     }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let validCell = cell as? TagListViewTableViewCell {
+            validCell.willDisappear()
+        } else if let validCell = cell as? TagListViewAddImageTableViewCell {
+            validCell.willDisappear()
+        } else if let validCell = cell as? NoNutrientsImageTableViewCell {
+            validCell.willDisappear()
+        }   else if let validCell = cell as? NutrientsTableViewCell {
+            if let gestures = validCell.gestureRecognizers {
+                for gesture in gestures {
+                    if let doubleTapGesture = gesture as? UITapGestureRecognizer,
+                    doubleTapGesture.numberOfTapsRequired == 2,
+                        doubleTapGesture.numberOfTouchesRequired == 1 {
+                        validCell.removeGestureRecognizer(gesture)
+                    }
+                }
+            }
+            validCell.willDisappear()
+        }
+        
+
+    }
 
     private struct Header {
         static let FontSize = CGFloat(18.0)
@@ -684,6 +707,13 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             static let ContentView = CGFloat(11.0)
         }
     }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
+        if let validView = view as? LanguageHeaderView {
+            validView.willDisappear()
+        }
+    }
+
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch tableStructure[indexPath.section] {
@@ -700,18 +730,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             return UITableView.automaticDimension
         }
 
-    }
-    
-    private func setSupport(on view:UIView, forDoubleTap support:Bool) {
-        // Add doubletapping to the TableView. Any double tap on headers is now received,
-        // and used for changing the productVersion (local and remote)
-        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-        // show the double tap possibility only if there is a local product
-        doubleTapGestureRecognizer.cancelsTouchesInView = !support
-        view.addGestureRecognizer(doubleTapGestureRecognizer)
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -1105,14 +1123,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     }
                     productPair?.update(fact: editedNutritionFact)
                     refreshProduct()
-                    /*
-                } else if query != nil {
-                    if let validUnit = vc.selectedNutritionUnit {
-                        query!.allNutrimentsSearch[nutrientRow].unit = validUnit
-                        tableView.reloadData()
-                    }
-*/                }
- 
+                }
             }
         }
     }

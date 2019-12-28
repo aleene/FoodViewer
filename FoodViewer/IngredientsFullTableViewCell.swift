@@ -231,6 +231,16 @@ class IngredientsFullTableViewCell: UITableViewCell {
         }
     }
     
+    func willDisappear() {
+        guard let validGestureRecognizers = textView?.gestureRecognizers else { return }
+        for gesture in validGestureRecognizers {
+            // remove double tap gesture
+            if let tapGesture = gesture as? UITapGestureRecognizer,
+                tapGesture.numberOfTouchesRequired == 2 {
+                textView?.removeGestureRecognizer(gesture)
+            }
+        }
+    }
 }
 
 extension String {
@@ -253,4 +263,5 @@ extension String {
         let (_, fraction) = modf(Double(self.components(separatedBy: testString).count-1)/2.0)
         return (fraction > 0)
     }
+
 }

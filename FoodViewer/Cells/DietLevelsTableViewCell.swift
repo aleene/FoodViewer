@@ -290,6 +290,16 @@ class DietLevelsTableViewCell: UITableViewCell {
         }
     }
     
+    func willDisappear() {
+        guard let validGestureRecognizers = self.gestureRecognizers else { return }
+        for gesture in validGestureRecognizers {
+            if let doubleTapGesture = gesture as? UITapGestureRecognizer,
+                doubleTapGesture.numberOfTapsRequired == 2 {
+                self.removeGestureRecognizer(gesture)
+            }
+        }
+    }
+
     @objc func cellTapped() {
         delegate?.dietLevelsTableViewCell(self, receivedDoubleTapOn: self)
     }

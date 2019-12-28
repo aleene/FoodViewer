@@ -102,4 +102,16 @@ class LanguageHeaderView: UITableViewHeaderFooterView {
         }
     }
     
+    func willDisappear() {
+        if let validGestureRecognizers = self.gestureRecognizers {
+            for gesture in validGestureRecognizers {
+                if let doubleTapGesture = gesture as? UITapGestureRecognizer,
+                    doubleTapGesture.numberOfTapsRequired == 2,
+                    doubleTapGesture.numberOfTouchesRequired == 1 {
+                    self.removeGestureRecognizer(gesture)
+                }
+            }
+        }
+    }
+
 }

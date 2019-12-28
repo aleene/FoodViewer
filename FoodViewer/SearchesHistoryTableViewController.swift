@@ -171,6 +171,12 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         }
     }
     
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let validCell = cell as? TagListViewLabelTableViewCell {
+            validCell.willDisappear()
+        }
+    }
+
     private func tag(for indexPath:IndexPath, for search:Search?) -> Int {
         // the section indicates the query
         var tag = indexPath.section * Constants.TagValue.Multiplier.Section
@@ -556,26 +562,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
-        // addGesture()
         setTitle()
-        // make sure we show the right tab
-        //if products.list == .recent {
-        //    switchToTab(withIndex: 1)
-        //} else {
-        //    switchToTab(withIndex: 2)
-        //}
-        
-        /*
-        if let validSelectedProductIndex = products.currentScannedProduct {
-            startInterface(at: validSelectedProductIndex)
-            tableView.scrollToRow(at: IndexPath.init(row: 0, section: validSelectedProductIndex), at: .top, animated: true)
-            showProductPage()
-        } else if products.count > 0 && selectedProductPair == nil {
-            // If nothing has been selected yet, start with the first product in the list, and on the iPad
-            startInterface(at: 0)
-            showProductPage()
-        }
- */
         
         // Notifications coming from ProductPair,
         // which indicate that something in the productPair has changed

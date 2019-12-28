@@ -255,6 +255,13 @@ class FavoriteShopsTableViewController: UITableViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         FavoriteShopsDefaults.manager.updateFavoriteShops()
+        if let gestures = tableView?.gestureRecognizers {
+            for gesture in gestures {
+                if gesture is UILongPressGestureRecognizer {
+                    tableView?.removeGestureRecognizer(gesture)
+                }
+            }
+        }
         super.viewWillDisappear(animated)
     }
 }

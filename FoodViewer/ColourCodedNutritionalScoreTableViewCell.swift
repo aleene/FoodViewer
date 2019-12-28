@@ -224,8 +224,25 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
             fifthRightLabel.addGestureRecognizer(longPressGestureRecognizer)
         }
     }
-
     
+    func willDisappear() {
+        let allLabels: [UILabel] =
+            [firstLeftLabel, firstMiddleLabel, firstRightLabel,
+             secondLeftLabel, secondMiddleLabel, secondRightLabel,
+             thirdLeftLabel, thirdMiddleLabel, thirdRightLabel,
+             fourthLeftLabel, fourthMiddleLabel, fourthRightLabel,
+             fifthLeftLabel, fifthMiddleLabel, fifthRightLabel]
+        for label in allLabels {
+            if let validGestureRecognizers = label.gestureRecognizers {
+                for gesture in validGestureRecognizers {
+                    if gesture is UILongPressGestureRecognizer {
+                        label.removeGestureRecognizer(gesture)
+                    }
+                }
+            }
+        }
+    }
+
     
     @objc func handleLongPressForA() {
         delegate?.search(for: NutritionalScoreLevel.a.rawValue, in: .nutritionGrade)

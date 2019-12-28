@@ -113,27 +113,33 @@ class CompletionStatesTableViewController: UITableViewController {
             case .categories:
                 let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.categoriesTapped))
                     tapGestureRecognizer.numberOfTouchesRequired = 1
+                tapGestureRecognizer.numberOfTapsRequired = 1
                 cell.addGestureRecognizer(tapGestureRecognizer)
             case .productName, .brands, .quantity, .packaging:
                 let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.identificationTapped))
-                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                tapGestureRecognizer.numberOfTouchesRequired = 1
+                tapGestureRecognizer.numberOfTapsRequired = 1
                 cell.addGestureRecognizer(tapGestureRecognizer)
             case .ingredients:
                 let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.ingredientsTapped))
+                tapGestureRecognizer.numberOfTapsRequired = 1
                 tapGestureRecognizer.numberOfTouchesRequired = 1
                 cell.addGestureRecognizer(tapGestureRecognizer)
             case .expirationDate:
                 //print(completion)
                 let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.supplyChainTapped))
+                tapGestureRecognizer.numberOfTapsRequired = 1
                 tapGestureRecognizer.numberOfTouchesRequired = 1
                 cell.addGestureRecognizer(tapGestureRecognizer)
             case .nutritionFacts:
                 let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.nutritionFactsTapped))
-                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                    tapGestureRecognizer.numberOfTapsRequired = 1
+                tapGestureRecognizer.numberOfTouchesRequired = 1
                 cell.addGestureRecognizer(tapGestureRecognizer)
             case .photosUploaded, .photosValidated:
                 let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.galleryTapped))
-                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                    tapGestureRecognizer.numberOfTapsRequired = 1
+                tapGestureRecognizer.numberOfTouchesRequired = 1
                 cell.addGestureRecognizer(tapGestureRecognizer)
             default:
                 break
@@ -179,6 +185,29 @@ class CompletionStatesTableViewController: UITableViewController {
             cell.addGestureRecognizer(longPressGestureRecognizer)
                 
             return cell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let validCell = cell as? StateTableViewCell {
+            if let gestureRecognizers = validCell.gestureRecognizers {
+                for gesture in gestureRecognizers {
+                    if let tapGesture = gesture as? UITapGestureRecognizer,
+                        tapGesture.numberOfTouchesRequired == 1,
+                        tapGesture.numberOfTapsRequired == 1 {
+                        validCell.removeGestureRecognizer(gesture)
+                    }
+                }
+            }
+            validCell.willDisappear()
+        } else {
+            if let gestureRecognizers = cell.gestureRecognizers {
+                for gesture in gestureRecognizers {
+                    if gesture is UILongPressGestureRecognizer {
+                        cell.removeGestureRecognizer(gesture)
+                    }
+                }
+            }
         }
     }
 

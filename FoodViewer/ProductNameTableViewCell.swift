@@ -95,15 +95,10 @@ class ProductNameTableViewCell: UITableViewCell {
             nameTextView?.layer.cornerRadius = 5
             nameTextView?.clipsToBounds = true
             toggleViewModeButton?.isHidden = true
-            // nameTextField.removeGestureRecognizer(tapGestureRecognizer)
         } else {
             setButtonOrDoubletap(buttonNotDoubleTap)
             toggleViewModeButton?.isHidden = !isMultilingual
         }
-        //print ("ProductNameTableViewCell: setTextView", self.frame)
-        //if nameTextView?.text != nil && !nameTextView!.text!.isEmpty {
-        //    nameTextView?.sizeToFit()
-        //}
     }
     
     private func setTextViewClearButton() {
@@ -133,6 +128,17 @@ class ProductNameTableViewCell: UITableViewCell {
             doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
             doubleTapGestureRecognizer.cancelsTouchesInView = false
             nameTextView?.addGestureRecognizer(doubleTapGestureRecognizer)
+        }
+    }
+
+    func willDisappear() {
+        guard let validGestureRecognizers = nameTextView.gestureRecognizers else { return }
+        for gesture in validGestureRecognizers {
+            // remove double tap gesture
+            if let tapGesture = gesture as? UITapGestureRecognizer,
+                tapGesture.numberOfTouchesRequired == 2 {
+                nameTextView?.removeGestureRecognizer(gesture)
+            }
         }
     }
 

@@ -717,6 +717,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
+        if let validGestureRecognizers = collectionView?.gestureRecognizers {
+            for gesture in validGestureRecognizers {
+                if let doubleTapGesture = gesture as? UITapGestureRecognizer,
+                    doubleTapGesture.numberOfTapsRequired == 2,
+                    doubleTapGesture.numberOfTouchesRequired == 1 {
+                    collectionView?.removeGestureRecognizer(gesture)
+                }
+            }
+        }
         super.viewDidDisappear(animated)
     }
     

@@ -96,5 +96,18 @@ class TagListViewLabelTableViewCell: UITableViewCell {
         tagListView.reloadData(clearAll: true)
     }
     
-    
+    func willDisappear() {
+        // remove the gestures that this class addded
+        if let gestures = tagListView?.gestureRecognizers {
+            for gesture in gestures {
+                // remove double tap gesture
+                if let tapGesture = gesture as? UITapGestureRecognizer,
+                    tapGesture.numberOfTouchesRequired == 2 {
+                    tagListView?.removeGestureRecognizer(gesture)
+                }
+            }
+        }
+        tagListView.willDisappear()
+    }
+
 }

@@ -47,6 +47,15 @@ class StateTableViewCell: UITableViewCell {
         stateImage?.image = state ? UIImage.init(named: "OK") : UIImage.init(named: "NotOK")
     }
     
+    func willDisappear() {
+        guard let validGestureRecognizers = self.gestureRecognizers else { return }
+        for gesture in validGestureRecognizers {
+            if gesture is UILongPressGestureRecognizer {
+                self.removeGestureRecognizer(gesture)
+            }
+        }
+    }
+
     @objc func stateLongPress() {
         // I should encode the search component
         // And the search status
