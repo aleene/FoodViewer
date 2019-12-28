@@ -287,6 +287,22 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
         setTitle()
     }
     
+    func start() {
+        // Is there a scanned product?
+        if let validSelectedProductIndex = products.currentScannedProduct {
+            // Then open de product details right away
+            startInterface(at: validSelectedProductIndex)
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowProductSegue, sender: self)
+        } else if let validProductPair = selectedProductPair,
+            let validIndex = products.index(of: validProductPair) {
+            startInterface(at: validIndex)
+            // just start at the top
+        } else if products.count > 0 {
+            // If nothing has been selected yet, start with the first product in the list, and on the iPad
+            startInterface(at: 0)
+        }
+    }
+    
     
     // MARK: - Notification methods
     
@@ -386,19 +402,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Is there a scanned product?
-        if let validSelectedProductIndex = products.currentScannedProduct {
-            // Then open de product details right away
-            startInterface(at: validSelectedProductIndex)
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowProductSegue, sender: self)
-        } else if let validProductPair = selectedProductPair,
-            let validIndex = products.index(of: validProductPair) {
-            startInterface(at: validIndex)
-            // just start at the top
-        } else if products.count > 0 {
-            // If nothing has been selected yet, start with the first product in the list, and on the iPad
-            startInterface(at: 0)
-        }
+        //start()
         
         // Notifications coming from ProductPair,
         // which indicate that something in the productPair has changed
@@ -426,21 +430,6 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
     }
     
 }
-
-// MARK: - UIGestureRecognizerDelegate Functions
-/*
-extension AllProductsTableViewController: UIGestureRecognizerDelegate {
-
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        //Identify gesture recognizer and return true else false.
-        return gestureRecognizer.isEqual(self.downTwoFingerSwipe) ? true : false
-    }
-}
- */
     
 // MARK: - UITabBarControllerDelegate Functions
     

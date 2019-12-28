@@ -237,6 +237,14 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     private func switchToHistoryTab() {
         if let tabVC = self.parent as? UITabBarController {
             tabVC.selectedIndex = 1
+            // prepare the controller before moving there
+            if let controllers = tabVC.viewControllers,
+                controllers.count > 1,
+                let firstSplit = controllers[1] as? UISplitViewController,
+                let navController = firstSplit.viewControllers[0] as? UINavigationController,
+                let controller = navController.children[0] as? AllProductsTableViewController {
+                controller.start()
+            }
         } else {
             assert(true, "BarcodeScanViewController:switchToTab:with: TabBar hierarchy error")
         }
@@ -530,7 +538,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         doubleTapGestureRecognizer.numberOfTouchesRequired = 1
         doubleTapGestureRecognizer.cancelsTouchesInView = false
         doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
-        productView.addGestureRecognizer(doubleTapGestureRecognizer)
+        productView?.addGestureRecognizer(doubleTapGestureRecognizer)
 
         initializeCustomKeyboard()
         
