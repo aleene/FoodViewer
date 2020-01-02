@@ -1365,6 +1365,9 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                <connections>
+                                    <segue destination="8v9-C4-NgM" kind="show" identifier="Show Product Segue" id="m3O-SN-Ejx"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TagListView Cell" id="MIA-Lf-G4U" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="99.333332061767578" width="320" height="44"/>
@@ -1399,9 +1402,6 @@
                     <navigationItem key="navigationItem" id="6YC-WQ-CN3"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="900"/>
-                    <connections>
-                        <segue destination="8v9-C4-NgM" kind="show" identifier="Show Product Segue" id="GP7-eq-2nQ"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q8b-LA-YmP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

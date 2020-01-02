@@ -65,9 +65,9 @@ class SettingsTableViewController: UITableViewController {
             refreshSaltOrSodium()
             switch Preferences.manager.nutritionFactsTableStyleSetter {
             case .product:
-                saltOrSodiumSegmentedControl.isEnabled = false
-            default:
                 saltOrSodiumSegmentedControl.isEnabled = true
+            default:
+                saltOrSodiumSegmentedControl.isEnabled = false
             }
         }
     }
@@ -105,9 +105,9 @@ class SettingsTableViewController: UITableViewController {
             refreshJouleOrCalories()
             switch Preferences.manager.nutritionFactsTableStyleSetter {
             case .product:
-                jouleOrCaloriesSegmentedControl.isEnabled = false
-            default:
                 jouleOrCaloriesSegmentedControl.isEnabled = true
+            default:
+                jouleOrCaloriesSegmentedControl.isEnabled = false
             }
 
         }
@@ -136,9 +136,9 @@ class SettingsTableViewController: UITableViewController {
             refreshNutritionUnit()
             switch Preferences.manager.nutritionFactsTableStyleSetter {
             case .product:
-                nutritionUnitSegmentedControl.isEnabled = false
-            default:
                 nutritionUnitSegmentedControl.isEnabled = true
+            default:
+                nutritionUnitSegmentedControl.isEnabled = false
             }
 
         }

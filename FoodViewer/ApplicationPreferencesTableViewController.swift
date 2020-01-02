@@ -47,6 +47,7 @@ class ApplicationPreferencesTableViewController: UITableViewController {
     }
     
     private func setContinuousScan() {
+        continuousScanSegmentedControl?.isEnabled = true
         continuousScanSegmentedControl?.setTitle(TranslatableStrings.ContinuousScanDoNotAllow, forSegmentAt: 0)
         continuousScanSegmentedControl?.setTitle(TranslatableStrings.ContinuousScanAllow, forSegmentAt: 1)
         if let validAllowContinuousScan = ContinuousScanDefaults.manager.allowContinuousScan {
