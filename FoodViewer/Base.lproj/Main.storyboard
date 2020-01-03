@@ -1789,6 +1789,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="9fA-Ow-WOQ"/>
+                    <connections>
+                        <segue destination="nxy-Y8-TIJ" kind="show" identifier="Show Single Product Details Segue" id="OjZ-f4-IhZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G84-8g-p7T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -6303,6 +6306,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="LXh-Zn-OsY"/>
+        <segue reference="OjZ-f4-IhZ"/>
         <segue reference="Jg3-Zr-U6z"/>
     </inferredMetricsTieBreakers>
 </document>

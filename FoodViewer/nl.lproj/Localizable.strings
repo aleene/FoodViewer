@@ -1216,7 +1216,7 @@
 "User defined" = "Gebruikerbepaald";
 
 /* ViewController/row title, which allows the user to set the application preferences. */
-"User Preferences" = "Gebruikerswaarden";
+"User Preferences" = "Voorkeuren";
 
 /* String in textField placeholder, to show that the user has to enter his username. */
 "Username" = "Gebruikersnaam";

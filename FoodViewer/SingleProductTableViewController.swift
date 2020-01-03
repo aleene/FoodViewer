@@ -151,10 +151,19 @@ class SingleProductTableViewController: UITableViewController {
             validProductPageViewController.productPair = selectedProductPair
             validProductPageViewController.currentProductPage = tableStructure[selectedPageIndex ?? 0].productSection()
         } else {
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
+            // performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         }
     }
     
+    fileprivate func showProductPage2() {
+        if let validProductPageViewController = productPageViewController {
+            validProductPageViewController.productPair = selectedProductPair
+            validProductPageViewController.currentProductPage = tableStructure[selectedPageIndex ?? 0].productSection()
+        } else {
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
+        }
+    }
+
     // The row types are mapped onto custom cells
     fileprivate enum RowType {
         case name
@@ -377,7 +386,7 @@ class SingleProductTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedPageIndex = indexPath.row
-        showProductPage()
+        showProductPage2()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -408,7 +417,13 @@ class SingleProductTableViewController: UITableViewController {
                         ppvc.currentProductPage = tableStructure[selectedPageIndex ?? 0].productSection()
                         ppvc.sourcePage = self
                     }
+                // on an iPhone?
+                } else if let ppvc = segue.destination as? ProductPageViewController {
+                    ppvc.productPair = selectedProductPair
+                    ppvc.currentProductPage = tableStructure[selectedPageIndex ?? 0].productSection()
+                    ppvc.sourcePage = self
                 }
+
             default: break
             }
         }

@@ -238,8 +238,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedProductPair = products.productPair(at: indexPath.row)
-        print(self, self.parent, self.parent?.children)
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowProductSegue, sender: self)
+        // performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowProductSegue, sender: self)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

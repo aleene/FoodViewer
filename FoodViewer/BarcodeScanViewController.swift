@@ -287,7 +287,12 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                     setupViews()
                     self.nameLabel.text = scannedProductPair?.localProduct?.name ?? scannedProductPair?.remoteProduct?.name ?? TranslatableStrings.NoName
                     self.brandLabel.text = scannedProductPair?.brand ?? TranslatableStrings.NoBrandsIndicated
-                    self.quantityLabel.text = scannedProductPair?.localProduct?.quantity ?? scannedProductPair?.remoteProduct?.quantity
+                    if let quantity = scannedProductPair?.localProduct?.quantity ?? scannedProductPair?.remoteProduct?.quantity {
+                        let quantityParts = quantity.components(separatedBy: ", ")
+                        if quantityParts.count > 0 {
+                            self.quantityLabel.text = quantityParts[0]
+                        }
+                    }
                     self.nova = scannedProductPair?.localProduct?.novaGroup ?? scannedProductPair!.remoteProduct?.novaGroup
                     self.score = scannedProductPair?.remoteProduct?.nutritionGrade ?? scannedProductPair?.localProduct?.nutritionGrade
                     self.takePhotoButton.isHidden = true
