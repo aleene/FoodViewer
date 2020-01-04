@@ -17,7 +17,7 @@ class OpenFoodFactsPreferencesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
 
     
@@ -32,8 +32,6 @@ class OpenFoodFactsPreferencesTableViewController: UITableViewController {
         didSet {
             privateCredentialsHaveBeenSet()
         }
-    }
-    @IBAction func allowContinuousScanSwitched(_ sender: UISwitch) {
     }
     
     private var offAccount = OFFAccount()

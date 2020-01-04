@@ -899,7 +899,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Mwa-Ox-Mgb">
-                                                    <rect key="frame" x="20" y="11" width="340" height="23"/>
+                                                    <rect key="frame" x="20" y="11" width="374" height="23"/>
                                                     <segments>
                                                         <segment title=""/>
                                                         <segment title=""/>
@@ -908,20 +908,33 @@
                                                         <action selector="offAccountSegmentedControlTapped:" destination="WvM-ac-0rh" eventType="valueChanged" id="OdG-mP-jwh"/>
                                                     </connections>
                                                 </segmentedControl>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4l-I2-BDN">
-                                                    <rect key="frame" x="368" y="7" width="30" height="30"/>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Mwa-Ox-Mgb" firstAttribute="top" secondItem="89a-NM-f9R" secondAttribute="topMargin" id="Fyx-wK-icC"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Mwa-Ox-Mgb" secondAttribute="trailing" id="V5t-Ha-4nB"/>
+                                                <constraint firstItem="Mwa-Ox-Mgb" firstAttribute="leading" secondItem="89a-NM-f9R" secondAttribute="leadingMargin" id="eJ0-pY-spO"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Mwa-Ox-Mgb" secondAttribute="bottom" id="rgR-8E-cay"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="gDa-TU-87P">
+                                        <rect key="frame" x="0.0" y="72" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gDa-TU-87P" id="y62-Td-4yu">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3m-Me-bqV">
+                                                    <rect key="frame" x="20" y="7" width="378" height="30"/>
                                                     <connections>
-                                                        <action selector="createOffAccountButtonTapped:" destination="WvM-ac-0rh" eventType="touchUpInside" id="p0E-Uo-9cg"/>
+                                                        <action selector="createOffAccountButtonTapped:" destination="WvM-ac-0rh" eventType="touchUpInside" id="m1N-V3-1MF"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="o4l-I2-BDN" secondAttribute="trailing" constant="16" id="1Vh-bq-DFn"/>
-                                                <constraint firstItem="o4l-I2-BDN" firstAttribute="centerY" secondItem="89a-NM-f9R" secondAttribute="centerY" id="1aj-2e-7Mm"/>
-                                                <constraint firstItem="Mwa-Ox-Mgb" firstAttribute="top" secondItem="89a-NM-f9R" secondAttribute="topMargin" id="Fyx-wK-icC"/>
-                                                <constraint firstItem="o4l-I2-BDN" firstAttribute="leading" secondItem="Mwa-Ox-Mgb" secondAttribute="trailing" constant="8" id="Ip6-PL-jDQ"/>
-                                                <constraint firstItem="Mwa-Ox-Mgb" firstAttribute="leading" secondItem="89a-NM-f9R" secondAttribute="leadingMargin" id="eJ0-pY-spO"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Mwa-Ox-Mgb" secondAttribute="bottom" id="rgR-8E-cay"/>
+                                                <constraint firstAttribute="trailing" secondItem="L3m-Me-bqV" secondAttribute="trailing" constant="16" id="Fhg-Nq-zaa"/>
+                                                <constraint firstItem="L3m-Me-bqV" firstAttribute="centerY" secondItem="y62-Td-4yu" secondAttribute="centerY" id="LmK-N4-MXM"/>
+                                                <constraint firstItem="L3m-Me-bqV" firstAttribute="leading" secondItem="y62-Td-4yu" secondAttribute="leading" constant="20" id="hRh-Uh-wcz"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -934,13 +947,13 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="createOffAccountButton" destination="o4l-I2-BDN" id="NQJ-ze-pmd"/>
+                        <outlet property="createOffAccountButton" destination="L3m-Me-bqV" id="ZfY-l5-qZe"/>
                         <outlet property="offAccountSegmentedControl" destination="Mwa-Ox-Mgb" id="vcE-HU-c7c"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1dh-0f-93d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-581" y="-3217"/>
+            <point key="canvasLocation" x="-581.15942028985512" y="-3217.663043478261"/>
         </scene>
         <!--Application Preferences Table View Controller-->
         <scene sceneID="sVl-BB-x9W">
@@ -6025,10 +6038,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="11" width="221" height="0.33333333333333393"/>
+                                            <rect key="frame" x="20" y="11" width="271" height="0.33333333333333393"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="257" y="-4.3333333333333321" width="137" height="32"/>
+                                            <rect key="frame" x="307" y="-4.3333333333333321" width="87" height="32"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>
@@ -6060,13 +6073,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9JJ-Xu-7XT">
-                                            <rect key="frame" x="8" y="7.9999999999999991" width="332" height="0.33333333333333304"/>
+                                            <rect key="frame" x="8" y="7.9999999999999991" width="357" height="0.33333333333333304"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4Z-mc-9Ph">
-                                            <rect key="frame" x="348" y="-17" width="50" height="50.333333333333336"/>
+                                            <rect key="frame" x="373" y="-4.3333333333333321" width="25" height="25"/>
                                             <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="clearTextViewButtonTapped:" destination="5y9-Bc-FlV" eventType="touchUpInside" id="9lq-Ic-N4N"/>
