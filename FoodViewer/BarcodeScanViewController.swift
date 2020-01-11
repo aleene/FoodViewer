@@ -264,7 +264,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                     // create this barcode in the history and launch te fetch
                     DispatchQueue.main.async(execute: {
                         if let continuousScanIsSet = ContinuousScanDefaults.manager.allowContinuousScan,
-                            continuousScanIsSet {
+                            !continuousScanIsSet {
                             // start a timer to delay the next scan
                             self.startTimer()
                             // show the product data

@@ -56,7 +56,7 @@
 "Allergens" = "Allergenen";
 
 /* title of a segment of a segmented control, which lets the user set the application to scan products continuously. */
-"Allowed" = "Togestaan";
+"Allowed" = "Toegestaan";
 
 /* ViewController/row title, which allows the user to set up the application. */
 "Application Preferences" = "App instellingen";

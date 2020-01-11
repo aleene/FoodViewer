@@ -22,12 +22,16 @@ class DietLevelsTableViewCell: UITableViewCell {
         static let Divisor = 2.5
         static let Height = CGFloat(25.0)
     }
+    
+    private var cornerRadius: CGFloat {
+        // All the level*Label's have the same size.
+        CGFloat(level0Label?.bounds.size.height ?? Constant.Height) / CGFloat(1.1)
+    }
+    
     @IBOutlet weak var level0Label: UILabel! {
         didSet {
-            level0Label?.layer.cornerRadius = CGFloat(level0Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
+            level0Label?.layer.cornerRadius = cornerRadius
             level0Label?.clipsToBounds = true
-            //level0Label?.layer.borderColor = UIColor.systemPurple.withAlphaComponent(0.4).cgColor
-            //level0Label?.layer.borderWidth = CGFloat(1.0)
             if #available(iOS 13.0, *) {
                 level0Label?.textColor = .secondaryLabel
             } else {
@@ -39,7 +43,7 @@ class DietLevelsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var level1Label: UILabel! {
         didSet {
-            level1Label?.layer.cornerRadius = CGFloat(level1Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
+            level1Label?.layer.cornerRadius = cornerRadius
             level1Label?.clipsToBounds = true
             level1Label?.layer.borderColor = UIColor.systemRed.withAlphaComponent(0.4).cgColor
             level1Label?.layer.borderWidth = CGFloat(1.0)
@@ -53,7 +57,7 @@ class DietLevelsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var level2Label: UILabel! {
         didSet {
-            level2Label?.layer.cornerRadius = CGFloat(level2Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
+            level2Label?.layer.cornerRadius = cornerRadius
             level2Label?.clipsToBounds = true
             level2Label?.layer.borderColor = UIColor.systemOrange.withAlphaComponent(0.4).cgColor
             level2Label?.layer.borderWidth = CGFloat(1.0)
@@ -67,7 +71,7 @@ class DietLevelsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var level3Label: UILabel! {
         didSet {
-            level3Label?.layer.cornerRadius = CGFloat(level3Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
+            level3Label?.layer.cornerRadius = cornerRadius
             level3Label?.clipsToBounds = true
             level3Label?.layer.borderColor = UIColor.systemYellow.withAlphaComponent(0.4).cgColor
             level3Label?.layer.borderWidth = CGFloat(1.0)
@@ -81,7 +85,7 @@ class DietLevelsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var level4Label: UILabel! {
         didSet {
-            level4Label?.layer.cornerRadius = CGFloat(level4Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
+            level4Label?.layer.cornerRadius = cornerRadius
             level4Label?.clipsToBounds = true
             level4Label?.layer.borderColor = UIColor.systemGreen.withAlphaComponent(0.4).cgColor
             level4Label?.layer.borderWidth = CGFloat(1.0)
@@ -96,7 +100,7 @@ class DietLevelsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var level5Label: UILabel! {
         didSet {
-            level5Label?.layer.cornerRadius = CGFloat(level5Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
+            level5Label?.layer.cornerRadius = cornerRadius
             level5Label?.clipsToBounds = true
             level5Label?.layer.borderColor = UIColor.systemTeal.withAlphaComponent(0.4).cgColor
             level5Label?.layer.borderWidth = CGFloat(1.0)
@@ -117,10 +121,8 @@ class DietLevelsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var level6Label: UILabel! {
         didSet {
-            level6Label?.layer.cornerRadius = CGFloat(level6Label?.bounds.size.height ?? Constant.Height) / CGFloat(Constant.Divisor)
+            level6Label?.layer.cornerRadius = cornerRadius
             level6Label?.clipsToBounds = true
-            //level6Label?.layer.borderColor = UIColor.systemBlue.withAlphaComponent(0.4).cgColor
-            //level6Label?.layer.borderWidth = CGFloat(1.0)
             if #available(iOS 13.0, *) {
                 level6Label?.textColor = .secondaryLabel
             } else {

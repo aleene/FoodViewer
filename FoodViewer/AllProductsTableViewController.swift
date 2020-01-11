@@ -235,12 +235,11 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
             return .white
         }
     }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         selectedProductPair = products.productPair(at: indexPath.row)
-        // performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowProductSegue, sender: self)
+        return indexPath
     }
-    
+        
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
