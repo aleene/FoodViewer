@@ -1,6 +1,9 @@
 /* Class = "UITabBarItem"; title = "Scanner"; ObjectID = "3Vn-bz-g9v"; */
 "3Vn-bz-g9v.title" = "Scanner";
 
+/* Class = "UITextView"; text = "FoodViewer is possible thanks to OpenFoodFacts, a open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels."; ObjectID = "8si-Yq-0ji"; */
+"8si-Yq-0ji.text" = "FoodViewer est possible grâce à OpenFoodFacts, une base de données ouverte de produits alimentaires avec des ingrédients, des allergènes, des informations nutritionnelles et toutes les petites informations que vous pouvez trouver sur les étiquettes des aliments.";
+
 /* Class = "UILabel"; text = "FoodViewer"; ObjectID = "9OJ-E9-8aV"; */
 "9OJ-E9-8aV.text" = "Histoire";
 

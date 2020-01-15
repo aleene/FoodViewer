@@ -1164,8 +1164,14 @@
 /* Title of a tableView section, which lets the user set the default language of the new product tag entries */
 "Tag Entry Language" = "Invoertaal tags";
 
+/* String of a button which urges the user to take photos of the (new) product. */
+"Take Photos" = "Neem fotos";
+
 /* The title of an alert sheet, which allows the user to save he product. */
 "The local product has been changed. Should these changes be saved?" = "Het lokale product is aangepast. Bewaren?";
+
+/* String, which urges the user to take photos of the (new) product. */
+"This barcode is not yet listed on OFF. Please take some photos, so the data can be added." = "Deze barcode staat nog niet op OFF. Neem wat fotos van het product, zodat de data toegevoegd kan worden.";
 
 /* An explanatory text in the common name field. */
 "This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Dit voorbeeldproduct laat zien hoe de productinformatie wordt getoond. Swipe naar de volgende pagina's om meer productdetails te zien. Na het scannen van het eerste product wordt dit voorbeeldproduct verwijderd.";

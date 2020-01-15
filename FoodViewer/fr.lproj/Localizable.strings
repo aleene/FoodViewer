@@ -1167,8 +1167,14 @@
 /* Title of a tableView section, which lets the user set the default language of the new product tag entries */
 "Tag Entry Language" = "Langue pour les tags";
 
+/* String of a button which urges the user to take photos of the (new) product. */
+"Take Photos" = "Prend Photos";
+
 /* The title of an alert sheet, which allows the user to save he product. */
 "The local product has been changed. Should these changes be saved?" = "Le produit local a changé. Sauvegarder les changements?";
+
+/* String, which urges the user to take photos of the (new) product. */
+"This barcode is not yet listed on OFF. Please take some photos, so the data can be added." = "Ce code-barres n'est pas encore répertorié sur FF. Veuillez prendre quelques photos, afin que les données puissent être ajoutées.";
 
 /* An explanatory text in the common name field. */
 "This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Ce produit de démonstration vous montre comment une produit est présenté. Passez au pages suivants pour voir plus de détails sur le produit. Quand vous commencez à scanner, ce produit sera supprimé.";

@@ -1125,7 +1125,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Kq-ms-Dei">
-                                                    <rect key="frame" x="8" y="8" width="398" height="28"/>
+                                                    <rect key="frame" x="8" y="8" width="304" height="28"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -3966,17 +3966,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Rx-n8-WDV">
-                                            <rect key="frame" x="16" y="11" width="244" height="278"/>
+                                            <rect key="frame" x="16" y="11" width="219" height="278"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3P-fF-cbC">
-                                            <rect key="frame" x="268" y="178.5" width="25" height="25"/>
+                                            <rect key="frame" x="243" y="191" width="50" height="50"/>
                                             <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="deselectImageButtonTapped:" destination="ae1-IC-EpV" eventType="touchUpInside" id="JrS-xZ-s0u"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="64u-QN-3dx">
-                                            <rect key="frame" x="268" y="137.5" width="25" height="25"/>
+                                            <rect key="frame" x="243" y="125" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="64u-QN-3dx" secondAttribute="height" multiplier="1:1" id="gqh-co-hTG"/>
                                             </constraints>
@@ -3986,7 +3986,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jWz-fA-YUG">
-                                            <rect key="frame" x="268" y="96.5" width="25" height="25"/>
+                                            <rect key="frame" x="243" y="59" width="50" height="50"/>
                                             <state key="normal" image="CameraRoll"/>
                                             <connections>
                                                 <action selector="selectFromCamerRollButtonTapped:" destination="ae1-IC-EpV" eventType="touchUpInside" id="OHE-45-gJb"/>
@@ -6039,10 +6039,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="185" height="0.5"/>
+                                            <rect key="frame" x="16" y="11" width="135" height="0.5"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="217" y="-4.5" width="87" height="32.5"/>
+                                            <rect key="frame" x="167" y="-4.5" width="137" height="32.5"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>
@@ -6074,13 +6074,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9JJ-Xu-7XT">
-                                            <rect key="frame" x="8" y="8" width="263" height="0.5"/>
+                                            <rect key="frame" x="8" y="8" width="238" height="0.5"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4Z-mc-9Ph">
-                                            <rect key="frame" x="279" y="-4.5" width="25" height="25.5"/>
+                                            <rect key="frame" x="254" y="-17" width="50" height="50.5"/>
                                             <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="clearTextViewButtonTapped:" destination="5y9-Bc-FlV" eventType="touchUpInside" id="9lq-Ic-N4N"/>
