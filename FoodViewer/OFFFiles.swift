@@ -260,6 +260,76 @@ class OFFplists {
         return language != nil ? language!.code : TextConstants.NoLanguage
     }
 //
+// MARK: - Country functions
+//
+    func country(atIndex index: Int, languageCode key: String) -> String? {
+        if OFFcountries == nil {
+            OFFcountries = readPlist(Constants.CountriesFileName)
+        }
+        if index >= 0 && OFFcountries != nil && index <= OFFcountries!.count {
+            let currentVertex = OFFcountries![OFFcountries!.index(OFFcountries!.startIndex, offsetBy: index)].leaves
+            let values = currentVertex[key]
+               return  values != nil ? values![0] : nil
+        } else {
+            return nil
+        }
+    }
+
+    public var allCountries: [Language] {
+        return setupAllCountries(Locale.preferredLanguages[0])
+    }
+
+    private func setupAllCountries(_ localeLanguage: String) -> [Language] {
+        var countries: [Language] = []
+        if OFFcountries == nil {
+            OFFcountries = readPlist(Constants.LanguagesFileName)
+        }
+        guard OFFcountries != nil else { return countries }
+        let firstSplit = localeLanguage.split(separator:"-").map(String.init)
+
+        // loop over all verteces and fill the languages array
+        for vertex in OFFcountries! {
+            var country = Language()
+
+            let values = vertex.leaves[firstSplit[0]]
+                
+            country.code = vertex.key
+            country.name = values != nil ? values![0] : localeLanguage
+            countries.append(country)
+        }
+        if countries.count > 1 {
+            countries.sort(by: { (s1: Language, s2: Language) -> Bool in return s1.name < s2.name } )
+        }
+        return countries
+    }
+        
+    func countryName(for languageCode:String?) -> String {
+        var country: Language? = nil
+        guard languageCode != nil else { return TextConstants.NoLanguage }
+        let allCountries: [Language] = self.allLanguages
+        if let validIndex = allCountries.firstIndex(where: { (s: Language) -> Bool in
+            s.code == languageCode!
+        }){
+            country = allCountries[validIndex]
+        }
+        return country != nil ? country!.name : TextConstants.NoLanguage
+    }
+      
+    /*
+    func languageCode(for languageString:String?) -> String {
+        var language: Language? = nil
+        guard languageString != nil else { return TextConstants.NoLanguage }
+        if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
+            s.name == languageString!
+        }){
+            language = allLanguages[validIndex]
+        }
+            
+        return language != nil ? language!.code : TextConstants.NoLanguage
+    }
+ */
+
+//
 // MARK: - Translate functions
 //
 
@@ -417,6 +487,7 @@ class OFFplists {
         }
         return nil
     }
+    
 //
 // MARK: - Read functions
 //

@@ -353,7 +353,7 @@ class IdentificationTableViewController: UITableViewController {
             if editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewButton, for: indexPath) as! TagListViewButtonTableViewCell
                 // disallow the editing of the tags by setting the editMode to false
-                cell.setup(datasource: self, delegate: self, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+                cell.setup(datasource: self, delegate: self, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: false, allowTagDeletion: false, scheme: nil)
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell

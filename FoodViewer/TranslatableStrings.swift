@@ -280,6 +280,7 @@ struct TranslatableStrings {
     //static let NoImageInTheRightLanguage = NSLocalizedString("No image in the right language", comment: "Tag indicating that no image in the correct language is available")
     static let NoIngredients = NSLocalizedString("no ingredients specified", comment: "Text in a TagListView, when no ingredients are available in the product data.")
     static let NoLanguageDefined = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
+    static let NoCountryDefined = NSLocalizedString("no country defined", comment: "Text for language of product, when there is no country defined.")
     static let NoName = NSLocalizedString("no name specified", comment: "Text for productname, when no productname is available in the product data.")
     static let None = NSLocalizedString("none", comment: "Text for a cell, when no status title has been provided, such as 'completed', etc.")
     //static let NoneSelected = NSLocalizedString("None selected", comment: "First element of a pickerView where the user has to select an element in the picker.")

@@ -133,9 +133,14 @@ class SupplyChainTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
-                if let checked = checkedTags(productPair?.localProduct?.countriesOriginal) {
-                    return checked
-                }
+                // Local edits of countries are stored as keys "en:english"
+                //if checkedTags(productPair?.localProduct?.countriesInterpreted) != nil {
+                    // translated countries is default
+                    if var list = productPair?.localProduct?.countriesTranslated.list {
+                        list = list.sorted(by: { $0 < $1 })
+                        return Tags.init(list:list)
+                    }
+                //}
             case .remoteTags:
                 return productPair?.remoteProduct?.countriesInterpreted ?? .undefined
             case .remoteUser:
@@ -228,11 +233,13 @@ class SupplyChainTableViewController: UITableViewController {
             static let ExpirationDate = "Expiration Date Cell"
             static let PeriodAfterOpening = "Period After Opening Cell"
             static let Sites = "Sites TagListView Cell"
+            static let TagListViewCountryButton = "TagListView Add Country Button Cell"
             static let Map = "Map Cell"
         }
         struct SegueIdentifier {
             static let ShowExpirationDateViewController = "Show ExpirationDate ViewController"
             static let ShowFavoriteShops = "Show Favorite Shops Segue"
+            static let SelectCountry = "Select Country"
         }
     }
     
@@ -366,7 +373,7 @@ class SupplyChainTableViewController: UITableViewController {
         
         // we assume that product exists
         switch currentProductSection {
-        case .producer, .producerCode, .sites, .ingredientOrigin, .country:
+        case .producer, .producerCode, .sites, .ingredientOrigin:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             var tagListViewEditMode = editMode
             if editMode {
@@ -418,6 +425,11 @@ class SupplyChainTableViewController: UITableViewController {
             cell.setup(datasource: self, delegate: self, editMode: tagListViewEditMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
             
+        case .country:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewCountryButton, for: indexPath) as! TagListViewButtonTableViewCell
+            cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: false, allowTagDeletion: false, scheme: nil)
+            return cell
+
         case .store:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithButton, for: indexPath) as! PurchacePlaceTableViewCell
             cell.width = tableView.frame.size.width
@@ -737,6 +749,8 @@ class SupplyChainTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let validCell = cell as? PurchacePlaceTableViewCell {
             validCell.willDisappear()
+        } else if let validCell = cell as? TagListViewButtonTableViewCell {
+            validCell.willDisappear()
         }
     }
 
@@ -797,6 +811,17 @@ class SupplyChainTableViewController: UITableViewController {
                         }
                     }
                 }
+            case Storyboard.SegueIdentifier.SelectCountry:
+                if  let vc = segue.destination as? SelectCountryViewController {
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? TagListViewButtonTableViewCell != nil {
+                                // transfer the countries of the local product (if any or after edit)
+                                // or the countries of the remote product
+                                // The countries will be interpreted (i.e. as english keys)
+                            vc.currentCountriesInterpreted = productPair?.countriesInterpreted
+                        }
+                    }
+                }
 
             default: break
             }
@@ -813,8 +838,6 @@ class SupplyChainTableViewController: UITableViewController {
     }
     
     @IBAction func unwindSetExpirationDateForCancel(_ segue:UIStoryboardSegue) {
-        if let _ = segue.source as? SelectExpirationDateViewController {
-        }
     }
 
     @IBAction func unwindSetFavoriteShopForDone(_ segue:UIStoryboardSegue) {
@@ -827,6 +850,17 @@ class SupplyChainTableViewController: UITableViewController {
     @IBAction func unwindSetFavoriteShopForCancel(_ segue:UIStoryboardSegue) {
     }
     
+    @IBAction func unwindSetCountryForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? SelectCountryViewController {
+            // The countries are encoded as kets "en:english"
+            productPair?.update(countries: vc.selectedCountries)
+            tableView.reloadData()
+        }
+    }
+    
+    @IBAction func unwindSetCountryForCancel(_ segue:UIStoryboardSegue) {
+    }
+
     @objc func doubleTapOnTableView() {
         switch productVersion {
         case .new:
@@ -880,6 +914,24 @@ class SupplyChainTableViewController: UITableViewController {
 
 }
 //
+// MARK: - TagListViewButtonCellDelegate Functions
+//
+extension SupplyChainTableViewController: TagListViewButtonCellDelegate {
+    
+    // function to let the delegate know that a tag was single tapped
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedSingleTapOn tagListView:TagListView) {
+        
+    }
+    // function to let the delegate know that a tag was double tapped
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
+        
+    }
+    // function to let the delegate know that the button was tapped
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
+        //performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectCountry, sender: self)
+    }
+}
+//
 // MARK: - LanguageHeaderDelegate Functions
 //
 extension SupplyChainTableViewController: LanguageHeaderDelegate {
@@ -918,9 +970,7 @@ extension SupplyChainTableViewController: PurchacePlaceCellDelegate {
 // MARK: - UIPopoverPresentationControllerDelegate Functions
 //
 extension SupplyChainTableViewController: UIPopoverPresentationControllerDelegate {
-    
-    // MARK: - Popover delegation functions
-    
+        
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
     }
