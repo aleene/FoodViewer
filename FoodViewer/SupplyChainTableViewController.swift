@@ -815,6 +815,16 @@ class SupplyChainTableViewController: UITableViewController {
                 if  let vc = segue.destination as? SelectCountryViewController {
                     if let button = sender as? UIButton {
                         if button.superview?.superview as? TagListViewButtonTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .right
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
+                                ppc.delegate = self
+                            }
+                            
                                 // transfer the countries of the local product (if any or after edit)
                                 // or the countries of the remote product
                                 // The countries will be interpreted (i.e. as english keys)
