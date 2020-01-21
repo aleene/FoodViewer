@@ -5,81 +5,75 @@
 //  Created by arnaud on 17/01/2020.
 //  Copyright © 2020 Hovering Above. All rights reserved.
 //
-// This class allows the user to pick a country from a prefined list of countries.
-// This predefined list of countries shows only the countries not yet listed in the product.
-// The user can filter the list of presented countries through entering a text string
+// This class allows the user to pick a pair from a prefined list of Pairs.
+// This predefined list of Pairs shows only the Pairs not yet listed in the product.
+// The user can filter the list of presented Pairs through entering a text string
 
 import UIKit
 
 class SelectCountryViewController: UIViewController {
 //
-// MARK: - External properties
+// MARK: - External Input properties
 //
-    // The current countries assigned to the product
+    // The current Pairs assigned to the product
     // The contries are encodes as keys "en:english"
-    var currentCountriesInterpreted: Tags? = nil {
+    var currentPairsInterpreted: Tags? = nil
+    
+    var allowMultipleSelection = true {
         didSet {
-            // if set the tags are converted to class Language items
-            if let validTags = currentCountriesInterpreted {
-                for tag in validTags.list {
-                    var country = Language()
-                    country.code = tag
-                    country.name = OFFplists.manager.translateCountry(tag, language: Locale.preferredLanguages[0]) ?? TranslatableStrings.NoCountryDefined
-                    currentCountries.append(country)
-                }
-            }
-            setupCountries()
+            tableView?.allowsMultipleSelection = allowMultipleSelection
         }
     }
     
-    // These are countries already selected in the existing product
-    var currentCountries: [Language] = []
+    var allPairs: [Language] = []
     
-    // The keys of the selected countries
+    var assignedHeader = "Assigned TableView Header"
+    
+    var unAssignedHeader = "Unassigned TableView Header"
+    
+    var undefinedText = "Undefined Pair"
+    
+    var cellIdentifier = "SelectCountryViewControllerCell"
+    
+    var translate: ((String, String) -> String?)? = nil
+
+//
+// MARK: - External Output properties
+//
+    // The keys of the selected Pairs
     var selected: [String]? {
-        //guard let validCountries = selectedCountries else { return nil }
-        return selectedCountries?.map({ $0.code })
+        //guard let validPairs = selectedPairs else { return nil }
+        return selectedPairs?.map({ $0.code })
     }
 //
 // MARK: - Internal properties
 //
-// The class Language combines the key and local name of a country. The class should be renamed
+// The class Language combines the key and local name of a pair. The class should be renamed
     
-    private var allCountries: [Language] = []
+    // These are Pairs already selected in the existing product
+    private var currentPairs: [Language] = []
     
-    // The current countries sorted on name in local language
-    private var sortedCountries: [Language] = []
+    // The current Pairs sorted on name in local language
+    private var sortedPairs: [Language] = []
     
-    // The sorted countries filtered on the text string
-    private var filteredCountries: [Language] = []
+    // The sorted Pairs filtered on the text string
+    private var filteredPairs: [Language] = []
     
-    // The country the user wants to add
+    // The pair the user wants to add
     // if the user did not select anything is stays nil
     // If the user removed the already existing entries, there will be an empty array
-    private var selectedCountries: [Language]? = nil
+    private var selectedPairs: [Language]? = nil
 
     private var textFilter: String = "" {
         didSet {
             guard textFilter != oldValue else { return }
             // Filtering on upper case is disallowed
-            filteredCountries = textFilter.isEmpty
-                ? sortedCountries
-                : sortedCountries.filter({ $0.name.lowercased().contains(textFilter) })
+            filteredPairs = textFilter.isEmpty
+                ? sortedPairs
+                : sortedPairs.filter({ $0.name.lowercased().contains(textFilter) })
             tableView?.reloadData()
         }
     }
-    /* are any countries (current or by user) selected?
-    private var hasSelected: Bool {
-        if !currentCountries.isEmpty {
-            return true
-        }
-        if selectedCountries != nil,
-            !selectedCountries!.isEmpty {
-            return true
-        }
-        return false
-    }
- */
 //
 //  MARK : Interface elements
 //
@@ -87,7 +81,7 @@ class SelectCountryViewController: UIViewController {
         didSet {
             tableView?.dataSource = self
             tableView?.delegate = self
-            tableView?.allowsMultipleSelection = true
+            tableView?.allowsMultipleSelection = allowMultipleSelection
         }
     }
         
@@ -105,21 +99,40 @@ class SelectCountryViewController: UIViewController {
 //
 //  MARK : Helper functions
 //
-    private func setupCountries() {
-        sortedCountries = allCountries
-        if let validSelectedCountries = selectedCountries {
-            remove(validSelectedCountries)
-        } else {
-            remove(currentCountries)
+    private func setup() {
+        
+        // if set the tags are converted to class Language items
+        if let validTags = currentPairsInterpreted {
+            for tag in validTags.list {
+                var pair = Language()
+                pair.code = tag
+                if let validTranslate = translate {
+                    pair.name = validTranslate(tag, Locale.preferredLanguages[0]) ?? undefinedText
+                } else {
+                    pair.name = tag
+                }
+                currentPairs.append(pair)
+            }
         }
-        sortedCountries = sortedCountries.sorted(by: forward)
-        filteredCountries = filter()
+        setupPairs()
+        tableView?.allowsMultipleSelection = allowMultipleSelection
     }
     
-    private func remove(_ countries:[Language]) {
-        for country in countries {
-            if let index = sortedCountries.firstIndex(where: ({ $0.code == country.code }) ) {
-                sortedCountries.remove(at: index)
+    private func setupPairs() {
+        sortedPairs = allPairs
+        if let validSelectedPairs = selectedPairs {
+            remove(validSelectedPairs)
+        } else {
+            remove(currentPairs)
+        }
+        sortedPairs = sortedPairs.sorted(by: forward)
+        filteredPairs = filter()
+    }
+    
+    private func remove(_ pairs:[Language]) {
+        for pair in pairs {
+            if let index = sortedPairs.firstIndex(where: ({ $0.code == pair.code }) ) {
+                sortedPairs.remove(at: index)
             }
         }
     }
@@ -129,18 +142,18 @@ class SelectCountryViewController: UIViewController {
     }
     
     private func filter() -> [Language] {
-        return textFilter.isEmpty ? sortedCountries : sortedCountries.filter({ $0.name.lowercased().contains(textFilter) })
+        return textFilter.isEmpty ? sortedPairs : sortedPairs.filter({ $0.name.lowercased().contains(textFilter) })
     }
 //
 // MARK: - ViewController Lifecycle
 //
     override func viewDidLoad() {
         super.viewDidLoad()
-        // has the country list already been setup?
-        guard allCountries.isEmpty else { return }
-        allCountries = OFFplists.manager.allCountries
-        setupCountries()
+        // setup everything
+        // This assumes that the data is available
+        setup()
     }
+    
 }
 //
 // MARK: - UISearchBarDelegate Functions
@@ -161,42 +174,42 @@ extension SelectCountryViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            if let validCountries = selectedCountries {
-                return validCountries.isEmpty ? 1 : validCountries.count
+            if let validPairs = selectedPairs {
+                return validPairs.isEmpty ? 1 : validPairs.count
             } else {
-                return currentCountries.isEmpty ? 1 : currentCountries.count
+                return currentPairs.isEmpty ? 1 : currentPairs.count
             }
         } else {
             // this is either section 0 or section 1
-            return filteredCountries.isEmpty ? 1 : filteredCountries.count
+            return filteredPairs.isEmpty ? 1 : filteredPairs.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Select Country Cell", for: indexPath)
-        // Is there a list with selected/current countries?
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        // Is there a list with selected/current Pairs?
         if indexPath.section == 0 {
-            if let validCountries = selectedCountries {
-                if validCountries.isEmpty {
-                    cell.textLabel?.text =  TranslatableStrings.NoCountryDefined
+            if let validPairs = selectedPairs {
+                if validPairs.isEmpty {
+                    cell.textLabel?.text =  undefinedText
                 } else {
-                    cell.textLabel?.text = validCountries[indexPath.row].name
+                    cell.textLabel?.text = validPairs[indexPath.row].name
                     cell.accessoryType = .checkmark
                 }
             } else {
-                if currentCountries.isEmpty {
-                    cell.textLabel?.text = TranslatableStrings.NoCountryDefined
+                if currentPairs.isEmpty {
+                    cell.textLabel?.text = undefinedText
                 } else {
-                    cell.textLabel?.text = currentCountries[indexPath.row].name
+                    cell.textLabel?.text = currentPairs[indexPath.row].name
                     cell.accessoryType = .checkmark
                 }
             }
             
         } else {
-            if filteredCountries.isEmpty {
-                cell.textLabel?.text =  TranslatableStrings.NoCountryDefined
+            if filteredPairs.isEmpty {
+                cell.textLabel?.text = undefinedText
             } else {
-                cell.textLabel?.text = filteredCountries[indexPath.row].name
+                cell.textLabel?.text = filteredPairs[indexPath.row].name
                 cell.accessoryType = .none
             }
         }
@@ -213,40 +226,37 @@ extension SelectCountryViewController: UITableViewDelegate {
         
         if indexPath.section == 0 {
             // add the selected languages
-            if selectedCountries == nil {
-                selectedCountries = currentCountries
+            if selectedPairs == nil {
+                selectedPairs = currentPairs
             }
             // remove the selected language
-            if let index = selectedCountries!.firstIndex( where: {
-                ($0.code == selectedCountries![indexPath.row].code)
+            if let index = selectedPairs!.firstIndex( where: {
+                ($0.code == selectedPairs![indexPath.row].code)
             }) {
-                selectedCountries?.remove(at:index)
+                selectedPairs?.remove(at:index)
             }
             cell?.accessoryType = .none
         } else {
             // add the selected language
-            if selectedCountries == nil {
-                selectedCountries = currentCountries
+            if selectedPairs == nil {
+                selectedPairs = currentPairs
             }
-            selectedCountries?.append(filteredCountries[indexPath.row])
+            selectedPairs?.append(filteredPairs[indexPath.row])
 
             cell?.accessoryType = .checkmark
         }
-        if selectedCountries != nil {
-            selectedCountries = selectedCountries!.sorted(by: forward)
+        if selectedPairs != nil {
+            selectedPairs = selectedPairs!.sorted(by: forward)
         }
-        setupCountries()
+        setupPairs()
         tableView.reloadData()
         tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "Assigned countries"
-        } else {
-            return "Unassigned countries"
-        }
-
+        return section == 0
+            ? assignedHeader
+            : unAssignedHeader
     }
     
 }

@@ -828,7 +828,14 @@ class SupplyChainTableViewController: UITableViewController {
                                 // transfer the countries of the local product (if any or after edit)
                                 // or the countries of the remote product
                                 // The countries will be interpreted (i.e. as english keys)
-                            vc.currentCountriesInterpreted = productPair?.countriesInterpreted
+                            vc.currentPairsInterpreted = productPair?.countriesInterpreted
+                            vc.allowMultipleSelection = true
+                            vc.allPairs = OFFplists.manager.allCountries
+                            vc.assignedHeader = "Selected Countries"
+                            vc.unAssignedHeader = "Unselected Countries"
+                            vc.undefinedText = TranslatableStrings.NoCountryDefined
+                            vc.cellIdentifier = "Select Country Cell"
+                            vc.translate = OFFplists.manager.translateCountry
                         }
                     }
                 }
