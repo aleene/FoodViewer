@@ -25,34 +25,28 @@ class SelectCountryViewController: UIViewController {
                     var country = Language()
                     country.code = tag
                     country.name = OFFplists.manager.translateCountry(tag, language: Locale.preferredLanguages[0]) ?? TranslatableStrings.NoCountryDefined
-                    countries.append(country)
+                    currentCountries.append(country)
                 }
             }
-            // remove the all the current countries from the picklist
             setupCountries()
         }
     }
     
-    var selectedCountries: [String]? {
-        // if no country has been selected, no changes to the countries (nil)
-        guard let validCountry = selectedCountry else { return nil }
-            
-        var newCountries: [String] = []
-        // add the existing remote countries
-        newCountries = currentCountriesInterpreted?.list ?? []
-        newCountries.append(validCountry)
-        return newCountries
-    }
+    // These are countries already selected in the existing product
+    var currentCountries: [Language] = []
     
+    // The keys of the selected countries
+    var selected: [String]? {
+        //guard let validCountries = selectedCountries else { return nil }
+        return selectedCountries?.map({ $0.code })
+    }
 //
 // MARK: - Internal properties
 //
-    
 // The class Language combines the key and local name of a country. The class should be renamed
     
-    // The current countries as language array
-    private var countries: [Language] = []
-
+    private var allCountries: [Language] = []
+    
     // The current countries sorted on name in local language
     private var sortedCountries: [Language] = []
     
@@ -60,87 +54,72 @@ class SelectCountryViewController: UIViewController {
     private var filteredCountries: [Language] = []
     
     // The country the user wants to add
-    private var selectedCountry: String? = nil
+    // if the user did not select anything is stays nil
+    // If the user removed the already existing entries, there will be an empty array
+    private var selectedCountries: [Language]? = nil
 
     private var textFilter: String = "" {
         didSet {
+            guard textFilter != oldValue else { return }
+            // Filtering on upper case is disallowed
             filteredCountries = textFilter.isEmpty
                 ? sortedCountries
                 : sortedCountries.filter({ $0.name.lowercased().contains(textFilter) })
+            tableView?.reloadData()
         }
     }
+    /* are any countries (current or by user) selected?
+    private var hasSelected: Bool {
+        if !currentCountries.isEmpty {
+            return true
+        }
+        if selectedCountries != nil,
+            !selectedCountries!.isEmpty {
+            return true
+        }
+        return false
+    }
+ */
 //
 //  MARK : Interface elements
 //
-    
-    @IBOutlet weak var pickerView: UIPickerView! {
+    @IBOutlet weak var tableView: UITableView! {
         didSet {
-            pickerView.dataSource = self
-            pickerView.delegate = self
+            tableView?.dataSource = self
+            tableView?.delegate = self
+            tableView?.allowsMultipleSelection = true
         }
     }
         
-    @IBOutlet weak var countryTextField: UITextField! {
+    @IBOutlet weak var searchBar: UISearchBar! {
         didSet {
-            countryTextField.delegate = self
+            searchBar?.delegate = self
         }
     }
-    /*
-        func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-            
-            let myLabel = view == nil ? UILabel() : view as? UILabel
-            
-            var attributedRowText = NSMutableAttributedString()
-
-            if filteredCountries.isEmpty {
-                attributedRowText = NSMutableAttributedString(string: TranslatableStrings.NoLanguageDefined)
-            //} else if row == 0 {
-            //    attributedRowText = NSMutableAttributedString(string: Constants.Select)
-            } else {
-                attributedRowText = NSMutableAttributedString(string: filteredCountries[row].name)
-            }
-
-            myLabel?.textAlignment = .center
-            
-            attributedRowText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Helvetica", size: 16.0)!, range: NSRange(location: 0 ,length:attributedRowText.length))
-            myLabel!.attributedText = attributedRowText
-            return myLabel!
-        }
-     */
-    /*
-    private func positionPickerView() {
-        if let validCurrentCountry = selectedCountry {
-            if let validIndex = filteredCountries.firstIndex(where: { (s: Language) -> Bool in
-                s.code == validCurrentCountry
-            }){
-                countriesPickerView.selectRow(validIndex, inComponent: 0, animated: true)
-            }
-        }
-    }
- */
         
     @IBOutlet weak var navItem: UINavigationItem! {
         didSet {
             navItem.title = TranslatableStrings.Select
         }
     }
-
+//
+//  MARK : Helper functions
+//
     private func setupCountries() {
-        guard sortedCountries.isEmpty else { return }
-        purgeCountries()
+        sortedCountries = allCountries
+        if let validSelectedCountries = selectedCountries {
+            remove(validSelectedCountries)
+        } else {
+            remove(currentCountries)
+        }
         sortedCountries = sortedCountries.sorted(by: forward)
-        textFilter = ""
+        filteredCountries = filter()
     }
     
-    // build up the country picklist the user is going to select from
-    private func purgeCountries() {
-        sortedCountries = OFFplists.manager.allCountries
+    private func remove(_ countries:[Language]) {
         for country in countries {
-            if let validIndex = sortedCountries.firstIndex( where: {
-                (s: Language) -> Bool in
-                    s.code == country.code
-                }) {
-                    sortedCountries.remove(at: validIndex)
+            if let index = sortedCountries.firstIndex(where: ({ $0.code == country.code }) ) {
+                sortedCountries.remove(at: index)
             }
         }
     }
@@ -148,90 +127,127 @@ class SelectCountryViewController: UIViewController {
     private func forward(_ s1: Language, _ s2: Language) -> Bool {
         return s1.name < s2.name
     }
-
-    @objc func textChanged(notification: Notification) {
-        if let text = countryTextField.text {
-            textFilter = text
-            self.pickerView.reloadAllComponents()
-            selectedCountry = filteredCountries.first?.code
-        }
-    }
     
+    private func filter() -> [Language] {
+        return textFilter.isEmpty ? sortedCountries : sortedCountries.filter({ $0.name.lowercased().contains(textFilter) })
+    }
 //
 // MARK: - ViewController Lifecycle
 //
-        
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.textChanged(notification:)),
-            name: UITextField.textDidChangeNotification,
-            object: nil)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // has the country list already been setup?
+        guard allCountries.isEmpty else { return }
+        allCountries = OFFplists.manager.allCountries
+        setupCountries()
     }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self)
-        super.viewDidDisappear(animated)
-    }
-
 }
 //
-// MARK: - UIPickerViewDelegate Functions
+// MARK: - UISearchBarDelegate Functions
 //
-extension SelectCountryViewController: UIPickerViewDelegate {
+extension SelectCountryViewController : UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        textFilter = searchText.lowercased()
+    }
 }
 //
-// MARK: - UIPickerViewDataSource Functions
+// MARK: - UITableViewDataSource Functions
 //
-extension SelectCountryViewController: UIPickerViewDataSource {
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedCountry = filteredCountries[row].code
+extension SelectCountryViewController : UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-        
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return filteredCountries.isEmpty ? 1 : filteredCountries.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if filteredCountries.isEmpty {
-            return TranslatableStrings.NoCountryDefined
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            if let validCountries = selectedCountries {
+                return validCountries.isEmpty ? 1 : validCountries.count
+            } else {
+                return currentCountries.isEmpty ? 1 : currentCountries.count
+            }
         } else {
-            return filteredCountries[row].name
+            // this is either section 0 or section 1
+            return filteredCountries.isEmpty ? 1 : filteredCountries.count
         }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Select Country Cell", for: indexPath)
+        // Is there a list with selected/current countries?
+        if indexPath.section == 0 {
+            if let validCountries = selectedCountries {
+                if validCountries.isEmpty {
+                    cell.textLabel?.text =  TranslatableStrings.NoCountryDefined
+                } else {
+                    cell.textLabel?.text = validCountries[indexPath.row].name
+                    cell.accessoryType = .checkmark
+                }
+            } else {
+                if currentCountries.isEmpty {
+                    cell.textLabel?.text = TranslatableStrings.NoCountryDefined
+                } else {
+                    cell.textLabel?.text = currentCountries[indexPath.row].name
+                    cell.accessoryType = .checkmark
+                }
+            }
+            
+        } else {
+            if filteredCountries.isEmpty {
+                cell.textLabel?.text =  TranslatableStrings.NoCountryDefined
+            } else {
+                cell.textLabel?.text = filteredCountries[indexPath.row].name
+                cell.accessoryType = .none
+            }
+        }
+        return cell
     }
 }
 //
-// MARK: - UITextFieldDelegate Functions
+// MARK: - UITableViewDelegate Functions
 //
-extension SelectCountryViewController: UITextFieldDelegate {
+extension SelectCountryViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
         
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.isFirstResponder { textField.resignFirstResponder() }
-        return true
-    }
-        
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        // reset the filter
-        if !textFilter.isEmpty {
-            textFilter = ""
-            self.pickerView.reloadAllComponents()
+        if indexPath.section == 0 {
+            // add the selected languages
+            if selectedCountries == nil {
+                selectedCountries = currentCountries
+            }
+            // remove the selected language
+            if let index = selectedCountries!.firstIndex( where: {
+                ($0.code == selectedCountries![indexPath.row].code)
+            }) {
+                selectedCountries?.remove(at:index)
+            }
+            cell?.accessoryType = .none
+        } else {
+            // add the selected language
+            if selectedCountries == nil {
+                selectedCountries = currentCountries
+            }
+            selectedCountries?.append(filteredCountries[indexPath.row])
+
+            cell?.accessoryType = .checkmark
         }
-    }
-        
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.isFirstResponder {
-            textField.resignFirstResponder()
+        if selectedCountries != nil {
+            selectedCountries = selectedCountries!.sorted(by: forward)
         }
-        return true
+        setupCountries()
+        tableView.reloadData()
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
-        
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return true
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Assigned countries"
+        } else {
+            return "Unassigned countries"
+        }
+
     }
-        
+    
 }
+

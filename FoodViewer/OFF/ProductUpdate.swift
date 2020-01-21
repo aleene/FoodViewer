@@ -285,7 +285,8 @@ class ProductUpdate: OFFProductUpdateAPI {
         switch validProduct.countriesOriginal {
         case .available:
             let list = validProduct.countriesOriginal.tags(withAdded: languageCodeForWrite)
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries)
+                urlString.append(list.isEmpty ? "%22%22" : list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ","))
             productUpdated = true
         default:
             break

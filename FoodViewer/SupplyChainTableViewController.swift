@@ -427,7 +427,7 @@ class SupplyChainTableViewController: UITableViewController {
             
         case .country:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewCountryButton, for: indexPath) as! TagListViewButtonTableViewCell
-            cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: false, allowTagDeletion: false, scheme: nil)
+            cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: false, allowTagDeletion: editMode, scheme: nil)
             return cell
 
         case .store:
@@ -853,7 +853,7 @@ class SupplyChainTableViewController: UITableViewController {
     @IBAction func unwindSetCountryForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectCountryViewController {
             // The countries are encoded as kets "en:english"
-            productPair?.update(countries: vc.selectedCountries)
+            productPair?.update(countries: vc.selected)
             tableView.reloadData()
         }
     }

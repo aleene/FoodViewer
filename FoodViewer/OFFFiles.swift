@@ -294,7 +294,7 @@ class OFFplists {
             let values = vertex.leaves[firstSplit[0]]
                 
             country.code = vertex.key
-            country.name = values != nil ? values![0] : localeLanguage
+            country.name = values != nil ? values![0] : vertex.key
             countries.append(country)
         }
         if countries.count > 1 {

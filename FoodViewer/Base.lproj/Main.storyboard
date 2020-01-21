@@ -100,8 +100,12 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="ijR-p7-i6Q" firstAttribute="leading" secondItem="wLp-Lk-j1U" secondAttribute="leading" constant="8" id="9Wh-we-hxh"/>
+                                        <constraint firstItem="ijR-p7-i6Q" firstAttribute="top" secondItem="wLp-Lk-j1U" secondAttribute="top" constant="8" id="B2t-Qg-duG"/>
+                                        <constraint firstItem="ijR-p7-i6Q" firstAttribute="leading" secondItem="wLp-Lk-j1U" secondAttribute="leading" constant="8" id="Bwf-qR-nte"/>
+                                        <constraint firstAttribute="trailing" secondItem="ijR-p7-i6Q" secondAttribute="trailing" constant="8" id="QPi-IX-l2D"/>
                                         <constraint firstAttribute="bottom" secondItem="ijR-p7-i6Q" secondAttribute="bottom" constant="8" id="TAD-Bp-3C4"/>
                                         <constraint firstItem="ijR-p7-i6Q" firstAttribute="top" secondItem="wLp-Lk-j1U" secondAttribute="top" constant="8" id="m4A-kA-nvf"/>
+                                        <constraint firstAttribute="bottom" secondItem="ijR-p7-i6Q" secondAttribute="bottom" constant="8" id="ya8-DR-RsK"/>
                                         <constraint firstAttribute="trailing" secondItem="ijR-p7-i6Q" secondAttribute="trailing" constant="8" id="ynq-V2-G6W"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -228,9 +232,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qN5-Jr-HK1">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qN5-Jr-HK1">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                                 <items>
                                     <navigationItem id="1yg-5y-9d6">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="g4P-UZ-qYT">
@@ -246,23 +249,45 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FQt-Td-aMc">
-                                <rect key="frame" x="0.0" y="111" width="320" height="240"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dsi-5o-Hhc">
-                                <rect key="frame" x="16" y="69" width="288" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="rNp-Ar-Uga">
+                                <rect key="frame" x="0.0" y="56" width="320" height="56"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QKo-73-Stw">
+                                <rect key="frame" x="0.0" y="112" width="320" height="436"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Select Country Cell" id="eoB-lQ-Pi4">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eoB-lQ-Pi4" id="ElW-ed-xib">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="rNp-Ar-Uga" firstAttribute="top" secondItem="qN5-Jr-HK1" secondAttribute="bottom" id="GzP-Il-2k6"/>
+                            <constraint firstAttribute="trailing" secondItem="rNp-Ar-Uga" secondAttribute="trailing" id="Lhy-w3-P01"/>
+                            <constraint firstItem="rNp-Ar-Uga" firstAttribute="top" secondItem="qN5-Jr-HK1" secondAttribute="bottom" id="Mic-0x-16F"/>
+                            <constraint firstItem="rNp-Ar-Uga" firstAttribute="leading" secondItem="xIj-no-7mi" secondAttribute="leading" id="cS6-Fb-qK1"/>
+                            <constraint firstItem="QKo-73-Stw" firstAttribute="top" secondItem="rNp-Ar-Uga" secondAttribute="bottom" id="fAR-Ft-zvz"/>
+                            <constraint firstItem="qN5-Jr-HK1" firstAttribute="leading" secondItem="xIj-no-7mi" secondAttribute="leading" id="gLx-8T-IcP"/>
+                            <constraint firstAttribute="trailing" secondItem="qN5-Jr-HK1" secondAttribute="trailing" id="hez-Dm-AtK"/>
+                            <constraint firstAttribute="trailing" secondItem="QKo-73-Stw" secondAttribute="trailing" id="hpR-Mn-exe"/>
+                            <constraint firstItem="qN5-Jr-HK1" firstAttribute="top" secondItem="Ufz-MM-Obu" secondAttribute="bottom" id="jqE-XZ-CD8"/>
+                            <constraint firstItem="QKo-73-Stw" firstAttribute="top" secondItem="rNp-Ar-Uga" secondAttribute="bottom" id="tgY-9x-Ros"/>
+                            <constraint firstItem="QKo-73-Stw" firstAttribute="leading" secondItem="xIj-no-7mi" secondAttribute="leading" id="y0X-PL-0Ug"/>
+                            <constraint firstItem="YCR-jb-LGO" firstAttribute="top" secondItem="QKo-73-Stw" secondAttribute="bottom" id="z5L-qg-to3"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="countryTextField" destination="dsi-5o-Hhc" id="CyO-iB-n9U"/>
                         <outlet property="navItem" destination="1yg-5y-9d6" id="1Qv-uf-lD6"/>
-                        <outlet property="pickerView" destination="FQt-Td-aMc" id="FS8-gO-t1Q"/>
+                        <outlet property="searchBar" destination="rNp-Ar-Uga" id="7bp-wh-F8q"/>
+                        <outlet property="tableView" destination="QKo-73-Stw" id="vGv-0w-ewv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QJR-GO-RWG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
