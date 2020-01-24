@@ -3436,7 +3436,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="RLq-0m-maz" secondAttribute="height" multiplier="1:1" id="HjQ-5n-tpV"/>
                                             </constraints>
-                                            <state key="normal" image="chevron.down.square" catalog="system"/>
+                                            <state key="normal" image="DownToOpen"/>
                                             <connections>
                                                 <action selector="toggleViewModeButtonTapped:" destination="UmG-bo-HkQ" eventType="touchUpInside" id="uZD-p8-k7x"/>
                                             </connections>
@@ -5593,12 +5593,12 @@
         <image name="CheckMark" width="25" height="25"/>
         <image name="Clear" width="25" height="25"/>
         <image name="ClearGrey" width="25" height="25"/>
+        <image name="DownToOpen" width="25" height="25"/>
         <image name="Edit" width="25" height="25"/>
         <image name="Heart" width="25" height="25"/>
         <image name="NotOK" width="25" height="25"/>
         <image name="TripleTap" width="25" height="25"/>
         <image name="User" width="25" height="25"/>
-        <image name="chevron.down.square" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ntk-NT-VGC"/>
