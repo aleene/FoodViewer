@@ -12,15 +12,6 @@ class DietSelectorTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     
-    fileprivate struct Storyboard {
-        struct CellIdentifier {
-            static let DietSelected = "Set Diet Cell"
-        }
-        struct SegueIdentifier {
-            static let DietTriggers = "Show Diet Triggers Segue"
-        }
-    }
-    
     private var selectedDietIndex: Int? = nil {
         didSet {
             
@@ -38,7 +29,7 @@ class DietSelectorTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.DietSelected, for: indexPath) as! SetWarningTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: SetWarningTableViewCell.self), for: indexPath) as! SetWarningTableViewCell
         let (dietKey, dietName) = Diets.manager.keyAndName(for: indexPath.row, in: Locale.interfaceLanguageCode) ?? ("", "DietSelectorTableViewController:No diet for this index")
         cell.state = SelectedDietsDefaults.manager.selected.contains(dietKey)
         cell.stateTitle = dietName
@@ -50,13 +41,13 @@ class DietSelectorTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedDietIndex = indexPath.row
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.DietTriggers, sender: self)
+        performSegue(withIdentifier: segueIdentifier(to: ShowDietTriggersTableViewController.self), sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.SegueIdentifier.DietTriggers:
+            case segueIdentifier(to: ShowDietTriggersTableViewController.self):
                 if let vc = segue.destination as? ShowDietTriggersTableViewController,
                     selectedDietIndex != nil {
                     vc.dietIndex = selectedDietIndex

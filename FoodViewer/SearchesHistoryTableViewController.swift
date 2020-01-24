@@ -63,21 +63,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     }
     
     // MARK: - Table view methods and vars
-    
-    fileprivate struct Storyboard {
-        struct CellIdentifier {
-            static let TagListViewWithLabel = "Search History TagListView With Label Cell Identifier"
-            static let TagListView = "Search History TagListView Cell Identifier"
-            static let Label = "Search History Label Cell Identifier"
-            static let Button = "Search History Button Cell Identifier"
-        }
-        struct SegueIdentifier {
-            static let ShowSearchResults = "Show Search Results Segue Identifier"
-            static let SelectSortOrder = "Select Sort Order Segue Identifier"
-            static let AddSearch = "Add Search Query Segue Identifier"
-        }
-    }
-    
+        
     // There is a section for each search
     override func numberOfSections(in tableView: UITableView) -> Int {
         return searches.allSearchQueries.count != 0 ? searches.allSearchQueries.count : 1
@@ -108,7 +94,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                 if indexPath.row < search.componentsCount  {
                     // Search labels with switches to include or exclude the label
                     //  -- tag values as tags and inclusion as labelText
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
+                    let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewLabelTableViewCell.self), for: indexPath) as! TagListViewLabelTableViewCell //
                     cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: tagValue, prefixLabelText: nil, scheme: nil, text: search.category(for:indexPath.row) ?? "", text2:search.text(for:indexPath.row) ?? TranslatableStrings.NotSet)
                     return cell
                 }
@@ -118,12 +104,12 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
             // if there is no search query the last (row 1)
             if (search.isDefined && indexPath.row == search.componentsCount) ||
                 (!search.isDefined && indexPath.row == 1) {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Label, for: indexPath) as! NameTableViewCell //
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: NameTableViewCell.self), for: indexPath) as! NameTableViewCell //
                 cell.brandLabel.text = "Results sorted by " + ( search.sortOrder?.description ?? "No sort order defined" )
                 cell.accessoryType = .disclosureIndicator
                 return cell
             }
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ButtonTableViewCell.self), for: indexPath) as! ButtonTableViewCell
             cell.tag = tagValue
             cell.editMode = true
             switch search.status {
@@ -138,7 +124,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
             cell.delegate = self
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ButtonTableViewCell.self), for: indexPath) as! ButtonTableViewCell
             cell.tag = tagValue
             cell.editMode = true
             cell.title = "Create search query"
@@ -156,16 +142,16 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                 if validSearch.isDefined {
                     // the search is defined let's edit it
                     if indexPath.row < validSearch.componentsCount  {
-                        performSegue(withIdentifier: Storyboard.SegueIdentifier.AddSearch, sender: self)
+                        performSegue(withIdentifier: segueIdentifier(to: AddSearchQueryTableViewController.self), sender: self)
                     } else if indexPath.row == validSearch.componentsCount {
-                        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectSortOrder, sender: self)
+                        performSegue(withIdentifier: segueIdentifier(to: SetSortOrderViewController.self), sender: self)
                     } else if indexPath.row == validSearch.componentsCount + 1 {
-                        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSearchResults, sender: self)
+                        performSegue(withIdentifier: segueIdentifier(to: SearchResultsTableViewController.self), sender: self)
                     }
                 } else if
                     // the penultimate row
                     (!validSearch.isDefined && indexPath.row == 1) {
-                    performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectSortOrder, sender: self)
+                    performSegue(withIdentifier: segueIdentifier(to: SetSortOrderViewController.self), sender: self)
                 }
             }
         }
@@ -326,44 +312,20 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         return 44
     }
  */
-
-    /*
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        if let validFetchResult = search.status {
-            switch validFetchResult {
-            case .more:
-                // no header required in this case
-                return 0.0
-            default:
-                break
-            }
-        }
-        return UITableViewAutomaticDimension
-    }
- */
-
-    /*
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        // if the user starts scrolling the barcode search focus can be reset
-        self.focusOnNewSearchedProductPair = false
-    }
- */
-    
     // MARK: - Scene changes
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.SegueIdentifier.ShowSearchResults:
+            case segueIdentifier(to: SearchResultsTableViewController.self):
                 if let vc = segue.destination as? SearchResultsTableViewController {
                     vc.search = selectedSearch
                 }
-            case Storyboard.SegueIdentifier.SelectSortOrder:
+            case segueIdentifier(to: SetSortOrderViewController.self):
                 if let vc = segue.destination as? SetSortOrderViewController {
                     vc.currentSortOrder = selectedSearch?.sortOrder
                 }
-            case Storyboard.SegueIdentifier.AddSearch:
+            case segueIdentifier(to: AddSearchQueryTableViewController.self):
                 if let vc = segue.destination as? AddSearchQueryTableViewController {
                     vc.search = nil
                 }
@@ -605,12 +567,12 @@ extension SearchesHistoryTableViewController: ButtonCellDelegate {
                  .partiallyLoaded,
                  .loaded,
                  .loading:
-                performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSearchResults, sender: self)
+                performSegue(withIdentifier: segueIdentifier(to: SearchResultsTableViewController.self), sender: self)
             default:
                 break
             }
         } else {
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.AddSearch, sender: self)
+            performSegue(withIdentifier: segueIdentifier(to: AddSearchQueryTableViewController.self), sender: self)
         }
     }
 }
@@ -621,7 +583,6 @@ extension SearchesHistoryTableViewController: ButtonCellDelegate {
 extension SearchesHistoryTableViewController: SearchHeaderDelegate {
     
     func sortButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
-        //performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSortOrder, sender: button)
     }
     
     func clearButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
@@ -666,12 +627,12 @@ extension SearchesHistoryTableViewController: TagListViewCellDelegate {
                  .partiallyLoaded,
                  .loaded,
                  .loading:
-                performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSearchResults, sender: self)
+                performSegue(withIdentifier: segueIdentifier(to: SearchResultsTableViewController.self), sender: self)
             default:
                 break
             }
         } else {
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.AddSearch, sender: self)
+            performSegue(withIdentifier: segueIdentifier(to: AddSearchQueryTableViewController.self), sender: self)
         }
     }
     

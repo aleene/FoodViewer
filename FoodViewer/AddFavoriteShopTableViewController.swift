@@ -15,7 +15,6 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
     
     fileprivate struct Storyboard {
         static let TextViewCellIdentifier = "TextFieldCell"
-        static let SegueIdentifier = "Unwind Add Favorite Shop Segue"
     }
 
     fileprivate struct Constants {
@@ -26,7 +25,7 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
         // Force edit end
         
         self.view.endEditing(true)
-        self.performSegue(withIdentifier: Storyboard.SegueIdentifier, sender: self)
+        self.performSegue(withIdentifier: StoryboardString.SegueIdentifier.FromAddFavoriteShopTableVC.UnwindVC, sender: self)
     }
     
     @IBOutlet weak var navItem: UINavigationItem!
@@ -113,13 +112,6 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
             shopName = nil
             shopAddress = nil
         }
-        /*
-        let nextRow = textField.tag < Constants.TableLength - 1 ? textField.tag + 1 : 0
-        
-        let nextCell = tableView.cellForRow(at: IndexPath.init(row: nextRow, section: 0))
-        
-        nextCell?.textLabel?.becomeFirstResponder()
-        */
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

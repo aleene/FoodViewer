@@ -16,19 +16,6 @@ import UIKit
 
 class UserTableViewController: UITableViewController {
 
-    fileprivate struct Storyboard {
-        fileprivate struct Segue {
-            static let Alerts = "Show Alert Preferences Segue"
-            static let Diets = "Show Selected Diets Segue"
-            static let DisplayPreferences = "Show Display Preferences Segue"
-            static let OpenFoodFacts = "Show Open Food Facts Preferences Segue"
-            static let Application = "Show Application Preferences Segue"
-        }
-        fileprivate struct CellIdentifier {
-            static let Basic = "User Preferences TableViewCell Identifier"
-        }
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -40,7 +27,7 @@ class UserTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Basic, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: UITableViewCell.self), for: indexPath)
         switch indexPath.section {
         case 0:
             cell.textLabel?.text = TranslatableStrings.AlertPreferencesExtended
@@ -61,15 +48,15 @@ class UserTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            performSegue(withIdentifier: Storyboard.Segue.Alerts, sender: self)
+            performSegue(withIdentifier: segueIdentifier(to: AllergenWarningsTableViewController.self), sender: self)
         case 1:
-            performSegue(withIdentifier: Storyboard.Segue.Diets, sender: self)
+            performSegue(withIdentifier: segueIdentifier(to: DietSelectorTableViewController.self), sender: self)
         case 2:
-            performSegue(withIdentifier: Storyboard.Segue.DisplayPreferences, sender: self)
+            performSegue(withIdentifier: segueIdentifier(to: SettingsTableViewController.self), sender: self)
         case 3:
-            performSegue(withIdentifier: Storyboard.Segue.OpenFoodFacts, sender: self)
+            performSegue(withIdentifier: segueIdentifier(to: OpenFoodFactsPreferencesTableViewController.self), sender: self)
         case 4:
-            performSegue(withIdentifier: Storyboard.Segue.Application, sender: self)
+            performSegue(withIdentifier: segueIdentifier(to: ApplicationPreferencesTableViewController.self), sender: self)
         default:
             break
         }

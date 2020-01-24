@@ -262,12 +262,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         struct NibIdentifier {
             static let AddImageCollectionCell = "AddImageCollectionViewCell"
         }
-        struct SegueIdentifier {
-            static let ShowImage = "Show Image"
-            //static let ShowImageSourceSelector = "Show Select Image Source Segue"
-            static let ShowLanguageAndImageType = "Show Language And ImageType Segue Identifier"
-        }
-
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -474,7 +468,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         if editMode && indexPath.row == originalImages.count {
         } else {
             selectedImage = indexPath
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowImage, sender: self)
+            performSegue(withIdentifier: segueIdentifier(to: ImageViewController.self), sender: self)
         }
     }
     
@@ -483,7 +477,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.SegueIdentifier.ShowImage:
+            case segueIdentifier(to: ImageViewController.self):
                 if let vc = segue.destination as? ImageViewController {
                     guard selectedImage != nil else { return }
                     switch tableStructure[selectedImage!.section] {
@@ -508,7 +502,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                         vc.imageTitle = key
                     }
                 }
-            case Storyboard.SegueIdentifier.ShowLanguageAndImageType:
+            case segueIdentifier(to: SelectLanguageAndImageTypeViewController.self):
                 if let vc = segue.destination as? SelectLanguageAndImageTypeViewController,
                     let button = sender as? UIButton {
                     if let cell = button.superview?.superview as? GalleryCollectionViewCell {
@@ -756,7 +750,7 @@ extension ProductImagesCollectionViewController : GalleryCollectionViewCellDeleg
             let languageCode = keyTuples(for:Array(validProductPair.remoteProduct!.nutritionImages.keys))[validIndexPath.row].0
             OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .nutrition)
         case .originalImages:
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowLanguageAndImageType, sender: button)
+            performSegue(withIdentifier: StoryboardString.SegueIdentifier.FromProductImagesCollectionVC.ToSelectLanguageAndImageTypeVC, sender: button)
         }
     }
 }

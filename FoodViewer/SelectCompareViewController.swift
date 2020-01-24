@@ -5,15 +5,11 @@
 //  Created by arnaud on 01/10/2017.
 //  Copyright © 2017 Hovering Above. All rights reserved.
 //
-
+/*
 import UIKit
 
 class SelectCompareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    private struct Constants {
-        static let UnwindSegue = "Unwind Set Comparison Operator For Done Segue Identifier"
-    }
-    
+        
     var nutrientRow: Int? = nil
     
     var currentCompareOperator: NutrimentSearch.Operator? = nil
@@ -75,7 +71,7 @@ class SelectCompareViewController: UIViewController, UIPickerViewDelegate, UIPic
         default:
             break
         }
-        performSegue(withIdentifier: Constants.UnwindSegue, sender: self)
+        performSegue(withIdentifier: StoryboardString.SegueIdentifier.FromSelectCompareVC.Unwind, sender: self)
     }
     
     
@@ -94,3 +90,4 @@ class SelectCompareViewController: UIViewController, UIPickerViewDelegate, UIPic
     
 
 }
+*/

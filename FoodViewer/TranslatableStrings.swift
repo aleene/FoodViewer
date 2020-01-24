@@ -452,6 +452,7 @@ struct TranslatableStrings {
     //static let SearchSetup = NSLocalizedString("Search set up", comment: "Indicating that a search has been defined")
     static let SearchText = NSLocalizedString("Search Text", comment: "String to indicate the text, which will be used to search multiple fileds of a product.")
     static let Select = NSLocalizedString("Select", comment: "Title of a viewcontroller where the user has to select an element in the picker.")
+    static let SelectedCountries = NSLocalizedString("Selected Countries", comment: "Title of a tableview section with the selected countries for a product.")
     static let SelectLanguage = NSLocalizedString("Select language", comment: "Title of a viewcontroller where the user has to select a language in a pickerView list of languages.")
     static let SelectCompletionStatus = NSLocalizedString("Select Completion Status", comment: "Title of a picker row where the user has to select an element in the picker.")
     static let SelectedDietsPreferences = NSLocalizedString("Selected Diets", comment: "Title of a tableview section, which allows the user to select diets")
@@ -507,6 +508,7 @@ struct TranslatableStrings {
     static let Unknown = NSLocalizedString("Unknown", comment: "Text in a TagListView, when the field in the json was not present.")
     static let UnknownValue = TranslatableStrings.QuestionMark
     static let UploadingImage = NSLocalizedString("Uploading image", comment: "String presented in a tagView if an image is being uploaded")
+    static let UnselectedCountries = NSLocalizedString("Unselected countries", comment: "Title of a tableview section with a list of countries that can be selected.")
     static let Use = NSLocalizedString("Use", comment: "Title of a button in a navigation bar, which allows the user to adapt an image and use the result.")
     static let Username = NSLocalizedString("Username", comment: "String in textField placeholder, to show that the user has to enter his username.")
     static let UserScene = NSLocalizedString("User Preferences", comment: "ViewController/row title, which allows the user to set the application preferences.")

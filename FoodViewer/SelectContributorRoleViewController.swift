@@ -5,15 +5,11 @@
 //  Created by arnaud on 12/10/2017.
 //  Copyright © 2017 Hovering Above. All rights reserved.
 //
-
+/*
 import UIKit
 
 class SelectContributorRoleViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    private struct Storyboard {
-        static let UnwindSegue = "Unwind Set Contributor Role For Done"
-    }
-    
+        
     @IBOutlet weak var pickerView: UIPickerView! {
         didSet {
             pickerView.delegate = self
@@ -55,11 +51,12 @@ class SelectContributorRoleViewController: UIViewController, UIPickerViewDelegat
         }
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pic
+ kerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if row > 0 {
             if let validContributor = currentContributor {
                 updatedContributor = Contributor.init(validContributor.name, role: validRoles[row - 1])
-                performSegue(withIdentifier: Storyboard.UnwindSegue, sender: self)
+                performSegue(withIdentifier: StoryboardString.SegueIdentifier.SelectContributorRoleVC.Unwind, sender: self)
             }
         }
     }
@@ -72,3 +69,4 @@ class SelectContributorRoleViewController: UIViewController, UIPickerViewDelegat
     }
 
 }
+*/

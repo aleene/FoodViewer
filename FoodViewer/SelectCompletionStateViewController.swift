@@ -5,15 +5,11 @@
 //  Created by arnaud on 09/10/2017.
 //  Copyright © 2017 Hovering Above. All rights reserved.
 //
-
+/*
 import UIKit
 
 class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    private struct Storyboard {
-        static let UnwindSegue = "Unwind Select Completion State"
-    }
-    
+        
     var currentCompletion: ProductCompletion? = nil
     
     var selectedCompletion: ProductCompletion? = nil
@@ -53,7 +49,7 @@ class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegat
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if row > 0 {
             selectedCompletion = OFF.allCompletionStates[row - 1]
-            performSegue(withIdentifier: Storyboard.UnwindSegue, sender: self)
+            performSegue(withIdentifier: StoryboardString.SegueIdentifier.SelectCompletionStateVC.Unwind, sender: self)
 
         }
     }
@@ -67,3 +63,4 @@ class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegat
     
 
 }
+ */

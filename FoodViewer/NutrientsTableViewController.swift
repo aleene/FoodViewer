@@ -272,30 +272,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     // MARK: - Table view data source
     
     fileprivate struct Storyboard {
-        struct CellIdentifier {
-            static let NutritionFact = "Nutrition Fact Cell"
-            static let ServingSize = "Serving Size Cell"
-            // static let NoServingSize = "No Serving Size Cell"
-            static let Image = "Nutrition Facts Image Cell"
-            //static let EmptyNutritionFacts = "Empty Nutrition Facts Image Cell"
-            static let NoImage = "No Nutrition Image Cell"
-            static let AddNutrient = "Add Nutrient Cell"
-            static let PerUnit = "Per Unit Cell"
-            static let NoNutrimentsAvailable = "Nutriments Available Cell"
-            static let SearchNutritionFact = "Search Nutrition Fact Cell Identifier"
-            static let TagListView = "Nutrition TagListView Cell"
-            static let TagListViewAddImage = "Nutrition TagListView Add Image Cell"
-        }
-        
-        struct SegueIdentifier {
-            static let ShowNutritionFactsImage = "Show Nutrition Facts Image"
-            static let AddNutrient = "Add Nutrient Segue"
-            static let SelectNutrientUnit = "Select Nutrient Unit Segue"
-            static let SelectNutrientUnitForSearch = "Select Nutrient Unit For Search Nutrition Fact Segue Identifier"
-            static let ShowNutritionImageLanguages = "Show Nutrition Image Languages"
-            static let SelectComparisonOperator = "Show Select Comparison Operator Segue Identifier"
-            static let ShowNutritionFactsTableStyles = "Show Select Nutrition Table Style Segue Identifier"
-        }
         struct Title {
             static let ShowNutritionFactsImage = TranslatableStrings.Image
             static let ViewController = TranslatableStrings.NutritionFacts
@@ -357,7 +333,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         switch tableStructure[indexPath.section] {
             
         case .noNutrimentsAvailable:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoNutrimentsAvailable, for: indexPath) as! NutrimentsAvailableTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: NutrimentsAvailableTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! NutrimentsAvailableTableViewCell
             cell.editMode = editMode
             if productPair?.localProduct?.nutrimentFactsAvailability != nil {
                 cell.editMode = productVersion.isRemote ? false : true
@@ -375,7 +351,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             return cell
             
         case .perUnit:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PerUnit, for: indexPath) as! PerUnitTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: PerUnitTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! PerUnitTableViewCell
             cell.displayMode = currentNutritionQuantityDisplayMode
             cell.editMode = editMode
             if productPair?.localProduct?.nutritionFactsIndicationUnit != nil {
@@ -396,13 +372,13 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case .nutritionFacts:
             if indexPath.row == tableStructure[indexPath.section].numberOfRows && editMode {
                 // This cell should only be added when in editMode and as the last row
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: AddNutrientTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! AddNutrientTableViewCell
                 cell.delegate = self
                 cell.buttonText = TranslatableStrings.AddNutrient
                 return cell
             } else {
                 if adaptedNutritionFacts.isEmpty {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: TagListViewTableViewCell.identifier + "," + NutrientsTableViewController.identifier, for: indexPath) as? TagListViewTableViewCell
 
                     var tagListViewColorScheme: ColorScheme? = nil
                     if let available = productPair?.remoteProduct?.nutritionFactsAreAvailable {
@@ -422,7 +398,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     cell?.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: tagListViewColorScheme)
                     return cell!
                 } else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFact, for: indexPath) as? NutrientsTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: NutrientsTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as? NutrientsTableViewCell
                     // warning set FIRST the saltOrSodium
                     cell?.nutritionDisplayFactItem = adaptedNutritionFacts[indexPath.row]
                     cell?.delegate = self
@@ -471,7 +447,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
 
         case .servingSize:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ServingSize, for: indexPath) as! ServingSizeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ServingSizeTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! ServingSizeTableViewCell
             cell.servingSizeTextField.delegate = self
             cell.servingSizeTextField.tag = indexPath.section
             cell.editMode = editMode
@@ -487,21 +463,21 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
         case .image:
             if currentImage != nil {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: ProductImageTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! ProductImageTableViewCell
                 cell.editMode = editMode
                 cell.productImage = currentImage
                 cell.delegate = self
                 return cell
             } else {
                 // Show a tag with the option to set an image
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewAddImage, for: indexPath) as! TagListViewAddImageTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: TagListViewAddImageTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! TagListViewAddImageTableViewCell
                 cell.accessoryType = .none
                 cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: ColorSchemes.error)
                 return cell
             }
 
         case .addNutrient:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: AddNutrientTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! AddNutrientTableViewCell
             cell.buttonText = TranslatableStrings.AddNutrient
             return cell
         }
@@ -597,7 +573,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
         }
         let currentProductSection = tableStructure[section]
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: LanguageHeaderView.identifier) as! LanguageHeaderView
         headerView.section = section
         headerView.delegate = self
         headerView.changeViewModeButton.isHidden = true
@@ -901,11 +877,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
 
     // MARK: - Segue functions
-    
+        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.SegueIdentifier.ShowNutritionImageLanguages:
+            case NutrientsTableViewController.identifier + "." + SelectLanguageViewController.identifier:
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
                     if let button = sender as? UIButton {
@@ -954,7 +930,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     assert(true, "NutrientsTableViewController: ShowNutritionImageLanguages segue preparation wrongly configurated")
                 }
-            case Storyboard.SegueIdentifier.ShowNutritionFactsTableStyles:
+            case NutrientsTableViewController.identifier + "." + SelectNutritionFactsTableStyleTableViewCell.identifier:
                 if let vc = segue.destination as? SelectNutritionFactsTableStyleTableViewCell {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
                     if let button = sender as? UIButton {
@@ -979,7 +955,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     assert(true, "NutrientsTableViewController: ShowNutritionFactsTableStyles segue preparation wrongly configurated")
                 }
-            case Storyboard.SegueIdentifier.ShowNutritionFactsImage:
+            case NutrientsTableViewController.identifier + "." + ImageViewController.identifier:
                 if let vc = segue.destination as? ImageViewController,
                     let validLanguageCode = displayLanguageCode {
                     vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
@@ -992,7 +968,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     assert(true, "NutrientsTableViewController: ShowNutritionFactsImage segue preparation wrongly configurated")
                 }
-            case Storyboard.SegueIdentifier.AddNutrient:
+            case NutrientsTableViewController.identifier + "." + AddNutrientViewController.identifier:
                 if let vc = segue.destination as? AddNutrientViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
                     if let button = sender as? UIButton {
@@ -1013,7 +989,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     assert(true, "NutrientsTableViewController: AddNutrient segue preparation wrongly configurated")
                 }
                 
-            case Storyboard.SegueIdentifier.SelectNutrientUnit:
+            case NutrientsTableViewController.identifier + "." + SelectNutrientUnitViewController.identifier:
                 if let vc = segue.destination as? SelectNutrientUnitViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
                     if let button = sender as? UIButton {
@@ -1037,33 +1013,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     assert(true, "NutrientsTableViewController: SelectNutrientUnit segue preparation wrongly configurated")
                 }
-                /*
-            case Storyboard.SegueIdentifier.SelectComparisonOperator:
-                if let vc = segue.destination as? SelectCompareViewController {
-                    // The segue can only be initiated from a button within a BarcodeTableViewCell
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? SearchNutrientsTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .any
-                                // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                                ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                let row = button.tag % 100
-                                vc.nutrientRow = row
-                                if query != nil && row >= 0 && row < query!.allNutrimentsSearch.count  {
-                                    vc.currentCompareOperator = query!.allNutrimentsSearch[row].searchOperator
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    assert(true, "NutrientsTableViewController: SelectComparisonOperator segue preparation wrongly configurated")
-                }
- */
-
             default: break
             }
         }
@@ -1076,13 +1025,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     @IBAction func unwindAddNutrientForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? AddNutrientViewController {
             if let newNutrientTuple = vc.addedNutrientTuple {
-                /*    var nutrimentSearch = NutrimentSearch()
-                    nutrimentSearch.nutrient = newNutrientTuple.0 // key with en: prefix
-                    nutrimentSearch.name = newNutrientTuple.1 // name in local language
-                    nutrimentSearch.unit = newNutrientTuple.2 // default unit
-                    query!.allNutrimentsSearch.append(nutrimentSearch)
-                    tableView.reloadData()
-                } else {*/
                     var newNutrient = NutritionFactItem()
                     newNutrient.nutrient = newNutrientTuple.0
                     newNutrient.itemName = newNutrientTuple.1
@@ -1096,7 +1038,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     }
                     productPair?.update(fact: newNutrient)
                     refreshProduct()
-                //}
             }
         }
     }
@@ -1154,18 +1095,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
         }
     }
-/*
-    @IBAction func unwindSetComparisonOperator(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? SelectCompareViewController {
-            // The new comparison operator should be set to the nutrient that was edited
-            if let nutrientRow = vc.nutrientRow,
-            let selectedOperator = vc.selectedCompareOperator {
-                //query!.allNutrimentsSearch[nutrientRow].searchOperator = selectedOperator
-                //tableView.reloadData()
-            }
-        }
-    }
- */
 
     // MARK: - Popover delegation functions
     
@@ -1234,19 +1163,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     // The availability of nutriments on the product has changed
     func nutrimentsAvailabilitySet(_ notification: Notification) {
     }
-    /*
-
-    func showNutrimentSelector(_ notification: Notification) {
-        if let sender = notification.userInfo?[AddNutrientTableViewCell.Notification.AddNutrientButtonTappedKey] {
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.AddNutrient, sender: sender)
-        }
-    }
-    func showNutrimentUnitSelector(_ notification: Notification) {
-        if let sender = notification.userInfo?[SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientUnitButtonTappedKey] {
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectNutrientUnit, sender: sender)
-        }
-    }
- */
     
     @objc func reloadImageSection() { // (_ notification: Notification) {
         //if let valid = imageSectionIndex {
@@ -1375,7 +1291,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 70
         
-        tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
+        tableView.register(UINib(nibName: LanguageHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: LanguageHeaderView.identifier)
 
     }
     
@@ -1655,7 +1571,7 @@ extension NutrientsTableViewController: TagListViewAddImageCellDelegate {
 extension NutrientsTableViewController: SearchNutrientsCellDelegate {
     
     func searchNutrientsTableViewCell(_ sender: SearchNutrientsTableViewCell, receivedActionOnUnit button:UIButton) {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectNutrientUnit, sender: button)
+        performSegue(withIdentifier: NutrientsTableViewController.identifier + "." + SelectNutrientUnitViewController.identifier, sender: button)
     }
 }
 
@@ -1843,9 +1759,9 @@ extension NutrientsTableViewController: LanguageHeaderDelegate {
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
         switch sender.tag {
         case 0:
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNutritionImageLanguages, sender: sender)
+            performSegue(withIdentifier: NutrientsTableViewController.identifier + "." + ImageViewController.identifier, sender: sender)
         case 1:
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNutritionFactsTableStyles, sender: sender)
+            performSegue(withIdentifier: NutrientsTableViewController.identifier + "." + SelectNutritionFactsTableStyleTableViewCell.identifier, sender: sender)
         default:
             break
         }

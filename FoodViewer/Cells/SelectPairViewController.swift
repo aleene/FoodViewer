@@ -1,5 +1,5 @@
 //
-//  SelectCountryViewController.swift
+//  SelectPairViewController.swift
 //  FoodViewer
 //
 //  Created by arnaud on 17/01/2020.
@@ -11,31 +11,21 @@
 
 import UIKit
 
-class SelectCountryViewController: UIViewController {
+class SelectPairViewController: UIViewController {
 //
 // MARK: - External Input properties
 //
-    // The current Pairs assigned to the product
-    // The contries are encodes as keys "en:english"
-    var currentPairsInterpreted: Tags? = nil
-    
-    var allowMultipleSelection = true {
-        didSet {
-            tableView?.allowsMultipleSelection = allowMultipleSelection
-        }
+    // Configure all necessary input parameters in one go
+    // So none will be forgotten
+    func configure(currentPairsInterpreted: Tags?, allPairs: [Language], assignedHeader: String, unAssignedHeader: String, undefinedText: String, cellIdentifier: String, translate: ((String, String) -> String?)?) {
+        self.currentPairsInterpreted = currentPairsInterpreted
+        self.allPairs = allPairs
+        self.assignedHeader = assignedHeader
+        self.unAssignedHeader = unAssignedHeader
+        self.undefinedText = undefinedText
+        self.cellIdentifier = cellIdentifier
+        self.translate = translate
     }
-    
-    var allPairs: [Language] = []
-    
-    var assignedHeader = "Assigned TableView Header"
-    
-    var unAssignedHeader = "Unassigned TableView Header"
-    
-    var undefinedText = "Undefined Pair"
-    
-    var cellIdentifier = "SelectCountryViewControllerCell"
-    
-    var translate: ((String, String) -> String?)? = nil
 
 //
 // MARK: - External Output properties
@@ -46,10 +36,27 @@ class SelectCountryViewController: UIViewController {
         return selectedPairs?.map({ $0.code })
     }
 //
-// MARK: - Internal properties
+// MARK: - Internal input properties
 //
-// The class Language combines the key and local name of a pair. The class should be renamed
+    // The current Pairs assigned to the product
+    // The contries are encodes as keys "en:english"
+    private var currentPairsInterpreted: Tags? = nil
+        
+    private var allPairs: [Language] = []
     
+    private var assignedHeader = "Assigned TableView Header"
+    
+    private var unAssignedHeader = "Unassigned TableView Header"
+    
+    private var undefinedText = "Undefined Pair"
+    
+    private var cellIdentifier = "SelectPairViewControllerCell"
+    
+    private var translate: ((String, String) -> String?)? = nil
+    //
+    // MARK: - Internal  properties
+    //
+// The class Language combines the key and local name of a pair. The class should be renamed
     // These are Pairs already selected in the existing product
     private var currentPairs: [Language] = []
     
@@ -81,7 +88,7 @@ class SelectCountryViewController: UIViewController {
         didSet {
             tableView?.dataSource = self
             tableView?.delegate = self
-            tableView?.allowsMultipleSelection = allowMultipleSelection
+            tableView?.allowsMultipleSelection = true
         }
     }
         
@@ -115,7 +122,6 @@ class SelectCountryViewController: UIViewController {
             }
         }
         setupPairs()
-        tableView?.allowsMultipleSelection = allowMultipleSelection
     }
     
     private func setupPairs() {
@@ -158,7 +164,7 @@ class SelectCountryViewController: UIViewController {
 //
 // MARK: - UISearchBarDelegate Functions
 //
-extension SelectCountryViewController : UISearchBarDelegate {
+extension SelectPairViewController : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         textFilter = searchText.lowercased()
     }
@@ -166,7 +172,7 @@ extension SelectCountryViewController : UISearchBarDelegate {
 //
 // MARK: - UITableViewDataSource Functions
 //
-extension SelectCountryViewController : UITableViewDataSource {
+extension SelectPairViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -219,7 +225,7 @@ extension SelectCountryViewController : UITableViewDataSource {
 //
 // MARK: - UITableViewDelegate Functions
 //
-extension SelectCountryViewController: UITableViewDelegate {
+extension SelectPairViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)

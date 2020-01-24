@@ -5,7 +5,7 @@
 //  Created by arnaud on 23/10/2017.
 //  Copyright © 2017 Hovering Above. All rights reserved.
 //
-
+/*
 import UIKit
 
 class SetLastEditDateViewController: UIViewController {
@@ -45,3 +45,4 @@ class SetLastEditDateViewController: UIViewController {
     }
 
 }
+*/

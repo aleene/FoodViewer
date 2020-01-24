@@ -126,17 +126,6 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
     
     fileprivate var selectedProductPair: ProductPair? = nil
     
-    fileprivate struct Storyboard {
-        struct CellIdentifier {
-            static let Name = "Product Name Cell"
-            static let TagListView = "TagListView Cell"
-        }
-        struct SegueIdentifier {
-            static let ShowProductSegue = "Show Product Segue"
-        }
-    }
-    
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return Constants.Table.NumberOfSections
     }
@@ -154,7 +143,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
             case .available, .updated:
                 products.loadProductPair(at: indexPath.row) //make sure the next set is loaded
                 let productPair = products.productPair(at: indexPath.row)
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: UITableViewCell.self), for: indexPath)
                 // cell.isEditing = true
                 cell.backgroundColor = allergenAndTraceWarningColour(for: productPair)
                 cell.textLabel?.text = productPair?.name ?? productPair?.barcodeType.asString
@@ -177,7 +166,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
             case .productNotAvailable,
                 .loading,
                 .loadingFailed:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell //
                 // encode the product number and result into the tag
                 cell.accessoryType = .none
                 cell.setup(datasource: self, delegate: self, editMode: false, width: nil, tag: indexPath.row * Constants.TagValue.Product.Multiplier + validFetchResult.rawValue, prefixLabelText: nil, scheme: ColorSchemes.error)
@@ -185,18 +174,18 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
                     
             case .initialized, .productNotLoaded:
                 products.loadProductPair(at: indexPath.row)
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
                 cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: tagValue(for: validFetchResult), prefixLabelText: nil, scheme: ColorSchemes.normal)
 
                 return cell
                 
             default:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
                 cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: validFetchResult.rawValue + Constants.TagValue.Product.Multiplier * indexPath.row, prefixLabelText: nil, scheme: ColorSchemes.normal)
                 return cell
                 }
         } else { // No validFetchResult
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: tagValue(for: .initialized), prefixLabelText: nil, scheme: ColorSchemes.normal)
             return cell
         }
@@ -266,7 +255,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.SegueIdentifier.ShowProductSegue:
+            case segueIdentifier(to: SingleProductTableViewController.self):
                 if let vc = segue.destination as? SingleProductTableViewController {
                     vc.selectedProductPair = selectedProductPair
                 }
@@ -291,7 +280,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
         if let validSelectedProductIndex = products.currentScannedProduct {
             // Then open de product details right away
             startInterface(at: validSelectedProductIndex)
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowProductSegue, sender: self)
+            performSegue(withIdentifier: segueIdentifier(to: SingleProductTableViewController.self), sender: self)
         } else if let validProductPair = selectedProductPair,
             let validIndex = products.index(of: validProductPair) {
             startInterface(at: validIndex)

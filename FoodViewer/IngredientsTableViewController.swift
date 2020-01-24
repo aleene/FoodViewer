@@ -272,30 +272,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     private var cellHeight: [Int:CGFloat] = [:]
-
-    fileprivate struct Storyboard {
-        struct CellIdentifier {
-            static let Ingredients = "Ingredients Full Cell"
-            static let TagListView = "TagListView Cell"
-            static let TagListViewWithSegmentedControl = "TagListView With SegmentedControl Cell"
-            static let Image = "Ingredients Image Cell"
-            //static let NoImage = "No Image Cell"
-            static let TagListViewAddImage = "Ingredients TagListView Add Image Cell"
-        }
-        
-        struct SegueIdentifier {
-            static let ShowIdentification = "Show Ingredients Image"
-            static let SelectLanguage = "Show Ingredients Languages"
-        }
-        
-        struct Nib {
-            static let LanguageHeaderView = "LanguageHeaderView"
-        }
-        
-        struct ReusableHeaderFooterView {
-            static let Language = "LanguageHeaderView"
-        }
-    }
     
     fileprivate struct Constants {
         struct CellHeight {
@@ -310,7 +286,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate struct TextConstants {
         static let ShowIdentificationTitle = TranslatableStrings.Image
     }
-    
+        
     override func numberOfSections(in tableView: UITableView) -> Int {
         return tableStructure.count
     }
@@ -327,18 +303,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         case .ingredients:
             switch productVersion {
             case .remoteTags, .remoteTagsHierarchy, .remoteTagsTranslated, .remoteTagsHierarchyTranslated:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
                 cell.setup(datasource: self, delegate: self, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
                 return cell
             default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! IngredientsFullTableViewCell
-            cell.delegate = self
-            cell.textViewTag = indexPath.section
-            cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
-            if let validLanguageCode = displayLanguageCode,
-                productPair?.localProduct?.ingredientsLanguage[validLanguageCode] != nil {
-                cell.editMode = productVersion.isRemote ? false : true
-            }
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: IngredientsFullTableViewCell.self), for: indexPath) as! IngredientsFullTableViewCell
+                cell.delegate = self
+                cell.textViewTag = indexPath.section
+                cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+                if let validLanguageCode = displayLanguageCode,
+                    productPair?.localProduct?.ingredientsLanguage[validLanguageCode] != nil {
+                    cell.editMode = productVersion.isRemote ? false : true
+                }
 
             //cell.textView.textColor = .gray
             switch ingredientsToDisplay {
@@ -358,23 +334,23 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
 
         case .allergens, .additives, .minerals, .vitamins, .nucleotides, .otherNutritionalSubstances, .aminoAcids:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.setup(datasource: self, delegate: self, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
 
         case .traces:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
 
         case .labels:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
         
         case .image:
             if imageToShow != nil {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:ProductImageTableViewCell.self), for: indexPath) as! ProductImageTableViewCell
                 cell.editMode = editMode
                 if localImageToShow != nil {
                     cell.editMode = productVersion.isRemote ? false : true
@@ -385,7 +361,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             } else {
                 searchResult = TranslatableStrings.NoImageAvailable
                 // Show a tag with the option to set an image
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewAddImage, for: indexPath) as! TagListViewAddImageTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewAddImageTableViewCell.self), for: indexPath) as! TagListViewAddImageTableViewCell
                 cell.accessoryType = .none
                 cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: ColorSchemes.error)
                 return cell
@@ -499,7 +475,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
         }
 
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: LanguageHeaderView.identifier) as! LanguageHeaderView
         
         headerView.section = section
         headerView.delegate = self
@@ -789,7 +765,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.SegueIdentifier.ShowIdentification:
+            case segueIdentifier(to: ImageViewController.self):
                 if let vc = segue.destination as? ImageViewController,
                     let validLanguageCode = displayLanguageCode {
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
@@ -800,7 +776,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         vc.imageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients)
                     }
                 }
-            case Storyboard.SegueIdentifier.SelectLanguage:
+            case segueIdentifier(to: SelectLanguageViewController.self):
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
                     if let button = sender as? UIButton {
@@ -1498,7 +1474,7 @@ extension IngredientsTableViewController: GKImagePickerDelegate {
 extension IngredientsTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectLanguage, sender: sender)
+        performSegue(withIdentifier: segueIdentifier(to: SelectLanguageViewController.self), sender: sender)
     }
     
     func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {

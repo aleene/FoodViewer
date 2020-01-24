@@ -111,19 +111,12 @@ class CategoriesTableViewController: UITableViewController {
     // MARK: - TableView Functions
     
     fileprivate struct Storyboard {
-        struct CellIdentifier {
-            static let TagListView = "TagListView Cell Identifier"
-            static let TagListViewWithSegmentedControl = "TagListView With SegmentedControl Cell Identifier"
-        }
-        
         struct Nib {
             static let LanguageHeaderView = "LanguageHeaderView"
         }
-
         struct ReusableHeaderFooterView {
             static let Language = "LanguageHeaderView"
         }
-
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -137,7 +130,7 @@ class CategoriesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TagListViewTableViewCell.identifier + "." + CategoriesTableViewController.identifier, for: indexPath) as! TagListViewTableViewCell
         //cell.width = tableView.frame.size.width
         //cell.tag = indexPath.section
         var tagListEditMode = editMode
@@ -149,8 +142,6 @@ class CategoriesTableViewController: UITableViewController {
                 break
             }
         }
-        //cell.delegate = self
-        //cell.datasource = self
         cell.setup(datasource: self, delegate: self, editMode: tagListEditMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
         return cell
     }

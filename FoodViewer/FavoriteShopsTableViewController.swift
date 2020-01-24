@@ -10,10 +10,6 @@ import UIKit
 
 class FavoriteShopsTableViewController: UITableViewController {
 
-    fileprivate struct Storyboard {
-        static let FavoriteShopCellIdentifier = "Favorite Shop Cell"
-    }
-
     private var shops: [(String, Address)] = []
 
     private var snapShot: UIView?
@@ -37,7 +33,7 @@ class FavoriteShopsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.FavoriteShopCellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier + "." + FavoriteShopsTableViewController.identifier , for: indexPath)
 
         let (shop, location) = FavoriteShopsDefaults.manager.list[indexPath.row]
         cell.textLabel?.text = shop

@@ -150,8 +150,6 @@ class SingleProductTableViewController: UITableViewController {
         if let validProductPageViewController = productPageViewController {
             validProductPageViewController.productPair = selectedProductPair
             validProductPageViewController.currentProductPage = tableStructure[selectedPageIndex ?? 0].productSection()
-        } else {
-            // performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         }
     }
     
@@ -160,7 +158,7 @@ class SingleProductTableViewController: UITableViewController {
             validProductPageViewController.productPair = selectedProductPair
             validProductPageViewController.currentProductPage = tableStructure[selectedPageIndex ?? 0].productSection()
         } else {
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
+            performSegue(withIdentifier: segueIdentifier(to: ProductPageViewController.self), sender: self)
         }
     }
 
@@ -216,21 +214,6 @@ class SingleProductTableViewController: UITableViewController {
         }
     }
     
-    fileprivate struct Storyboard {
-        struct CellIdentifier {
-            static let Name = "Single Product Name Cell Identifier"
-            static let Image = "Single Product Image Cell Identifier"
-            static let Ingredients = "Single Product Ingredients Cell Identifier"
-            static let NutritionScore = "Single Product Nutrition Score Cell Identifier"
-            static let Categories = "Single Product Categories Cell Identifier"
-            static let Completion = "Single Product Completion State Cell Identifier"
-            static let TagListView = "Single Product TagListView Cell Identifier"
-        }
-        struct SegueIdentifier {
-            static let ToPageViewController = "Show Single Product Details Segue"
-        }
-    }
-    
     // The product is presented in a single section
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -246,7 +229,7 @@ class SingleProductTableViewController: UITableViewController {
         let currentProductSection = tableStructure[indexPath.row]
         switch currentProductSection {
         case .name:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath) as! NameTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: NameTableViewCell.self), for: indexPath) as! NameTableViewCell
                     //print(productPair?.remoteProduct?.brandsOriginal, productPair?.localProduct?.brandsOriginal)
             if let validBrands = selectedProductPair?.remoteProduct?.brandsOriginal ?? selectedProductPair?.localProduct?.brandsOriginal {
                 switch validBrands {
@@ -267,7 +250,7 @@ class SingleProductTableViewController: UITableViewController {
                 let result = frontImages[language]?.small?.fetch() {
                 switch result {
                 case .success(let image):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ImagesPageTableViewCell.self), for: indexPath) as! ImagesPageTableViewCell
                         cell.productImage = image
                     cell.tag = Constants.TagValue.Row.Image
                     return cell
@@ -275,12 +258,12 @@ class SingleProductTableViewController: UITableViewController {
                     break
                 }
             }
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: Constants.TagValue.Row.Image, prefixLabelText: nil, scheme: nil)
             return cell
             
         case .ingredientsAllergensTraces:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! IngredientsPageTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: IngredientsPageTableViewCell.self), for: indexPath) as! IngredientsPageTableViewCell
                     
             cell.ingredientsText = TranslatableStrings.Ingredients
             if let number = selectedProductPair?.remoteProduct?.numberOfIngredients {
@@ -313,13 +296,13 @@ class SingleProductTableViewController: UITableViewController {
             return cell
             
         case .diets:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.tagListView.alignment = .left
             cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width - 16, tag: Constants.TagValue.Row.Diets, prefixLabelText: nil, scheme: nil)
             return cell
             
         case .ingredients:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: LabelWithBadgeTableViewCell.self), for: indexPath) as! LabelWithBadgeTableViewCell
                     cell.labelText = TranslatableStrings.Ingredients
             if let number = selectedProductPair?.remoteProduct?.numberOfIngredients ?? selectedProductPair?.localProduct?.numberOfIngredients {
                 cell.badgeText = number
@@ -327,7 +310,7 @@ class SingleProductTableViewController: UITableViewController {
             return cell
                     
         case .nutritionFacts:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: LabelWithBadgeTableViewCell.self), for: indexPath) as! LabelWithBadgeTableViewCell
                     cell.labelText = TranslatableStrings.NutritionFacts
                     
             if let facts = selectedProductPair?.remoteProduct?.nutritionFactsDict ?? selectedProductPair?.localProduct?.nutritionFactsDict {
@@ -340,12 +323,12 @@ class SingleProductTableViewController: UITableViewController {
             return cell
                     
         case .nutritionScore:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionScore, for: indexPath) as? NutritionScoreTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: NutritionScoreTableViewCell.self), for: indexPath) as? NutritionScoreTableViewCell
             cell?.product = selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct
             return cell!
                     
         case .categories:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: LabelWithBadgeTableViewCell.self), for: indexPath) as! LabelWithBadgeTableViewCell
             cell.labelText = TranslatableStrings.Categories
             if let validCategories = selectedProductPair?.remoteProduct?.categoriesHierarchy ?? selectedProductPair?.localProduct?.categoriesOriginal {
                 switch validCategories {
@@ -362,12 +345,12 @@ class SingleProductTableViewController: UITableViewController {
             return cell
                     
         case .completion:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Completion, for: indexPath) as? CompletionTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: CompletionTableViewCell.self), for: indexPath) as? CompletionTableViewCell
                     cell?.product = selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct
             return cell!
                     
         case .supplyChain:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: LabelWithBadgeTableViewCell.self), for: indexPath) as! LabelWithBadgeTableViewCell
             cell.labelText = TranslatableStrings.SalesCountries
             if let validCountries = ( selectedProductPair?.remoteProduct?.countriesTranslated ?? selectedProductPair?.localProduct?.countriesOriginal ) {
                 switch validCountries {
@@ -410,7 +393,7 @@ class SingleProductTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.SegueIdentifier.ToPageViewController:
+            case segueIdentifier(to: ProductPageViewController.self):
                 if let vc = segue.destination as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
                         ppvc.productPair = selectedProductPair
@@ -703,7 +686,7 @@ extension SingleProductTableViewController: GKImagePickerDelegate {
         // The app should now move to edit mode and the first page
         //selectedRowType = .name
         selectedProductPair = products.productPair(at: validIndex)
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
+        performSegue(withIdentifier: segueIdentifier(to: ProductPageViewController.self), sender: self)
     }
 }
 

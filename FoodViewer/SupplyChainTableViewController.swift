@@ -223,49 +223,34 @@ class SupplyChainTableViewController: UITableViewController {
             refreshControl?.endRefreshing()
         }
     }
-    
-    private struct Storyboard {
-        struct CellIdentifier {
-            static let IngredientOrigin = "Ingredients Origin TagListView Cell"
-            static let TagListView = "TagListView Cell Identifier"
-            static let TagListViewWithSegmentedControl = "TagListView With SegmentedControl Cell Identifier"
-            static let TagListViewWithButton = "TagListView With Button Cell Identifier"
-            static let ExpirationDate = "Expiration Date Cell"
-            static let PeriodAfterOpening = "Period After Opening Cell"
-            static let Sites = "Sites TagListView Cell"
-            static let TagListViewCountryButton = "TagListView Add Country Button Cell"
-            static let Map = "Map Cell"
-        }
-        struct SegueIdentifier {
-            static let ShowExpirationDateViewController = "Show ExpirationDate ViewController"
-            static let ShowFavoriteShops = "Show Favorite Shops Segue"
-            static let SelectCountry = "Select Country"
-        }
-    }
-    
+        
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
 
     fileprivate struct TableStructure {
-        static let ProducerSectionHeader = TranslatableStrings.Producer
-        static let ProducerCodeSectionHeader = TranslatableStrings.ProductCodes
-        static let IngredientOriginSectionHeader = TranslatableStrings.IngredientOrigins
-        static let LocationSectionHeader = TranslatableStrings.PurchaseAddress
-        static let CountriesSectionHeader = TranslatableStrings.SalesCountries
-        static let StoresSectionHeader = TranslatableStrings.Stores
-        static let MapSectionHeader = TranslatableStrings.Map
-        static let ExpirationDateSectionHeader = TranslatableStrings.ExpirationDate
-        static let SitesSectionHeader = TranslatableStrings.ProductWebSites
-        static let PAOSectionHeader = TranslatableStrings.PeriodAfterOpening
-        static let ProducerSectionSize = 1
-        static let ProducerCodeSectionSize = 1
-        static let IngredientOriginSectionSize = 1
-        static let LocationSectionSize = 1
-        static let CountriesSectionSize = 1
-        static let StoresSectionSize = 1
-        static let MapSectionSize = 1
-        static let ExpirationDateSectionSize = 1
-        static let SitesSectionSize = 1
-        static let PAOSectionSize = 1
+        struct SectionHeader {
+            static let Producer = TranslatableStrings.Producer
+            static let ProducerCode = TranslatableStrings.ProductCodes
+            static let IngredientOrigin = TranslatableStrings.IngredientOrigins
+            static let Location = TranslatableStrings.PurchaseAddress
+            static let Countries = TranslatableStrings.SalesCountries
+            static let Stores = TranslatableStrings.Stores
+            static let Map = TranslatableStrings.Map
+            static let ExpirationDate = TranslatableStrings.ExpirationDate
+            static let Sites = TranslatableStrings.ProductWebSites
+            static let PAO = TranslatableStrings.PeriodAfterOpening
+        }
+        struct SectionSize {
+            static let Producer = 1
+            static let ProducerCode = 1
+            static let IngredientOrigin = 1
+            static let Location = 1
+            static let Countries = 1
+            static let Stores = 1
+            static let MapSectionSize = 1
+            static let ExpirationDate = 1
+            static let Sites = 1
+            static let PAO = 1
+        }
     }
     
     private var currentProductType: ProductType {
@@ -299,55 +284,55 @@ class SupplyChainTableViewController: UITableViewController {
         case .beauty:
             sectionsAndRows.append((
                 SectionType.periodAfterOpening,
-                TableStructure.PAOSectionSize,
-                TableStructure.PAOSectionHeader))
+                TableStructure.SectionSize.PAO,
+                TableStructure.SectionHeader.PAO))
         default:
             sectionsAndRows.append((
                 SectionType.expirationDate,
-                TableStructure.ExpirationDateSectionSize,
-                TableStructure.ExpirationDateSectionHeader))
+                TableStructure.SectionSize.ExpirationDate,
+                TableStructure.SectionHeader.ExpirationDate))
         }
         // ingredient origin section
         sectionsAndRows.append((
             SectionType.ingredientOrigin,
-            TableStructure.IngredientOriginSectionSize,
-            TableStructure.IngredientOriginSectionHeader))
+            TableStructure.SectionSize.IngredientOrigin,
+            TableStructure.SectionHeader.IngredientOrigin))
         tagListViewHeight[1] = Constants.CellHeight.TagListViewCell
         // producer section
         sectionsAndRows.append((
             SectionType.producer,
-            TableStructure.ProducerSectionSize,
-            TableStructure.ProducerSectionHeader))
+            TableStructure.SectionSize.Producer,
+            TableStructure.SectionHeader.Producer))
         tagListViewHeight[2] = Constants.CellHeight.TagListViewCell
         // producer codes section
         sectionsAndRows.append((
             SectionType.producerCode,
-            TableStructure.ProducerCodeSectionSize,
-            TableStructure.ProducerCodeSectionHeader))
+            TableStructure.SectionSize.ProducerCode,
+            TableStructure.SectionHeader.ProducerCode))
         tagListViewHeight[3] = Constants.CellHeight.TagListViewCell
         // producer sites
         sectionsAndRows.append((
             SectionType.sites,
-            TableStructure.SitesSectionSize,
-            TableStructure.SitesSectionHeader))
+            TableStructure.SectionSize.Sites,
+            TableStructure.SectionHeader.Sites))
         tagListViewHeight[4] = Constants.CellHeight.TagListViewCell
         // stores section
         sectionsAndRows.append((
             SectionType.store,
-            TableStructure.StoresSectionSize,
-            TableStructure.StoresSectionHeader))
+            TableStructure.SectionSize.Stores,
+            TableStructure.SectionHeader.Stores))
         tagListViewHeight[5] = Constants.CellHeight.TagListViewCell
         // purchase Location section
         sectionsAndRows.append((
             SectionType.location,
-            TableStructure.LocationSectionSize,
-            TableStructure.LocationSectionHeader))
+            TableStructure.SectionSize.Location,
+            TableStructure.SectionHeader.Location))
         tagListViewHeight[6] = Constants.CellHeight.TagListViewCell
         // countries section
         sectionsAndRows.append((
             SectionType.country,
-            TableStructure.CountriesSectionSize,
-            TableStructure.CountriesSectionHeader))
+            TableStructure.SectionSize.Countries,
+            TableStructure.SectionHeader.Countries))
         tagListViewHeight[7] = Constants.CellHeight.TagListViewCell
         //sectionsAndRows.append((
         //    SectionType.map,
@@ -374,7 +359,7 @@ class SupplyChainTableViewController: UITableViewController {
         // we assume that product exists
         switch currentProductSection {
         case .producer, .producerCode, .sites, .ingredientOrigin:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             var tagListViewEditMode = editMode
             if editMode {
                 switch currentProductSection {
@@ -426,12 +411,12 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
             
         case .country:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewCountryButton, for: indexPath) as! TagListViewButtonTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
             cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: false, allowTagDeletion: editMode, scheme: nil)
             return cell
 
         case .store:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithButton, for: indexPath) as! PurchacePlaceTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: PurchacePlaceTableViewCell.self), for: indexPath) as! PurchacePlaceTableViewCell
             cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
             cell.delegate = self
@@ -449,7 +434,7 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
 
         case .location:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithButton, for: indexPath) as! PurchacePlaceTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: PurchacePlaceTableViewCell.self), for: indexPath) as! PurchacePlaceTableViewCell
             cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
             cell.delegate = self
@@ -469,13 +454,13 @@ class SupplyChainTableViewController: UITableViewController {
 
         case .map:
             // This is just have some harmless code here
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
             
         case .expirationDate:
             if productPair!.barcodeType.productType == .beauty {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PeriodAfterOpening, for: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:UITableViewCell.self), for: indexPath)
                 cell.frame.size.width = tableView.frame.size.width
                 switch productVersion {
                 case .new:
@@ -505,7 +490,7 @@ class SupplyChainTableViewController: UITableViewController {
                 cell.tag = indexPath.section
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ExpirationDate, for: indexPath) as! ExpirationDateTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:ExpirationDateTableViewCell.self), for: indexPath) as! ExpirationDateTableViewCell
                 // print (productPair?.remoteProduct?.expirationDate, productPair?.remoteProduct?.state)
                 switch productVersion {
                 case .new:
@@ -519,7 +504,7 @@ class SupplyChainTableViewController: UITableViewController {
                 return cell
             }
         case .periodAfterOpening:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PeriodAfterOpening, for: indexPath) as! PeriodAfterOpeningTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:PeriodAfterOpeningTableViewCell.self), for: indexPath) as! PeriodAfterOpeningTableViewCell
             switch periodAfterOpeningToDisplay {
             case .available(let array):
                 cell.tekst = array[0]
@@ -539,7 +524,7 @@ class SupplyChainTableViewController: UITableViewController {
             return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
         }
         let (currentProductSection, _, _) = tableStructureForProduct[section]
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: LanguageHeaderView.identifier) as! LanguageHeaderView
         headerView.section = section
         headerView.delegate = self
         headerView.changeViewModeButton.isHidden = true
@@ -729,7 +714,7 @@ class SupplyChainTableViewController: UITableViewController {
         if editMode {
             switch currentProductSection {
             case .expirationDate:
-                performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowExpirationDateViewController, sender: self)
+                performSegue(withIdentifier: segueIdentifier(to: SelectExpirationDateViewController.self), sender: self)
             default:
                 break
             }
@@ -782,7 +767,7 @@ class SupplyChainTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.SegueIdentifier.ShowExpirationDateViewController:
+            case segueIdentifier(to: SelectExpirationDateViewController.self):
                 if  let vc = segue.destination as? SelectExpirationDateViewController {
                     if let button = sender as? UIButton {
                         if button.superview?.superview as? ExpirationDateTableViewCell != nil {
@@ -811,8 +796,8 @@ class SupplyChainTableViewController: UITableViewController {
                         }
                     }
                 }
-            case Storyboard.SegueIdentifier.SelectCountry:
-                if  let vc = segue.destination as? SelectCountryViewController {
+            case segueIdentifier(to: SelectPairViewController.self):
+                if  let vc = segue.destination as? SelectPairViewController {
                     if let button = sender as? UIButton {
                         if button.superview?.superview as? TagListViewButtonTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
@@ -828,14 +813,13 @@ class SupplyChainTableViewController: UITableViewController {
                                 // transfer the countries of the local product (if any or after edit)
                                 // or the countries of the remote product
                                 // The countries will be interpreted (i.e. as english keys)
-                            vc.currentPairsInterpreted = productPair?.countriesInterpreted
-                            vc.allowMultipleSelection = true
-                            vc.allPairs = OFFplists.manager.allCountries
-                            vc.assignedHeader = "Selected Countries"
-                            vc.unAssignedHeader = "Unselected Countries"
-                            vc.undefinedText = TranslatableStrings.NoCountryDefined
-                            vc.cellIdentifier = "Select Country Cell"
-                            vc.translate = OFFplists.manager.translateCountry
+                            vc.configure(currentPairsInterpreted: productPair?.countriesInterpreted,
+                                allPairs: OFFplists.manager.allCountries,
+                                assignedHeader: TranslatableStrings.SelectedCountries,
+                                unAssignedHeader: TranslatableStrings.UnselectedCountries,
+                                undefinedText: TranslatableStrings.NoCountryDefined,
+                                cellIdentifier: "Select Country Cell",
+                                translate: OFFplists.manager.translateCountry)
                         }
                     }
                 }
@@ -868,8 +852,8 @@ class SupplyChainTableViewController: UITableViewController {
     }
     
     @IBAction func unwindSetCountryForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? SelectCountryViewController {
-            // The countries are encoded as kets "en:english"
+        if let vc = segue.source as? SelectPairViewController {
+            // The countries are encoded as keys "en:english"
             productPair?.update(countries: vc.selected)
             tableView.reloadData()
         }
@@ -945,7 +929,6 @@ extension SupplyChainTableViewController: TagListViewButtonCellDelegate {
     }
     // function to let the delegate know that the button was tapped
     func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
-        //performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectCountry, sender: self)
     }
 }
 //
@@ -1444,3 +1427,4 @@ extension SupplyChainTableViewController: UITextFieldDelegate {
     }
 
 }
+

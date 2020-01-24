@@ -10,11 +10,6 @@ import UIKit
 
 class DietCompliancyTableViewController: UITableViewController {
 
-    private struct Storyboard {
-        struct CellIdentifier {
-            static let TagListView = "Diet TagListView Cell Identifier"
-        }
-    }
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
@@ -67,7 +62,7 @@ class DietCompliancyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Diet Levels Cell Identifier", for: indexPath) as! DietLevelsTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: DietLevelsTableViewCell.self), for: indexPath) as! DietLevelsTableViewCell
             cell.values = values(forDietAt: indexPath.section)
             if productPair?.remoteProduct != nil {
                 cell.conclusion = diets.conclusion(productPair!.remoteProduct!, withDietAt: indexPath.section, in: Locale.interfaceLanguageCode)
@@ -77,7 +72,7 @@ class DietCompliancyTableViewController: UITableViewController {
             cell.tag = indexPath.section
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewLabelTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewLabelTableViewCell.self), for: indexPath) as! TagListViewLabelTableViewCell
             cell.accessoryType = .none
             cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: indexPath.section * 10 + indexPath.row, prefixLabelText: nil, scheme: nil, text: diets.levelName(for: indexPath.section, and: matchesPerDietPerLevel[indexPath.section][indexPath.row - 1].0, in: Locale.interfaceLanguageCode) ?? "level name not set", text2: nil)
             return cell

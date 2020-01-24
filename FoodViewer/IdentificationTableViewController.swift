@@ -246,29 +246,6 @@ class IdentificationTableViewController: UITableViewController {
 
     private var tagListViewHeight: [Int:CGFloat] = [:]
     
-    fileprivate struct Storyboard {
-        struct CellIdentifier {
-            static let TextField = "Identification Basic Cell"
-            static let ProductName = "Product Name Cell"
-            static let Barcode = "Barcode Cell"
-            static let BarcodeEdit = "Barcode Edit Cell"
-            static let Quantity = "Quantity Cell"
-            static let TagListView = "TagListView Cell"
-            // static let Packaging = "Identification Packaging Cell"
-            static let TagListViewWithSegmentedControl = "TagListView With SegmentedControl Cell"
-            static let Image = "Identification Image Cell"
-            static let TagListViewAddImage = "Identification TagListView Add Image Cell"
-            static let TagListViewButton = "TagListView Button Cell"
-        }
-        struct SegueIdentifier {
-            static let ShowIdentificationImage = "Show Identification Image"
-            static let ShowNamesLanguages = "Show Names Languages"
-            static let ShowSelectMainLanguage = "Show Select Main Language Segue"
-            static let ShowImageSourceSelector = "Show Select Image Source Segue"
-            static let ShowAddLanguage = "Show Extend Languages Segue"
-        }
-    }
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // should return all sections
         return tableStructure.count
@@ -282,7 +259,7 @@ class IdentificationTableViewController: UITableViewController {
         
         switch tableStructure[indexPath.section] {
         case .barcode:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Barcode, for: indexPath) as! BarcodeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: BarcodeTableViewCell.self), for: indexPath) as! BarcodeTableViewCell
             cell.barcode = productPair?.barcodeType.asString
             cell.mainLanguageCode = primaryLanguageCodeToDisplay
             cell.editMode = editMode
@@ -293,7 +270,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell
 
         case .name:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ProductNameTableViewCell.self), for: indexPath) as! ProductNameTableViewCell
             cell.delegate = self
             cell.tag = indexPath.section
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
@@ -322,7 +299,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell
             
         case .genericName:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ProductNameTableViewCell.self), for: indexPath) as! ProductNameTableViewCell
             cell.delegate = self
             cell.tag = indexPath.section
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
@@ -351,17 +328,17 @@ class IdentificationTableViewController: UITableViewController {
 
         case .languages:
             if editMode {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewButton, for: indexPath) as! TagListViewButtonTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
                 // disallow the editing of the tags by setting the editMode to false
                 cell.setup(datasource: self, delegate: self, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: false, allowTagDeletion: false, scheme: nil)
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
                 cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
                 return cell
             }
         case .brands:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             var tagListViewEditMode = editMode
             if editMode,
                 let newTags = productPair?.localProduct?.brandsOriginal {
@@ -376,7 +353,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell
 
         case .packaging:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             var tagListViewEditMode = editMode
             if editMode,
                 let newTags = productPair?.localProduct?.packagingOriginal {
@@ -391,7 +368,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell
             
         case .quantity:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Quantity, for: indexPath) as! QuantityTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: QuantityTableViewCell.self), for: indexPath) as! QuantityTableViewCell
             switch quantityToDisplay {
             case .available(let array):
                 cell.tekst = array[0]
@@ -409,7 +386,7 @@ class IdentificationTableViewController: UITableViewController {
             
         case .image:
             if currentImage.0 != nil {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ProductImageTableViewCell.self), for: indexPath) as! ProductImageTableViewCell
                 cell.editMode = editMode
                 if editMode,
                     let localPair = localFrontImage,
@@ -422,7 +399,7 @@ class IdentificationTableViewController: UITableViewController {
             } else {
                 searchResult = currentImage.1
                 // Show a tag with the option to set an image
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewAddImage, for: indexPath) as! TagListViewAddImageTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewAddImageTableViewCell.self), for: indexPath) as! TagListViewAddImageTableViewCell
                 cell.accessoryType = .none
                 cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: ColorSchemes.error)
                 return cell
@@ -804,7 +781,7 @@ class IdentificationTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.SegueIdentifier.ShowIdentificationImage:
+            case segueIdentifier(to: ImageViewController.self):
                 if let vc = segue.destination as? ImageViewController,
                     let validLanguageCode = displayLanguageCode {
                     vc.imageTitle = TranslatableStrings.Identification
@@ -815,7 +792,7 @@ class IdentificationTableViewController: UITableViewController {
                         vc.imageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.front)
                     }
                 }
-            case Storyboard.SegueIdentifier.ShowNamesLanguages:
+            case segueIdentifier(to: SelectLanguageViewController.self):
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
                     if let button = sender as? UIButton {
@@ -840,7 +817,7 @@ class IdentificationTableViewController: UITableViewController {
                         }
                     }
                 }
-            case Storyboard.SegueIdentifier.ShowSelectMainLanguage:
+            case segueIdentifier(to: MainLanguageViewController.self):
                 if let vc = segue.destination as? MainLanguageViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
                     if let button = sender as? UIButton {
@@ -858,7 +835,7 @@ class IdentificationTableViewController: UITableViewController {
                         }
                     }
                 }
-            case Storyboard.SegueIdentifier.ShowImageSourceSelector:
+            /*case segueIdentifier(to: SelectImageSourceViewController.self):
                 if let vc = segue.destination as? SelectImageSourceViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
                     if let button = sender as? UIButton {
@@ -876,10 +853,12 @@ class IdentificationTableViewController: UITableViewController {
                         }
                     }
                 }
-            case Storyboard.SegueIdentifier.ShowAddLanguage:
+ */
+            case segueIdentifier(to: MainLanguageViewController.self):
                 if let vc = segue.destination as? MainLanguageViewController { if
                     let languageCodes = productPair?.languageCodes { if
-                    let button = sender as? UIButton { if
+                    let button = sender as? UIButton {
+                        if
                     button.superview?.superview as? TagListViewButtonTableViewCell != nil {
                         // if let ppc = vc.popoverPresentationController {
                         // set the main language button as the anchor of the popOver
@@ -1202,17 +1181,7 @@ extension IdentificationTableViewController: TagListViewButtonCellDelegate {
     }
     // function to let the delegate know that the switch changed
     func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowAddLanguage, sender: button)
-    }
-}
-
-//
-// MARK: - BarcodeEditCellDelegate Functions
-//
-extension IdentificationTableViewController: BarcodeEditCellDelegate {
-    
-    // function to let the delegate know that the switch changed
-    func barcodeEditTableViewCell(_ sender: BarcodeEditTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
+        performSegue(withIdentifier: segueIdentifier(to: SelectLanguageViewController.self), sender: button)
     }
 }
 //
@@ -1693,7 +1662,7 @@ extension IdentificationTableViewController: GKImagePickerDelegate {
 extension IdentificationTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNamesLanguages, sender: sender)
+        performSegue(withIdentifier: segueIdentifier(to: SelectLanguageViewController.self), sender: sender)
     }
     
     func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {

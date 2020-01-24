@@ -37,26 +37,7 @@ class CompletionStatesTableViewController: UITableViewController {
             refreshControl?.endRefreshing()
         }
     }
-    
-    fileprivate struct Storyboard {
-        struct CellIdentifier {
-            static let CompletionState = "Completion State Cell"
-            static let Contributors = "Contributor Cell"
-            static let LastEditDate = "Edit Date Cell"
-            static let SetCompletionState = "Set Completion State Cell Identifier"
-            static let TagListView = "Completion State TagListView Cell Identifier"
-            static let SetContributorRole = "TextField With Button Cell Identifier"
-            static let SetCreationDate = "Set Creation Date"
-            static let SetLastEditDate = "Set Last Edit Date Cell Identifier"
-        }
-        struct SegueIdentifier {
-            static let SelectCompletionState = "Show Select Completion State Segue Identifier"
-            static let SelectContributorRole = "Show Select Contributor Role Segue Identifier"
-            static let SetCreationDate = "Set Creation Date Segue Identifier"
-            static let SetLstEditDate = "Set Last Edit Date Segue Identifier"
-        }
-    }
-    
+        
     private struct Constants {
         static let ContributorsHeaderTitle = TranslatableStrings.Contributors
         static let CompletenessHeaderTitle = TranslatableStrings.Completeness
@@ -98,11 +79,11 @@ class CompletionStatesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let validProduct = productPair?.remoteProduct else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LastEditDate, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier + "." + CompletionStatesTableViewController.identifier, for: indexPath)
             return cell
         }
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.CompletionState, for: indexPath) as! StateTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: StateTableViewCell.identifier + "." + CompletionStatesTableViewController.identifier, for: indexPath) as! StateTableViewCell
             cell.delegate = delegate
             let completion = validProduct.state.array[indexPath.row]
             cell.state = completion.value
@@ -148,7 +129,7 @@ class CompletionStatesTableViewController: UITableViewController {
             return cell
                 
         } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Contributors, for: indexPath) as? ContributorTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ContributorTableViewCell.identifier + "." + CompletionStatesTableViewController.identifier, for: indexPath) as? ContributorTableViewCell
             cell?.delegate = delegate
             if indexPath.row < validProduct.contributors.count {
                 cell?.contributor = validProduct.contributors[indexPath.row]
@@ -158,7 +139,7 @@ class CompletionStatesTableViewController: UITableViewController {
             return cell!
                 
         } else if indexPath.section == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LastEditDate, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier + "." + CompletionStatesTableViewController.identifier, for: indexPath)
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             formatter.timeStyle = .none
@@ -171,7 +152,7 @@ class CompletionStatesTableViewController: UITableViewController {
             return cell
                 
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LastEditDate, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier + "." + CompletionStatesTableViewController.identifier, for: indexPath)
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             formatter.timeStyle = .none
@@ -276,127 +257,7 @@ class CompletionStatesTableViewController: UITableViewController {
     @objc func galleryTapped() {
         delegate?.currentProductPage = .gallery
     }
-//
-// MARK: - Navigation
-//
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-                /*
-            case Storyboard.SegueIdentifier.SelectCompletionState:
-                if  let vc = segue.destination as? SelectCompletionStateViewController {
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? ButtonWithSegmentedControlTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .any
-                                // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                                ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                vc.currentCompletion = query!.completion
-                            }
-                        }
-                    }
-                }
-            case Storyboard.SegueIdentifier.SelectContributorRole:
-                if  let vc = segue.destination as? SelectContributorRoleViewController {
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? TextFieldWithButtonTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .right
-                                // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                                ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                if query!.contributors.count > 0 {
-                                    vc.currentContributor = query!.contributors[0]
-                                } else {
-                                    vc.currentContributor = nil
-                                }
-                            }
-                        }
-                    }
-                }
-            case Storyboard.SegueIdentifier.SetCreationDate:
-                if  let vc = segue.destination as? SetCreationDateViewController {
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? ButtonTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .any
-                                // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                                ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                vc.currentDate = query!.creationDate
-                            }
-                        }
-                    }
-                }
-            case Storyboard.SegueIdentifier.SetLstEditDate:
-                if  let vc = segue.destination as? SetLastEditDateViewController {
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? LastEditDateTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .any
-                                // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                                ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                vc.currentDate = query!.lastEditDate
-                            }
-                        }
-                    }
-                }
-*/
-            default: break
-            }
-        }
-    }
-/*
-    @IBAction func unwindSetCompletionStateForDone(_ segue:UIStoryboardSegue) {
-        guard query != nil else { return }
-        if let vc = segue.source as? SelectCompletionStateViewController {
-            query!.completion = vc.selectedCompletion
-            tableView.reloadData()
-        }
-    }
 
-    @IBAction func unwindSetContributorRoleForDone(_ segue:UIStoryboardSegue) {
-        guard query != nil else { return }
-        if let vc = segue.source as? SelectContributorRoleViewController,
-            let validContributor = vc.updatedContributor {
-            query!.contributors[0] = validContributor
-            tableView.reloadData()
-        }
-    }
-
-    @IBAction func unwindSetCreationDateForDone(_ segue:UIStoryboardSegue) {
-        guard query != nil else { return }
-        if let vc = segue.source as? SetCreationDateViewController,
-            let validDate = vc.selectedDate {
-                query!.creationDate = validDate
-            tableView.reloadData()
-        }
-    }
-
-    @IBAction func unwindSetLastEditDateForDone(_ segue:UIStoryboardSegue) {
-        guard query != nil else { return }
-        if let vc = segue.source as? SetLastEditDateViewController,
-            let validDate = vc.selectedDate {
-            query!.lastEditDate = validDate
-            tableView.reloadData()
-        }
-    }
- */
-    
     // MARK: - Notification handlers
     
     @objc func refreshProduct() {
@@ -446,151 +307,4 @@ class CompletionStatesTableViewController: UITableViewController {
         OFFplists.manager.flush()
     }
 
-    // Can I change this to a protocol?
-    /*
-    public func setCompletion() {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectCompletionState, sender: self)
-    }
-    
-    func setInclusion(_ value: Bool) {
-        query?.completion?.value = value
-    }
- */
-
-}
-
-
-// MARK: - ButtonCellDelegate Functions
-
-
-extension CompletionStatesTableViewController:  ButtonCellDelegate {
-    
-    // function to let the delegate know that a button was tapped
-    func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton) {
-        // not needed as the button is hooked up by segue in the storyboard
-    }
-}
-
-// MARK: - ButtonWithSegmentedControlCellDelegate Functions
-
-extension CompletionStatesTableViewController: ButtonWithSegmentedControlCellDelegate {
-    
-    func buttonTapped(_ sender: ButtonWithSegmentedControlTableViewCell, button: UIButton) {
-        /*
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectCompletionState, sender: button)
- */
-    }
-    
-    func segmentedControlToggled(_ sender: ButtonWithSegmentedControlTableViewCell, segmentedControl: UISegmentedControl) {
-        /*
-        query?.completion?.value = segmentedControl.selectedSegmentIndex == 1 ? true : false
- */
-    }
-}
-
-// MARK: - TextFieldWithButtonCellDelegate Functions
-
-extension CompletionStatesTableViewController: TextFieldWithButtonCellDelegate {
-    
-    func textFieldWithButtonTableViewCell(_ sender: TextFieldWithButtonTableViewCell, receivedActionOn button:UIButton) {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectContributorRole, sender: button)
-    }
-    
-}
-
-// MARK: - UIPopoverPresentationControllerDelegate Functions
-
-extension CompletionStatesTableViewController: UIPopoverPresentationControllerDelegate {
-    
-    // MARK: - Popover delegation functions
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
-    }
-    
-    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
-        let navcon = UINavigationController(rootViewController: controller.presentedViewController)
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
-        visualEffectView.frame = navcon.view.bounds
-        navcon.view.insertSubview(visualEffectView, at: 0)
-        return navcon
-    }
-    
-}
-
-
-// MARK: - TagListView Datasource Functions
-
-extension CompletionStatesTableViewController: TagListViewDataSource {
-    
-    public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        
-        func count(_ tags: Tags) -> Int {
-            switch tags {
-            case .undefined:
-                tagListView.normalColorScheme = ColorSchemes.error
-                return editMode ? 0 : 1
-            case .empty:
-                tagListView.normalColorScheme = ColorSchemes.none
-                return editMode ? 0 : 1
-            case let .available(list):
-                tagListView.normalColorScheme = ColorSchemes.normal
-                return list.count
-            case .notSearchable:
-                tagListView.normalColorScheme = ColorSchemes.error
-                return 1
-            }
-        }
-        
-        return count(Tags.empty)
-    }
-    
-    public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        return Tags.empty.description()
-    }
-    
-    public     func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
-        return nil
-    }
-    
-    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.setNeedsLayout()
-    }
-    
-}
-
-
-// MARK: - TextField delegate functions
-
-extension CompletionStatesTableViewController: UITextFieldDelegate {
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.isFirstResponder { textField.resignFirstResponder() }
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        //if let validText = textField.text {
-            // does this contributor exist already?
-            /*
-            if query!.contributors.index(where: { $0.name == validText } ) == nil {
-                query!.contributors.append(Contributor.init(validText, role: .creator))
-            }
- */
-         //   tableView.reloadData()
-       // }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        if textField.isFirstResponder { textField.resignFirstResponder() }
-        
-        return true
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return editMode
-    }
-    
-    
 }

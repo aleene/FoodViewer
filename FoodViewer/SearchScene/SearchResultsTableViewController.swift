@@ -32,18 +32,7 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
     fileprivate var selectedSearch: Search? = nil
     
     fileprivate var selectedProductPair: ProductPair? = nil
-    
-    fileprivate struct Storyboard {
-        struct CellIdentifier {
-            static let Product = "Search Product Segue Identifier"
-            static let TagListView = "Search Product TagListView Segue Identifier"
-            static let Button = "Search Product Button Segue Identifier"
-        }
-        struct SegueIdentifier {
-            static let ProductVC = "Show Search Product Segue Identifier"
-        }
-    }
-    
+        
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -66,7 +55,7 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
             if validSearch.productPairs.count > 0 {
                 if indexPath.row < validSearch.productPairs.count {
                     let productPair = validSearch.productPair(at: indexPath.row)
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Product, for: indexPath)
+                    let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: UITableViewCell.self), for: indexPath)
                     cell.textLabel?.text = productPair?.name ?? TranslatableStrings.NoName
                     cell.detailTextLabel?.text = productPair?.brand ?? TranslatableStrings.NoBrandsIndicated
                     if let language = productPair?.primaryLanguageCode,
@@ -83,7 +72,7 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
                     return cell
                 } else if indexPath.row == validSearch.productPairs.count {
                     // if there is a row beyound the number of search results, show a button
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ButtonTableViewCell.self), for: indexPath) as! ButtonTableViewCell
                     cell.delegate = self
                     cell.editMode = true
                     cell.title = TranslatableStrings.LoadMoreResults
@@ -92,7 +81,7 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
             }
         }
         // This should cover all exceptions
-        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
         cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.width, tag: tag(for: indexPath, for: search), prefixLabelText: nil, scheme: ColorSchemes.normal)
 
         return cell
@@ -115,7 +104,7 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
                 if indexPath.row < validSearch.productPairs.count {
                     selectedProductPair = validSearch.productPair(at: indexPath.row)
                     selectedSearch = validSearch
-                    performSegue(withIdentifier: Storyboard.SegueIdentifier.ProductVC, sender: self)
+                    performSegue(withIdentifier: segueIdentifier(to: SingleSearchProductTableViewController.self), sender: self)
                 } else if indexPath.row == validSearch.productPairs.count {
                     // start loading more
                     search?.fetchSearchProductsForNextPage()
@@ -249,7 +238,7 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.SegueIdentifier.ProductVC:
+            case segueIdentifier(to: SingleSearchProductTableViewController.self):
                 if let vc = segue.destination as? SingleSearchProductTableViewController {
                     vc.selectedProductPair = selectedProductPair
                 }
@@ -323,9 +312,6 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
             // start out with the history tab
             if tabVC.selectedIndex == 0 {
                 Preferences.manager.cycleProductType()
-                //products.reloadAll()
-                //startInterface(at: 0)
-                //showProductPage()
             }
         }
     }

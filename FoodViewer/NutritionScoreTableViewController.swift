@@ -37,27 +37,6 @@ class NutritionScoreTableViewController: UITableViewController {
     fileprivate var productPair: ProductPair? {
         return delegate?.productPair
     }
-
-    fileprivate struct Storyboard {
-        struct CellIdentifier {
-            static let NutritionScore = "Nutrition Score Nova Cell Identifier"
-            static let LeftNutrimentScore = "Left Nutriment Score Cell"
-            static let RightNutrimentScore = "Right Nutriment Score Cell"
-            static let BelongsToCategory = "Product Category Cell"
-            static let ColourCodedNutritionalScore = "Colour Coded Nutritional Score Cell"
-            static let SetNutritionScoreLevel = "Set Nutrition Score Level Cell Identifier"
-            static let Level = "Level Cell Identifier"
-            static let TagList = "TagListView Cell Identifier"
-        }
-        
-        struct Nib {
-            static let LanguageHeaderView = "LanguageHeaderView"
-        }
-        
-        struct ReusableHeaderFooterView {
-            static let Language = "LanguageHeaderView"
-        }
-    }
     
     fileprivate struct Constant {
         static let Multiplier = 100
@@ -231,33 +210,33 @@ class NutritionScoreTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableStructure[indexPath.section] {
         case .summary:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionScore, for: indexPath) as! NutritionScoreTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:NutritionScoreTableViewCell.self), for: indexPath) as! NutritionScoreTableViewCell
             cell.product = productPair?.remoteProduct ?? productPair?.localProduct
             return cell
         case .score:
             switch nutriScoreSectionStructure[indexPath.row] {
             case .summary(let value):
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ColourCodedNutritionalScore, for: indexPath) as! ColourCodedNutritionalScoreTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:ColourCodedNutritionalScoreTableViewCell.self), for: indexPath) as! ColourCodedNutritionalScoreTableViewCell
                 cell.score = value
                 cell.delegate = delegate
                 return cell
             case .pointsA(let key, let value):
                 if let validValue = value {
-                    return nutrimentScoreTableViewCell(for:key, with:validValue, towards:false, at:indexPath, and:Storyboard.CellIdentifier.LeftNutrimentScore)
+                    return nutrimentScoreTableViewCell(for:key, with:validValue, towards:false, at:indexPath, and: cellIdentifier(for: NutrimentScoreTableViewCell.self))
                 } else {
                     setNutrientTag(for: key)
                     return tagCell(at:indexPath, with:ColorSchemes.none)
                 }
             case .pointsC(let key, let value):
                 if let validValue = value {
-                    return nutrimentScoreTableViewCell(for:key, with:validValue, towards:true, at:indexPath, and:Storyboard.CellIdentifier.RightNutrimentScore)
+                    return nutrimentScoreTableViewCell(for:key, with:validValue, towards:true, at:indexPath, and:cellIdentifier(for: NutrimentScoreTableViewCell.self))
                 } else {
                     setNutrientTag(for: key)
                     return tagCell(at:indexPath, with:ColorSchemes.none)
                 }
 
             case .categories(let value, let string):
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath)as? ProductCategoryTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ProductCategoryTableViewCell.self), for: indexPath)as? ProductCategoryTableViewCell
                 cell!.belongsToCategory = value
                 cell?.belongsToCategoryTitle = string
                 return cell!
@@ -268,7 +247,7 @@ class NutritionScoreTableViewController: UITableViewController {
             }
             
         case .levels:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Level, for: indexPath) as! LevelTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: LevelTableViewCell.self), for: indexPath) as! LevelTableViewCell
             cell.nutritionLevel = productPair?.remoteProduct?.nutritionScore?[indexPath.row]
             if let validNutrient = productPair?.remoteProduct?.nutritionFactsDict[Nutrient.salt.key] {
                 cell.saltValue = validNutrient.gramValue
@@ -286,7 +265,7 @@ class NutritionScoreTableViewController: UITableViewController {
             return cell
             
         case .nova:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.tagListView?.alignment = .left
             cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: encode(indexPath), prefixLabelText: nil, scheme: nil)
             return cell
@@ -294,7 +273,7 @@ class NutritionScoreTableViewController: UITableViewController {
     }
     
     private func tagCell(at indexPath:IndexPath, with colour:ColorScheme) -> TagListViewTableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
         cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: encode(indexPath), prefixLabelText: nil, scheme: nil)
         return cell
     }
@@ -343,7 +322,7 @@ class NutritionScoreTableViewController: UITableViewController {
             return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
         }
 
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: LanguageHeaderView.identifier) as! LanguageHeaderView
         
         headerView.section = section
         headerView.delegate = self
@@ -407,7 +386,7 @@ class NutritionScoreTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.allowsSelection = false
         
-        tableView.register(UINib(nibName: Storyboard.Nib.LanguageHeaderView, bundle: nil), forHeaderFooterViewReuseIdentifier: Storyboard.Nib.LanguageHeaderView)
+        tableView.register(UINib(nibName: LanguageHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: LanguageHeaderView.identifier)
 
     }
     

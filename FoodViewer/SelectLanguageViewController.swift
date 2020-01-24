@@ -173,10 +173,6 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     // MARK: - Segue stuff
     
-    fileprivate struct Storyboard {
-        static let AddLanguageSegueIdentifier = "Add Language ViewController Segue"
-    }
-
     @IBAction func unwindAddLanguageForCancel(_ segue:UIStoryboardSegue) {
         // reload with first language?
     }
@@ -203,7 +199,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.AddLanguageSegueIdentifier:
+            case segueIdentifier(to: AddLanguageViewController.self):
                 if let vc = segue.destination as? AddLanguageViewController {
                     vc.currentLanguageCodes = languageCodesToUse
                     // vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
