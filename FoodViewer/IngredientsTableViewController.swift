@@ -130,7 +130,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .new:
-                if let checked = availableTags(productPair?.localProduct?.tracesOriginal) {
+                if let checked = availableTags(productPair?.localProduct?.tracesTranslated) {
                     return checked
                 }
             case .remoteTags:
@@ -334,13 +334,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
 
         case .allergens, .additives, .minerals, .vitamins, .nucleotides, .otherNutritionalSubstances, .aminoAcids:
+        // These are all calculated fields, i.e. determined by OFF
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.setup(datasource: self, delegate: self, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
 
         case .traces:
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
+            cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: false, allowTagDeletion: editMode, scheme: nil)
             return cell
 
         case .labels:
@@ -463,8 +464,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             validCell.willDisappear()
         } else if let validCell = cell as? TagListViewAddImageTableViewCell {
             validCell.willDisappear()
+        } else if let validCell = cell as? TagListViewButtonTableViewCell {
+            validCell.willDisappear()
         }
-        
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -760,7 +762,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     
-    // MARK: - Navigation
+// MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
@@ -803,6 +805,34 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         }
                     }
                 }
+                case segueIdentifier(to: SelectPairViewController.self):
+                    if  let vc = segue.destination as? SelectPairViewController {
+                        if let button = sender as? UIButton {
+                            if button.superview?.superview as? TagListViewButtonTableViewCell != nil {
+                                if let ppc = vc.popoverPresentationController {
+
+                                    // set the main language button as the anchor of the popOver
+                                    ppc.permittedArrowDirections = .right
+                                    // I need the button coordinates in the coordinates of the current controller view
+                                    let anchorFrame = button.convert(button.bounds, to: self.view)
+                                    ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
+                                    ppc.delegate = self
+                                }
+                                
+                                    // transfer the traces of the local product (if any or after edit)
+                                    // or the countries of the remote product
+                                    // The traces will be interpreted (i.e. as english keys)
+                                vc.configure(currentPairsInterpreted: productPair?.tracesInterpreted,
+                                    allPairs: OFFplists.manager.allAllergens,
+                                    assignedHeader: TranslatableStrings.SelectedTraces,
+                                    unAssignedHeader: TranslatableStrings.UnselectedTraces,
+                                    undefinedText: TranslatableStrings.NoTraceDefined,
+                                    cellIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self),
+                                    translate: OFFplists.manager.translateAdditive(_:language:))
+                            }
+                        }
+                    }
+
             default: break
             }
         }
@@ -836,6 +866,17 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         tableView.reloadData()
     }
     
+    @IBAction func unwindSetTraceForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? SelectPairViewController {
+            // The countries are encoded as keys "en:english"
+            productPair?.update(tracesTags: vc.selected)
+            tableView.reloadData()
+        }
+    }
+    
+    @IBAction func unwindSetTraceForCancel(_ segue:UIStoryboardSegue) {
+    }
+
     // MARK: - Popover delegation functions
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -1040,9 +1081,26 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
 
 }
-
+//
+// MARK: - TagListViewButtonCellDelegate Functions
+//
+extension IngredientsTableViewController: TagListViewButtonCellDelegate {
+    
+    // function to let the delegate know that a tag was single tapped
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedSingleTapOn tagListView:TagListView) {
+        
+    }
+    // function to let the delegate know that a tag was double tapped
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
+        
+    }
+    // function to let the delegate know that the button was tapped
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
+    }
+}
+//
 // MARK: - TagListViewCellDelegate Functions
-
+//
 extension IngredientsTableViewController: TagListViewCellDelegate {
     
     // function to let the delegate know that the switch changed
@@ -1196,7 +1254,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
     
     func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
         switch tableStructure[tagListView.tag] {
-        case .traces, .labels:
+        case .labels:
             return true
         default:
             return false

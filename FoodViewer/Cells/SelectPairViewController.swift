@@ -192,7 +192,7 @@ extension SelectPairViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: UITableViewCell.self), for: indexPath)
         // Is there a list with selected/current Pairs?
         if indexPath.section == 0 {
             if let validPairs = selectedPairs {

@@ -59,7 +59,6 @@ class OFFplists {
     
     fileprivate struct TextConstants {
         static let FileNotAvailable = "Error: file %@ not available"
-        static let NoLanguage = TranslatableStrings.NoLanguageDefined
     }
 
     
@@ -237,7 +236,7 @@ class OFFplists {
     
     func languageName(for languageCode:String?) -> String {
         var language: Language? = nil
-        guard languageCode != nil else { return TextConstants.NoLanguage }
+        guard languageCode != nil else { return TranslatableStrings.NoLanguageDefined }
         let allLanguages: [Language] = self.allLanguages
         if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
             s.code == languageCode!
@@ -245,19 +244,19 @@ class OFFplists {
             language = allLanguages[validIndex]
         }
         
-        return language != nil ? language!.name : TextConstants.NoLanguage
+        return language != nil ? language!.name : TranslatableStrings.NoLanguageDefined
     }
     
     func languageCode(for languageString:String?) -> String {
         var language: Language? = nil
-        guard languageString != nil else { return TextConstants.NoLanguage }
+        guard languageString != nil else { return TranslatableStrings.NoLanguageDefined }
         if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
             s.name == languageString!
         }){
             language = allLanguages[validIndex]
         }
         
-        return language != nil ? language!.code : TextConstants.NoLanguage
+        return language != nil ? language!.code : TranslatableStrings.NoLanguageDefined
     }
 //
 // MARK: - Country functions
@@ -305,14 +304,14 @@ class OFFplists {
         
     func countryName(for languageCode:String?) -> String {
         var country: Language? = nil
-        guard languageCode != nil else { return TextConstants.NoLanguage }
+        guard languageCode != nil else { return TranslatableStrings.NoLanguageDefined }
         let allCountries: [Language] = self.allLanguages
         if let validIndex = allCountries.firstIndex(where: { (s: Language) -> Bool in
             s.code == languageCode!
         }){
             country = allCountries[validIndex]
         }
-        return country != nil ? country!.name : TextConstants.NoLanguage
+        return country != nil ? country!.name : TranslatableStrings.NoCountryDefined
     }
       
     /*
@@ -328,6 +327,59 @@ class OFFplists {
         return language != nil ? language!.code : TextConstants.NoLanguage
     }
  */
+//
+// MARK: - Allergen functions
+//
+    func allergen(atIndex index: Int, languageCode key: String) -> String? {
+        if OFFallergens == nil {
+            OFFallergens = readPlist(Constants.AllergensFileName)
+        }
+        if index >= 0 && OFFallergens != nil && index <= OFFallergens!.count {
+            let currentVertex = OFFallergens![OFFallergens!.index(OFFallergens!.startIndex, offsetBy: index)].leaves
+            let values = currentVertex[key]
+                return  values != nil ? values![0] : nil
+        } else {
+            return nil
+        }
+    }
+
+    public var allAllergens: [Language] {
+        return setupAllAllergens(Locale.preferredLanguages[0])
+    }
+
+    private func setupAllAllergens(_ localeLanguage: String) -> [Language] {
+        var allergens: [Language] = []
+        if OFFallergens == nil {
+            OFFallergens = readPlist(Constants.LanguagesFileName)
+        }
+        guard OFFallergens != nil else { return allergens }
+        let firstSplit = localeLanguage.split(separator:"-").map(String.init)
+
+        // loop over all verteces and fill the languages array
+        for vertex in OFFallergens! {
+            var allergen = Language()
+            let values = vertex.leaves[firstSplit[0]]
+                allergen.code = vertex.key
+                allergen.name = values != nil ? values![0] : vertex.key
+                allergens.append(allergen)
+        }
+        if allergens.count > 1 {
+            allergens.sort(by: { (s1: Language, s2: Language) -> Bool in return s1.name < s2.name } )
+        }
+        return allergens
+    }
+            
+    func allergenName(for languageCode:String?) -> String {
+        var allergen: Language? = nil
+        guard languageCode != nil else { return TranslatableStrings.NoLanguageDefined }
+        let allAllergens: [Language] = self.allLanguages
+        if let validIndex = allAllergens.firstIndex(where: { (s: Language) -> Bool in
+                s.code == languageCode!
+        }){
+            allergen = allAllergens[validIndex]
+        }
+        return allergen != nil ? allergen!.name : TranslatableStrings.NoTraceDefined
+    }
 
 //
 // MARK: - Translate functions

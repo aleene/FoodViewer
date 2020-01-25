@@ -818,7 +818,7 @@ class SupplyChainTableViewController: UITableViewController {
                                 assignedHeader: TranslatableStrings.SelectedCountries,
                                 unAssignedHeader: TranslatableStrings.UnselectedCountries,
                                 undefinedText: TranslatableStrings.NoCountryDefined,
-                                cellIdentifier: "Select Country Cell",
+                                cellIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self),
                                 translate: OFFplists.manager.translateCountry)
                         }
                     }
