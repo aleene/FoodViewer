@@ -5,32 +5,41 @@
 //  Created by arnaud on 17/01/2020.
 //  Copyright © 2020 Hovering Above. All rights reserved.
 //
-// This class allows the user to pick a pair from a prefined list of Pairs.
-// This predefined list of Pairs shows only the Pairs not yet listed in the product.
-// The user can filter the list of presented Pairs through entering a text string
+
+
 
 import UIKit
-
+/// This class allows the user to pick a from a  list of Strings.
+/// The strings asre divided in as set of assigned and unassigned.
+/// The user can filter the list of strings through entering a text string
 class SelectPairViewController: UIViewController {
 //
 // MARK: - External Input properties
 //
-    // Configure all necessary input parameters in one go
-    // So none will be forgotten
-    func configure(currentPairsInterpreted: Tags?, allPairs: [Language], assignedHeader: String, unAssignedHeader: String, undefinedText: String, cellIdentifier: String, translate: ((String, String) -> String?)?) {
-        self.currentPairsInterpreted = currentPairsInterpreted
+/// Configure the class SelectPairViewController in one go. All possible input parameters are set in this function.
+/// - Warning: If this function is not used the class will NOT work.
+///
+/// - parameter original: The currently selected strings. These tags are encodes as keys, i.e. "en:value". If no strings have been selected this is nil.
+/// - parameter allPairs: All possible pairs. The user will be able to select from these pairs.
+/// - parameter assignedHeader: The tableView section header for the selected strings.
+/// - parameter unAssignedHeader: The tableView section header for the unselected strings.
+/// - parameter undefinedText: String to show when the translation is undefined.
+/// - parameter cellIdentifierExtension: String to append to the CellIdentifier to make the identifier unique. The format to use for the Identifier in the Storyboard is `UITableView.SelectPairViewController.cellIdentifierExtension`. If only one version of this class is present in the Storyboard, it can be set to nil (and remove the trailing `.` in the identifier.
+/// - parameter translate: Function to translate a key to a local language string.
+    func configure(original: [String]?, allPairs: [Language], assignedHeader: String, unAssignedHeader: String, undefinedText: String, cellIdentifierExtension: String?) {
+        self.original = original
         self.allPairs = allPairs
         self.assignedHeader = assignedHeader
         self.unAssignedHeader = unAssignedHeader
         self.undefinedText = undefinedText
-        self.cellIdentifier = cellIdentifier
-        self.translate = translate
+        self.cellIdentifierExtension = cellIdentifierExtension
     }
 
 //
 // MARK: - External Output properties
 //
-    // The keys of the selected Pairs
+/// After the user has selected (or deleted) one or more strings, the results wil be available.
+/// - parameter selected: The newly selected array with strings. These are encoded as keys (en:value).
     var selected: [String]? {
         //guard let validPairs = selectedPairs else { return nil }
         return selectedPairs?.map({ $0.code })
@@ -40,7 +49,7 @@ class SelectPairViewController: UIViewController {
 //
     // The current Pairs assigned to the product
     // The contries are encodes as keys "en:english"
-    private var currentPairsInterpreted: Tags? = nil
+    private var original: [String]? = nil
         
     private var allPairs: [Language] = []
     
@@ -50,13 +59,18 @@ class SelectPairViewController: UIViewController {
     
     private var undefinedText = "Undefined Pair"
     
-    private var cellIdentifier = "SelectPairViewControllerCell"
+    private var cellIdentifierExtension: String? = nil
+    
+    private var cellIdentifier: String {
+        return cellIdentifier(for: UITableViewCell.self)
+            + ( cellIdentifierExtension != nil ? "." + cellIdentifierExtension! : "" )
+    }
     
     private var translate: ((String, String) -> String?)? = nil
-    //
-    // MARK: - Internal  properties
-    //
-// The class Language combines the key and local name of a pair. The class should be renamed
+//
+// MARK: - Internal  properties
+//
+    // The class Language combines the key and local name of a pair.
     // These are Pairs already selected in the existing product
     private var currentPairs: [Language] = []
     
@@ -109,15 +123,11 @@ class SelectPairViewController: UIViewController {
     private func setup() {
         
         // if set the tags are converted to class Language items
-        if let validTags = currentPairsInterpreted {
-            for tag in validTags.list {
+        if let validTags = original {
+            for tag in validTags {
                 var pair = Language()
                 pair.code = tag
-                if let validTranslate = translate {
-                    pair.name = validTranslate(tag, Locale.preferredLanguages[0]) ?? undefinedText
-                } else {
-                    pair.name = tag
-                }
+                pair.name = allPairs.last(where: ({$0.code == pair.code}) )?.name ?? undefinedText
                 currentPairs.append(pair)
             }
         }
@@ -192,7 +202,7 @@ extension SelectPairViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: UITableViewCell.self), for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         // Is there a list with selected/current Pairs?
         if indexPath.section == 0 {
             if let validPairs = selectedPairs {
@@ -264,6 +274,5 @@ extension SelectPairViewController: UITableViewDelegate {
             ? assignedHeader
             : unAssignedHeader
     }
-    
 }
 

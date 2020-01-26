@@ -819,16 +819,15 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                                     ppc.delegate = self
                                 }
                                 
-                                    // transfer the traces of the local product (if any or after edit)
-                                    // or the countries of the remote product
-                                    // The traces will be interpreted (i.e. as english keys)
-                                vc.configure(currentPairsInterpreted: productPair?.tracesInterpreted,
+                                // transfer the traces of the local product (if any or after edit)
+                                // or the countries of the remote product
+                                // The traces will be interpreted (i.e. as english keys)
+                                vc.configure(original: productPair?.tracesInterpreted?.list,
                                     allPairs: OFFplists.manager.allAllergens,
                                     assignedHeader: TranslatableStrings.SelectedTraces,
                                     unAssignedHeader: TranslatableStrings.UnselectedTraces,
                                     undefinedText: TranslatableStrings.NoTraceDefined,
-                                    cellIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self),
-                                    translate: OFFplists.manager.translateAdditive(_:language:))
+                                    cellIdentifierExtension: IngredientsTableViewController.identifier)
                             }
                         }
                     }
@@ -1051,7 +1050,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         // For custom tableView headers
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 70
-        tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
+        tableView.register(UINib(nibName: LanguageHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: LanguageHeaderView.identifier)
         
     }
     

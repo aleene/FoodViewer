@@ -810,16 +810,15 @@ class SupplyChainTableViewController: UITableViewController {
                                 ppc.delegate = self
                             }
                             
-                                // transfer the countries of the local product (if any or after edit)
-                                // or the countries of the remote product
-                                // The countries will be interpreted (i.e. as english keys)
-                            vc.configure(currentPairsInterpreted: productPair?.countriesInterpreted,
+                            // transfer the countries of the local product (if any or after edit)
+                            // or the countries of the remote product
+                            // The countries will be interpreted (i.e. as english keys)
+                            vc.configure(original: productPair?.countriesInterpreted?.list,
                                 allPairs: OFFplists.manager.allCountries,
                                 assignedHeader: TranslatableStrings.SelectedCountries,
                                 unAssignedHeader: TranslatableStrings.UnselectedCountries,
                                 undefinedText: TranslatableStrings.NoCountryDefined,
-                                cellIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self),
-                                translate: OFFplists.manager.translateCountry)
+                                cellIdentifierExtension: SupplyChainTableViewController.identifier)
                         }
                     }
                 }
@@ -885,7 +884,7 @@ class SupplyChainTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
-        tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
+        tableView.register(UINib(nibName: LanguageHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: LanguageHeaderView.identifier)
 
     }
     
