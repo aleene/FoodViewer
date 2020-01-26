@@ -134,6 +134,8 @@ class DietLevelsTableViewCell: UITableViewCell {
     
     @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
         cellTapped()
+        state = !state
+        toggleViewModeButton?.setImage(UIImage.init(named: state ? "UpToClose" : "DownToOpen"), for: .normal)
     }
     
     var values: [Int] = []
@@ -144,14 +146,21 @@ class DietLevelsTableViewCell: UITableViewCell {
         }
     }
 
+    /// A delegate class, which handles the protocol functions.
     var delegate: DietLevelsTableViewCellDelegate? = nil
 
+    /// Indicates whether the button should be shown, or whether a doubleTap should be accepted instead of the button.
     var buttonNotDoubleTap: Bool = true {
         didSet {
             setButtonOrDoubletap(buttonNotDoubleTap)
         }
     }
 
+    /// The state indicates, which icon will be shown as toggle.
+    /// - false (closed) = down arrow
+    /// - true (open) = up arrow
+    private var state = false
+    
     private func setup() {
         guard level1Label != nil else { return }
         guard level2Label != nil else { return }

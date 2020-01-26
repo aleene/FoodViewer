@@ -62,7 +62,7 @@ class SelectPairViewController: UIViewController {
     private var cellIdentifierExtension: String? = nil
     
     private var cellIdentifier: String {
-        return cellIdentifier(for: UITableViewCell.self)
+         return cellIdentifier(for: UITableViewCell.self)
             + ( cellIdentifierExtension != nil ? "." + cellIdentifierExtension! : "" )
     }
     

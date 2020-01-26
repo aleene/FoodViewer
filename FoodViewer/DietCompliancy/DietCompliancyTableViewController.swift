@@ -152,7 +152,7 @@ extension DietCompliancyTableViewController: TagListViewDataSource {
 //
 extension DietCompliancyTableViewController: DietLevelsTableViewCellDelegate {
     
-    // function to let the delegate know that a tag was single tapped
+    // function to let the delegate know that a tag was double tapped
     func dietLevelsTableViewCell(_ sender: DietLevelsTableViewCell, receivedDoubleTapOn cell:DietLevelsTableViewCell) {
         if let validExpandSection = expandSection {
             if validExpandSection == cell.tag {
