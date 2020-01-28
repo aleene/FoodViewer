@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Class that shows the
 class DietCompliancyTableViewController: UITableViewController {
 
     var delegate: ProductPageViewController? = nil {
@@ -153,15 +154,15 @@ extension DietCompliancyTableViewController: TagListViewDataSource {
 extension DietCompliancyTableViewController: DietLevelsTableViewCellDelegate {
     
     // function to let the delegate know that a tag was double tapped
-    func dietLevelsTableViewCell(_ sender: DietLevelsTableViewCell, receivedDoubleTapOn cell:DietLevelsTableViewCell) {
+    func dietLevelsTableViewCell(_ sender: DietLevelsTableViewCell, receivedTapOn: UIButton?) {
         if let validExpandSection = expandSection {
-            if validExpandSection == cell.tag {
+            if validExpandSection == sender.tag {
                 expandSection = nil
                 tableView.reloadData()
                 return
             }
         }
-        expandSection = cell.tag
+        expandSection = sender.tag
         tableView.reloadData()
     }
 }

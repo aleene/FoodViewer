@@ -21,12 +21,19 @@ class SelectPairViewController: UIViewController {
 ///
 /// - parameter original: The currently selected strings. These tags are encodes as keys, i.e. "en:value". If no strings have been selected this is nil.
 /// - parameter allPairs: All possible pairs. The user will be able to select from these pairs.
+    /// - parameter allowOriginalDeletion: allow the user to delete the original entries
 /// - parameter assignedHeader: The tableView section header for the selected strings.
 /// - parameter unAssignedHeader: The tableView section header for the unselected strings.
 /// - parameter undefinedText: String to show when the translation is undefined.
 /// - parameter cellIdentifierExtension: String to append to the CellIdentifier to make the identifier unique. The format to use for the Identifier in the Storyboard is `UITableView.SelectPairViewController.cellIdentifierExtension`. If only one version of this class is present in the Storyboard, it can be set to nil (and remove the trailing `.` in the identifier.
 /// - parameter translate: Function to translate a key to a local language string.
-    func configure(original: [String]?, allPairs: [Language], assignedHeader: String, unAssignedHeader: String, undefinedText: String, cellIdentifierExtension: String?) {
+    func configure(original: [String]?,
+                   allPairs: [Language],
+//                   allowOriginalDeleteion: Bool,
+                   assignedHeader: String,
+                   unAssignedHeader: String,
+                   undefinedText: String,
+                   cellIdentifierExtension: String?) {
         self.original = original
         self.allPairs = allPairs
         self.assignedHeader = assignedHeader
@@ -52,6 +59,8 @@ class SelectPairViewController: UIViewController {
     private var original: [String]? = nil
         
     private var allPairs: [Language] = []
+    
+    private var allowOriginalDeletion = false
     
     private var assignedHeader = "Assigned TableView Header"
     

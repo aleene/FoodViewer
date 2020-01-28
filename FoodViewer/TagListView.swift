@@ -563,19 +563,9 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             tagViews[index] = tagView
         }
     }
-    /*
-     // MARK: - Interface Builder
-     
-     open override func prepareForInterfaceBuilder() {
-     
-     addTag("Welcome")
-     addTag("to")
-     selectTag(at: tagViews.index(of: addTag("TagListView"))!)
-     }
-     */
-    
-    // MARK: - Layout functions
-    
+//
+// MARK: - Layout functions
+//
     private(set) var tagBackgroundViews: [UIView] = []
     // private(set) var rowViews: [UIView] = []
     private(set) var tagViewHeight: CGFloat = 0
@@ -585,18 +575,10 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
     }
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        /*
-        // Check in which state TagListView is
-        if isCollapsed {
-            layoutCollapsedLabel()
-        } else {
-            rearrangeViews(true)
-        }
- */
+    private var hasTags: Bool {
+        datasource!.numberOfTagsIn(self) > 0
     }
-    
+        
     // Reload's the TagListView's data and layout it's views.
     public func reloadData(clearAll: Bool) {
         guard datasource?.numberOfTagsIn(self) != nil else { return }
@@ -648,13 +630,14 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         // Layout all the new TagViews
         rearrangeViews(true)
     }
-    
+
+    /// Remove all tags and reset clear button
     private func clearTagListView() {
         clearUncollapsedView()
         tagViews = []
     }
     
-    // remove all Views which are part of the uncollapsed state except the prefix
+    /// Remove all Views which are part of the uncollapsed state except the prefix
     private func clearUncollapsedView() {
         // TODO: is this OK?
         tagViews.forEach { $0.removeFromSuperview() }
@@ -709,7 +692,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
         // print("after adjustHeight", currentY, frame.height)
 
-        if allowsRemoval && clearButtonIsEnabled {
+        if allowsRemoval && clearButtonIsEnabled && hasTags {
             layoutClearView()
         }
         
@@ -802,7 +785,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         guard tagViews.count > 0 else { return }
         
         // calculate the rowWidth available for tags
-        let rowWidth = allowsRemoval && clearButtonIsEnabled ? frame.size.width - clearView.frame.width - Constants.defaultHorizontalClearPadding : frame.size.width
+        let rowWidth = allowsRemoval && clearButtonIsEnabled && hasTags ? frame.size.width - clearView.frame.width - Constants.defaultHorizontalClearPadding : frame.size.width
         //print(frame.size.width, rowWidth)
         for (index,tagView) in tagViews.enumerated() {
             tagView.cornerRadius = self.cornerRadius
@@ -919,7 +902,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
   //          : Constants.defaultTagHeight
         
         // let inputHeight = tagViewHeight
-        let clearButtonWidth = allowsRemoval && clearButtonIsEnabled ? CGFloat(Clear.ViewSize) : 0.0
+        let clearButtonWidth = allowsRemoval && clearButtonIsEnabled && hasTags ? CGFloat(Clear.ViewSize) : 0.0
         
         // Is there enough space for a reasonable inputTextView
         if currentX + Constants.defaultMinInputWidth >= frame.width - clearButtonWidth {
@@ -1113,6 +1096,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
     }
     
+    /// The clearButton allows the user to delete ALL tags. If clearButtonIsEnable this button is shown.
     open var clearButtonIsEnabled: Bool = false {
         didSet {
             if clearButtonIsEnabled != oldValue {
@@ -1121,6 +1105,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
     }
 
+    /// - parameter removeButtonIsEnabled:
+    /// Add a remove icon next to the tag. Tapping it allows the user to delete the tag.
     open var removeButtonIsEnabled = false
     
     // MARK: - Tag handling

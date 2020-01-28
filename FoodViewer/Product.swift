@@ -264,7 +264,7 @@ class FoodProduct {
     var tracesHierarchy: Tags = .undefined
     var tracesInterpreted: Tags = .undefined
     
-    // returns the allergenKeys array in the current locale
+    /// returns the allergenKeys array in the current locale
     var tracesTranslated: Tags {
         get {
             switch tracesInterpreted {

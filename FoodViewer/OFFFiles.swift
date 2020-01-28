@@ -313,20 +313,61 @@ class OFFplists {
         }
         return country != nil ? country!.name : TranslatableStrings.NoCountryDefined
     }
-      
-    /*
-    func languageCode(for languageString:String?) -> String {
-        var language: Language? = nil
-        guard languageString != nil else { return TextConstants.NoLanguage }
-        if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
-            s.name == languageString!
-        }){
-            language = allLanguages[validIndex]
+//
+// MARK: - Category functions
+//
+    func category(atIndex index: Int, languageCode key: String) -> String? {
+        if OFFcategories == nil {
+            OFFcategories = readPlist(Constants.CategoriesFileName)
         }
-            
-        return language != nil ? language!.code : TextConstants.NoLanguage
+        if index >= 0 && OFFcategories != nil && index <= OFFcategories!.count {
+            let currentVertex = OFFcategories![OFFcategories!.index(OFFcategories!.startIndex, offsetBy: index)].leaves
+            let values = currentVertex[key]
+            return  values != nil ? values![0] : nil
+        } else {
+            return nil
+        }
     }
- */
+
+    public var allCategories: [Language] {
+        return setupAllCategories(Locale.preferredLanguages[0])
+    }
+
+    private func setupAllCategories(_ localeLanguage: String) -> [Language] {
+        var categories: [Language] = []
+        if OFFcategories == nil {
+            OFFcategories = readPlist(Constants.CategoriesFileName)
+        }
+        guard OFFcategories != nil else { return categories }
+        let firstSplit = localeLanguage.split(separator:"-").map(String.init)
+
+        // loop over all verteces and fill the languages array
+        for vertex in OFFcategories! {
+            var category = Language()
+
+            let values = vertex.leaves[firstSplit[0]]
+                      
+            category.code = vertex.key
+            category.name = values != nil ? values![0] : vertex.key
+            categories.append(category)
+        }
+        if categories.count > 1 {
+            categories.sort(by: { (s1: Language, s2: Language) -> Bool in return s1.name < s2.name } )
+        }
+        return categories
+    }
+              
+    func categoryName(for languageCode:String?) -> String {
+        var category: Language? = nil
+        guard languageCode != nil else { return TranslatableStrings.NoLanguageDefined }
+        let allCategories: [Language] = self.allLanguages
+        if let validIndex = allCategories.firstIndex(where: { (s: Language) -> Bool in
+            s.code == languageCode!
+        }){
+            category = allCategories[validIndex]
+        }
+        return category != nil ? category!.name : TranslatableStrings.NoCategoryDefined
+    }
 //
 // MARK: - Allergen functions
 //

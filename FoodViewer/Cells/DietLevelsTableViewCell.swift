@@ -7,27 +7,71 @@
 //
 
 import UIKit
-
+/**
+ Protocol for the DietLevelsTableViewCell class.
+ - functions:
+    - dietLevelsTableViewCell(_:receivedTapOn:):  handles double taps that are received on the button in the cell.
+ */
 protocol DietLevelsTableViewCellDelegate: class {
     
-    func dietLevelsTableViewCell(_ sender: DietLevelsTableViewCell, receivedDoubleTapOn cell:DietLevelsTableViewCell)
-
-    //func dietLevelsTableViewCell(_ sender: DietLevelsTableViewCell, receivedTapOn button:UIButton)
+    /// Function handles button taps or double taps that are received in the cell.
+    /// - parameter _: The tableViewCell that inititated the call.
+    /// - parameter receivedTapOn: The id of the button that received the tap. If the cell used doubleTap this will be nil
+    func dietLevelsTableViewCell(_ sender: DietLevelsTableViewCell, receivedTapOn button:UIButton?)
 
 }
+/**
+A tableViewCell, which shows how a product conforms to a diet.
+ 
+ + Parameters:
+    -  values: An array with values for each conformance level. The size of the array determines how many levels (circles) are shown. The value is shown inside each circle. The array is assumed to be ordered from low conformance to high conformance.
+    - conclusion:The index (in the values array) with the final conformance conclusion.
+    -  delegate:A delegate class, which will  handle the protocol functions.
+    -  buttonNotDoubleTap:Indicates whether the button should be shown, or whether a doubleTap should be accepted instead of the button.
+    -  willDisappear(): Function to call when the cell will disppear/unload. It will do some cleanup.
 
-class DietLevelsTableViewCell: UITableViewCell {
-    
-    private struct Constant {
-        static let Divisor = 2.5
-        static let Height = CGFloat(25.0)
+A diet is shown as a row with coloured circles. Each circle indicates a level of conformance.
+Each circle as a number to indicate how many triggers correspond to that level.
+The user can tap a button for more information.
+ - Important:
+The class has an optional protocol.
+ */
+final class DietLevelsTableViewCell: UITableViewCell {
+//
+// MARK: - Public variables and functions
+//
+    /// An array with values for each conformance level. The size of the array determines how many levels (circles)
+    public var values: [Int] = []
+        
+    /// The index (in the values array) with the final conformance conclusion.
+    public var conclusion: Int? = nil {
+        didSet {
+            setup()
+        }
     }
+
+    /// A delegate class, which handles the protocol functions.
+    public var delegate: DietLevelsTableViewCellDelegate? = nil
     
-    private var cornerRadius: CGFloat {
-        // All the level*Label's have the same size.
-        CGFloat(level0Label?.bounds.size.height ?? Constant.Height) / CGFloat(1.1)
+    /// Indicates whether the button should be shown, or whether a doubleTap should be accepted instead of the button.
+    public var buttonNotDoubleTap: Bool = true {
+        didSet {
+            setButtonOrDoubletap(buttonNotDoubleTap)
+           }
     }
-    
+    /// function to call when the cell disappears. It will nillify any gesture.
+    public func willDisappear() {
+        guard let validGestureRecognizers = self.gestureRecognizers else { return }
+        for gesture in validGestureRecognizers {
+            if let doubleTapGesture = gesture as? UITapGestureRecognizer,
+                doubleTapGesture.numberOfTapsRequired == 2 {
+                self.removeGestureRecognizer(gesture)
+            }
+        }
+    }
+//
+// MARK: - Interface elements
+//
     @IBOutlet weak var level0Label: UILabel! {
         didSet {
             level0Label?.layer.cornerRadius = cornerRadius
@@ -133,34 +177,31 @@ class DietLevelsTableViewCell: UITableViewCell {
     }
     
     @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
-        cellTapped()
+        buttonTapped()
         state = !state
         toggleViewModeButton?.setImage(UIImage.init(named: state ? "UpToClose" : "DownToOpen"), for: .normal)
     }
-    
-    var values: [Int] = []
-    
-    var conclusion: Int? = nil {
-        didSet {
-            setup()
-        }
+//
+// MARK: - Private variables
+//
+    private struct Constant {
+        static let Divisor = 2.5
+        static let Height = CGFloat(25.0)
     }
-
-    /// A delegate class, which handles the protocol functions.
-    var delegate: DietLevelsTableViewCellDelegate? = nil
-
-    /// Indicates whether the button should be shown, or whether a doubleTap should be accepted instead of the button.
-    var buttonNotDoubleTap: Bool = true {
-        didSet {
-            setButtonOrDoubletap(buttonNotDoubleTap)
-        }
+    
+    private var cornerRadius: CGFloat {
+        // All the level*Label's have the same size.
+        CGFloat(level0Label?.bounds.size.height ?? Constant.Height) / CGFloat(1.1)
     }
 
     /// The state indicates, which icon will be shown as toggle.
     /// - false (closed) = down arrow
     /// - true (open) = up arrow
     private var state = false
-    
+//
+// MARK: - Private functions
+//
+    /// Setup the numbers of the diet levels and the conclusion level.
     private func setup() {
         guard level1Label != nil else { return }
         guard level2Label != nil else { return }
@@ -238,6 +279,7 @@ class DietLevelsTableViewCell: UITableViewCell {
 
     }
     
+    /// Setup the colours of the level indicators
     private func resetColors() {
         level0Label?.backgroundColor = .clear
         if #available(iOS 13.0, *) {
@@ -289,11 +331,12 @@ class DietLevelsTableViewCell: UITableViewCell {
         }
     }
     
+    /// Setup function for using either a button or a doubleTap
     private func setButtonOrDoubletap(_ useButton:Bool?) {
         guard let validUseButton = useButton else { return }
         toggleViewModeButton?.isHidden = !validUseButton
         if !validUseButton {
-            let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DietLevelsTableViewCell.cellTapped))
+            let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DietLevelsTableViewCell.buttonTapped))
             doubleTapGestureRecognizer.numberOfTapsRequired = 2
             doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
             doubleTapGestureRecognizer.cancelsTouchesInView = false
@@ -301,18 +344,9 @@ class DietLevelsTableViewCell: UITableViewCell {
         }
     }
     
-    func willDisappear() {
-        guard let validGestureRecognizers = self.gestureRecognizers else { return }
-        for gesture in validGestureRecognizers {
-            if let doubleTapGesture = gesture as? UITapGestureRecognizer,
-                doubleTapGesture.numberOfTapsRequired == 2 {
-                self.removeGestureRecognizer(gesture)
-            }
-        }
-    }
-
-    @objc func cellTapped() {
-        delegate?.dietLevelsTableViewCell(self, receivedDoubleTapOn: self)
+    /// Function that invokes the protocol when the button is tapped or when doubleTap is enabled.
+    @objc func buttonTapped() {
+        delegate?.dietLevelsTableViewCell(self, receivedTapOn: buttonNotDoubleTap ? toggleViewModeButton : nil)
     }
 
 }

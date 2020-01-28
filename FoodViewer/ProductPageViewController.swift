@@ -75,11 +75,6 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
         }
         editMode = !editMode
     }
-    
-    @IBOutlet weak var switchProductButton: UIBarButtonItem!
-    
-    @IBAction func switchProductButtonTapped(_ sender: UIBarButtonItem) {
-    }
 //
 // MARK: - Save product functions
 //
@@ -722,24 +717,6 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
         // nothing needs to be done
     }
 
-        /*
-    func updateCurrentLanguage() {
-        if let index = pages.index(where: { $0 == .identification } ),
-            let _ = viewController(for: pages[index]) as? IdentificationTableViewController {
-            // vc.currentLanguageCode = currentLanguageCode
-        }
-        if let index = pages.index(where: { $0 == .ingredients } ),
-            let vc = viewController(for: pages[index]) as? IngredientsTableViewController {
-            //vc.currentLanguageCode = currentLanguageCode
-        }
-        if let index = pages.index(where: { $0 == .nutritionFacts } ),
-            let vc = viewController(for: pages[index]) as? NutrientsTableViewController {
-            // vc.currentLanguageCode = currentLanguageCode
-        }
-
-    }
-  */
-    
     func search(for string: String?, in component: SearchComponent) {
         if let validString = string {
             askUserToSearch(for: validString, in: component)
@@ -778,11 +755,6 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
         OFFSearchProducts.manager.search(string, in:component)
         switchToTab(withIndex:2)
     }
-
-    //@objc func searchStarted() {
-    //    switchToTab(withIndex:2)
-        // performSegue(withIdentifier: "Unwind For Cancel", sender: self)
-    //}
     
     private func switchToTab(withIndex index: Int) {
         // TabBarController -> SplitViewController -> NavigationController -> PageViewController - ViewController
@@ -792,7 +764,6 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
             assert(true, "ProductPageViewController:switchToTab: TabBar hierarchy error")
         }
     }
-
     
     // Show an alert if the product can not be loaded
     @objc func alertUser(_ notification: Notification) {
@@ -816,9 +787,9 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
         //TODO: why is this function?
         //productPair!.remoteProduct = nil
     }
-    
-    // MARK: - ViewController Lifecycle
-        
+//
+// MARK: - ViewController Lifecycle
+//
     override func viewDidLoad() {
         super.viewDidLoad()
         initPages()
@@ -829,42 +800,11 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setTitle()
-
-        /*
-        //Initialize the toolbar
-        let toolbar = UIToolbar()
-        toolbar.barStyle = UIBarStyle.default
-        
-        //Set the toolbar to fit the width of the app.
-        toolbar.sizeToFit()
-        
-        //Caclulate the height of the toolbar
-        let toolbarHeight = toolbar.frame.size.height
-        
-        //Get the bounds of the parent view
-        let rootViewBounds = self.parent?.view.bounds
-        
-        //Get the height of the parent view.
-        let rootViewHeight = rootViewBounds?.height
-        
-        //Get the width of the parent view,
-        let rootViewWidth = rootViewBounds?.width
-        
-        //Create a rectangle for the toolbar
-        let rectArea = CGRect(x: 0, y: rootViewHeight! - toolbarHeight, width: rootViewWidth!, height: toolbarHeight)
-        
-        //Reposition and resize the receiver
-        toolbar.frame = rectArea
-        
-        //Create a button
-        let infoButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.plain, target: self, action: #selector(infoClicked))
-        
-        toolbar.items = [infoButton]
-        
-        //Add the toolbar as a subview to the navigation controller.
-        self.navigationController?.view.addSubview(toolbar)
-*/
+        refreshPageInterface()
+        setViewControllers(
+                [viewController(for:currentProductPage)],
+                direction: .forward,
+                animated: false, completion: nil)
         // listen if a product is set outside of the MasterViewController
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)

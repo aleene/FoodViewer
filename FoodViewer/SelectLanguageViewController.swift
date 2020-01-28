@@ -173,7 +173,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     // MARK: - Segue stuff
     
-    @IBAction func unwindAddLanguageForCancel(_ segue:UIStoryboardSegue) {
+    /*@IBAction func unwindAddLanguageForCancel(_ segue:UIStoryboardSegue) {
         // reload with first language?
     }
     
@@ -208,6 +208,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
             }
         }
     }
+ */
     
     @objc func textChanged(notification: Notification) {
         if let text = languageTextField.text {

@@ -73,8 +73,9 @@ class CategoriesTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
-                if let checked = checkedTags(productPair?.localProduct?.categoriesOriginal) {
-                    return checked
+                if var list = productPair?.localProduct?.categoriesTranslated.list {
+                    list = list.sorted(by: { $0 < $1 })
+                    return Tags.init(list:list)
                 }
             case .remoteTags:
                 return productPair?.remoteProduct?.categoriesInterpreted ?? .undefined
@@ -110,15 +111,6 @@ class CategoriesTableViewController: UITableViewController {
     
     // MARK: - TableView Functions
     
-    fileprivate struct Storyboard {
-        struct Nib {
-            static let LanguageHeaderView = "LanguageHeaderView"
-        }
-        struct ReusableHeaderFooterView {
-            static let Language = "LanguageHeaderView"
-        }
-    }
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return tableStructureForProduct.count
     }
@@ -129,25 +121,13 @@ class CategoriesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: TagListViewTableViewCell.identifier + "." + CategoriesTableViewController.identifier, for: indexPath) as! TagListViewTableViewCell
-        //cell.width = tableView.frame.size.width
-        //cell.tag = indexPath.section
-        var tagListEditMode = editMode
-        if let oldTags = productPair?.localProduct?.categoriesOriginal {
-            switch oldTags {
-            case .available:
-                tagListEditMode = productVersion.isRemote ? false : true
-            default:
-                break
-            }
-        }
-        cell.setup(datasource: self, delegate: self, editMode: tagListEditMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
+        cell.setup(datasource: self, delegate: self, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: editMode, allowTagDeletion: editMode, scheme: nil)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let validCell = cell as? TagListViewTableViewCell {
+        if let validCell = cell as? TagListViewButtonTableViewCell {
             validCell.willDisappear()
         }
     }
@@ -156,7 +136,7 @@ class CategoriesTableViewController: UITableViewController {
        
         var (currentProductSection, _, header) = tableStructureForProduct[section]
         
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: LanguageHeaderView.identifier) as! LanguageHeaderView
         var buttonNotDoubleTap: Bool {
             return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
         }
@@ -226,9 +206,58 @@ class CategoriesTableViewController: UITableViewController {
         return sectionsAndRows
             
     }
-    
-    // MARK: - Notification Handler Functions
+//
+// MARK: - Navigation
+//
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case segueIdentifier(to: SelectPairViewController.self):
+                if  let vc = segue.destination as? SelectPairViewController {
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? TagListViewButtonTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .right
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame
+                                ppc.delegate = self
+                            }
+                                
+                            // transfer the categories of the local product (if any or after edit)
+                            // or the categories of the remote product
+                            // The categories will be interpreted (i.e. as english keys)
+                            vc.configure(original: productPair?.categoriesInterpreted?.list,
+                                allPairs: OFFplists.manager.allCategories,
+                                assignedHeader: TranslatableStrings.SelectedCategories,
+                                unAssignedHeader: TranslatableStrings.UnselectedCategories,
+                                undefinedText: TranslatableStrings.NoCategoryDefined,
+                                cellIdentifierExtension: CategoriesTableViewController.identifier)
+                            }
+                        }
+                    }
+
+                default: break
+                }
+            }
+        }
+            
+    @IBAction func unwindSetCategoryForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? SelectPairViewController {
+        // The categories are encoded as keys "en:english"
+            productPair?.update(categories: vc.selected)
+            tableView.reloadData()
+        }
+    }
         
+    @IBAction func unwindSetCategoryForCancel(_ segue:UIStoryboardSegue) {
+    }
+
+//
+// MARK: - Notification Handler Functions
+//
     @objc func refreshProduct() {
         productVersion = .new
         tableView.reloadData()
@@ -256,9 +285,9 @@ class CategoriesTableViewController: UITableViewController {
         }
         tableView.reloadData()
     }
-
-    // MARK: - Controller Lifecycle
-
+//
+// MARK: - Controller Lifecycle
+//
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -266,9 +295,8 @@ class CategoriesTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
         
-        tableView.register(UINib(nibName: Storyboard.Nib.LanguageHeaderView, bundle: nil), forHeaderFooterViewReuseIdentifier: Storyboard.Nib.LanguageHeaderView)
+        tableView.register(UINib(nibName: LanguageHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: LanguageHeaderView.identifier)
     }
-
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -301,9 +329,9 @@ class CategoriesTableViewController: UITableViewController {
     }
 
 }
-
+//
 // MARK: - LanguageHeaderDelegate Functions
-
+//
 extension CategoriesTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
@@ -313,9 +341,9 @@ extension CategoriesTableViewController: LanguageHeaderDelegate {
         doubleTapOnTableView()
     }
 }
-
+//
 // MARK: - TagListViewCellDelegate Functions
-
+//
 extension CategoriesTableViewController: TagListViewCellDelegate {
     
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView) {
@@ -325,9 +353,9 @@ extension CategoriesTableViewController: TagListViewCellDelegate {
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
     }
 }
-
+//
 // MARK: - TagListView Datasource Functions
-
+//
 extension CategoriesTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
@@ -457,4 +485,40 @@ extension CategoriesTableViewController: TagListViewDelegate {
     }
 
 
+}
+//
+// MARK: - TagListViewButtonCellDelegate Functions
+//
+extension CategoriesTableViewController: TagListViewButtonCellDelegate {
+    
+    // function to let the delegate know that a tag was single tapped
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedSingleTapOn tagListView:TagListView) {
+        
+    }
+    // function to let the delegate know that a tag was double tapped
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
+        
+    }
+    // function to let the delegate know that the button was tapped
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
+        performSegue(withIdentifier: segueIdentifier(to: SelectPairViewController.self), sender: button)
+    }
+}
+//
+// MARK: - UIPopoverPresentationControllerDelegate Functions
+//
+extension CategoriesTableViewController: UIPopoverPresentationControllerDelegate {
+        
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+    
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        let navcon = UINavigationController(rootViewController: controller.presentedViewController)
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        visualEffectView.frame = navcon.view.bounds
+        navcon.view.insertSubview(visualEffectView, at: 0)
+        return navcon
+    }
+    
 }

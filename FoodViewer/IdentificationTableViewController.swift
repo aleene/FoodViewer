@@ -329,8 +329,7 @@ class IdentificationTableViewController: UITableViewController {
         case .languages:
             if editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
-                // disallow the editing of the tags by setting the editMode to false
-                cell.setup(datasource: self, delegate: self, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: false, allowTagDeletion: false, scheme: nil)
+                cell.setup(datasource: self, delegate: self, showButton: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: false, allowTagDeletion: false, scheme: nil)
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
@@ -835,50 +834,54 @@ class IdentificationTableViewController: UITableViewController {
                         }
                     }
                 }
-            /*case segueIdentifier(to: SelectImageSourceViewController.self):
-                if let vc = segue.destination as? SelectImageSourceViewController {
-                    // The segue can only be initiated from a button within a BarcodeTableViewCell
+                
+            // This segue allows to ADD a language to the product.
+            case segueIdentifier(to: SelectPairViewController.self):
+                if  let vc = segue.destination as? SelectPairViewController {
                     if let button = sender as? UIButton {
-                        if button.superview?.superview as? ProductImageTableViewCell != nil {
+                        if button.superview?.superview as? TagListViewButtonTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .any
+                                ppc.permittedArrowDirections = .right
                                 // I need the button coordinates in the coordinates of the current controller view
                                 let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
                                 ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-                                vc.delegate = self
+                            }
+                                
+                                // transfer the traces of the local product (if any or after edit)
+                                // or the countries of the remote product
+                                // The traces will be interpreted (i.e. as english keys)
+                        vc.configure(original: nil,
+                                allPairs: OFFplists.manager.allLanguages,
+                                assignedHeader: TranslatableStrings.SelectedLanguages,
+                                unAssignedHeader: TranslatableStrings.UnselectedLanguages,
+                                undefinedText: TranslatableStrings.NoLanguageDefined,
+                                cellIdentifierExtension: IdentificationTableViewController.identifier)
+                        }
+                    }
+                }
+
+            case segueIdentifier(to: MainLanguageViewController.self):
+                if let vc = segue.destination as? MainLanguageViewController {
+                    if let languageCodes = productPair?.languageCodes {
+                        if let button = sender as? UIButton {
+                            if button.superview?.superview as? TagListViewButtonTableViewCell != nil {
+                                // if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                //   ppc.permittedArrowDirections = .any
+                                // I need the button coordinates in the coordinates of the current controller view
+                                //  let anchorFrame = button.convert(button.bounds, to: self.view)
+                                //  ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                //   ppc.delegate = self
+                                vc.currentLanguageCodes = languageCodes
+                                vc.sourcePage = 0
+                                //vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                //}
                             }
                         }
                     }
                 }
- */
-            case segueIdentifier(to: MainLanguageViewController.self):
-                if let vc = segue.destination as? MainLanguageViewController { if
-                    let languageCodes = productPair?.languageCodes { if
-                    let button = sender as? UIButton {
-                        if
-                    button.superview?.superview as? TagListViewButtonTableViewCell != nil {
-                        // if let ppc = vc.popoverPresentationController {
-                        // set the main language button as the anchor of the popOver
-                     //   ppc.permittedArrowDirections = .any
-                        // I need the button coordinates in the coordinates of the current controller view
-                      //  let anchorFrame = button.convert(button.bounds, to: self.view)
-                      //  ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                     //   ppc.delegate = self
-                    vc.currentLanguageCodes = languageCodes
-                    vc.sourcePage = 0
-                    //vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                        //}
-                        
-                    }
-                    
-                    }
-                    
-                }
-                
-            }
             default: break
             }
         }
@@ -897,6 +900,23 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
     }
+    
+    @IBAction func unwindAddLanguageForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? SelectPairViewController {
+            if let newLanguageCodes = vc.selected {
+                for code in newLanguageCodes {
+                    productPair?.update(addLanguageCode: code)
+                }
+                currentLanguageCode = newLanguageCodes.first
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    @IBAction func unwindAddLanguageForCancel(_ segue:UIStoryboardSegue) {
+        // no action required
+    }
+
 //
 // MARK: - Notification handlers
 //
@@ -946,16 +966,6 @@ class IdentificationTableViewController: UITableViewController {
     func refreshInterface() {
         tableView.reloadData()
     }
-    
-    /*
-    @objc func loadFirstProduct() {
-        let products = OFFProducts.manager
-        if let validProduct = products.productPair(at: 0)?.remoteProduct {
-            self.productPair = ProductPair(product: validProduct)
-            tableView.reloadData()
-        }
-    }
- */
     
     fileprivate lazy var imagePicker: GKImagePicker = {
         let picker = GKImagePicker.init()
@@ -1058,12 +1068,6 @@ class IdentificationTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
-    @objc func infoClicked() {
-        //TODO: why is this function?
-        //productPair!.remoteProduct = nil
-        //tableView.reloadData()
-    }
-
 //
 // MARK: - ViewController Lifecycle
 //
@@ -1081,7 +1085,7 @@ class IdentificationTableViewController: UITableViewController {
         
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 70
-        tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
+        tableView.register(UINib(nibName: LanguageHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: LanguageHeaderView.identifier)
         
     }
     
@@ -1181,7 +1185,7 @@ extension IdentificationTableViewController: TagListViewButtonCellDelegate {
     }
     // function to let the delegate know that the switch changed
     func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
-        performSegue(withIdentifier: segueIdentifier(to: SelectLanguageViewController.self), sender: button)
+        performSegue(withIdentifier: segueIdentifier(to: SelectPairViewController.self), sender: button)
     }
 }
 //
