@@ -232,7 +232,6 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
             confirmBarButtonItem?.isEnabled = false
             if let image = UIImage.init(named: Constant.Button.NotEditable) {
                 confirmBarButtonItem.image = image
-                confirmBarButtonItem.tintColor = .systemRed
             }
         } else {
             // change look edit button
@@ -245,11 +244,6 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
                 confirmBarButtonItem.image = image
                 }
             }
-               // if #available(iOS 13.0, *) {
-             //       confirmBarButtonItem.tintColor = .link
-             //   } else {
-              //      confirmBarButtonItem.tintColor = .systemBlue
-             //   }
         }
 
     }
@@ -696,7 +690,7 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
     @IBAction func unwindConfirmProductForDone(_ segue:UIStoryboardSegue) {
         
     }
-    
+    /*
     @IBAction func unwindExtendLanguagesForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? MainLanguageViewController {
             if let newLanguageCode = vc.selectedLanguageCode {
@@ -716,7 +710,7 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
     @IBAction func unwindExtendLanguagesForCancel(_ segue:UIStoryboardSegue) {
         // nothing needs to be done
     }
-
+*/
     func search(for string: String?, in component: SearchComponent) {
         if let validString = string {
             askUserToSearch(for: validString, in: component)
