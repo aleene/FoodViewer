@@ -230,11 +230,13 @@ class CategoriesTableViewController: UITableViewController {
                             // or the categories of the remote product
                             // The categories will be interpreted (i.e. as english keys)
                             vc.configure(original: productPair?.categoriesInterpreted?.list,
-                                allPairs: OFFplists.manager.allCategories,
-                                assignedHeader: TranslatableStrings.SelectedCategories,
-                                unAssignedHeader: TranslatableStrings.UnselectedCategories,
-                                undefinedText: TranslatableStrings.NoCategoryDefined,
-                                cellIdentifierExtension: CategoriesTableViewController.identifier)
+                                         allPairs: OFFplists.manager.allCategories,
+                                         multipleSelectionIsAllowed: true,
+                                         showOriginalsAsSelected: true,
+                                         assignedHeader: TranslatableStrings.SelectedCategories,
+                                         unAssignedHeader: TranslatableStrings.UnselectedCategories,
+                                         undefinedText: TranslatableStrings.NoCategoryDefined,
+                                         cellIdentifierExtension: CategoriesTableViewController.identifier)
                             }
                         }
                     }

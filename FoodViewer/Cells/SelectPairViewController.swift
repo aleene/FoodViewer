@@ -21,7 +21,8 @@ class SelectPairViewController: UIViewController {
 ///
 /// - parameter original: The currently selected strings. These tags are encodes as keys, i.e. "en:value". If no strings have been selected this is nil.
 /// - parameter allPairs: All possible pairs. The user will be able to select from these pairs.
-    /// - parameter allowOriginalDeletion: allow the user to delete the original entries
+/// - parameter multipleSelectionIsAllowed: The user is allowed add multiple pairs.
+/// - parameter showOriginalsAsSelected: Show the original entries in the selected section
 /// - parameter assignedHeader: The tableView section header for the selected strings.
 /// - parameter unAssignedHeader: The tableView section header for the unselected strings.
 /// - parameter undefinedText: String to show when the translation is undefined.
@@ -29,13 +30,15 @@ class SelectPairViewController: UIViewController {
 /// - parameter translate: Function to translate a key to a local language string.
     func configure(original: [String]?,
                    allPairs: [Language],
-//                   allowOriginalDeleteion: Bool,
+                   multipleSelectionIsAllowed: Bool,
+                   showOriginalsAsSelected: Bool,
                    assignedHeader: String,
                    unAssignedHeader: String,
                    undefinedText: String,
                    cellIdentifierExtension: String?) {
         self.original = original
         self.allPairs = allPairs
+        self.multipleSelectionIsAllowed = multipleSelectionIsAllowed
         self.assignedHeader = assignedHeader
         self.unAssignedHeader = unAssignedHeader
         self.undefinedText = undefinedText
@@ -60,7 +63,9 @@ class SelectPairViewController: UIViewController {
         
     private var allPairs: [Language] = []
     
-    private var allowOriginalDeletion = false
+    private var showOriginals = false
+    
+    private var multipleSelectionIsAllowed = false
     
     private var assignedHeader = "Assigned TableView Header"
     
@@ -111,7 +116,7 @@ class SelectPairViewController: UIViewController {
         didSet {
             tableView?.dataSource = self
             tableView?.delegate = self
-            tableView?.allowsMultipleSelection = true
+            tableView?.allowsMultipleSelection = multipleSelectionIsAllowed
         }
     }
         
@@ -130,9 +135,8 @@ class SelectPairViewController: UIViewController {
 //  MARK : Helper functions
 //
     private func setup() {
-        
-        // if set the tags are converted to class Language items
-        if let validTags = original {
+        if showOriginals,
+            let validTags = original {
             for tag in validTags {
                 var pair = Language()
                 pair.code = tag
@@ -266,7 +270,14 @@ extension SelectPairViewController: UITableViewDelegate {
             if selectedPairs == nil {
                 selectedPairs = currentPairs
             }
-            selectedPairs?.append(filteredPairs[indexPath.row])
+            if multipleSelectionIsAllowed {
+                selectedPairs?.append(filteredPairs[indexPath.row])
+            } else {
+                // Only add if nothing has been added yet
+                if selectedPairs != nil, selectedPairs!.count < 1 {
+                    selectedPairs?.append(filteredPairs[indexPath.row])
+                }
+            }
 
             cell?.accessoryType = .checkmark
         }

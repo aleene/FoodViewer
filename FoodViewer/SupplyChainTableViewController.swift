@@ -814,11 +814,13 @@ class SupplyChainTableViewController: UITableViewController {
                             // or the countries of the remote product
                             // The countries will be interpreted (i.e. as english keys)
                             vc.configure(original: productPair?.countriesInterpreted?.list,
-                                allPairs: OFFplists.manager.allCountries,
-                                assignedHeader: TranslatableStrings.SelectedCountries,
-                                unAssignedHeader: TranslatableStrings.UnselectedCountries,
-                                undefinedText: TranslatableStrings.NoCountryDefined,
-                                cellIdentifierExtension: SupplyChainTableViewController.identifier)
+                                         allPairs: OFFplists.manager.allCountries,
+                                         multipleSelectionIsAllowed: true,
+                                         showOriginalsAsSelected: true,
+                                         assignedHeader: TranslatableStrings.SelectedCountries,
+                                         unAssignedHeader: TranslatableStrings.UnselectedCountries,
+                                         undefinedText: TranslatableStrings.NoCountryDefined,
+                                         cellIdentifierExtension: SupplyChainTableViewController.identifier)
                         }
                     }
                 }

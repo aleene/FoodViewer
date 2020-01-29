@@ -565,7 +565,7 @@ class IdentificationTableViewController: UITableViewController {
             return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
         }
 
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: LanguageHeaderView.identifier) as! LanguageHeaderView
         headerView.section = section
         headerView.delegate = self
         // do not add any button or double tap
@@ -816,24 +816,6 @@ class IdentificationTableViewController: UITableViewController {
                         }
                     }
                 }
-            case segueIdentifier(to: MainLanguageViewController.self):
-                if let vc = segue.destination as? MainLanguageViewController {
-                    // The segue can only be initiated from a button within a BarcodeTableViewCell
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? BarcodeTableViewCell != nil {
-                            //if let ppc = vc. {
-                                // set the main language button as the anchor of the popOver
-                            //    ppc.permittedArrowDirections = .any
-                                // I need the button coordinates in the coordinates of the current controller view
-                           //     let anchorFrame = button.convert(button.bounds, to: self.view)
-                           //     ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                           //     ppc.delegate = self
-                           //     vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                            vc.currentLanguageCodes = [productPair?.primaryLanguageCode ?? "en"]
-                          //  }
-                        }
-                    }
-                }
                 
             // This segue allows to ADD a language to the product.
             case segueIdentifier(to: SelectPairViewController.self):
@@ -852,8 +834,10 @@ class IdentificationTableViewController: UITableViewController {
                                 // transfer the traces of the local product (if any or after edit)
                                 // or the countries of the remote product
                                 // The traces will be interpreted (i.e. as english keys)
-                        vc.configure(original: nil,
+                            vc.configure(original: productPair?.languageCodes,
                                 allPairs: OFFplists.manager.allLanguages,
+                                multipleSelectionIsAllowed: true,
+                                showOriginalsAsSelected: false,
                                 assignedHeader: TranslatableStrings.SelectedLanguages,
                                 unAssignedHeader: TranslatableStrings.UnselectedLanguages,
                                 undefinedText: TranslatableStrings.NoLanguageDefined,
@@ -861,24 +845,31 @@ class IdentificationTableViewController: UITableViewController {
                         }
                     }
                 }
-
-            case segueIdentifier(to: MainLanguageViewController.self):
-                if let vc = segue.destination as? MainLanguageViewController {
-                    if let languageCodes = productPair?.languageCodes {
-                        if let button = sender as? UIButton {
-                            if button.superview?.superview as? TagListViewButtonTableViewCell != nil {
-                                // if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                //   ppc.permittedArrowDirections = .any
-                                // I need the button coordinates in the coordinates of the current controller view
-                                //  let anchorFrame = button.convert(button.bounds, to: self.view)
-                                //  ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                                //   ppc.delegate = self
-                                vc.currentLanguageCodes = languageCodes
-                                vc.sourcePage = 0
-                                //vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                //}
+            // Segue in order to the change main language?
+            case "MainLanguage." + segueIdentifier(to:  SelectPairViewController.self):
+                if let vc = segue.destination as? SelectPairViewController {
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? BarcodeTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                        // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .right
+                                    // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
+                                ppc.delegate = self
                             }
+                                        
+                                        // transfer the traces of the local product (if any or after edit)
+                                        // or the countries of the remote product
+                                        // The traces will be interpreted (i.e. as english keys)
+                            vc.configure(original: productPair?.primaryLanguageCode != nil ? [productPair!.primaryLanguageCode] : nil,
+                                        allPairs: OFFplists.manager.allLanguages,
+                                        multipleSelectionIsAllowed: false,
+                                        showOriginalsAsSelected: false,
+                                        assignedHeader: TranslatableStrings.SelectedLanguages,
+                                        unAssignedHeader: TranslatableStrings.UnselectedLanguages,
+                                        undefinedText: TranslatableStrings.NoLanguageDefined,
+                                        cellIdentifierExtension: "MainLanguage." + IdentificationTableViewController.identifier)
                         }
                     }
                 }
@@ -892,8 +883,8 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     @IBAction func unwindChangeMainLanguageForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? MainLanguageViewController {
-            if let newLanguageCode = vc.selectedLanguageCode {
+        if let vc = segue.source as? SelectPairViewController {
+            if let newLanguageCode = vc.selected?.first {
                 productPair?.update(primaryLanguageCode: newLanguageCode)
                 currentLanguageCode = newLanguageCode
                 tableView.reloadData()

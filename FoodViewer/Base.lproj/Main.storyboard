@@ -598,6 +598,9 @@
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <connections>
                                                 <action selector="mainLanguageTapped:" destination="EEQ-rQ-wnz" eventType="touchUpInside" id="sMk-CF-Dqr"/>
+                                                <segue destination="EJT-f0-dbq" kind="popoverPresentation" identifier="MainLanguage.IdentificationTableViewController.SelectPairViewController" popoverAnchorView="v7f-Gc-N5v" id="uiI-np-8Ol">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lFH-LR-JHI">
@@ -960,7 +963,6 @@
                                             <state key="normal" image="Add"/>
                                             <connections>
                                                 <action selector="buttonTapped:" destination="h2H-jh-3lz" eventType="touchUpInside" id="Zdr-ev-lI6"/>
-                                                <segue destination="EJT-f0-dbq" kind="presentation" identifier="IdentificationTableViewController.MainLanguageViewController" modalPresentationStyle="formSheet" id="Fz6-Z0-11u"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -4853,7 +4855,11 @@
                                                 <segue destination="hN1-hb-NjU" kind="unwind" identifier="Cancel.AddNutrientViewController.NutrientsTableViewController" unwindAction="unwindAddNutrientForCancel:" id="plR-4O-BtP"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="yDL-58-zQ8"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="yDL-58-zQ8">
+                                            <connections>
+                                                <segue destination="hN1-hb-NjU" kind="unwind" identifier="Done.AddNutrientViewController.NutrientsTableViewController" unwindAction="unwindAddNutrientForDone:" id="fs8-Po-lHb"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -4885,7 +4891,6 @@
                         <outlet property="filterTextField" destination="Rmg-p1-y5b" id="M45-wP-fDS"/>
                         <outlet property="navItem" destination="A9l-Yd-38c" id="MAN-1v-jd6"/>
                         <outlet property="nutrientsPickerView" destination="35y-j3-Xby" id="flJ-Mr-YLp"/>
-                        <segue destination="hN1-hb-NjU" kind="unwind" identifier="Done.AddNutrientViewController.NutrientsTableViewController" unwindAction="unwindAddNutrientForDone:" id="paz-Qn-xzv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gsc-Fz-YkJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5308,10 +5313,10 @@
             </objects>
             <point key="canvasLocation" x="-949" y="408"/>
         </scene>
-        <!--Main Language View Controller-->
+        <!--Select Pair View Controller-->
         <scene sceneID="T0a-zF-cga">
             <objects>
-                <viewController modalPresentationStyle="formSheet" id="EJT-f0-dbq" customClass="MainLanguageViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="formSheet" id="EJT-f0-dbq" customClass="SelectPairViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ib9-72-jyd"/>
                         <viewControllerLayoutGuide type="bottom" id="2s5-KU-aaJ"/>
@@ -5320,61 +5325,80 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="LpA-Y2-RlQ">
-                                <rect key="frame" x="0.0" y="56" width="320" height="216"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="216" id="mPc-0r-7xX"/>
-                                </constraints>
-                            </pickerView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sV8-Os-Vwb">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                                 <items>
                                     <navigationItem id="E0d-ki-n2i">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="XYe-mA-LXo">
                                             <connections>
-                                                <segue destination="A4X-l8-afy" kind="unwind" identifier="Cancel.MainLanguageViewController.IdentificationTableViewController" unwindAction="unwindExtendLanguagesForCancel:" id="afh-cw-chz"/>
+                                                <segue destination="A4X-l8-afy" kind="unwind" identifier="Cancel.MainLanguage.ProductPairViewController.IdentificationTableViewController" unwindAction="unwindChangeMainLanguageForCancel:" id="GwW-kU-8hT"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="DSe-6T-yPr">
                                             <connections>
-                                                <segue destination="A4X-l8-afy" kind="unwind" identifier="Done.MainLanguageViewController.IdentificationTableViewController" unwindAction="unwindExtendLanguagesForDone:" id="g5O-ew-vzh"/>
+                                                <segue destination="A4X-l8-afy" kind="unwind" identifier="Done.MainLanguage.ProductPairViewController.IdentificationTableViewController" unwindAction="unwindChangeMainLanguageForDone:" id="ctv-12-hxx"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JmH-j5-lzp">
-                                <rect key="frame" x="32" y="280" width="256" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="8Z4-i1-HHA"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SDS-ba-nU0">
+                                <rect key="frame" x="0.0" y="112" width="320" height="436"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCell.SelectPairViewController.MainLanguage.IdentificationTableViewController" textLabel="Kcn-ou-VoI" style="IBUITableViewCellStyleDefault" id="GFn-x6-xQw">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GFn-x6-xQw" id="c4b-3a-Xyz">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Kcn-ou-VoI">
+                                                    <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="dwc-Co-K7G">
+                                <rect key="frame" x="0.0" y="56" width="320" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="sV8-Os-Vwb" firstAttribute="leading" secondItem="kWp-4b-GEb" secondAttribute="leading" id="1Q2-dz-vsW"/>
-                            <constraint firstItem="LpA-Y2-RlQ" firstAttribute="leading" secondItem="kWp-4b-GEb" secondAttribute="leading" id="33O-px-t8W"/>
-                            <constraint firstItem="LpA-Y2-RlQ" firstAttribute="top" secondItem="sV8-Os-Vwb" secondAttribute="bottom" id="4V3-Hh-8dq"/>
-                            <constraint firstItem="JmH-j5-lzp" firstAttribute="top" secondItem="LpA-Y2-RlQ" secondAttribute="bottom" constant="8" id="JPw-8R-9q3"/>
-                            <constraint firstAttribute="trailing" secondItem="JmH-j5-lzp" secondAttribute="trailing" constant="32" id="QtW-Oj-mPi"/>
-                            <constraint firstItem="JmH-j5-lzp" firstAttribute="leading" secondItem="kWp-4b-GEb" secondAttribute="leading" constant="32" id="X9D-pc-lg3"/>
-                            <constraint firstAttribute="trailing" secondItem="LpA-Y2-RlQ" secondAttribute="trailing" id="XYV-g9-tDx"/>
+                            <constraint firstItem="sV8-Os-Vwb" firstAttribute="leading" secondItem="kWp-4b-GEb" secondAttribute="leading" id="8X9-g7-lV6"/>
+                            <constraint firstItem="2s5-KU-aaJ" firstAttribute="top" secondItem="SDS-ba-nU0" secondAttribute="bottom" id="Bhr-6y-yrS"/>
+                            <constraint firstItem="SDS-ba-nU0" firstAttribute="top" secondItem="dwc-Co-K7G" secondAttribute="bottom" id="Bye-wA-QeI"/>
+                            <constraint firstItem="sV8-Os-Vwb" firstAttribute="top" secondItem="ib9-72-jyd" secondAttribute="bottom" id="Exf-eD-ewP"/>
+                            <constraint firstAttribute="trailing" secondItem="dwc-Co-K7G" secondAttribute="trailing" id="HAB-5k-Oty"/>
+                            <constraint firstItem="SDS-ba-nU0" firstAttribute="leading" secondItem="kWp-4b-GEb" secondAttribute="leading" id="Peh-P1-sNf"/>
+                            <constraint firstItem="SDS-ba-nU0" firstAttribute="top" secondItem="dwc-Co-K7G" secondAttribute="bottom" id="RsZ-MA-wfg"/>
+                            <constraint firstItem="dwc-Co-K7G" firstAttribute="leading" secondItem="kWp-4b-GEb" secondAttribute="leading" id="TDD-Bo-FNK"/>
+                            <constraint firstAttribute="trailing" secondItem="SDS-ba-nU0" secondAttribute="trailing" id="ciu-YV-9oF"/>
                             <constraint firstAttribute="top" secondItem="sV8-Os-Vwb" secondAttribute="top" id="dEq-n6-CDv"/>
+                            <constraint firstItem="dwc-Co-K7G" firstAttribute="top" secondItem="sV8-Os-Vwb" secondAttribute="bottom" id="eH8-Ve-JTl"/>
+                            <constraint firstAttribute="trailing" secondItem="sV8-Os-Vwb" secondAttribute="trailing" id="ftO-RP-K9R"/>
+                            <constraint firstItem="dwc-Co-K7G" firstAttribute="top" secondItem="sV8-Os-Vwb" secondAttribute="bottom" id="hxF-Z8-cSS"/>
                             <constraint firstAttribute="trailing" secondItem="sV8-Os-Vwb" secondAttribute="trailing" id="yb6-gO-RuQ"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="filterTextField" destination="JmH-j5-lzp" id="UaK-cc-Sha"/>
-                        <outlet property="languagesPickerView" destination="LpA-Y2-RlQ" id="Cak-fg-qgu"/>
-                        <outlet property="navItem" destination="E0d-ki-n2i" id="mMn-11-1yu"/>
+                        <outlet property="navItem" destination="E0d-ki-n2i" id="Uti-VG-jZN"/>
+                        <outlet property="searchBar" destination="dwc-Co-K7G" id="gRY-uT-OnH"/>
+                        <outlet property="tableView" destination="SDS-ba-nU0" id="u5V-lo-40T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ev8-Uc-Pp9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="A4X-l8-afy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-581" y="5851"/>
+            <point key="canvasLocation" x="-581.25" y="5850"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="1tT-hh-KEW">

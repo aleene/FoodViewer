@@ -823,11 +823,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                                 // or the countries of the remote product
                                 // The traces will be interpreted (i.e. as english keys)
                                 vc.configure(original: productPair?.tracesInterpreted?.list,
-                                    allPairs: OFFplists.manager.allAllergens,
-                                    assignedHeader: TranslatableStrings.SelectedTraces,
-                                    unAssignedHeader: TranslatableStrings.UnselectedTraces,
-                                    undefinedText: TranslatableStrings.NoTraceDefined,
-                                    cellIdentifierExtension: IngredientsTableViewController.identifier)
+                                             allPairs: OFFplists.manager.allAllergens,
+                                             multipleSelectionIsAllowed: true,
+                                             showOriginalsAsSelected: true,
+                                             assignedHeader: TranslatableStrings.SelectedTraces,
+                                             unAssignedHeader: TranslatableStrings.UnselectedTraces,
+                                             undefinedText: TranslatableStrings.NoTraceDefined,
+                                             cellIdentifierExtension: IngredientsTableViewController.identifier)
                             }
                         }
                     }
