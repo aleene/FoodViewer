@@ -372,13 +372,13 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case .nutritionFacts:
             if indexPath.row == tableStructure[indexPath.section].numberOfRows && editMode {
                 // This cell should only be added when in editMode and as the last row
-                let cell = tableView.dequeueReusableCell(withIdentifier: AddNutrientTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! AddNutrientTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: AddNutrientTableViewCell.self), for: indexPath) as! AddNutrientTableViewCell
                 cell.delegate = self
                 cell.buttonText = TranslatableStrings.AddNutrient
                 return cell
             } else {
                 if adaptedNutritionFacts.isEmpty {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: TagListViewTableViewCell.identifier + "," + NutrientsTableViewController.identifier, for: indexPath) as? TagListViewTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as? TagListViewTableViewCell
 
                     var tagListViewColorScheme: ColorScheme? = nil
                     if let available = productPair?.remoteProduct?.nutritionFactsAreAvailable {
@@ -398,7 +398,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     cell?.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: tagListViewColorScheme)
                     return cell!
                 } else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: NutrientsTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as? NutrientsTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:NutrientsTableViewCell.self), for: indexPath) as? NutrientsTableViewCell
                     // warning set FIRST the saltOrSodium
                     cell?.nutritionDisplayFactItem = adaptedNutritionFacts[indexPath.row]
                     cell?.delegate = self
@@ -447,7 +447,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
 
         case .servingSize:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ServingSizeTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! ServingSizeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ServingSizeTableViewCell.self), for: indexPath) as! ServingSizeTableViewCell
             cell.servingSizeTextField.delegate = self
             cell.servingSizeTextField.tag = indexPath.section
             cell.editMode = editMode
@@ -463,7 +463,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
         case .image:
             if currentImage != nil {
-                let cell = tableView.dequeueReusableCell(withIdentifier: ProductImageTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! ProductImageTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:  ProductImageTableViewCell.self), for: indexPath) as! ProductImageTableViewCell
                 cell.editMode = editMode
                 cell.productImage = currentImage
                 cell.delegate = self
@@ -477,7 +477,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
 
         case .addNutrient:
-            let cell = tableView.dequeueReusableCell(withIdentifier: AddNutrientTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! AddNutrientTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: AddNutrientTableViewCell.self), for: indexPath) as! AddNutrientTableViewCell
             cell.buttonText = TranslatableStrings.AddNutrient
             return cell
         }

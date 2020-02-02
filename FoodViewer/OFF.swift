@@ -541,7 +541,11 @@ public struct OFF {
         if barcode.count == 8 {
             // Lidl product
             return barcode
-        } else if barcode.count == 13 || barcode.count == 12 || barcode.count == 11 {
+        } else if barcode.count == 11
+            || barcode.count == 12
+            || barcode.count == 13
+            || barcode.count == 22
+            || barcode.count == 27 {
             // US products
             let part1 = barcode.index(barcode.startIndex, offsetBy: 0)...barcode.index(barcode.startIndex, offsetBy: 2)
             let part2 = barcode.index(barcode.startIndex, offsetBy: 3)...barcode.index(barcode.startIndex, offsetBy: 5)
