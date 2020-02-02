@@ -91,6 +91,7 @@ class OpenFoodFactsRequest {
                     let productJson = try decoder.decode(OFFProductJson.self, from: data)
                     if let offProduct = productJson.product {
                         let newProduct = FoodProduct.init(json: offProduct)
+                        newProduct.json = JSON.convertFromData(data)
                         completion(.success(newProduct))
                     } else {
                         if productJson.status_verbose == "product not found" {

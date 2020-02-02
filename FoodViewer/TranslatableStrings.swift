@@ -68,8 +68,6 @@ struct TranslatableStrings {
     static let CategoriesTranslated = NSLocalizedString("Categories (translated)", comment: "Original text to indicate the product belongs to a category.")
     static let CategorySpecific = NSLocalizedString("Category %@", comment: "Text to indicate a specific additive.")
 
-    //static let CategoriesHierarchy = NSLocalizedString("Categories (hierarchy)", comment: "Original text to indicate the product belongs to a category.")
-    //static let CategoriesHierarchyTranslated = NSLocalizedString("Categories (hierarchy translated)", comment: "Original text to indicate the product belongs to a category.")
     static let Checker = NSLocalizedString("Checker", comment: "String in PickerViewController to indicate the checker role of a contributor")
     static let CheesesCategory = NSLocalizedString("Cheeses category", comment: "Cell title indicating the product belongs to the cheeses category")
     static let ClearHistory = NSLocalizedString("Clear History", comment: "Title of a button, which removes all items in the product search history.")
@@ -80,7 +78,6 @@ struct TranslatableStrings {
     static let ContinuousScanPreference = NSLocalizedString("Continous Scan", comment: "Header of a table section, which allows the user to set a preference for continuous product scanning. ")
     static let ContinuousScanAllow = NSLocalizedString("Allowed", comment: "title of a segment of a segmented control, which lets the user set the application to scan products continuously.")
     static let ContinuousScanDoNotAllow = NSLocalizedString("Not allowed", comment: "title o a segment of a segmented control, which prohibits the user to set the application to scan products continuously.")
-    //static let ContributorNameNotSet = NSLocalizedString("contributor name not set", comment: "Generic string to indicate the completion states of a product.")
     static let Corrector = NSLocalizedString("Corrector", comment: "String in PickerViewController to indicate the corrector role of a corrector")
     static let CorrectorUnicode = NSLocalizedString("🔦", comment: "Image to indicate that the user modified information of the product.")
     static let Contributor = NSLocalizedString("Contributor", comment: "String in PickerViewController to indicate the creator role of a contributor (any role)")
@@ -142,9 +139,6 @@ struct TranslatableStrings {
     static let E = NSLocalizedString("E", comment: "String in Segmented Control to indicate the fifth best (and last) nutrition score level")
     static let Edit = NSLocalizedString("Edit", comment: "Title of viewcontroller which allows editing of the product in a webview.")
     static let EditDate = NSLocalizedString("Edit date", comment: "String in picker, which lets the user select the search result order")
-    //static let EditNutrient = NSLocalizedString("Edit Nutrient", comment: "Title of view controller, which allows editing of the nutrients")
-    //static let Edited = NSLocalizedString("Edited", comment: "Added to a tableview section header to indicated the item has been edited.")
-    //static let EditedInParentheses = NSLocalizedString("(Edited)", comment: "Added to a tableview section header to indicated the item has been edited.")
     static let Editor = NSLocalizedString("Editor", comment: "String in PickerViewController to indicate the editor role of a contributor")
     static let EditorUnicode = NSLocalizedString("📝", comment: "Image to indicate that the user who added or deleted information of the product.")
     static let EnergyUnitPreference = NSLocalizedString("Default energy unit", comment: "Title of a table section, which allows the user to define the default energy unit (joules, calories, kilocalories).")
@@ -160,7 +154,6 @@ struct TranslatableStrings {
     static let EnterShopName = NSLocalizedString("Enter shop name", comment: "Placeholder text for field where user should enter a shop name.")
     static let EnterStreetName = NSLocalizedString("Enter street name", comment: "Placeholder text for field where user should enter a street name.")
     static let EntryDate = NSLocalizedString("Entry Date", comment: "String to indicate the date, when the product was created on OFF.")
-    // static let Estimate = NSLocalizedString("+ ℮", comment: "Title of a butoon which adds ℮ at the end of the string.")
     static let EUSet = NSLocalizedString("EU Set", comment: "String of a button, to prefill the nutrients with the standard EU set.")
     static let Exclude = NSLocalizedString("Exclude", comment: "String in Segmented Control to indicate whether the corresponding tag should be EXCLUDED from the search.")
     static let ExpirationDate = NSLocalizedString("Expiration Date", comment: "Header title of the tableview section, indicating the most recent expiration date.")
@@ -189,9 +182,7 @@ struct TranslatableStrings {
     static let GenericNameEdited = NSLocalizedString("Generic Name (edited)", comment: "Tableview sectionheader for the edited long product name")
     static let GenericNameOriginal = NSLocalizedString("Generic Name (non-edited)", comment: "Tableview sectionheader for the original long product name")
     static let Gram = NSLocalizedString("gram (g)", comment: "Standard weight unit.")
-    //static let GoodNutrients = NSLocalizedString("Good nutrients", comment: "Header for a table section showing the appreciations of the good nutrients")
-    
-    //static let Hierarchy = NSLocalizedString("Hierarchy", comment: "Description of the hierarchy tags in the json")
+
     static let History = NSLocalizedString("History", comment: "Title of the secnd Tabbar item of a TabBarVC")
     static let HunderdMgMl = NSLocalizedString("100 mg/ml", comment: "Title of first segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)")
 
@@ -223,14 +214,14 @@ struct TranslatableStrings {
     static let IngredientOriginsEdited = NSLocalizedString("Origins of ingredients (edited)", comment: "Generic string to indicate the edited origins of the ingredients")
     static let IngredientOriginsOriginal = NSLocalizedString("Origins of ingredients (non-edited)", comment: "Generic string to indicate the original (non-edited) origins of the ingredients")
     static let Initialized = NSLocalizedString("Initialized", comment: "String presented in a tagView if nothing has happened yet")
-    //static let Interpreted = NSLocalizedString("Interpreted", comment: "Description of the by OFF interpreted tags in the json")
     
 //
 // MARK: - JJJJJJJJJjjjjJJJJJJ strings
 //
 
     static let Joule = NSLocalizedString("Joules", comment: "Title of first segment in switch, which lets the user select between joules, kilo-calories or Calories")
-    
+    static let Json = NSLocalizedString("Json", comment: "Title of viewController, which shows the json as is available on OFF.")
+
     static let KiloCalorie = NSLocalizedString("Kilocalories", comment: "Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories")
 //
 // MARK: - LLLLLLLLLLLLLLLL strings

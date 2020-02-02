@@ -143,9 +143,7 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
                 return
             }
             actionButton?.isEnabled = true
-            // Has the productPair changed?
-            //if oldValue == nil ||
-            //    validProductPair.barcodeType.asString != oldValue!.barcodeType.asString {
+
             switch validProductPair.remoteStatus {
             case .productNotAvailable:
                 currentProductPage = .gallery
@@ -287,6 +285,9 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
         } else if let vc = viewController(for: currentProductPage) as? DietCompliancyTableViewController {
             vc.refreshProduct()
 
+        } else if let vc = viewController(for: currentProductPage) as? JSONViewController {
+            vc.refreshProduct()
+
         } else if let vc = viewController(for: currentProductPage) as? ProductImagesCollectionViewController {
             vc.reloadImages()
         }
@@ -322,6 +323,9 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
         } else if viewController is DietCompliancyTableViewController {
             return .dietCompliancy
 
+        } else if viewController is JSONViewController {
+               return .json
+
         } else if viewController is NotSetPageViewController {
             return .notSet
             
@@ -351,13 +355,13 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
             // define the pages (and order), which will be shown
             switch currentProductType {
             case .food:
-                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .nutritionScore, .dietCompliancy, .completion]
+                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .nutritionScore, .dietCompliancy, .completion, .json]
             case .beauty:
-                pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
+                pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion, .json]
             case .petFood:
-                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion]
+                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion, .json]
             case .product:
-                pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
+                pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion, .json]
             }
         }
     }
@@ -398,8 +402,8 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
         case .dietCompliancy:
             dietCompliancyVC.delegate = self
 
-        //case .notAvailable:
-        //    notAvailableVC.delegate = self
+        case .json:
+            jsonVC.delegate = self
             
         case .notSet:
             break
@@ -410,23 +414,24 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
 // MARK: - ViewController
 //
     fileprivate struct Constant {
+        static let StoryBoardIdentifier = "Main"
         struct Button {
             static let Edit = "Edit"
             static let Save = "CheckMark"
             static let NotEditable = "NotOK"
         }
-        static let StoryBoardIdentifier = "Main"
-        static let IdentificationVCIdentifier = "IdentificationTableViewController"
-        static let IngredientsVCIdentifier = "IngredientsTableViewController"
-        static let NutrientsVCIdentifier = "NutrientsTableViewController"
-        static let SupplyChainVCIdentifier = "SupplyChainTableViewController"
-        static let CategoriesVCIdentifier = "CategoriesTableViewController"
-        static let CommunityEffortVCIdentifier = "CommunityEffortTableViewController"
-        static let NutritionalScoreVCIdentifier = "NutritionScoreTableViewController"
-        static let ProductImagesVCIdentifier = "ProductImagesCollectionViewController"
-        static let DietCompliancyVCIdentifier = "DietCompliancyTableViewController"
-        static let NotSetVCIdentifier = "NotSetViewController"
         struct ViewControllerIdentifier {
+            static let Identification = "IdentificationTableViewController"
+            static let Ingredients = "IngredientsTableViewController"
+            static let Nutrients = "NutrientsTableViewController"
+            static let SupplyChain = "SupplyChainTableViewController"
+            static let Categories = "CategoriesTableViewController"
+            static let CommunityEffort = "CommunityEffortTableViewController"
+            static let NutritionalScore = "NutritionScoreTableViewController"
+            static let ProductImages = "ProductImagesCollectionViewController"
+            static let DietCompliancy = "DietCompliancyTableViewController"
+            static let Json = "JSONViewController"
+            static let NotSet = "NotSetViewController"
             static let NotAvailable = "NotAvailableViewController"
         }
         static let ConfirmProductViewControllerSegue = "Confirm Product Segue"
@@ -453,8 +458,8 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
             return supplyChainVC
         case .dietCompliancy:
             return dietCompliancyVC
-        //case .notAvailable:
-        //    return notAvailableVC
+        case .json:
+            return jsonVC
         case .notSet:
             return notSetVC
         }
@@ -509,26 +514,28 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
         }
     }
     
-    fileprivate let identificationVC: IdentificationTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.IdentificationVCIdentifier) as! IdentificationTableViewController
+    fileprivate let identificationVC: IdentificationTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.Identification) as! IdentificationTableViewController
 
-    fileprivate let ingredientsVC: IngredientsTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.IngredientsVCIdentifier) as! IngredientsTableViewController
+    fileprivate let ingredientsVC: IngredientsTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.Ingredients) as! IngredientsTableViewController
     
-    fileprivate let nutritionFactsVC: NutrientsTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.NutrientsVCIdentifier) as! NutrientsTableViewController
+    fileprivate let nutritionFactsVC: NutrientsTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.Nutrients) as! NutrientsTableViewController
     
-    fileprivate let supplyChainVC: SupplyChainTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.SupplyChainVCIdentifier) as! SupplyChainTableViewController
+    fileprivate let supplyChainVC: SupplyChainTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.SupplyChain) as! SupplyChainTableViewController
     
-    fileprivate let categoriesVC: CategoriesTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.CategoriesVCIdentifier) as! CategoriesTableViewController
+    fileprivate let categoriesVC: CategoriesTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.Categories) as! CategoriesTableViewController
     
-    fileprivate let completionStatusVC: CompletionStatesTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.CommunityEffortVCIdentifier) as! CompletionStatesTableViewController
+    fileprivate let completionStatusVC: CompletionStatesTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.CommunityEffort) as! CompletionStatesTableViewController
     
-    fileprivate let nutritionScoreVC: NutritionScoreTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.NutritionalScoreVCIdentifier) as! NutritionScoreTableViewController
+    fileprivate let nutritionScoreVC: NutritionScoreTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.NutritionalScore) as! NutritionScoreTableViewController
 
-    fileprivate let galleryVC: ProductImagesCollectionViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ProductImagesVCIdentifier) as! ProductImagesCollectionViewController
+    fileprivate let galleryVC: ProductImagesCollectionViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.ProductImages) as! ProductImagesCollectionViewController
 
-    fileprivate let dietCompliancyVC: DietCompliancyTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.DietCompliancyVCIdentifier) as! DietCompliancyTableViewController
+    fileprivate let dietCompliancyVC: DietCompliancyTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.DietCompliancy) as! DietCompliancyTableViewController
 
-    fileprivate let notSetVC: NotSetPageViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.NotSetVCIdentifier) as! NotSetPageViewController
-    
+    fileprivate let notSetVC: NotSetPageViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.NotSet) as! NotSetPageViewController
+
+    fileprivate let jsonVC: JSONViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.Json) as! JSONViewController
+
     //fileprivate let notAvailableVC: NotAvailableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.NotAvailable) as! NotAvailableViewController
 
 //
@@ -690,27 +697,7 @@ class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
     @IBAction func unwindConfirmProductForDone(_ segue:UIStoryboardSegue) {
         
     }
-    /*
-    @IBAction func unwindExtendLanguagesForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? MainLanguageViewController {
-            if let newLanguageCode = vc.selectedLanguageCode {
-                currentLanguageCode = newLanguageCode
 
-                // the languageCodes have been edited, so with have now an updated product
-                productPair?.update(addLanguageCode: newLanguageCode)
-                if vc.sourcePage > 0 && vc.sourcePage < pages.count {
-                    currentProductPage = pages[vc.sourcePage]
-                } else {
-                    currentProductPage = .identification
-                }
-            }
-        }
-    }
-    
-    @IBAction func unwindExtendLanguagesForCancel(_ segue:UIStoryboardSegue) {
-        // nothing needs to be done
-    }
-*/
     func search(for string: String?, in component: SearchComponent) {
         if let validString = string {
             askUserToSearch(for: validString, in: component)

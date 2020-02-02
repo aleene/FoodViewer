@@ -19,6 +19,7 @@ public enum ProductPage {
     case completion
     case dietCompliancy
     case supplyChain
+    case json
     case notSet
     case notAvailable
 
@@ -42,6 +43,8 @@ public enum ProductPage {
             return TranslatableStrings.SupplyChain
         case .dietCompliancy:
             return TranslatableStrings.DietCompliancy
+        case .json:
+            return TranslatableStrings.Json
         case .notSet:
             return TranslatableStrings.ProductNotSet
         case .notAvailable:

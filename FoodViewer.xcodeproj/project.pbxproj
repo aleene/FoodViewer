@@ -60,7 +60,6 @@
 		51216E2C20B71BEE004D356C /* SelectNutritionFactsTableStyleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51216E2B20B71BEE004D356C /* SelectNutritionFactsTableStyleTableViewCell.swift */; };
 		512390FA1E7BEA0700A5D6FD /* PercentUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512390F91E7BEA0700A5D6FD /* PercentUnit.swift */; };
 		512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */; };
-		512403681D93DD10007FED5A /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512403671D93DD10007FED5A /* SwiftyJSON.swift */; };
 		5124036A1D9594D2007FED5A /* FavoriteShopsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512403691D9594D2007FED5A /* FavoriteShopsTableViewController.swift */; };
 		5124036C1D96BA0B007FED5A /* AddFavoriteShopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124036B1D96BA0A007FED5A /* AddFavoriteShopTableViewController.swift */; };
 		512403701D96C625007FED5A /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124036F1D96C625007FED5A /* TextFieldTableViewCell.swift */; };
@@ -139,6 +138,7 @@
 		5158AE521DE2190300D75CFD /* AddLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */; };
 		5158ECD92032DD170072261C /* OFFImageUploadResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5158ECD82032DD170072261C /* OFFImageUploadResultJson.swift */; };
 		5158ECDB2032DF760072261C /* OFFProductUploadResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5158ECDA2032DF760072261C /* OFFProductUploadResultJson.swift */; };
+		5159343123E4836E00FBD187 /* JSONTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159343023E4836D00FBD187 /* JSONTableView.swift */; };
 		5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159D8A61C6666C60082C60E /* NameTableViewCell.swift */; };
 		515A29D21EC08FB000916F3D /* LastServerDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A29D11EC08FB000916F3D /* LastServerDefaults.swift */; };
 		515CAE711D983C2300A90F96 /* FavoriteShopsDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */; };
@@ -260,6 +260,7 @@
 		51B9048C1E7AEE38004E3439 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9048B1E7AEE38004E3439 /* Energy.swift */; };
 		51B9048E1E7AF09B004E3439 /* OFFEnergy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9048D1E7AF09B004E3439 /* OFFEnergy.swift */; };
 		51B904901E7AF5F5004E3439 /* EnergyTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9048F1E7AF5F5004E3439 /* EnergyTestSuite.swift */; };
+		51BD4A8723E497C2003B43D6 /* JSONViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BD4A8623E497C1003B43D6 /* JSONViewController.swift */; };
 		51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BED0C01CE0DC75006ED62B /* TUSafariActivity.swift */; };
 		51BED0C41CE1C044006ED62B /* MapPinCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BED0C31CE1C044006ED62B /* MapPinCategories.swift */; };
 		51BED0C81CE36723006ED62B /* ProductFetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */; };
@@ -450,7 +451,6 @@
 		51216E2B20B71BEE004D356C /* SelectNutritionFactsTableStyleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectNutritionFactsTableStyleTableViewCell.swift; path = Cells/SelectNutritionFactsTableStyleTableViewCell.swift; sourceTree = "<group>"; };
 		512390F91E7BEA0700A5D6FD /* PercentUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PercentUnit.swift; sourceTree = "<group>"; };
 		5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetchResult.swift; sourceTree = "<group>"; };
-		512403671D93DD10007FED5A /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		512403691D9594D2007FED5A /* FavoriteShopsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteShopsTableViewController.swift; sourceTree = "<group>"; };
 		5124036B1D96BA0A007FED5A /* AddFavoriteShopTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFavoriteShopTableViewController.swift; sourceTree = "<group>"; };
 		5124036F1D96C625007FED5A /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
@@ -538,6 +538,7 @@
 		5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLanguageViewController.swift; sourceTree = "<group>"; };
 		5158ECD82032DD170072261C /* OFFImageUploadResultJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFImageUploadResultJson.swift; sourceTree = "<group>"; };
 		5158ECDA2032DF760072261C /* OFFProductUploadResultJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductUploadResultJson.swift; sourceTree = "<group>"; };
+		5159343023E4836D00FBD187 /* JSONTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTableView.swift; sourceTree = "<group>"; };
 		5159D8A61C6666C60082C60E /* NameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
 		515A29D11EC08FB000916F3D /* LastServerDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastServerDefaults.swift; sourceTree = "<group>"; };
 		515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteShopsDefaults.swift; sourceTree = "<group>"; };
@@ -673,6 +674,7 @@
 		51B9048B1E7AEE38004E3439 /* Energy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
 		51B9048D1E7AF09B004E3439 /* OFFEnergy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFEnergy.swift; sourceTree = "<group>"; };
 		51B9048F1E7AF5F5004E3439 /* EnergyTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyTestSuite.swift; sourceTree = "<group>"; };
+		51BD4A8623E497C1003B43D6 /* JSONViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONViewController.swift; sourceTree = "<group>"; };
 		51BED0C01CE0DC75006ED62B /* TUSafariActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TUSafariActivity.swift; sourceTree = "<group>"; };
 		51BED0C31CE1C044006ED62B /* MapPinCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPinCategories.swift; sourceTree = "<group>"; };
 		51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductFetchStatus.swift; sourceTree = "<group>"; };
@@ -982,6 +984,7 @@
 		5124013E1CDB84910051F120 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5159343023E4836D00FBD187 /* JSONTableView.swift */,
 				51C2FF6620E5074C00B65509 /* Haneke */,
 				5141969C20839C2100528877 /* CSV */,
 				5150464F200904610094EE50 /* Download */,
@@ -989,7 +992,6 @@
 				512039E31E5B3E7900BE62CB /* GKImagePickerSwift */,
 				5160C29B1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift */,
 				51BED0C01CE0DC75006ED62B /* TUSafariActivity.swift */,
-				512403671D93DD10007FED5A /* SwiftyJSON.swift */,
 				5184F57E1EB5EF66009ECF73 /* NutriScoreView.swift */,
 				51A7DC7F1EE6C04400F231B0 /* LanguageHeaderView.swift */,
 				5104F4AD1F9F9E44008D074F /* SearchHeaderView.swift */,
@@ -1033,6 +1035,7 @@
 		513982481C89CEB800250FB1 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				51BD4A8623E497C1003B43D6 /* JSONViewController.swift */,
 				51919A72237857B300C90CAD /* NotAvailableViewController.swift */,
 				51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */,
 				517AAD471C7DB07F00B12F3C /* IngredientsTableViewController.swift */,
@@ -1786,6 +1789,7 @@
 				5148F0F11DD3291500EF1B67 /* Language.swift in Sources */,
 				5158AE521DE2190300D75CFD /* AddLanguageViewController.swift in Sources */,
 				517907F81F8E55580017FCA0 /* TextFieldWithButtonTableViewCell.swift in Sources */,
+				5159343123E4836E00FBD187 /* JSONTableView.swift in Sources */,
 				512702EC21FB61A5002EC65C /* OpenFoodFactsPreferencesTableViewController.swift in Sources */,
 				51A056F81E2D100C0099092E /* AddNutrientTableViewCell.swift in Sources */,
 				51974E671CE61F2C0008585D /* NutritionDisplayMode.swift in Sources */,
@@ -1819,7 +1823,6 @@
 				51E2926E20DBE1B2001C7471 /* ImageCache.swift in Sources */,
 				51C29E481C70A96900271708 /* SupplyChainTableViewController.swift in Sources */,
 				517907F61F8BBC730017FCA0 /* SelectCompletionStateViewController.swift in Sources */,
-				512403681D93DD10007FED5A /* SwiftyJSON.swift in Sources */,
 				51C2FF7620E507A900B65509 /* Fetcher.swift in Sources */,
 				517A65952086636800B4F728 /* ExtendLanguagesViewController.swift in Sources */,
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,
@@ -1917,6 +1920,7 @@
 				51E1C3632045DBEB00CB68B1 /* OFFImageDeselectAPI.swift in Sources */,
 				5154DEE722141C8800C49EBE /* AddSearchQueryTableViewController.swift in Sources */,
 				515742701CDB63B200BE8E2D /* RSCodeReaderViewController.swift in Sources */,
+				51BD4A8723E497C2003B43D6 /* JSONViewController.swift in Sources */,
 				51CF42C91E02F4A200C9AD91 /* TagView.swift in Sources */,
 				51E1C36A2046B9F600CB68B1 /* ImageUpload.swift in Sources */,
 				51919A73237857B300C90CAD /* NotAvailableViewController.swift in Sources */,
