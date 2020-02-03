@@ -31,14 +31,10 @@ class PurchacePlaceTableViewCell: UITableViewCell {
                 tagListView.removableColorScheme = ColorScheme(text: .white, background: .darkGray, border: .black)
             }
             tagListView.cornerRadius = 10
-            tagListView.allowsRemoval = true
-            tagListView.clearButtonIsEnabled = true
             
             tagListView.datasource = datasource
             tagListView.delegate = delegate as? TagListViewDelegate
             tagListView.tag = tag
-            tagListView.allowsRemoval = editMode
-            tagListView.allowsCreation = editMode
             tagListView?.frame.size.width = editMode ? width - Constants.Margin - CGFloat(40.0) : width - Constants.Margin
             
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PurchacePlaceTableViewCell.tagListViewTapped))
@@ -71,8 +67,6 @@ class PurchacePlaceTableViewCell: UITableViewCell {
         didSet {
             if editMode != oldValue {
                 favoriteButton?.isHidden = !editMode
-                tagListView?.allowsRemoval = editMode
-                tagListView?.allowsCreation = editMode
             }
             // tagListView?.frame.size.width = editMode ? width - Constants.Margin - CGFloat(40.0) : width - Constants.Margin
         }

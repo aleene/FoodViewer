@@ -150,14 +150,10 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
             //tagListView.normalColorScheme = scheme
             //tagListView.removableColorScheme = ColorSchemes.removable
             tagListView?.cornerRadius = 10
-            tagListView?.allowsRemoval = false
-            tagListView?.clearButtonIsEnabled = false
             //tagListView.frame.size.width = self.frame.size.width
             
             tagListView?.datasource = self
             // tagListView.delegate = self as? TagListViewDelegate
-            tagListView?.allowsRemoval = false
-            tagListView?.allowsCreation = false
             tagListView?.tag = 0
             tagListView?.prefixLabelText = nil
         }

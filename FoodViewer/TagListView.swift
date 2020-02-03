@@ -17,11 +17,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     // If the delegate uses multiple TagListViews, an additional TagListView identifier is required
     // This is set by the variable tag
     
-    open var datasource: TagListViewDataSource? = nil {
-        didSet {
-            //reloadData(clearAll:true)
-        }
-    }
+    open var datasource: TagListViewDataSource? = nil
     
     //MARK: - Default values
     
@@ -349,9 +345,9 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         reloadData(clearAll:true)
     }
     
-    // If the the delegate contains multiple TagListViews, it needs to identify each one
-    // You can do this with the tag variable.
-    // Note that default is tag == 0
+    /// If the the delegate contains multiple TagListViews, it needs to identify each one
+    /// You can do this with the tag variable.
+    /// Note that default is tag == 0
     override open var tag: Int {
         didSet {
             reloadData(clearAll:true)
@@ -472,7 +468,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         tagView.horizontalPadding = self.horizontalPadding
         tagView.verticalPadding = self.verticalPadding
         tagView.textFont = self.textFont
-        tagView.removeButtonIsEnabled = self.allowsRemoval
+        tagView.removeButtonIsEnabled = false
         tagView.shadowColor = self.shadowColor
         tagView.shadowOpacity = self.shadowOpacity
         tagView.shadowRadius = self.shadowRadius
@@ -605,13 +601,12 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
                 tagView.normalColorScheme = normalColorScheme
 
             }
-            if allowsRemoval {
-                // note that the removeButton state is set in rearrange as it affects the layout.
-                if delegate?.tagListView(self, canEditTagAt: index) != nil && delegate!.tagListView(self, canEditTagAt: index)  {
-                    tagView.state = .removable
-                } else {
-                    tagView.state = .normal
-                }
+            // If it is allowed to delete tags,
+            // is it also allowed to delete this specific tag?
+            if delegate != nil,
+                delegate!.tagListViewCanDeleteTags(self),
+                delegate!.tagListView(self, canDeleteTagAt: index)  {
+                tagView.state = .removable
             } else {
                 tagView.state = .normal
             }
@@ -666,7 +661,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         var currentY: CGFloat = Constants.defaultVerticalMargin
         
         // Add the possibility to intercept a backspace for last tag removal
-        if isEditable && allowsRemoval {
+        if delegate != nil,
+            delegate!.tagListViewCanDeleteTags(self) {
             addSubview(invisibleTextField)
         }
         
@@ -682,7 +678,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
         // print("after tagViews", currentY, frame.height)
 
-        if isEditable && allowsCreation {
+        if delegate != nil,
+            delegate!.tagListViewCanAddTags(self) {
             layoutInputTextViewWith(currentX: &currentX, currentY: &currentY, clearInput: shouldAdjustFrame)
         }
 
@@ -693,7 +690,9 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
         // print("after adjustHeight", currentY, frame.height)
 
-        if allowsRemoval && clearButtonIsEnabled && hasTags {
+        if delegate != nil,
+            delegate!.tagListViewCanDeleteAllTags(self),
+            hasTags {
             layoutClearView()
         }
         
@@ -778,6 +777,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         var currentRow = 0
         // var currentRowView: UIView!
         var currentRowTagCount = 0
+        var rowWidth = CGFloat(0)
         // var startedNewRow = false
         // var currentRowWidth: CGFloat = 0
         // print("TagListView frame", frame.size, "super", superview?.frame.size)
@@ -786,21 +786,27 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         guard tagViews.count > 0 else { return }
         
         // calculate the rowWidth available for tags
-        let rowWidth = allowsRemoval && clearButtonIsEnabled && hasTags ? frame.size.width - clearView.frame.width - Constants.defaultHorizontalClearPadding : frame.size.width
+        if delegate != nil,
+            delegate!.tagListViewCanAddTags(self)
+            || delegate!.tagListViewCanDeleteAllTags(self)
+            || delegate!.tagListViewCanMoveTags(self),
+            hasTags {
+            rowWidth = frame.size.width - clearView.frame.width - Constants.defaultHorizontalClearPadding
+        } else {
+            rowWidth = frame.size.width
+        }
+
         //print(frame.size.width, rowWidth)
         for (index,tagView) in tagViews.enumerated() {
             tagView.cornerRadius = self.cornerRadius
             tagView.horizontalPadding = self.horizontalPadding
             tagView.verticalPadding = self.verticalPadding
             tagView.textFont = self.textFont
-            if allowsRemoval {
-                if delegate?.tagListView(self, canEditTagAt: tagView.tag) != nil && delegate!.tagListView(self, canEditTagAt: tagView.tag) {
-                    tagView.removeButtonIsEnabled = allowsRemoval
+            if delegate != nil,
+                delegate!.tagListViewCanDeleteTags(self),
+                delegate!.tagListView(self, canDeleteTagAt: tagView.tag) {
+                    tagView.removeButtonIsEnabled = true
                     tagView.state = .removable
-                } else {
-                    tagView.removeButtonIsEnabled = false
-                    tagView.state = .normal
-                }
             } else {
                 tagView.removeButtonIsEnabled = false
                 tagView.state = .normal
@@ -897,14 +903,17 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     private func layoutInputTextViewWith(currentX: inout CGFloat, currentY: inout CGFloat, clearInput: Bool) {
         
         var inputTextViewOrigin = CGPoint()
-        
+        var clearButtonWidth = CGFloat(0.0)
         //let inputHeight = inputTextField.intrinsicContentSize.height > Constants.defaultTagHeight
 //            ? inputTextField.intrinsicContentSize.height
   //          : Constants.defaultTagHeight
         
         // let inputHeight = tagViewHeight
-        let clearButtonWidth = allowsRemoval && clearButtonIsEnabled && hasTags ? CGFloat(Clear.ViewSize) : 0.0
-        
+        if delegate != nil,
+            delegate!.tagListViewCanDeleteAllTags(self),
+            hasTags {
+            clearButtonWidth = CGFloat(Clear.ViewSize)
+        }
         // Is there enough space for a reasonable inputTextView
         if currentX + Constants.defaultMinInputWidth >= frame.width - clearButtonWidth {
             // start with a new row
@@ -1072,15 +1081,22 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
     }
     
+    /// Does the delegate allow editing (add/delete/move) of the tags?
     private var isEditable: Bool {
         get {
-            return allowsRemoval || allowsCreation || allowsReordering
+            guard delegate != nil else { return false }
+            
+            return delegate!.tagListViewCanAddTags(self)
+                || delegate!.tagListViewCanDeleteAllTags(self)
+                || delegate!.tagListViewCanDeleteTags(self)
+                || delegate!.tagListViewCanMoveTags(self)
         }
     }
-
+    
     open var allowsMultipleSelection = false
     
-    open var allowsCreation = false {
+    /*
+ open var allowsCreation = false {
         didSet {
             if allowsCreation != oldValue {
                 rearrangeViews(true)
@@ -1105,6 +1121,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             }
         }
     }
+ */
 
     // - parameter removeButtonIsEnabled:
     // Add a remove icon next to the tag. Tapping it allows the user to delete the tag.
@@ -1113,7 +1130,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     // MARK: - Tag handling
     
     private func removeTag(at index: Int) {
-        if delegate?.tagListView(self, canEditTagAt: index) != nil && delegate!.tagListView(self, canEditTagAt: index) {
+        if delegate?.tagListView(self, canDeleteTagAt: index) != nil,
+            delegate!.tagListView(self, canDeleteTagAt: index) {
             delegate?.tagListView(self, willBeginEditingTagAt: index)
             delegate?.tagListView(self, didDeleteTagAt: index)
             reloadData(clearAll:false)
@@ -1189,7 +1207,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     }
     
     @objc internal func clearOnTap(_ sender: UITapGestureRecognizer) {
-        delegate?.didClear(self)
+        delegate?.didDeleteAllTags(self)
         // reload in case the user changed the data
         reloadData(clearAll: false)
     }

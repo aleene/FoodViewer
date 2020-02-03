@@ -13,7 +13,7 @@ import Foundation
 public protocol TagListViewDelegate {
     
     func tagListView(_ tagListView: TagListView, didTapTagAt index: Int)
-    // @objc optional func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void
+
     func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int)
     
     func tagListView(_ tagListView: TagListView, willSelectTagAt index: Int)
@@ -33,10 +33,6 @@ public protocol TagListViewDelegate {
     
     func tagListView(_ tagListView: TagListView, didAddTagWith title: String)
     
-    /// Called when the user returns for a given input.
-    ///func tagListView(_ tagListView: TagListView, didEnter text: String)
-    /// Called when the user tries to delete a tag at the given index.
-    func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int)
     
     /// Called when the user changes the text in the textField.
     ///func tagListView(_ tagListView: TagListView, didChange text: String)
@@ -46,17 +42,32 @@ public protocol TagListViewDelegate {
     
     func tagListView(_ tagListView: TagListView, willDisplay tagView: TagView, at index: Int) -> TagView?
     
-    /// Is it allowed to edit a Tag object at a given index?
-    func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool
+
+    func tagListViewCanAddTags(_ tagListView: TagListView) -> Bool
     
+    func tagListViewCanDeleteAllTags(_ tagListView: TagListView) -> Bool
+
+    /// Called if the user wants to delete all tags
+    func didDeleteAllTags(_ tagListView: TagListView)
+    
+    func tagListViewCanDeleteTags(_ tagListView: TagListView) -> Bool
+
+    /// Is it allowed to edit a Tag object at a given index?
+    func tagListView(_ tagListView: TagListView, canDeleteTagAt index: Int) -> Bool
+
+    /// Called when the user returns for a given input.
+    ///func tagListView(_ tagListView: TagListView, didEnter text: String)
+    /// Called when the user tries to delete a tag at the given index.
+    func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int)
+
+    func tagListViewCanMoveTags(_ tagListView: TagListView) -> Bool
+
     /// Is it allowed to move a Tag object at a given index?
     func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool
     
     /// The Tag object at the source index has been moved to a destination index.
     func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int)
 
-    /// Called if the user wants to delete all tags
-    func didClear(_ tagListView: TagListView)
 }
 
 
@@ -86,14 +97,30 @@ extension TagListViewDelegate {
     public func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
     }
     
+    public func tagListViewCanMoveTags(_ tagListView: TagListView) -> Bool {
+        return false
+    }
+
     public func tagListView(_ tagListView: TagListView, targetForMoveFromTagAt sourceIndex: Int,
                             toProposed proposedDestinationIndex: Int) -> Int {
         return proposedDestinationIndex
     }
     
+    public func tagListViewCanAddTags(_ tagListView: TagListView) -> Bool {
+        return false
+    }
+
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
     }
     
+    func tagListViewCanDeleteAllTags(_ tagListView: TagListView) -> Bool {
+        return false
+    }
+
+    public func tagListView(_ tagListView: TagListView, canDeleteTagAt index: Int) -> Bool {
+        return false
+    }
+
     /// Called when the user returns for a given input.
     ///func tagListView(_ tagListView: TagListView, didEnter text: String)
     /// Called when the user tries to delete a tag at the given index.
@@ -110,8 +137,11 @@ extension TagListViewDelegate {
     }
 
     /// Called if the user wants to delete all tags
-    public func didClear(_ tagListView: TagListView) {
+    public func didDeleteAllTags(_ tagListView: TagListView) {
     }
+    
+    
+
 }
 
 

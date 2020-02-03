@@ -341,7 +341,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
         case .traces:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
-            cell.setup(datasource: self, delegate: self, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: false, allowTagDeletion: editMode, scheme: nil)
+            cell.setup(datasource: self, delegate: self, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
 
         case .labels:
@@ -1249,11 +1249,44 @@ extension IngredientsTableViewController: UITextViewDelegate {
 
 extension IngredientsTableViewController: TagListViewDelegate {
     
-    func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
+    func tagListViewCanDeleteTags(_ tagListView: TagListView) -> Bool {
+                switch tableStructure[tagListView.tag] {
+        case .labels, .traces:
+            return true
+        default:
+            return false
+        }
+
+    }
+    
+    func tagListViewCanMoveTags(_ tagListView: TagListView) -> Bool {
+        return false
     }
     
     
-    func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
+    func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
+    }
+    
+    func tagListViewCanAddTags(_ tagListView: TagListView) -> Bool {
+        switch tableStructure[tagListView.tag] {
+        case .labels:
+            return true
+        default:
+            // .traces can only be added through the picklist
+            return false
+        }
+    }
+    
+    func tagListViewCanDeleteAllTags(_ tagListView: TagListView) -> Bool {
+        switch tableStructure[tagListView.tag] {
+        case .labels, .traces:
+            return true
+        default:
+            return false
+        }
+    }
+
+    func tagListView(_ tagListView: TagListView, canDeleteTagAt index: Int) -> Bool {
         switch tableStructure[tagListView.tag] {
         case .labels, .traces:
             return true
@@ -1355,7 +1388,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
     }
     
     /// Called if the user wants to delete all tags
-    public func didClear(_ tagListView: TagListView) {
+    public func didDeleteAllTags(_ tagListView: TagListView) {
         switch tableStructure[tagListView.tag] {
         case .labels:
             switch labelsToDisplay {

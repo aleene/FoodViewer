@@ -329,7 +329,7 @@ class IdentificationTableViewController: UITableViewController {
         case .languages:
             if editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
-                cell.setup(datasource: self, delegate: self, showButton: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: false, allowTagDeletion: false, scheme: nil)
+                cell.setup(datasource: self, delegate: self, showButton: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
@@ -1400,7 +1400,47 @@ extension IdentificationTableViewController: TagListViewDataSource {
 // MARK: - TagListViewDelegate Functions
 //
 extension IdentificationTableViewController: TagListViewDelegate {
+        
+    func tagListViewCanDeleteTags(_ tagListView: TagListView) -> Bool {
+        switch tableStructure[tagListView.tag] {
+        case .brands,
+             .packaging:
+            return true
+        default:
+            return false
+        }
+
+    }
+    public func tagListView(_ tagListView: TagListView, canDeleteTagAt index: Int) -> Bool {
+        switch tableStructure[tagListView.tag] {
+        case .brands,
+            .packaging:
+            return true
+        default:
+            return false
+        }
+    }
+
+    public func tagListViewCanAddTags(_ tagListView: TagListView) -> Bool {
+        switch tableStructure[tagListView.tag] {
+        case .brands,
+             .packaging:
+            return true
+        default:
+            return false
+        }
+    }
     
+    public func tagListViewCanDeleteAllTags(_ tagListView: TagListView) -> Bool {
+        switch tableStructure[tagListView.tag] {
+        case .brands,
+             .packaging:
+            return true
+        default:
+            return false
+        }
+    }
+
     public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
         switch tableStructure[tagListView.tag] {
         case .languages:
@@ -1516,7 +1556,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
     }
     
     /// Called if the user wants to delete all tags
-    public func didClear(_ tagListView: TagListView) {
+    public func didDeleteAllTags(_ tagListView: TagListView) {
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
         case .brands:

@@ -39,8 +39,6 @@ class TagListViewLabelTableViewCell: UITableViewCell {
                 tagListView.removableColorScheme = ColorScheme(text: .white, background: .darkGray, border: .black)
             }
             tagListView?.cornerRadius = 10
-            tagListView?.allowsRemoval = true
-            tagListView?.clearButtonIsEnabled = true
             tagListView?.frame.size.width = self.frame.size.width
             
             tagListView?.tag = tag
@@ -55,11 +53,6 @@ class TagListViewLabelTableViewCell: UITableViewCell {
     func setup(datasource:TagListViewDataSource?, delegate:TagListViewDelegate?, editMode:Bool?, width:CGFloat?, tag:Int?, prefixLabelText:String?, scheme:ColorScheme?, text: String?, text2: String?) {
         tagListView?.datasource = datasource
         tagListView?.delegate = delegate
-        if let validEditMode = editMode {
-            self.tagListView?.allowsRemoval = validEditMode
-            self.tagListView?.allowsCreation = validEditMode
-
-        }
         if let validWidth = width {
             tagListView?.frame.size.width = validWidth
         }

@@ -52,8 +52,6 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
                 tagListView.removableColorScheme = ColorScheme(text: .white, background: .darkGray, border: .black)
             }
             tagListView.cornerRadius = 10
-            tagListView.allowsRemoval = true
-            tagListView.clearButtonIsEnabled = true
             //tagListView.frame.size.width = self.frame.size.width
                 
             tagListView?.tag = tag
@@ -71,8 +69,6 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
         tagListView?.delegate = delegate as? TagListViewDelegate
         self.delegate = delegate
         if let validEditMode = editMode {
-            self.tagListView?.allowsRemoval = validEditMode
-            self.tagListView?.allowsCreation = validEditMode
             self.editMode = validEditMode
         }
         if let validWidth = width {

@@ -638,13 +638,17 @@ extension AddSearchQueryTableViewController: TagListViewDataSource {
 // MARK: - TagListViewDelegate Functions
 //
 extension AddSearchQueryTableViewController: TagListViewDelegate {
-    
-    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
-
+    func tagListViewCanDeleteTags(_ tagListView: TagListView) -> Bool {
+        return true
     }
     
+    func tagListViewCanMoveTags(_ tagListView: TagListView) -> Bool {
+        return false
+    }
+    
+        
     /// Called if the user wants to delete all tags
-    public func didClear(_ tagListView: TagListView) {
+    public func didDeleteAllTags(_ tagListView: TagListView) {
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
         case .brandsSearch:
@@ -968,6 +972,10 @@ extension AddSearchQueryTableViewController: TagListViewDelegate {
         }
     }
     
+    func tagListViewCanAddTags(_ tagListView: TagListView) -> Bool {
+        return true
+    }
+
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {

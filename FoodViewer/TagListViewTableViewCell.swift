@@ -32,8 +32,6 @@ class TagListViewTableViewCell: UITableViewCell {
                 tagListView.removableColorScheme = ColorScheme(text: .white, background: .darkGray, border: .black)
             }
             tagListView.cornerRadius = 10
-            tagListView.allowsRemoval = true
-            tagListView.clearButtonIsEnabled = true            
             tagListView.prefixLabelText = nil
             
             let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListViewTableViewCell.tagListViewSingleTapped))
@@ -51,10 +49,6 @@ class TagListViewTableViewCell: UITableViewCell {
         tagListView?.datasource = datasource
         tagListView?.delegate = delegate as? TagListViewDelegate
         self.delegate = delegate
-        if let validEditMode = editMode {
-            tagListView?.allowsRemoval = validEditMode
-            tagListView?.allowsCreation = validEditMode
-        }
         if let validWidth = width {
             tagListView?.frame.size.width = validWidth
         }

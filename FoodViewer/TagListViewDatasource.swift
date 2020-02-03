@@ -36,10 +36,10 @@ extension TagListViewDataSource {
     ///func tagListViewDidBeginEditing(_ tagListView: TagListView)
     
     /// Is it allowed to edit a Tag object at a given index?
-    public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
+    //public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
         // default is no exceptions
-        return true
-    }
+    //    return true
+    //}
     /// Is it allowed to move a Tag object at a given index?
     public func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool {
         // default is no exceptions

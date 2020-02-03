@@ -867,6 +867,18 @@ extension SingleSearchProductTableViewController: TagListViewDataSource {
 
 extension SingleSearchProductTableViewController: TagListViewDelegate {
     
+    func didDeleteAllTags(_ tagListView: TagListView) {
+        
+    }
+    
+    func tagListViewCanDeleteTags(_ tagListView: TagListView) -> Bool {
+        return false
+    }
+    
+    func tagListViewCanMoveTags(_ tagListView: TagListView) -> Bool {
+        return false
+    }
+    
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.setNeedsLayout()
     }

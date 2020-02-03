@@ -412,7 +412,7 @@ class SupplyChainTableViewController: UITableViewController {
             
         case .country:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
-            cell.setup(datasource: self, delegate: self, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: false, allowTagDeletion: editMode, scheme: nil)
+            cell.setup(datasource: self, delegate: self, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
 
         case .store:
@@ -1090,6 +1090,35 @@ extension SupplyChainTableViewController: TagListViewDataSource {
 
 extension SupplyChainTableViewController: TagListViewDelegate {
     
+    func tagListViewCanDeleteAllTags(_ tagListView: TagListView) -> Bool {
+        return editMode
+    }
+
+    func tagListViewCanDeleteTags(_ tagListView: TagListView) -> Bool {
+        return editMode
+    }
+    
+    func tagListViewCanAddTags(_ tagListView: TagListView) -> Bool {
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .producer,
+             .producerCode,
+             .ingredientOrigin,
+             .store,
+             .location,
+             .sites:
+            return editMode
+        // .country can not be added by hand
+        default:
+            break
+        }
+        return false
+    }
+    
+    public func tagListView(_ tagListView: TagListView, canDeleteTagAt index: Int) -> Bool {
+        return editMode
+    }
+    
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
@@ -1338,7 +1367,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
     }
     
     /// Called if the user wants to delete all tags
-    public func didClear(_ tagListView: TagListView) {
+    public func didDeleteAllTags(_ tagListView: TagListView) {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .producer:

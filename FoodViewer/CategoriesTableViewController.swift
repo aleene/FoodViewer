@@ -122,7 +122,7 @@ class CategoriesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
-        cell.setup(datasource: self, delegate: self, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, allowTagCreation: editMode, allowTagDeletion: editMode, scheme: nil)
+        cell.setup(datasource: self, delegate: self, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
         return cell
     }
     
@@ -428,6 +428,22 @@ extension CategoriesTableViewController: TagListViewDataSource {
 
 extension CategoriesTableViewController: TagListViewDelegate {
     
+    public func tagListViewCanDeleteAllTags(_ tagListView: TagListView) -> Bool {
+        return editMode
+    }
+    
+    public func tagListViewCanDeleteTags(_ tagListView: TagListView) -> Bool {
+        return editMode
+    }
+    
+    public func tagListView(_ tagListView: TagListView, canDeleteTagAt index: Int) -> Bool {
+        return editMode
+    }
+    
+    public func tagListViewCanAddTags(_ tagListView: TagListView) -> Bool {
+        return editMode
+    }
+    
     
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
@@ -468,7 +484,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
         }
     }
     
-    public func didClear(_ tagListView: TagListView) {
+    public func didDeleteAllTags(_ tagListView: TagListView) {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
         switch  currentProductSection {
