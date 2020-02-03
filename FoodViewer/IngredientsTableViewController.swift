@@ -1255,7 +1255,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
     
     func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
         switch tableStructure[tagListView.tag] {
-        case .labels:
+        case .labels, .traces:
             return true
         default:
             return false

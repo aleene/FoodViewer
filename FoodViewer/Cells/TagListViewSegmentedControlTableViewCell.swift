@@ -52,7 +52,7 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
                 tagListView.removableColorScheme = ColorScheme(text: .white, background: .darkGray, border: .black)
             }
             tagListView.cornerRadius = 10
-            tagListView.removeButtonIsEnabled = true
+            tagListView.allowsRemoval = true
             tagListView.clearButtonIsEnabled = true
             //tagListView.frame.size.width = self.frame.size.width
                 

@@ -105,16 +105,11 @@ class JSONViewController: UIViewController {
         } else if let validValue = value as? Double {
             return "\(validValue)"
         }
-        return "undecoded"
+        return "(undecoded - NULL?)"
     }
     
     fileprivate var productPair: ProductPair? {
         return delegate?.productPair
-    }
-//
-// MARK: = ViewController lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
     
 }

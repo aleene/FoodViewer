@@ -472,7 +472,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         tagView.horizontalPadding = self.horizontalPadding
         tagView.verticalPadding = self.verticalPadding
         tagView.textFont = self.textFont
-        tagView.removeButtonIsEnabled = false
+        tagView.removeButtonIsEnabled = self.allowsRemoval
         tagView.shadowColor = self.shadowColor
         tagView.shadowOpacity = self.shadowOpacity
         tagView.shadowRadius = self.shadowRadius
@@ -576,7 +576,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     }
     
     private var hasTags: Bool {
-        datasource!.numberOfTagsIn(self) > 0
+        guard datasource != nil else { return false }
+        return datasource!.numberOfTagsIn(self) > 0
     }
         
     // Reload's the TagListView's data and layout it's views.
@@ -794,7 +795,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             tagView.textFont = self.textFont
             if allowsRemoval {
                 if delegate?.tagListView(self, canEditTagAt: tagView.tag) != nil && delegate!.tagListView(self, canEditTagAt: tagView.tag) {
-                    tagView.removeButtonIsEnabled = removeButtonIsEnabled
+                    tagView.removeButtonIsEnabled = allowsRemoval
                     tagView.state = .removable
                 } else {
                     tagView.removeButtonIsEnabled = false
@@ -1105,9 +1106,9 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
     }
 
-    /// - parameter removeButtonIsEnabled:
-    /// Add a remove icon next to the tag. Tapping it allows the user to delete the tag.
-    open var removeButtonIsEnabled = false
+    // - parameter removeButtonIsEnabled:
+    // Add a remove icon next to the tag. Tapping it allows the user to delete the tag.
+    //open var removeButtonIsEnabled = false
     
     // MARK: - Tag handling
     

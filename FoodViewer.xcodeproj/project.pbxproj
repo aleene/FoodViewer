@@ -138,7 +138,6 @@
 		5158AE521DE2190300D75CFD /* AddLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */; };
 		5158ECD92032DD170072261C /* OFFImageUploadResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5158ECD82032DD170072261C /* OFFImageUploadResultJson.swift */; };
 		5158ECDB2032DF760072261C /* OFFProductUploadResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5158ECDA2032DF760072261C /* OFFProductUploadResultJson.swift */; };
-		5159343123E4836E00FBD187 /* JSONTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159343023E4836D00FBD187 /* JSONTableView.swift */; };
 		5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159D8A61C6666C60082C60E /* NameTableViewCell.swift */; };
 		515A29D21EC08FB000916F3D /* LastServerDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A29D11EC08FB000916F3D /* LastServerDefaults.swift */; };
 		515CAE711D983C2300A90F96 /* FavoriteShopsDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */; };
@@ -538,7 +537,6 @@
 		5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLanguageViewController.swift; sourceTree = "<group>"; };
 		5158ECD82032DD170072261C /* OFFImageUploadResultJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFImageUploadResultJson.swift; sourceTree = "<group>"; };
 		5158ECDA2032DF760072261C /* OFFProductUploadResultJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductUploadResultJson.swift; sourceTree = "<group>"; };
-		5159343023E4836D00FBD187 /* JSONTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTableView.swift; sourceTree = "<group>"; };
 		5159D8A61C6666C60082C60E /* NameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
 		515A29D11EC08FB000916F3D /* LastServerDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastServerDefaults.swift; sourceTree = "<group>"; };
 		515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteShopsDefaults.swift; sourceTree = "<group>"; };
@@ -984,7 +982,6 @@
 		5124013E1CDB84910051F120 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5159343023E4836D00FBD187 /* JSONTableView.swift */,
 				51C2FF6620E5074C00B65509 /* Haneke */,
 				5141969C20839C2100528877 /* CSV */,
 				5150464F200904610094EE50 /* Download */,
@@ -1789,7 +1786,6 @@
 				5148F0F11DD3291500EF1B67 /* Language.swift in Sources */,
 				5158AE521DE2190300D75CFD /* AddLanguageViewController.swift in Sources */,
 				517907F81F8E55580017FCA0 /* TextFieldWithButtonTableViewCell.swift in Sources */,
-				5159343123E4836E00FBD187 /* JSONTableView.swift in Sources */,
 				512702EC21FB61A5002EC65C /* OpenFoodFactsPreferencesTableViewController.swift in Sources */,
 				51A056F81E2D100C0099092E /* AddNutrientTableViewCell.swift in Sources */,
 				51974E671CE61F2C0008585D /* NutritionDisplayMode.swift in Sources */,
