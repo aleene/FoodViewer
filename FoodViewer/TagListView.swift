@@ -604,8 +604,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             // If it is allowed to delete tags,
             // is it also allowed to delete this specific tag?
             if delegate != nil,
-                delegate!.tagListViewCanDeleteTags(self),
-                delegate!.tagListView(self, canDeleteTagAt: index)  {
+                delegate!.tagListViewCanDeleteTags(self) {
                 tagView.state = .removable
             } else {
                 tagView.state = .normal
@@ -691,7 +690,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         // print("after adjustHeight", currentY, frame.height)
 
         if delegate != nil,
-            delegate!.tagListViewCanDeleteAllTags(self),
+            delegate!.tagListViewCanDeleteTags(self),
             hasTags {
             layoutClearView()
         }
@@ -788,7 +787,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         // calculate the rowWidth available for tags
         if delegate != nil,
             delegate!.tagListViewCanAddTags(self)
-            || delegate!.tagListViewCanDeleteAllTags(self)
+            || delegate!.tagListViewCanDeleteTags(self)
             || delegate!.tagListViewCanMoveTags(self),
             hasTags {
             rowWidth = frame.size.width - clearView.frame.width - Constants.defaultHorizontalClearPadding
@@ -803,8 +802,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             tagView.verticalPadding = self.verticalPadding
             tagView.textFont = self.textFont
             if delegate != nil,
-                delegate!.tagListViewCanDeleteTags(self),
-                delegate!.tagListView(self, canDeleteTagAt: tagView.tag) {
+                delegate!.tagListViewCanDeleteTags(self) {
                     tagView.removeButtonIsEnabled = true
                     tagView.state = .removable
             } else {
@@ -910,7 +908,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
         // let inputHeight = tagViewHeight
         if delegate != nil,
-            delegate!.tagListViewCanDeleteAllTags(self),
+            delegate!.tagListViewCanDeleteTags(self),
             hasTags {
             clearButtonWidth = CGFloat(Clear.ViewSize)
         }
@@ -1087,7 +1085,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             guard delegate != nil else { return false }
             
             return delegate!.tagListViewCanAddTags(self)
-                || delegate!.tagListViewCanDeleteAllTags(self)
                 || delegate!.tagListViewCanDeleteTags(self)
                 || delegate!.tagListViewCanMoveTags(self)
         }
@@ -1130,8 +1127,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     // MARK: - Tag handling
     
     private func removeTag(at index: Int) {
-        if delegate?.tagListView(self, canDeleteTagAt: index) != nil,
-            delegate!.tagListView(self, canDeleteTagAt: index) {
+        if delegate != nil,
+            delegate!.tagListViewCanDeleteTags(self) {
             delegate?.tagListView(self, willBeginEditingTagAt: index)
             delegate?.tagListView(self, didDeleteTagAt: index)
             reloadData(clearAll:false)

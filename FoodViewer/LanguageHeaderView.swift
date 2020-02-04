@@ -115,3 +115,10 @@ class LanguageHeaderView: UITableViewHeaderFooterView {
     }
 
 }
+
+extension LanguageHeaderDelegate {
+    
+    func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {}
+    
+    func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {}
+}

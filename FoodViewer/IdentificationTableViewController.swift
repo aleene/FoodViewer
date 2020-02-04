@@ -333,37 +333,17 @@ class IdentificationTableViewController: UITableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-                cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+                cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
                 return cell
             }
         case .brands:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            var tagListViewEditMode = editMode
-            if editMode,
-                let newTags = productPair?.localProduct?.brandsOriginal {
-                switch newTags {
-                case .available:
-                    tagListViewEditMode = productVersion.isRemote ? false : true
-                default:
-                    break
-                }
-            }
-            cell.setup(datasource: self, delegate: self, editMode: tagListViewEditMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+            cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
 
         case .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            var tagListViewEditMode = editMode
-            if editMode,
-                let newTags = productPair?.localProduct?.packagingOriginal {
-                switch newTags {
-                case .available:
-                    tagListViewEditMode = productVersion.isRemote ? false : true
-                default:
-                    break
-                }
-            }
-            cell.setup(datasource: self, delegate: self, editMode: tagListViewEditMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+            cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
             
         case .quantity:
@@ -1166,33 +1146,11 @@ extension IdentificationTableViewController: QuantityTableViewCellDelegate {
 //
 extension IdentificationTableViewController: TagListViewButtonCellDelegate {
     
-    // function to let the delegate know that a tag was single tapped
-    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedSingleTapOn tagListView:TagListView) {
-        
-    }
-    // function to let the delegate know that a tag was double tapped
-    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
-        
-    }
     // function to let the delegate know that the switch changed
     func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
         performSegue(withIdentifier: segueIdentifier(to: SelectPairViewController.self), sender: button)
     }
 }
-//
-// MARK: - TagListViewCellDelegate Functions
-//
-extension IdentificationTableViewController: TagListViewCellDelegate {
-    
-    // function to let the delegate know that a tag has been single
-    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView) {
-    }
-
-    // function to let the delegate know that a tag has been double tapped
-    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
-    }
-}
-
 //
 // MARK: - ProductNameCellDelegate Functions
 //
@@ -1377,16 +1335,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return("IdentificationTableViewController: TagListView titleForTagAt error")
         }
     }
-    
-    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
-        return nil
-    }
 
-    /// Which text should be displayed when the TagListView is collapsed?
-    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
-        return "Collapsed"
-    }
-    
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         if let cellHeight = tagListViewHeight[tagListView.tag],
             abs(cellHeight - height) > CGFloat(3.0) {
@@ -1405,17 +1354,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
         switch tableStructure[tagListView.tag] {
         case .brands,
              .packaging:
-            return true
-        default:
-            return false
-        }
-
-    }
-    public func tagListView(_ tagListView: TagListView, canDeleteTagAt index: Int) -> Bool {
-        switch tableStructure[tagListView.tag] {
-        case .brands,
-            .packaging:
-            return true
+            return editMode
         default:
             return false
         }
@@ -1425,22 +1364,12 @@ extension IdentificationTableViewController: TagListViewDelegate {
         switch tableStructure[tagListView.tag] {
         case .brands,
              .packaging:
-            return true
+            return editMode
         default:
             return false
         }
     }
     
-    public func tagListViewCanDeleteAllTags(_ tagListView: TagListView) -> Bool {
-        switch tableStructure[tagListView.tag] {
-        case .brands,
-             .packaging:
-            return true
-        default:
-            return false
-        }
-    }
-
     public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
         switch tableStructure[tagListView.tag] {
         case .languages:
@@ -1836,6 +1765,5 @@ extension IdentificationTableViewController: GKImageCropControllerDelegate {
         imageCropController.dismiss(animated: true, completion: nil)
         productPair?.update(frontImage: validImage, for: validLanguage)
         self.reloadImageSection()
-        //delegate?.imagePicker(self, cropped:croppedImage!)
     }
 }

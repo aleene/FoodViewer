@@ -169,24 +169,24 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell //
                 // encode the product number and result into the tag
                 cell.accessoryType = .none
-                cell.setup(datasource: self, delegate: self, editMode: false, width: nil, tag: indexPath.row * Constants.TagValue.Product.Multiplier + validFetchResult.rawValue, prefixLabelText: nil, scheme: ColorSchemes.error)
+                cell.setup(datasource: self, delegate: self, width: nil, tag: indexPath.row * Constants.TagValue.Product.Multiplier + validFetchResult.rawValue)
                 return cell
                     
             case .initialized, .productNotLoaded:
                 products.loadProductPair(at: indexPath.row)
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-                cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: tagValue(for: validFetchResult), prefixLabelText: nil, scheme: ColorSchemes.normal)
+                cell.setup(datasource: self, delegate: nil, width: nil, tag: tagValue(for: validFetchResult))
 
                 return cell
                 
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-                cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: validFetchResult.rawValue + Constants.TagValue.Product.Multiplier * indexPath.row, prefixLabelText: nil, scheme: ColorSchemes.normal)
+                cell.setup(datasource: self, delegate: nil, width: nil, tag: validFetchResult.rawValue + Constants.TagValue.Product.Multiplier * indexPath.row)
                 return cell
                 }
         } else { // No validFetchResult
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: tagValue(for: .initialized), prefixLabelText: nil, scheme: ColorSchemes.normal)
+            cell.setup(datasource: self, delegate: nil, width: nil, tag: tagValue(for: .initialized))
             return cell
         }
     }
@@ -465,13 +465,8 @@ extension AllProductsTableViewController: TagListViewDataSource {
         return ProductFetchStatus.description(for: code)
     }
     
-    /// Which text should be displayed when the TagListView is collapsed?
-    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
-        return "Collapsed"
-    }
-    
-    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
-        return nil
+    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+        tableView.setNeedsLayout()
     }
 
 }
@@ -479,30 +474,6 @@ extension AllProductsTableViewController: TagListViewDataSource {
 // MARK: - TagListView Delegate Functions
     
 extension AllProductsTableViewController: TagListViewDelegate {
-    func didDeleteAllTags(_ tagListView: TagListView) {
-        
-    }
-    
-    func tagListViewCanDeleteTags(_ tagListView: TagListView) -> Bool {
-        return false
-    }
-    
-    func tagListViewCanMoveTags(_ tagListView: TagListView) -> Bool {
-        return false
-    }
-    
-    
-    func tagListViewCanAddTags(_ tagListView: TagListView) -> Bool {
-        return false
-    }
-    
-    func tagListViewCanDeleteAllTags(_ tagListView: TagListView) -> Bool {
-        return false
-    }
-    
-    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.setNeedsLayout()
-    }
     
     public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
         

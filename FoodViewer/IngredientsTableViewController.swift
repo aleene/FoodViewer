@@ -304,7 +304,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             switch productVersion {
             case .remoteTags, .remoteTagsHierarchy, .remoteTagsTranslated, .remoteTagsHierarchyTranslated:
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-                cell.setup(datasource: self, delegate: self, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+                cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
                 return cell
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: IngredientsFullTableViewCell.self), for: indexPath) as! IngredientsFullTableViewCell
@@ -336,17 +336,17 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         case .allergens, .additives, .minerals, .vitamins, .nucleotides, .otherNutritionalSubstances, .aminoAcids:
         // These are all calculated fields, i.e. determined by OFF
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            cell.setup(datasource: self, delegate: self, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+            cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
 
         case .traces:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
-            cell.setup(datasource: self, delegate: self, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+            cell.setup(datasource: self, delegate: nil, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
 
         case .labels:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+            cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
         
         case .image:
@@ -1083,38 +1083,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
 }
 //
-// MARK: - TagListViewButtonCellDelegate Functions
+// MARK: - IngredientsImageCellDelegate Functions
 //
-extension IngredientsTableViewController: TagListViewButtonCellDelegate {
-    
-    // function to let the delegate know that a tag was single tapped
-    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedSingleTapOn tagListView:TagListView) {
-        
-    }
-    // function to let the delegate know that a tag was double tapped
-    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
-        
-    }
-    // function to let the delegate know that the button was tapped
-    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
-    }
-}
-//
-// MARK: - TagListViewCellDelegate Functions
-//
-extension IngredientsTableViewController: TagListViewCellDelegate {
-    
-    // function to let the delegate know that the switch changed
-    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView) {
-    }
-    
-    // function to let the delegate know that the switch changed
-    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
-    }
-}
-
-// MARK: - IngredientsImageCellDelegate Delegate Functions
-
 extension IngredientsTableViewController: ProductImageCellDelegate {
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCamera button:UIButton) {
         takePhoto()
@@ -1258,39 +1228,13 @@ extension IngredientsTableViewController: TagListViewDelegate {
         }
 
     }
-    
-    func tagListViewCanMoveTags(_ tagListView: TagListView) -> Bool {
-        return false
-    }
-    
-    
-    func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
-    }
-    
+        
     func tagListViewCanAddTags(_ tagListView: TagListView) -> Bool {
         switch tableStructure[tagListView.tag] {
         case .labels:
             return true
         default:
             // .traces can only be added through the picklist
-            return false
-        }
-    }
-    
-    func tagListViewCanDeleteAllTags(_ tagListView: TagListView) -> Bool {
-        switch tableStructure[tagListView.tag] {
-        case .labels, .traces:
-            return true
-        default:
-            return false
-        }
-    }
-
-    func tagListView(_ tagListView: TagListView, canDeleteTagAt index: Int) -> Bool {
-        switch tableStructure[tagListView.tag] {
-        case .labels, .traces:
-            return true
-        default:
             return false
         }
     }
@@ -1513,10 +1457,6 @@ extension IngredientsTableViewController: TagListViewDataSource {
 
         }
     }
-    
-    func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
-        return nil
-    }
 
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         if let validHeight = cellHeight[tagListView.tag],
@@ -1524,10 +1464,6 @@ extension IngredientsTableViewController: TagListViewDataSource {
             cellHeight[tagListView.tag] = height
             tableView.setNeedsLayout()
         }
-    }
-    
-    func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
-        return "Collapsed text"
     }
 
 }

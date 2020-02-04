@@ -379,23 +379,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             } else {
                 if adaptedNutritionFacts.isEmpty {
                     let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as? TagListViewTableViewCell
-
-                    var tagListViewColorScheme: ColorScheme? = nil
-                    if let available = productPair?.remoteProduct?.nutritionFactsAreAvailable {
-                        nutritionFactsTagTitle = available.description()
-                        switch available {
-                        case .perServing, .perStandardUnit, .perServingAndStandardUnit:
-                            tagListViewColorScheme = ColorSchemes.normal
-                        case .notOnPackage:
-                            tagListViewColorScheme = ColorSchemes.error
-                        case .notIndicated, .notAvailable:
-                            tagListViewColorScheme = ColorSchemes.error
-                        }
-                    } else {
-                        nutritionFactsTagTitle = NutritionAvailability.notIndicated.description()
-                        tagListViewColorScheme = ColorSchemes.error
-                    }
-                    cell?.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: tagListViewColorScheme)
+                    cell?.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
                     return cell!
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:NutrientsTableViewCell.self), for: indexPath) as? NutrientsTableViewCell

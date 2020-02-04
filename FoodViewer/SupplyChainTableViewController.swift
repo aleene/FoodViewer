@@ -360,66 +360,18 @@ class SupplyChainTableViewController: UITableViewController {
         switch currentProductSection {
         case .producer, .producerCode, .sites, .ingredientOrigin:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            var tagListViewEditMode = editMode
-            if editMode {
-                switch currentProductSection {
-                case .producer:
-                    if let oldTags = productPair?.localProduct?.manufacturingPlacesOriginal {
-                        switch oldTags {
-                        case .available:
-                            tagListViewEditMode = !productVersion.isRemote
-                        default:
-                            break
-                        }
-                    }
-                case .producerCode:
-                    if let oldTags = productPair?.localProduct?.embCodesOriginal {
-                        switch oldTags {
-                        case .available:
-                            tagListViewEditMode = !productVersion.isRemote
-                        default:
-                            break
-                        }
-                    }
-                case .sites:
-                    if productPair?.localProduct?.links != nil {
-                        tagListViewEditMode = !productVersion.isRemote
-                    }
-                case .ingredientOrigin:
-                    if let oldTags = productPair?.localProduct?.originsOriginal {
-                        switch oldTags {
-                        case .available:
-                            tagListViewEditMode = !productVersion.isRemote
-                        default:
-                            break
-                        }
-                    }
-                case .country:
-                if let oldTags = productPair?.localProduct?.countriesOriginal {
-                    switch oldTags {
-                    case .available:
-                        tagListViewEditMode = !productVersion.isRemote
-                    default:
-                        break
-                    }
-                }
-                default:
-                    break
-                }
-            }
-            cell.setup(datasource: self, delegate: self, editMode: tagListViewEditMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+            cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
             
         case .country:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
-            cell.setup(datasource: self, delegate: self, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+            cell.setup(datasource: self, delegate: nil, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
             return cell
 
         case .store:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: PurchacePlaceTableViewCell.self), for: indexPath) as! PurchacePlaceTableViewCell
             cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
-            cell.delegate = self
             cell.datasource = self
             cell.editMode = editMode
             if editMode,
@@ -437,7 +389,6 @@ class SupplyChainTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: PurchacePlaceTableViewCell.self), for: indexPath) as! PurchacePlaceTableViewCell
             cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
-            cell.delegate = self
             cell.datasource = self
             cell.editMode = editMode
             if editMode,
@@ -455,7 +406,7 @@ class SupplyChainTableViewController: UITableViewController {
         case .map:
             // This is just have some harmless code here
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+            cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
             
         case .expirationDate:
@@ -916,23 +867,6 @@ class SupplyChainTableViewController: UITableViewController {
 
 }
 //
-// MARK: - TagListViewButtonCellDelegate Functions
-//
-extension SupplyChainTableViewController: TagListViewButtonCellDelegate {
-    
-    // function to let the delegate know that a tag was single tapped
-    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedSingleTapOn tagListView:TagListView) {
-        
-    }
-    // function to let the delegate know that a tag was double tapped
-    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
-        
-    }
-    // function to let the delegate know that the button was tapped
-    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
-    }
-}
-//
 // MARK: - LanguageHeaderDelegate Functions
 //
 extension SupplyChainTableViewController: LanguageHeaderDelegate {
@@ -946,27 +880,6 @@ extension SupplyChainTableViewController: LanguageHeaderDelegate {
     }
 }
 
-//
-// MARK: - TagListViewCellDelegate Functions
-//
-extension SupplyChainTableViewController: TagListViewCellDelegate {
-    
-    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView) {
-    }
-    
-    // function to let the delegate know that a tag has been double tapped
-    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
-    }
-}
-//
-// MARK: - PurchacePlaceCellDelegate Functions
-//
-extension SupplyChainTableViewController: PurchacePlaceCellDelegate {
-    
-    // function to let the delegate know that the tagListView has been doubletapped
-    func purchacePlaceTableViewCell(_ sender: PurchacePlaceTableViewCell, receivedDoubleTapOn tagListView: TagListView) {
-    }
-}
 //
 // MARK: - UIPopoverPresentationControllerDelegate Functions
 //
@@ -985,17 +898,11 @@ extension SupplyChainTableViewController: UIPopoverPresentationControllerDelegat
     }
     
 }
-
-
+//
 // MARK: - TagListView DataSource Functions
-
+//
 extension SupplyChainTableViewController: TagListViewDataSource {
-    
-    fileprivate struct TagConstants {
-        //static let Undefined = NSLocalizedString("undefined", comment: "tag of cell when no date was in off")
-        //static let None = NSLocalizedString("none", comment: "tag of cell when no tags are available")
-    }
-    
+        
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
         
         func count(_ inputTags: [String]?) -> Int {
@@ -1080,20 +987,12 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             tableView.setNeedsLayout()
         }
     }
-
-    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
-        return nil
-    }
 }
 
 // MARK: - TagListView Delegate Functions
 
-extension SupplyChainTableViewController: TagListViewDelegate {
+extension SupplyChainTableViewController: TagListViewDelegate {    
     
-    func tagListViewCanDeleteAllTags(_ tagListView: TagListView) -> Bool {
-        return editMode
-    }
-
     func tagListViewCanDeleteTags(_ tagListView: TagListView) -> Bool {
         return editMode
     }
@@ -1114,11 +1013,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         }
         return false
     }
-    
-    public func tagListView(_ tagListView: TagListView, canDeleteTagAt index: Int) -> Bool {
-        return editMode
-    }
-    
+        
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {

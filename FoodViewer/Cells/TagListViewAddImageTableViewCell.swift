@@ -9,9 +9,11 @@
 import UIKit
 
 protocol TagListViewAddImageCellDelegate: class {
-    
-    // function to let the delegate know that the switch changed
-    //func tagListViewAddImageTableViewCell(_ sender: TagListViewAddImageTableViewCell, receivedDoubleTapOn tagListView:TagListView)
+/**
+- parameters :
+     - sender :
+     - button : 
+     */
     func tagListViewAddImageTableViewCell(_ sender: TagListViewAddImageTableViewCell, receivedActionOnCamera button:UIButton)
     func tagListViewAddImageTableViewCell(_ sender: TagListViewAddImageTableViewCell, receivedActionOnCameraRoll button:UIButton)
 }

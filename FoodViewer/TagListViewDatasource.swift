@@ -21,6 +21,7 @@ public protocol TagListViewDataSource {
     /// What are the number of Tag objects in the TagListView?
     func numberOfTagsIn(_ tagListView: TagListView) -> Int
     
+    /// Called when the TagListView's content height changes.
     func tagListView(_ tagListView: TagListView, didChange height: CGFloat)
 
     /// Which text should be displayed when the TagListView is collapsed?
@@ -30,32 +31,15 @@ public protocol TagListViewDataSource {
 
 extension TagListViewDataSource {
     
-    /// Called when the user changes the text in the textField.
-    ///func tagListView(_ tagListView: TagListView, didChange text: String)
-    /// Called when the TagListView did begin editing.
-    ///func tagListViewDidBeginEditing(_ tagListView: TagListView)
-    
-    /// Is it allowed to edit a Tag object at a given index?
-    //public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
-        // default is no exceptions
-    //    return true
-    //}
-    /// Is it allowed to move a Tag object at a given index?
-    public func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool {
-        // default is no exceptions
-        return true
-    }
-    /// The Tag object at the source index has been moved to a destination index.
-    public func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
-    }
-    
-    /// Which text should be displayed when the TagListView is collapsed?
     public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
         return "Collapsed Stub Title"
     }
     
-    /// Called when the TagListView's content height changes.
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+    }
+
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return nil
     }
 
 }

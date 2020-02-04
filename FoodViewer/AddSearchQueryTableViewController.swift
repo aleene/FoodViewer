@@ -417,7 +417,7 @@ class AddSearchQueryTableViewController: UITableViewController {
 
         case .textSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.setup(datasource: self, delegate: self, editMode: true, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+            cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
 
             return cell
             

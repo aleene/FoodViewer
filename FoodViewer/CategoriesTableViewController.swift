@@ -344,18 +344,6 @@ extension CategoriesTableViewController: LanguageHeaderDelegate {
     }
 }
 //
-// MARK: - TagListViewCellDelegate Functions
-//
-extension CategoriesTableViewController: TagListViewCellDelegate {
-    
-    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView) {
-    }
-    
-    // function to let the delegate know that the switch changed
-    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
-    }
-}
-//
 // MARK: - TagListView Datasource Functions
 //
 extension CategoriesTableViewController: TagListViewDataSource {
@@ -427,23 +415,14 @@ extension CategoriesTableViewController: TagListViewDataSource {
 // MARK: - TagListView Delegate Functions
 
 extension CategoriesTableViewController: TagListViewDelegate {
-    
-    public func tagListViewCanDeleteAllTags(_ tagListView: TagListView) -> Bool {
-        return editMode
-    }
-    
+        
     public func tagListViewCanDeleteTags(_ tagListView: TagListView) -> Bool {
-        return editMode
-    }
-    
-    public func tagListView(_ tagListView: TagListView, canDeleteTagAt index: Int) -> Bool {
         return editMode
     }
     
     public func tagListViewCanAddTags(_ tagListView: TagListView) -> Bool {
         return editMode
     }
-    
     
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
@@ -509,14 +488,6 @@ extension CategoriesTableViewController: TagListViewDelegate {
 //
 extension CategoriesTableViewController: TagListViewButtonCellDelegate {
     
-    // function to let the delegate know that a tag was single tapped
-    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedSingleTapOn tagListView:TagListView) {
-        
-    }
-    // function to let the delegate know that a tag was double tapped
-    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
-        
-    }
     // function to let the delegate know that the button was tapped
     func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
         performSegue(withIdentifier: segueIdentifier(to: SelectPairViewController.self), sender: button)

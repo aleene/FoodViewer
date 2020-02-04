@@ -10,7 +10,7 @@ import UIKit
 
 protocol BarcodeEditCellDelegate: class {
     
-    // function to let the delegate know that the switch changed
+/// function to let the delegate know that the switch changed
     func barcodeEditTableViewCell(_ sender: BarcodeEditTableViewCell, receivedActionOn segmentedControl:UISegmentedControl)
 }
 

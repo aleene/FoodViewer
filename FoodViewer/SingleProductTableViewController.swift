@@ -259,7 +259,7 @@ class SingleProductTableViewController: UITableViewController {
                 }
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            cell.setup(datasource: self, delegate: nil, editMode: false, width: nil, tag: Constants.TagValue.Row.Image, prefixLabelText: nil, scheme: nil)
+            cell.setup(datasource: self, delegate: nil, width: nil, tag: Constants.TagValue.Row.Image)
             return cell
             
         case .ingredientsAllergensTraces:
@@ -298,7 +298,7 @@ class SingleProductTableViewController: UITableViewController {
         case .diets:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.tagListView.alignment = .left
-            cell.setup(datasource: self, delegate: nil, editMode: false, width: tableView.frame.size.width - 16, tag: Constants.TagValue.Row.Diets, prefixLabelText: nil, scheme: nil)
+            cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width - 16, tag: Constants.TagValue.Row.Diets)
             return cell
             
         case .ingredients:

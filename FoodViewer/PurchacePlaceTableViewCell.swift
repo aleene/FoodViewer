@@ -102,5 +102,10 @@ class PurchacePlaceTableViewCell: UITableViewCell {
         delegate?.purchacePlaceTableViewCell(self, receivedDoubleTapOn: tagListView)
     }
     
-
 }
+
+extension PurchacePlaceCellDelegate {
+    
+    public func purchacePlaceTableViewCell(_ sender: PurchacePlaceTableViewCell, receivedDoubleTapOn tagListView: TagListView) { }
+}
+
