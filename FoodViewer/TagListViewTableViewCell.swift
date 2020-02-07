@@ -69,10 +69,10 @@ class TagListViewTableViewCell: UITableViewCell {
      - width : The width of the `TagListView`  to use
      - tag : An identifier for the tag
 */
-    func setup(datasource:TagListViewDataSource?, delegate:TagListViewCellDelegate?, width:CGFloat?, tag:Int?) {
+    func setup(datasource:TagListViewDataSource?, delegate:Any?, width:CGFloat?, tag:Int?) {
         tagListView?.datasource = datasource
         tagListView?.delegate = delegate as? TagListViewDelegate
-        self.delegate = delegate
+        self.delegate = delegate as? TagListViewCellDelegate
         if let validWidth = width {
             tagListView?.frame.size.width = validWidth
         }

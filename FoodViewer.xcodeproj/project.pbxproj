@@ -1402,7 +1402,6 @@
 			isa = PBXGroup;
 			children = (
 				51FB322C1CF44E8A00A17312 /* BarcodeTableViewCell.swift */,
-				514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */,
 				5174A66B1D804C1900BA61F1 /* ProductNameTableViewCell.swift */,
 				5198D99F1DC25C0F00799797 /* QuantityTableViewCell.swift */,
 				51D3B3E51F6C3B6600050DA8 /* BarcodeEditTableViewCell.swift */,
@@ -1483,6 +1482,7 @@
 				51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */,
 				51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */,
 				513E00971F867F2C003153D4 /* TagListViewLabelTableViewCell.swift */,
+				514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */,
 				51DA03221F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift */,
 				51FB32301CF75B4500A17312 /* SetWarningTableViewCell.swift */,
 				51AFB0081C734CD900598444 /* IdentificationCells */,

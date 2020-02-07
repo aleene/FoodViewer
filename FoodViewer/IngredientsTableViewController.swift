@@ -304,7 +304,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             switch productVersion {
             case .remoteTags, .remoteTagsHierarchy, .remoteTagsTranslated, .remoteTagsHierarchyTranslated:
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-                cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
+                cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
                 return cell
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: IngredientsFullTableViewCell.self), for: indexPath) as! IngredientsFullTableViewCell
@@ -341,12 +341,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
         case .traces:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
-            cell.setup(datasource: self, delegate: nil, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+            cell.setup(datasource: self, delegate: self, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
 
         case .labels:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
+            cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
         
         case .image:

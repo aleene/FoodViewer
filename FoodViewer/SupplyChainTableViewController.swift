@@ -360,53 +360,25 @@ class SupplyChainTableViewController: UITableViewController {
         switch currentProductSection {
         case .producer, .producerCode, .sites, .ingredientOrigin:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
+            cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
             
         case .country:
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
-            cell.setup(datasource: self, delegate: nil, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Countries." + cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
+            cell.setup(datasource: self, delegate: self, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
 
-        case .store:
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: PurchacePlaceTableViewCell.self), for: indexPath) as! PurchacePlaceTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.tag = indexPath.section
-            cell.datasource = self
-            cell.editMode = editMode
-            if editMode,
-                let oldTags = productPair?.localProduct?.storesOriginal {
-                switch oldTags {
-                case .available:
-                    cell.editMode = !productVersion.isRemote
-                default:
-                    break
-                }
-            }
-            return cell
-
-        case .location:
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: PurchacePlaceTableViewCell.self), for: indexPath) as! PurchacePlaceTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.tag = indexPath.section
-            cell.datasource = self
-            cell.editMode = editMode
-            if editMode,
-                let oldTags = productPair?.localProduct?.purchasePlacesOriginal {
-                switch oldTags {
-                case .available:
-                    cell.editMode = !productVersion.isRemote
-                default:
-                    break
-                }
-            }
-
+        case .store,
+             .location:
+            // The cell type has a button image and action specific for purchase place favorites
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PurchasePlaces." + cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
+            cell.setup(datasource: self, delegate: self, showButton: !editMode, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
 
         case .map:
             // This is just have some harmless code here
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
+            cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
             
         case .expirationDate:
@@ -683,9 +655,7 @@ class SupplyChainTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let validCell = cell as? PurchacePlaceTableViewCell {
-            validCell.willDisappear()
-        } else if let validCell = cell as? TagListViewButtonTableViewCell {
+        if let validCell = cell as? TagListViewButtonTableViewCell {
             validCell.willDisappear()
         }
     }
@@ -775,6 +745,22 @@ class SupplyChainTableViewController: UITableViewController {
                         }
                     }
                 }
+                case segueIdentifier(to: FavoriteShopsTableViewController.self):
+                    if  let vc = segue.destination as? FavoriteShopsTableViewController {
+                        if let button = sender as? UIButton {
+                            if button.superview?.superview as? TagListViewButtonTableViewCell != nil {
+                                if let ppc = vc.popoverPresentationController {
+
+                                    // set the main language button as the anchor of the popOver
+                                    ppc.permittedArrowDirections = .right
+                                    // I need the button coordinates in the coordinates of the current controller view
+                                    let anchorFrame = button.convert(button.bounds, to: self.view)
+                                    ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
+                                    ppc.delegate = self
+                                }
+                            }
+                        }
+                    }
 
             default: break
             }

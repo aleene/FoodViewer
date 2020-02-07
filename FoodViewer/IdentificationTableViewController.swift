@@ -329,7 +329,11 @@ class IdentificationTableViewController: UITableViewController {
         case .languages:
             if editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewButtonTableViewCell.self), for: indexPath) as! TagListViewButtonTableViewCell
-                cell.setup(datasource: self, delegate: self, showButton: false, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: nil)
+                cell.setup(datasource: self,
+                           delegate: self,
+                           showButton: false,
+                           width: tableView.frame.size.width,
+                           tag: indexPath.section)
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
@@ -338,12 +342,12 @@ class IdentificationTableViewController: UITableViewController {
             }
         case .brands:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
+            cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
 
         case .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-            cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
+            cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
             
         case .quantity:
@@ -1140,7 +1144,6 @@ extension IdentificationTableViewController: QuantityTableViewCellDelegate {
         self.tableView.reloadData()
     }
 }
-
 //
 // MARK: - TagListViewButtonCellDelegate Functions
 //

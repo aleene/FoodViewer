@@ -5,7 +5,7 @@
 //  Created by arnaud on 21/11/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
-
+/*
 import UIKit
 
 protocol PurchacePlaceCellDelegate: class {
@@ -109,3 +109,4 @@ extension PurchacePlaceCellDelegate {
     public func purchacePlaceTableViewCell(_ sender: PurchacePlaceTableViewCell, receivedDoubleTapOn tagListView: TagListView) { }
 }
 
+*/
