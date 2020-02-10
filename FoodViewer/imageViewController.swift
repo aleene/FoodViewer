@@ -8,15 +8,21 @@
 
 import UIKit
 
+protocol ImageViewControllerCoordinator {
+    func imageViewController(_ sender:ImageViewController, tapped barButton:UIBarButtonItem)
+}
+
 class ImageViewController: UIViewController {
     
     var imageData: ProductImageData?
     
     var imageTitle: String? = nil {
         didSet {
-            title = imageTitle != nil ? imageTitle! : TranslatableStrings.NoTitle
+            navItem.title  = imageTitle != nil ? imageTitle! : TranslatableStrings.NoTitle
         }
     }
+    
+    var coordinator: (Coordinator & ImageViewControllerCoordinator)? = nil
     
     @IBOutlet weak var imageView: UIImageView! {
         didSet {
@@ -26,7 +32,12 @@ class ImageViewController: UIViewController {
             }
         }
     }
-        
+    @IBOutlet weak var navItem: UINavigationItem!
+    
+    @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator?.imageViewController(self, tapped:sender)
+    }
+    
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
@@ -88,6 +99,7 @@ class ImageViewController: UIViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
+        coordinator?.viewControllerDidDisappear(self)
         super.viewDidDisappear(animated)
     }
     

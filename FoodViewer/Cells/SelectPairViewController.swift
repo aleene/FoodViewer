@@ -9,6 +9,22 @@
 
 
 import UIKit
+
+protocol SelectPairViewControllerCoordinator {
+/**
+Inform the protocol delegate that no data has been selected.
+- Parameters:
+     - sender : the `SelectPairViewController` that called the function.
+*/
+    func selectPairViewControllerDidCancel(_ sender:SelectPairViewController)
+    /**
+    Inform the protocol delegate that a date has been selected.
+    - Parameters:
+        - sender : the `SelectPairViewController` that called the function.
+        - strings : the selected strings
+    */
+    func selectPairViewController(_ sender:SelectPairViewController, selected strings: [String]?)
+}
 /// This class allows the user to pick a from a  list of Strings.
 /// The strings asre divided in as set of assigned and unassigned.
 /// The user can filter the list of strings through entering a text string
@@ -34,15 +50,14 @@ class SelectPairViewController: UIViewController {
                    showOriginalsAsSelected: Bool,
                    assignedHeader: String,
                    unAssignedHeader: String,
-                   undefinedText: String,
-                   cellIdentifierExtension: String?) {
+                   undefinedText: String) {
         self.original = original
+        self.showOriginals = showOriginalsAsSelected
         self.allPairs = allPairs
         self.multipleSelectionIsAllowed = multipleSelectionIsAllowed
         self.assignedHeader = assignedHeader
         self.unAssignedHeader = unAssignedHeader
         self.undefinedText = undefinedText
-        self.cellIdentifierExtension = cellIdentifierExtension
     }
 
 //
@@ -50,10 +65,14 @@ class SelectPairViewController: UIViewController {
 //
 /// After the user has selected (or deleted) one or more strings, the results wil be available.
 /// - parameter selected: The newly selected array with strings. These are encoded as keys (en:value).
-    var selected: [String]? {
+    private var selected: [String]? {
         //guard let validPairs = selectedPairs else { return nil }
         return selectedPairs?.map({ $0.code })
     }
+    
+    var coordinator: (SelectPairViewControllerCoordinator & Coordinator)? = nil
+    
+    var tag: Int = 0
 //
 // MARK: - Internal input properties
 //
@@ -131,6 +150,14 @@ class SelectPairViewController: UIViewController {
             navItem.title = TranslatableStrings.Select
         }
     }
+    
+    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator?.selectPairViewControllerDidCancel(self)
+    }
+    
+    @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator?.selectPairViewController(self, selected: selected)
+    }
 //
 //  MARK : Helper functions
 //
@@ -183,6 +210,10 @@ class SelectPairViewController: UIViewController {
         setup()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        coordinator?.viewControllerDidDisappear(self)
+        super.viewDidDisappear(animated)
+    }
 }
 //
 // MARK: - UISearchBarDelegate Functions

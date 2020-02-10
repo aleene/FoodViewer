@@ -25,4 +25,12 @@ extension UIViewController {
     func cellIdentifier<T: UITableViewCell>(for cellType: T.Type) -> String {
         return String(describing:cellType) + "." + String(describing:type(of: self).self)
     }
+    
+    static func instantiate() -> Self {
+        let fullName = NSStringFromClass(self).components(separatedBy: ".")
+        guard fullName.count > 1  else { fatalError() }
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        return storyboard.instantiateViewController(withIdentifier: fullName[1]) as! Self
+    }
+
 }

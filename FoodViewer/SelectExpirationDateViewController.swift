@@ -8,6 +8,23 @@
 
 import UIKit
 
+protocol SelectExpirationDateViewControllerCoordinator {
+/**
+Inform the protocol delegate that no data has been selected.
+- Parameters:
+    - sender : the `SelectExpirationDateViewController` that called the function.
+*/
+    func selectExpirationDateViewControllerDidCancel(_ sender:SelectExpirationDateViewController)
+/**
+Inform the protocol delegate that a date has been selected.
+- Parameters:
+    - sender : the `SelectExpirationDateViewController` that called the function.
+    - date : the selected date
+*/
+    func selectExpirationDateViewController(_ sender:SelectExpirationDateViewController, selected date:Date?)
+
+}
+
 class SelectExpirationDateViewController: UIViewController {
     
     var currentDate: Date? {
@@ -15,6 +32,8 @@ class SelectExpirationDateViewController: UIViewController {
             setupInterface()
         }
     }
+    
+    var coordinator: (SelectExpirationDateViewControllerCoordinator & Coordinator)? = nil
     
     private func setupInterface() {
         if expirationDatePicker != nil {
@@ -24,7 +43,7 @@ class SelectExpirationDateViewController: UIViewController {
         }
     }
     
-    var selectedDate: Date?
+    private var selectedDate: Date?
     
     @IBOutlet weak var expirationDatePicker: UIDatePicker! {
         didSet {
@@ -38,6 +57,13 @@ class SelectExpirationDateViewController: UIViewController {
     
     @IBOutlet weak var navItem: UINavigationItem!
 
+    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator?.selectExpirationDateViewControllerDidCancel(self)
+    }
+    
+    @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator?.selectExpirationDateViewController(self, selected: selectedDate)
+    }
     
     // MARK: - ViewController Lifecycle
     
@@ -46,4 +72,8 @@ class SelectExpirationDateViewController: UIViewController {
         navItem.title = TranslatableStrings.Select
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        coordinator?.viewControllerDidDisappear(self)
+        super.viewDidDisappear(animated)
+    }
 }

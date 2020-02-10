@@ -778,6 +778,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         vc.imageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients)
                     }
                 }
+                /*
             case segueIdentifier(to: SelectLanguageViewController.self):
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
@@ -805,6 +806,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         }
                     }
                 }
+ */
                 case segueIdentifier(to: SelectPairViewController.self):
                     if  let vc = segue.destination as? SelectPairViewController {
                         if let button = sender as? UIButton {
@@ -822,14 +824,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                                 // transfer the traces of the local product (if any or after edit)
                                 // or the countries of the remote product
                                 // The traces will be interpreted (i.e. as english keys)
-                                vc.configure(original: productPair?.tracesInterpreted?.list,
-                                             allPairs: OFFplists.manager.allAllergens,
-                                             multipleSelectionIsAllowed: true,
-                                             showOriginalsAsSelected: true,
-                                             assignedHeader: TranslatableStrings.SelectedTraces,
-                                             unAssignedHeader: TranslatableStrings.UnselectedTraces,
-                                             undefinedText: TranslatableStrings.NoTraceDefined,
-                                             cellIdentifierExtension: IngredientsTableViewController.identifier)
+                                //vc.configure(original: productPair?.tracesInterpreted?.list,
+                                //             allPairs: OFFplists.manager.allAllergens,
+                                //             multipleSelectionIsAllowed: true,
+                                 //            showOriginalsAsSelected: true,
+                                  //           assignedHeader: TranslatableStrings.SelectedTraces,
+                                  //           unAssignedHeader: TranslatableStrings.UnselectedTraces,
+                                   //          undefinedText: TranslatableStrings.NoTraceDefined,
+                                    //         cellIdentifierExtension: IngredientsTableViewController.identifier)
                             }
                         }
                     }
@@ -866,18 +868,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
         tableView.reloadData()
     }
-    
+    /*
     @IBAction func unwindSetTraceForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectPairViewController {
             // The countries are encoded as keys "en:english"
-            productPair?.update(tracesTags: vc.selected)
+            //productPair?.update(tracesTags: vc.selected)
             tableView.reloadData()
         }
     }
     
     @IBAction func unwindSetTraceForCancel(_ segue:UIStoryboardSegue) {
     }
-
+ */
     // MARK: - Popover delegation functions
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

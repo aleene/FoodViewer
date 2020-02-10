@@ -6,6 +6,7 @@
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import MobileCoreServices
 
@@ -16,15 +17,18 @@ class IdentificationTableViewController: UITableViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
+                coordinator?.productPair = productPair
                 tableView.reloadData()
             }
         }
     }
     
-    var editMode: Bool {
+    var coordinator: IdentificationCoordinator? = nil
+    
+    private var editMode: Bool {
         return delegate?.editMode ?? false
     }
-
+    
 //
 // MARK: - Fileprivate Functions/variables
 //
@@ -53,7 +57,7 @@ class IdentificationTableViewController: UITableViewController {
 
     // The languageCode as defined by the user (double tapping/selecting)
     // The user can set for which language he wants to see the name/genericName and front image
-    fileprivate var currentLanguageCode: String? {
+    public var currentLanguageCode: String? {
         get {
             return delegate?.currentLanguageCode
         }
@@ -263,6 +267,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.barcode = productPair?.barcodeType.asString
             cell.mainLanguageCode = primaryLanguageCodeToDisplay
             cell.editMode = editMode
+            cell.delegate = self
             if editMode,
                 productPair?.localProduct?.primaryLanguageCode != productPair?.remoteProduct?.primaryLanguageCode {
                 cell.editMode = productVersion.isRemote ? false : true
@@ -283,10 +288,10 @@ class IdentificationTableViewController: UITableViewController {
 
             cell.name = editMode ? TranslatableStrings.PlaceholderProductName : nil
             //cell.nameTextView.textColor = .gray
+            cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
             if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
                 cell.isMultilingual = validNumberOfProductLanguages > 1 ? true : false
             }
-            cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
             switch nameToDisplay {
             case .available(let array):
                 if !array.isEmpty && !array.first!.isEmpty {
@@ -387,6 +392,22 @@ class IdentificationTableViewController: UITableViewController {
                 cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: ColorSchemes.error)
                 return cell
             }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath:IndexPath) {
+        tableView.deselectRow(at:indexPath, animated: false)
+        switch tableStructure[indexPath.section] {
+        case .image:
+            if let validLanguageCode = displayLanguageCode {
+                if let images = productPair?.localProduct?.frontImages,
+                    !images.isEmpty {
+                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageData: productPair!.localProduct!.image(for:validLanguageCode, of:.front))
+                } else {
+                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageData: productPair!.remoteProduct!.image(for:validLanguageCode, of:.front))
+                }
+            }
+        default: break
         }
     }
     
@@ -760,7 +781,7 @@ class IdentificationTableViewController: UITableViewController {
     }
 
     // MARK: - Segue stuff
-
+/*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
@@ -868,29 +889,31 @@ class IdentificationTableViewController: UITableViewController {
     
     @IBAction func unwindChangeMainLanguageForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectPairViewController {
-            if let newLanguageCode = vc.selected?.first {
-                productPair?.update(primaryLanguageCode: newLanguageCode)
-                currentLanguageCode = newLanguageCode
-                tableView.reloadData()
-            }
+          //  if let newLanguageCode = vc.selected?.first {
+          //      productPair?.update(primaryLanguageCode: newLanguageCode)
+          //      currentLanguageCode = newLanguageCode
+           //     tableView.reloadData()
+           // }
         }
     }
-    
+ */
+    /*
     @IBAction func unwindAddLanguageForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectPairViewController {
-            if let newLanguageCodes = vc.selected {
-                for code in newLanguageCodes {
-                    productPair?.update(addLanguageCode: code)
-                }
-                currentLanguageCode = newLanguageCodes.first
-                tableView.reloadData()
-            }
+       //     if let newLanguageCodes = vc.selected {
+         //       for code in newLanguageCodes {
+       //             productPair?.update(addLanguageCode: code)
+       //         }
+        //        currentLanguageCode = newLanguageCodes.first
+        //        tableView.reloadData()
+         //   }
         }
     }
-    
     @IBAction func unwindAddLanguageForCancel(_ segue:UIStoryboardSegue) {
         // no action required
     }
+ */
+
 
 //
 // MARK: - Notification handlers
@@ -937,11 +960,13 @@ class IdentificationTableViewController: UITableViewController {
         tableView.reloadData()
         
     }
-    
-    func refreshInterface() {
+        
+    public func refreshInterface(with currentLanguageCode:String?) {
+        self.currentLanguageCode = currentLanguageCode
         tableView.reloadData()
     }
-    
+
+
     fileprivate lazy var imagePicker: GKImagePicker = {
         let picker = GKImagePicker.init()
         picker.imagePickerController = UIImagePickerController.init()
@@ -1049,6 +1074,8 @@ class IdentificationTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        coordinator = IdentificationCoordinator.init(with: self)
+
         if #available(iOS 11.0, *) {
             tableView.dragDelegate = self
             tableView.dropDelegate = self
@@ -1128,6 +1155,14 @@ class IdentificationTableViewController: UITableViewController {
     }
 
 }
+extension IdentificationTableViewController:  BarcodeTableViewCellDelegate {
+    
+    func barcodeTableViewCell(_ sender:BarcodeTableViewCell, didTap button:UIButton) {
+        coordinator?.selectMainLanguage()
+    }
+}
+
+
 //
 // MARK: - QuantityTableViewCellDelegate Function
 //
@@ -1149,9 +1184,9 @@ extension IdentificationTableViewController: QuantityTableViewCellDelegate {
 //
 extension IdentificationTableViewController: TagListViewButtonCellDelegate {
     
-    // function to let the delegate know that the switch changed
+    // function to let the delegate know that the button has been tapped
     func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
-        performSegue(withIdentifier: segueIdentifier(to: SelectPairViewController.self), sender: button)
+        coordinator?.addLanguages()
     }
 }
 //
@@ -1565,10 +1600,6 @@ extension IdentificationTableViewController: UITextFieldDelegate {
         switch currentProductSection {
         case .quantity:
             return editMode
-            /*
-        case .barcodeSearch:
-            return query!.type == .advanced ? false : editMode
- */
         default:
             // only allow edit for the primary language code
             return currentLanguageCode == productPair!.remoteProduct!.primaryLanguageCode ? editMode : false
@@ -1629,7 +1660,8 @@ extension IdentificationTableViewController: GKImagePickerDelegate {
 extension IdentificationTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
-        performSegue(withIdentifier: segueIdentifier(to: SelectLanguageViewController.self), sender: sender)
+        coordinator?.selectLanguage(currentLanguageCode: displayLanguageCode)
+        //performSegue(withIdentifier: segueIdentifier(to: SelectLanguageViewController.self), sender: sender)
     }
     
     func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {

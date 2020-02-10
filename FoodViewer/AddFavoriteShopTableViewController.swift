@@ -8,10 +8,34 @@
 
 import UIKit
 
-class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDelegate {
+protocol AddFavoriteShopTableViewControllerCoordinator {
+    
+/**
+The done button has been tapped and a new shop has been created.
+- Parameters:
+ - sender: the `AddFavoriteShopTableViewController` that sent the message
+ - shopName: The name of the added shop
+ - shopAddress: The address of the added shop
+*/
+    func addFavoriteShopTableViewController(_ sender:AddFavoriteShopTableViewController, shopName: String?, shopAddress: Address?)
+    
+/**
+The cancel button has been tapped and no new shop has been created.
+     
+- Parameters :
+ - sender: the `AddFavoriteShopTableViewController` that sent the message
+*/
+    func addFavoriteShopTableViewControllerDidCancel(_ sender:AddFavoriteShopTableViewController)
+    
+    func viewControllerDidDisappear(_ sender:UIViewController)
+}
 
-    var shopName: String? = nil
-    var shopAddress: Address? = nil
+final class AddFavoriteShopTableViewController: UITableViewController {
+
+    var coordinator: AddFavoriteShopTableViewControllerCoordinator? = nil
+    
+    private var shopName: String? = nil
+    private var shopAddress: Address? = nil
     
     fileprivate struct Storyboard {
         static let TextViewCellIdentifier = "TextFieldCell"
@@ -25,7 +49,11 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
         // Force edit end
         
         self.view.endEditing(true)
-        self.performSegue(withIdentifier: StoryboardString.SegueIdentifier.FromAddFavoriteShopTableVC.UnwindVC, sender: self)
+        //self.performSegue(withIdentifier: StoryboardString.SegueIdentifier.FromAddFavoriteShopTableVC.UnwindVC, sender: self)
+        coordinator?.addFavoriteShopTableViewController(self, shopName: shopName, shopAddress: shopAddress)
+    }
+    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator?.addFavoriteShopTableViewControllerDidCancel(self)
     }
     
     @IBOutlet weak var navItem: UINavigationItem!
@@ -65,8 +93,22 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
         return cell
     }
     
-    // MARK: - TextField stuff
-
+// MARK: - ViewController Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        coordinator?.viewControllerDidDisappear(self)
+        super.viewDidDisappear(animated)
+    }
+}
+//
+// MARK: - UITextFieldDelegate functions
+//
+extension AddFavoriteShopTableViewController : UITextFieldDelegate {
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.isFirstResponder { textField.resignFirstResponder() }
         return true
@@ -120,13 +162,5 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
         
         return true
     }
-    
-// MARK: - ViewController Lifecycle
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navItem.title = TranslatableStrings.Select
-    }
-    
 
 }

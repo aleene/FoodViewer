@@ -21,7 +21,7 @@ Function to let the delegate know that the tagListViewTableCell was single tappe
 /**
 Function to let the delegate know that a tag was double tapped
 - Attention: The function is optional. Default is that no action will be taken.
-- parameters :
+- Parameters:
      - sender : the tagListTableViewCell that sent the call
      - tagListView: the tagListView that received the doubletap
 */

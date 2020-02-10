@@ -865,6 +865,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
+                /*
             case segueIdentifier(to: SelectLanguageViewController.self):
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
@@ -914,6 +915,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     assert(true, "NutrientsTableViewController: ShowNutritionImageLanguages segue preparation wrongly configurated")
                 }
+ */
             case segueIdentifier(to: SelectNutritionFactsTableStyleTableViewCell.self):
                 if let vc = segue.destination as? SelectNutritionFactsTableStyleTableViewCell {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell

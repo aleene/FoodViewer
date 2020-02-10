@@ -25,10 +25,13 @@ class CategoriesTableViewController: UITableViewController {
         didSet {
             if delegate != oldValue && delegate != nil {
                 tableView.reloadData()
+                coordinator?.productPair = productPair
             }
         }
     }
 
+    var coordinator: CategoriesCoordinator? = nil
+    
     // MARK: - Private Functions / Variables
     
     fileprivate var productPair: ProductPair? {
@@ -209,6 +212,7 @@ class CategoriesTableViewController: UITableViewController {
 //
 // MARK: - Navigation
 //
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
@@ -245,17 +249,18 @@ class CategoriesTableViewController: UITableViewController {
                 }
             }
         }
-            
+ */
+          /*
     @IBAction func unwindSetCategoryForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectPairViewController {
         // The categories are encoded as keys "en:english"
-            productPair?.update(categories: vc.selected)
+        //    productPair?.update(categories: vc.selected)
             tableView.reloadData()
         }
     }
-        
     @IBAction func unwindSetCategoryForCancel(_ segue:UIStoryboardSegue) {
     }
+ */
 
 //
 // MARK: - Notification Handler Functions
@@ -292,7 +297,7 @@ class CategoriesTableViewController: UITableViewController {
 //
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        coordinator = CategoriesCoordinator.init(with:self)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
@@ -490,7 +495,8 @@ extension CategoriesTableViewController: TagListViewButtonCellDelegate {
     
     // function to let the delegate know that the button was tapped
     func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
-        performSegue(withIdentifier: segueIdentifier(to: SelectPairViewController.self), sender: button)
+        coordinator?.selectCategory()
+        //performSegue(withIdentifier: segueIdentifier(to: SelectPairViewController.self), sender: button)
     }
 }
 //

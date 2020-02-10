@@ -8,6 +8,17 @@
 
 import UIKit
 
+protocol ExpirationDateTableViewDelegate {
+/**
+Function to let the delegate know that the button was tapped.
+                 
+- parameters:
+    - sender : the `TagListViewButtonTableViewCell` that is at the origin of the function call
+    - button : the tagListView that has been tapped on
+*/
+    func expirationDateTableViewCell(_ sender: ExpirationDateTableViewCell, receivedTapOn button:UIButton)
+}
+
 class ExpirationDateTableViewCell: UITableViewCell {
 
     fileprivate struct Constants {
@@ -28,11 +39,13 @@ class ExpirationDateTableViewCell: UITableViewCell {
         }
     }
     
-    var delegate: UITextFieldDelegate? = nil {
+    var delegate: ExpirationDateTableViewDelegate? = nil {
         didSet {
-            expirationDateTextField?.delegate = delegate
+            expirationDateTextField?.delegate = delegate as? UITextFieldDelegate
         }
     }
+    
+    
     
     override var tag: Int {
         didSet {
@@ -50,7 +63,7 @@ class ExpirationDateTableViewCell: UITableViewCell {
             expirationDateTextField?.text = Constants.NoExpirationDate
         }
         // expirationDateTextField?.layer.borderWidth = 0.0
-        expirationDateTextField?.delegate = delegate
+        expirationDateTextField?.delegate = delegate as? UITextFieldDelegate
         expirationDateTextField?.tag = tag
         expirationDateTextField?.isEnabled = false
         expirationDateButton?.isHidden = !editMode
@@ -68,7 +81,9 @@ class ExpirationDateTableViewCell: UITableViewCell {
             }
     }
     
-    @IBAction func expirationDateButtonTapped(_ sender: UIButton) {  }
+    @IBAction func expirationDateButtonTapped(_ sender: UIButton) {
+        delegate?.expirationDateTableViewCell(self, receivedTapOn:sender)
+    }
     
 
     @IBOutlet weak var expirationDateTextField: UITextField! {

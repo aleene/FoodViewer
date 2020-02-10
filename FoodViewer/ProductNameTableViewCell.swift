@@ -17,12 +17,14 @@ protocol ProductNameCellDelegate: class {
 
 class ProductNameTableViewCell: UITableViewCell {
     
+    /// string to use for the product
     var name: String? = nil {
         didSet {
             setName()
         }
     }
     
+    /// editMode - determines whether the button is shown and the name in editMode
     var editMode: Bool = false {
         didSet {
             setTextViewStyle()
@@ -39,7 +41,7 @@ class ProductNameTableViewCell: UITableViewCell {
     
     var isMultilingual = false {
         didSet {
-            toggleViewModeButton?.isHidden = !isMultilingual
+            toggleViewModeButton?.isHidden = editMode ? true : !isMultilingual
         }
     }
     
@@ -94,11 +96,11 @@ class ProductNameTableViewCell: UITableViewCell {
         if editMode {
             nameTextView?.layer.cornerRadius = 5
             nameTextView?.clipsToBounds = true
-            toggleViewModeButton?.isHidden = true
         } else {
             setButtonOrDoubletap(buttonNotDoubleTap)
-            toggleViewModeButton?.isHidden = !isMultilingual
         }
+        toggleViewModeButton?.isHidden = editMode ? true : !isMultilingual
+
     }
     
     private func setTextViewClearButton() {
@@ -121,7 +123,11 @@ class ProductNameTableViewCell: UITableViewCell {
     
     private func setButtonOrDoubletap(_ useButton:Bool?) {
         guard let validUseButton = useButton else { return }
-        toggleViewModeButton?.isHidden = !validUseButton
+        if validUseButton {
+            toggleViewModeButton?.isHidden = editMode ? true : !isMultilingual
+        } else {
+            toggleViewModeButton?.isHidden = true
+        }
         if !validUseButton {
             let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
             doubleTapGestureRecognizer.numberOfTapsRequired = 2

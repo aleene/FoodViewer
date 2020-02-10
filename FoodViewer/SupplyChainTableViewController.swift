@@ -16,11 +16,13 @@ class SupplyChainTableViewController: UITableViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
+                coordinator?.productPair = productPair
                 tableView.reloadData()
             }
         }
     }
 
+    var coordinator: SupplyChainCoordinator? = nil
 
 // MARK: Private Functions/Variables
     
@@ -630,6 +632,7 @@ class SupplyChainTableViewController: UITableViewController {
         }
     }
 
+    /*
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
@@ -637,12 +640,14 @@ class SupplyChainTableViewController: UITableViewController {
         if editMode {
             switch currentProductSection {
             case .expirationDate:
-                performSegue(withIdentifier: segueIdentifier(to: SelectExpirationDateViewController.self), sender: self)
+                coordinator?.selectExpirationDate(anchored)
+                //performSegue(withIdentifier: segueIdentifier(to: SelectExpirationDateViewController.self), sender: self)
             default:
                 break
             }
         }
     }
+ */
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
@@ -675,6 +680,7 @@ class SupplyChainTableViewController: UITableViewController {
 
     @objc func refreshProduct() {
         productVersion = .new
+        coordinator?.productPair = productPair
         tableView.reloadData()
     }
 
@@ -682,6 +688,7 @@ class SupplyChainTableViewController: UITableViewController {
         productPair!.remoteProduct = nil
         tableView.reloadData()
     }
+    /*
 //
 // MARK: - Navigation
 //
@@ -766,7 +773,8 @@ class SupplyChainTableViewController: UITableViewController {
             }
         }
     }
-
+*/
+    /*
     @IBAction func unwindSetExpirationDateForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectExpirationDateViewController {
             if let newDate = vc.selectedDate {
@@ -778,7 +786,8 @@ class SupplyChainTableViewController: UITableViewController {
     
     @IBAction func unwindSetExpirationDateForCancel(_ segue:UIStoryboardSegue) {
     }
-
+*/
+    /*
     @IBAction func unwindSetFavoriteShopForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? FavoriteShopsTableViewController {
             productPair?.update(shop: vc.selectedShop)
@@ -788,7 +797,8 @@ class SupplyChainTableViewController: UITableViewController {
     
     @IBAction func unwindSetFavoriteShopForCancel(_ segue:UIStoryboardSegue) {
     }
-    
+ */
+    /*
     @IBAction func unwindSetCountryForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectPairViewController {
             // The countries are encoded as keys "en:english"
@@ -799,7 +809,7 @@ class SupplyChainTableViewController: UITableViewController {
     
     @IBAction func unwindSetCountryForCancel(_ segue:UIStoryboardSegue) {
     }
-
+*/
     @objc func doubleTapOnTableView() {
         switch productVersion {
         case .new:
@@ -819,7 +829,8 @@ class SupplyChainTableViewController: UITableViewController {
 //
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        coordinator = SupplyChainCoordinator.init(with: self)
+        coordinator?.productPair = productPair
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
@@ -852,6 +863,31 @@ class SupplyChainTableViewController: UITableViewController {
     }
 
 }
+//
+// MARK: - TagListViewButtonTableViewCellDelegate Functions
+//
+extension SupplyChainTableViewController : TagListViewButtonCellDelegate {
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
+        let (currentProductSection, _, _) = tableStructureForProduct[sender.tag]
+        switch currentProductSection {
+        case .store,
+             .location:
+            coordinator?.selectFavoriteShop()
+        case .country:
+            coordinator?.selectCountry()
+        default:
+            break
+        }
+    }
+
+}
+extension SupplyChainTableViewController :  ExpirationDateTableViewDelegate {
+    
+    func expirationDateTableViewCell(_ sender: ExpirationDateTableViewCell, receivedTapOn button:UIButton) {
+        coordinator?.selectExpirationDate(anchoredOn:button)
+    }
+}
+
 //
 // MARK: - LanguageHeaderDelegate Functions
 //

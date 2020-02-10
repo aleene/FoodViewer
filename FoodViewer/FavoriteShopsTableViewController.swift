@@ -8,18 +8,47 @@
 
 import UIKit
 
-class FavoriteShopsTableViewController: UITableViewController {
+protocol FavoriteShopsTableViewControllerCoordinator {
+/**
+Inform the protocol delegate that no shop has been selected.
+- Parameters:
+     - sender : the `FavoriteShopsTableViewController` that called the function.
+     - shop : the name and address of the selected shop
+*/
+    func favoriteShopsTableViewController(_ sender:FavoriteShopsTableViewController, selected shop:(String, Address)?)
+/**
+Inform the protocol delegate that no shop has been selected.
+- Parameters:
+     - sender : the `FavoriteShopsTableViewController` that called the function.
+*/
+    func favoriteShopsTableViewControllerDidCancel(_ sender:FavoriteShopsTableViewController)
 
+    func favoriteShopsTableViewControllerAddFavoriteShop(_ sender:FavoriteShopsTableViewController)
+        
+    }
+
+/// An UIViewController that allows to select (and add) a shop (name + address).
+class FavoriteShopsTableViewController: UITableViewController {
+    
+    /// The coordinator that manages the flow.
+    var coordinator: (FavoriteShopsTableViewControllerCoordinator & Coordinator)? = nil
+    
+    /// Refresh the tableView with favorite shops
+    func refresh() {
+        tableView.reloadData()
+    }
+//
+// MARK : - private variables
+//
     private var shops: [(String, Address)] = []
 
     private var snapShot: UIView?
     
     private var sourceIndexPath: IndexPath?
     
-    var editMode = false
+    private var editMode = false
     
-    var selectedShop: (String, Address)? = nil
-
+    private var selectedShop: (String, Address)? = nil
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -102,6 +131,7 @@ class FavoriteShopsTableViewController: UITableViewController {
         return true
     }
     
+    /*
     @IBAction func unwindAddFavoriteShopForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? AddFavoriteShopTableViewController {
             // make sure the user has entered any info?
@@ -113,12 +143,21 @@ class FavoriteShopsTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-        
+ */
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
         editMode = !editMode
     }
     
-    @IBAction func unwindAddFavoriteShopForCancel(_ segue:UIStoryboardSegue) {
+    @IBAction func addShopButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator?.favoriteShopsTableViewControllerAddFavoriteShop(self)
+    }
+    
+    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator?.favoriteShopsTableViewControllerDidCancel(self)
+    }
+    
+    @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator?.favoriteShopsTableViewController(self, selected:selectedShop)
     }
     
     @IBOutlet weak var navItem: UINavigationItem!
@@ -259,5 +298,10 @@ class FavoriteShopsTableViewController: UITableViewController {
             }
         }
         super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        coordinator?.viewControllerDidDisappear(self)
+        super.viewDidDisappear(animated)
     }
 }

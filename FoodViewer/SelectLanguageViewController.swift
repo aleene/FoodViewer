@@ -8,46 +8,66 @@
 
 import UIKit
 
-class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+protocol SelectLanguageViewControllerCoordinator {
+    /**
+    Inform the protocol delegate that no shop has been selected.
+    - Parameters:
+         - sender : the `SelectLanguageViewController` that called the function.
+         - languageCodes : the name and address of the selected languageCodes
+    */
+    func selectLanguageViewController(_ sender:SelectLanguageViewController, selected languageCode:String?)
+    /**
+    Inform the protocol delegate that no shop has been selected.
+    - Parameters:
+         - sender : the `SelectLanguageViewController` that called the function.
+    */
+    func selectLanguageViewControllerDidCancel(_ sender:SelectLanguageViewController)
+}
+
+final class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    var coordinator: (Coordinator & SelectLanguageViewControllerCoordinator)? = nil
     // MARK: - External properties
     
-    
-    var languageCodes: [String] = [] {
+    public func configure(primaryLanguageCode: String?, currentLanguageCode: String?, languageCodes: [String]?) {
+        self.primaryLanguageCode = primaryLanguageCode
+        self.currentLanguageCode = currentLanguageCode
+        self.languageCodes = languageCodes
+    }
+    private var languageCodes: [String]? = nil {
         didSet {
             setupLanguages()
         }
     }
     
-    var updatedLanguageCodes: [String] = [] {
+    private var updatedLanguageCodes: [String] = [] {
         didSet {
             setupLanguages()
         }
      }
 
-    var currentLanguageCode: String? = nil {
+    private var currentLanguageCode: String? = nil {
         didSet {
             selectedLanguageCode = currentLanguageCode
         }
     }
         
-    var primaryLanguageCode: String? = nil
+    private var primaryLanguageCode: String? = nil
     
-    var updatedPrimaryLanguageCode: String? = nil
-
-    var selectedLanguageCode: String? = nil {
+    private var selectedLanguageCode: String? = nil {
         didSet {
             positionPickerView()
         }
     }
-
+    /*
     var editMode = false {
         didSet {
             setAddBarButtonItem()
         }
     }
+     */
     
-    var productPair: ProductPair? = nil
+    //var productPair: ProductPair? = nil
 
     var sourcePage = 0
 
@@ -66,7 +86,8 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     // These are only the languageCodes that are not yet on the product
     private var languageCodesToUse: [String] {
         get {
-            return updatedLanguageCodes.count > languageCodes.count ? updatedLanguageCodes : languageCodes
+            guard let validLanguageCodes = languageCodes else { return [] }
+            return updatedLanguageCodes.count > validLanguageCodes.count ? updatedLanguageCodes : validLanguageCodes
         }
     }
 
@@ -84,6 +105,13 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     @IBAction func defineLanguageTextField(_ sender: UITextField) {
         
+    }
+    
+    @IBAction func cancelBarButtonItemTapped(_ sender: UIBarButtonItem) {
+        coordinator?.selectLanguageViewController(self, selected:selectedLanguageCode)
+    }
+    
+    @IBAction func doneBarButtonItemTapped(_ sender: UIBarButtonItem) {
     }
     
     // MARK: - Delegates and datasource
@@ -127,7 +155,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         myLabel?.textAlignment = .center
 
         // has the primary languageCode been updated?
-        let currentLanguageCode = updatedPrimaryLanguageCode != nil ? updatedPrimaryLanguageCode : primaryLanguageCode
+        let currentLanguageCode = primaryLanguageCode
         if !filteredLanguages.isEmpty && row > 0 {
             // is this the primary language?
             if (filteredLanguages[row].code == currentLanguageCode) {
@@ -167,7 +195,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     private func setAddBarButtonItem() {
         if addBarButtonItem != nil {
-            addBarButtonItem!.isEnabled = editMode
+            addBarButtonItem!.isEnabled = false
         }
     }
     
@@ -244,6 +272,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
+        coordinator?.viewControllerDidDisappear(self)
         super.viewDidDisappear(animated)
     }
 

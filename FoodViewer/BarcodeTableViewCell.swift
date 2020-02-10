@@ -9,6 +9,11 @@
 import UIKit
 import AVFoundation
 
+protocol BarcodeTableViewCellDelegate {
+    
+    func barcodeTableViewCell(_ sender:BarcodeTableViewCell, didTap button:UIButton)
+}
+
 class BarcodeTableViewCell: UITableViewCell {
 
     var barcode: String? = nil {
@@ -40,6 +45,8 @@ class BarcodeTableViewCell: UITableViewCell {
         }
     }
     
+    var delegate: BarcodeTableViewCellDelegate? = nil
+    
     var editMode = false {
         didSet {
             mainLanguageButton?.isEnabled = editMode
@@ -56,5 +63,7 @@ class BarcodeTableViewCell: UITableViewCell {
         }
     }
     
-    @IBAction func mainLanguageTapped(_ sender: UIButton) {    }
+    @IBAction func mainLanguageTapped(_ sender: UIButton) {
+        delegate?.barcodeTableViewCell(self, didTap:sender)
+    }
 }
