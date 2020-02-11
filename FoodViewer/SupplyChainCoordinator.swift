@@ -23,11 +23,11 @@ class SupplyChainCoordinator: Coordinator {
     }
     
     func selectFavoriteShop() {
-        let childViewController = FavoriteShopsTableViewController.instantiate()
+        let childViewController = FavoriteShopsViewController.instantiate()
         childViewController.coordinator = self
         let childCoordinator = FavoriteShopsCoordinator.init(with: childViewController)
         childCoordinators.append(childCoordinator)
-        viewController?.present(childViewController, animated: true, completion: nil)
+        presentAsFormSheet(childViewController)
     }
     
     func selectExpirationDate(anchoredOn button:UIButton) {
@@ -46,18 +46,7 @@ class SupplyChainCoordinator: Coordinator {
         } else {
             childViewController.currentDate = nil
         }
-        childViewController.modalPresentationStyle = .popover
-        if let ppc = childViewController.popoverPresentationController {
-            // set the main language button as the anchor of the popOver
-            ppc.permittedArrowDirections = .right
-            // I need the button coordinates in the coordinates of the current controller view
-            let anchorFrame = button.convert(button.bounds, to: self.viewController?.view)
-            ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-            ppc.sourceView = self.viewController?.view
-            ppc.delegate = self.coordinatorViewController
-            childViewController.preferredContentSize = childViewController.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-            viewController?.present(childViewController, animated: true, completion: nil)
-        }
+        presentAsPopOver(childViewController, at: button)
     }
 
     func selectCountry() {
@@ -70,28 +59,26 @@ class SupplyChainCoordinator: Coordinator {
                      assignedHeader: TranslatableStrings.SelectedCountries,
                      unAssignedHeader: TranslatableStrings.UnselectedCountries,
                      undefinedText: TranslatableStrings.NoCountryDefined)
-        viewController?.present(childViewController, animated: true, completion: nil)
+        presentAsFormSheet(childViewController)
     }
     
     private func refresh() {
-        if let vc = self.viewController as? SupplyChainTableViewController {
-            vc.refreshInterface()
-        }
+        coordinatorViewController?.refreshInterface()
     }
 
 }
 
 
-extension SupplyChainCoordinator: FavoriteShopsTableViewControllerCoordinator {
+extension SupplyChainCoordinator: FavoriteShopsViewControllerCoordinator {
     
-    func favoriteShopsTableViewControllerAddFavoriteShop(_ sender: FavoriteShopsTableViewController) {
+    func favoriteShopsTableViewControllerAddFavoriteShop(_ sender: FavoriteShopsViewController) {
         // This viewController has its own coordinator
         if let coordinator = childCoordinators.first(where: ({ $0 is FavoriteShopsCoordinator }) ) as? FavoriteShopsCoordinator {
             coordinator.showAddFavoriteShopTableViewController()
         }
     }
     
-    func favoriteShopsTableViewController(_ sender:FavoriteShopsTableViewController, selected shop:(String, Address)?) {
+    func favoriteShopsTableViewController(_ sender:FavoriteShopsViewController, selected shop:(String, Address)?) {
         if let validShop = shop {
             productPair?.update(shop: validShop)
             self.refresh()
@@ -99,7 +86,7 @@ extension SupplyChainCoordinator: FavoriteShopsTableViewControllerCoordinator {
         sender.dismiss(animated: true, completion: nil)
     }
 
-    func favoriteShopsTableViewControllerDidCancel(_ sender:FavoriteShopsTableViewController) {
+    func favoriteShopsTableViewControllerDidCancel(_ sender:FavoriteShopsViewController) {
         sender.dismiss(animated: true, completion: nil)
     }
     

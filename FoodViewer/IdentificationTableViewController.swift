@@ -957,6 +957,7 @@ class IdentificationTableViewController: UITableViewController {
     
     @objc func refreshProduct() {
         productVersion = .new
+        coordinator?.productPair = productPair
         tableView.reloadData()
         
     }
@@ -1138,7 +1139,6 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
-        //NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.SearchTypeChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded(_:)), name:.ProductPairImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
@@ -1660,7 +1660,7 @@ extension IdentificationTableViewController: GKImagePickerDelegate {
 extension IdentificationTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
-        coordinator?.selectLanguage(currentLanguageCode: displayLanguageCode)
+        coordinator?.selectLanguage(currentLanguageCode: displayLanguageCode, atAnchor: sender)
         //performSegue(withIdentifier: segueIdentifier(to: SelectLanguageViewController.self), sender: sender)
     }
     

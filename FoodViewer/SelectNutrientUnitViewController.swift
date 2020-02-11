@@ -8,28 +8,69 @@
 
 import UIKit
 
+protocol SelectNutrientUnitViewControllerCoordinator {
+    /**
+    Inform the protocol delegate that no shop has been selected.
+    - Parameters:
+         - sender : the `SelectNutrientUnitViewController` that called the function.
+         - nutrientRow : the row number of that is changed
+    */
+    func selectNutrientUnitViewController(_ sender:SelectNutrientUnitViewController, nutrient:Nutrient?, unit:NutritionFactUnit?)
+    /**
+    Inform the protocol delegate that no shop has been selected.
+    - Parameters:
+         - sender : the `SelectNutrientUnitViewController` that called the function.
+    */
+    func selectNutrientUnitViewControllerDidCancel(_ sender:SelectNutrientUnitViewController)
+}
+
 class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
+    var coordinator: (Coordinator & SelectNutrientUnitViewControllerCoordinator)? = nil
 
     private struct Constants {
         static let UnwindSegue = "Unwind Set Nutrient Unit"
         static let RowOffset = 1
     }
-
-    var nutrientRow: Int? = nil
     
-    var energyUnit: Bool {
-        return currentNutritionFactKey != nil ? currentNutritionFactKey!.contains("energy") : false
+    public func configure(nutrient: Nutrient?, unit: NutritionFactUnit?) {
+        self.currentNutrient = nutrient
+        self.currentNutritionUnit = unit
     }
     
-    var currentNutritionUnit: NutritionFactUnit? = nil
+    private var energyUnit: Bool {
+        guard let validNutrient = currentNutrient else { return false }
+        switch validNutrient {
+        case .energy ,.energyKcal, .energyFromFat:
+            return true
+        default:
+            return false
+        }
+    }
     
-    var currentNutritionFactKey: String? = nil
+    private var currentNutrient: Nutrient? = nil
     
-    var selectedNutritionUnit: NutritionFactUnit? = nil
+    private var currentNutritionUnit: NutritionFactUnit? = nil
+        
+    private var selectedNutritionUnit: NutritionFactUnit? = nil
     
-    @IBOutlet weak var nutrientUnitsPickerView: UIPickerView!
+    @IBOutlet weak var nutrientUnitsPickerView: UIPickerView! {
+        didSet {
+            nutrientUnitsPickerView?.delegate = self
+            nutrientUnitsPickerView?.dataSource = self
+            nutrientUnitsPickerView?.showsSelectionIndicator = true
+        }
+    }
     
     @IBOutlet weak var navItem: UINavigationItem!
+
+    @IBAction func doneBarButtonItemTapped(_ sender: UIBarButtonItem) {
+        coordinator?.selectNutrientUnitViewController(self, nutrient: currentNutrient, unit: selectedNutritionUnit)
+    }
+    
+    @IBAction func cancelBarButtonItemTapped(_ sender: UIBarButtonItem) {
+        coordinator?.selectNutrientUnitViewControllerDidCancel(self)
+    }
 
 // MARK: - PickerView Datasource methods
     
@@ -56,17 +97,8 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if row >= Constants.RowOffset {
             selectedNutritionUnit = NutritionFactUnit.units(for:energyUnit)[row - Constants.RowOffset]
-            performSegue(withIdentifier: Constants.UnwindSegue, sender: self)
+            coordinator?.selectNutrientUnitViewController(self, nutrient: currentNutrient, unit: selectedNutritionUnit)
         }
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        nutrientUnitsPickerView?.delegate = self
-        nutrientUnitsPickerView?.dataSource = self
-        nutrientUnitsPickerView?.showsSelectionIndicator = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -74,5 +106,9 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
         navItem.title = TranslatableStrings.Select
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        coordinator?.viewControllerDidDisappear(self)
+        super.viewDidDisappear(animated)
+    }
 
 }

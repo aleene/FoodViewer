@@ -10,10 +10,12 @@ import UIKit
 
 protocol AddNutrientCellDelegate: class {
     
-    // function to let the delegate know that the EU nutrient set button has been tapped
+    /// function to let the delegate know that the EU nutrient set button has been tapped
     func addEUNutrientSetTableViewCell(_ sender: AddNutrientTableViewCell, receivedTapOn button:UIButton)
-    // function to let the delegate know that the US nutrient set button has been tapped
+    /// function to let the delegate know that the US nutrient set button has been tapped
     func addUSNutrientSetTableViewCell(_ sender: AddNutrientTableViewCell, receivedTapOn button:UIButton)
+    
+    func addNutrientTableViewCell(_ sender:AddNutrientTableViewCell, tappedOn button:UIButton)
 }
 
 // A cell with a button. The text of the button has to be set by the tableview
@@ -47,7 +49,9 @@ class AddNutrientTableViewCell: UITableViewCell {
         delegate?.addUSNutrientSetTableViewCell(self, receivedTapOn: sender)
     }
 
-    @IBAction func addNutrientButtonTapped(_ sender: UIButton) {    }
+    @IBAction func addNutrientButtonTapped(_ sender: UIButton) {
+        delegate?.addNutrientTableViewCell(self, tappedOn: sender)
+    }
     
     var buttonText: String? = nil {
         didSet {

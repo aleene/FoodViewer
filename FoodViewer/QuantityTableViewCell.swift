@@ -84,11 +84,12 @@ class QuantityTableViewCell: UITableViewCell {
             textField.borderStyle = .roundedRect
             if #available(iOS 13.0, *) {
                 textField.backgroundColor = .systemBackground
-                textField.layer.borderColor = UIColor.systemBackground.cgColor
+                textField.layer.borderWidth = 0.0
+                
                 textField.textColor = .label
             } else {
                 textField.backgroundColor = .white
-                textField.layer.borderColor = UIColor.white.cgColor
+                textField.layer.borderWidth = 0.0
                 textField.textColor = .black
             }
         }

@@ -8,30 +8,30 @@
 
 import UIKit
 
-protocol FavoriteShopsTableViewControllerCoordinator {
+protocol FavoriteShopsViewControllerCoordinator {
 /**
 Inform the protocol delegate that no shop has been selected.
 - Parameters:
      - sender : the `FavoriteShopsTableViewController` that called the function.
      - shop : the name and address of the selected shop
 */
-    func favoriteShopsTableViewController(_ sender:FavoriteShopsTableViewController, selected shop:(String, Address)?)
+    func favoriteShopsTableViewController(_ sender:FavoriteShopsViewController, selected shop:(String, Address)?)
 /**
 Inform the protocol delegate that no shop has been selected.
 - Parameters:
      - sender : the `FavoriteShopsTableViewController` that called the function.
 */
-    func favoriteShopsTableViewControllerDidCancel(_ sender:FavoriteShopsTableViewController)
+    func favoriteShopsTableViewControllerDidCancel(_ sender:FavoriteShopsViewController)
 
-    func favoriteShopsTableViewControllerAddFavoriteShop(_ sender:FavoriteShopsTableViewController)
+    func favoriteShopsTableViewControllerAddFavoriteShop(_ sender:FavoriteShopsViewController)
         
     }
 
 /// An UIViewController that allows to select (and add) a shop (name + address).
-class FavoriteShopsTableViewController: UITableViewController {
+class FavoriteShopsViewController: UIViewController {
     
     /// The coordinator that manages the flow.
-    var coordinator: (FavoriteShopsTableViewControllerCoordinator & Coordinator)? = nil
+    var coordinator: (FavoriteShopsViewControllerCoordinator & Coordinator)? = nil
     
     /// Refresh the tableView with favorite shops
     func refresh() {
@@ -49,87 +49,7 @@ class FavoriteShopsTableViewController: UITableViewController {
     private var editMode = false
     
     private var selectedShop: (String, Address)? = nil
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        let aantal = FavoriteShopsDefaults.manager.list.count
-        return aantal
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier + "." + FavoriteShopsTableViewController.identifier , for: indexPath)
-
-        let (shop, location) = FavoriteShopsDefaults.manager.list[indexPath.row]
-        cell.textLabel?.text = shop
-        var textToShow = ""
-        if location.street.count > 0 {
-            textToShow = location.street
-            if location.postalcode.count > 0 {
-                textToShow = textToShow + ", " + location.postalcode
-            }
-            if location.city.count > 0 {
-                textToShow = textToShow + ", " + location.city
-            }
-            if location.country.count > 0 {
-                textToShow = textToShow + ", " + location.country
-            }
-        } else {
-            if location.postalcode.count > 0 {
-                textToShow = location.postalcode
-                if location.city.count > 0 {
-                    textToShow = textToShow + ", " + location.city
-                }
-                if location.country.count > 0 {
-                    textToShow = textToShow + ", " + location.country
-                }
-            } else {
-                if location.city.count > 0 {
-                    textToShow = location.city
-                    if location.country.count > 0 {
-                        textToShow = textToShow + ", " + location.country
-                    }
-                } else {
-                    if location.country.count > 0 {
-                        textToShow = location.country
-                    }
-                }
-            }
-        }
-        cell.detailTextLabel?.text = textToShow
-
-        return cell
-    }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if !editMode {
-            selectedShop = FavoriteShopsDefaults.manager.list[indexPath.row]
-        }
-    }
-
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return editMode
-    }
-    
-
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            FavoriteShopsDefaults.manager.list.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
     
     /*
     @IBAction func unwindAddFavoriteShopForDone(_ segue:UIStoryboardSegue) {
@@ -162,6 +82,12 @@ class FavoriteShopsTableViewController: UITableViewController {
     
     @IBOutlet weak var navItem: UINavigationItem!
 
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView?.delegate = self
+            tableView?.dataSource = self
+        }
+    }
     
     // MARK: - Moving table rows by long press
     
@@ -270,7 +196,7 @@ class FavoriteShopsTableViewController: UITableViewController {
     }
 
     private func addLongGestureRecognizerForTableView() {
-        let longGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(FavoriteShopsTableViewController.handleTableViewLongGesture(sender:)))
+        let longGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(FavoriteShopsViewController.handleTableViewLongGesture(sender:)))
         
         tableView.addGestureRecognizer(longGesture)
     }
@@ -303,5 +229,95 @@ class FavoriteShopsTableViewController: UITableViewController {
     override func viewDidDisappear(_ animated: Bool) {
         coordinator?.viewControllerDidDisappear(self)
         super.viewDidDisappear(animated)
+    }
+}
+//
+// MARK: - Table view data source
+//
+extension FavoriteShopsViewController : UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        let aantal = FavoriteShopsDefaults.manager.list.count
+        return aantal
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier + "." + FavoriteShopsViewController.identifier , for: indexPath)
+
+        let (shop, location) = FavoriteShopsDefaults.manager.list[indexPath.row]
+        cell.textLabel?.text = shop
+        var textToShow = ""
+        if location.street.count > 0 {
+            textToShow = location.street
+            if location.postalcode.count > 0 {
+                textToShow = textToShow + ", " + location.postalcode
+            }
+            if location.city.count > 0 {
+                textToShow = textToShow + ", " + location.city
+            }
+            if location.country.count > 0 {
+                textToShow = textToShow + ", " + location.country
+            }
+        } else {
+            if location.postalcode.count > 0 {
+                textToShow = location.postalcode
+                if location.city.count > 0 {
+                    textToShow = textToShow + ", " + location.city
+                }
+                if location.country.count > 0 {
+                    textToShow = textToShow + ", " + location.country
+                }
+            } else {
+                if location.city.count > 0 {
+                    textToShow = location.city
+                    if location.country.count > 0 {
+                        textToShow = textToShow + ", " + location.country
+                    }
+                } else {
+                    if location.country.count > 0 {
+                        textToShow = location.country
+                    }
+                }
+            }
+        }
+        cell.detailTextLabel?.text = textToShow
+
+        return cell
+    }
+
+}
+//
+// MARK: - Table view data source
+//
+extension FavoriteShopsViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if !editMode {
+            selectedShop = FavoriteShopsDefaults.manager.list[indexPath.row]
+        }
+    }
+
+    // Override to support conditional editing of the table view.
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return editMode
+    }
+    
+
+    // Override to support editing the table view.
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            FavoriteShopsDefaults.manager.list.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }

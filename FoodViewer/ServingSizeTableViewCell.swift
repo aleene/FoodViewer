@@ -45,7 +45,7 @@ class ServingSizeTableViewCell: UITableViewCell {
             servingSizeTextField.clipsToBounds = true
         } else {
             servingSizeTextField.borderStyle = .roundedRect
-            servingSizeTextField.layer.borderWidth = 0.5
+            servingSizeTextField.layer.borderWidth = 0.0
 
         }
     }

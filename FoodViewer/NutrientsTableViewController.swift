@@ -12,11 +12,13 @@ import MobileCoreServices
 
 class NutrientsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     
-    
+    var coordinator: NutrientsCoordinator? = nil
+
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
                 refreshInterface()
+                coordinator?.productPair = productPair
             }
         }
     }
@@ -82,7 +84,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         return delegate?.editMode ?? false
     }
 
-    private var currentLanguageCode: String? {
+    var currentLanguageCode: String? {
         get {
             return delegate?.currentLanguageCode
         }
@@ -463,6 +465,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case .addNutrient:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: AddNutrientTableViewCell.self), for: indexPath) as! AddNutrientTableViewCell
             cell.buttonText = TranslatableStrings.AddNutrient
+            cell.delegate = self
             return cell
         }
     }
@@ -861,11 +864,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
 
     // MARK: - Segue functions
-        
+        /*
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-                /*
             case segueIdentifier(to: SelectLanguageViewController.self):
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
@@ -915,7 +918,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     assert(true, "NutrientsTableViewController: ShowNutritionImageLanguages segue preparation wrongly configurated")
                 }
- */
+
             case segueIdentifier(to: SelectNutritionFactsTableStyleTableViewCell.self):
                 if let vc = segue.destination as? SelectNutritionFactsTableStyleTableViewCell {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
@@ -954,6 +957,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     assert(true, "NutrientsTableViewController: ShowNutritionFactsImage segue preparation wrongly configurated")
                 }
+
             case NutrientsTableViewController.identifier + "." + AddNutrientViewController.identifier:
                 if let vc = segue.destination as? AddNutrientViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
@@ -974,7 +978,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     assert(true, "NutrientsTableViewController: AddNutrient segue preparation wrongly configurated")
                 }
-                
+                */
+/*
             case NutrientsTableViewController.identifier + "." + SelectNutrientUnitViewController.identifier:
                 if let vc = segue.destination as? SelectNutrientUnitViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
@@ -999,11 +1004,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     assert(true, "NutrientsTableViewController: SelectNutrientUnit segue preparation wrongly configurated")
                 }
+ 
             default: break
             }
         }
     }
-    
     @IBAction func unwindAddNutrientForCancel(_ segue:UIStoryboardSegue) {
         // reload with first nutrient?
     }
@@ -1027,7 +1032,57 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
         }
     }
+    */
+    public func setNutritionFactUnit(for row:Int?, with nutritionFactUnit:NutritionFactUnit?) {
+        if let nutrientRow = row {
+            if productPair!.remoteProduct != nil {
+                // copy the existing nutrient and change the unit
+                var editedNutritionFact = NutritionFactItem()
+                editedNutritionFact.nutrient = adaptedNutritionFacts[nutrientRow].nutrient
+                editedNutritionFact.itemName = adaptedNutritionFacts[nutrientRow].name
+                // this value has been changed
+                switch currentNutritionQuantityDisplayMode {
+                case .perServing:
+                    editedNutritionFact.unit = nutritionFactUnit
+                    editedNutritionFact.serving = adaptedNutritionFacts[nutrientRow].value
+                case .perStandard:
+                    editedNutritionFact.unit = nutritionFactUnit
+                    editedNutritionFact.standard = adaptedNutritionFacts[nutrientRow].value
+                default:
+                    break
+                }
+                productPair?.update(fact: editedNutritionFact)
+                refreshProduct()
+            }
+        }
+    }
     
+    public func setNutritionFactsTableStyle(to nutritionFactsTableStyle:NutritionFactsLabelStyle?) {
+        // The user decided to not follow the global preferences
+        currentTableStyleSetter = .user
+        if let validSelectedNutritionFactsTableStyle = nutritionFactsTableStyle {
+            selectedNutritionFactsTableStyle = validSelectedNutritionFactsTableStyle
+            currentEnergyDisplayMode = validSelectedNutritionFactsTableStyle.energyUnit
+            currentSaltDisplayMode = validSelectedNutritionFactsTableStyle.saltUnit
+            switch validSelectedNutritionFactsTableStyle.entryUnit {
+            case .perServing:
+                currentNutritionQuantityDisplayMode = .perServing
+            default:
+                currentNutritionQuantityDisplayMode = .perStandard
+            }
+            // fill the nutritionList with the missing values
+            if editMode {
+                for nutrient in validSelectedNutritionFactsTableStyle.mandatoryNutrients {
+                    if !productPair!.remoteProduct!.nutritionFactsContain(nutrient) {
+                        productPair?.update(fact: NutritionFactItem.init(nutrient: nutrient, unit: nutrient.unit(for:validSelectedNutritionFactsTableStyle)))
+                    }
+                }
+            }
+            refreshProduct()
+        }
+    }
+    /*
+
     @IBAction func unwindSetNutrientUnit(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectNutrientUnitViewController {
             // The new nutrient unit should be set to the nutrient that was edited
@@ -1054,7 +1109,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
         }
     }
-
     @IBAction func unwindSetNutritionFactsTableStyle(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectNutritionFactsTableStyleTableViewCell {
             // The user decided to not follow the global preferences
@@ -1081,6 +1135,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
         }
     }
+ */
+
 
     // MARK: - Popover delegation functions
     
@@ -1267,6 +1323,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        coordinator = NutrientsCoordinator.init(with: self)
+
         if #available(iOS 11.0, *) {
             tableView.dragDelegate = self
             tableView.dropDelegate = self
@@ -1300,11 +1358,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         NotificationCenter.default.addObserver(
             self,
             selector:#selector(NutrientsTableViewController.refreshProduct),
+            name: .ProductPairLocalStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(NutrientsTableViewController.refreshProduct),
             name: .ProductPairRemoteStatusChanged, object:nil
         )
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
 
-        // NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.ProductPairImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
@@ -1347,12 +1408,20 @@ extension NutrientsTableViewController: NutrientsCellDelegate {
         }
 
     }
+    /// The NutrientsTableViewCell unit button has been tapped. The coordinator should handle this event.
+    func nutrientsTableViewCellUnit(_ sender: NutrientsTableViewCell, nutrient: Nutrient?, unit: NutritionFactUnit?, receivedTapOn button: UIButton) {
+        coordinator?.showNutrientUnitSelector(nutrient: nutrient, unit: unit, anchoredOn: button)
+    }
 
 }
 //
 // MARK: - AddNutrientCellDelegate functions
 //
 extension NutrientsTableViewController:  AddNutrientCellDelegate {
+    func addNutrientTableViewCell(_ sender: AddNutrientTableViewCell, tappedOn button: UIButton) {
+        coordinator?.showAddNutrientSelector(current: adaptedNutritionFacts.compactMap { $0.name }, anchoredOn: button)
+    }
+    
     
     // function to let the delegate know that the switch changed
     func addEUNutrientSetTableViewCell(_ sender: AddNutrientTableViewCell, receivedTapOn button:UIButton) {
@@ -1550,19 +1619,9 @@ extension NutrientsTableViewController: TagListViewAddImageCellDelegate {
     }
     
 }
-
-
-// MARK: - SearchNutrientsCellDelegate functions
-
-extension NutrientsTableViewController: SearchNutrientsCellDelegate {
-    
-    func searchNutrientsTableViewCell(_ sender: SearchNutrientsTableViewCell, receivedActionOnUnit button:UIButton) {
-        performSegue(withIdentifier: NutrientsTableViewController.identifier + "." + SelectNutrientUnitViewController.identifier, sender: button)
-    }
-}
-
+//
 // MARK: - TextFieldDelegate functions
-
+//
 extension NutrientsTableViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -1745,9 +1804,10 @@ extension NutrientsTableViewController: LanguageHeaderDelegate {
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
         switch sender.tag {
         case 0:
-            performSegue(withIdentifier: segueIdentifier(to: SelectLanguageViewController.self), sender: sender)
+            coordinator?.showLanguageSelector(with: currentLanguageCode, atAnchor: sender)
         case 1:
-            performSegue(withIdentifier: segueIdentifier(to: SelectNutritionFactsTableStyleTableViewCell.self), sender: sender)
+            coordinator?.showNutritionFactsTableStyleSelector(selected: selectedNutritionFactsTableStyle, anchoredOn: sender)
+            //performSegue(withIdentifier: segueIdentifier(to: SelectNutritionFactsTableStyleTableViewCell.self), sender: sender)
         default:
             break
         }

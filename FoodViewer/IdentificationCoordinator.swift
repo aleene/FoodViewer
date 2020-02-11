@@ -28,15 +28,26 @@ final class IdentificationCoordinator: Coordinator {
     init(with viewController:UIViewController) {
         self.viewController = viewController
     }
-    
+/**
+Shows a modal formSheet viewController with a product image.
+
+The caller determines the image that will be shown.
+- parameters:
+     - imageTitle: the title to be displayed on the viewController;
+     - imageData: the data of the image to be shown;
+*/
     func showImage(imageTitle: String?, imageData: ProductImageData?) {
         let childViewController = ImageViewController.instantiate()
         childViewController.coordinator = self
         childViewController.imageTitle = imageTitle
         childViewController.imageData = imageData
-        viewController?.present(childViewController, animated: true, completion: nil)
+        presentAsFormSheet(childViewController)
     }
-    
+/**
+Shows a modal viewController with a tableView that allows the user to select ONE language.
+
+The selected language will used to set the primary (main) language of the product.
+*/
     func selectMainLanguage() {
         let childViewController = SelectPairViewController.instantiate()
         childViewController.coordinator = self
@@ -48,9 +59,13 @@ final class IdentificationCoordinator: Coordinator {
                     assignedHeader: TranslatableStrings.SelectedLanguages,
                     unAssignedHeader: TranslatableStrings.UnselectedLanguages,
                     undefinedText: TranslatableStrings.NoLanguageDefined)
-        viewController?.present(childViewController, animated: true, completion: nil)
+        presentAsFormSheet(childViewController)
     }
-
+/**
+Shows a modal viewController with a tableView that allows the user to select one or more languages.
+     
+The selected languages will be used as new (extra) product languages.
+*/
     func addLanguages() {
         let childViewController = SelectPairViewController.instantiate()
         childViewController.coordinator = self
@@ -62,14 +77,21 @@ final class IdentificationCoordinator: Coordinator {
             assignedHeader: TranslatableStrings.SelectedLanguages,
             unAssignedHeader: TranslatableStrings.UnselectedLanguages,
             undefinedText: TranslatableStrings.NoLanguageDefined)
-        viewController?.present(childViewController, animated: true, completion: nil)
+        presentAsFormSheet(childViewController)
     }
-    
-    func selectLanguage(currentLanguageCode: String?) {
+/**
+Shows a popover viewController with a pickerView that allows the user to select a language.
+     
+The selected language will be used to change the current display language of the product.
+- parameters:
+     - currentLanguageCode: the current languageCode that is displayed in the viewController. This languageCode will be selected in the pickerView;
+     - button: the button that will be used to anchor the popover;
+*/
+    func selectLanguage(currentLanguageCode: String?, atAnchor button:UIButton) {
         let childViewController = SelectLanguageViewController.instantiate()
         childViewController.coordinator = self
         childViewController.configure(primaryLanguageCode: productPair?.primaryLanguageCode, currentLanguageCode: currentLanguageCode, languageCodes: productPair?.remoteProduct?.languageCodes)
-        viewController?.present(childViewController, animated: true, completion: nil)
+        presentAsPopOver(childViewController, at: button)
     }
 
     private func refresh(with code:String?) {

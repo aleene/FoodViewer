@@ -8,22 +8,40 @@
 
 import UIKit
 
-class SelectNutritionFactsTableStyleTableViewCell: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+protocol SelectNutritionFactsTableStyleTableViewControllerCoordinator {
+/**
+Inform the protocol delegate that no shop has been selected.
+ - parameters:
+    - sender : the `SelectNutritionFactsTableStyleTableViewController` that called the function.
+    - nutrientRow : the row number of that is changed
+*/
+    func selectNutritionFactsTableStyleTableViewController(_ sender:SelectNutritionFactsTableStyleTableViewController, selected style: NutritionFactsLabelStyle?)
+/**
+Inform the protocol delegate that no shop has been selected.
+ - parameters:
+    - sender : the `SelectNutritionFactsTableStyleTableViewController` that called the function.
+*/
+    func selectNutritionFactsTableStyleTableViewControllerDidCancel(_ sender:SelectNutritionFactsTableStyleTableViewController)
+}
+
+class SelectNutritionFactsTableStyleTableViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    // MARK: - External properties
+    var coordinator: (Coordinator & SelectNutritionFactsTableStyleTableViewControllerCoordinator)? = nil
     
-    var selectedNutritionFactsTableStyle: NutritionFactsLabelStyle? = nil
+    public func configure(selected nutritionFactsTableStyle:NutritionFactsLabelStyle?) {
+        self.selectedNutritionFactsTableStyle = nutritionFactsTableStyle
+    }
+//
+// MARK: - Internal properties
+//
+    private var selectedNutritionFactsTableStyle: NutritionFactsLabelStyle? = nil
     
-    var currentNutritionFactsTableStyle: NutritionFactsLabelStyle? = nil
-    
-    var editMode: Bool = false
-    
-    // MARK: - Internal properties
+    private var currentNutritionFactsTableStyle: NutritionFactsLabelStyle? = nil
     
     private var sortedStyles: [(NutritionFactsLabelStyle, String)] = []
-    
-    //  MARK : Interface elements
-    
+//
+//  MARK : Interface elements
+//
     @IBOutlet weak var nutritionFactsTableStylesPickerView: UIPickerView! {
         didSet {
             nutritionFactsTableStylesPickerView.dataSource = self
@@ -32,6 +50,14 @@ class SelectNutritionFactsTableStyleTableViewCell: UIViewController, UIPickerVie
     }
     
     @IBOutlet weak var navItem: UINavigationItem!
+    
+    @IBAction func doneBarButtonItemTapped(_ sender: UIBarButtonItem) {
+        coordinator?.selectNutritionFactsTableStyleTableViewController(self, selected: selectedNutritionFactsTableStyle)
+    }
+    
+    @IBAction func cancelBarButtonItemTapped(_ sender: UIBarButtonItem) {
+        coordinator?.selectNutritionFactsTableStyleTableViewControllerDidCancel(self)
+    }
     
     // MARK: - Delegates and datasource
     
@@ -78,6 +104,11 @@ class SelectNutritionFactsTableStyleTableViewCell: UIViewController, UIPickerVie
         setupStyles()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        coordinator?.viewControllerDidDisappear(self)
+        super.viewDidDisappear(animated)
+    }
+
 }
 
 

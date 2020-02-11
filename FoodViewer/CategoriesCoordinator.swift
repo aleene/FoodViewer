@@ -28,7 +28,7 @@ class CategoriesCoordinator: Coordinator {
                      assignedHeader: TranslatableStrings.SelectedCategories,
                      unAssignedHeader: TranslatableStrings.UnselectedCategories,
                      undefinedText: TranslatableStrings.NoCategoryDefined)
-        viewController?.present(childViewController, animated: true, completion: nil)
+        presentAsFormSheet(childViewController)
     }
     
     private func refresh() {

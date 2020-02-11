@@ -11,6 +11,17 @@ import MobileCoreServices
 
 class IngredientsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     
+    var delegate: ProductPageViewController? = nil {
+        didSet {
+            if delegate != oldValue {
+                coordinator?.productPair = productPair
+                refreshProduct()
+            }
+        }
+    }
+
+    var coordinator: IngredientsCoordinator? = nil
+    
     fileprivate var tableStructure: [SectionType] = []
     
     fileprivate enum ProductVersion {
@@ -221,13 +232,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return self.delegate?.editMode ?? false
     }
 
-    var delegate: ProductPageViewController? = nil {
-        didSet {
-            if delegate != oldValue {
-                refreshProduct()
-            }
-        }
-    }
     
     // MARK: - Actions and Outlets
     
@@ -444,6 +448,19 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedSection = indexPath.section
+        switch tableStructure[indexPath.section] {
+        case .image:
+            if let validLanguageCode = displayLanguageCode {
+                if let images = productPair?.localProduct?.ingredientsImages,
+                    !images.isEmpty {
+                    coordinator?.showImage(imageTitle: TextConstants.ShowIdentificationTitle, imageData: productPair!.localProduct!.image(for:validLanguageCode, of:.ingredients))
+                } else {
+                    coordinator?.showImage(imageTitle: TextConstants.ShowIdentificationTitle, imageData: productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients))
+                }
+            }
+        default:
+            break
+        }
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -763,7 +780,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     
 // MARK: - Navigation
-    
+    /*
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
@@ -778,7 +796,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         vc.imageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients)
                     }
                 }
-                /*
             case segueIdentifier(to: SelectLanguageViewController.self):
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
@@ -806,7 +823,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         }
                     }
                 }
- */
+
                 case segueIdentifier(to: SelectPairViewController.self):
                     if  let vc = segue.destination as? SelectPairViewController {
                         if let button = sender as? UIButton {
@@ -835,12 +852,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                             }
                         }
                     }
-
             default: break
             }
         }
     }
-    
+
     // function that defines a pixel on the bottom center of a frame
     private func leftMiddle(_ frame: CGRect) -> CGRect {
         var newFrame = frame
@@ -849,7 +865,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         newFrame.size.width = 1
         return newFrame
     }
-    
+    */
+
     @objc func doubleTapOnTableView() {
         // double tapping implies cycling through the product possibilities
         switch productVersion {
@@ -1046,6 +1063,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
         
+        coordinator = IngredientsCoordinator.init(with: self)
+        
         if #available(iOS 11.0, *) {
             tableView.dragDelegate = self
             tableView.dropDelegate = self
@@ -1083,6 +1102,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         OFFplists.manager.flush()
     }
 
+}
+//
+// MARK: - TagListViewButtonCellDelegate Functions
+//
+extension IngredientsTableViewController: TagListViewButtonCellDelegate {
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button: UIButton) {
+        coordinator?.selectTraces(anchoredOn:button)
+    }
 }
 //
 // MARK: - IngredientsImageCellDelegate Functions
@@ -1224,7 +1251,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
     func tagListViewCanDeleteTags(_ tagListView: TagListView) -> Bool {
                 switch tableStructure[tagListView.tag] {
         case .labels, .traces:
-            return true
+            return editMode
         default:
             return false
         }
@@ -1234,7 +1261,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
     func tagListViewCanAddTags(_ tagListView: TagListView) -> Bool {
         switch tableStructure[tagListView.tag] {
         case .labels:
-            return true
+            return editMode
         default:
             // .traces can only be added through the picklist
             return false
@@ -1504,7 +1531,8 @@ extension IngredientsTableViewController: GKImagePickerDelegate {
 extension IngredientsTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
-        performSegue(withIdentifier: segueIdentifier(to: SelectLanguageViewController.self), sender: sender)
+        coordinator?.selectLanguage(with: currentLanguageCode, atAnchor: sender)
+        // performSegue(withIdentifier: segueIdentifier(to: SelectLanguageViewController.self), sender: sender)
     }
     
     func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {

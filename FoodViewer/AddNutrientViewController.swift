@@ -8,13 +8,36 @@
 
 import UIKit
 
+protocol AddNutrientViewControllerCoordinator {
+    /**
+    Inform the protocol delegate that no shop has been selected.
+    - Parameters:
+         - sender : the `AddNutrientViewController` that called the function.
+         - nutrientTuple : the tuple that has been added
+    */
+    func addNutrientViewController(_ sender:AddNutrientViewController, add nutrientTuple:(Nutrient, String, NutritionFactUnit)?)
+    /**
+    Inform the protocol delegate that no shop has been selected.
+    - Parameters:
+         - sender : the `AddNutrientViewController` that called the function.
+    */
+    func addNutrientViewControllerDidCancel(_ sender:AddNutrientViewController)
+}
+
 class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    var coordinator: (Coordinator & AddNutrientViewControllerCoordinator)? = nil
+
+    
+    public func configure(existing nutrients: [String]) {
+        self.existingNutrients = nutrients
+    }
 
     // The nutrient that user wants to
-    var addedNutrientTuple: (Nutrient, String, NutritionFactUnit)? = nil
+    private var addedNutrientTuple: (Nutrient, String, NutritionFactUnit)? = nil
     
     // The nutrients that are already assigned to the product
-    var existingNutrients: [String] = [] {
+    private var existingNutrients: [String] = [] {
         didSet {
             setupNutrients()
         }
@@ -46,6 +69,14 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var filterTextField: UITextField!
     
     @IBOutlet weak var navItem: UINavigationItem!
+    
+    @IBAction func doneBarButtonItemTapped(_ sender: UIBarButtonItem) {
+        coordinator?.addNutrientViewController(self, add:addedNutrientTuple)
+    }
+    
+    @IBAction func cancelBarButtonItemTapped(_ sender: UIBarButtonItem) {
+        coordinator?.addNutrientViewControllerDidCancel(self)
+    }
 
     // MARK: - PickerView Datasource methods
     

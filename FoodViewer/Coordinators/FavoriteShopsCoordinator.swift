@@ -26,8 +26,8 @@ class FavoriteShopsCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var viewController: UIViewController? = nil
     
-    private var coordinatorViewController: FavoriteShopsTableViewController? {
-        self.viewController as? FavoriteShopsTableViewController
+    private var coordinatorViewController: FavoriteShopsViewController? {
+        self.viewController as? FavoriteShopsViewController
     }
 
     init(with viewController:UIViewController) {

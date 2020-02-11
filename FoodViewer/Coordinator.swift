@@ -48,5 +48,27 @@ public extension Coordinator {
         guard let index = childCoordinators.firstIndex(where: ({ $0.viewController === sender }) ) else { return }
         childCoordinators.remove(at: index)
     }
+    
+    func presentAsPopOver(_ viewController: UIViewController, at anchor:UIButton) {
+        viewController.modalPresentationStyle = .popover
+        guard self.viewController != nil else { return }
+        if let ppc = viewController.popoverPresentationController {
+            // set the main language button as the anchor of the popOver
+            ppc.permittedArrowDirections = .right
+            // I need the button coordinates in the coordinates of the current controller view
+            let anchorFrame = anchor.convert(anchor.bounds, to: self.viewController?.view)
+            ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+            ppc.sourceView = self.viewController!.view
+            if self.viewController is UIPopoverPresentationControllerDelegate {
+                ppc.delegate = (self.viewController as! UIPopoverPresentationControllerDelegate)
+            }
+            viewController.preferredContentSize = viewController.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            self.viewController?.present(viewController, animated: true, completion: nil)
+        }
+    }
 
+    func presentAsFormSheet(_ viewController: UIViewController) {
+        viewController.modalPresentationStyle = .formSheet
+        self.viewController?.present(viewController, animated: true, completion: nil)
+    }
 }

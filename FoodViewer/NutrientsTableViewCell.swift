@@ -12,6 +12,16 @@ protocol NutrientsCellDelegate: class {
     
     func nutrientsTableViewCell(_ sender: NutrientsTableViewCell, receivedTapOn button:UIButton)
     
+/**
+Informs the delegate that the nutrient uint button has been tapped.
+
+- parameters:
+     - sender: the `NutrientsTableViewCell` that sent the call;
+     - nutrient: the `Nutrient` that is shown cell. This is needed to identify the correct nutrient to update;
+     - unit: the `NutritionFactUnit` with the current value
+     - button: the button that has been tapped. Can be used to anchor a popOver;
+     */
+    func nutrientsTableViewCellUnit(_ sender: NutrientsTableViewCell, nutrient: Nutrient?, unit: NutritionFactUnit?, receivedTapOn button: UIButton)
 }
 
 class NutrientsTableViewCell: UITableViewCell {
@@ -24,17 +34,21 @@ class NutrientsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var textField: UITextField! {
         didSet {
-            textField.text = nutritionDisplayFactItem?.value ?? TranslatableStrings.UnknownValue
-            textField.tag = tag
-            textField.delegate = delegate
+            textField?.text = nutritionDisplayFactItem?.value ?? TranslatableStrings.UnknownValue
+            textField?.tag = tag
+            textField?.delegate = delegate as? UITextFieldDelegate
         }
     }
 
     @IBOutlet weak var unitButton: UIButton! {
         didSet {
-            unitButton.setTitle(nutritionDisplayFactItem?.unit?.short(), for: .normal)
-            unitButton.tag = tag
+            unitButton?.setTitle(nutritionDisplayFactItem?.unit?.short(), for: .normal)
+            unitButton?.tag = tag
         }
+    }
+    
+    @IBAction func unitButtonTapped(_ sender: UIButton) {
+        delegate?.nutrientsTableViewCellUnit(self, nutrient: nutritionDisplayFactItem?.nutrient, unit:nutritionDisplayFactItem?.unit, receivedTapOn: sender)
     }
     
     @IBOutlet weak var toggleViewModeButton: UIButton! {
@@ -44,8 +58,7 @@ class NutrientsTableViewCell: UITableViewCell {
     }
     
     @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
-        toggleViewModeButton?.tag = tag
-        nutrientsCellDelegate?.nutrientsTableViewCell(self, receivedTapOn:toggleViewModeButton)
+        delegate?.nutrientsTableViewCell(self, receivedTapOn:sender)
     }
     
     var nutritionDisplayFactItem: NutrientsTableViewController.DisplayFact? = nil {
@@ -115,12 +128,9 @@ class NutrientsTableViewCell: UITableViewCell {
         }
     }
     
-    var nutrientsCellDelegate: NutrientsCellDelegate? = nil
-    
-    var delegate: NutrientsTableViewController? = nil {
+    var delegate: NutrientsCellDelegate? = nil {
         didSet {
-            textField?.delegate = delegate
-            nutrientsCellDelegate = delegate
+            textField?.delegate = delegate as? UITextFieldDelegate
         }
     }
     
