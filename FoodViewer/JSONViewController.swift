@@ -147,25 +147,25 @@ extension JSONViewController: UITableViewDataSource {
         switch shownPairs[indexPath.row].level % 6 {
         case 0:
             if #available(iOS 13.0, *) {
-                cell.backgroundColor = .white
+                cell.backgroundColor = .systemBackground
             } else {
                 cell.backgroundColor = .white
             }
         case 1:
             if #available(iOS 13.0, *) {
-                cell.backgroundColor = .systemGray6
+                cell.backgroundColor = .secondarySystemBackground
             } else {
                 cell.backgroundColor = .lightGray
             }
         case 2:
             if #available(iOS 13.0, *) {
-                cell.backgroundColor = .systemGray5
+                cell.backgroundColor = .tertiarySystemBackground
             } else {
                 cell.backgroundColor = .darkGray
             }
         case 3:
             if #available(iOS 13.0, *) {
-                cell.backgroundColor = .systemGray4
+                cell.backgroundColor = .quaternarySystemFill
             } else {
                 cell.backgroundColor = .green
             }

@@ -61,11 +61,6 @@ class SupplyChainCoordinator: Coordinator {
                      undefinedText: TranslatableStrings.NoCountryDefined)
         presentAsFormSheet(childViewController)
     }
-    
-    private func refresh() {
-        coordinatorViewController?.refreshInterface()
-    }
-
 }
 
 
@@ -79,10 +74,7 @@ extension SupplyChainCoordinator: FavoriteShopsViewControllerCoordinator {
     }
     
     func favoriteShopsTableViewController(_ sender:FavoriteShopsViewController, selected shop:(String, Address)?) {
-        if let validShop = shop {
-            productPair?.update(shop: validShop)
-            self.refresh()
-        }
+        productPair?.update(shop: shop)
         sender.dismiss(animated: true, completion: nil)
     }
 
@@ -95,10 +87,7 @@ extension SupplyChainCoordinator: FavoriteShopsViewControllerCoordinator {
 extension SupplyChainCoordinator: SelectExpirationDateViewControllerCoordinator {
     
     func selectExpirationDateViewController(_ sender:SelectExpirationDateViewController, selected date:Date?) {
-        if let validDate = date {
-            productPair?.update(expirationDate: validDate)
-            self.refresh()
-        }
+        productPair?.update(expirationDate: date)
         sender.dismiss(animated: true, completion: nil)
     }
 
@@ -112,7 +101,6 @@ extension SupplyChainCoordinator: SelectPairViewControllerCoordinator {
     
     func selectPairViewController(_ sender:SelectPairViewController, selected strings: [String]?) {
         productPair?.update(countries: strings)
-        self.refresh()
         sender.dismiss(animated: true, completion: nil)
     }
 

@@ -50,11 +50,6 @@ class IngredientsCoordinator: Coordinator {
                     undefinedText: TranslatableStrings.NoTraceDefined)
         presentAsFormSheet(childViewController)
     }
-
-    private func refresh() {
-        coordinatorViewController?.refreshProduct()
-    }
-
 }
 
 
@@ -82,7 +77,6 @@ extension IngredientsCoordinator: SelectPairViewControllerCoordinator {
     
     func selectPairViewController(_ sender:SelectPairViewController, selected strings: [String]?) {
         productPair?.update(tracesTags: strings)
-        self.refresh()
         sender.dismiss(animated: true, completion: nil)
     }
 

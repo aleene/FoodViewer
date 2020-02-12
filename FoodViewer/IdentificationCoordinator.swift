@@ -93,11 +93,6 @@ The selected language will be used to change the current display language of the
         childViewController.configure(primaryLanguageCode: productPair?.primaryLanguageCode, currentLanguageCode: currentLanguageCode, languageCodes: productPair?.remoteProduct?.languageCodes)
         presentAsPopOver(childViewController, at: button)
     }
-
-    private func refresh(with code:String?) {
-        coordinatorViewController?.refreshInterface(with:code)
-    }
-
 }
 
 extension IdentificationCoordinator: ImageViewControllerCoordinator {
@@ -114,14 +109,12 @@ extension IdentificationCoordinator: SelectPairViewControllerCoordinator {
             if sender.tag == Pagetype.mainLanguage.rawValue {
                 if let newLanguageCode = validStrings.first {
                     productPair?.update(primaryLanguageCode: newLanguageCode)
-                    self.refresh(with:newLanguageCode)
                 }
 
             } else if sender.tag == Pagetype.addLanguage.rawValue {
                 for code in validStrings {
                     productPair?.update(addLanguageCode: code)
                 }
-                self.refresh(with:validStrings.first)
             }
         }
         sender.dismiss(animated: true, completion: nil)

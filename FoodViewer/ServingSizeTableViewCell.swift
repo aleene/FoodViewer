@@ -40,13 +40,10 @@ class ServingSizeTableViewCell: UITableViewCell {
         }
 
         if editMode {
-            servingSizeTextField.layer.borderWidth = 0.5
-            servingSizeTextField.layer.cornerRadius = 5
+            servingSizeTextField.borderStyle = .bezel
             servingSizeTextField.clipsToBounds = true
         } else {
-            servingSizeTextField.borderStyle = .roundedRect
-            servingSizeTextField.layer.borderWidth = 0.0
-
+            servingSizeTextField.borderStyle = .none
         }
     }
 

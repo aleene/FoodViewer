@@ -36,9 +36,34 @@ public protocol Coordinator: class {
     /// The array containing any child Coordinators
     var childCoordinators: [Coordinator] { get set }
 
-    /// Function used to tell the coordinator that a viewController disappeared.
+/**
+Informs the coordinator that the viewController disappeared
+
+For this presentation style no other configuration is possible.
+ - Important:
+     This must be implemented by all viewControllers that have a coordinator in viewDidDisappear(animated:)
+ - parameters:
+    - viewController: the viewController that will be presented.
+*/
     func viewControllerDidDisappear(_ sender:UIViewController)
+/**
+Present the viewController as PopOver.
+
+For this presentation style no other configuration is possible.
+ - parameters:
+    - viewController: the viewController that will be presented.
+    - anchor: a button that will be used as popOver anchor
+*/
+    func presentAsPopOver(_ viewController: UIViewController, at anchor:UIButton)
     
+/**
+Present the viewController as FormSheet.
+
+For this presentation style no other configuration is possible.
+ - parameters:
+    - viewController: the viewController that will be presented.
+*/
+    func presentAsFormSheet(_ viewController: UIViewController)
 }
 
 public extension Coordinator {
@@ -48,7 +73,7 @@ public extension Coordinator {
         guard let index = childCoordinators.firstIndex(where: ({ $0.viewController === sender }) ) else { return }
         childCoordinators.remove(at: index)
     }
-    
+
     func presentAsPopOver(_ viewController: UIViewController, at anchor:UIButton) {
         viewController.modalPresentationStyle = .popover
         guard self.viewController != nil else { return }

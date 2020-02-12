@@ -30,13 +30,6 @@ class CategoriesCoordinator: Coordinator {
                      undefinedText: TranslatableStrings.NoCategoryDefined)
         presentAsFormSheet(childViewController)
     }
-    
-    private func refresh() {
-        if let vc = self.viewController as? CategoriesTableViewController {
-            vc.refreshInterface()
-        }
-    }
-
 }
 
 extension CategoriesCoordinator: SelectPairViewControllerCoordinator {
@@ -44,7 +37,6 @@ extension CategoriesCoordinator: SelectPairViewControllerCoordinator {
     func selectPairViewController(_ sender:SelectPairViewController, selected strings: [String]?) {
         if let validStrings = strings {
             productPair?.update(categories: validStrings)
-            self.refresh()
         }
         sender.dismiss(animated: true, completion: nil)
     }

@@ -32,6 +32,7 @@ class QuantityTableViewCell: UITableViewCell {
         didSet {
             eButton.setTitle("+ ℮", for: .normal)
             eButton.isEnabled = editMode
+            eButton.isHidden = !editMode
         }
     }
     
@@ -49,6 +50,7 @@ class QuantityTableViewCell: UITableViewCell {
     var editMode: Bool = false {
         didSet {
             eButton.isEnabled = editMode
+            eButton.isHidden = !editMode
             setTextFieldStyle()
         }
     }
@@ -66,30 +68,25 @@ class QuantityTableViewCell: UITableViewCell {
     }
     
     private func setTextFieldStyle() {
+        textField.layer.borderWidth = 1.0
         if editMode {
-            textField.layer.cornerRadius = 5
+            textField.borderStyle = .bezel
             if #available(iOS 13.0, *) {
                 textField.backgroundColor = .secondarySystemBackground
                 textField.textColor = .secondaryLabel
-                textField.layer.borderColor = UIColor.darkGray.cgColor
             } else {
-                textField.layer.borderColor = UIColor.darkGray.cgColor
                 textField.textColor = .black
-                textField.backgroundColor = UIColor.groupTableViewBackground
+                textField.backgroundColor = .groupTableViewBackground
             }
-            textField.layer.borderColor = UIColor.darkGray.cgColor
             textField.clipsToBounds = true
             
         } else {
-            textField.borderStyle = .roundedRect
+            textField.borderStyle = .none
             if #available(iOS 13.0, *) {
                 textField.backgroundColor = .systemBackground
-                textField.layer.borderWidth = 0.0
-                
                 textField.textColor = .label
             } else {
                 textField.backgroundColor = .white
-                textField.layer.borderWidth = 0.0
                 textField.textColor = .black
             }
         }
