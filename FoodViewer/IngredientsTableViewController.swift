@@ -507,7 +507,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             headerView.changeLanguageButton.isHidden = true
             switch currentProductSection {
             case .image:
-                headerView.changeLanguageButton.isHidden = false
+                if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
+                // Hide the change language button if there is only one language, but not in editMode
+                    headerView.changeLanguageButton.isHidden = validNumberOfProductLanguages > 1 ? false : !editMode
+                } else {
+                    headerView.changeLanguageButton.isHidden = false
+                }
                 switch productVersion {
                 case .new:
                     if localImageToShow != nil {
@@ -1090,6 +1095,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded(_:)), name:.ProductPairImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(IngredientsTableViewController.refreshProduct),
+            name: .ProductPairLocalStatusChanged, object:nil)
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {

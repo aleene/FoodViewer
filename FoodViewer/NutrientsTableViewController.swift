@@ -569,7 +569,13 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
         switch currentProductSection {
         case .image :
-            headerView.changeLanguageButton.isHidden = false
+            
+            if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
+            // Hide the change language button if there is only one language, but not in editMode
+                headerView.changeLanguageButton.isHidden = validNumberOfProductLanguages > 1 ? false : !editMode
+            } else {
+                headerView.changeLanguageButton.isHidden = false
+            }
             switch productVersion {
             case .new:
                 if localImageToShow != nil {

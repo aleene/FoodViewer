@@ -20,7 +20,6 @@ class QuantityTableViewCell: UITableViewCell {
     
     @IBOutlet weak var textField: UITextField! {
         didSet {
-            textField.layer.borderWidth = 0.5
             textField.clearButtonMode = .whileEditing
             textField.delegate = delegate
             textField.tag = tag
@@ -68,9 +67,10 @@ class QuantityTableViewCell: UITableViewCell {
     }
     
     private func setTextFieldStyle() {
-        textField.layer.borderWidth = 1.0
         if editMode {
-            textField.borderStyle = .bezel
+            textField.layer.borderWidth = 0.5
+            textField.layer.cornerRadius = 5
+            textField.borderStyle = .roundedRect
             if #available(iOS 13.0, *) {
                 textField.backgroundColor = .secondarySystemBackground
                 textField.textColor = .secondaryLabel
@@ -81,6 +81,7 @@ class QuantityTableViewCell: UITableViewCell {
             textField.clipsToBounds = true
             
         } else {
+            textField.layer.borderWidth = 0.0
             textField.borderStyle = .none
             if #available(iOS 13.0, *) {
                 textField.backgroundColor = .systemBackground

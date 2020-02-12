@@ -342,7 +342,7 @@ class IdentificationTableViewController: UITableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
-                cell.setup(datasource: self, delegate: nil, width: tableView.frame.size.width, tag: indexPath.section)
+                cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
                 return cell
             }
         case .brands:
@@ -582,7 +582,12 @@ class IdentificationTableViewController: UITableViewController {
         switch currentProductSection {
             
         case .image, .name, .genericName :
-            headerView.changeLanguageButton.isHidden = false
+            if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
+            // Hide the change language button if there is only one language, but not in editMode
+                headerView.changeLanguageButton.isHidden = validNumberOfProductLanguages > 1 ? false : !editMode
+            } else {
+                headerView.changeLanguageButton.isHidden = false
+            }
             switch currentProductSection {
             case .image:
                 switch productVersion {
@@ -1134,7 +1139,10 @@ class IdentificationTableViewController: UITableViewController {
          */
         navigationController?.setNavigationBarHidden(false, animated: false)
         
-
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(IdentificationTableViewController.refreshProduct),
+            name: .ProductPairLocalStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
