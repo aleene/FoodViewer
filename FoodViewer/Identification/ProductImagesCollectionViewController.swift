@@ -14,11 +14,14 @@ private let reuseIdentifier = "Cell"
 class ProductImagesCollectionViewController: UICollectionViewController {
 
     
+    var coordinator: ProductImagesCoordinator? = nil
+
     // MARK: - public variables
     
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
+                coordinator?.productPair = productPair
                 collectionView.reloadData()
             }
         }
@@ -122,10 +125,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         get {
             var newImages: [String:ProductImageSize] = [:]
             switch productVersion {
-            //case .local:
-            //    if let validImages = productPair?.localProduct?.images {
-            //        newImages = validImages
-            //    }
             case .remote:
                 newImages = productPair?.remoteProduct?.images ?? [:]
             case .new:
@@ -135,8 +134,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     newImages = newImages.merging(images, uniquingKeysWith: { (first, last) in last } )
                 }
             }
-            //images.count > 0 {
-            //newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
             return newImages
         }
     }
@@ -468,10 +465,32 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         if editMode && indexPath.row == originalImages.count {
         } else {
             selectedImage = indexPath
-            performSegue(withIdentifier: segueIdentifier(to: ImageViewController.self), sender: self)
+            guard selectedImage != nil else { return }
+            let imageTuple = imageDetailsTuple(for: selectedImage!.section)
+            coordinator?.showImage(imageTitle: imageTuple.0, imageData: imageTuple.1)
+            //performSegue(withIdentifier: segueIdentifier(to: ImageViewController.self), sender: self)
         }
     }
     
+    private func imageDetailsTuple(for section:Int) -> (String?, ProductImageData?) {
+        switch tableStructure[section] {
+        case .frontImages:
+            let languageCode = Array(productPair!.remoteProduct!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+            return ( OFFplists.manager.languageName(for:languageCode), productPair!.remoteProduct!.image(for:languageCode, of:.front) )
+        case .ingredientsImages:
+            let languageCode = Array(productPair!.remoteProduct!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+            return ( OFFplists.manager.languageName(for:languageCode), productPair!.remoteProduct!.image(for:languageCode, of:.ingredients) )
+        case .nutritionImages:
+            let languageCode = Array(productPair!.remoteProduct!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+            return ( OFFplists.manager.languageName(for:languageCode), productPair!.remoteProduct!.image(for:languageCode, of:.nutrition) )
+        case .originalImages:
+            let key = Array(productPair!.remoteProduct!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
+            return (key, productPair!.remoteProduct!.images[key]?.largest)
+        }
+
+    }
+    /*
+
     // MARK: - Segue stuff
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -502,6 +521,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                         vc.imageTitle = key
                     }
                 }
+ 
             case segueIdentifier(to: SelectLanguageAndImageTypeViewController.self):
                 if let vc = segue.destination as? SelectLanguageAndImageTypeViewController,
                     let button = sender as? UIButton {
@@ -554,7 +574,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
 
-    
+    */
     @objc func takePhotoButtonTapped() {
         // opens the camera and allows the user to take an image and crop
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -610,6 +630,33 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
     
+    private func imageToShow() -> (ProductImageData?, String?) {
+        guard let validSection = selectedImage?.section else { return (nil,nil) }
+        switch tableStructure[validSection] {
+        case .frontImages:
+            let languageCode = Array(productPair!.remoteProduct!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+            let imageData = productPair!.remoteProduct!.image(for:languageCode, of:.front)
+            let imageTitle = OFFplists.manager.languageName(for:languageCode)
+            return (imageData, imageTitle)
+        case .ingredientsImages:
+            let languageCode = Array(productPair!.remoteProduct!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+            let imageData = productPair!.remoteProduct!.image(for:languageCode, of:.ingredients)
+            let imageTitle = OFFplists.manager.languageName(for:languageCode)
+            return (imageData, imageTitle)
+        case .nutritionImages:
+            let languageCode = Array(productPair!.remoteProduct!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+            let imageData = productPair!.remoteProduct!.image(for:languageCode, of:.nutrition)
+            let imageTitle = OFFplists.manager.languageName(for:languageCode)
+            return (imageData, imageTitle)
+        case .originalImages:
+            let key = Array(productPair!.remoteProduct!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
+            let imageData = productPair!.remoteProduct!.images[key]?.largest
+            let imageTitle = key
+            return (imageData, imageTitle)
+        }
+    }
+
+
     @objc func reloadImages() {
         collectionView?.reloadData()
     }
@@ -666,6 +713,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        coordinator = ProductImagesCoordinator(with: self)
         self.refresher = UIRefreshControl()
         self.refresher.tintColor = .systemRed
         self.refresher.addTarget(self, action: #selector(ProductImagesCollectionViewController.refresh(sender:)), for: .valueChanged)
@@ -695,14 +743,32 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ImageSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ProductUpdateSucceeded, object:nil)
-
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ProductPairRemoteStatusChanged, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadProduct), name:.ProductPairImageUploadSuccess, object:nil)
-        //NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadProduct(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
-
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(ProductImagesCollectionViewController.reloadImages),
+            name: .ProductPairLocalStatusChanged,
+            object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(ProductImagesCollectionViewController.reloadImages),
+            name:.ImageSet,
+            object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(ProductImagesCollectionViewController.reloadImages),
+            name:.ProductUpdateSucceeded,
+            object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(ProductImagesCollectionViewController.reloadImages),
+            name:.ProductPairRemoteStatusChanged,
+            object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(ProductImagesCollectionViewController.reloadProduct),
+            name:.ProductPairImageUploadSuccess,
+            object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -736,7 +802,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 extension ProductImagesCollectionViewController : GalleryCollectionViewCellDelegate {
     
     // function to let the delegate know that the deselect button has been tapped
-    func galleryCollectionViewCell(_ sender: GalleryCollectionViewCell, receivedTapOn button:UIButton) {
+    func galleryCollectionViewCell(_ sender: GalleryCollectionViewCell, receivedTapOn button:UIButton, for key:String?) {
         guard let validIndexPath = sender.indexPath,
              let validProductPair = productPair else { return }
         switch tableStructure[validIndexPath.section] {
@@ -750,11 +816,11 @@ extension ProductImagesCollectionViewController : GalleryCollectionViewCellDeleg
             let languageCode = keyTuples(for:Array(validProductPair.remoteProduct!.nutritionImages.keys))[validIndexPath.row].0
             OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .nutrition)
         case .originalImages:
-            performSegue(withIdentifier: StoryboardString.SegueIdentifier.FromProductImagesCollectionVC.ToSelectLanguageAndImageTypeVC, sender: button)
+            guard let validCodes = productPair?.languageCodes else { return }
+            coordinator?.showSelectLanguageAndImageType(languageCodes:validCodes, key: key)
         }
     }
 }
-
 
 // MARK: - UICollectionViewDelegateFlowLayout Functions
 

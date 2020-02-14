@@ -139,18 +139,20 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     newFact = NutritionFactItem.init(
                             name: OFFplists.manager.translateNutrient(nutrient: .energy, language:Locale.preferredLanguages[0]),
                             standard: fact.value.valueInCalories(fact.value.standard),
+                            standardUnit: EnergyUnitUsed.calories.unit(),
                             value: fact.value.valueInCalories(fact.value.value),
+                            valueUnit: fact.value.valueUnit?.description(),
                             serving: fact.value.valueInCalories(fact.value.serving),
-                            unit: EnergyUnitUsed.calories.unit(),
                             nutrient: .energy)
                     // show energy as kcalorie
                 case .kilocalorie:
                     newFact = NutritionFactItem.init(
                         name: OFFplists.manager.translateNutrient(nutrient: .energy, language:Locale.preferredLanguages[0]),
                         standard: fact.value.valueInCalories(fact.value.standard),
+                        standardUnit: EnergyUnitUsed.kilocalorie.unit(),
                         value: fact.value.valueInCalories(fact.value.value),
+                        valueUnit: fact.value.valueUnit?.description(),
                         serving: fact.value.valueInCalories(fact.value.serving),
-                        unit: EnergyUnitUsed.kilocalorie.unit(),
                         nutrient: .energy)
                 default:
                     // no conversion necessary
@@ -166,29 +168,32 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     newFact = NutritionFactItem.init(
                             name: OFFplists.manager.translateNutrient(nutrient: .energyKcal, language:Locale.preferredLanguages[0]),
                             standard: fact.value.valueInCalories(fact.value.standard),
+                            standardUnit: EnergyUnitUsed.calories.unit(),
                             value: fact.value.value,
+                            valueUnit: fact.value.valueUnit?.description(),
                             serving: fact.value.valueInCalories(fact.value.serving),
-                            unit: EnergyUnitUsed.calories.unit(),
                             nutrient: .energyKcal)
                     // show energy as kcalorie
                 case .kilocalorie:
                     newFact = NutritionFactItem.init(
                         name: OFFplists.manager.translateNutrient(nutrient: .energyKcal, language:Locale.preferredLanguages[0]),
                         standard: fact.value.valueInCalories(fact.value.standard),
+                        standardUnit: EnergyUnitUsed.kilocalorie.unit(),
                         value: fact.value.value,
+                        valueUnit: fact.value.valueUnit?.description(),
                         serving: fact.value.valueInCalories(fact.value.serving),
-                        unit: EnergyUnitUsed.kilocalorie.unit(),
                         nutrient: .energyKcal)
                 default:
                     newFact = NutritionFactItem.init(
                         name: OFFplists.manager.translateNutrient(nutrient: .energyKcal, language:Locale.preferredLanguages[0]),
                         standard: fact.value.standard,
+                        standardUnit: EnergyUnitUsed.joule.unit(),
                         value: nil,
+                        valueUnit: fact.value.valueUnit?.description(),
                         serving: nil,
-                        unit: EnergyUnitUsed.joule.unit(),
                         nutrient: .energyKcal)
 
-                    newFact?.unit = .Joule
+                    newFact?.standardUnit = .Joule
                 }
             } else {
                 newFact = fact.value
@@ -217,16 +222,17 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     fileprivate func localizeFact(_ fact: NutritionFactItem) -> DisplayFact {
         var displayFact = DisplayFact()
         displayFact.name = fact.itemName
+        // The values as processed by OFF are used
         switch currentNutritionQuantityDisplayMode {
         case .perStandard:
-            if let validValue = fact.value, !validValue.isEmpty {
+            if let validValue = fact.standard, !validValue.isEmpty {
                 displayFact.value = validValue
             } else {
                 displayFact.value = fact.localeStandardValue(editMode: editMode)
             }
-            displayFact.unit = fact.unit
+            displayFact.unit = fact.standardUnit
         case .perThousandGram:
-            if let validValue = fact.value, !validValue.isEmpty {
+            if let validValue = fact.standard, !validValue.isEmpty {
                 displayFact.value = validValue
             } else {
                 displayFact.value = fact.localeThousandValue(editMode: editMode)
@@ -239,7 +245,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
         case .perServing:
             displayFact.value = fact.serving != nil ? fact.localeServingValue(editMode: editMode) : ""
-            displayFact.unit = fact.unit
+            displayFact.unit = fact.standardUnit
         case .perDailyValue:
             displayFact.value = fact.dailyFractionPerServing != nil ? fact.localeDailyValue : ""
             displayFact.unit = NutritionFactUnit.None // The numberformatter already provides a % sign
@@ -1049,10 +1055,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 // this value has been changed
                 switch currentNutritionQuantityDisplayMode {
                 case .perServing:
-                    editedNutritionFact.unit = nutritionFactUnit
+                    editedNutritionFact.standardUnit = nutritionFactUnit
                     editedNutritionFact.serving = adaptedNutritionFacts[nutrientRow].value
                 case .perStandard:
-                    editedNutritionFact.unit = nutritionFactUnit
+                    editedNutritionFact.standardUnit = nutritionFactUnit
                     editedNutritionFact.standard = adaptedNutritionFacts[nutrientRow].value
                 default:
                     break
@@ -1670,7 +1676,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                 editedNutritionFact.nutrient = adaptedNutritionFacts[row].nutrient
                 editedNutritionFact.itemName = adaptedNutritionFacts[row].name
                 if currentNutritionQuantityDisplayMode == .perStandard {
-                    editedNutritionFact.unit = adaptedNutritionFacts[row].unit
+                    editedNutritionFact.standardUnit = adaptedNutritionFacts[row].unit
 
                     // this value has been changed
                     if let text = textField.text {
@@ -1680,7 +1686,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                         
                     }
                 } else if currentNutritionQuantityDisplayMode == .perServing {
-                    editedNutritionFact.unit = adaptedNutritionFacts[row].unit
+                    editedNutritionFact.standardUnit = adaptedNutritionFacts[row].unit
 
                     // this value has been changed
                     if let text = textField.text {
@@ -1689,7 +1695,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                         })
                     }
                 } else if currentNutritionQuantityDisplayMode == .perThousandGram {
-                    editedNutritionFact.unit = adaptedNutritionFacts[row].unit
+                    editedNutritionFact.standardUnit = adaptedNutritionFacts[row].unit
                     
                     // this value has been changed
                     if let validText = textField.text {

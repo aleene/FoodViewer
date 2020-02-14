@@ -106,7 +106,7 @@ extension NutrientsCoordinator : AddNutrientViewControllerCoordinator {
                 var newNutrient = NutritionFactItem()
                 newNutrient.nutrient = newNutrientTuple.0
                 newNutrient.itemName = newNutrientTuple.1
-                newNutrient.unit = newNutrientTuple.2
+                newNutrient.valueUnit = newNutrientTuple.2
                 productPair?.update(fact: newNutrient)
         }
         coordinatorViewController?.refreshProduct()

@@ -137,16 +137,16 @@ class NutritionScoreTableViewCell: UITableViewCell {
                 novaValueLabel?.text = "1"
                 novaValueLabel?.textColor = .white
                 novaValueLabel?.backgroundColor = .systemGreen
-            case "2":
-                novaValueLabel?.text = nova
+            case "2", "2.0":
+                novaValueLabel?.text = "2"
                 novaValueLabel?.textColor = .white
                 novaValueLabel?.backgroundColor = .systemYellow
-            case "3":
-                novaValueLabel?.text = nova
+            case "3", "3.0":
+                novaValueLabel?.text = "3"
                 novaValueLabel?.textColor = .white
                 novaValueLabel?.backgroundColor = .systemOrange
-            case "4":
-                novaValueLabel?.text = nova
+            case "4", "4.0":
+                novaValueLabel?.text = "4"
                 novaValueLabel?.textColor = .white
                 novaValueLabel?.backgroundColor = .systemRed
             default:

@@ -339,6 +339,7 @@
 		51E614941C8349AD00DAEE6C /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E614931C8349AD00DAEE6C /* History.swift */; };
 		51E6D79023F1AE3E00AD7947 /* IngredientsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E6D78F23F1AE3E00AD7947 /* IngredientsCoordinator.swift */; };
 		51E6D79223F1AE6A00AD7947 /* NutrientsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E6D79123F1AE6A00AD7947 /* NutrientsCoordinator.swift */; };
+		51E6D79423F45A7700AD7947 /* ProductImagesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E6D79323F45A7700AD7947 /* ProductImagesCoordinator.swift */; };
 		51E8573D1FF00ABC0045B4B3 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E8573C1FF00ABC0045B4B3 /* UIImageViewExtension.swift */; };
 		51E8573F1FF3B2120045B4B3 /* LocaleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E8573E1FF3B2120045B4B3 /* LocaleExtension.swift */; };
 		51E8BA2A1F2FA50900D3C742 /* TagsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E8BA291F2FA50900D3C742 /* TagsType.swift */; };
@@ -764,6 +765,7 @@
 		51E614931C8349AD00DAEE6C /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		51E6D78F23F1AE3E00AD7947 /* IngredientsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IngredientsCoordinator.swift; path = Coordinators/IngredientsCoordinator.swift; sourceTree = "<group>"; };
 		51E6D79123F1AE6A00AD7947 /* NutrientsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NutrientsCoordinator.swift; path = Coordinators/NutrientsCoordinator.swift; sourceTree = "<group>"; };
+		51E6D79323F45A7700AD7947 /* ProductImagesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductImagesCoordinator.swift; path = Coordinators/ProductImagesCoordinator.swift; sourceTree = "<group>"; };
 		51E8573C1FF00ABC0045B4B3 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		51E8573E1FF3B2120045B4B3 /* LocaleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocaleExtension.swift; path = FoodViewer/Extensions/LocaleExtension.swift; sourceTree = SOURCE_ROOT; };
 		51E8BA291F2FA50900D3C742 /* TagsType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsType.swift; sourceTree = "<group>"; };
@@ -1048,7 +1050,7 @@
 		513982481C89CEB800250FB1 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				51BD4A8623E497C1003B43D6 /* JSONViewController.swift */,
+				51E3E8592238376400B03B25 /* NotSetPageViewController.swift */,
 				51919A72237857B300C90CAD /* NotAvailableViewController.swift */,
 				51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */,
 				517AAD471C7DB07F00B12F3C /* IngredientsTableViewController.swift */,
@@ -1058,7 +1060,7 @@
 				51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */,
 				5125AB841D0864BB000DCD29 /* NutritionScoreTableViewController.swift */,
 				5193DC0D1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift */,
-				51E3E8592238376400B03B25 /* NotSetPageViewController.swift */,
+				51BD4A8623E497C1003B43D6 /* JSONViewController.swift */,
 				514C0BEB230EC6EE00FE9AF7 /* DietCompliancyTableViewController.swift */,
 			);
 			name = Pages;
@@ -1419,13 +1421,14 @@
 			isa = PBXGroup;
 			children = (
 				51AADDD123ED79B800108F69 /* Coordinator.swift */,
+				51E6D79323F45A7700AD7947 /* ProductImagesCoordinator.swift */,
 				51AADDDA23EDD0D900108F69 /* AddFavoriteShopCoordinator.swift */,
 				51AADDDC23EF33C000108F69 /* CategoriesCoordinator.swift */,
 				51AADDD823EDBDF900108F69 /* FavoriteShopsCoordinator.swift */,
 				515CCF6323F05C2F00D29794 /* IdentificationCoordinator.swift */,
-				51AADDD523ED81FC00108F69 /* SupplyChainCoordinator.swift */,
 				51E6D78F23F1AE3E00AD7947 /* IngredientsCoordinator.swift */,
 				51E6D79123F1AE6A00AD7947 /* NutrientsCoordinator.swift */,
+				51AADDD523ED81FC00108F69 /* SupplyChainCoordinator.swift */,
 			);
 			name = Coordinators;
 			sourceTree = "<group>";
@@ -1879,6 +1882,7 @@
 				5127CDF11E48A0FF00944FE8 /* ProductImageSize.swift in Sources */,
 				516B328B1C75FE4B0031EF80 /* NutrientsTableViewController.swift in Sources */,
 				519884E01CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift in Sources */,
+				51E6D79423F45A7700AD7947 /* ProductImagesCoordinator.swift in Sources */,
 				51E8BA2A1F2FA50900D3C742 /* TagsType.swift in Sources */,
 				51A056FA1E2D23340099092E /* SelectNutrientUnitViewController.swift in Sources */,
 				511DB4451E0C499A009D4A4B /* TagViewState.swift in Sources */,

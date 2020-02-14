@@ -11,28 +11,33 @@ import Foundation
 public struct NutritionFactItem {
     public var itemName: String? = nil
     public var standard: String? = nil
-    public var unit: NutritionFactUnit? = nil
+    public var standardUnit: NutritionFactUnit? = nil
     public var serving: String? = nil
     public var value: String? = nil
+    public var valueUnit: NutritionFactUnit? = nil
     public var dailyFractionPerServing: Double? = nil
     public var nutrient: Nutrient = .undefined
 
     public init() {
         itemName = nil
         standard = nil // this is the value normalised to standard units
-        unit = nil // the unit of the value entered by the user
+        standardUnit = nil // the standard unit as used by OFF
+        valueUnit = nil // the unit of the value entered by the user
         serving = nil // this is calculated
         value = nil // the value entered by the user
         nutrient = .undefined
     }
 
-    public init(name: String?, standard: String?, value: String?, serving: String?, unit: String?, nutrient: Nutrient) {
+    public init(name: String?, standard: String?, standardUnit: String?, value: String?, valueUnit: String?, serving: String?, nutrient: Nutrient) {
         itemName = name
         self.standard = standard
         self.serving = serving
         self.value = value
-        if let validUnit = unit {
-            self.unit = NutritionFactUnit(validUnit)
+        if let validUnit = standardUnit {
+            self.standardUnit = NutritionFactUnit(validUnit)
+        }
+        if let validUnit = valueUnit {
+            self.valueUnit = NutritionFactUnit(validUnit)
         }
         self.nutrient = nutrient
     }
@@ -42,7 +47,7 @@ public struct NutritionFactItem {
         self.value = nil
         self.standard = nil
         self.serving = nil
-        self.unit = unit
+        self.valueUnit = unit
         self.nutrient = nutrient
     }
 
@@ -65,9 +70,31 @@ public struct NutritionFactItem {
         return nil
     }
 
-    public var gramValue: Double? {
+    public var standardGramValue: Double? {
         if let validString = standard {
-            if let validUnit = unit {
+            if let validUnit = standardUnit {
+                switch validUnit {
+                case .Milligram:
+                    if let validDouble = Double(validString) {
+                        return validDouble / 1000.0
+                    }
+                case .Microgram:
+                    if let validDouble = Double(validString) {
+                        return validDouble / 1000000.0
+                    }
+                case .Gram:
+                    return Double(validString)
+                default:
+                    break
+                }
+            }
+        }
+        return nil
+    }
+    
+    public var valueGramValue: Double? {
+        if let validString = standard {
+            if let validUnit = valueUnit {
                 switch validUnit {
                 case .Milligram:
                     if let validDouble = Double(validString) {

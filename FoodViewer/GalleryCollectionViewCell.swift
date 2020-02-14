@@ -11,7 +11,7 @@ import UIKit
 protocol GalleryCollectionViewCellDelegate: class {
     
     // function to let the delegate know that the deselect button has been tapped
-    func galleryCollectionViewCell(_ sender: GalleryCollectionViewCell, receivedTapOn button:UIButton)
+    func galleryCollectionViewCell(_ sender: GalleryCollectionViewCell, receivedTapOn button:UIButton, for key:String?)
 }
 
 class GalleryCollectionViewCell: UICollectionViewCell {
@@ -27,7 +27,7 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func buttonTapped(_ sender: UIButton) {
-       delegate?.galleryCollectionViewCell(self, receivedTapOn: sender)
+        delegate?.galleryCollectionViewCell(self, receivedTapOn: sender, for:imageKey)
     }
     
     var delegate: GalleryCollectionViewCellDelegate? = nil

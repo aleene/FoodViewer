@@ -154,7 +154,7 @@ class OFFProductNutriments: Codable {
                                                                   serving: nutritionFact.value.serving,
                                                                   value: nutritionFact.value.value,
                                                                   label: nil,
-                                                                  unit: nutritionFact.value.unit?.short())
+                                                                  unit: nutritionFact.value.standardUnit?.short())
         }
     }
     

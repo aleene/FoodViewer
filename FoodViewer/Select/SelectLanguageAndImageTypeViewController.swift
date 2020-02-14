@@ -8,14 +8,38 @@
 
 import UIKit
 
+protocol SelectLanguageAndImageTypeViewControllerCoordinator {
+/**
+The done button has been tapped and a new shop has been created.
+ - parameters:
+     - sender: the `SelectLanguageAndImageTypeViewController` that sent the message
+     - languageCode: the selected languageCode;
+     - imageCategory: the selected image category;
+     - key: the image key (this has been passed in on setup);
+*/
+    func selectLanguageAndImageTypeViewController(_ viewController: SelectLanguageAndImageTypeViewController, languageCode: String?, imageCategory: ImageTypeCategory?, key: String?)
+    
+/**
+The cancel button has been tapped and no new shop has been created.
+ - parameters:
+     - sender: the `SelectLanguageAndImageTypeViewController` that sent the message
+*/
+    func selectLanguageAndImageTypeViewControllerDidCancel(_ sender:SelectLanguageAndImageTypeViewController)
+    
+}
+
 class SelectLanguageAndImageTypeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    var coordinator: (Coordinator & SelectLanguageAndImageTypeViewControllerCoordinator)? = nil
     
-    // MARK: - External properties
+    func configure(languageCodes:[String], key:String?) {
+        self.languageCodes = languageCodes
+        self.key = key
+    }
     
-    var selectedImageCategory: ImageTypeCategory? = nil
+    private var selectedImageCategory: ImageTypeCategory? = nil
     
-    var languageCodes: [String] = [] {
+    private var languageCodes: [String] = [] {
         didSet {
             // automatically select the only available languageCode
             if languageCodes.count == 1 {
@@ -24,11 +48,12 @@ class SelectLanguageAndImageTypeViewController: UIViewController, UIPickerViewDe
             setupLanguages()
         }
     }
-
     
-    var selectedLanguageCode: String? = nil
+    private var sortedLanguages: [Language] = []
     
-    var key: String? = nil
+    private var selectedLanguageCode: String? = nil
+    
+    private var key: String? = nil
     
     //  MARK : Interface elements
     
@@ -41,8 +66,15 @@ class SelectLanguageAndImageTypeViewController: UIViewController, UIPickerViewDe
     
     @IBOutlet weak var navItem: UINavigationItem!
     
-    private var sortedLanguages: [Language] = []
-    
+    @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
+        // Force edit end
+        self.view.endEditing(true)
+        coordinator?.selectLanguageAndImageTypeViewController(self, languageCode: selectedLanguageCode, imageCategory: selectedImageCategory, key: key)
+    }
+    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator?.selectLanguageAndImageTypeViewControllerDidCancel(self)
+    }
+
     // MARK: - Delegates and datasource
     
     internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -114,4 +146,10 @@ class SelectLanguageAndImageTypeViewController: UIViewController, UIPickerViewDe
         super.viewWillAppear(animated)
         navItem.title = TranslatableStrings.AssignImage
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        coordinator?.viewControllerDidDisappear(self)
+        super.viewDidDisappear(animated)
+    }
+
 }

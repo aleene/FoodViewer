@@ -1385,24 +1385,28 @@ class FoodProduct {
             // The translation of the key in the local language
             nutritionItem.itemName = OFFplists.manager.translateNutrient(nutrient.rawValue, language:Locale.preferredLanguages[0])
             
-            // Try to find the default unit for the current nutriment
+            // Try to find the default OFF unit for the current nutriment
             switch OFFplists.manager.unit(for: nutrient) {
             case .Milligram, .Microgram:
-                nutritionItem.unit = .Gram
+                nutritionItem.standardUnit = .Gram
             default:
-                nutritionItem.unit = OFFplists.manager.unit(for: nutrient)
+                nutritionItem.standardUnit = OFFplists.manager.unit(for: nutrient)
             }
             
-            if let unit = nutritionItem.unit {
+            if let unit = nutritionItem.standardUnit {
                 switch unit {
                 case .Gram: // requires normalization
                     // per100g has already been transformed by OFF to gram
                     var (value, unit) = NutritionFactUnit.normalize(validValues.per100g)
                     nutritionItem.standard = value
+                    nutritionItem.standardUnit = unit
 
+                    // This is the value AND unit as entered by the user
                     (value, unit) = NutritionFactUnit.normalize(validValues.value)
                     nutritionItem.value = value
-                    nutritionItem.unit = unit
+                    if let validUnit = validValues.unit {
+                        nutritionItem.valueUnit = NutritionFactUnit(validUnit)
+                    }
 
                     (value, unit) = NutritionFactUnit.normalize(validValues.serving)
                     nutritionItem.serving = value

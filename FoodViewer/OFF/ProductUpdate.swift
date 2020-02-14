@@ -183,10 +183,10 @@ class ProductUpdate: OFFProductUpdateAPI {
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPerServing)
                 }
                         
-                if let validValueUnit = fact.value.unit?.short() {
+                if let validValueUnit = fact.value.valueUnit?.short() {
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
                     urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
-                } else if let validValueUnit = fact.value.unit?.short() {
+                } else if let validValueUnit = fact.value.valueUnit?.short() {
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
                     urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
                 }

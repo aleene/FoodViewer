@@ -27,12 +27,12 @@ The cancel button has been tapped and no new shop has been created.
 */
     func addFavoriteShopTableViewControllerDidCancel(_ sender:AddFavoriteShopTableViewController)
     
-    func viewControllerDidDisappear(_ sender:UIViewController)
+    //func viewControllerDidDisappear(_ sender:UIViewController)
 }
 
 final class AddFavoriteShopTableViewController: UITableViewController {
 
-    var coordinator: AddFavoriteShopTableViewControllerCoordinator? = nil
+    var coordinator: (Coordinator & AddFavoriteShopTableViewControllerCoordinator)? = nil
     
     private var shopName: String? = nil
     private var shopAddress: Address? = nil

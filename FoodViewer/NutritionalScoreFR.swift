@@ -350,28 +350,28 @@ public class NutritionalScoreFR: NutritionalScore {
             energy = nutrientFact.standardAsDouble
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.sugars.key] {
-            sugars = nutrientFact.gramValue
+            sugars = nutrientFact.standardGramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.saturatedFat.key] {
-            saturatedFat = nutrientFact.gramValue
+            saturatedFat = nutrientFact.standardGramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.saturatedFatRatio.key] {
-            saturatedFatRatio = nutrientFact.gramValue
+            saturatedFatRatio = nutrientFact.standardGramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.sodium.key] {
-            sodium = nutrientFact.gramValue
+            sodium = nutrientFact.standardGramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.fiber.key] {
-            fiber = nutrientFact.gramValue
+            fiber = nutrientFact.standardGramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.proteins.key] {
-            proteins = nutrientFact.gramValue
+            proteins = nutrientFact.standardGramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNuts.key] {
-            fruitVegetableNuts = nutrientFact.gramValue
+            fruitVegetableNuts = nutrientFact.standardGramValue
         }
         if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNutsEstimate.key] {
-            fruitVegetableNutsEstimated = nutrientFact.gramValue
+            fruitVegetableNutsEstimated = nutrientFact.standardGramValue
         }
 
         self.init(energy: energy, saturatedFat: saturatedFat, saturatedFatToTotalFatRatio: saturatedFatRatio, sugars: sugars, sodium: sodium, fiber: fiber, proteins: proteins, fruitsVegetableNuts: fruitVegetableNuts, fruitsVegetableNutsEstimated: fruitVegetableNutsEstimated, isBeverage: isBeverage, isFat: isFat, isCheese: isCheese)

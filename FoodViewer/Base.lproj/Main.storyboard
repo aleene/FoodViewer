@@ -31,7 +31,7 @@
                                                 <action selector="cancelBarButtonItemTapped:" destination="ene-BC-XTS" id="7BH-BU-XKh"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="9z3-Gr-bX9">
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="9z3-Gr-bX9">
                                             <connections>
                                                 <action selector="doneBarButtonItemTapped:" destination="ene-BC-XTS" id="TXI-FN-E2H"/>
                                             </connections>
@@ -79,7 +79,7 @@
                                             <action selector="cancelButtonTapped:" destination="ThT-Su-Fb2" id="bqR-Y0-QGg"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem key="rightBarButtonItem" systemItem="done" id="Mbu-Ol-613">
+                                    <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Mbu-Ol-613">
                                         <connections>
                                             <action selector="doneButtonTapped:" destination="ThT-Su-Fb2" id="AF3-qO-UE4"/>
                                         </connections>
@@ -134,7 +134,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jW6-1f-Qnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5033" y="6932"/>
+            <point key="canvasLocation" x="6069" y="6830"/>
         </scene>
         <!--Favorite Shops View Controller-->
         <scene sceneID="dab-zC-T4D">
@@ -231,6 +231,7 @@
                     <connections>
                         <outlet property="navItem" destination="qYU-Rc-PQr" id="NJA-r6-NxB"/>
                         <outlet property="tableView" destination="N7N-af-Rgb" id="SxR-UH-iNG"/>
+                        <segue destination="ThT-Su-Fb2" kind="custom" identifier="FavoriteShopsViewController.to.AddFavoriteShopViewController" id="brd-mk-hCI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="604-E1-L5Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -258,7 +259,7 @@
                                                 <action selector="cancelButtonTapped:" destination="Etx-ve-jYg" id="oHf-wA-QRp"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Ity-Gd-1aK">
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Ity-Gd-1aK">
                                             <connections>
                                                 <action selector="doneButtonTapped:" destination="Etx-ve-jYg" id="gla-Oz-e11"/>
                                             </connections>
@@ -2201,7 +2202,7 @@
                                                 <action selector="cancelBarButtonItemTapped:" destination="jr5-WB-3MY" id="ExD-Lv-lOn"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="8M3-p6-kXY">
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="8M3-p6-kXY">
                                             <connections>
                                                 <action selector="doneBarButtonItemTapped:" destination="jr5-WB-3MY" id="V5S-Nz-vdP"/>
                                             </connections>
@@ -3272,10 +3273,6 @@
                     </collectionView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
-                        <segue destination="oCr-2A-ZDa" kind="show" identifier="ProductImagesCollectionViewController.ImageViewController" id="w6I-Mb-BbL"/>
-                        <segue destination="ate-7s-vCG" kind="popoverPresentation" identifier="ProductImagesCollectionViewController.SelectLanguageAndImageTypeViewController" popoverAnchorView="tKr-4F-rmF" id="giD-uB-n2s">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
                         <segue destination="yDz-f3-wd1" kind="unwind" identifier="Unwind Set ImageType And Language For Done Segue" unwindAction="unwindSetImageTypeAndLanguageForDone:" id="iZG-hJ-xYJ"/>
                     </connections>
                 </collectionViewController>
@@ -4604,14 +4601,14 @@
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oiq-Qe-YWW">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Title" id="18F-0Y-Djv">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="xqo-mz-0cJ">
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="xqo-mz-0cJ">
                                             <connections>
                                                 <action selector="doneButtonTapped:" destination="oCr-2A-ZDa" id="PTM-Sj-RYP"/>
                                             </connections>
@@ -4620,7 +4617,7 @@
                                 </items>
                             </navigationBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="56" width="320" height="492"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -4694,7 +4691,7 @@
                                                 <action selector="cancelBarButtonItemTapped:" destination="nVr-vx-E3e" id="axe-Jk-DYj"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="yDL-58-zQ8">
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="yDL-58-zQ8">
                                             <connections>
                                                 <action selector="doneBarButtonItemTapped:" destination="nVr-vx-E3e" id="qyb-t0-2gl"/>
                                             </connections>
@@ -5303,10 +5300,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="185" height="0.5"/>
+                                            <rect key="frame" x="16" y="11" width="135" height="0.5"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="217" y="-4.5" width="87" height="32.5"/>
+                                            <rect key="frame" x="167" y="-4.5" width="137" height="32.5"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>
@@ -5338,13 +5335,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9JJ-Xu-7XT">
-                                            <rect key="frame" x="8" y="8" width="263" height="0.5"/>
+                                            <rect key="frame" x="8" y="8" width="238" height="0.5"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4Z-mc-9Ph">
-                                            <rect key="frame" x="279" y="-4.5" width="25" height="25.5"/>
+                                            <rect key="frame" x="254" y="-17" width="50" height="50.5"/>
                                             <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="clearTextViewButtonTapped:" destination="5y9-Bc-FlV" eventType="touchUpInside" id="9lq-Ic-N4N"/>
@@ -5470,25 +5467,30 @@
         <!--Select Language And Image Type View Controller-->
         <scene sceneID="N9V-q1-oQM">
             <objects>
-                <viewController id="ate-7s-vCG" customClass="SelectLanguageAndImageTypeViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectLanguageAndImageTypeViewController" id="ate-7s-vCG" customClass="SelectLanguageAndImageTypeViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mMT-p2-UsO"/>
                         <viewControllerLayoutGuide type="bottom" id="VJ7-zJ-8dK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="du6-Ir-P74">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="364"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="kIy-QM-4ci">
-                                <rect key="frame" x="0.0" y="56" width="320" height="492"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="320"/>
                             </pickerView>
                             <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="coc-e4-rh9">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <navigationItem id="JRq-p9-FSA">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="WwC-EX-dA5">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0zN-gr-YUJ">
                                             <connections>
-                                                <segue destination="VCc-Ih-huA" kind="unwind" identifier="Done.SelectLanguageAndImageTypeViewController.ProductImagesCollectionViewController" unwindAction="unwindSetImageTypeAndLanguageForDone:" id="QoC-gZ-1g6"/>
+                                                <action selector="cancelButtonTapped:" destination="ate-7s-vCG" id="qah-5a-An5"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="WwC-EX-dA5">
+                                            <connections>
+                                                <action selector="doneButtonTapped:" destination="ate-7s-vCG" id="YjU-OD-eXu"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -5506,14 +5508,13 @@
                             <constraint firstAttribute="trailing" secondItem="kIy-QM-4ci" secondAttribute="trailing" id="z5z-Tm-n0z"/>
                         </constraints>
                     </view>
-                    <size key="freeformSize" width="320" height="568"/>
+                    <size key="freeformSize" width="320" height="364"/>
                     <connections>
                         <outlet property="navItem" destination="JRq-p9-FSA" id="TgJ-u6-ztC"/>
                         <outlet property="pickerView" destination="kIy-QM-4ci" id="FTR-hq-ykQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtE-2p-q02" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="VCc-Ih-huA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3658" y="5911"/>
         </scene>
@@ -5541,7 +5542,7 @@
                                                 <action selector="cancelBarButtonItemTapped:" destination="j1G-tW-ocT" id="fX7-mg-dN5"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="mf8-h0-dI5">
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="mf8-h0-dI5">
                                             <connections>
                                                 <action selector="doneBarButtonItemTapped:" destination="j1G-tW-ocT" id="Gfa-4p-awB"/>
                                             </connections>
@@ -5588,7 +5589,7 @@
         <image name="User" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="w6I-Mb-BbL"/>
+        <segue reference="hdd-Nk-Dkh"/>
         <segue reference="OjZ-f4-IhZ"/>
         <segue reference="Re1-EV-fYP"/>
         <segue reference="Ivs-Tb-YCl"/>
