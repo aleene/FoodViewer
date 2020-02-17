@@ -4673,15 +4673,9 @@
                         <viewControllerLayoutGuide type="bottom" id="gKk-dg-c7v"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="UCd-Ts-NY0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="408"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35y-j3-Xby">
-                                <rect key="frame" x="0.0" y="44" width="320" height="216"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="216" id="Xbo-pF-VkY"/>
-                                </constraints>
-                            </pickerView>
                             <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="pfI-Vf-yJ5">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
@@ -4699,39 +4693,38 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rmg-p1-y5b">
-                                <rect key="frame" x="32" y="268" width="256" height="30"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="PrS-1H-ilz"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="A9N-Kv-d3R">
+                                <rect key="frame" x="0.0" y="44" width="320" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            </searchBar>
+                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="35y-j3-Xby">
+                                <rect key="frame" x="0.0" y="100" width="320" height="308"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="35y-j3-Xby" firstAttribute="top" secondItem="pfI-Vf-yJ5" secondAttribute="bottom" id="627-X0-tSn"/>
-                            <constraint firstAttribute="trailing" secondItem="Rmg-p1-y5b" secondAttribute="trailing" constant="32" id="8yq-KS-eFw"/>
                             <constraint firstItem="pfI-Vf-yJ5" firstAttribute="leading" secondItem="UCd-Ts-NY0" secondAttribute="leading" id="CYQ-qG-3ci"/>
-                            <constraint firstItem="Rmg-p1-y5b" firstAttribute="top" secondItem="35y-j3-Xby" secondAttribute="bottom" constant="8" id="FX8-Ps-c5C"/>
-                            <constraint firstItem="Rmg-p1-y5b" firstAttribute="top" secondItem="35y-j3-Xby" secondAttribute="bottom" constant="8" id="IuN-JE-JAM"/>
+                            <constraint firstItem="35y-j3-Xby" firstAttribute="top" secondItem="A9N-Kv-d3R" secondAttribute="bottom" id="DP0-Yy-o2L"/>
+                            <constraint firstItem="A9N-Kv-d3R" firstAttribute="leading" secondItem="UCd-Ts-NY0" secondAttribute="leading" id="Edb-IJ-znx"/>
                             <constraint firstItem="35y-j3-Xby" firstAttribute="leading" secondItem="UCd-Ts-NY0" secondAttribute="leading" id="L8h-hf-qdp"/>
-                            <constraint firstItem="Rmg-p1-y5b" firstAttribute="leading" secondItem="UCd-Ts-NY0" secondAttribute="leading" constant="32" id="Zwr-lb-Zdh"/>
+                            <constraint firstItem="A9N-Kv-d3R" firstAttribute="top" secondItem="pfI-Vf-yJ5" secondAttribute="bottom" id="Xhb-tN-IJl"/>
                             <constraint firstItem="pfI-Vf-yJ5" firstAttribute="top" secondItem="UCd-Ts-NY0" secondAttribute="top" id="dAj-XH-fmH"/>
+                            <constraint firstAttribute="bottom" secondItem="35y-j3-Xby" secondAttribute="bottom" id="lS1-Ur-0Tb"/>
                             <constraint firstAttribute="trailing" secondItem="35y-j3-Xby" secondAttribute="trailing" id="v4L-4b-mMP"/>
                             <constraint firstAttribute="trailing" secondItem="pfI-Vf-yJ5" secondAttribute="trailing" id="vGB-x0-8dM"/>
+                            <constraint firstAttribute="trailing" secondItem="A9N-Kv-d3R" secondAttribute="trailing" id="xU9-wG-Yhx"/>
                         </constraints>
                     </view>
+                    <size key="freeformSize" width="320" height="408"/>
                     <connections>
-                        <outlet property="filterTextField" destination="Rmg-p1-y5b" id="M45-wP-fDS"/>
                         <outlet property="navItem" destination="A9l-Yd-38c" id="MAN-1v-jd6"/>
                         <outlet property="nutrientsPickerView" destination="35y-j3-Xby" id="21W-zL-j88"/>
+                        <outlet property="searchBar" destination="A9N-Kv-d3R" id="l8D-72-jp2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gsc-Fz-YkJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2573" y="5910"/>
+            <point key="canvasLocation" x="2572.5" y="5909.1549295774648"/>
         </scene>
         <!--Select Expiration Date View Controller-->
         <scene sceneID="z2H-NT-F1c">
