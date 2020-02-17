@@ -98,7 +98,7 @@ public extension Coordinator {
     }
     
     func presentAsPush(_ viewController: UIViewController) {
-        viewController.modalPresentationStyle = .overFullScreen
+        //viewController.modalPresentationStyle = .overFullScreen
         if let nav = self.viewController?.navigationController {
             nav.pushViewController(viewController, animated: true)
         }

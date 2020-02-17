@@ -1,5 +1,5 @@
 //
-//  ApplicationPreferencesTableViewController.swift
+//  ApplicationSettingsTableViewController.swift
 //  FoodViewer
 //
 //  Created by arnaud on 25/01/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ApplicationPreferencesTableViewController: UITableViewController {
+class ApplicationSettingsTableViewController: UITableViewController {
 
     // MARK: - Clear History functions
     

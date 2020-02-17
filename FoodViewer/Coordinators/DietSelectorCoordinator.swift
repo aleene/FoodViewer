@@ -19,8 +19,9 @@ Functions:
   - `init(with:)` the initalisation method
     - Parameter :  `the DietSelectorTableViewController` that needs to be managed
  
+ - `showDietTriggers(diet index: Int?)`
 Managed viewControllers:
- - `ShowDietTriggersTableViewController`: allows to show a diet in detail. No protocol is needed as the user gow back via the Back button
+ - `ShowDietTriggersTableViewController`: allows to show a diet in detail. No protocol is needed as the user go back via the Back button
 */
 final class DietSelectorCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
@@ -36,7 +37,7 @@ final class DietSelectorCoordinator: Coordinator {
         self.viewController = viewController
     }
     
-    func showDietTriggers(diet index: Int?) {
+    func showTriggers(forDietAt index: Int?) {
         let childViewController = ShowDietTriggersTableViewController.instantiate()
         childViewController.coordinator = self
         childViewController.configure(diet: index)

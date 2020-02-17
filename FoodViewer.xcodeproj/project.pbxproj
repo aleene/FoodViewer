@@ -58,13 +58,13 @@
 		512B43CA23FAB10000BFBCF0 /* SearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43C923FAB10000BFBCF0 /* SearchResultsTableViewController.swift */; };
 		512B43CC23FAB11200BFBCF0 /* SingleSearchProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43CB23FAB11200BFBCF0 /* SingleSearchProductTableViewController.swift */; };
 		512B43CE23FAB12200BFBCF0 /* AllergenWarningsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43CD23FAB12100BFBCF0 /* AllergenWarningsTableViewController.swift */; };
-		512B43D023FAB12C00BFBCF0 /* ApplicationPreferencesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43CF23FAB12C00BFBCF0 /* ApplicationPreferencesTableViewController.swift */; };
+		512B43D023FAB12C00BFBCF0 /* ApplicationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43CF23FAB12C00BFBCF0 /* ApplicationSettingsTableViewController.swift */; };
 		512B43D223FAB13700BFBCF0 /* CreateOFFAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43D123FAB13700BFBCF0 /* CreateOFFAccountViewController.swift */; };
 		512B43D423FAB14000BFBCF0 /* DietSelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43D323FAB14000BFBCF0 /* DietSelectorTableViewController.swift */; };
 		512B43D623FAB14A00BFBCF0 /* OpenFoodFactsPreferencesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43D523FAB14A00BFBCF0 /* OpenFoodFactsPreferencesTableViewController.swift */; };
-		512B43D823FAB15500BFBCF0 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43D723FAB15500BFBCF0 /* SettingsTableViewController.swift */; };
+		512B43D823FAB15500BFBCF0 /* ProductPresentationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43D723FAB15500BFBCF0 /* ProductPresentationSettingsTableViewController.swift */; };
 		512B43DA23FAB16100BFBCF0 /* ShowDietTriggersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43D923FAB16100BFBCF0 /* ShowDietTriggersTableViewController.swift */; };
-		512B43DC23FAB17100BFBCF0 /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43DB23FAB17100BFBCF0 /* UserTableViewController.swift */; };
+		512B43DC23FAB17100BFBCF0 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43DB23FAB17100BFBCF0 /* SettingsTableViewController.swift */; };
 		512B43DE23FAB1A000BFBCF0 /* BarcodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43DD23FAB1A000BFBCF0 /* BarcodeScanViewController.swift */; };
 		512B43F323FAB1C700BFBCF0 /* NSFileManager+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43DF23FAB1C400BFBCF0 /* NSFileManager+Haneke.swift */; };
 		512B43F423FAB1C700BFBCF0 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43E023FAB1C400BFBCF0 /* Data.swift */; };
@@ -228,6 +228,7 @@
 		512B453123FAC77C00BFBCF0 /* AddNutrientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453023FAC77B00BFBCF0 /* AddNutrientViewController.swift */; };
 		512B453323FAC79E00BFBCF0 /* AddNutrientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453223FAC79D00BFBCF0 /* AddNutrientTableViewCell.swift */; };
 		512B453523FAE35500BFBCF0 /* DietSelectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453423FAE35500BFBCF0 /* DietSelectorCoordinator.swift */; };
+		512B453723FB019F00BFBCF0 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453623FB019F00BFBCF0 /* SettingsCoordinator.swift */; };
 		513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D16AF1DB4C02D005B1971 /* OFFAccount.swift */; };
 		514196B82083B66300528877 /* TagListViewButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */; };
 		51485F151FB74E9400167437 /* TagListViewAddImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */; };
@@ -453,13 +454,13 @@
 		512B43C923FAB10000BFBCF0 /* SearchResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsTableViewController.swift; path = ViewControllers/SearchScene/SearchResultsTableViewController.swift; sourceTree = "<group>"; };
 		512B43CB23FAB11200BFBCF0 /* SingleSearchProductTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleSearchProductTableViewController.swift; path = ViewControllers/SingleSearchProductTableViewController.swift; sourceTree = "<group>"; };
 		512B43CD23FAB12100BFBCF0 /* AllergenWarningsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllergenWarningsTableViewController.swift; path = ViewControllers/AllergenWarningsTableViewController.swift; sourceTree = "<group>"; };
-		512B43CF23FAB12C00BFBCF0 /* ApplicationPreferencesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApplicationPreferencesTableViewController.swift; path = ViewControllers/ApplicationPreferencesTableViewController.swift; sourceTree = "<group>"; };
+		512B43CF23FAB12C00BFBCF0 /* ApplicationSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApplicationSettingsTableViewController.swift; path = ViewControllers/ApplicationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		512B43D123FAB13700BFBCF0 /* CreateOFFAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateOFFAccountViewController.swift; path = ViewControllers/CreateOFFAccountViewController.swift; sourceTree = "<group>"; };
 		512B43D323FAB14000BFBCF0 /* DietSelectorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DietSelectorTableViewController.swift; path = ViewControllers/DietSelectorTableViewController.swift; sourceTree = "<group>"; };
 		512B43D523FAB14A00BFBCF0 /* OpenFoodFactsPreferencesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpenFoodFactsPreferencesTableViewController.swift; path = ViewControllers/OpenFoodFactsPreferencesTableViewController.swift; sourceTree = "<group>"; };
-		512B43D723FAB15500BFBCF0 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = ViewControllers/SettingsTableViewController.swift; sourceTree = "<group>"; };
+		512B43D723FAB15500BFBCF0 /* ProductPresentationSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductPresentationSettingsTableViewController.swift; path = ViewControllers/ProductPresentationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		512B43D923FAB16100BFBCF0 /* ShowDietTriggersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShowDietTriggersTableViewController.swift; path = ViewControllers/ShowDietTriggersTableViewController.swift; sourceTree = "<group>"; };
-		512B43DB23FAB17100BFBCF0 /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserTableViewController.swift; path = ViewControllers/UserTableViewController.swift; sourceTree = "<group>"; };
+		512B43DB23FAB17100BFBCF0 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = ViewControllers/SettingsTableViewController.swift; sourceTree = "<group>"; };
 		512B43DD23FAB1A000BFBCF0 /* BarcodeScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarcodeScanViewController.swift; path = ViewControllers/BarcodeScanViewController.swift; sourceTree = "<group>"; };
 		512B43DF23FAB1C400BFBCF0 /* NSFileManager+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSFileManager+Haneke.swift"; path = "FoodViewer/Frameworks/Haneke/NSFileManager+Haneke.swift"; sourceTree = SOURCE_ROOT; };
 		512B43E023FAB1C400BFBCF0 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Data.swift; path = FoodViewer/Frameworks/Haneke/Data.swift; sourceTree = SOURCE_ROOT; };
@@ -625,6 +626,7 @@
 		512B453023FAC77B00BFBCF0 /* AddNutrientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddNutrientViewController.swift; path = ViewControllers/AddViewControllers/AddNutrientViewController.swift; sourceTree = "<group>"; };
 		512B453223FAC79D00BFBCF0 /* AddNutrientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddNutrientTableViewCell.swift; path = Cells/AddNutrientTableViewCell.swift; sourceTree = "<group>"; };
 		512B453423FAE35500BFBCF0 /* DietSelectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DietSelectorCoordinator.swift; path = Coordinators/DietSelectorCoordinator.swift; sourceTree = "<group>"; };
+		512B453623FB019F00BFBCF0 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsCoordinator.swift; path = Coordinators/SettingsCoordinator.swift; sourceTree = "<group>"; };
 		513D16AF1DB4C02D005B1971 /* OFFAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFAccount.swift; sourceTree = "<group>"; };
 		514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagListViewButtonTableViewCell.swift; path = Cells/TagListViewButtonTableViewCell.swift; sourceTree = "<group>"; };
 		51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagListViewAddImageTableViewCell.swift; path = Cells/TagListViewAddImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -995,15 +997,15 @@
 			children = (
 				512B43CD23FAB12100BFBCF0 /* AllergenWarningsTableViewController.swift */,
 				511DB4421E0AE994009D4A4B /* ColorSchemes.swift */,
-				512B43CF23FAB12C00BFBCF0 /* ApplicationPreferencesTableViewController.swift */,
+				512B43CF23FAB12C00BFBCF0 /* ApplicationSettingsTableViewController.swift */,
 				512B43D123FAB13700BFBCF0 /* CreateOFFAccountViewController.swift */,
 				512B43D323FAB14000BFBCF0 /* DietSelectorTableViewController.swift */,
 				51216E2920B5ABAE004D356C /* NutritionFactsTableStyleSetter.swift */,
 				512B43D523FAB14A00BFBCF0 /* OpenFoodFactsPreferencesTableViewController.swift */,
 				5150C0651CBCD66F00161616 /* Preferences.swift */,
-				512B43D723FAB15500BFBCF0 /* SettingsTableViewController.swift */,
+				512B43D723FAB15500BFBCF0 /* ProductPresentationSettingsTableViewController.swift */,
 				512B43D923FAB16100BFBCF0 /* ShowDietTriggersTableViewController.swift */,
-				512B43DB23FAB17100BFBCF0 /* UserTableViewController.swift */,
+				512B43DB23FAB17100BFBCF0 /* SettingsTableViewController.swift */,
 			);
 			name = PreferencesTab;
 			sourceTree = "<group>";
@@ -1026,6 +1028,15 @@
 				512B451D23FAC14100BFBCF0 /* GalleryCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		512B453823FB01B800BFBCF0 /* SettingsTab */ = {
+			isa = PBXGroup;
+			children = (
+				512B453423FAE35500BFBCF0 /* DietSelectorCoordinator.swift */,
+				512B453623FB019F00BFBCF0 /* SettingsCoordinator.swift */,
+			);
+			name = SettingsTab;
 			sourceTree = "<group>";
 		};
 		513982481C89CEB800250FB1 /* Pages */ = {
@@ -1392,7 +1403,6 @@
 		51AADDD723EDBDC500108F69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				51E6D79323F45A7700AD7947 /* ProductImagesCoordinator.swift */,
 				51AADDDA23EDD0D900108F69 /* AddFavoriteShopCoordinator.swift */,
 				512B43B923FAB05500BFBCF0 /* Coordinator.swift */,
 				512B43BB23FAB05C00BFBCF0 /* CategoriesCoordinator.swift */,
@@ -1400,8 +1410,9 @@
 				512B43BD23FAB07000BFBCF0 /* IdentificationCoordinator.swift */,
 				51E6D78F23F1AE3E00AD7947 /* IngredientsCoordinator.swift */,
 				51E6D79123F1AE6A00AD7947 /* NutrientsCoordinator.swift */,
+				51E6D79323F45A7700AD7947 /* ProductImagesCoordinator.swift */,
 				512B43BF23FAB07800BFBCF0 /* SupplyChainCoordinator.swift */,
-				512B453423FAE35500BFBCF0 /* DietSelectorCoordinator.swift */,
+				512B453823FB01B800BFBCF0 /* SettingsTab */,
 			);
 			name = Coordinators;
 			sourceTree = "<group>";
@@ -1830,14 +1841,14 @@
 				512B43FC23FAB1C700BFBCF0 /* UIView+Haneke.swift in Sources */,
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,
 				512B444C23FAB23600BFBCF0 /* RSITF14Generator.swift in Sources */,
-				512B43D023FAB12C00BFBCF0 /* ApplicationPreferencesTableViewController.swift in Sources */,
+				512B43D023FAB12C00BFBCF0 /* ApplicationSettingsTableViewController.swift in Sources */,
 				51CF42CF1E069BDD00C9AD91 /* Tags.swift in Sources */,
 				512B44DB23FABB1D00BFBCF0 /* ContributorTableViewCell.swift in Sources */,
 				512B43D223FAB13700BFBCF0 /* CreateOFFAccountViewController.swift in Sources */,
 				512B44D123FABAD600BFBCF0 /* ImagesPageTableViewCell.swift in Sources */,
 				51F057FB1CB68A3000849532 /* NatriumChloride.swift in Sources */,
 				511DB4431E0AE994009D4A4B /* ColorSchemes.swift in Sources */,
-				512B43DC23FAB17100BFBCF0 /* UserTableViewController.swift in Sources */,
+				512B43DC23FAB17100BFBCF0 /* SettingsTableViewController.swift in Sources */,
 				512B440523FAB1C700BFBCF0 /* UIImageView+Haneke.swift in Sources */,
 				512B441223FAB1D800BFBCF0 /* CSVError.swift in Sources */,
 				511D58A720371CC500F5D313 /* OFFSearchResultJson.swift in Sources */,
@@ -1861,6 +1872,7 @@
 				512B443723FAB21C00BFBCF0 /* TagListViewBackspaceTextField.swift in Sources */,
 				516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */,
 				511DB40D1E09B181009D4A4B /* OFFWriteAPI.swift in Sources */,
+				512B453723FB019F00BFBCF0 /* SettingsCoordinator.swift in Sources */,
 				512B440123FAB1C700BFBCF0 /* Haneke.swift in Sources */,
 				512B44EB23FABB7A00BFBCF0 /* BarcodeTableViewCell.swift in Sources */,
 				51C8A6D01F67C38800B3C361 /* CompletionCategory.swift in Sources */,
@@ -2075,7 +2087,7 @@
 				5158ECDB2032DF760072261C /* OFFProductUploadResultJson.swift in Sources */,
 				511DB4341E09B615009D4A4B /* OFF.swift in Sources */,
 				512B44C123FABA1600BFBCF0 /* SelectLanguageViewController.swift in Sources */,
-				512B43D823FAB15500BFBCF0 /* SettingsTableViewController.swift in Sources */,
+				512B43D823FAB15500BFBCF0 /* ProductPresentationSettingsTableViewController.swift in Sources */,
 				512B451723FAC00C00BFBCF0 /* ProductImagesCollectionViewController.swift in Sources */,
 				512B44ED23FABB8300BFBCF0 /* ProductNameTableViewCell.swift in Sources */,
 				51AB5F1220342E8D004D74C7 /* OFFProductDetailed.swift in Sources */,
