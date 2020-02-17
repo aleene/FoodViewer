@@ -12,11 +12,9 @@ class DietSelectorTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     
-    private var selectedDietIndex: Int? = nil {
-        didSet {
-            
-        }
-    }
+    private var selectedDietIndex: Int? = nil
+    
+    private var coordinator: (DietSelectorCoordinator & Coordinator)? = nil
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -40,10 +38,13 @@ class DietSelectorTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedDietIndex = indexPath.row
-        performSegue(withIdentifier: segueIdentifier(to: ShowDietTriggersTableViewController.self), sender: self)
+        tableView.deselectRow(at: indexPath, animated: false)
+        coordinator?.showDietTriggers(diet: indexPath.row)
+        //selectedDietIndex = indexPath.row
+        //performSegue(withIdentifier: segueIdentifier(to: ShowDietTriggersTableViewController.self), sender: self)
     }
     
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
@@ -57,6 +58,8 @@ class DietSelectorTableViewController: UITableViewController {
             }
         }
     }
+ */
+    
     // MARK: - ViewController Lifecycle
     
     override var prefersStatusBarHidden : Bool {
@@ -65,6 +68,7 @@ class DietSelectorTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        coordinator = DietSelectorCoordinator.init(with: self)
         tableView.reloadData()
         title = TranslatableStrings.DietSelector
     }
@@ -74,11 +78,6 @@ class DietSelectorTableViewController: UITableViewController {
         self.edgesForExtendedLayout = UIRectEdge()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        AllergenWarningDefaults.manager.update()
-        super.viewDidDisappear(animated)
-    }
-
 }
 
 

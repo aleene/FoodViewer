@@ -5,7 +5,7 @@
 //  Created by arnaud on 26/10/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
-
+/*
 import Foundation
 
 // protocol used for sending data back
@@ -23,3 +23,4 @@ protocol ProductUpdatedProtocol: class {
     
     func search(for string: String?, in component: SearchComponent)
 }
+ */

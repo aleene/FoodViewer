@@ -227,6 +227,7 @@
 		512B452F23FAC70700BFBCF0 /* NutrientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B452E23FAC70700BFBCF0 /* NutrientsTableViewController.swift */; };
 		512B453123FAC77C00BFBCF0 /* AddNutrientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453023FAC77B00BFBCF0 /* AddNutrientViewController.swift */; };
 		512B453323FAC79E00BFBCF0 /* AddNutrientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453223FAC79D00BFBCF0 /* AddNutrientTableViewCell.swift */; };
+		512B453523FAE35500BFBCF0 /* DietSelectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453423FAE35500BFBCF0 /* DietSelectorCoordinator.swift */; };
 		513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D16AF1DB4C02D005B1971 /* OFFAccount.swift */; };
 		514196B82083B66300528877 /* TagListViewButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */; };
 		51485F151FB74E9400167437 /* TagListViewAddImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */; };
@@ -623,6 +624,7 @@
 		512B452E23FAC70700BFBCF0 /* NutrientsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NutrientsTableViewController.swift; path = ViewControllers/ProductPages/NutrientsTableViewController.swift; sourceTree = "<group>"; };
 		512B453023FAC77B00BFBCF0 /* AddNutrientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddNutrientViewController.swift; path = ViewControllers/AddViewControllers/AddNutrientViewController.swift; sourceTree = "<group>"; };
 		512B453223FAC79D00BFBCF0 /* AddNutrientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddNutrientTableViewCell.swift; path = Cells/AddNutrientTableViewCell.swift; sourceTree = "<group>"; };
+		512B453423FAE35500BFBCF0 /* DietSelectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DietSelectorCoordinator.swift; path = Coordinators/DietSelectorCoordinator.swift; sourceTree = "<group>"; };
 		513D16AF1DB4C02D005B1971 /* OFFAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFAccount.swift; sourceTree = "<group>"; };
 		514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagListViewButtonTableViewCell.swift; path = Cells/TagListViewButtonTableViewCell.swift; sourceTree = "<group>"; };
 		51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagListViewAddImageTableViewCell.swift; path = Cells/TagListViewAddImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -1399,6 +1401,7 @@
 				51E6D78F23F1AE3E00AD7947 /* IngredientsCoordinator.swift */,
 				51E6D79123F1AE6A00AD7947 /* NutrientsCoordinator.swift */,
 				512B43BF23FAB07800BFBCF0 /* SupplyChainCoordinator.swift */,
+				512B453423FAE35500BFBCF0 /* DietSelectorCoordinator.swift */,
 			);
 			name = Coordinators;
 			sourceTree = "<group>";
@@ -2068,6 +2071,7 @@
 				5174997A2208957000C3ED3E /* OFFSearchRequest.swift in Sources */,
 				512B448F23FAB89F00BFBCF0 /* IdentificationTableViewController.swift in Sources */,
 				512B445923FAB23600BFBCF0 /* RSCornersLayer.swift in Sources */,
+				512B453523FAE35500BFBCF0 /* DietSelectorCoordinator.swift in Sources */,
 				5158ECDB2032DF760072261C /* OFFProductUploadResultJson.swift in Sources */,
 				511DB4341E09B615009D4A4B /* OFF.swift in Sources */,
 				512B44C123FABA1600BFBCF0 /* SelectLanguageViewController.swift in Sources */,

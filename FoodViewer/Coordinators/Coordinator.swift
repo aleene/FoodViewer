@@ -96,4 +96,12 @@ public extension Coordinator {
         viewController.modalPresentationStyle = .formSheet
         self.viewController?.present(viewController, animated: true, completion: nil)
     }
+    
+    func presentAsPush(_ viewController: UIViewController) {
+        viewController.modalPresentationStyle = .overFullScreen
+        if let nav = self.viewController?.navigationController {
+            nav.pushViewController(viewController, animated: true)
+        }
+    }
+
 }

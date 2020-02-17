@@ -8,9 +8,15 @@
 
 import UIKit
 
-class ShowDietTriggersTableViewController: UITableViewController {
 
-    // MARK: - Table view data source
+/// An UIViewController that allows to inspect a diet
+final class ShowDietTriggersTableViewController: UITableViewController {
+
+    public var coordinator: DietSelectorCoordinator? = nil
+    
+    public func configure(diet index: Int?) {
+        self.dietIndex = index
+    }
     
     fileprivate struct Storyboard {
         static let DietTriggers = "Diet Trigger Tags Cell"
@@ -22,7 +28,7 @@ class ShowDietTriggersTableViewController: UITableViewController {
         static let VerticalSpacing = CGFloat(8.0)
     }
     
-    var dietIndex: Int? = nil {
+    private var dietIndex: Int? = nil {
         didSet {
             if dietIndex != nil {
                 if oldValue == nil {
@@ -44,14 +50,16 @@ class ShowDietTriggersTableViewController: UITableViewController {
 
     private var heights: [IndexPath:CGFloat] = [:]
     
-    var key: String? {
+    private var key: String? {
         if let validDietIndex = dietIndex {
             return Diets.manager.key(for:validDietIndex, in:Locale.interfaceLanguageCode)
         } else {
             return nil
         }
     }
-    
+//
+// MARK: - Table view data source
+//
     // Each section shows a level
     override func numberOfSections(in tableView: UITableView) -> Int {
         return tableData.count
@@ -117,16 +125,17 @@ class ShowDietTriggersTableViewController: UITableViewController {
     override var prefersStatusBarHidden : Bool {
         return true
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setTitle()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        coordinator?.viewControllerDidDisappear(self)
+        super.viewDidDisappear(animated)
+    }
+
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
         OFFplists.manager.flush()

@@ -9,7 +9,7 @@
 import UIKit
 import LocalAuthentication
 
-class ProductPageViewController: UIPageViewController, ProductUpdatedProtocol {
+class ProductPageViewController: UIPageViewController {
     
 //
 // MARK: - Interface Actions
