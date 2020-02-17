@@ -77,6 +77,10 @@
 		5127CDEF1E48A03600944FE8 /* ProductImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDEE1E48A03600944FE8 /* ProductImageData.swift */; };
 		5127CDF11E48A0FF00944FE8 /* ProductImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDF01E48A0FF00944FE8 /* ProductImageSize.swift */; };
 		5127CDF71E4B225E00944FE8 /* SelectImageSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDF61E4B225C00944FE8 /* SelectImageSourceViewController.swift */; };
+		512B43BA23FAB05500BFBCF0 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43B923FAB05500BFBCF0 /* Coordinator.swift */; };
+		512B43BC23FAB05C00BFBCF0 /* CategoriesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43BB23FAB05C00BFBCF0 /* CategoriesCoordinator.swift */; };
+		512B43BE23FAB07000BFBCF0 /* IdentificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43BD23FAB07000BFBCF0 /* IdentificationCoordinator.swift */; };
+		512B43C023FAB07800BFBCF0 /* SupplyChainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43BF23FAB07800BFBCF0 /* SupplyChainCoordinator.swift */; };
 		51352FBB1DA6570E008FF151 /* ProductPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51352FBA1DA6570E008FF151 /* ProductPageViewController.swift */; };
 		5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */; };
 		513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D16AF1DB4C02D005B1971 /* OFFAccount.swift */; };
@@ -141,7 +145,6 @@
 		5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159D8A61C6666C60082C60E /* NameTableViewCell.swift */; };
 		515A29D21EC08FB000916F3D /* LastServerDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A29D11EC08FB000916F3D /* LastServerDefaults.swift */; };
 		515CAE711D983C2300A90F96 /* FavoriteShopsDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */; };
-		515CCF6423F05C2F00D29794 /* IdentificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515CCF6323F05C2F00D29794 /* IdentificationCoordinator.swift */; };
 		515E715123D1B7840028D0A8 /* SelectPairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515E715023D1B7840028D0A8 /* SelectPairViewController.swift */; };
 		515FF5A91E322C8700E85815 /* PerUnitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515FF5A81E322C8700E85815 /* PerUnitTableViewCell.swift */; };
 		515FF5AB1E361AF100E85815 /* NutrimentsAvailableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515FF5AA1E361AF000E85815 /* NutrimentsAvailableTableViewCell.swift */; };
@@ -242,11 +245,8 @@
 		51A99E4822F5B96C000F82BF /* States.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3A22F5B96B000F82BF /* States.plist */; };
 		51A99E4922F5B96C000F82BF /* Minerals.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3B22F5B96C000F82BF /* Minerals.plist */; };
 		51A99E4A22F5B96C000F82BF /* Languages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A99E3C22F5B96C000F82BF /* Languages.plist */; };
-		51AADDD223ED79B800108F69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AADDD123ED79B800108F69 /* Coordinator.swift */; };
-		51AADDD623ED81FC00108F69 /* SupplyChainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AADDD523ED81FC00108F69 /* SupplyChainCoordinator.swift */; };
 		51AADDD923EDBDF900108F69 /* FavoriteShopsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AADDD823EDBDF900108F69 /* FavoriteShopsCoordinator.swift */; };
 		51AADDDB23EDD0D900108F69 /* AddFavoriteShopCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AADDDA23EDD0D900108F69 /* AddFavoriteShopCoordinator.swift */; };
-		51AADDDD23EF33C000108F69 /* CategoriesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AADDDC23EF33C000108F69 /* CategoriesCoordinator.swift */; };
 		51AB5F1220342E8D004D74C7 /* OFFProductDetailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB5F1120342E8D004D74C7 /* OFFProductDetailed.swift */; };
 		51AB5F1420342E9D004D74C7 /* OFFProductSelectedImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB5F1320342E9D004D74C7 /* OFFProductSelectedImages.swift */; };
 		51AFB0051C73455E00598444 /* IdentificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */; };
@@ -478,6 +478,10 @@
 		5127CDEE1E48A03600944FE8 /* ProductImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageData.swift; sourceTree = "<group>"; };
 		5127CDF01E48A0FF00944FE8 /* ProductImageSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageSize.swift; sourceTree = "<group>"; };
 		5127CDF61E4B225C00944FE8 /* SelectImageSourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectImageSourceViewController.swift; sourceTree = "<group>"; };
+		512B43B923FAB05500BFBCF0 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = Coordinators/Coordinator.swift; sourceTree = "<group>"; };
+		512B43BB23FAB05C00BFBCF0 /* CategoriesCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoriesCoordinator.swift; path = Coordinators/CategoriesCoordinator.swift; sourceTree = "<group>"; };
+		512B43BD23FAB07000BFBCF0 /* IdentificationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IdentificationCoordinator.swift; path = Coordinators/IdentificationCoordinator.swift; sourceTree = "<group>"; };
+		512B43BF23FAB07800BFBCF0 /* SupplyChainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SupplyChainCoordinator.swift; path = Coordinators/SupplyChainCoordinator.swift; sourceTree = "<group>"; };
 		512C368D1D89A7850004C297 /* 5411788045285.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5411788045285.json; sourceTree = "<group>"; };
 		51352FBA1DA6570E008FF151 /* ProductPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPageViewController.swift; sourceTree = "<group>"; };
 		513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyNutrientsTableViewCell.swift; sourceTree = "<group>"; };
@@ -549,7 +553,6 @@
 		5159D8A61C6666C60082C60E /* NameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
 		515A29D11EC08FB000916F3D /* LastServerDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastServerDefaults.swift; sourceTree = "<group>"; };
 		515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteShopsDefaults.swift; sourceTree = "<group>"; };
-		515CCF6323F05C2F00D29794 /* IdentificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentificationCoordinator.swift; sourceTree = "<group>"; };
 		515E715023D1B7840028D0A8 /* SelectPairViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectPairViewController.swift; path = Cells/SelectPairViewController.swift; sourceTree = "<group>"; };
 		515FF5A81E322C8700E85815 /* PerUnitTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerUnitTableViewCell.swift; sourceTree = "<group>"; };
 		515FF5AA1E361AF000E85815 /* NutrimentsAvailableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrimentsAvailableTableViewCell.swift; sourceTree = "<group>"; };
@@ -663,11 +666,8 @@
 		51A99E3A22F5B96B000F82BF /* States.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = States.plist; sourceTree = "<group>"; };
 		51A99E3B22F5B96C000F82BF /* Minerals.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Minerals.plist; sourceTree = "<group>"; };
 		51A99E3C22F5B96C000F82BF /* Languages.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Languages.plist; sourceTree = "<group>"; };
-		51AADDD123ED79B800108F69 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		51AADDD523ED81FC00108F69 /* SupplyChainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplyChainCoordinator.swift; sourceTree = "<group>"; };
 		51AADDD823EDBDF900108F69 /* FavoriteShopsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoriteShopsCoordinator.swift; path = Coordinators/FavoriteShopsCoordinator.swift; sourceTree = "<group>"; };
 		51AADDDA23EDD0D900108F69 /* AddFavoriteShopCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddFavoriteShopCoordinator.swift; path = Coordinators/AddFavoriteShopCoordinator.swift; sourceTree = "<group>"; };
-		51AADDDC23EF33C000108F69 /* CategoriesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoordinator.swift; sourceTree = "<group>"; };
 		51AB5F1120342E8D004D74C7 /* OFFProductDetailed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OFFProductDetailed.swift; path = OFFProductJson/OFFProductDetailed.swift; sourceTree = "<group>"; };
 		51AB5F1320342E9D004D74C7 /* OFFProductSelectedImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OFFProductSelectedImages.swift; path = OFFProductJson/OFFProductSelectedImages.swift; sourceTree = "<group>"; };
 		51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationTableViewController.swift; sourceTree = "<group>"; };
@@ -1420,15 +1420,15 @@
 		51AADDD723EDBDC500108F69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				51AADDD123ED79B800108F69 /* Coordinator.swift */,
 				51E6D79323F45A7700AD7947 /* ProductImagesCoordinator.swift */,
 				51AADDDA23EDD0D900108F69 /* AddFavoriteShopCoordinator.swift */,
-				51AADDDC23EF33C000108F69 /* CategoriesCoordinator.swift */,
+				512B43B923FAB05500BFBCF0 /* Coordinator.swift */,
+				512B43BB23FAB05C00BFBCF0 /* CategoriesCoordinator.swift */,
 				51AADDD823EDBDF900108F69 /* FavoriteShopsCoordinator.swift */,
-				515CCF6323F05C2F00D29794 /* IdentificationCoordinator.swift */,
+				512B43BD23FAB07000BFBCF0 /* IdentificationCoordinator.swift */,
 				51E6D78F23F1AE3E00AD7947 /* IngredientsCoordinator.swift */,
 				51E6D79123F1AE6A00AD7947 /* NutrientsCoordinator.swift */,
-				51AADDD523ED81FC00108F69 /* SupplyChainCoordinator.swift */,
+				512B43BF23FAB07800BFBCF0 /* SupplyChainCoordinator.swift */,
 			);
 			name = Coordinators;
 			sourceTree = "<group>";
@@ -1894,8 +1894,8 @@
 				51C8A6D01F67C38800B3C361 /* CompletionCategory.swift in Sources */,
 				51FB32331CF762FC00A17312 /* AllergenWarningDefaults.swift in Sources */,
 				5193DC101F3E1A79009EE70B /* GalleryCollectionViewCell.swift in Sources */,
+				512B43BE23FAB07000BFBCF0 /* IdentificationCoordinator.swift in Sources */,
 				5104F4A81F9E5400008D074F /* SetLastEditDateViewController.swift in Sources */,
-				51AADDD623ED81FC00108F69 /* SupplyChainCoordinator.swift in Sources */,
 				511DB4411E0ADC03009D4A4B /* ColorScheme.swift in Sources */,
 				51E614941C8349AD00DAEE6C /* History.swift in Sources */,
 				51216E2A20B5ABAE004D356C /* NutritionFactsTableStyleSetter.swift in Sources */,
@@ -1941,14 +1941,15 @@
 				51F669411F49CB620074AACB /* IngredientsPageTableViewCell.swift in Sources */,
 				51FB32291CF2139D00A17312 /* ReferenceDailyIntakeList.swift in Sources */,
 				5180B91F1C5E5BB8002DBD21 /* AllProductsTableViewController.swift in Sources */,
+				512B43BC23FAB05C00BFBCF0 /* CategoriesCoordinator.swift in Sources */,
 				51FDC3152029D99900ED0DD7 /* OFFProductJson.swift in Sources */,
 				514FC919213E7BD7007577FC /* Endian.swift in Sources */,
 				515742741CDB63B200BE8E2D /* RSFocusMarkLayer.swift in Sources */,
+				512B43C023FAB07800BFBCF0 /* SupplyChainCoordinator.swift in Sources */,
 				514FC91B213E7BE2007577FC /* BinaryReader.swift in Sources */,
 				51D53D44205ECBFC00FE7BEF /* StringExtension2.swift in Sources */,
 				5193DC121F3E2388009EE70B /* GalleryCollectionReusableView.swift in Sources */,
 				51649A521DE33A5C000F305E /* PurchacePlaceTableViewCell.swift in Sources */,
-				51AADDDD23EF33C000108F69 /* CategoriesCoordinator.swift in Sources */,
 				51216E2C20B71BEE004D356C /* SelectNutritionFactsTableStyleTableViewCell.swift in Sources */,
 				510DB60B205AF02500782DEE /* NutritionFactsLabelStyle.swift in Sources */,
 				51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */,
@@ -1962,6 +1963,7 @@
 				5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */,
 				513E00981F867F2D003153D4 /* TagListViewLabelTableViewCell.swift in Sources */,
 				515FF5AB1E361AF100E85815 /* NutrimentsAvailableTableViewCell.swift in Sources */,
+				512B43BA23FAB05500BFBCF0 /* Coordinator.swift in Sources */,
 				515FF5A91E322C8700E85815 /* PerUnitTableViewCell.swift in Sources */,
 				5107C8311D9D883F006A628C /* ProductUpdateStatus.swift in Sources */,
 				516619281C61EFCE00956EB4 /* OpenFoodFactsRequest.swift in Sources */,
@@ -2071,7 +2073,6 @@
 				51B9048C1E7AEE38004E3439 /* Energy.swift in Sources */,
 				51FB322D1CF44E8A00A17312 /* BarcodeTableViewCell.swift in Sources */,
 				515742781CDB63B200BE8E2D /* RSUnifiedCodeValidator.swift in Sources */,
-				515CCF6423F05C2F00D29794 /* IdentificationCoordinator.swift in Sources */,
 				51649A501DE3306C000F305E /* ExpirationDateTableViewCell.swift in Sources */,
 				51B3838E1F8936D30086581C /* ButtonWithSegmentedControlTableViewCell.swift in Sources */,
 				51B721721DD5D208003AF608 /* NutritionFactUnit.swift in Sources */,
@@ -2082,7 +2083,6 @@
 				5150D9C41F8133FE0003DE8E /* NutrimentSearch.swift in Sources */,
 				514196B82083B66300528877 /* TagListViewButtonTableViewCell.swift in Sources */,
 				51BED0C41CE1C044006ED62B /* MapPinCategories.swift in Sources */,
-				51AADDD223ED79B800108F69 /* Coordinator.swift in Sources */,
 				519A8E031E827F23001C026A /* ImageSizeCategory.swift in Sources */,
 				5157426E1CDB63B200BE8E2D /* RSCodeGenerator.swift in Sources */,
 				51B9048A1E7AEC9C004E3439 /* Weight.swift in Sources */,
