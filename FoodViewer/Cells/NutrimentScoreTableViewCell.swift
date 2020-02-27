@@ -74,7 +74,15 @@ class NutrimentScoreTableViewCell: UITableViewCell {
         nutrimentScoreBarGaugeView?.normalBarColor = normalBarColor
     }
 
-    @IBOutlet weak var nutrimentValue: UILabel!
+    @IBOutlet weak var nutrimentValue: UILabel! {
+        didSet {
+            if #available(iOS 13.0, *) {
+                nutrimentValue.textColor = .label
+            } else {
+                nutrimentValue.textColor = .black
+            }
+        }
+    }
     
     @IBOutlet weak var nutrimentScoreBarGaugeView: BarGaugeView! {
         didSet {
@@ -82,6 +90,14 @@ class NutrimentScoreTableViewCell: UITableViewCell {
         }
     }
 
-    @IBOutlet weak var nutrimentLabel: UILabel!
+    @IBOutlet weak var nutrimentLabel: UILabel! {
+           didSet {
+               if #available(iOS 13.0, *) {
+                   nutrimentLabel.textColor = .label
+               } else {
+                   nutrimentLabel.textColor = .black
+               }
+           }
+       }
     
 }
