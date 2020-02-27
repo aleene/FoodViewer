@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SelectNutrientUnitViewControllerCoordinator {
+protocol SelectNutrientCoordinatorProtocol {
     /**
     Inform the protocol delegate that no shop has been selected.
     - Parameters:
@@ -25,8 +25,10 @@ protocol SelectNutrientUnitViewControllerCoordinator {
 }
 
 class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-
-    var coordinator: (Coordinator & SelectNutrientUnitViewControllerCoordinator)? = nil
+    
+    var protocolCoordinator: SelectNutrientCoordinatorProtocol? = nil
+    
+    weak var coordinator: Coordinator? = nil
 
     private struct Constants {
         static let UnwindSegue = "Unwind Set Nutrient Unit"
@@ -65,11 +67,11 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     @IBOutlet weak var navItem: UINavigationItem!
 
     @IBAction func doneBarButtonItemTapped(_ sender: UIBarButtonItem) {
-        coordinator?.selectNutrientUnitViewController(self, nutrient: currentNutrient, unit: selectedNutritionUnit)
+        protocolCoordinator?.selectNutrientUnitViewController(self, nutrient: currentNutrient, unit: selectedNutritionUnit)
     }
     
     @IBAction func cancelBarButtonItemTapped(_ sender: UIBarButtonItem) {
-        coordinator?.selectNutrientUnitViewControllerDidCancel(self)
+        protocolCoordinator?.selectNutrientUnitViewControllerDidCancel(self)
     }
 
 // MARK: - PickerView Datasource methods
@@ -97,7 +99,7 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if row >= Constants.RowOffset {
             selectedNutritionUnit = NutritionFactUnit.units(for:energyUnit)[row - Constants.RowOffset]
-            coordinator?.selectNutrientUnitViewController(self, nutrient: currentNutrient, unit: selectedNutritionUnit)
+            protocolCoordinator?.selectNutrientUnitViewController(self, nutrient: currentNutrient, unit: selectedNutritionUnit)
         }
     }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AddFavoriteShopTableViewControllerCoordinator {
+protocol AddFavoriteShopCoordinatorProtocol {
     
 /**
 The done button has been tapped and a new shop has been created.
@@ -32,7 +32,9 @@ The cancel button has been tapped and no new shop has been created.
 
 final class AddFavoriteShopTableViewController: UITableViewController {
 
-    var coordinator: (Coordinator & AddFavoriteShopTableViewControllerCoordinator)? = nil
+    var protocolCoordinator: AddFavoriteShopCoordinatorProtocol? = nil
+    
+    weak var coordinator: Coordinator? = nil
     
     private var shopName: String? = nil
     private var shopAddress: Address? = nil
@@ -50,10 +52,11 @@ final class AddFavoriteShopTableViewController: UITableViewController {
         
         self.view.endEditing(true)
         //self.performSegue(withIdentifier: StoryboardString.SegueIdentifier.FromAddFavoriteShopTableVC.UnwindVC, sender: self)
-        coordinator?.addFavoriteShopTableViewController(self, shopName: shopName, shopAddress: shopAddress)
+        protocolCoordinator?.addFavoriteShopTableViewController(self, shopName: shopName, shopAddress: shopAddress)
     }
+    
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.addFavoriteShopTableViewControllerDidCancel(self)
+        protocolCoordinator?.addFavoriteShopTableViewControllerDidCancel(self)
     }
     
     @IBOutlet weak var navItem: UINavigationItem!

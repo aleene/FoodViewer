@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SelectLanguageViewControllerCoordinator {
+protocol SelectLanguageCoordinatorProtocol {
     /**
     Inform the protocol delegate that no shop has been selected.
     - Parameters:
@@ -28,7 +28,7 @@ protocol SelectLanguageViewControllerCoordinator {
 Shows a list of languageCodes in a pickerView and allows the user to select an entry
 
 **Public variable**
- - `coordinator` : the manager of this viewController and its protocol delegate
+ - `coordinator` : the coordinator of this viewController
  
 **Public function**
 - `configure(primaryLanguageCode: String?, currentLanguageCode: String?, languageCodes: [String]?)`: configures the viewController with the languageCodes.
@@ -41,8 +41,10 @@ final class SelectLanguageViewController: UIViewController, UIPickerViewDelegate
 //
 // MARK: - External properties
 //
+    var protocolCoordinator: SelectLanguageCoordinatorProtocol? = nil
+    
     /// The manager of this viewController and its protocol delegate
-    var coordinator: (Coordinator & SelectLanguageViewControllerCoordinator)? = nil
+    weak var coordinator: Coordinator? = nil
 //
 // MARK: - External functions
 //
@@ -99,11 +101,11 @@ Configures the viewController with the languageCodes.
     }
     
     @IBAction func cancelBarButtonItemTapped(_ sender: UIBarButtonItem) {
-        coordinator?.selectLanguageViewControllerDidCancel(self)
+        protocolCoordinator?.selectLanguageViewControllerDidCancel(self)
     }
     
     @IBAction func doneBarButtonItemTapped(_ sender: UIBarButtonItem) {
-        coordinator?.selectLanguageViewController(self, selected:selectedLanguageCode)
+        protocolCoordinator?.selectLanguageViewController(self, selected:selectedLanguageCode)
     }
     
     // MARK: - Delegates and datasource

@@ -8,72 +8,98 @@
 
 import UIKit
 
-class NutrientsCoordinator: Coordinator {
+final class NutrientsCoordinator: Coordinator {
+    
+    weak var parentCoordinator: Coordinator? = nil
+
     var childCoordinators: [Coordinator] = []
-    
+        
     var viewController: UIViewController? = nil
-    
-    weak var productPair: ProductPair? = nil
     
     private var coordinatorViewController: NutrientsTableViewController? {
         self.viewController as? NutrientsTableViewController
     }
 
-    init(with viewController:UIViewController) {
-        self.viewController = viewController
+    init(with coordinator: Coordinator?) {
+        self.viewController = NutrientsTableViewController.instantiate()
+        self.coordinatorViewController?.coordinator = self
+        self.parentCoordinator = coordinator
     }
     
+    init(with viewController: UIViewController?) {
+        self.viewController = viewController
+    }
+
+    func show() {
+        // Done in the viewController?
+    }
+
+    weak var productPair: ProductPair? = nil
+
     // Show the image with the current display language
     // The coordinator does the right image selection
     func showImage(imageTitle: String?, imageData: ProductImageData?) {
-        let childViewController = ImageViewController.instantiate()
-        childViewController.coordinator = self
-        childViewController.imageTitle = imageTitle
-        childViewController.imageData = imageData
-        viewController?.present(childViewController, animated: true, completion: nil)
+        let coordinator = ImageViewCoordinator(with: self, imageTitle: imageTitle, imageData: imageData)
+        childCoordinators.append(coordinator)
+        coordinator.show()
     }
 
     func showNutrientUnitSelector(nutrient: Nutrient?, unit: NutritionFactUnit?, anchoredOn button:UIButton) {
-        let childViewController = SelectNutrientUnitViewController.instantiate()
-        childViewController.coordinator = self
-        childViewController.configure(nutrient: nutrient, unit: unit)
-        presentAsPopOver(childViewController, at: button)
+        let coordinator = NutrientUnitSelectorCoordinator(with: self, nutrient: nutrient, unit: unit, button: button)
+        childCoordinators.append(coordinator)
+        coordinator.show()
     }
 
     func showAddNutrientSelector(current nutrients:[String], anchoredOn button:UIButton) {
-        let childViewController = AddNutrientViewController.instantiate()
-        childViewController.coordinator = self
-        childViewController.configure(existing: nutrients)
-        presentAsFormSheet(childViewController)
+        let coordinator = AddNutrientCoordinator(with: self, nutrients: nutrients, button: button)
+        childCoordinators.append(coordinator)
+        coordinator.show()
     }
 
     func showNutritionFactsTableStyleSelector(selected nutritionFactsTableStyle: NutritionFactsLabelStyle?, anchoredOn button:UIButton) {
-        let childViewController = SelectNutritionFactsTableStyleTableViewController.instantiate()
-        childViewController.coordinator = self
-        childViewController.configure(selected:nutritionFactsTableStyle)
-        presentAsFormSheet(childViewController)
+        let coordinator = SelectNutritionFactsTableStyleCoordinator(with: self, nutritionFactsTableStyle: nutritionFactsTableStyle, button: button)
+        childCoordinators.append(coordinator)
+        coordinator.show()
     }
     
     func showLanguageSelector(with currentLanguageCode: String?, atAnchor button: UIButton) {
-        let childViewController = SelectLanguageViewController.instantiate()
-        childViewController.coordinator = self
-        childViewController.configure(primaryLanguageCode: productPair?.primaryLanguageCode, currentLanguageCode: currentLanguageCode, languageCodes: productPair?.remoteProduct?.languageCodes)
-        presentAsPopOver(childViewController, at: button)
+        let coordinator = SelectLanguageCoordinator(with: self, primaryLanguageCode: productPair?.primaryLanguageCode, currentLanguageCode: currentLanguageCode, languageCodes: productPair?.remoteProduct?.languageCodes, button: button)
+        self.childCoordinators.append(coordinator)
+        coordinator.show()
     }
-
-    private func refresh() {
-        coordinatorViewController?.refreshProduct()
+    
+    /// The viewController informs its owner that it has disappeared
+    func viewControllerDidDisappear(_ sender: UIViewController) {
+        if self.childCoordinators.isEmpty {
+            self.viewController = nil
+            informParent()
+        }
+    }
+    
+    /// A child coordinator informs its owner that it has disappeared
+    func canDisappear(_ coordinator: Coordinator) {
+        if let index = self.childCoordinators.lastIndex(where: ({ $0 === coordinator }) ) {
+            self.childCoordinators.remove(at: index)
+            informParent()
+        }
+    }
+    
+    private func informParent() {
+        if self.childCoordinators.isEmpty
+            && self.viewController == nil {
+            parentCoordinator?.canDisappear(self)
+        }
     }
 }
 
-extension NutrientsCoordinator: ImageViewControllerCoordinator {
+extension NutrientsCoordinator: ImageCoordinatorProtocol {
     
     func imageViewController(_ sender:ImageViewController, tapped barButton:UIBarButtonItem) {
         sender.dismiss(animated: true, completion: nil)
     }
 }
 
-extension NutrientsCoordinator: SelectNutritionFactsTableStyleTableViewControllerCoordinator {
+extension NutrientsCoordinator: SelectNutritionFactsTableStyleCoordinatorProtocol {
     func selectNutritionFactsTableStyleTableViewController(_ sender: SelectNutritionFactsTableStyleTableViewController, selected style: NutritionFactsLabelStyle?) {
         coordinatorViewController?.setNutritionFactsTableStyle(to: style)
         sender.dismiss(animated: true, completion: nil)
@@ -86,7 +112,7 @@ extension NutrientsCoordinator: SelectNutritionFactsTableStyleTableViewControlle
     
 }
 
-extension NutrientsCoordinator: SelectNutrientUnitViewControllerCoordinator {
+extension NutrientsCoordinator: SelectNutrientCoordinatorProtocol {
     
     func selectNutrientUnitViewController(_ sender: SelectNutrientUnitViewController, nutrient: Nutrient?, unit: NutritionFactUnit?) {
         productPair?.update(nutrient:nutrient, unit:unit)
@@ -99,7 +125,7 @@ extension NutrientsCoordinator: SelectNutrientUnitViewControllerCoordinator {
 
 }
 
-extension NutrientsCoordinator : AddNutrientViewControllerCoordinator {    
+extension NutrientsCoordinator : AddNutrientCoordinatorProtocol {
     
     func addNutrientViewController(_ sender:AddNutrientViewController, add nutrientTuple:(Nutrient, String, NutritionFactUnit)?) {
         if let newNutrientTuple = nutrientTuple {
@@ -119,7 +145,7 @@ extension NutrientsCoordinator : AddNutrientViewControllerCoordinator {
 
 }
 
-extension NutrientsCoordinator: SelectLanguageViewControllerCoordinator {
+extension NutrientsCoordinator: SelectLanguageCoordinatorProtocol {
     
     public func selectLanguageViewController(_ sender:SelectLanguageViewController, selected languageCode:String?) {
         coordinatorViewController?.currentLanguageCode = languageCode

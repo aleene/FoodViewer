@@ -9,10 +9,16 @@
 import UIKit
 
 
-/// An UIViewController that allows to inspect a diet
+/**
+An UIViewController that allows to inspect a diet
+
+ - Important
+ This class does not need a protocol, as it does not has any actions that call on outside sources.
+*/
 final class ShowDietTriggersTableViewController: UITableViewController {
 
-    public var coordinator: DietSelectorCoordinator? = nil
+    // The coordinator is owned by ShowDietTriggersCoordinator
+    weak var coordinator: Coordinator? = nil
     
     public func configure(diet index: Int?) {
         self.dietIndex = index
@@ -171,8 +177,4 @@ extension ShowDietTriggersTableViewController: TagListViewDataSource {
         tableView.reloadRows(at: [IndexPath(row: row, section: section)], with: .bottom)
     }
     
-    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
-        return nil
-    }
-
 }

@@ -10,6 +10,9 @@ import UIKit
 
 class ProductPresentationSettingsTableViewController: UITableViewController {
 
+    // The coordinator is owned by ProductPresentationSettingsCoordinator
+    weak var coordinator: Coordinator? = nil
+
     fileprivate struct Constants {
         static let ViewControllerTitle = TranslatableStrings.Preferences
         static let AllergenSegue = "Show Allergen Segue"
@@ -238,6 +241,11 @@ class ProductPresentationSettingsTableViewController: UITableViewController {
         refreshAll()
         
         title = Constants.ViewControllerTitle
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        coordinator?.viewControllerDidDisappear(self)
+        super.viewDidDisappear(animated)
     }
 
 }

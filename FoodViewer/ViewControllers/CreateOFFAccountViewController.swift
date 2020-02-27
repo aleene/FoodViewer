@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 class CreateOFFAccountViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = TranslatableStrings.CreateOffAccount
@@ -19,7 +19,7 @@ class CreateOFFAccountViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
+
     @IBOutlet weak var webView: WKWebView!
     
 

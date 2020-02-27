@@ -268,6 +268,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.mainLanguageCode = primaryLanguageCodeToDisplay
             cell.editMode = editMode
             cell.delegate = self
+            cell.tag = indexPath.section
             if editMode,
                 productPair?.localProduct?.primaryLanguageCode != productPair?.remoteProduct?.primaryLanguageCode {
                 cell.editMode = productVersion.isRemote ? false : true

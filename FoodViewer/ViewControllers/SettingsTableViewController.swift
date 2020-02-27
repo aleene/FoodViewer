@@ -16,6 +16,7 @@ import UIKit
 
 final class SettingsTableViewController: UITableViewController {
 
+    // Not set to weak as it is init in this viewController
     var coordinator: SettingsCoordinator? = nil
     
     // MARK: - Table view data source
@@ -51,15 +52,15 @@ final class SettingsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: false)
         switch indexPath.section {
         case 0:
-            coordinator?.showAllergens()
+            coordinator?.showAllergensSettings(self)
         case 1:
-            coordinator?.showDiets()
+            coordinator?.showDietSettings(self)
         case 2:
-            coordinator?.showProductPresentationSettings()
+            coordinator?.showProductPresentationSettings(self)
         case 3:
-            coordinator?.showOpenFoodFactsPreferences()
+            coordinator?.showOpenFoodFactsSettings(self)
         case 4:
-            coordinator?.showApplicationSettings()
+            coordinator?.showApplicationSettings(self)
         default:
             break
         }
@@ -90,4 +91,10 @@ final class SettingsTableViewController: UITableViewController {
         title = TranslatableStrings.UserScene
         
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        coordinator?.viewControllerDidDisappear(self)
+        super.viewDidDisappear(animated)
+    }
+
 }

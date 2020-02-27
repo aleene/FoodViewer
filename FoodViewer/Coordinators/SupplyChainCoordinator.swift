@@ -8,8 +8,12 @@
 
 import UIKit
 
-class SupplyChainCoordinator: Coordinator {    
+final class SupplyChainCoordinator: Coordinator {
+        
+    weak var parentCoordinator: Coordinator? = nil
+
     var childCoordinators: [Coordinator] = []
+    
     var viewController: UIViewController? = nil
     
     weak var productPair: ProductPair? = nil
@@ -17,54 +21,86 @@ class SupplyChainCoordinator: Coordinator {
     private var coordinatorViewController: SupplyChainTableViewController? {
         self.viewController as? SupplyChainTableViewController
     }
+    
+    init(with coordinator: Coordinator?) {
+        self.viewController = SupplyChainTableViewController.instantiate()
+        self.parentCoordinator = coordinator
+    }
 
     init(with viewController:UIViewController) {
         self.viewController = viewController
     }
     
+    func show() {
+        // Done in the viewController?
+    }
+
     func selectFavoriteShop() {
-        let childViewController = FavoriteShopsViewController.instantiate()
-        childViewController.coordinator = self
-        let childCoordinator = FavoriteShopsCoordinator.init(with: childViewController)
-        childCoordinators.append(childCoordinator)
-        presentAsFormSheet(childViewController)
+        let coordinator = FavoriteShopsCoordinator.init(with: self)
+        childCoordinators.append(coordinator)
+        coordinator.show()
     }
     
     func selectExpirationDate(anchoredOn button:UIButton) {
-        let childViewController = SelectExpirationDateViewController.instantiate()
-        childViewController.coordinator = self
+        var currentDate: Date? = nil
         if let validName = productPair?.localProduct?.expirationDate {
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             formatter.timeStyle = .none
-            childViewController.currentDate = validName
+            currentDate = validName
         } else if let validName = productPair?.remoteProduct?.expirationDate {
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             formatter.timeStyle = .none
-            childViewController.currentDate = validName
+            currentDate = validName
         } else {
-            childViewController.currentDate = nil
+            currentDate = nil
         }
-        presentAsPopOver(childViewController, at: button)
+        let coordinator = SelectExpirationDateCoordinator(with: self, currentDate: currentDate, button: button)
+        childCoordinators.append(coordinator)
+        coordinator.show()
     }
 
     func selectCountry() {
-        let childViewController = SelectPairViewController.instantiate()
-        childViewController.coordinator = self
-        childViewController.configure(original: productPair?.countriesInterpreted?.list,
-                     allPairs: OFFplists.manager.allCountries,
-                     multipleSelectionIsAllowed: true,
-                     showOriginalsAsSelected: true,
-                     assignedHeader: TranslatableStrings.SelectedCountries,
-                     unAssignedHeader: TranslatableStrings.UnselectedCountries,
-                     undefinedText: TranslatableStrings.NoCountryDefined)
-        presentAsFormSheet(childViewController)
+        let coordinator = SelectPairCoordinator.init(with:self,
+                            original: productPair?.countriesInterpreted?.list,
+                            allPairs: OFFplists.manager.allCountries,
+                            multipleSelectionIsAllowed: true,
+                            showOriginalsAsSelected: true,
+                            tag: 0,
+                            assignedHeader: TranslatableStrings.SelectedCountries,
+                            unAssignedHeader: TranslatableStrings.UnselectedCountries,
+                            undefinedText: TranslatableStrings.NoCountryDefined)
+        childCoordinators.append(coordinator)
+        coordinator.show()
+    }
+    
+    /// The viewController informs its owner that it has disappeared
+    func viewControllerDidDisappear(_ sender: UIViewController) {
+        if self.childCoordinators.isEmpty {
+            self.viewController = nil
+            informParent()
+        }
+    }
+    
+    /// A child coordinator informs its owner that it has disappeared
+    func canDisappear(_ coordinator: Coordinator) {
+        if let index = self.childCoordinators.lastIndex(where: ({ $0 === coordinator }) ) {
+            self.childCoordinators.remove(at: index)
+            informParent()
+        }
+    }
+    
+    private func informParent() {
+        if self.childCoordinators.isEmpty
+            && self.viewController == nil {
+            parentCoordinator?.canDisappear(self)
+        }
     }
 }
 
 
-extension SupplyChainCoordinator: FavoriteShopsViewControllerCoordinator {
+extension SupplyChainCoordinator: FavoriteShopsCoordinatorProtocol {
     
     func favoriteShopsTableViewControllerAddFavoriteShop(_ sender: FavoriteShopsViewController) {
         // This viewController has its own coordinator
@@ -84,7 +120,7 @@ extension SupplyChainCoordinator: FavoriteShopsViewControllerCoordinator {
     
 }
 
-extension SupplyChainCoordinator: SelectExpirationDateViewControllerCoordinator {
+extension SupplyChainCoordinator: SelectExpirationDateCoordinatorProtocol {
     
     func selectExpirationDateViewController(_ sender:SelectExpirationDateViewController, selected date:Date?) {
         productPair?.update(expirationDate: date)
@@ -97,9 +133,9 @@ extension SupplyChainCoordinator: SelectExpirationDateViewControllerCoordinator 
     
 }
 
-extension SupplyChainCoordinator: SelectPairViewControllerCoordinator {
+extension SupplyChainCoordinator: SelectPairCoordinatorProtocol {
     
-    func selectPairViewController(_ sender:SelectPairViewController, selected strings: [String]?) {
+    func selectPairViewController(_ sender:SelectPairViewController, selected strings: [String]?, tag: Int) {
         productPair?.update(countries: strings)
         sender.dismiss(animated: true, completion: nil)
     }

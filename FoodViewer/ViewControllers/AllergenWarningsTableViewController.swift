@@ -10,6 +10,9 @@ import UIKit
 
 class AllergenWarningsTableViewController: UITableViewController {
     
+    // The coordinator is owned by AllergenWarningsCoordinator
+    weak var coordinator: Coordinator? = nil
+
     // MARK: - Table view data source
     
     fileprivate struct Storyboard {
@@ -59,9 +62,10 @@ class AllergenWarningsTableViewController: UITableViewController {
         self.edgesForExtendedLayout = UIRectEdge()
         
     }
-
+    
     override func viewDidDisappear(_ animated: Bool) {
         AllergenWarningDefaults.manager.update()
+        coordinator?.viewControllerDidDisappear(self)
         super.viewDidDisappear(animated)
     }
 

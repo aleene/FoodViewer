@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol FavoriteShopsViewControllerCoordinator {
+protocol FavoriteShopsCoordinatorProtocol {
 /**
 Inform the protocol delegate that no shop has been selected.
 - Parameters:
@@ -28,10 +28,11 @@ Inform the protocol delegate that no shop has been selected.
     }
 
 /// An UIViewController that allows to select (and add) a shop (name + address).
-class FavoriteShopsViewController: UIViewController {
+final class FavoriteShopsViewController: UIViewController {
     
+    var protocolCoordinator: FavoriteShopsCoordinatorProtocol? = nil
     /// The coordinator that manages the flow.
-    var coordinator: (FavoriteShopsViewControllerCoordinator & Coordinator)? = nil
+    weak var coordinator: Coordinator? = nil
     
     /// Refresh the tableView with favorite shops
     func refresh() {
@@ -40,16 +41,21 @@ class FavoriteShopsViewController: UIViewController {
 //
 // MARK : - private variables
 //
-    private var shops: [(String, Address)] = []
+    //private var shops: [(String, Address)] = []
 
     private var snapShot: UIView?
     
     private var sourceIndexPath: IndexPath?
     
-    private var editMode = false
+    private var editMode = false {
+        didSet {
+            if editMode != oldValue {
+                tableView.reloadData()
+            }
+        }
+    }
     
     private var selectedShop: (String, Address)? = nil
-    
     
     /*
     @IBAction func unwindAddFavoriteShopForDone(_ segue:UIStoryboardSegue) {
@@ -69,15 +75,15 @@ class FavoriteShopsViewController: UIViewController {
     }
     
     @IBAction func addShopButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.favoriteShopsTableViewControllerAddFavoriteShop(self)
+        protocolCoordinator?.favoriteShopsTableViewControllerAddFavoriteShop(self)
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.favoriteShopsTableViewControllerDidCancel(self)
+        protocolCoordinator?.favoriteShopsTableViewControllerDidCancel(self)
     }
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.favoriteShopsTableViewController(self, selected:selectedShop)
+        protocolCoordinator?.favoriteShopsTableViewController(self, selected:selectedShop)
     }
     
     @IBOutlet weak var navItem: UINavigationItem!
@@ -88,9 +94,9 @@ class FavoriteShopsViewController: UIViewController {
             tableView?.dataSource = self
         }
     }
-    
-    // MARK: - Moving table rows by long press
-    
+//
+// MARK: - Moving table rows by long press
+//
     // https://www.raywenderlich.com/63089/cookbook-moving-table-view-cells-with-a-long-press-gesture
     
     @objc func handleTableViewLongGesture(sender: UILongPressGestureRecognizer) {
@@ -241,13 +247,13 @@ extension FavoriteShopsViewController : UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         let aantal = FavoriteShopsDefaults.manager.list.count
+        print(aantal)
         return aantal
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier + "." + FavoriteShopsViewController.identifier , for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: UITableViewCell.self), for: indexPath)
 
         let (shop, location) = FavoriteShopsDefaults.manager.list[indexPath.row]
         cell.textLabel?.text = shop
@@ -292,9 +298,10 @@ extension FavoriteShopsViewController : UITableViewDataSource {
 
 }
 //
-// MARK: - Table view data source
+// MARK: - Table view delegate protocol
 //
 extension FavoriteShopsViewController : UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !editMode {
             selectedShop = FavoriteShopsDefaults.manager.list[indexPath.row]
@@ -306,7 +313,6 @@ extension FavoriteShopsViewController : UITableViewDelegate {
         // Return false if you do not want the specified item to be editable.
         return editMode
     }
-    
 
     // Override to support editing the table view.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

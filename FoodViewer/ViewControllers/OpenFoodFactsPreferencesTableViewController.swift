@@ -10,6 +10,9 @@ import UIKit
 
 class OpenFoodFactsPreferencesTableViewController: UITableViewController {
 
+    // The coordinator is owned by OpenFoodFactsSettingsCoordinator
+    weak var coordinator: Coordinator? = nil
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -141,6 +144,11 @@ class OpenFoodFactsPreferencesTableViewController: UITableViewController {
         title = TranslatableStrings.OpenFoodFactsPreferences
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        coordinator?.viewControllerDidDisappear(self)
+        super.viewDidDisappear(animated)
+    }
+
 }
 
 

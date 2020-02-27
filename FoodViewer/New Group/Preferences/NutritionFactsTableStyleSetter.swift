@@ -24,4 +24,5 @@ enum NutritionFactsTableStyleSetter {
             return "Nutrition Facts Table style is set by the product."
         }
     }
+
 }

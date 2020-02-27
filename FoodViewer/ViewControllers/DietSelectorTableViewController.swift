@@ -8,13 +8,14 @@
 
 import UIKit
 
-class DietSelectorTableViewController: UITableViewController {
+final class DietSelectorTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     
     private var selectedDietIndex: Int? = nil
     
-    var coordinator: DietSelectorCoordinator? = nil
+    /// The coordinator is owned by DietSelectorCoordinator
+    weak var coordinator: DietSelectorCoordinator? = nil
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -39,7 +40,7 @@ class DietSelectorTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        coordinator?.showTriggers(forDietAt: indexPath.row)
+        coordinator?.showDiet(with: indexPath.row)
     }
     
     // MARK: - ViewController Lifecycle

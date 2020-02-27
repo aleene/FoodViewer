@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SelectExpirationDateViewControllerCoordinator {
+protocol SelectExpirationDateCoordinatorProtocol {
 /**
 Inform the protocol delegate that no data has been selected.
 - Parameters:
@@ -33,7 +33,9 @@ class SelectExpirationDateViewController: UIViewController {
         }
     }
     
-    var coordinator: (SelectExpirationDateViewControllerCoordinator & Coordinator)? = nil
+    var protocolCoordinator: SelectExpirationDateCoordinatorProtocol? = nil
+    
+    weak var coordinator: Coordinator? = nil
     
     private func setupInterface() {
         if expirationDatePicker != nil {
@@ -58,11 +60,11 @@ class SelectExpirationDateViewController: UIViewController {
     @IBOutlet weak var navItem: UINavigationItem!
 
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.selectExpirationDateViewControllerDidCancel(self)
+        protocolCoordinator?.selectExpirationDateViewControllerDidCancel(self)
     }
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.selectExpirationDateViewController(self, selected: selectedDate)
+        protocolCoordinator?.selectExpirationDateViewController(self, selected: selectedDate)
     }
     
     // MARK: - ViewController Lifecycle

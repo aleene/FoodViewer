@@ -229,6 +229,19 @@
 		512B453323FAC79E00BFBCF0 /* AddNutrientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453223FAC79D00BFBCF0 /* AddNutrientTableViewCell.swift */; };
 		512B453523FAE35500BFBCF0 /* DietSelectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453423FAE35500BFBCF0 /* DietSelectorCoordinator.swift */; };
 		512B453723FB019F00BFBCF0 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453623FB019F00BFBCF0 /* SettingsCoordinator.swift */; };
+		512B453A23FBEC2F00BFBCF0 /* ShowDietTriggersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453923FBEC2F00BFBCF0 /* ShowDietTriggersCoordinator.swift */; };
+		512B453C23FBF53200BFBCF0 /* OpenFoodFactsSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453B23FBF53200BFBCF0 /* OpenFoodFactsSettingsCoordinator.swift */; };
+		512B453E23FBF5A900BFBCF0 /* ProductPresentationSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453D23FBF5A900BFBCF0 /* ProductPresentationSettingsCoordinator.swift */; };
+		512B454023FBF61C00BFBCF0 /* ApplicationSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B453F23FBF61C00BFBCF0 /* ApplicationSettingsCoordinator.swift */; };
+		512B454223FBF9F100BFBCF0 /* AllergenWarningsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B454123FBF9F100BFBCF0 /* AllergenWarningsCoordinator.swift */; };
+		512B454423FD3DDA00BFBCF0 /* ImageViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B454323FD3DDA00BFBCF0 /* ImageViewCoordinator.swift */; };
+		512B454623FD489700BFBCF0 /* SelectPairCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B454523FD489700BFBCF0 /* SelectPairCoordinator.swift */; };
+		512B454823FD75BB00BFBCF0 /* NutrientUnitSelectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B454723FD75BB00BFBCF0 /* NutrientUnitSelectorCoordinator.swift */; };
+		512B454A23FD77EF00BFBCF0 /* AddNutrientCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B454923FD77EF00BFBCF0 /* AddNutrientCoordinator.swift */; };
+		512B454C23FD7A8400BFBCF0 /* SelectNutritionFactsTableStyleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B454B23FD7A8400BFBCF0 /* SelectNutritionFactsTableStyleCoordinator.swift */; };
+		512B454E23FD7C3C00BFBCF0 /* SelectLanguageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B454D23FD7C3C00BFBCF0 /* SelectLanguageCoordinator.swift */; };
+		512B455123FD7F3A00BFBCF0 /* SelectLanguageAndImageTypeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B455023FD7F3A00BFBCF0 /* SelectLanguageAndImageTypeCoordinator.swift */; };
+		512B455423FD91AA00BFBCF0 /* SelectExpirationDateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B455323FD91AA00BFBCF0 /* SelectExpirationDateCoordinator.swift */; };
 		513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D16AF1DB4C02D005B1971 /* OFFAccount.swift */; };
 		514196B82083B66300528877 /* TagListViewButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */; };
 		51485F151FB74E9400167437 /* TagListViewAddImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */; };
@@ -627,6 +640,19 @@
 		512B453223FAC79D00BFBCF0 /* AddNutrientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddNutrientTableViewCell.swift; path = Cells/AddNutrientTableViewCell.swift; sourceTree = "<group>"; };
 		512B453423FAE35500BFBCF0 /* DietSelectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DietSelectorCoordinator.swift; path = Coordinators/DietSelectorCoordinator.swift; sourceTree = "<group>"; };
 		512B453623FB019F00BFBCF0 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsCoordinator.swift; path = Coordinators/SettingsCoordinator.swift; sourceTree = "<group>"; };
+		512B453923FBEC2F00BFBCF0 /* ShowDietTriggersCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShowDietTriggersCoordinator.swift; path = Coordinators/Settings/ShowDietTriggersCoordinator.swift; sourceTree = "<group>"; };
+		512B453B23FBF53200BFBCF0 /* OpenFoodFactsSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OpenFoodFactsSettingsCoordinator.swift; path = Coordinators/Settings/OpenFoodFactsSettingsCoordinator.swift; sourceTree = "<group>"; };
+		512B453D23FBF5A900BFBCF0 /* ProductPresentationSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductPresentationSettingsCoordinator.swift; path = Coordinators/Settings/ProductPresentationSettingsCoordinator.swift; sourceTree = "<group>"; };
+		512B453F23FBF61C00BFBCF0 /* ApplicationSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ApplicationSettingsCoordinator.swift; path = Coordinators/Settings/ApplicationSettingsCoordinator.swift; sourceTree = "<group>"; };
+		512B454123FBF9F100BFBCF0 /* AllergenWarningsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AllergenWarningsCoordinator.swift; path = Coordinators/Settings/AllergenWarningsCoordinator.swift; sourceTree = "<group>"; };
+		512B454323FD3DDA00BFBCF0 /* ImageViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageViewCoordinator.swift; path = Coordinators/SecondLevel/ImageViewCoordinator.swift; sourceTree = "<group>"; };
+		512B454523FD489700BFBCF0 /* SelectPairCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectPairCoordinator.swift; path = Coordinators/SecondLevel/SelectPairCoordinator.swift; sourceTree = "<group>"; };
+		512B454723FD75BB00BFBCF0 /* NutrientUnitSelectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NutrientUnitSelectorCoordinator.swift; path = Coordinators/SecondLevel/NutrientUnitSelectorCoordinator.swift; sourceTree = "<group>"; };
+		512B454923FD77EF00BFBCF0 /* AddNutrientCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddNutrientCoordinator.swift; path = Coordinators/SecondLevel/AddNutrientCoordinator.swift; sourceTree = "<group>"; };
+		512B454B23FD7A8400BFBCF0 /* SelectNutritionFactsTableStyleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectNutritionFactsTableStyleCoordinator.swift; path = Coordinators/SecondLevel/SelectNutritionFactsTableStyleCoordinator.swift; sourceTree = "<group>"; };
+		512B454D23FD7C3C00BFBCF0 /* SelectLanguageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectLanguageCoordinator.swift; path = Coordinators/SecondLevel/SelectLanguageCoordinator.swift; sourceTree = "<group>"; };
+		512B455023FD7F3A00BFBCF0 /* SelectLanguageAndImageTypeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectLanguageAndImageTypeCoordinator.swift; path = Coordinators/SecondLevel/SelectLanguageAndImageTypeCoordinator.swift; sourceTree = "<group>"; };
+		512B455323FD91AA00BFBCF0 /* SelectExpirationDateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectExpirationDateCoordinator.swift; path = Coordinators/SecondLevel/SelectExpirationDateCoordinator.swift; sourceTree = "<group>"; };
 		513D16AF1DB4C02D005B1971 /* OFFAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFAccount.swift; sourceTree = "<group>"; };
 		514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagListViewButtonTableViewCell.swift; path = Cells/TagListViewButtonTableViewCell.swift; sourceTree = "<group>"; };
 		51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagListViewAddImageTableViewCell.swift; path = Cells/TagListViewAddImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -1035,8 +1061,43 @@
 			children = (
 				512B453423FAE35500BFBCF0 /* DietSelectorCoordinator.swift */,
 				512B453623FB019F00BFBCF0 /* SettingsCoordinator.swift */,
+				512B454123FBF9F100BFBCF0 /* AllergenWarningsCoordinator.swift */,
+				512B453923FBEC2F00BFBCF0 /* ShowDietTriggersCoordinator.swift */,
+				512B453B23FBF53200BFBCF0 /* OpenFoodFactsSettingsCoordinator.swift */,
+				512B453D23FBF5A900BFBCF0 /* ProductPresentationSettingsCoordinator.swift */,
+				512B453F23FBF61C00BFBCF0 /* ApplicationSettingsCoordinator.swift */,
 			);
 			name = SettingsTab;
+			sourceTree = "<group>";
+		};
+		512B454F23FD7F1F00BFBCF0 /* SecondLevel */ = {
+			isa = PBXGroup;
+			children = (
+				512B454B23FD7A8400BFBCF0 /* SelectNutritionFactsTableStyleCoordinator.swift */,
+				512B455323FD91AA00BFBCF0 /* SelectExpirationDateCoordinator.swift */,
+				512B454323FD3DDA00BFBCF0 /* ImageViewCoordinator.swift */,
+				51AADDDA23EDD0D900108F69 /* AddFavoriteShopCoordinator.swift */,
+				512B454923FD77EF00BFBCF0 /* AddNutrientCoordinator.swift */,
+				512B454523FD489700BFBCF0 /* SelectPairCoordinator.swift */,
+				51AADDD823EDBDF900108F69 /* FavoriteShopsCoordinator.swift */,
+				512B454723FD75BB00BFBCF0 /* NutrientUnitSelectorCoordinator.swift */,
+				512B454D23FD7C3C00BFBCF0 /* SelectLanguageCoordinator.swift */,
+				512B455023FD7F3A00BFBCF0 /* SelectLanguageAndImageTypeCoordinator.swift */,
+			);
+			name = SecondLevel;
+			sourceTree = "<group>";
+		};
+		512B455223FD8DC900BFBCF0 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				512B43BB23FAB05C00BFBCF0 /* CategoriesCoordinator.swift */,
+				512B43BD23FAB07000BFBCF0 /* IdentificationCoordinator.swift */,
+				51E6D78F23F1AE3E00AD7947 /* IngredientsCoordinator.swift */,
+				51E6D79123F1AE6A00AD7947 /* NutrientsCoordinator.swift */,
+				51E6D79323F45A7700AD7947 /* ProductImagesCoordinator.swift */,
+				512B43BF23FAB07800BFBCF0 /* SupplyChainCoordinator.swift */,
+			);
+			name = Pages;
 			sourceTree = "<group>";
 		};
 		513982481C89CEB800250FB1 /* Pages */ = {
@@ -1403,15 +1464,9 @@
 		51AADDD723EDBDC500108F69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				51AADDDA23EDD0D900108F69 /* AddFavoriteShopCoordinator.swift */,
+				512B455223FD8DC900BFBCF0 /* Pages */,
+				512B454F23FD7F1F00BFBCF0 /* SecondLevel */,
 				512B43B923FAB05500BFBCF0 /* Coordinator.swift */,
-				512B43BB23FAB05C00BFBCF0 /* CategoriesCoordinator.swift */,
-				51AADDD823EDBDF900108F69 /* FavoriteShopsCoordinator.swift */,
-				512B43BD23FAB07000BFBCF0 /* IdentificationCoordinator.swift */,
-				51E6D78F23F1AE3E00AD7947 /* IngredientsCoordinator.swift */,
-				51E6D79123F1AE6A00AD7947 /* NutrientsCoordinator.swift */,
-				51E6D79323F45A7700AD7947 /* ProductImagesCoordinator.swift */,
-				512B43BF23FAB07800BFBCF0 /* SupplyChainCoordinator.swift */,
 				512B453823FB01B800BFBCF0 /* SettingsTab */,
 			);
 			name = Coordinators;
@@ -1790,6 +1845,7 @@
 				512B44EF23FABB8A00BFBCF0 /* QuantityTableViewCell.swift in Sources */,
 				51E8573D1FF00ABC0045B4B3 /* UIImageViewExtension.swift in Sources */,
 				512B453323FAC79E00BFBCF0 /* AddNutrientTableViewCell.swift in Sources */,
+				512B454423FD3DDA00BFBCF0 /* ImageViewCoordinator.swift in Sources */,
 				512B44BD23FAB9F700BFBCF0 /* SelectImageSourceViewController.swift in Sources */,
 				5176AAEB1CA44F5A00B0494A /* Address.swift in Sources */,
 				515E715123D1B7840028D0A8 /* SelectPairViewController.swift in Sources */,
@@ -1817,6 +1873,7 @@
 				512B440F23FAB1D800BFBCF0 /* UnicodeIterator.swift in Sources */,
 				51BED0C81CE36723006ED62B /* ProductFetchStatus.swift in Sources */,
 				51B904881E7ADC7E004E3439 /* MetricPrefix.swift in Sources */,
+				512B455423FD91AA00BFBCF0 /* SelectExpirationDateCoordinator.swift in Sources */,
 				512B44A123FAB96600BFBCF0 /* AddFavoriteShopTableViewController.swift in Sources */,
 				5184F57F1EB5EF66009ECF73 /* NutriScoreView.swift in Sources */,
 				512B44FD23FABBD500BFBCF0 /* ServingSizeTableViewCell.swift in Sources */,
@@ -1837,6 +1894,7 @@
 				512B446223FAB26400BFBCF0 /* KeyboardViewController.swift in Sources */,
 				512B444E23FAB23600BFBCF0 /* RSCodeGenerator.swift in Sources */,
 				51E2926E20DBE1B2001C7471 /* ImageCache.swift in Sources */,
+				512B453A23FBEC2F00BFBCF0 /* ShowDietTriggersCoordinator.swift in Sources */,
 				512B44AB23FAB99000BFBCF0 /* FavoriteShopsTableViewController.swift in Sources */,
 				512B43FC23FAB1C700BFBCF0 /* UIView+Haneke.swift in Sources */,
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,
@@ -1852,6 +1910,7 @@
 				512B440523FAB1C700BFBCF0 /* UIImageView+Haneke.swift in Sources */,
 				512B441223FAB1D800BFBCF0 /* CSVError.swift in Sources */,
 				511D58A720371CC500F5D313 /* OFFSearchResultJson.swift in Sources */,
+				512B454823FD75BB00BFBCF0 /* NutrientUnitSelectorCoordinator.swift in Sources */,
 				51F057FD1CB6AFEF00849532 /* OFFProducts.swift in Sources */,
 				512B441023FAB1D800BFBCF0 /* Endian.swift in Sources */,
 				51A62CFE1F87D21E00B0A810 /* SetNutritionScoreTableViewCell.swift in Sources */,
@@ -1891,6 +1950,7 @@
 				512B44E123FABB3C00BFBCF0 /* NutrimentScoreTableViewCell.swift in Sources */,
 				512B44C323FABA2200BFBCF0 /* SelectNutrientUnitViewController.swift in Sources */,
 				51C769B41DDA0D010000D260 /* CaseCountable.swift in Sources */,
+				512B453C23FBF53200BFBCF0 /* OpenFoodFactsSettingsCoordinator.swift in Sources */,
 				512B44E323FABB4700BFBCF0 /* LeftNutrimentScoreTableViewCell.swift in Sources */,
 				51DBA3D722E4878500C56263 /* NegativeIngredientDetectionsDefaults.swift in Sources */,
 				51F96662202DA01A00CD58C3 /* OFFProductNutrientLevels.swift in Sources */,
@@ -1905,6 +1965,7 @@
 				512B44B123FAB9B600BFBCF0 /* SetLastEditDateViewController.swift in Sources */,
 				512B440E23FAB1D800BFBCF0 /* CSVWriter.swift in Sources */,
 				512B44F323FABBA700BFBCF0 /* NutrientsTableViewCell.swift in Sources */,
+				512B454023FBF61C00BFBCF0 /* ApplicationSettingsCoordinator.swift in Sources */,
 				51A37D59200F992F00AAF5D7 /* ImageLoadError.swift in Sources */,
 				512B450123FABBE300BFBCF0 /* PerUnitTableViewCell.swift in Sources */,
 				5184F57C1EB35BFC009ECF73 /* BarGaugeView.swift in Sources */,
@@ -1939,6 +2000,7 @@
 				512B443523FAB21C00BFBCF0 /* TagListViewDelegate.swift in Sources */,
 				512B44DD23FABB2A00BFBCF0 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */,
 				512B445D23FAB24A00BFBCF0 /* UIColorExtension.swift in Sources */,
+				512B454223FBF9F100BFBCF0 /* AllergenWarningsCoordinator.swift in Sources */,
 				51D53D44205ECBFC00FE7BEF /* StringExtension2.swift in Sources */,
 				5193DC121F3E2388009EE70B /* GalleryCollectionReusableView.swift in Sources */,
 				512B43C223FAB0B400BFBCF0 /* AllProductsTableViewController.swift in Sources */,
@@ -1975,6 +2037,7 @@
 				51F96664202DA09A00CD58C3 /* OFFProduct.swift in Sources */,
 				5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */,
 				512B443623FAB21C00BFBCF0 /* TagListViewDatasource.swift in Sources */,
+				512B454E23FD7C3C00BFBCF0 /* SelectLanguageCoordinator.swift in Sources */,
 				512B448923FAB34400BFBCF0 /* ImageViewController.swift in Sources */,
 				518ED6DF2028BB00002176A9 /* URLExtension.swift in Sources */,
 				512B443223FAB21C00BFBCF0 /* TagColorScheme.swift in Sources */,
@@ -1991,11 +2054,13 @@
 				512B442623FAB20100BFBCF0 /* GKImagePickerProtocol.swift in Sources */,
 				5199718020FA528600556467 /* Reachability.swift in Sources */,
 				51E6D79223F1AE6A00AD7947 /* NutrientsCoordinator.swift in Sources */,
+				512B454C23FD7A8400BFBCF0 /* SelectNutritionFactsTableStyleCoordinator.swift in Sources */,
 				51E1C3652045EB4200CB68B1 /* ImageDeselect.swift in Sources */,
 				519884DE1CE4C62F0020B3A1 /* NutritionAvailability.swift in Sources */,
 				51F96668202DA44A00CD58C3 /* OFFProductIngredient.swift in Sources */,
 				512B44F723FABBBB00BFBCF0 /* NoNutrientsImageTableViewCell.swift in Sources */,
 				512B445223FAB23600BFBCF0 /* RSCode93Generator.swift in Sources */,
+				512B454623FD489700BFBCF0 /* SelectPairCoordinator.swift in Sources */,
 				512B44D723FABAFF00BFBCF0 /* LastEditDateTableViewCell.swift in Sources */,
 				51F9665E202D9E4000CD58C3 /* OFFProductStates.swift in Sources */,
 				512B44B323FAB9BF00BFBCF0 /* SetSortOrderViewController.swift in Sources */,
@@ -2021,6 +2086,7 @@
 				512B453123FAC77C00BFBCF0 /* AddNutrientViewController.swift in Sources */,
 				51CCA8642031CC9F00F1B1B1 /* OFFImageDeselectResultJson.swift in Sources */,
 				512B43FD23FAB1C700BFBCF0 /* DiskCache.swift in Sources */,
+				512B454A23FD77EF00BFBCF0 /* AddNutrientCoordinator.swift in Sources */,
 				512B448523FAB33000BFBCF0 /* ProductPageViewController.swift in Sources */,
 				512B44E723FABB6000BFBCF0 /* PurchacePlaceTableViewCell.swift in Sources */,
 				512B43F423FAB1C700BFBCF0 /* Data.swift in Sources */,
@@ -2049,6 +2115,7 @@
 				51F96660202D9FC400CD58C3 /* OFFProductNutrientLevel.swift in Sources */,
 				51749980220C592700C3ED3E /* Search.swift in Sources */,
 				5154DEE52211C5F900C49EBE /* OFFProductImageDetailed.swift in Sources */,
+				512B455123FD7F3A00BFBCF0 /* SelectLanguageAndImageTypeCoordinator.swift in Sources */,
 				512B44F123FABB9B00BFBCF0 /* IngredientsFullTableViewCell.swift in Sources */,
 				512B44BB23FAB9EF00BFBCF0 /* SelectExpirationDateViewController.swift in Sources */,
 				512B44A723FAB97F00BFBCF0 /* EditNutrientsViewController.swift in Sources */,
@@ -2063,6 +2130,7 @@
 				516BA5961CC769DD008A094A /* EnergyUnitUsed.swift in Sources */,
 				5150D9C41F8133FE0003DE8E /* NutrimentSearch.swift in Sources */,
 				512B448B23FAB88F00BFBCF0 /* NotSetPageViewController.swift in Sources */,
+				512B453E23FBF5A900BFBCF0 /* ProductPresentationSettingsCoordinator.swift in Sources */,
 				514196B82083B66300528877 /* TagListViewButtonTableViewCell.swift in Sources */,
 				512B44B723FAB9DA00BFBCF0 /* SelectCompletionStateViewController.swift in Sources */,
 				51BED0C41CE1C044006ED62B /* MapPinCategories.swift in Sources */,

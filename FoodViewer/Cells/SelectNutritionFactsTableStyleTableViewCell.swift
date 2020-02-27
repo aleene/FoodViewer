@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SelectNutritionFactsTableStyleTableViewControllerCoordinator {
+protocol SelectNutritionFactsTableStyleCoordinatorProtocol {
 /**
 Inform the protocol delegate that no shop has been selected.
  - parameters:
@@ -26,7 +26,9 @@ Inform the protocol delegate that no shop has been selected.
 
 class SelectNutritionFactsTableStyleTableViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    var coordinator: (Coordinator & SelectNutritionFactsTableStyleTableViewControllerCoordinator)? = nil
+    var protocolCoordinator: SelectNutritionFactsTableStyleCoordinatorProtocol? = nil
+    
+    weak var coordinator: Coordinator? = nil
     
     public func configure(selected nutritionFactsTableStyle:NutritionFactsLabelStyle?) {
         self.selectedNutritionFactsTableStyle = nutritionFactsTableStyle
@@ -52,11 +54,11 @@ class SelectNutritionFactsTableStyleTableViewController: UIViewController, UIPic
     @IBOutlet weak var navItem: UINavigationItem!
     
     @IBAction func doneBarButtonItemTapped(_ sender: UIBarButtonItem) {
-        coordinator?.selectNutritionFactsTableStyleTableViewController(self, selected: selectedNutritionFactsTableStyle)
+        protocolCoordinator?.selectNutritionFactsTableStyleTableViewController(self, selected: selectedNutritionFactsTableStyle)
     }
     
     @IBAction func cancelBarButtonItemTapped(_ sender: UIBarButtonItem) {
-        coordinator?.selectNutritionFactsTableStyleTableViewControllerDidCancel(self)
+        protocolCoordinator?.selectNutritionFactsTableStyleTableViewControllerDidCancel(self)
     }
     
     // MARK: - Delegates and datasource

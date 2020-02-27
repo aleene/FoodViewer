@@ -1,38 +1,47 @@
 //
-//  AddFavoriteShopCoordinator.swift
+//  AddNutrientCoordinator.swift
 //  FoodViewer
 //
-//  Created by arnaud on 07/02/2020.
+//  Created by arnaud on 19/02/2020.
 //  Copyright © 2020 Hovering Above. All rights reserved.
 //
 
 import UIKit
 
-final class AddFavoriteShopCoordinator: Coordinator {
+final class AddNutrientCoordinator: Coordinator {
     
     var childCoordinator: Coordinator?
 
     var parentCoordinator: Coordinator? = nil
-
+    
     var childCoordinators: [Coordinator] = []
 
     var viewController: UIViewController? = nil
+        
+    var coordinatorViewController: AddNutrientViewController? {
+        self.viewController as? AddNutrientViewController
+    }
+
+    private var button: UIButton? = nil
     
-    private var coordinatorViewController: AddFavoriteShopTableViewController? {
-        self.viewController as? AddFavoriteShopTableViewController
-    }
-
     init(with coordinator: Coordinator?) {
-        self.viewController = AddFavoriteShopTableViewController.instantiate()
-        if let validCoordinator = coordinator as? AddFavoriteShopCoordinatorProtocol {
-            self.coordinatorViewController?.protocolCoordinator = validCoordinator
-        }
-        self.coordinatorViewController?.coordinator = self
         self.parentCoordinator = coordinator
+        self.viewController = AddNutrientViewController.instantiate()
+        if let protocolCoordinator = coordinator as? AddNutrientCoordinatorProtocol {
+            self.coordinatorViewController?.protocolCoordinator = protocolCoordinator
+        } else {
+            print("AddNutrientCoordinator: coordinator does not conform to protocol")
+        }
     }
-
+    
+    convenience init(with coordinator: Coordinator?, nutrients:[String], button:UIButton) {
+        self.init(with: coordinator)
+        coordinatorViewController?.configure(existing: nutrients)
+        self.button = button
+    }
+    
     func show() {
-        self.parentCoordinator?.presentAsPopOver(self.viewController, at: nil)
+        self.parentCoordinator?.presentAsPopOver(viewController, at: button)
     }
     
     /// The viewController informs its owner that it has disappeared

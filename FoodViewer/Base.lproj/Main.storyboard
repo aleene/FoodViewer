@@ -181,26 +181,26 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N7N-af-Rgb">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="753" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N7N-af-Rgb">
                                 <rect key="frame" x="0.0" y="44" width="320" height="480"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCell.FavoriteShopsViewController" textLabel="sRD-kD-Shm" detailTextLabel="wMC-J7-mFP" style="IBUITableViewCellStyleSubtitle" id="hgv-2X-1wZ">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="55.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCell.FavoriteShopsViewController" textLabel="sRD-kD-Shm" detailTextLabel="wMC-J7-mFP" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="hgv-2X-1wZ">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hgv-2X-1wZ" id="ajY-9P-IpS">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="55.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sRD-kD-Shm">
-                                                    <rect key="frame" x="15" y="10" width="33.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wMC-J7-mFP">
-                                                    <rect key="frame" x="15" y="31.5" width="44" height="14.5"/>
+                                                    <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -315,11 +315,16 @@
         <!--Allergen Warnings Table View Controller-->
         <scene sceneID="euK-Dx-95p">
             <objects>
-                <tableViewController storyboardIdentifier="AllergenWarningsTableViewController" id="x3J-Z2-tIT" customClass="AllergenWarningsTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="DhN-lj-7uC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                <tableViewController storyboardIdentifier="AllergenWarningsTableViewController" extendedLayoutIncludesOpaqueBars="YES" id="x3J-Z2-tIT" customClass="AllergenWarningsTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="DhN-lj-7uC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="GdN-EX-mwR">
+                            <rect key="frame" x="0.0" y="100" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Set Allergen Warning Cell" rowHeight="44" id="Elg-Cu-tKZ" customClass="SetWarningTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
@@ -357,7 +362,9 @@
                             <outlet property="delegate" destination="x3J-Z2-tIT" id="Ekr-To-6R4"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47q-wK-1CI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -367,10 +374,15 @@
         <scene sceneID="dgQ-OU-Ob7">
             <objects>
                 <tableViewController storyboardIdentifier="DietSelectorTableViewController" id="Ffa-Ai-B1C" customClass="DietSelectorTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Mlq-Xi-7pP">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Mlq-Xi-7pP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Wyp-Sz-bOI">
+                            <rect key="frame" x="0.0" y="100" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="SetWarningTableViewCell.DietSelectorTableViewController" rowHeight="44" id="Zqf-Mc-8G3" customClass="SetWarningTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
@@ -411,7 +423,6 @@
                             <outlet property="delegate" destination="Ffa-Ai-B1C" id="7yr-47-49y"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <segue destination="Aj8-Wc-C69" kind="custom" id="Ojf-pD-hNG"/>
                     </connections>
@@ -942,10 +953,15 @@
         <scene sceneID="dVA-la-J9T">
             <objects>
                 <tableViewController storyboardIdentifier="OpenFoodFactsPreferencesTableViewController" id="WvM-ac-0rh" customClass="OpenFoodFactsPreferencesTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WK1-cE-35s">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="WK1-cE-35s">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="baR-13-9t8">
+                            <rect key="frame" x="0.0" y="144" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <sections>
                             <tableViewSection id="mHA-mY-ssH" userLabel="OFFAccountPreferences">
                                 <cells>
@@ -1004,7 +1020,6 @@
                             <outlet property="delegate" destination="WvM-ac-0rh" id="ctA-LC-YYD"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="createOffAccountButton" destination="L3m-Me-bqV" id="ZfY-l5-qZe"/>
                         <outlet property="offAccountSegmentedControl" destination="Mwa-Ox-Mgb" id="vcE-HU-c7c"/>
@@ -1018,10 +1033,15 @@
         <scene sceneID="sVl-BB-x9W">
             <objects>
                 <tableViewController storyboardIdentifier="ApplicationSettingsTableViewController" id="ZsW-i7-UuO" customClass="ApplicationSettingsTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="CSE-mA-upf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="CSE-mA-upf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="eLm-Cl-DnC">
+                            <rect key="frame" x="0.0" y="600" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <sections>
                             <tableViewSection id="bSV-8B-W96" userLabel="Continuous Scan">
                                 <cells>
@@ -1184,7 +1204,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Kq-ms-Dei">
-                                                    <rect key="frame" x="8" y="8" width="304" height="28"/>
+                                                    <rect key="frame" x="16" y="11" width="288" height="22"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1206,7 +1226,6 @@
                             <outlet property="delegate" destination="ZsW-i7-UuO" id="39U-OY-V7O"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="appVersionAndBuildLabel" destination="7Kq-ms-Dei" id="Ca0-cg-tCF"/>
                         <outlet property="clearHistoryButton" destination="nLJ-Pw-tXZ" id="CZK-c4-z4M"/>
@@ -1224,10 +1243,15 @@
         <scene sceneID="haz-kS-KCO">
             <objects>
                 <tableViewController storyboardIdentifier="ProductPresentationSettingsTableViewController" id="HoC-g1-BPV" customClass="ProductPresentationSettingsTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="gHl-i1-kMa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="gHl-i1-kMa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Su5-ZG-LeM">
+                            <rect key="frame" x="0.0" y="500" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <sections>
                             <tableViewSection id="GoD-a7-jqG" userLabel="EnergyUnitPreferences">
                                 <cells>
@@ -1388,7 +1412,6 @@
                             <outlet property="delegate" destination="HoC-g1-BPV" id="Qs8-0f-17V"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
@@ -5081,7 +5104,7 @@
         <scene sceneID="l5X-fc-o7y">
             <objects>
                 <tableViewController storyboardIdentifier="SettingsTableViewController" id="0Eb-fF-UA5" customClass="SettingsTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="74p-dZ-eTS">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="74p-dZ-eTS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -5113,10 +5136,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="op1-xn-k6w"/>
                     <connections>
-                        <segue destination="HoC-g1-BPV" kind="show" identifier="UserTableViewController.SettingsTableViewController" id="RwQ-H9-ftO"/>
-                        <segue destination="x3J-Z2-tIT" kind="show" identifier="UserTableViewController.AllergenWarningsTableViewController" id="1Cb-Cj-eeb"/>
-                        <segue destination="ZsW-i7-UuO" kind="show" identifier="UserTableViewController.ApplicationPreferencesTableViewController" id="mq2-WE-l0z"/>
-                        <segue destination="WvM-ac-0rh" kind="show" identifier="UserTableViewController.OpenFoodFactsPreferencesTableViewController" id="S4z-Ku-yoP"/>
                         <segue destination="Ffa-Ai-B1C" kind="custom" id="5QN-sj-AIB"/>
                     </connections>
                 </tableViewController>
@@ -5296,10 +5315,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="185" height="0.5"/>
+                                            <rect key="frame" x="16" y="11" width="135" height="0.5"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="217" y="-4.5" width="87" height="32.5"/>
+                                            <rect key="frame" x="167" y="-4.5" width="137" height="32.5"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>
@@ -5331,13 +5350,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9JJ-Xu-7XT">
-                                            <rect key="frame" x="8" y="8" width="263" height="0.5"/>
+                                            <rect key="frame" x="8" y="8" width="238" height="0.5"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4Z-mc-9Ph">
-                                            <rect key="frame" x="279" y="-4.5" width="25" height="25.5"/>
+                                            <rect key="frame" x="254" y="-17" width="50" height="50.5"/>
                                             <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="clearTextViewButtonTapped:" destination="5y9-Bc-FlV" eventType="touchUpInside" id="9lq-Ic-N4N"/>

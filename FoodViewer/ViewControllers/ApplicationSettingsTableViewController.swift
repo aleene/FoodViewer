@@ -10,17 +10,20 @@ import UIKit
 
 class ApplicationSettingsTableViewController: UITableViewController {
 
+    // The coordinator is owned by ApplicationSettingsCoordinator
+    weak var coordinator: Coordinator? = nil
+
     // MARK: - Clear History functions
     
-    var storedHistory = History() {
+    private var storedHistory = History() {
         didSet {
             enableClearHistoryButton()
         }
     }
     
-    var historyHasBeenRemoved = false
+    private var historyHasBeenRemoved = false
     
-    var mostRecentProduct = MostRecentProduct()
+    private var mostRecentProduct = MostRecentProduct()
     
     fileprivate func enableClearHistoryButton() {
         if clearHistoryButton != nil {
@@ -243,6 +246,11 @@ class ApplicationSettingsTableViewController: UITableViewController {
         setContinuousScan()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        coordinator?.viewControllerDidDisappear(self)
+        super.viewDidDisappear(animated)
+    }
+
     // MARK: - Table view data source
 
     private struct Row {

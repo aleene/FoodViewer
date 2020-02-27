@@ -10,7 +10,7 @@
 
 import UIKit
 
-protocol SelectPairViewControllerCoordinator {
+protocol SelectPairCoordinatorProtocol {
 /**
 Inform the protocol delegate that no data has been selected.
 - Parameters:
@@ -23,12 +23,12 @@ Inform the protocol delegate that no data has been selected.
         - sender : the `SelectPairViewController` that called the function.
         - strings : the selected strings
     */
-    func selectPairViewController(_ sender:SelectPairViewController, selected strings: [String]?)
+    func selectPairViewController(_ sender:SelectPairViewController, selected strings: [String]?, tag: Int)
 }
 /// This class allows the user to pick a from a  list of Strings.
 /// The strings asre divided in as set of assigned and unassigned.
 /// The user can filter the list of strings through entering a text string
-class SelectPairViewController: UIViewController {
+final class SelectPairViewController: UIViewController {
 //
 // MARK: - External Input properties
 //
@@ -42,12 +42,12 @@ class SelectPairViewController: UIViewController {
 /// - parameter assignedHeader: The tableView section header for the selected strings.
 /// - parameter unAssignedHeader: The tableView section header for the unselected strings.
 /// - parameter undefinedText: String to show when the translation is undefined.
-/// - parameter cellIdentifierExtension: String to append to the CellIdentifier to make the identifier unique. The format to use for the Identifier in the Storyboard is `UITableView.SelectPairViewController.cellIdentifierExtension`. If only one version of this class is present in the Storyboard, it can be set to nil (and remove the trailing `.` in the identifier.
 /// - parameter translate: Function to translate a key to a local language string.
     func configure(original: [String]?,
                    allPairs: [Language],
                    multipleSelectionIsAllowed: Bool,
                    showOriginalsAsSelected: Bool,
+                   tag: Int,
                    assignedHeader: String,
                    unAssignedHeader: String,
                    undefinedText: String) {
@@ -58,6 +58,7 @@ class SelectPairViewController: UIViewController {
         self.assignedHeader = assignedHeader
         self.unAssignedHeader = unAssignedHeader
         self.undefinedText = undefinedText
+        self.tag = tag
     }
 
 //
@@ -70,7 +71,9 @@ class SelectPairViewController: UIViewController {
         return selectedPairs?.map({ $0.code })
     }
     
-    var coordinator: (SelectPairViewControllerCoordinator & Coordinator)? = nil
+    var protocolCoordinator: SelectPairCoordinatorProtocol? = nil
+    
+    weak var coordinator: Coordinator? = nil
     
     var tag: Int = 0
 //
@@ -152,11 +155,11 @@ class SelectPairViewController: UIViewController {
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.selectPairViewControllerDidCancel(self)
+        protocolCoordinator?.selectPairViewControllerDidCancel(self)
     }
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.selectPairViewController(self, selected: selected)
+        protocolCoordinator?.selectPairViewController(self, selected: selected, tag: tag)
     }
 //
 //  MARK : Helper functions

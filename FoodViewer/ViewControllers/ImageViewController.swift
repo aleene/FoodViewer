@@ -8,7 +8,8 @@
 
 import UIKit
 
-protocol ImageViewControllerCoordinator {
+protocol ImageCoordinatorProtocol {
+    
     func imageViewController(_ sender:ImageViewController, tapped barButton:UIBarButtonItem)
 }
 
@@ -22,7 +23,9 @@ class ImageViewController: UIViewController {
         }
     }
     
-    var coordinator: (Coordinator & ImageViewControllerCoordinator)? = nil
+    var protocolCoordinator: ImageCoordinatorProtocol? = nil
+    
+    weak var coordinator: Coordinator? = nil
     
     @IBOutlet weak var imageView: UIImageView! {
         didSet {
@@ -39,7 +42,7 @@ class ImageViewController: UIViewController {
     }
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.imageViewController(self, tapped:sender)
+        protocolCoordinator?.imageViewController(self, tapped:sender)
     }
     
     @IBOutlet weak var scrollView: UIScrollView!

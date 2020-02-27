@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SelectLanguageAndImageTypeViewControllerCoordinator {
+protocol SelectLanguageAndImageTypeCoordinatorProtocol {
 /**
 The done button has been tapped and a new shop has been created.
  - parameters:
@@ -30,7 +30,9 @@ The cancel button has been tapped and no new shop has been created.
 
 class SelectLanguageAndImageTypeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    var coordinator: (Coordinator & SelectLanguageAndImageTypeViewControllerCoordinator)? = nil
+    var protocolCoordinator: SelectLanguageAndImageTypeCoordinatorProtocol? = nil
+    
+    weak var coordinator: Coordinator? = nil
     
     func configure(languageCodes:[String], key:String?) {
         self.languageCodes = languageCodes
@@ -69,10 +71,10 @@ class SelectLanguageAndImageTypeViewController: UIViewController, UIPickerViewDe
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         // Force edit end
         self.view.endEditing(true)
-        coordinator?.selectLanguageAndImageTypeViewController(self, languageCode: selectedLanguageCode, imageCategory: selectedImageCategory, key: key)
+        protocolCoordinator?.selectLanguageAndImageTypeViewController(self, languageCode: selectedLanguageCode, imageCategory: selectedImageCategory, key: key)
     }
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.selectLanguageAndImageTypeViewControllerDidCancel(self)
+        protocolCoordinator?.selectLanguageAndImageTypeViewControllerDidCancel(self)
     }
 
     // MARK: - Delegates and datasource

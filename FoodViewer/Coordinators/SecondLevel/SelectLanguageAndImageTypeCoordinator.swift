@@ -1,38 +1,47 @@
 //
-//  AddFavoriteShopCoordinator.swift
+//  SelectLanguageAndImageTypeCoordinator.swift
 //  FoodViewer
 //
-//  Created by arnaud on 07/02/2020.
+//  Created by arnaud on 19/02/2020.
 //  Copyright © 2020 Hovering Above. All rights reserved.
 //
 
+
 import UIKit
 
-final class AddFavoriteShopCoordinator: Coordinator {
+final class SelectLanguageAndImageTypeCoordinator: Coordinator {
     
     var childCoordinator: Coordinator?
-
+    
     var parentCoordinator: Coordinator? = nil
-
+    
     var childCoordinators: [Coordinator] = []
 
-    var viewController: UIViewController? = nil
+    internal var viewController: UIViewController? = nil
+        
+    private var coordinatorViewController: SelectLanguageAndImageTypeViewController? {
+        self.viewController as? SelectLanguageAndImageTypeViewController
+    }
+
+    private var button: UIButton? = nil
     
-    private var coordinatorViewController: AddFavoriteShopTableViewController? {
-        self.viewController as? AddFavoriteShopTableViewController
-    }
-
     init(with coordinator: Coordinator?) {
-        self.viewController = AddFavoriteShopTableViewController.instantiate()
-        if let validCoordinator = coordinator as? AddFavoriteShopCoordinatorProtocol {
-            self.coordinatorViewController?.protocolCoordinator = validCoordinator
-        }
-        self.coordinatorViewController?.coordinator = self
         self.parentCoordinator = coordinator
+        self.viewController = SelectLanguageAndImageTypeViewController.instantiate()
+        if let protocolCoordinator = coordinator as? SelectLanguageAndImageTypeCoordinatorProtocol {
+            self.coordinatorViewController?.protocolCoordinator = protocolCoordinator
+        } else {
+            print("SelectLanguageAndImageTypeCoordinator: coordinator does not conform to protocol")
+        }
     }
-
+    
+    convenience init(with coordinator: Coordinator?, languageCodes:[String], key:String?) {
+        self.init(with: coordinator)
+        coordinatorViewController?.configure(languageCodes:languageCodes, key:key)
+    }
+    
     func show() {
-        self.parentCoordinator?.presentAsPopOver(self.viewController, at: nil)
+        self.parentCoordinator?.presentAsFormSheet(viewController)
     }
     
     /// The viewController informs its owner that it has disappeared
