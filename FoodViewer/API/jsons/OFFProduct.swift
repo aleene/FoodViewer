@@ -115,6 +115,7 @@ class OFFProduct: Codable {
         var nutriments: OFFProductNutriments? = nil
     var nutrition_data_per: String? = nil
     var nutrition_grades_tags: [String]? = nil
+    var nutriscore_data: OFFProductNutriScoreData? = nil
     var origins: String? = nil
         var origins_tags: [String]? = nil
     var other_nutritional_substances_tags: [String]? = nil

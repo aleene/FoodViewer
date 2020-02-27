@@ -1815,7 +1815,9 @@ class FoodProduct {
         add(fact: nutritionDecode(.fruitsVegetablesNuts, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FruitsVegetablesNutsKey]))
         add(fact: nutritionDecode(.fruitsVegetablesNutsEstimate, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FruitsVegetablesNutsEstimateKey]))
 
+        
         decodeNutritionalScore(validProduct.nutrition_score_debug)
+        nutritionalScoreFRDecoded = validProduct.nutriscore_data?.nutriscore
         nutritionalScoreUKCalculated = NutritionalScore.init(nutritionFactsDict: nutritionFactsDict)
         nutritionalScoreFRCalculated = NutritionalScoreFR.init(nutritionFactsDict: nutritionFactsDict, taxonomy: categoriesHierarchy)
         // print("NS:", nutritionalScoreFRCalculated?.pointsA, nutritionalScoreFRDecoded?.pointsA)
