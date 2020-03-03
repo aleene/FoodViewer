@@ -1818,9 +1818,10 @@ class FoodProduct {
         
         decodeNutritionalScore(validProduct.nutrition_score_debug)
         nutritionalScoreFRDecoded = validProduct.nutriscore_data?.nutriscore
+        //print("FR Decoded: ",nutritionalScoreFRDecoded?.description)
         nutritionalScoreUKCalculated = NutritionalScore.init(nutritionFactsDict: nutritionFactsDict)
         nutritionalScoreFRCalculated = NutritionalScoreFR.init(nutritionFactsDict: nutritionFactsDict, taxonomy: categoriesHierarchy)
-        // print("NS:", nutritionalScoreFRCalculated?.pointsA, nutritionalScoreFRDecoded?.pointsA)
+        //print("UK Calculated: ",nutritionalScoreUKCalculated?.description)
     }
     
     init(product: FoodProduct) {

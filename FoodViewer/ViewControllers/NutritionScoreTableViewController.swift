@@ -47,8 +47,8 @@ class NutritionScoreTableViewController: UITableViewController {
     
     fileprivate enum RowType {
         case summary(Int?)
-        case pointsA(String, NutritionalScore.NutrimentScore?)
-        case pointsC(String, NutritionalScore.NutrimentScore?)
+        case pointsA(String, NutrimentScore?)
+        case pointsC(String, NutrimentScore?)
         case categories(Bool, String)
         case error(String)
     }
@@ -288,7 +288,7 @@ class NutritionScoreTableViewController: UITableViewController {
         return IndexPath(row: row, section: section)
 
     }
-    private func nutrimentScoreTableViewCell(for key:String, with score: NutritionalScore.NutrimentScore, towards reverse:Bool, at indexPath:IndexPath, and identifier:String) -> NutrimentScoreTableViewCell {
+    private func nutrimentScoreTableViewCell(for key:String, with score: NutrimentScore, towards reverse:Bool, at indexPath:IndexPath, and identifier:String) -> NutrimentScoreTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! NutrimentScoreTableViewCell
         cell.nutrimentScore = score
         cell.numBars = reverse ? 5 : 10

@@ -9,6 +9,20 @@
 import Foundation
 import UIKit
 
+/// The NutrimentScore with the values per 100 gr and the interpreted points
+public struct NutrimentScore {
+    var points = 0
+    var value: Double? = nil
+}
+
+public enum NutriScoreLabelPart {
+    case first
+    case second
+    case third
+    case fourth
+    case fifth
+}
+
 // Bron:
 // https://www.researchgate.net/profile/Peter_Scarborough/publication/266447771_Nutrient_profiles_Development_of_Final_Model_Final_Report/links/5440d4fe0cf218719077d82d.pdf
 
@@ -16,9 +30,10 @@ import UIKit
 // However it does not use separate tables for beverages
 
 public class NutritionalScore {
-
+    
 // This data is taken from http://www.euro.who.int/__data/assets/pdf_file/0008/357308/PHP-1122-NutriScore-eng.pdf
     
+    /// The values used from converting a value per 100 g into a score
     fileprivate struct Constant {
         struct PointsA {
             struct Energy {
@@ -99,8 +114,6 @@ public class NutritionalScore {
                                      (5, 80.0, 100.0)]
             }
         }
-        static let LightGreen = UIColor.init(red: 0.56, green: 0.93, blue: 0.56, alpha: 1.0)
-        static let DarkGreen = UIColor.init(red: 0.00, green: 0.2, blue: 0.3, alpha: 1.0)
     }
 
     public struct Key {
@@ -129,11 +142,12 @@ public class NutritionalScore {
                                                     Nutrient.proteins.key:nil,
                                                     Nutrient.fruitsVegetablesNuts.key:nil,
                                                     Nutrient.fruitsVegetablesNutsEstimate.key:nil]
+    /// The NutriScore as calculated (by OFF)
     public var score = 0
     
-    public var level = NutritionalScoreLevel()
+    //public var level = NutritionalScoreLevel()
     
-    // Simple
+    /// The basic FSA calculation for the NutriScore
     public var total: Int? {
         // If a food or drink scores 11 or more ‘A’ points
          if sumA < 11 {
@@ -158,12 +172,8 @@ public class NutritionalScore {
         return sumA
     }
     
-    public struct NutrimentScore {
-        public var points = 0
-        public var value: Double? = nil
-    }
 
-    
+    /// The negative nutritional score points
     public var sumA: Int {
         get {
             var sum = 0
@@ -187,6 +197,7 @@ public class NutritionalScore {
         }
     }
     
+    /// The postive nutritional score points
     public var sumC: Int {
         get {
             var sum = 0
@@ -209,35 +220,13 @@ public class NutritionalScore {
     
     public var decodedScore: Int? = nil
     
-    public var isCovered = false
+    //public var isCovered = false
 
-    public var isMissing: Bool? = nil   
+    public var isMissing: Bool? = nil
 
-    public var colour: UIColor {
-        if score <= -1 {
-            if #available(iOS 11.0, *) {
-                return UIColor.init(named: "LightGreen") ?? .systemGreen
-            } else {
-                return Constant.LightGreen
-            }
-
-        } else if score <= 2 {
-            if #available(iOS 11.0, *) {
-                return UIColor.init(named: "DarkGreen") ?? .systemGreen
-            } else {
-                return Constant.DarkGreen
-            }
-        } else if score <= 10 {
-            return .systemYellow
-        } else if score <= 18 {
-            return .systemOrange
-        } else {
-            return .systemRed
-        }
-    }
     
-    public var sortedPointsA: [(String, NutritionalScore.NutrimentScore?)] {
-        var array: [(String, NutritionalScore.NutrimentScore?)] = []
+    public var sortedPointsA: [(String, NutrimentScore?)] {
+        var array: [(String, NutrimentScore?)] = []
         for nutrient in Key.PositiveNutrients {
             if let point = pointsA[nutrient.key] {
                 array.append((nutrient.key, point))
@@ -246,8 +235,8 @@ public class NutritionalScore {
         return array
     }
     
-    public var sortedPointsC: [(String, NutritionalScore.NutrimentScore?)] {
-        var array: [(String, NutritionalScore.NutrimentScore?)] = []
+    public var sortedPointsC: [(String, NutrimentScore?)] {
+        var array: [(String, NutrimentScore?)] = []
         for nutrient in Key.NegativeNutrients {
             if let point = pointsC[nutrient.key] {
                 array.append((nutrient.key, point))
@@ -255,11 +244,9 @@ public class NutritionalScore {
         }
         return array
     }
-
-    //
-    // MARK: - Initialisers
-    //
-    
+//
+// MARK: - Initialisers
+//
     init() {
     }
 
@@ -365,7 +352,6 @@ public class NutritionalScore {
     
     convenience init(nutritionFactsDict: [String:NutritionFactItem]) {
         
-        
         var energy: Double? = nil
         var sugars: Double? = nil
         var saturatedFat: Double? = nil
@@ -403,6 +389,21 @@ public class NutritionalScore {
         self.init(energy: energy, saturatedFat: saturatedFat, sugars: sugars, sodium: sodium, fruitVegetablesNuts: fruitVegetableNuts, fruitVegetablesNutsEstimated: fruitVegetableNutsEstimated, fiber: fiber, proteins: proteins)
         
     }
+    
+    public var description: String {
+        var string = "score: " + "\(score); "
+        string += "total: " + (total != nil ? "\(total!); ": "nil; ")
+        string += "sumA: " + "\(sumA); "
+        string += "sumC: " + "\(sumC); "
+        string += "energy :" + (pointsA[Nutrient.energy.key]??.points != nil ? "\(pointsA[Nutrient.energy.key]!!.points); " : "nil; ")
+        string += "saturated fat :" + (pointsA[Nutrient.saturatedFat.key]??.points != nil ? "\(pointsA[Nutrient.saturatedFat.key]!!.points); " : "nil; ")
+        string += "sugars :" + (pointsA[Nutrient.sugars.key]??.points != nil ? "\(pointsA[Nutrient.sugars.key]!!.points);" : "nil; ")
+        string += "sodium :" + (pointsA[Nutrient.sodium.key]??.points != nil ? "\(pointsA[Nutrient.sodium.key]!!.points); " : "nil; ")
+        string += "fiber :" + (pointsC[Nutrient.fiber.key]??.points != nil ? "\(pointsC[Nutrient.fiber.key]!!.points);" : "nil; ")
+        string += "proteins :" + (pointsC[Nutrient.proteins.key]??.points != nil ? "\(pointsC[Nutrient.proteins.key]!!.points);" : "nil; ")
+        string += "fruits+ :" + (pointsC[Nutrient.fruitsVegetablesNuts.key]??.points != nil ? "\(pointsC[Nutrient.fruitsVegetablesNuts.key]!!.points);" : "nil; ")
+        return string
+    }
 
     //
     // MARK: - Private variables and functions
@@ -425,5 +426,55 @@ public class NutritionalScore {
         return 0
     }
 
+    /// The  NutriScore part the score falls in
+    public var nutriScoreLabelPart : NutriScoreLabelPart {
+        if score <= -1 {
+            return .first
+        } else if score <= 2 {
+            return .second
+        } else if score <= 10 {
+            return .third
+        } else if score <= 18 {
+            return .fourth
+        } else {
+            return .fifth
+        }
+    }
+
+}
+
+extension UIColor {
     
+    static var darkGreen: UIColor {
+        if #available(iOS 11.0, *),
+            let color = UIColor.init(named: "darkGreen"){
+            return color
+        }
+        return UIColor.init(red: 0.00, green: 0.977, blue: 0.00, alpha: 1.0)
+    }
+    
+    static var lightGreen: UIColor {
+        if #available(iOS 11.0, *),
+            let color = UIColor.init(named: "lightGreen") {
+            return color
+        }
+        return UIColor.init(red: 0.00, green: 0.56, blue: 0.0, alpha: 1.0)
+    }
+        
+    /// The color to use for the NutriScore
+    static func nutriScoreColor(for part: NutriScoreLabelPart) -> UIColor {
+        switch part {
+        case .first:
+            return UIColor.darkGreen
+        case .second:
+            return UIColor.lightGreen
+        case .third:
+            return .systemYellow
+        case .fourth:
+            return .systemOrange
+        case .fifth:
+            return .systemRed
+        }
+    }
+
 }

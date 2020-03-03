@@ -267,6 +267,7 @@
 		515E715123D1B7840028D0A8 /* SelectPairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515E715023D1B7840028D0A8 /* SelectPairViewController.swift */; };
 		5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5160C29B1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift */; };
 		516619281C61EFCE00956EB4 /* OpenFoodFactsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */; };
+		516740BC240E5647008EF89A /* ColorSets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516740BB240E5647008EF89A /* ColorSets.xcassets */; };
 		516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B32801C75F2430031EF80 /* BarcodeType.swift */; };
 		516B32831C75F47F0031EF80 /* NutritionLevelQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B32821C75F47F0031EF80 /* NutritionLevelQuantity.swift */; };
 		516B32851C75F5130031EF80 /* NutritionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B32841C75F5120031EF80 /* NutritionItem.swift */; };
@@ -687,6 +688,7 @@
 		5160C29A1DBCFE6A00CB3EF0 /* FoodViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoodViewer.entitlements; sourceTree = "<group>"; };
 		5160C29B1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsRequest.swift; sourceTree = "<group>"; };
+		516740BB240E5647008EF89A /* ColorSets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ColorSets.xcassets; path = Support/ColorSets.xcassets; sourceTree = "<group>"; };
 		516B32801C75F2430031EF80 /* BarcodeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeType.swift; sourceTree = "<group>"; };
 		516B32821C75F47F0031EF80 /* NutritionLevelQuantity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionLevelQuantity.swift; sourceTree = "<group>"; };
 		516B32841C75F5120031EF80 /* NutritionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionItem.swift; sourceTree = "<group>"; };
@@ -1359,6 +1361,7 @@
 				5180B9101C5D3B57002DBD21 /* LaunchScreen.storyboard */,
 				5180B9131C5D3B57002DBD21 /* Info.plist */,
 				514196B620839F2500528877 /* sampleJson */,
+				516740BB240E5647008EF89A /* ColorSets.xcassets */,
 			);
 			name = "Support files";
 			sourceTree = "<group>";
@@ -1783,6 +1786,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				516740BC240E5647008EF89A /* ColorSets.xcassets in Resources */,
 				517FC9311CD500C100CB89ED /* Localizable.strings in Resources */,
 				512B447B23FAB2AE00BFBCF0 /* Amino_acids.plist in Resources */,
 				512B447E23FAB2AE00BFBCF0 /* States.plist in Resources */,

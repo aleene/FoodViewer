@@ -10,7 +10,7 @@ import UIKit
 
 class LeftNutrimentScoreTableViewCell: UITableViewCell {
     
-    var nutrimentScore : NutritionalScore.NutrimentScore? = nil {
+    var nutrimentScore : NutrimentScore? = nil {
         didSet {
             setup()
         }

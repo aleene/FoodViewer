@@ -111,13 +111,12 @@ public class NutritionalScoreFR: NutritionalScore {
                                      (10, 80.0, 100.0)]
             }
         }
-      static let LightGreen = UIColor.init(red: 0.56, green: 0.93, blue: 0.56, alpha: 1.0)
-        static let DarkGreen = UIColor.init(red: 0.00, green: 0.2, blue: 0.3, alpha: 1.0)
     }
     
     public var isFat = false
     public var isCheese = false
     public var isBeverage = false
+    public var isWater = false
 
     public struct Key {
         static let SaturatedFatRatio = "fr-sat-fat-for-fats"
@@ -125,46 +124,37 @@ public class NutritionalScoreFR: NutritionalScore {
     
     public var isAvailable = true
     
-    override public var colour: UIColor {
+    /// The  NutriScore part the score falls in
+    override public var nutriScoreLabelPart: NutriScoreLabelPart {
         if isBeverage {
+            if isWater {
+                return .first
+            }
             if score <= 1 {
-                if #available(iOS 11.0, *) {
-                    return UIColor.init(named: "DarkGreen") ?? .systemGreen
-                } else {
-                    return Constant.DarkGreen
-                }
+                return .second
             } else if score <= 5 {
-                return .yellow
+                return .third
             } else if score <= 9 {
-                return .orange
+                return .fourth
             } else {
-                return .red
+                return .fifth
             }
         } else {
             if score <= -1 {
-                if #available(iOS 11.0, *) {
-                    return UIColor.init(named: "LightGreen") ?? .systemGreen
-                } else {
-                    return Constant.LightGreen
-                }
-
+                return .first
             } else if score <= 2 {
-                if #available(iOS 11.0, *) {
-                    return UIColor.init(named: "DarkGreen") ?? .systemGreen
-                } else {
-                    return Constant.DarkGreen
-                }
+                return .second
             } else if score <= 10 {
-                return .yellow
+                return .third
             } else if score <= 18 {
-                return .orange
+                return .fourth
             } else {
-                return .red
+                return .fifth
             }
         }
     }
     
-    // Final NutriScore
+    /// Calculated NutriScore
     override public var total: Int? {
         get {
             if sumA < 11 || isCheese {
@@ -196,10 +186,9 @@ public class NutritionalScoreFR: NutritionalScore {
             return super.sumA
         }
     }
-    //
-    // MARK: - Initialisers
-    //
-    
+//
+// MARK: - Initialisers
+//
     init(isAvailable:Bool) {
         super.init()
         self.isAvailable = isAvailable
@@ -263,6 +252,7 @@ public class NutritionalScoreFR: NutritionalScore {
         }
     }
     
+/// Initialise with points
     init(energyPoints: Int?, saturatedFatPoints: Int?, saturatedFatToTotalFatRatioPoints: Int?, sugarPoints: Int?, sodiumPoints: Int?, fiberPoints: Int?, proteinPoints: Int?, fruitsVegetableNutsPoints: Int?, fruitsVegetableNutsEstimatedPoints: Int?, isBeverage: Bool, isFat: Bool, isCheese: Bool) {
         super.init(energyPoints: energyPoints, saturatedFatPoints: saturatedFatPoints, sugarPoints: sugarPoints, sodiumPoints: sodiumPoints, fruitVegetablesNutsPoints: fruitsVegetableNutsPoints, fiberPoints: fiberPoints, proteinPoints: proteinPoints)
         
@@ -385,7 +375,24 @@ public class NutritionalScoreFR: NutritionalScore {
 
     }
     
-    
+    override public var description: String {
+        var string = "score: " + "\(score); "
+        string += "total: " + (total != nil ? "\(total!); ": "nil; ")
+        string += "sumA: " + "\(sumA); "
+        string += "sumC: " + "\(sumC); "
+        string += "energy :" + (pointsA[Nutrient.energy.key]??.points != nil ? "\(pointsA[Nutrient.energy.key]!!.points); " : "nil; ")
+        string += "saturated fat :" + (pointsA[Nutrient.saturatedFat.key]??.points != nil ? "\(pointsA[Nutrient.saturatedFat.key]!!.points); " : "nil; ")
+        string += "sugars :" + (pointsA[Nutrient.sugars.key]??.points != nil ? "\(pointsA[Nutrient.sugars.key]!!.points);" : "nil; ")
+        string += "sodium :" + (pointsA[Nutrient.sodium.key]??.points != nil ? "\(pointsA[Nutrient.sodium.key]!!.points); " : "nil; ")
+        string += "fiber :" + (pointsC[Nutrient.fiber.key]??.points != nil ? "\(pointsC[Nutrient.fiber.key]!!.points);" : "nil; ")
+        string += "proteins :" + (pointsC[Nutrient.proteins.key]??.points != nil ? "\(pointsC[Nutrient.proteins.key]!!.points);" : "nil; ")
+        string += "fruits+ :" + (pointsC[Nutrient.fruitsVegetablesNuts.key]??.points != nil ? "\(pointsC[Nutrient.fruitsVegetablesNuts.key]!!.points);" : "nil; ")
+        string += "isBeverage: " + (isBeverage ? "YES" : "NO")
+        string += "isCheese: " + (isCheese ? "YES" : "NO")
+        string += "isFat: " + (isFat ? "YES" : "NO")
+        return string
+    }
+
 
     //
     // MARK: - Private functions and variables
