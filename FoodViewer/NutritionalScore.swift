@@ -445,35 +445,57 @@ public class NutritionalScore {
 
 extension UIColor {
     
-    static var darkGreen: UIColor {
+    static var nutriScoreDarkGreen: UIColor {
         if #available(iOS 11.0, *),
-            let color = UIColor.init(named: "darkGreen"){
+            let color = UIColor.init(named: "NutriScore-darkGreen"){
             return color
         }
-        return UIColor.init(red: 0.00, green: 0.977, blue: 0.00, alpha: 1.0)
+        return UIColor.init(red: 0.00, green: 0.499, blue: 0.277, alpha: 1.0)
     }
     
-    static var lightGreen: UIColor {
+    static var nutriScoreLightGreen: UIColor {
         if #available(iOS 11.0, *),
-            let color = UIColor.init(named: "lightGreen") {
+            let color = UIColor.init(named: "NutriScore-lightGreen") {
             return color
         }
-        return UIColor.init(red: 0.00, green: 0.56, blue: 0.0, alpha: 1.0)
+        return UIColor.init(red: 0.471, green: 0.732, blue: 0.26, alpha: 1.0)
     }
-        
+
+    static var nutriScoreLightOrange: UIColor {
+        if #available(iOS 11.0, *),
+            let color = UIColor.init(named: "NutriScore-lightOrange") {
+            return color
+        }
+        return UIColor.init(red: 0.897, green: 0.47, blue: 0.169, alpha: 1.0)
+    }
+    static var nutriScoreDarkOrange: UIColor {
+        if #available(iOS 11.0, *),
+            let color = UIColor.init(named: "NutriScore-darkOrange") {
+            return color
+        }
+        return UIColor.init(red: 0.735, green: 0.206, blue: 0.144, alpha: 1.0)
+    }
+    static var nutriScoreYellow: UIColor {
+        if #available(iOS 11.0, *),
+            let color = UIColor.init(named: "NutriScore-yellow") {
+            return color
+        }
+        return UIColor.init(red: 0.974, green: 0.775, blue: 0.138, alpha: 1.0)
+    }
+
     /// The color to use for the NutriScore
     static func nutriScoreColor(for part: NutriScoreLabelPart) -> UIColor {
         switch part {
         case .first:
-            return UIColor.darkGreen
+            return UIColor.nutriScoreDarkGreen
         case .second:
-            return UIColor.lightGreen
+            return UIColor.nutriScoreLightGreen
         case .third:
-            return .systemYellow
+            return UIColor.nutriScoreYellow
         case .fourth:
-            return .systemOrange
+            return UIColor.nutriScoreLightOrange
         case .fifth:
-            return .systemRed
+            return UIColor.nutriScoreDarkOrange
         }
     }
 
