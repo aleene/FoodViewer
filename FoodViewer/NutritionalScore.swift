@@ -450,7 +450,7 @@ extension UIColor {
             let color = UIColor.init(named: "NutriScore-darkGreen"){
             return color
         }
-        return UIColor.init(red: 0.00, green: 0.499, blue: 0.277, alpha: 1.0)
+        return UIColor.init(red: 0.00, green: 0.499, blue: 0.00, alpha: 1.0)
     }
     
     static var nutriScoreLightGreen: UIColor {

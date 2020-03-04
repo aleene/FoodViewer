@@ -57,7 +57,7 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
     // Dark Green labels
     @IBOutlet weak var firstLeftLabel: UILabel! {
         didSet {
-            firstLeftLabel.backgroundColor = UIColor.nutriScoreColor(for: .first)
+            firstLeftLabel.backgroundColor = .clear
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
             numberFormatter.maximumSignificantDigits = 2
@@ -69,7 +69,7 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var firstMiddleLabel: UILabel! {
         didSet {
-            firstMiddleLabel.backgroundColor = .clear
+            firstMiddleLabel.backgroundColor = UIColor.nutriScoreColor(for: .first)
             // Long press allows to start a search
             let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForA))
             firstMiddleLabel.addGestureRecognizer(longPressGestureRecognizer)
@@ -93,7 +93,7 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
     // Yellow labels
     @IBOutlet weak var secondLeftLabel: UILabel! {
         didSet {
-            secondLeftLabel.backgroundColor = UIColor.nutriScoreColor(for: .second)
+            secondLeftLabel.backgroundColor = .clear
 
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
@@ -107,7 +107,7 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
 
     @IBOutlet weak var secondMiddleLabel: UILabel! {
         didSet {
-            secondMiddleLabel.backgroundColor = .clear
+            secondMiddleLabel.backgroundColor = UIColor.nutriScoreColor(for: .second)
 
             // Long press allows to start a search
             let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForB))
@@ -133,7 +133,7 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
     // Orange Labels
     @IBOutlet weak var thirdLeftLabel: UILabel! {
         didSet {
-            thirdLeftLabel.backgroundColor = UIColor.nutriScoreColor(for: .third)
+            thirdLeftLabel.backgroundColor = .clear
 
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
@@ -148,7 +148,7 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
 
     @IBOutlet weak var thirdMiddleLabel: UILabel! {
         didSet {
-            thirdMiddleLabel.backgroundColor = .clear
+            thirdMiddleLabel.backgroundColor = UIColor.nutriScoreColor(for: .third)
 
             // Long press allows to start a search
             let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForC))
@@ -174,7 +174,7 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
     // Pink labels
     @IBOutlet weak var fourthLeftLabel: UILabel! {
         didSet {
-            fourthLeftLabel.backgroundColor = UIColor.nutriScoreColor(for: .fourth)
+            fourthLeftLabel.backgroundColor = .clear
 
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
@@ -189,7 +189,7 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
 
     @IBOutlet weak var fourthMiddleLabel: UILabel! {
         didSet {
-            fourthMiddleLabel.backgroundColor = .clear
+            fourthMiddleLabel.backgroundColor = UIColor.nutriScoreColor(for: .fourth)
 
             // Long press allows to start a search
             let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForD))
@@ -215,7 +215,7 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
     // Red labels
     @IBOutlet weak var fifthLeftLabel: UILabel! {
         didSet {
-            fifthLeftLabel.backgroundColor = UIColor.nutriScoreColor(for: .fifth)
+            fifthLeftLabel.backgroundColor = .clear
 
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
@@ -229,7 +229,7 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
 
     @IBOutlet weak var fifthMiddleLabel: UILabel! {
         didSet {
-            fifthMiddleLabel.backgroundColor = .clear
+            fifthMiddleLabel.backgroundColor = UIColor.nutriScoreColor(for: .fifth)
             // Long press allows to start a search
             let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForE))
             fifthMiddleLabel.addGestureRecognizer(longPressGestureRecognizer)

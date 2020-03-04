@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BarGaugeView: UIView {
+final class BarGaugeView: UIView {
 
     private var _iOnIdx: Float = 0.0                // Point at which segments are on
     private var _iOffIdx: Float = 0.0               // Point at which segments are off
@@ -100,15 +100,13 @@ class BarGaugeView: UIView {
         setDefaults()
     }
     
-    func resetPeak()
-    {
+    public func resetPeak() {
         self.peakValue = nil
         _iPeakBarIdx = nil
-        self.setNeedsDisplay()
+        self.setNeedsDisplay()     
     }
     
-    private func setDefaults()
-    {
+    private func setDefaults() {
         if #available(iOS 13.0, *) {
             self.backgroundColor = .systemBackground
         } else {
@@ -118,34 +116,37 @@ class BarGaugeView: UIView {
         self.clearsContextBeforeDrawing = false
         self.isOpaque = false
     }
-    
-    
-    //-----------------------------------------------------------------------
-    //    Draw the gauge
-    //
-    override func draw(_ rect: CGRect)
-    {
-        var rectBounds = CGRect.init()
-        var rectBar = CGRect.init()
+//-----------------------------------------------------------------------
+//    Draw the gauge
+//
+    override func draw(_ rect: CGRect) {
+        
+        var rectBounds = CGRect()
+        var rectBar = CGRect()
         var iBarSize = 0
+        var offset = CGFloat(0.0)
         
         // How is the bar oriented?
-        rectBounds = self.bounds;
-        let fIsVertical = (rectBounds.size.height >= rectBounds.size.width)
-        if(fIsVertical) {
+        rectBounds = rect
+        let barIsVertical = rect.size.height >= rect.size.width
+        if barIsVertical {
             // Adjust height to be an exact multiple of bar
-            iBarSize = Int(rectBounds.size.height) / self.numBars
+            iBarSize = Int(rect.size.height) / self.numBars
             rectBounds.size.height  = CGFloat(iBarSize * self.numBars)
-        }
-        else {
+            // will be used to center the rectBar in the rect
+            offset = rect.size.height - rectBounds.size.height
+        } else {
             // Adjust width to be an exact multiple
-            iBarSize = Int(rectBounds.size.width) / self.numBars
+            iBarSize = Int(rect.size.width) / self.numBars
             rectBounds.size.width = CGFloat(iBarSize * self.numBars)
+            offset = rect.size.width - rectBounds.size.width
         }
-        
-        // Compute size of bar
-        rectBar.size.width  = fIsVertical ? rectBounds.size.width - CGFloat(self.innerBorderLineWidth * 2) : CGFloat(iBarSize)
-        rectBar.size.height = (fIsVertical) ? CGFloat(iBarSize) : rectBounds.size.height - CGFloat(self.innerBorderLineWidth * 2);
+        // Center the enclosing rectBounds within rect
+        rectBounds.origin.x = barIsVertical ? 0.0 : offset / 2.0
+        rectBounds.origin.y = barIsVertical ? offset / 2.0 : 0.0
+        // Compute size of a bar
+        rectBar.size.width  = barIsVertical ? rectBounds.size.width - CGFloat(self.innerBorderLineWidth * 2) : CGFloat(iBarSize)
+        rectBar.size.height = barIsVertical ? CGFloat(iBarSize) : rectBounds.size.height - CGFloat(self.innerBorderLineWidth * 2)
         
         // Get stuff needed for drawing
         let ctx = UIGraphicsGetCurrentContext()
@@ -161,15 +162,15 @@ class BarGaugeView: UIView {
         for iX in 0..<self.numBars {
             // Determine position for this bar
             if self.reverse {
-                // if(_reverse) {
+                let toComplexForCompiler = rectBounds.maxX - (CGFloat(iX) + 1.0) * CGFloat(iBarSize)
                 // Top-to-bottom or right-to-left
-                rectBar.origin.x = (fIsVertical) ? rectBounds.origin.x + 1.0 : (rectBounds.maxX - (CGFloat(iX) + 1.0) * CGFloat(iBarSize))
-                rectBar.origin.y = (fIsVertical) ? (rectBounds.minY + CGFloat(iX * iBarSize)) : rectBounds.origin.y + CGFloat(self.innerBorderLineWidth)
-            }
-            else {
-                // Bottom-to-top or right-to-left
-                rectBar.origin.x = (fIsVertical) ? rectBounds.origin.x + 1.0 : (rectBounds.minX + CGFloat(iX * iBarSize))
-                rectBar.origin.y = (fIsVertical) ? (rectBounds.maxY - (CGFloat(iX) + CGFloat(self.innerBorderLineWidth)) * CGFloat(iBarSize)) : rectBounds.origin.y + CGFloat(self.innerBorderLineWidth)
+                rectBar.origin.x = barIsVertical ? rectBounds.origin.x + 1.0 : toComplexForCompiler
+                rectBar.origin.y = barIsVertical ? (rectBounds.minY + CGFloat(iX * iBarSize)) : rectBounds.origin.y + CGFloat(self.innerBorderLineWidth)
+            } else {
+                let toComplexForCompiler = rectBounds.minX + CGFloat(iX * iBarSize)
+                // Bottom-to-top or left-to-right
+                rectBar.origin.x = barIsVertical ? rectBounds.origin.x + 1.0 : toComplexForCompiler
+                rectBar.origin.y = barIsVertical ? (rectBounds.maxY - (CGFloat(iX) + CGFloat(self.innerBorderLineWidth)) * CGFloat(iBarSize)) : rectBounds.origin.y + CGFloat(self.innerBorderLineWidth)
             }
             
             // Draw top and bottom borders for bar

@@ -10,42 +10,22 @@ import UIKit
 
 class LeftNutrimentScoreTableViewCell: UITableViewCell {
     
-    var nutrimentScore : NutrimentScore? = nil {
-        didSet {
-            setup()
-        }
-    }
+    private var nutrimentScore : NutrimentScore? = nil
     
-    var title: String? = nil {
-        didSet {
-            setup()
-        }
-    }
+    private var title: String? = nil
     
-    var numBars: Int = 1 {
-        didSet {
-            setup()
-        }
-    }
+    private var numBars: Int = 1
     
-    var maxLimit: Int = 10 {
-        didSet {
-            setup()
-        }
-    }
+    private var maxLimit: Int = 10
 
-    var dangerThreshold: Int = 1 {
-        didSet {
-            setup()
-        }
-    }
+    private var dangerThreshold: Int = 1
     
-    var warnThreshold: Int = 1 {
-        didSet {
-            setup()
-        }
-    }
+    private var reverse: Bool = false
+
+    private var warnThreshold: Int = 1
     
+    private var normalBarColor: UIColor = .red
+
     private func setup() {
         guard let validNutrimentScore = nutrimentScore else { return }
         nutrimentLabel.text = title
@@ -55,8 +35,17 @@ class LeftNutrimentScoreTableViewCell: UITableViewCell {
         nutrimentScoreBarGaugeView?.maxLimit = Float(numBars)
         nutrimentScoreBarGaugeView?.dangerThreshold = Float(numBars)
         nutrimentScoreBarGaugeView.warnThreshold = Float(numBars)
-        nutrimentScoreBarGaugeView?.reverse = false
-        nutrimentScoreBarGaugeView?.normalBarColor = .red
+        nutrimentScoreBarGaugeView?.reverse = reverse
+        nutrimentScoreBarGaugeView?.normalBarColor = normalBarColor
+    }
+    
+    func setup(score:NutrimentScore?, numBars: Int, reverse:Bool, normalBarColor: UIColor, title:String?) {
+        self.nutrimentScore = score
+        self.numBars = numBars
+        self.reverse = reverse
+        self.normalBarColor = normalBarColor
+        self.title = title
+        setup()
     }
     
     @IBOutlet weak var nutrimentValue: UILabel!

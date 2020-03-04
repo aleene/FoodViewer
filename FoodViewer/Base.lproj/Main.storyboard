@@ -2840,7 +2840,6 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gm4-Bw-AEu">
                                             <rect key="frame" x="16" y="11" width="119" height="22"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPM-r4-zbF">
@@ -2851,6 +2850,7 @@
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iIT-aD-LLl" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
                                             <rect key="frame" x="185" y="11" width="119" height="22"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         </view>
                                     </subviews>
                                     <constraints>
@@ -2874,8 +2874,52 @@
                                     <outlet property="nutrimentValue" destination="vPM-r4-zbF" id="t2h-X1-pWZ"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductCategoryTableViewCell.NutritionScoreTableViewController" id="6W2-KJ-661" customClass="ProductCategoryTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LeftNutrimentScoreTableViewCell.NutritionScoreTableViewController" id="Xas-uA-Nrx" customClass="LeftNutrimentScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="116" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xas-uA-Nrx" id="1VA-gI-PR0">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IO6-rc-DeV" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="11" width="127" height="22"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x29-Ld-Ccr">
+                                            <rect key="frame" x="144" y="11" width="32" height="22"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mpI-pB-977">
+                                            <rect key="frame" x="185" y="11" width="127" height="22"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="x29-Ld-Ccr" firstAttribute="width" secondItem="1VA-gI-PR0" secondAttribute="width" multiplier="0.1" id="5OS-ti-Sa8"/>
+                                        <constraint firstItem="x29-Ld-Ccr" firstAttribute="centerX" secondItem="1VA-gI-PR0" secondAttribute="centerX" id="6ug-K9-XPV"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="IO6-rc-DeV" secondAttribute="bottom" id="BA1-Y9-8tg"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="mpI-pB-977" secondAttribute="bottom" id="BvS-Be-FY2"/>
+                                        <constraint firstAttribute="topMargin" secondItem="mpI-pB-977" secondAttribute="top" id="ERj-OV-CeZ"/>
+                                        <constraint firstItem="x29-Ld-Ccr" firstAttribute="top" secondItem="1VA-gI-PR0" secondAttribute="topMargin" id="USV-3k-Lna"/>
+                                        <constraint firstItem="mpI-pB-977" firstAttribute="leading" secondItem="IO6-rc-DeV" secondAttribute="trailing" constant="50" id="bjB-NQ-RzW"/>
+                                        <constraint firstItem="IO6-rc-DeV" firstAttribute="leading" secondItem="1VA-gI-PR0" secondAttribute="leading" constant="8" id="dJS-FO-iJW"/>
+                                        <constraint firstItem="mpI-pB-977" firstAttribute="width" secondItem="IO6-rc-DeV" secondAttribute="width" id="khi-Ec-dgE"/>
+                                        <constraint firstAttribute="topMargin" secondItem="IO6-rc-DeV" secondAttribute="top" id="lGX-pu-zRh"/>
+                                        <constraint firstItem="x29-Ld-Ccr" firstAttribute="bottom" secondItem="1VA-gI-PR0" secondAttribute="bottomMargin" id="qtA-WV-QMb"/>
+                                        <constraint firstAttribute="trailing" secondItem="mpI-pB-977" secondAttribute="trailing" constant="8" id="uXr-wG-afR"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nutrimentLabel" destination="mpI-pB-977" id="LhB-qE-uEA"/>
+                                    <outlet property="nutrimentScoreBarGaugeView" destination="IO6-rc-DeV" id="DRy-Cm-BeN"/>
+                                    <outlet property="nutrimentValue" destination="x29-Ld-Ccr" id="SK2-Dn-kjW"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductCategoryTableViewCell.NutritionScoreTableViewController" id="6W2-KJ-661" customClass="ProductCategoryTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="160" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6W2-KJ-661" id="bcG-uu-Zaj">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2908,7 +2952,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ColourCodedNutritionalScoreTableViewCell.NutritionScoreTableViewController" id="mMW-fi-nXC" customClass="ColourCodedNutritionalScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="160" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="204" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mMW-fi-nXC" id="Gal-15-pDB">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2919,35 +2963,35 @@
                                             <subviews>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2eC-V5-7bA">
                                                     <rect key="frame" x="0.0" y="0.0" width="57.5" height="22"/>
-                                                    <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4j9-D7-KeA">
                                                     <rect key="frame" x="57.5" y="0.0" width="57.5" height="22"/>
-                                                    <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.40000000000000002" green="0.59999999999999998" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cua-sZ-e8a">
                                                     <rect key="frame" x="115" y="0.0" width="58" height="22"/>
-                                                    <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEd-kW-oQA">
                                                     <rect key="frame" x="173" y="0.0" width="57.5" height="22"/>
-                                                    <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Xv-lT-GlI">
                                                     <rect key="frame" x="230.5" y="0.0" width="57.5" height="22"/>
-                                                    <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.80000000000000004" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3059,7 +3103,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LevelTableViewCell.NutritionScoreTableViewController" rowHeight="66" id="eDk-EL-2aM" customClass="LevelTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="204" width="320" height="66"/>
+                                <rect key="frame" x="0.0" y="248" width="320" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eDk-EL-2aM" id="d2J-1C-b2o">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
@@ -3174,7 +3218,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListViewTableViewCell.NutritionScoreTableViewController" rowHeight="66" id="KV2-vc-een" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="270" width="320" height="66"/>
+                                <rect key="frame" x="0.0" y="314" width="320" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KV2-vc-een" id="kXt-1f-hZz">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
@@ -3650,17 +3694,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Rx-n8-WDV">
-                                            <rect key="frame" x="16" y="11" width="244" height="278"/>
+                                            <rect key="frame" x="16" y="11" width="219" height="278"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3P-fF-cbC">
-                                            <rect key="frame" x="268" y="178.5" width="25" height="25"/>
+                                            <rect key="frame" x="243" y="191" width="50" height="50"/>
                                             <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="deselectImageButtonTapped:" destination="ae1-IC-EpV" eventType="touchUpInside" id="JrS-xZ-s0u"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="64u-QN-3dx">
-                                            <rect key="frame" x="268" y="137.5" width="25" height="25"/>
+                                            <rect key="frame" x="243" y="125" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="64u-QN-3dx" secondAttribute="height" multiplier="1:1" id="gqh-co-hTG"/>
                                             </constraints>
@@ -3670,7 +3714,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jWz-fA-YUG">
-                                            <rect key="frame" x="268" y="96.5" width="25" height="25"/>
+                                            <rect key="frame" x="243" y="59" width="50" height="50"/>
                                             <state key="normal" image="CameraRoll"/>
                                             <connections>
                                                 <action selector="selectFromCamerRollButtonTapped:" destination="ae1-IC-EpV" eventType="touchUpInside" id="OHE-45-gJb"/>
@@ -5604,7 +5648,7 @@
         <image name="User" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hdd-Nk-Dkh"/>
+        <segue reference="0nC-9f-6SW"/>
         <segue reference="OjZ-f4-IhZ"/>
         <segue reference="Re1-EV-fYP"/>
         <segue reference="Ivs-Tb-YCl"/>

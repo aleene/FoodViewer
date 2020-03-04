@@ -222,14 +222,18 @@ class NutritionScoreTableViewController: UITableViewController {
                 return cell
             case .pointsA(let key, let value):
                 if let validValue = value {
-                    return nutrimentScoreTableViewCell(for:key, with:validValue, towards:false, at:indexPath, and: cellIdentifier(for: NutrimentScoreTableViewCell.self))
+                    let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:NutrimentScoreTableViewCell.self), for: indexPath) as! NutrimentScoreTableViewCell
+                    cell.setup(score: validValue, numBars: 10, reverse: false, normalBarColor: .systemRed, title: OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode))
+                    return cell
                 } else {
                     setNutrientTag(for: key)
                     return tagCell(at:indexPath, with:ColorSchemes.none)
                 }
             case .pointsC(let key, let value):
                 if let validValue = value {
-                    return nutrimentScoreTableViewCell(for:key, with:validValue, towards:true, at:indexPath, and:cellIdentifier(for: NutrimentScoreTableViewCell.self))
+                    let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:LeftNutrimentScoreTableViewCell.self), for: indexPath) as! LeftNutrimentScoreTableViewCell
+                    cell.setup(score: validValue, numBars: 5, reverse: true, normalBarColor: .systemGreen, title: OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode))
+                    return cell
                 } else {
                     setNutrientTag(for: key)
                     return tagCell(at:indexPath, with:ColorSchemes.none)
@@ -288,16 +292,7 @@ class NutritionScoreTableViewController: UITableViewController {
         return IndexPath(row: row, section: section)
 
     }
-    private func nutrimentScoreTableViewCell(for key:String, with score: NutrimentScore, towards reverse:Bool, at indexPath:IndexPath, and identifier:String) -> NutrimentScoreTableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! NutrimentScoreTableViewCell
-        cell.nutrimentScore = score
-        cell.numBars = reverse ? 5 : 10
-        cell.reverse = reverse
-        cell.normalBarColor = reverse ? .systemGreen : .systemRed
-        cell.title = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode)
-        return cell
-    }
-    
+
     private func setNutrientTag(for key: String) {
         if let nutrientString = OFFplists.manager.translateNutrient(key, language:Locale.preferredLanguageCode) {
             let tagString = String(format: TranslatableStrings.NutrientDataXUnavailable, nutrientString)
