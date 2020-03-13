@@ -1048,7 +1048,7 @@ class IdentificationTableViewController: UITableViewController {
             if barcode == productPair!.remoteProduct!.barcode.asString {
                 // is it relevant to the main image?
                 if let id = notification.userInfo?[ProductPair.Notification.ImageTypeCategoryKey] as? String {
-                    if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
+                    if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
                         // reload product data
                         self.productPair?.reload()
                     }
@@ -1152,6 +1152,7 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.SearchTypeChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded(_:)), name:.ProductPairImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFProductsImageDeleteSuccess, object:nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

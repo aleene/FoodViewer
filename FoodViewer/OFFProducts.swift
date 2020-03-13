@@ -18,11 +18,9 @@ class OFFProducts {
     
     internal struct Notification {
         static let BarcodeDoesNotExistKey = "OFFProducts.Notification.BarcodeDoesNotExist.Key"
-        //static let SearchStringKey = "OFFProducts.Notification.SearchString.Key"
-        //static let SearchOffsetKey = "OFFProducts.Notification.SearchOffset.Key"
-        //static let SearchPageKey = "OFFProducts.Notification.SearchPage.Key"
         static let BarcodeKey = "OFFProducts.Notification.Barcode.Key"
         static let ErrorKey = "OFFProducts.Notification.Error.Key"
+        static let ImageTypeCategoryKey = "OFFProducts.Notification.ImageTypeCategory.Key"
     }
     
     static let manager = OFFProducts()
@@ -268,6 +266,12 @@ class OFFProducts {
                 }
                 // the operation is finished, it can be removed from the uploads in progress
                 self.pendingOperations.uploadsInProgress.removeValue(forKey: key)
+                DispatchQueue.main.async(execute: {
+                    let userInfo = [Notification.BarcodeKey: productPair.barcodeType.asString as String,
+                                    Notification.ImageTypeCategoryKey: imageTypeCategory.description as String]
+                    NotificationCenter.default.post(name: .OFFProductsImageDeleteSuccess, object: nil, userInfo: userInfo)
+                    print("OFFProducts: The selected on off is deleted")
+                   })
             }
             
             //4
@@ -321,6 +325,7 @@ extension Notification.Name {
     static let FirstProductLoaded = Notification.Name("OFFProducts.Notification.FirstProductLoaded")
     static let HistoryIsLoaded = Notification.Name("OFFProducts.Notification.HistoryIsLoaded")
     static let ProductLoadingError = Notification.Name("OFFProducts.Notification.ProductLoadingError")
+    static let OFFProductsImageDeleteSuccess = Notification.Name("OFFProducts.Notification.ImageDeleteSuccess")
 }
 
 

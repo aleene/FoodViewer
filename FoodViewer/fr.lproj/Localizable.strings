@@ -7,12 +7,6 @@
 /* a questionmark used for several purposes */
 "?" = "?";
 
-/* Added to a tableview section header to indicated the item has been edited. */
-"(Edited)" = "(Edité)";
-
-/* Title of a butoon which adds ℮ at the end of the string. */
-"+ ℮" = "";
-
 /* Image to indicate that the user who created the product. */
 "❤️" = "❤️";
 
@@ -134,12 +128,6 @@
 "Categories (edited)" = "Catégories (édité)";
 
 /* Original text to indicate the product belongs to a category. */
-"Categories (hierarchy translated)" = "Catégories (hiërarchie traduit)";
-
-/* Original text to indicate the product belongs to a category. */
-"Categories (hierarchy)" = "Catégories (hiërarchie)";
-
-/* Original text to indicate the product belongs to a category. */
 "Categories (non-edited)" = "Catégories (pas édité)";
 
 /* Original text to indicate the product belongs to a category. */
@@ -180,9 +168,6 @@
 
 /* String in PickerViewController to indicate the creator role of a contributor (any role) */
 "Contributor" = "Contributeur";
-
-/* Generic string to indicate the completion states of a product. */
-"contributor name not set" = "nom contributeur pas défini";
 
 /* Header title of the tableview section, indicating whether which users did contribute. */
 "Contributors" = "Contributeurs";
@@ -347,12 +332,6 @@
 /* String in picker, which lets the user select the search result order */
 "Edit date" = "Change ordre";
 
-/* Title of view controller, which allows editing of the nutrients */
-"Edit Nutrient" = "Modifie nutriment";
-
-/* Added to a tableview section header to indicated the item has been edited. */
-"Edited" = "Edité";
-
 /* String in PickerViewController to indicate the editor role of a contributor */
 "Editor" = "Editeur";
 
@@ -452,14 +431,8 @@
 /* Tableview sectionheader for the original long product name */
 "Generic Name (non-edited)" = "Nom générique (pas édité)";
 
-/* Header for a table section showing the appreciations of the good nutrients */
-"Good nutrients" = "Bons nutriments";
-
 /* Standard weight unit. */
 "gram (g)" = "gramme (g)";
-
-/* Description of the hierarchy tags in the json */
-"Hierarchy" = "Hierarchie";
 
 /* Title of the secnd Tabbar item of a TabBarVC */
 "History" = "Histoire";
@@ -525,11 +498,11 @@
 /* String presented in a tagView if nothing has happened yet */
 "Initialized" = "Initialisé";
 
-/* Description of the by OFF interpreted tags in the json */
-"Interpreted" = "Interpreté";
-
 /* Title of first segment in switch, which lets the user select between joules, kilo-calories or Calories */
 "Joules" = "Joules";
+
+/* Title of viewController, which shows the json as is available on OFF. */
+"Json" = "Json";
 
 /* Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories */
 "Kilocalories" = "Kilocalories";
@@ -600,6 +573,12 @@
 /* Text in a tableview cell, when no brands are available in the product data. */
 "No brands indicated" = "Aucun marque indiqué";
 
+/* Text in a tableview cell, when no category is defined. */
+"No category defined" = "pas de catégorie défini";
+
+/* Text for language of product, when there is no country defined. */
+"no country defined" = "pas de pays défini";
+
 /* Value of the creation date field, if no valid date is available. */
 "no creation date available" = "pas de date de création disponible";
 
@@ -666,11 +645,13 @@
 /* Title for viewcontroller with detailed product images, when no title is given. */
 "No title" = "Pas de titre";
 
+/* Text for language of product, when there is no trace defined. */
+"no trace defined" = "pas de trace défini";
+
 /* Text in a pickerView, when no translated text is available */
 "No translation" = "Pas de traduction";
 
-/* tag of cell when no tags are available
-   Text for a cell, when no status title has been provided, such as 'completed', etc. */
+/* Text for a cell, when no status title has been provided, such as 'completed', etc. */
 "none" = "aucun";
 
 /* First element of a pickerView where the user has to select an element in the picker. */
@@ -1062,6 +1043,12 @@
 /* Text of a tableview row, which allows the user to select diets */
 "Select the diets, that you want the app to highlight in the product summary." = "Sélectionne les régimes, qui doivent mis en avant dans le sommaire du produit.";
 
+/* Title of a tableview section with the selected categories for a product. */
+"Selected Categories" = "Catégories sélectionnés";
+
+/* Title of a tableview section with the selected countries for a product. */
+"Selected Countries" = "Pays sélectionnés";
+
 /* Title of a tableview section, which allows the user to select diets */
 "Selected Diets" = "Régimes sélectionés";
 
@@ -1083,6 +1070,9 @@
 /* Gallery header text presenting the non-edited selected ingredients images */
 "Selected Ingredients Images (non-edited)" = "Photos d'ingrédients sélectionnées (pas édité)";
 
+/* Title of a tableview section with the selected languages for a product. */
+"Selected Languages" = "Langues sélectionnés";
+
 /* Gallery header text presenting the selected nutrition images */
 "Selected Nutrition Images" = "Photos de nutrition sélectionnées";
 
@@ -1091,6 +1081,9 @@
 
 /* Gallery header text presenting the non-edited selected nutrition images */
 "Selected Nutrition Images (non-edited)" = "Photos de nutrition sélectionnées (pas édité)";
+
+/* Title of a tableview section with the selected traces for a product. */
+"Selected Traces" = "Traces sélectionnés";
 
 /* Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value) */
 "Serving" = "Portion";
@@ -1197,14 +1190,23 @@
 /* Description of the interpreted tags in the json as translated by the taxonomy */
 "Translated" = "Traduit";
 
-/* tag of cell when no date was in off */
-"undefined" = "non défini";
-
 /* String (in Segmented Control/Tag) to indicate the nutritional score level is undefined (and will not be used in the search) */
 "Undefined" = "Pas defini";
 
 /* Text in a TagListView, when the field in the json was not present. */
 "Unknown" = "Inconnu";
+
+/* Title of a tableview section with a list of categories that can be selected. */
+"Unselected Categories" = "Catégories à selectioner";
+
+/* Title of a tableview section with a list of countries that can be selected. */
+"Unselected Countries" = "Pays à selectioner";
+
+/* Title of a tableview section with a list of languages that can be selected. */
+"Unselected Languages" = "Langues à selectioner";
+
+/* Title of a tableview section with a list of traces that can be selected. */
+"Unselected Traces" = "Traces à selectioner";
 
 /* String presented in a tagView if an image is being uploaded */
 "Uploading image" = "Charger image";

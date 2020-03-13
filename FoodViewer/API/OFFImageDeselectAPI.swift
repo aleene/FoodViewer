@@ -124,6 +124,10 @@ class OFFImageDeselectAPI: Operation {
         })
         task.resume()
     }
+    
+    private func doNothing() {
+    
+    }
 
 }
 

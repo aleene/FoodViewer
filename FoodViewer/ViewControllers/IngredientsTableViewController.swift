@@ -1058,6 +1058,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 }
             }
         }
+        if let barcode = notification.userInfo?[OFFProducts.Notification.BarcodeKey] as? String {
+            if barcode == productPair!.barcodeType.asString {
+                // is it relevant to the ingredients image?
+                if let id = notification.userInfo?[OFFProducts.Notification.ImageTypeCategoryKey] as? String {
+                    if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
+                        // reload product data
+                        self.productPair?.reload()
+                    }
+                }
+            }
+        }
+
     }
 
 
@@ -1094,6 +1106,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded(_:)), name:.ProductPairImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageDeleted(_:)), name:.OFFProductsImageDeleteSuccess, object:nil)
+        
         NotificationCenter.default.addObserver(
             self,
             selector:#selector(IngredientsTableViewController.refreshProduct),
