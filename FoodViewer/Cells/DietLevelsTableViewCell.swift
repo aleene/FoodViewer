@@ -186,12 +186,12 @@ final class DietLevelsTableViewCell: UITableViewCell {
 //
     private struct Constant {
         static let Divisor = 2.5
-        static let Height = CGFloat(25.0)
+        //static let Height = CGFloat(50.0)
     }
     
     private var cornerRadius: CGFloat {
         // All the level*Label's have the same size.
-        CGFloat(level0Label?.bounds.size.height ?? Constant.Height) / CGFloat(1.1)
+        CGFloat(22.0)
     }
 
     /// The state indicates, which icon will be shown as toggle.
