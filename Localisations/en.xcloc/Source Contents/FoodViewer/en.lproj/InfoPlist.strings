@@ -1,0 +1,8 @@
+/* Bundle name */
+"CFBundleName" = "FoodViewer";
+/* Privacy - Media Library Usage Description */
+"NSAppleMusicUsageDescription" = "The photo library is used to select images of products for uploading to OpenFoodFacts.";
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "The camera is needed to scan barcodes and take images of products for uploading to OpenFoodFacts.";
+/* Privacy - Photo Library Usage Description */
+"NSPhotoLibraryUsageDescription" = "The photo library is used to select images of products for uploading to OpenFoodFacts.";

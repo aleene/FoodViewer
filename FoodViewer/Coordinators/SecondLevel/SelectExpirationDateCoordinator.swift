@@ -41,7 +41,7 @@ final class SelectExpirationDateCoordinator: Coordinator {
     }
     
     func show() {
-        self.parentCoordinator?.presentAsPopOver(viewController, at: button)
+        self.parentCoordinator?.presentAsFormSheet(viewController)
     }
     
     /// The viewController informs its owner that it has disappeared

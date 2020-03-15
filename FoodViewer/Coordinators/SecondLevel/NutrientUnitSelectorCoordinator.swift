@@ -42,7 +42,7 @@ final class NutrientUnitSelectorCoordinator: Coordinator {
     }
     
     func show() {
-        self.parentCoordinator?.presentAsPopOver(viewController, at: button)
+        self.parentCoordinator?.presentAsFormSheet(self.viewController)
     }
     
     /// The viewController informs its owner that it has disappeared

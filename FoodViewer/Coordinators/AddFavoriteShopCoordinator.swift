@@ -32,7 +32,7 @@ final class AddFavoriteShopCoordinator: Coordinator {
     }
 
     func show() {
-        self.parentCoordinator?.presentAsPopOver(self.viewController, at: nil)
+        self.parentCoordinator?.presentAsFormSheet(viewController)
     }
     
     /// The viewController informs its owner that it has disappeared
