@@ -170,7 +170,7 @@ final class SelectPairViewController: UIViewController {
             for tag in validTags {
                 var pair = Language()
                 pair.code = tag
-                pair.name = allPairs.last(where: ({$0.code == pair.code}) )?.name ?? undefinedText
+                pair.name = allPairs.first(where: ({$0.code == pair.code}) )?.name ?? pair.code
                 currentPairs.append(pair)
             }
         }

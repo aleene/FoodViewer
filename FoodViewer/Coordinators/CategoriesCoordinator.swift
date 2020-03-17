@@ -40,7 +40,7 @@ final class CategoriesCoordinator: Coordinator {
 
     func selectCategory() {
         let coordinator = SelectPairCoordinator.init(with:self,
-                            original: productPair?.categoriesInterpreted?.list,
+                              original: productPair?.categoriesInterpreted?.list,
                               allPairs: OFFplists.manager.allCategories,
                               multipleSelectionIsAllowed: true,
                               showOriginalsAsSelected: true,

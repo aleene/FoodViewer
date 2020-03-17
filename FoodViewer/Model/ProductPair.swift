@@ -165,6 +165,10 @@ class ProductPair {
         return localProduct?.categoriesInterpreted ?? remoteProduct?.categoriesInterpreted
     }
     
+    var categoriesTranslated: Tags? {
+        return localProduct?.categoriesTranslated ?? remoteProduct?.categoriesTranslated
+    }
+    
     /// The interpreted countries of the local product otherwise the remote product
     var countriesInterpreted: Tags? {
         return localProduct?.countriesInterpreted ?? remoteProduct?.countriesInterpreted
