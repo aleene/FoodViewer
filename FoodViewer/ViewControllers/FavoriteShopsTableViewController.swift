@@ -94,7 +94,9 @@ final class FavoriteShopsViewController: UIViewController {
             tableView?.dataSource = self
         }
     }
-//
+    @IBOutlet weak var bottomLayoutConstraint: NSLayoutConstraint!
+    
+    //
 // MARK: - Moving table rows by long press
 //
     // https://www.raywenderlich.com/63089/cookbook-moving-table-view-cells-with-a-long-press-gesture
@@ -206,13 +208,14 @@ final class FavoriteShopsViewController: UIViewController {
         
         tableView.addGestureRecognizer(longGesture)
     }
-
+    
     // MARK: - ViewController Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.reloadData()
         addLongGestureRecognizerForTableView()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

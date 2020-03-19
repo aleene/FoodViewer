@@ -89,6 +89,8 @@ final class AddNutrientViewController: UIViewController, UIPickerViewDelegate, U
         protocolCoordinator?.addNutrientViewControllerDidCancel(self)
     }
 
+    @IBOutlet weak var bottomLayoutConstraint: NSLayoutConstraint!
+    
     // MARK: - PickerView Datasource methods
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -132,22 +134,24 @@ final class AddNutrientViewController: UIViewController, UIPickerViewDelegate, U
         purgeNutrients()
     }
 
-    /*
-    @objc func textChanged(notification: Notification) {
-        if let text = filterTextField.text {
-            textFilter = text
-            self.nutrientsPickerView.reloadAllComponents()
-            addedNutrientTuple = filteredNutrients.first
-        }
+    @objc func keyBoardWillShow(notification: NSNotification) {
+        let keyboardHeight = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
+        bottomLayoutConstraint.constant = keyboardHeight - 110.0
     }
- */
-    
+
+
+    @objc func keyBoardWillHide(notification: NSNotification) {
+        bottomLayoutConstraint.constant = 0.0
+     }
+
     // MARK: - ViewController Lifecycle
         
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // launch the filtering
         textFilter = ""
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -166,33 +170,3 @@ extension AddNutrientViewController : UISearchBarDelegate {
         self.nutrientsPickerView.reloadAllComponents()
     }
 }
-/*
-// MARK: - UITextFieldDelegate Functions
-
-extension AddNutrientViewController: UITextFieldDelegate {
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.isFirstResponder { textField.resignFirstResponder() }
-        return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        // reset the filter
-        if !textFilter.isEmpty {
-            textFilter = ""
-        }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.isFirstResponder {
-            textField.resignFirstResponder()
-        }
-        return true
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return true
-    }
-    
-}
-*/
