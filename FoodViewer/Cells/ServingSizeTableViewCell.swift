@@ -29,18 +29,19 @@ class ServingSizeTableViewCell: UITableViewCell {
 
     
     private func setTextFieldStyle() {
+        servingSizeTextField.layer.borderWidth = 0.5
         if #available(iOS 13.0, *) {
-            servingSizeTextField.backgroundColor = editMode ? .secondarySystemFill : .systemBackground
-            servingSizeTextField?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.systemBackground.cgColor
+            servingSizeTextField.backgroundColor = editMode ? .secondarySystemBackground : .systemBackground
+            servingSizeTextField?.layer.borderColor = editMode ? UIColor.darkGray.cgColor : UIColor.systemBackground.cgColor
             servingSizeTextField.textColor = editMode ? .secondaryLabel : .label
         } else {
             servingSizeTextField.backgroundColor = editMode ? .groupTableViewBackground : .white
-            servingSizeTextField?.layer.borderColor = editMode ? UIColor.gray.cgColor : UIColor.white.cgColor
-            servingSizeTextField.textColor = .white
+            servingSizeTextField?.layer.borderColor = editMode ? UIColor.darkGray.cgColor : UIColor.white.cgColor
+            servingSizeTextField.textColor = .black
         }
 
         if editMode {
-            servingSizeTextField.borderStyle = .bezel
+            servingSizeTextField.layer.cornerRadius = 5
             servingSizeTextField.clipsToBounds = true
         } else {
             servingSizeTextField.borderStyle = .none
