@@ -12,8 +12,69 @@ import MobileCoreServices
 private let reuseIdentifier = "Cell"
 
 class ProductImagesCollectionViewController: UICollectionViewController {
-
     
+    // https://stackoverflow.com/questions/31367387/detect-if-app-is-running-in-slide-over-or-split-view-mode-in-ios-9
+    //private func deviceOrientation () -> UIDeviceOrientation {
+     //   return UIDevice.current.orientation
+    //}
+
+    private var screenSize: (description:String, size:CGRect) {
+        return ("SCREEN SIZE:\nwidth: \(UIScreen.main.bounds.size.width)\nheight: \(UIScreen.main.bounds.size.height)", UIScreen.main.bounds)
+    }
+
+    private var applicationSize: (description:String, size:CGRect) {
+        return ("\n\nAPPLICATION SIZE:\nwidth: \(UIApplication.shared.windows[0].bounds.size.width)\nheight: \(UIApplication.shared.windows[0].bounds.size.height)", UIApplication.shared.windows[0].bounds)
+    }
+
+    enum LayoutStyle: String {
+        case iPadFullscreen         = "iPad Full Screen"
+        case iPadHalfScreen         = "iPad 1/2 Screen"
+        case iPadTwoThirdScreeen    = "iPad 2/3 Screen"
+        case iPadOneThirdScreen     = "iPad 1/3 Screen"
+        case iPhoneFullScreen       = "iPhone"
+    }
+
+    private var layoutStyle: LayoutStyle {
+        if UIDevice.current.orientation == .landscapeLeft
+            || UIDevice.current.orientation == .landscapeRight {
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                return .iPhoneFullScreen
+            }
+            if screenSize == applicationSize {
+                return .iPadFullscreen
+            }
+
+            // Set a range in case there is some mathematical inconsistency or other outside influence that results in the application width being less than exactly 1/3, 1/2 or 2/3.
+            let lowRange = screenSize.size.width - 15
+            let highRange = screenSize.size.width + 15
+
+            if lowRange / 2 <= applicationSize.size.width && applicationSize.size.width <= highRange / 2 {
+            return .iPadHalfScreen
+            } else if applicationSize.size.width <= highRange / 3 {
+                return .iPadOneThirdScreen
+            } else {
+                return .iPadTwoThirdScreeen
+            }
+        } else {
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                return .iPadOneThirdScreen
+            }
+            // in case the app is a slide over in portrait
+            if applicationSize.size.width <= (screenSize.size.width + 15) / 2 {
+                return .iPadOneThirdScreen
+            } else {
+                return .iPadHalfScreen
+            }
+
+        }
+
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        reloadImages()
+    }
+
     var coordinator: ProductImagesCoordinator? = nil
 
     // MARK: - public variables
@@ -220,7 +281,20 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
 
-    fileprivate let itemsPerRow: CGFloat = 5
+    fileprivate var itemsPerRow: CGFloat {
+        switch layoutStyle {
+        case .iPadFullscreen:
+            return 8
+        case .iPadHalfScreen:
+            return 5
+        case .iPadTwoThirdScreeen:
+            return 6
+        case .iPadOneThirdScreen:
+            return 3
+        case .iPhoneFullScreen:
+            return 3
+        }
+    }
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
 
@@ -489,92 +563,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
 
     }
-    /*
 
-    // MARK: - Segue stuff
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case segueIdentifier(to: ImageViewController.self):
-                if let vc = segue.destination as? ImageViewController {
-                    guard selectedImage != nil else { return }
-                    switch tableStructure[selectedImage!.section] {
-                    case .frontImages:
-                        let languageCode = Array(productPair!.remoteProduct!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-                        vc.imageData = productPair!.remoteProduct!.image(for:languageCode, of:.front)
-                        vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
-                        
-                    case .ingredientsImages:
-                        let languageCode = Array(productPair!.remoteProduct!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-                        vc.imageData = productPair!.remoteProduct!.image(for:languageCode, of:.ingredients)
-                        vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
-                        
-                    case .nutritionImages:
-                        let languageCode = Array(productPair!.remoteProduct!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-                        vc.imageData = productPair!.remoteProduct!.image(for:languageCode, of:.nutrition)
-                        vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
-                        
-                    case .originalImages:
-                        let key = Array(productPair!.remoteProduct!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
-                        vc.imageData = productPair!.remoteProduct!.images[key]?.largest
-                        vc.imageTitle = key
-                    }
-                }
- 
-            case segueIdentifier(to: SelectLanguageAndImageTypeViewController.self):
-                if let vc = segue.destination as? SelectLanguageAndImageTypeViewController,
-                    let button = sender as? UIButton {
-                    if let cell = button.superview?.superview as? GalleryCollectionViewCell {
-                        if let ppc = vc.popoverPresentationController {
-                            // set the main language button as the anchor of the popOver
-                            ppc.permittedArrowDirections = .any
-                            // I need the button coordinates in the coordinates of the current controller view
-                            let anchorFrame = button.convert(button.bounds, to: self.collectionView)
-                            ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                            ppc.delegate = self
-                            
-                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-                            vc.languageCodes = productPair!.remoteProduct!.languageCodes
-                            vc.key = cell.imageKey
-                        }
-                    }
-                }
-            default: break
-            }
-        }
-    }
-
-    @IBAction func unwindSetImageTypeAndLanguageForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? SelectLanguageAndImageTypeViewController {
-            if let selectedLanguageCode = vc.selectedLanguageCode,
-                let selectedImageTypeCategory = vc.selectedImageCategory,
-                let validKey = vc.key {
-                
-                // let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[validKey]
-                if let result = originalImages[validKey]?.largest?.fetch() {
-                    switch result {
-                    case .success(let image):
-                        switch selectedImageTypeCategory {
-                        case .front:
-                            productPair?.update(frontImage: image, for: selectedLanguageCode)
-                        case .ingredients:
-                            productPair?.update(ingredientsImage: image, for: selectedLanguageCode)
-                        case .nutrition:
-                            productPair?.update(nutritionImage: image, for: selectedLanguageCode)
-                        default:
-                            return
-                        }
-                    default:
-                        return
-                    }
-                    reloadImages()
-                }
-            }
-        }
-    }
-
-    */
     @objc func takePhotoButtonTapped() {
         // opens the camera and allows the user to take an image and crop
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
