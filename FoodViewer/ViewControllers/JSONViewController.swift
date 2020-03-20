@@ -119,7 +119,7 @@ extension JSONViewController: UITableViewDelegate {
         if let index = pairs.firstIndex(where: {($0 === shownPairs[indexPath.row])}) {
             let currentLevel = pairs[index].level
             var itemOffset = 1
-            while pairs[index + itemOffset].level > currentLevel {
+            while index + itemOffset < pairs.count && pairs[index + itemOffset].level > currentLevel {
                 pairs[index + itemOffset].isShown = !pairs[index + itemOffset].isShown
                 itemOffset += 1
             }

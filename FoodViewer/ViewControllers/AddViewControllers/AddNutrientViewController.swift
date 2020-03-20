@@ -134,9 +134,11 @@ final class AddNutrientViewController: UIViewController, UIPickerViewDelegate, U
         purgeNutrients()
     }
 
-    @objc func keyBoardWillShow(notification: NSNotification) {
-        let keyboardHeight = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
-        bottomLayoutConstraint.constant = keyboardHeight - 110.0
+    @objc func keyBoardDidShow(notification: NSNotification) {
+        guard let frame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        guard let window = UIApplication.shared.delegate?.window else { return }
+        let newFrame = self.view.convert(frame, from: window)
+        bottomLayoutConstraint.constant = self.view.frame.height - newFrame.origin.y
     }
 
 
@@ -150,7 +152,7 @@ final class AddNutrientViewController: UIViewController, UIPickerViewDelegate, U
         super.viewWillAppear(animated)
         // launch the filtering
         textFilter = ""
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardDidShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     

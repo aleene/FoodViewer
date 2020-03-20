@@ -143,7 +143,14 @@ extension DietCompliancyTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
-        return nil
+        let levelIndex = tagListView.tag % 10 - 1
+        let diet = (tagListView.tag - levelIndex) / 10
+        if levelIndex >= 0 {
+            let numberOfTags = matchesPerDietPerLevel[diet][levelIndex].1.count
+            
+            return numberOfTags > 0 ? ColorSchemes.normal : ColorSchemes.none
+        }
+        return ColorSchemes.none
     }
 
 }
