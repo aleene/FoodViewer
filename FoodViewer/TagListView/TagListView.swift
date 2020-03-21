@@ -52,7 +52,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         /// Default margin between tag rows
         static let defaultVerticalMargin: CGFloat = 0.0
         /// Default margin outside a tag row
-        static let defaultHorizontalMargin: CGFloat = 2.0
+        static let defaultHorizontalMargin: CGFloat = 0.0
         /// Default offset for shadow
         static let defaultShadowOffset: CGSize = CGSize.init(width: -20.0, height: 0.0)
         /// Default opacity for shadow
