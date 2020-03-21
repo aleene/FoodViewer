@@ -42,6 +42,7 @@ class ProductNameTableViewCell: UITableViewCell {
     var isMultilingual = false {
         didSet {
             toggleViewModeButton?.isHidden = editMode ? true : !isMultilingual
+            setTrailingConstraint()
         }
     }
     
@@ -70,11 +71,18 @@ class ProductNameTableViewCell: UITableViewCell {
     @IBOutlet weak var toggleViewModeButton: UIButton! {
         didSet {
             setButtonOrDoubletap(buttonNotDoubleTap)
+            setTrailingConstraint()
         }
     }
 
     @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
         delegate?.productNameTableViewCell(self, receivedTapOn: toggleViewModeButton)
+    }
+    
+    @IBOutlet weak var nameTextViewTrailingLayoutConstraint: NSLayoutConstraint! {
+        didSet {
+            setTrailingConstraint()
+        }
     }
     
     private func setTextViewStyle() {
@@ -114,6 +122,16 @@ class ProductNameTableViewCell: UITableViewCell {
     override var tag: Int {
         didSet {
             nameTextView?.tag = tag
+        }
+    }
+    
+    private func setTrailingConstraint() {
+        guard let toggleViewModeButtonWidth = toggleViewModeButton?.frame.size.width else { return }
+        guard let clearTextViewButtonWidth = clearTextViewButton?.frame.size.width else { return }
+        if isMultilingual {
+            nameTextViewTrailingLayoutConstraint?.constant = editMode ? clearTextViewButtonWidth : toggleViewModeButtonWidth
+        } else {
+            nameTextViewTrailingLayoutConstraint?.constant = editMode ? clearTextViewButtonWidth : 0
         }
     }
 

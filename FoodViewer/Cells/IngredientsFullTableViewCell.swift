@@ -54,15 +54,33 @@ class IngredientsFullTableViewCell: UITableViewCell {
     @IBAction func clearTextViewButtonTapped(_ sender: UIButton) {
         ingredients = ""
     }
+    
     @IBOutlet weak var toggleViewModeButton: UIButton! {
         didSet {
             setButtonOrDoubletap(buttonNotDoubleTap)
         }
     }
+    
     @IBAction func toggleViewModeButtonTapped(_ sender: UIButton) {
         delegate?.ingredientsFullTableViewCell(self, receivedTapOn: toggleViewModeButton)
     }
     
+    @IBOutlet weak var textViewTrailingLayoutConstraint: NSLayoutConstraint! {
+           didSet {
+               setTrailingConstraint()
+           }
+       }
+    
+    private func setTrailingConstraint() {
+        guard let toggleViewModeButtonWidth = toggleViewModeButton?.frame.size.width else { return }
+        guard let clearTextViewButtonWidth = clearTextViewButton?.frame.size.width else { return }
+        if isMultilingual {
+            textViewTrailingLayoutConstraint?.constant = editMode ? clearTextViewButtonWidth : toggleViewModeButtonWidth
+        } else {
+            textViewTrailingLayoutConstraint?.constant = editMode ? clearTextViewButtonWidth : 0
+        }
+    }
+
     private func setTextViewClearButton() {
         clearTextViewButton?.isHidden = !editMode
     }
@@ -133,6 +151,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
         didSet {
             setupTextView()
             setTextViewClearButton()
+            setTrailingConstraint()
         }
     }
 
@@ -149,12 +168,14 @@ class IngredientsFullTableViewCell: UITableViewCell {
     var isMultilingual = false {
         didSet {
             toggleViewModeButton?.isHidden = !isMultilingual
+            setTrailingConstraint()
         }
     }
     
     var buttonNotDoubleTap: Bool = true {
         didSet {
             setButtonOrDoubletap(buttonNotDoubleTap)
+            setTrailingConstraint()
         }
     }
 
