@@ -639,7 +639,7 @@ class IdentificationTableViewController: UITableViewController {
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
             // add a dash to nice separate the title from the language button
-            headerView.title = header + " - "
+            headerView.title = header + " "
             return headerView
             
         case .barcode, .brands, .packaging, .quantity:

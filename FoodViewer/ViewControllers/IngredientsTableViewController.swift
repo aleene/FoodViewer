@@ -524,7 +524,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 default:
                     header = TranslatableStrings.IngredientsImageOriginal
                 }
-                headerView.title = header + " - "
+                headerView.title = header + " "
 
             case .ingredients:
                 switch productVersion {
