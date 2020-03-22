@@ -171,6 +171,7 @@ class ApplicationSettingsTableViewController: UITableViewController {
         default:
             break
         }
+        setViewToggleMode()
     }
     
     // MARK: - Tag Entry Language
