@@ -3256,15 +3256,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mdN-hT-V5V">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="mdN-hT-V5V">
                             <size key="itemSize" width="200" height="200"/>
-                            <size key="headerReferenceSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Gallery Image Cell" id="ze3-ij-q0C" customClass="GalleryCollectionViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="60" y="50" width="200" height="200"/>
+                                <rect key="frame" x="60" y="0.0" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
@@ -3310,29 +3310,6 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SectionHeaderView" id="G5m-9R-XVv" customClass="GalleryCollectionReusableView" customModule="FoodViewer" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Yt-pe-JoG">
-                                    <rect key="frame" x="8" y="8" width="304" height="34"/>
-                                    <color key="tintColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                    <nil key="textColor"/>
-                                    <color key="highlightedColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            <constraints>
-                                <constraint firstAttribute="bottomMargin" secondItem="3Yt-pe-JoG" secondAttribute="bottom" id="KIP-XU-8jn"/>
-                                <constraint firstItem="3Yt-pe-JoG" firstAttribute="leading" secondItem="G5m-9R-XVv" secondAttribute="leadingMargin" id="mfC-hT-YgL"/>
-                                <constraint firstItem="3Yt-pe-JoG" firstAttribute="top" secondItem="G5m-9R-XVv" secondAttribute="topMargin" id="zCA-4H-Agd"/>
-                                <constraint firstAttribute="trailingMargin" secondItem="3Yt-pe-JoG" secondAttribute="trailing" id="zag-oQ-NhE"/>
-                            </constraints>
-                            <connections>
-                                <outlet property="label" destination="3Yt-pe-JoG" id="S70-l2-X3u"/>
-                            </connections>
-                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="8yh-Vs-DnU" id="lCB-Qg-kHu"/>
                             <outlet property="delegate" destination="8yh-Vs-DnU" id="VPQ-Fb-6o1"/>
