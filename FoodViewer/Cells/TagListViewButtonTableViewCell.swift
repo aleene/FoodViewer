@@ -67,9 +67,21 @@ class TagListViewButtonTableViewCell: UITableViewCell {
             } else {
                 tagListView.removableColorScheme = ColorScheme(text: .white, background: .darkGray, border: .black)
             }
-}
+        }
     }
-/**
+    
+    @IBOutlet weak var tagListViewTrailingLayoutConstraint: NSLayoutConstraint! {
+        didSet {
+            setConstraint()
+        }
+    }
+    
+    private func setConstraint() {
+        guard let buttonWidth = button?.frame.size.width else { return }
+        tagListViewTrailingLayoutConstraint?.constant = !self.showButton ? buttonWidth + 2 * Constant.Margin : Constant.Margin
+    }
+    
+    /**
 Function that configures the `TagListViewButtonTableViewCell` class.
     
 All necessary parameters should be set in one go, so we have a complete set at the start.
@@ -80,7 +92,7 @@ All necessary parameters should be set in one go, so we have a complete set at t
      - width: The desired width of the cell
      - tag: An identifier for this cell
 */
-    private struct Constants {
+    private struct Constant {
         static let Margin = CGFloat( 8.0 )
     }
 
@@ -92,10 +104,12 @@ All necessary parameters should be set in one go, so we have a complete set at t
             self.showButton = validEditMode
         }
         if let validWidth = width {
-            self.width = validWidth - 2 * Constants.Margin - ( button?.frame.size.width ?? 0 )
+            let margin  = !self.showButton ? (self.button?.frame.size.width ?? 0) + 2 * Constant.Margin : Constant.Margin
+            self.width = validWidth - margin
         }
         self.tag = tag ?? 0
         tagListView?.reloadData(clearAll: true)
+        setConstraint()
     }
 /**
 Function called when the view disappears

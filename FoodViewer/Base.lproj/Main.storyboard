@@ -2154,7 +2154,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSu-aD-wjO" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="8" y="8" width="271" height="28"/>
+                                            <rect key="frame" x="8" y="8" width="304" height="28"/>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qD1-sA-bn3">
                                             <rect key="frame" x="287" y="9.5" width="25" height="25"/>
@@ -2169,16 +2169,18 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="jSu-aD-wjO" firstAttribute="leading" secondItem="BxS-nw-mlL" secondAttribute="leading" constant="8" id="6XV-Jg-Nm9"/>
-                                        <constraint firstItem="jSu-aD-wjO" firstAttribute="top" secondItem="BxS-nw-mlL" secondAttribute="top" constant="8" id="Dpf-bB-4hX"/>
-                                        <constraint firstItem="qD1-sA-bn3" firstAttribute="leading" secondItem="jSu-aD-wjO" secondAttribute="trailing" constant="8" id="F14-wW-RQo"/>
+                                        <constraint firstAttribute="trailing" secondItem="jSu-aD-wjO" secondAttribute="trailing" constant="8" id="F14-wW-RQo"/>
+                                        <constraint firstItem="jSu-aD-wjO" firstAttribute="centerY" secondItem="BxS-nw-mlL" secondAttribute="centerY" id="G4i-hC-11a"/>
                                         <constraint firstAttribute="trailing" secondItem="qD1-sA-bn3" secondAttribute="trailing" constant="8" id="I9Z-1k-7Zi"/>
-                                        <constraint firstAttribute="bottom" secondItem="jSu-aD-wjO" secondAttribute="bottom" constant="8" id="UXM-nT-hGF"/>
+                                        <constraint firstAttribute="bottom" secondItem="jSu-aD-wjO" secondAttribute="bottom" constant="8" id="Kn4-7M-ijp"/>
+                                        <constraint firstItem="jSu-aD-wjO" firstAttribute="top" secondItem="BxS-nw-mlL" secondAttribute="top" constant="8" id="Ly7-FU-nSg"/>
                                         <constraint firstItem="jSu-aD-wjO" firstAttribute="centerY" secondItem="qD1-sA-bn3" secondAttribute="centerY" id="nuJ-2u-gCw"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="button" destination="qD1-sA-bn3" id="Rdp-Fx-9it"/>
                                     <outlet property="tagListView" destination="jSu-aD-wjO" id="eBZ-0F-Ul3"/>
+                                    <outlet property="tagListViewTrailingLayoutConstraint" destination="F14-wW-RQo" id="4B4-99-ciF"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -5616,6 +5618,6 @@
         <segue reference="0nC-9f-6SW"/>
         <segue reference="OjZ-f4-IhZ"/>
         <segue reference="8Ee-6I-9kA"/>
-        <segue reference="s40-p0-qnh"/>
+        <segue reference="Ivs-Tb-YCl"/>
     </inferredMetricsTieBreakers>
 </document>
