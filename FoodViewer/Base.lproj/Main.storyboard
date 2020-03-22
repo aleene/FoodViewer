@@ -583,13 +583,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOZ-Hm-Mnd">
-                                            <rect key="frame" x="8" y="8" width="288" height="28"/>
+                                            <rect key="frame" x="8" y="8" width="312" height="28"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NxF-Vk-wdN">
-                                            <rect key="frame" x="289.5" y="14.5" width="15" height="15"/>
+                                            <rect key="frame" x="297" y="14.5" width="15" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="NxF-Vk-wdN" secondAttribute="height" multiplier="1:1" id="nMS-zm-4ud"/>
                                             </constraints>
@@ -611,7 +611,6 @@
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="NxF-Vk-wdN" firstAttribute="centerX" secondItem="oaS-5k-4jv" secondAttribute="centerX" id="3ip-sM-A8g"/>
                                         <constraint firstItem="LOZ-Hm-Mnd" firstAttribute="top" secondItem="xEb-a5-r3f" secondAttribute="top" constant="8" id="8Rx-6x-dcb"/>
                                         <constraint firstAttribute="bottom" secondItem="LOZ-Hm-Mnd" secondAttribute="bottom" constant="8" id="AUh-z4-T5h"/>
                                         <constraint firstItem="NxF-Vk-wdN" firstAttribute="width" secondItem="oaS-5k-4jv" secondAttribute="width" multiplier="0.5" id="ONi-aV-AsG"/>
@@ -619,7 +618,8 @@
                                         <constraint firstAttribute="trailing" secondItem="oaS-5k-4jv" secondAttribute="trailing" constant="8" id="cHu-pO-OtS"/>
                                         <constraint firstItem="LOZ-Hm-Mnd" firstAttribute="centerY" secondItem="oaS-5k-4jv" secondAttribute="centerY" id="l28-Sf-evb"/>
                                         <constraint firstItem="NxF-Vk-wdN" firstAttribute="centerY" secondItem="oaS-5k-4jv" secondAttribute="centerY" id="twZ-oo-Kha"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="LOZ-Hm-Mnd" secondAttribute="trailing" constant="8" id="zt7-lS-jaP"/>
+                                        <constraint firstAttribute="trailing" secondItem="NxF-Vk-wdN" secondAttribute="trailing" constant="8" id="xIz-EO-8hq"/>
+                                        <constraint firstAttribute="trailing" secondItem="LOZ-Hm-Mnd" secondAttribute="trailing" id="zt7-lS-jaP"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -3612,7 +3612,7 @@
                                             <textInputTraits key="textInputTraits"/>
                                         </textView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ir1-3L-TcJ">
-                                            <rect key="frame" x="289.5" y="80.5" width="15" height="15"/>
+                                            <rect key="frame" x="297" y="80.5" width="15" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="ir1-3L-TcJ" secondAttribute="height" multiplier="1:1" id="EiT-VA-4KO"/>
                                             </constraints>
@@ -3635,12 +3635,12 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="gVP-UR-b3v" secondAttribute="trailing" constant="8" id="4o4-pN-oQu"/>
+                                        <constraint firstAttribute="trailing" secondItem="ir1-3L-TcJ" secondAttribute="trailing" constant="8" id="MYF-AS-2jW"/>
                                         <constraint firstAttribute="bottom" secondItem="xD7-Nn-Z60" secondAttribute="bottom" constant="8" id="Vd5-e9-JdQ"/>
                                         <constraint firstItem="xD7-Nn-Z60" firstAttribute="leading" secondItem="nc2-Pr-oS2" secondAttribute="leading" constant="8" id="XEh-Of-Gg5"/>
                                         <constraint firstItem="ir1-3L-TcJ" firstAttribute="height" secondItem="gVP-UR-b3v" secondAttribute="height" multiplier="0.5" id="Y6c-7P-KAt"/>
                                         <constraint firstAttribute="trailing" secondItem="xD7-Nn-Z60" secondAttribute="trailing" constant="8" id="c7x-yV-tbU"/>
                                         <constraint firstItem="xD7-Nn-Z60" firstAttribute="centerY" secondItem="gVP-UR-b3v" secondAttribute="centerY" id="fSq-vm-lhY"/>
-                                        <constraint firstItem="ir1-3L-TcJ" firstAttribute="centerX" secondItem="gVP-UR-b3v" secondAttribute="centerX" id="oHm-Eg-NnS"/>
                                         <constraint firstItem="xD7-Nn-Z60" firstAttribute="top" secondItem="nc2-Pr-oS2" secondAttribute="top" constant="8" id="z1x-Yb-pGZ"/>
                                         <constraint firstItem="ir1-3L-TcJ" firstAttribute="centerY" secondItem="gVP-UR-b3v" secondAttribute="centerY" id="z6p-AY-ie2"/>
                                     </constraints>
@@ -5347,10 +5347,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="135" height="0.5"/>
+                                            <rect key="frame" x="16" y="11" width="185" height="0.5"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="167" y="-4.5" width="137" height="32.5"/>
+                                            <rect key="frame" x="217" y="-4.5" width="87" height="32.5"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>
@@ -5382,13 +5382,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9JJ-Xu-7XT">
-                                            <rect key="frame" x="8" y="8" width="238" height="0.5"/>
+                                            <rect key="frame" x="8" y="8" width="263" height="0.5"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4Z-mc-9Ph">
-                                            <rect key="frame" x="254" y="-17" width="50" height="50.5"/>
+                                            <rect key="frame" x="279" y="-4.5" width="25" height="25.5"/>
                                             <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="clearTextViewButtonTapped:" destination="5y9-Bc-FlV" eventType="touchUpInside" id="9lq-Ic-N4N"/>
@@ -5636,9 +5636,9 @@
         <image name="User" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0nC-9f-6SW"/>
+        <segue reference="mEC-vw-LJf"/>
         <segue reference="OjZ-f4-IhZ"/>
-        <segue reference="8Ee-6I-9kA"/>
-        <segue reference="Ivs-Tb-YCl"/>
+        <segue reference="KrR-Xh-DGf"/>
+        <segue reference="s40-p0-qnh"/>
     </inferredMetricsTieBreakers>
 </document>

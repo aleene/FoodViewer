@@ -70,14 +70,14 @@ class IngredientsFullTableViewCell: UITableViewCell {
                setTrailingConstraint()
            }
        }
-    
+        
     private func setTrailingConstraint() {
         guard let toggleViewModeButtonWidth = toggleViewModeButton?.frame.size.width else { return }
         guard let clearTextViewButtonWidth = clearTextViewButton?.frame.size.width else { return }
         if isMultilingual {
-            textViewTrailingLayoutConstraint?.constant = editMode ? clearTextViewButtonWidth : toggleViewModeButtonWidth
+            textViewTrailingLayoutConstraint?.constant = editMode ? clearTextViewButtonWidth + 2 * Constant.Cell.Margin : toggleViewModeButtonWidth + 2 * Constant.Cell.Margin
         } else {
-            textViewTrailingLayoutConstraint?.constant = editMode ? clearTextViewButtonWidth : 0
+            textViewTrailingLayoutConstraint?.constant = editMode ? clearTextViewButtonWidth + 2 * Constant.Cell.Margin : Constant.Cell.Margin
         }
     }
 

@@ -17,6 +17,12 @@ protocol ProductNameCellDelegate: class {
 
 class ProductNameTableViewCell: UITableViewCell {
     
+    private struct Constant {
+        struct Cell {
+            static let Margin = CGFloat(8.0)
+        }
+    }
+
     /// string to use for the product
     var name: String? = nil {
         didSet {
@@ -129,10 +135,11 @@ class ProductNameTableViewCell: UITableViewCell {
         guard let toggleViewModeButtonWidth = toggleViewModeButton?.frame.size.width else { return }
         guard let clearTextViewButtonWidth = clearTextViewButton?.frame.size.width else { return }
         if isMultilingual {
-            nameTextViewTrailingLayoutConstraint?.constant = editMode ? clearTextViewButtonWidth : toggleViewModeButtonWidth
+            nameTextViewTrailingLayoutConstraint?.constant = editMode ? clearTextViewButtonWidth + 2 * Constant.Cell.Margin : toggleViewModeButtonWidth + 2 * Constant.Cell.Margin
         } else {
-            nameTextViewTrailingLayoutConstraint?.constant = editMode ? clearTextViewButtonWidth : 0
+            nameTextViewTrailingLayoutConstraint?.constant = editMode ? clearTextViewButtonWidth + 2 * Constant.Cell.Margin : Constant.Cell.Margin
         }
+
     }
 
     @objc func nameTapped() {
