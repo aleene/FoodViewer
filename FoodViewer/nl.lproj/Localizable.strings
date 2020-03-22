@@ -336,7 +336,7 @@
 "Editor" = "Wijziger";
 
 /* Placeholder string in a textfield to explain the purpose of a beauty product barcode search */
-"Enter beauty product barcode." = "Stel beauty product streepjescode in";
+"Enter beauty product barcode." = "Voer streepjescode in";
 
 /* Placeholder in a textField, where a user can enter characters to filter a list. */
 "Enter characters to filter the list." = "Type letters om te filteren";
@@ -354,10 +354,10 @@
 "Enter date" = "Voer datum in";
 
 /* Placeholder string in a textfield to explain the purpose of a food product barcode search */
-"Enter food product barcode." = "Stel voedsel product streepjescode in";
+"Enter food product barcode." = "Voer streepjescode in";
 
 /* Placeholder string in a textfield to explain the purpose of a pet food barcode search */
-"Enter pet food product barcode." = "Stel dierenvoedsel product streepjescode in";
+"Enter pet food product barcode." = "Voer streepjescode in";
 
 /* Placeholder text for field where user should enter a postal code. */
 "Enter postal code" = "Voer postcode in";

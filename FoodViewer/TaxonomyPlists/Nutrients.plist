@@ -1376,7 +1376,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Groenten, Fruit en Noten (schatting)</string>
+				<string>Groente, Fruit, Noten (schat.)</string>
 			</array>
 		</dict>
 	</dict>
@@ -2045,7 +2045,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Enkelvoudig onverzadigde vetzuren</string>
+				<string>Enkelv. onverzadigde vetzuren</string>
 			</array>
 		</dict>
 	</dict>
@@ -2575,7 +2575,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Meervoudig onverzadigde vetzuren</string>
+				<string>Meerv. onverzadigde vetzuren</string>
 			</array>
 		</dict>
 	</dict>
@@ -3541,7 +3541,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Fruit - groenten en noten</string>
+				<string>Fruit, groente, noten</string>
 			</array>
 		</dict>
 	</dict>

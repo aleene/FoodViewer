@@ -128,7 +128,7 @@ extension DietCompliancyTableViewController: TagListViewDataSource {
         if levelIndex >= 0 {
             let numberOfTags = matchesPerDietPerLevel[diet][levelIndex].1.count
             
-            return numberOfTags > 0 ? matchesPerDietPerLevel[diet][levelIndex].1[index] : "No matches for this level detected"
+            return numberOfTags > 0 ? matchesPerDietPerLevel[diet][levelIndex].1[index] : TranslatableStrings.NoMatchesForThisLevel
         }
         return "DietCompliancyTableViewController:Tag issue"
     }

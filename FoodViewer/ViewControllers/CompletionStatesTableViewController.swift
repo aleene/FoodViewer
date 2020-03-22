@@ -53,7 +53,7 @@ class CompletionStatesTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         guard productPair?.remoteProduct != nil else { return 0 }
         
-        return 4
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -64,8 +64,6 @@ class CompletionStatesTableViewController: UITableViewController {
         case 1:
             return validProduct.contributors.count
         case 2:
-            return validProduct.imageAddDates.count
-        case 3:
             return validProduct.additionDate != nil ? 1 : 0
         default:
             break
@@ -137,20 +135,7 @@ class CompletionStatesTableViewController: UITableViewController {
                 print("CompletionStatesTableViewController: Contributors row index ", indexPath.row," to large for count: ", validProduct.contributors.count)
             }
             return cell!
-                
-        } else if indexPath.section == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier + "." + CompletionStatesTableViewController.identifier, for: indexPath)
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            formatter.timeStyle = .none
-            // the lastEditDates array contains at least one date, if we arrive here
-            let dates: [Date] = Array.init(validProduct.imageAddDates)
-            cell.textLabel!.text = formatter.string(from: dates[indexPath.row])
-            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.lastEditDateLongPress))
-            cell.addGestureRecognizer(longPressGestureRecognizer)
-                
-            return cell
-                
+                                
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier + "." + CompletionStatesTableViewController.identifier, for: indexPath)
             let formatter = DateFormatter()
@@ -204,8 +189,6 @@ class CompletionStatesTableViewController: UITableViewController {
                 }
             }
         case 2:
-            return Constants.LastEditDateHeaderTitle
-        case 3:
             return Constants.CreationDateHeaderTitle
         default:
             break
