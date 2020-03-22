@@ -289,10 +289,10 @@ class IdentificationTableViewController: UITableViewController {
 
             cell.name = editMode ? TranslatableStrings.PlaceholderProductName : nil
             //cell.nameTextView.textColor = .gray
-            cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
             if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
                 cell.isMultilingual = validNumberOfProductLanguages > 1 ? true : false
             }
+            cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
             switch nameToDisplay {
             case .available(let array):
                 if !array.isEmpty && !array.first!.isEmpty {
