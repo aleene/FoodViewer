@@ -4313,12 +4313,12 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="752" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PY2-Eu-268">
-                                            <rect key="frame" x="8" y="8" width="189" height="28"/>
+                                            <rect key="frame" x="8" y="8" width="183" height="28"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="254" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1b-WI-WZM">
-                                            <rect key="frame" x="205" y="9.5" width="25" height="25"/>
+                                            <rect key="frame" x="199" y="9.5" width="25" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="Led-Kl-KPF"/>
                                                 <constraint firstAttribute="width" secondItem="i1b-WI-WZM" secondAttribute="height" multiplier="1:1" id="cdC-0A-XYM"/>
@@ -4334,7 +4334,7 @@
                                             </connections>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tfR-RY-KYa">
-                                            <rect key="frame" x="232" y="5" width="48" height="34"/>
+                                            <rect key="frame" x="226" y="5" width="54" height="34"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
@@ -4350,7 +4350,7 @@
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="tfR-RY-KYa" firstAttribute="width" secondItem="Phy-lP-wsX" secondAttribute="width" multiplier="1.6" id="DZ6-Rz-1fV"/>
+                                        <constraint firstItem="tfR-RY-KYa" firstAttribute="width" secondItem="Phy-lP-wsX" secondAttribute="width" multiplier="1.8" id="DZ6-Rz-1fV"/>
                                         <constraint firstItem="PY2-Eu-268" firstAttribute="centerY" secondItem="Phy-lP-wsX" secondAttribute="centerY" id="EUz-rg-egA"/>
                                         <constraint firstItem="PY2-Eu-268" firstAttribute="top" secondItem="aAD-Zb-a7c" secondAttribute="top" constant="8" id="OSP-UF-yAY"/>
                                         <constraint firstItem="PY2-Eu-268" firstAttribute="leading" secondItem="aAD-Zb-a7c" secondAttribute="leading" constant="8" id="RVv-SG-PpI"/>
@@ -5636,9 +5636,9 @@
         <image name="User" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mEC-vw-LJf"/>
+        <segue reference="0nC-9f-6SW"/>
         <segue reference="OjZ-f4-IhZ"/>
-        <segue reference="KrR-Xh-DGf"/>
+        <segue reference="8Ee-6I-9kA"/>
         <segue reference="s40-p0-qnh"/>
     </inferredMetricsTieBreakers>
 </document>
