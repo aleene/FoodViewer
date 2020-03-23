@@ -62,6 +62,14 @@
         <source>  </source>
         <note>Class = "UILabel"; text = "  "; ObjectID = "hho-M2-f3Y";</note>
       </trans-unit>
+      <trans-unit id="lq6-u2-yzX.prompt" xml:space="preserve">
+        <source>ddd</source>
+        <note>Class = "UINavigationItem"; prompt = "ddd"; ObjectID = "lq6-u2-yzX";</note>
+      </trans-unit>
+      <trans-unit id="lq6-u2-yzX.title" xml:space="preserve">
+        <source>uttyut</source>
+        <note>Class = "UINavigationItem"; title = "uttyut"; ObjectID = "lq6-u2-yzX";</note>
+      </trans-unit>
       <trans-unit id="qYU-Rc-PQr.title" xml:space="preserve">
         <source>Title</source>
         <note>Class = "UINavigationItem"; title = "Title"; ObjectID = "qYU-Rc-PQr";</note>
@@ -240,6 +248,10 @@
         <source>Beauty</source>
         <target>Cosmético</target>
         <note>Title of a segmented control.</note>
+      </trans-unit>
+      <trans-unit id="Beauty  barcode." xml:space="preserve">
+        <source>Beauty  barcode.</source>
+        <note>Placeholder string in a textfield to explain the purpose of a beauty product barcode search</note>
       </trans-unit>
       <trans-unit id="Beauty Products" xml:space="preserve">
         <source>Beauty Products</source>
@@ -687,10 +699,9 @@
         <target>Ingrese el código de barras del producto alimenticio</target>
         <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note>
       </trans-unit>
-      <trans-unit id="Enter pet food product barcode." xml:space="preserve">
-        <source>Enter pet food product barcode.</source>
-        <target>Ingrese el código de barras del producto alimenticio para mascotas</target>
-        <note>Placeholder string in a textfield to explain the purpose of a pet food barcode search</note>
+      <trans-unit id="Enter petfood product barcode." xml:space="preserve">
+        <source>Enter petfood product barcode.</source>
+        <note>Placeholder string in a textfield to explain the purpose of a petfood barcode search</note>
       </trans-unit>
       <trans-unit id="Enter postal code" xml:space="preserve">
         <source>Enter postal code</source>
@@ -771,6 +782,10 @@
         <source>Food Products</source>
         <target>Producto alimenticio</target>
         <note>Title of ViewController with a list of all food products that has been viewed.</note>
+      </trans-unit>
+      <trans-unit id="Food barcode." xml:space="preserve">
+        <source>Food barcode.</source>
+        <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note>
       </trans-unit>
       <trans-unit id="Front Image" xml:space="preserve">
         <source>Front Image</source>
@@ -915,7 +930,8 @@
       </trans-unit>
       <trans-unit id="Json" xml:space="preserve">
         <source>Json</source>
-        <note>Title of viewController, which shows the json as is available on OFF.</note><target>Json</target>
+        <target>Json</target>
+        <note>Title of viewController, which shows the json as is available on OFF.</note>
       </trans-unit>
       <trans-unit id="Kilocalories" xml:space="preserve">
         <source>Kilocalories</source>
@@ -1029,7 +1045,8 @@
       </trans-unit>
       <trans-unit id="No category defined" xml:space="preserve">
         <source>No category defined</source>
-        <note>Text in a tableview cell, when no category is defined.</note><target>ninguna categoría definida</target>
+        <target>ninguna categoría definida</target>
+        <note>Text in a tableview cell, when no category is defined.</note>
       </trans-unit>
       <trans-unit id="No expiration date" xml:space="preserve">
         <source>No expiration date</source>
@@ -1050,6 +1067,10 @@
         <source>No image in the right language</source>
         <target>No foto indicada en el idioma correcto</target>
         <note>Tag indicating that no image in the correct language is available</note>
+      </trans-unit>
+      <trans-unit id="No matches for this level detected" xml:space="preserve">
+        <source>No matches for this level detected</source>
+        <note>String when no diet matches have been found.</note>
       </trans-unit>
       <trans-unit id="No nutrients" xml:space="preserve">
         <source>No nutrients</source>
@@ -1387,6 +1408,10 @@
         <target>Productos alimenticios para mascotas</target>
         <note>Title of ViewController with a list of all food products that has been viewed.</note>
       </trans-unit>
+      <trans-unit id="Petfood barcode." xml:space="preserve">
+        <source>Petfood barcode.</source>
+        <note>Placeholder string in a textfield to explain the purpose of a pet food barcode search</note>
+      </trans-unit>
       <trans-unit id="Photographer" xml:space="preserve">
         <source>Photographer</source>
         <target>Fotógrafo</target>
@@ -1481,6 +1506,10 @@
         <source>Product Language</source>
         <target>Idioma del producto</target>
         <note>Title of a segmented control segment, which lets the user set the default language of the new product tag entries as Product Language</note>
+      </trans-unit>
+      <trans-unit id="Product barcode." xml:space="preserve">
+        <source>Product barcode.</source>
+        <note>Placeholder string in a textfield to explain the purpose of a product barcode search</note>
       </trans-unit>
       <trans-unit id="Product does not exist. Add?" xml:space="preserve">
         <source>Product does not exist. Add?</source>
@@ -1720,11 +1749,13 @@
       </trans-unit>
       <trans-unit id="Selected Categories" xml:space="preserve">
         <source>Selected Categories</source>
-        <note>Title of a tableview section with the selected categories for a product.</note><target>Categorías Seleccionadas</target>
+        <target>Categorías Seleccionadas</target>
+        <note>Title of a tableview section with the selected categories for a product.</note>
       </trans-unit>
       <trans-unit id="Selected Countries" xml:space="preserve">
         <source>Selected Countries</source>
-        <note>Title of a tableview section with the selected countries for a product.</note><target>Países Seleccionados</target>
+        <target>Países Seleccionados</target>
+        <note>Title of a tableview section with the selected countries for a product.</note>
       </trans-unit>
       <trans-unit id="Selected Diets" xml:space="preserve">
         <source>Selected Diets</source>
@@ -1763,7 +1794,8 @@
       </trans-unit>
       <trans-unit id="Selected Languages" xml:space="preserve">
         <source>Selected Languages</source>
-        <note>Title of a tableview section with the selected languages for a product.</note><target>Idiomas Seleccionados</target>
+        <target>Idiomas Seleccionados</target>
+        <note>Title of a tableview section with the selected languages for a product.</note>
       </trans-unit>
       <trans-unit id="Selected Nutrition Images" xml:space="preserve">
         <source>Selected Nutrition Images</source>
@@ -1782,7 +1814,8 @@
       </trans-unit>
       <trans-unit id="Selected Traces" xml:space="preserve">
         <source>Selected Traces</source>
-        <note>Title of a tableview section with the selected traces for a product.</note><target>Trazas Seleccionados</target>
+        <target>Trazas Seleccionados</target>
+        <note>Title of a tableview section with the selected traces for a product.</note>
       </trans-unit>
       <trans-unit id="Serving" xml:space="preserve">
         <source>Serving</source>
@@ -1976,19 +2009,23 @@
       </trans-unit>
       <trans-unit id="Unselected Categories" xml:space="preserve">
         <source>Unselected Categories</source>
-        <note>Title of a tableview section with a list of categories that can be selected.</note><target>Categorías para Seleccionar</target>
+        <target>Categorías para Seleccionar</target>
+        <note>Title of a tableview section with a list of categories that can be selected.</note>
       </trans-unit>
       <trans-unit id="Unselected Countries" xml:space="preserve">
         <source>Unselected Countries</source>
-        <note>Title of a tableview section with a list of countries that can be selected.</note><target>Países para Seleccionar</target>
+        <target>Países para Seleccionar</target>
+        <note>Title of a tableview section with a list of countries that can be selected.</note>
       </trans-unit>
       <trans-unit id="Unselected Languages" xml:space="preserve">
         <source>Unselected Languages</source>
-        <note>Title of a tableview section with a list of languages that can be selected.</note><target>Idiomas para Seleccionar</target>
+        <target>Idiomas para Seleccionar</target>
+        <note>Title of a tableview section with a list of languages that can be selected.</note>
       </trans-unit>
       <trans-unit id="Unselected Traces" xml:space="preserve">
         <source>Unselected Traces</source>
-        <note>Title of a tableview section with a list of traces that can be selected.</note><target>Trazas para Seleccionar</target>
+        <target>Trazas para Seleccionar</target>
+        <note>Title of a tableview section with a list of traces that can be selected.</note>
       </trans-unit>
       <trans-unit id="Uploading image" xml:space="preserve">
         <source>Uploading image</source>
@@ -2052,7 +2089,8 @@
       </trans-unit>
       <trans-unit id="no country defined" xml:space="preserve">
         <source>no country defined</source>
-        <note>Text for language of product, when there is no country defined.</note><target>ningún país definido</target>
+        <target>ningún país definido</target>
+        <note>Text for language of product, when there is no country defined.</note>
       </trans-unit>
       <trans-unit id="no creation date available" xml:space="preserve">
         <source>no creation date available</source>
@@ -2101,7 +2139,8 @@
       </trans-unit>
       <trans-unit id="no trace defined" xml:space="preserve">
         <source>no trace defined</source>
-        <note>Text for language of product, when there is no trace defined.</note><target>sin traza definido</target>
+        <target>sin traza definido</target>
+        <note>Text for language of product, when there is no trace defined.</note>
       </trans-unit>
       <trans-unit id="none" xml:space="preserve">
         <source>none</source>

@@ -91,6 +91,9 @@
 /* Title of a segmented control. */
 "Beauty" = "Beauty";
 
+/* Placeholder string in a textfield to explain the purpose of a beauty product barcode search */
+"Beauty  barcode." = "Beauty streepjescode";
+
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Beauty Products" = "Beauty producten";
 
@@ -336,7 +339,7 @@
 "Editor" = "Wijziger";
 
 /* Placeholder string in a textfield to explain the purpose of a beauty product barcode search */
-"Enter beauty product barcode." = "Voer streepjescode in";
+"Enter beauty product barcode." = "Voer beauty product streepjescode in";
 
 /* Placeholder in a textField, where a user can enter characters to filter a list. */
 "Enter characters to filter the list." = "Type letters om te filteren";
@@ -354,16 +357,16 @@
 "Enter date" = "Voer datum in";
 
 /* Placeholder string in a textfield to explain the purpose of a food product barcode search */
-"Enter food product barcode." = "Voer streepjescode in";
+"Enter food product barcode." = "Voer levensmiddelstreepjescode in";
 
-/* Placeholder string in a textfield to explain the purpose of a pet food barcode search */
-"Enter pet food product barcode." = "Voer streepjescode in";
+/* Placeholder string in a textfield to explain the purpose of a petfood barcode search */
+"Enter petfood product barcode." = "Voer dierenvoedingsstreepjescode in";
 
 /* Placeholder text for field where user should enter a postal code. */
 "Enter postal code" = "Voer postcode in";
 
 /* Placeholder string in a textfield to explain the purpose of a product barcode search */
-"Enter product barcode." = "Voer streepjescode in";
+"Enter product barcode." = "Voer productstreepjescode in";
 
 /* Placeholder text for field where user should enter a shop name. */
 "Enter shop name" = "Voer winkel in";
@@ -406,6 +409,9 @@
 
 /* Title of SegmentedControl segment. */
 "Food" = "Voedsel";
+
+/* Placeholder string in a textfield to explain the purpose of a food product barcode search */
+"Food barcode." = "Levensmiddelstreepjescode";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Food Products" = "Voedingsproducten";
@@ -605,6 +611,9 @@
 
 /* Text for language of product, when there is no language defined. */
 "no language defined" = "geen taal gedefinieerd";
+
+/* String when no diet matches have been found. */
+"No matches for this level detected" = "Geen overeenkomst voor dit niveau";
 
 /* Text for productname, when no productname is available in the product data. */
 "no name specified" = "geen naam aangegeven";
@@ -838,6 +847,9 @@
 /* Title of a segmented control. */
 "Petfood" = "Dieren";
 
+/* Placeholder string in a textfield to explain the purpose of a pet food barcode search */
+"Petfood barcode." = "Diervoedselstreepjescode";
+
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Petfood Products" = "Dierenvoedsel";
 
@@ -891,6 +903,9 @@
 
 /* Title of a segmented control. */
 "Product" = "Product";
+
+/* Placeholder string in a textfield to explain the purpose of a product barcode search */
+"Product barcode." = "Productstreepjescode";
 
 /* Title of a segment in a UISegmentedControl, which indicates that the values of the product are leading. */
 "Product Defined" = "Product gedefinieerd";

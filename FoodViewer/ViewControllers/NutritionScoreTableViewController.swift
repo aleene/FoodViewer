@@ -13,10 +13,10 @@ class NutritionScoreTableViewController: UITableViewController {
     
     // MARK: - public variables
     
-    var delegate: ProductPageViewController? = nil {
+    weak var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                tableView.reloadData()
+                self.refreshProduct()
             }
         }
     }
@@ -376,7 +376,6 @@ class NutritionScoreTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // tableStructure = setupSections()
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableView.automaticDimension
         tableView.allowsSelection = false

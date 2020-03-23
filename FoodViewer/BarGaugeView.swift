@@ -57,8 +57,7 @@ final class BarGaugeView: UIView {
             }
             
             // Redraw the display?
-            if( fRedraw ) {
-                // Do it
+            if fRedraw {
                 self.setNeedsDisplay()
             }
         }

@@ -67,6 +67,16 @@
         <target>  </target>
         <note>Class = "UILabel"; text = "  "; ObjectID = "hho-M2-f3Y";</note>
       </trans-unit>
+      <trans-unit id="lq6-u2-yzX.prompt" xml:space="preserve">
+        <source>ddd</source>
+        <target>ddd</target>
+        <note>Class = "UINavigationItem"; prompt = "ddd"; ObjectID = "lq6-u2-yzX";</note>
+      </trans-unit>
+      <trans-unit id="lq6-u2-yzX.title" xml:space="preserve">
+        <source>uttyut</source>
+        <target>uttyut</target>
+        <note>Class = "UINavigationItem"; title = "uttyut"; ObjectID = "lq6-u2-yzX";</note>
+      </trans-unit>
       <trans-unit id="qYU-Rc-PQr.title" xml:space="preserve">
         <source>Title</source>
         <target>Title</target>
@@ -250,6 +260,11 @@
         <source>Beauty</source>
         <target>Beauty</target>
         <note>Title of a segmented control.</note>
+      </trans-unit>
+      <trans-unit id="Beauty  barcode." xml:space="preserve">
+        <source>Beauty  barcode.</source>
+        <target>Beauty  barcode.</target>
+        <note>Placeholder string in a textfield to explain the purpose of a beauty product barcode search</note>
       </trans-unit>
       <trans-unit id="Beauty Products" xml:space="preserve">
         <source>Beauty Products</source>
@@ -697,10 +712,10 @@
         <target>Enter food product barcode.</target>
         <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note>
       </trans-unit>
-      <trans-unit id="Enter pet food product barcode." xml:space="preserve">
-        <source>Enter pet food product barcode.</source>
-        <target>Enter pet food product barcode.</target>
-        <note>Placeholder string in a textfield to explain the purpose of a pet food barcode search</note>
+      <trans-unit id="Enter petfood product barcode." xml:space="preserve">
+        <source>Enter petfood product barcode.</source>
+        <target>Enter petfood product barcode.</target>
+        <note>Placeholder string in a textfield to explain the purpose of a petfood barcode search</note>
       </trans-unit>
       <trans-unit id="Enter postal code" xml:space="preserve">
         <source>Enter postal code</source>
@@ -781,6 +796,11 @@
         <source>Food Products</source>
         <target>Food Products</target>
         <note>Title of ViewController with a list of all food products that has been viewed.</note>
+      </trans-unit>
+      <trans-unit id="Food barcode." xml:space="preserve">
+        <source>Food barcode.</source>
+        <target>Food barcode.</target>
+        <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note>
       </trans-unit>
       <trans-unit id="Front Image" xml:space="preserve">
         <source>Front Image</source>
@@ -1062,6 +1082,11 @@
         <source>No image in the right language</source>
         <target>No image in the right language</target>
         <note>Tag indicating that no image in the correct language is available</note>
+      </trans-unit>
+      <trans-unit id="No matches for this level detected" xml:space="preserve">
+        <source>No matches for this level detected</source>
+        <target>No matches for this level detected</target>
+        <note>String when no diet matches have been found.</note>
       </trans-unit>
       <trans-unit id="No nutrients" xml:space="preserve">
         <source>No nutrients</source>
@@ -1399,6 +1424,11 @@
         <target>Petfood Products</target>
         <note>Title of ViewController with a list of all food products that has been viewed.</note>
       </trans-unit>
+      <trans-unit id="Petfood barcode." xml:space="preserve">
+        <source>Petfood barcode.</source>
+        <target>Petfood barcode.</target>
+        <note>Placeholder string in a textfield to explain the purpose of a pet food barcode search</note>
+      </trans-unit>
       <trans-unit id="Photographer" xml:space="preserve">
         <source>Photographer</source>
         <target>Photographer</target>
@@ -1493,6 +1523,11 @@
         <source>Product Language</source>
         <target>Product Language</target>
         <note>Title of a segmented control segment, which lets the user set the default language of the new product tag entries as Product Language</note>
+      </trans-unit>
+      <trans-unit id="Product barcode." xml:space="preserve">
+        <source>Product barcode.</source>
+        <target>Product barcode.</target>
+        <note>Placeholder string in a textfield to explain the purpose of a product barcode search</note>
       </trans-unit>
       <trans-unit id="Product does not exist. Add?" xml:space="preserve">
         <source>Product does not exist. Add?</source>

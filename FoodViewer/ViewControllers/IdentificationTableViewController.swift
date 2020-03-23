@@ -1104,40 +1104,6 @@ class IdentificationTableViewController: UITableViewController {
         tableStructure = setupSections()
         tableView.reloadData()
 
-        /*
-        //Initialize the toolbar
-        let toolbar = UIToolbar()
-        toolbar.barStyle = UIBarStyle.default
-        
-        //Set the toolbar to fit the width of the app.
-        toolbar.sizeToFit()
-        
-        //Caclulate the height of the toolbar
-        let toolbarHeight = toolbar.frame.size.height
-        
-        //Get the bounds of the parent view
-        let rootViewBounds = self.navigationController?.view.bounds
-        
-        //Get the height of the parent view.
-        let rootViewHeight = rootViewBounds?.height
-        
-        //Get the width of the parent view,
-        let rootViewWidth = rootViewBounds?.width
-        
-        //Create a rectangle for the toolbar
-        let rectArea = CGRect(x: 0, y: rootViewHeight! - toolbarHeight - 50, width: rootViewWidth!, height: toolbarHeight)
-        
-        //Reposition and resize the receiver
-        toolbar.frame = rectArea
-        
-        //Create a button
-        let infoButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.plain, target: self, action: #selector(infoClicked))
-        
-        toolbar.items = [infoButton]
-        
-        //Add the toolbar as a subview to the navigation controller.
-        // self.navigationController?.view.addSubview(toolbar)
-         */
         navigationController?.setNavigationBarHidden(false, animated: false)
         
         NotificationCenter.default.addObserver(
@@ -1146,10 +1112,8 @@ class IdentificationTableViewController: UITableViewController {
             name: .ProductPairLocalStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductPairRemoteStatusChanged, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductPairLocalStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.SearchTypeChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded(_:)), name:.ProductPairImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFProductsImageDeleteSuccess, object:nil)
@@ -1672,7 +1636,6 @@ extension IdentificationTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
         coordinator?.selectLanguage(currentLanguageCode: displayLanguageCode, atAnchor: sender)
-        //performSegue(withIdentifier: segueIdentifier(to: SelectLanguageViewController.self), sender: sender)
     }
     
     func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {

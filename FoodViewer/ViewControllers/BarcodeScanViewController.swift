@@ -418,18 +418,27 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         self.output.metadataObjectTypes = types
     }
 
+    // is the current device in compact orientation?
+    private var deviceHasCompactOrientation: Bool {
+        get {
+            return self.traitCollection.horizontalSizeClass == .compact
+        }
+    }
+
     private func setupProductType() {
         
         nameLabel.text = TranslatableStrings.PointCamera
+        
+
         switch preferences.showProductType {
         case .food:
-            searchTextField?.placeholder = TranslatableStrings.EnterFoodProductBarcode
+            searchTextField?.placeholder = deviceHasCompactOrientation ? TranslatableStrings.EnterFoodProductBarcodeShort : TranslatableStrings.EnterFoodProductBarcode
         case .petFood:
-            searchTextField?.placeholder = TranslatableStrings.EnterPetFoodProductBarcode
+            searchTextField?.placeholder = deviceHasCompactOrientation ? TranslatableStrings.EnterPetFoodProductBarcodeShort : TranslatableStrings.EnterPetFoodProductBarcode
         case .beauty:
-            searchTextField?.placeholder = TranslatableStrings.EnterBeautyProductBarcode
+            searchTextField?.placeholder = deviceHasCompactOrientation ? TranslatableStrings.EnterBeautyProductBarcodeShort : TranslatableStrings.EnterBeautyProductBarcode
         case .product:
-            searchTextField?.placeholder = TranslatableStrings.EnterProductBarcode
+            searchTextField?.placeholder = deviceHasCompactOrientation ? TranslatableStrings.EnterProductBarcodeShort : TranslatableStrings.EnterProductBarcode
         }
         switch preferences.showProductType {
         case .food:
