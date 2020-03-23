@@ -53,6 +53,12 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
             static let NumberOfSections = 1
         }
     }
+        
+    @IBOutlet weak var navItem: UINavigationItem! {
+        didSet {
+            setTitle()
+        }
+    }
     
     private func tagValue(for status: ProductFetchStatus) -> Int {
         switch status {
@@ -109,17 +115,17 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
     // Just after reloading the data seems to be the best moment.
     
     fileprivate func setTitle() {
-            switch currentProductType {
-            case .food:
-                title = TranslatableStrings.FoodProducts
-            case .petFood:
-                title = TranslatableStrings.PetFoodProducts
-            case .beauty:
-                title = TranslatableStrings.BeautyProducts
-            case .product:
-                title = TranslatableStrings.SearchProducts
-            }
-        guard title != nil else { return }
+        self.navItem?.title = TranslatableStrings.History
+        switch currentProductType {
+        case .food:
+            self.navItem?.prompt = TranslatableStrings.FoodProducts
+        case .petFood:
+            self.navItem?.prompt = TranslatableStrings.PetFoodProducts
+        case .beauty:
+            self.navItem?.prompt = TranslatableStrings.BeautyProducts
+        case .product:
+            self.navItem?.prompt = TranslatableStrings.SearchProducts
+        }
     }
     
     // MARK: - Table view methods and vars

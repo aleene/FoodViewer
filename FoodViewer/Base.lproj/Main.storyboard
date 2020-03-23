@@ -1421,7 +1421,7 @@
             </objects>
             <point key="canvasLocation" x="1029" y="-1277"/>
         </scene>
-        <!--All Products Table View Controller-->
+        <!--uttyut-->
         <scene sceneID="B20-Pm-QF1">
             <objects>
                 <tableViewController title="" id="gMe-4s-6cz" customClass="AllProductsTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
@@ -1430,8 +1430,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
-                        <color key="sectionIndexColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="76" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UITableViewCell.AllProductsTableViewController" textLabel="h2g-mw-Rqp" detailTextLabel="Qhi-8t-XKu" style="IBUITableViewCellStyleSubtitle" id="bWZ-hV-bq2" customClass="NameTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="320" height="44"/>
@@ -1491,9 +1489,12 @@
                             <outlet property="delegate" destination="gMe-4s-6cz" id="KXa-67-S3z"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="6YC-WQ-CN3"/>
+                    <navigationItem key="navigationItem" title="uttyut" prompt="ddd" leftItemsSupplementBackButton="YES" id="lq6-u2-yzX"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="900"/>
+                    <connections>
+                        <outlet property="navItem" destination="lq6-u2-yzX" id="6Si-WZ-szv"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q8b-LA-YmP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
