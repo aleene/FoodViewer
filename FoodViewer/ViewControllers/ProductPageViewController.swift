@@ -667,34 +667,7 @@ class ProductPageViewController: UIPageViewController {
         alertController.addAction(useMyOwn)
         self.present(alertController, animated: true, completion: nil)
     }
-//
-// MARK: - Unwinds
-//
-    /*
-    @IBAction func unwindSetLanguageForCancel(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? SelectLanguageViewController {
-            // currentLanguageCode = vc.currentLanguageCode
-            // updateCurrentLanguage()
-            if vc.sourcePage > 0 && vc.sourcePage < pages.count {
-                currentProductPage = pages[vc.sourcePage]
-            } else {
-                currentProductPage = .identification
-            }
-        }
-    }
-        
-    @IBAction func unwindSetLanguageForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? SelectLanguageViewController {
-            currentLanguageCode = vc.selectedLanguageCode
-//            update(addLanguageCode: vc.selectedLanguageCode!)
-            if vc.sourcePage > 0 && vc.sourcePage < pages.count {
-                currentProductPage = pages[vc.sourcePage]
-            } else {
-                currentProductPage = .identification
-            }
-        }
-    }
-    */
+
     @IBAction func unwindConfirmProductForDone(_ segue:UIStoryboardSegue) {
         
     }
@@ -769,6 +742,28 @@ class ProductPageViewController: UIPageViewController {
         //TODO: why is this function?
         //productPair!.remoteProduct = nil
     }
+    
+    @objc func deviceHasRotated() {
+        setupBackButton()
+    }
+    
+    private func setupBackButton() {
+        if UIDevice.current.orientation.isLandscape {
+            navigationItem.leftBarButtonItem = nil
+        }
+
+        if UIDevice.current.orientation.isPortrait {
+            // This is only needed in the case of a splitView,
+            // so on iPhone or slide over is nothing to see
+            if let splitVC = self.parent?.splitViewController {
+                navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem
+            }
+        }
+    }
+    
+    @objc func openHistoryPane() {
+    }
+
 //
 // MARK: - ViewController Lifecycle
 //
@@ -777,12 +772,14 @@ class ProductPageViewController: UIPageViewController {
         initPages()
         dataSource = self
         delegate = self
+        self.parent?.splitViewController?.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         refreshPageInterface()
+        setupBackButton()
         setViewControllers(
                 [viewController(for:currentProductPage)],
                 direction: .forward,
@@ -794,6 +791,7 @@ class ProductPageViewController: UIPageViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.setPrefixedTitle(_:)), name:.ProductPairUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeTitle(_:)), name:.SearchLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.alertUser(_:)), name:.ProductLoadingError, object:nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deviceHasRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -810,6 +808,12 @@ class ProductPageViewController: UIPageViewController {
     }
         
 }
+ //
+ // MARK: - UISplitViewControllerDelegate Functions
+ //
+ extension ProductPageViewController: UISplitViewControllerDelegate {
+    
+ }
 //
 // MARK: - TextField Delegate Functions
 //

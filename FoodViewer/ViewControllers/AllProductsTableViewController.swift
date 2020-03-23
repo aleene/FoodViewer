@@ -126,6 +126,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
         case .product:
             self.navItem?.prompt = TranslatableStrings.SearchProducts
         }
+        self.title = TranslatableStrings.History
     }
     
     // MARK: - Table view methods and vars
