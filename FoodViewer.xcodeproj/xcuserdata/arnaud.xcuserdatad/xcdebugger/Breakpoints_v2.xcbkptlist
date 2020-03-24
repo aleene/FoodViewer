@@ -289,8 +289,8 @@
             filePath = "FoodViewer/ViewControllers/IdentificationTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1047"
-            endingLineNumber = "1047"
+            startingLineNumber = "1031"
+            endingLineNumber = "1031"
             landmarkName = "imageDeleted(_:)"
             landmarkType = "7">
          </BreakpointContent>

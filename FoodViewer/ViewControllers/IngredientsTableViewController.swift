@@ -552,7 +552,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             default:
                 break
             }
-            headerView.title = headerView.changeLanguageButton.isHidden ? header : header + " - "
+            headerView.title = headerView.changeLanguageButton.isHidden ? header : header + " "
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
             return headerView
