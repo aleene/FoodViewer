@@ -29,7 +29,6 @@ class LeftNutrimentScoreTableViewCell: UITableViewCell {
     private func setup() {
         guard let validNutrimentScore = nutrimentScore else { return }
         nutrimentLabel.text = title
-        nutrimentScoreBarGaugeView.value = Float(validNutrimentScore.points)
         nutrimentValue.text = "\(validNutrimentScore.points)"
         nutrimentScoreBarGaugeView?.numBars = numBars
         nutrimentScoreBarGaugeView?.maxLimit = Float(numBars)
@@ -37,6 +36,7 @@ class LeftNutrimentScoreTableViewCell: UITableViewCell {
         nutrimentScoreBarGaugeView.warnThreshold = Float(numBars)
         nutrimentScoreBarGaugeView?.reverse = reverse
         nutrimentScoreBarGaugeView?.normalBarColor = normalBarColor
+        nutrimentScoreBarGaugeView.value = Float(validNutrimentScore.points)
     }
     
     func setup(score:NutrimentScore?, numBars: Int, reverse:Bool, normalBarColor: UIColor, title:String?) {
