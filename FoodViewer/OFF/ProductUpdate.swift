@@ -170,11 +170,16 @@ class ProductUpdate: OFFProductUpdateAPI {
         
         if validProduct.type != nil && validProduct.type != .beauty {
             for fact in validProduct.nutritionFactsDict {
-                if let validValue = fact.value.value {
+                if var validValue = fact.value.value {
                     if validValue == " " {
                         urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal)
                         urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
                     } else {
+                        // The values must be converted to a standard unit
+                        // this is only valid if the unit is gram
+                        if let value = fact.value.valueGramValue {
+                            validValue = "\(value)"
+                        } // else the unit as is is used
                         urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal + validValue)
                         urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
                     }
@@ -183,12 +188,19 @@ class ProductUpdate: OFFProductUpdateAPI {
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPerServing)
                 }
                         
-                if let validValueUnit = fact.value.valueUnit?.short() {
+                if let validUnit = fact.value.valueUnit {
+                    var validValueUnit = ""
+                    switch validUnit {
+                    case .Milligram, .Microgram:
+                        validValueUnit = NutritionFactUnit.Gram.short()
+                    default:
+                        validValueUnit = validUnit.short()
+                    }
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
                     urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
-                } else if let validValueUnit = fact.value.valueUnit?.short() {
-                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
-                    urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
+              //  } else if let validValueUnit = fact.value.valueUnit?.short() {
+               //     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
+               //     urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
                 }
                 productUpdated = true
             }

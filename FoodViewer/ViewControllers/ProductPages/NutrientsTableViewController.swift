@@ -378,8 +378,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
             cell.delegate = self
             switch productVersion {
-            //case .local:
-            //    cell.nutritionFactsAvailability = productPair?.localProduct?.nutritionFactsAreAvailable
             case .remote:
                 cell.nutritionFactsAvailability = productPair?.remoteProduct?.nutritionFactsAreAvailable
             case .new:
@@ -454,8 +452,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             cell.servingSizeTextField.tag = indexPath.section
             cell.editMode = editMode
             switch productVersion {
-            //case .local:
-            //    cell.servingSize = productPair?.localProduct?.servingSize
             case .remote:
                 cell.servingSize = productPair?.remoteProduct?.servingSize
             case .new:
@@ -804,52 +800,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                       TableSections.Size.NutrimentsAvailable )
                 )
             } else {
-            /*
-                // how does the user want the data presented
-                switch currentNutritionQuantityDisplayMode {
-                case .perStandard:
-                    guard let available = productPair?.product?.nutritionFactsAreAvailable else {
-                        break
-                    }
-                    // what is possible?
-                    switch available {
-                    case .perStandardUnit, .perServingAndStandardUnit:
-                        currentNutritionQuantityDisplayMode = .perStandard
-                    case .perServing:
-                        currentNutritionQuantityDisplayMode = .perServing
-                    default:
-                        break
-                    }
-                case .perServing:
-                    guard let available = productPair?.product?.nutritionFactsAreAvailable else {
-                        break
-                    }
-                    switch available {
-                    // what is possible?
-                    case .perStandardUnit:
-                        currentNutritionQuantityDisplayMode = .perStandard
-                    case .perServing, .perServingAndStandardUnit:
-                        currentNutritionQuantityDisplayMode = .perServing
-                    default:
-                        break
-                    }
-                case .perDailyValue:
-                    guard let available = productPair?.product?.nutritionFactsAreAvailable else {
-                        break
-                    }
-                    switch available {
-                    case .perStandardUnit:
-                        // force showing perStandard as perServing is not available
-                        currentNutritionQuantityDisplayMode = .perStandard
-                    case .perServingAndStandardUnit:
-                        currentNutritionQuantityDisplayMode = .perDailyValue
-                    case .perServing:
-                        currentNutritionQuantityDisplayMode = .perDailyValue
-                    default:
-                        break
-                    }
-                }
-                 */
             
                 // Section 0 : switch to indicate whether any nutritional data is available on the product
             
@@ -900,176 +850,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         return productPair?.hasNutritionFacts ?? true
     }
 
-    // MARK: - Segue functions
-        /*
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case segueIdentifier(to: SelectLanguageViewController.self):
-                if let vc = segue.destination as? SelectLanguageViewController {
-                    // The segue can only be initiated from a button within a ProductNameTableViewCell
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? NoNutrientsImageTableViewCell != nil ||
-                            button.superview?.superview as? ProductImageTableViewCell != nil {
-                            //if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                //ppc.permittedArrowDirections = .right
-                                // I need the button coordinates in the coordinates of the current controller view
-                                //let anchorFrame = button.convert(button.bounds, to: self.view)
-                                //ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                //ppc.delegate = self
-                                
-                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-                                vc.currentLanguageCode = displayLanguageCode
-                                vc.primaryLanguageCode = productPair?.localProduct?.primaryLanguageCode ?? productPair!.remoteProduct!.primaryLanguageCode
-                                vc.languageCodes = productPair!.remoteProduct!.languageCodes
-                                vc.updatedLanguageCodes = productPair?.localProduct?.languageCodes ?? []
-                                vc.editMode = editMode
-                                vc.productPair = productPair
-                                vc.sourcePage = 2
-                            //}
-                            // The button should be in a view,
-                            // which is in a TableHeaderFooterView,
-                            // which is in a TableView
-                        } else if button.superview?.superview?.superview as? UITableView != nil {
-                            //if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                //ppc.permittedArrowDirections = .right
-                                // I need the button coordinates in the coordinates of the current controller view
-                                //let anchorFrame = button.convert(button.bounds, to: self.view)
-                                //ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                //ppc.delegate = self
-                                    
-                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-                                vc.currentLanguageCode = displayLanguageCode
-                                vc.primaryLanguageCode = productPair?.localProduct?.primaryLanguageCode ?? productPair!.remoteProduct!.primaryLanguageCode
-                                vc.languageCodes = productPair!.remoteProduct!.languageCodes
-                                vc.updatedLanguageCodes = productPair?.localProduct?.languageCodes ?? []
-                                vc.editMode = editMode
-                                vc.productPair = productPair
-                                vc.sourcePage = 2
-                            //}
-                        }
-                    }
-                } else {
-                    assert(true, "NutrientsTableViewController: ShowNutritionImageLanguages segue preparation wrongly configurated")
-                }
-
-            case segueIdentifier(to: SelectNutritionFactsTableStyleTableViewCell.self):
-                if let vc = segue.destination as? SelectNutritionFactsTableStyleTableViewCell {
-                    // The segue can only be initiated from a button within a ProductNameTableViewCell
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? LanguageHeaderView != nil {
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .any
-                                // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                ppc.delegate = self
-                                
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-                                vc.currentNutritionFactsTableStyle = self.currentNutritionFactsTableStyle
-                                vc.editMode = self.editMode
-                            }
-                            // The button should be in a view,
-                            // which is in a TableHeaderFooterView,
-                            // which is in a TableView
-                        }
-                    }
-                } else {
-                    assert(true, "NutrientsTableViewController: ShowNutritionFactsTableStyles segue preparation wrongly configurated")
-                }
-            case NutrientsTableViewController.identifier + "." + ImageViewController.identifier:
-                if let vc = segue.destination as? ImageViewController,
-                    let validLanguageCode = displayLanguageCode {
-                    vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
-                    if let images = productPair?.localProduct?.nutritionImages,
-                        !images.isEmpty {
-                        vc.imageData = productPair!.localProduct!.image(for:validLanguageCode, of:.nutrition)
-                    } else {
-                        vc.imageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.nutrition)
-                    }
-                } else {
-                    assert(true, "NutrientsTableViewController: ShowNutritionFactsImage segue preparation wrongly configurated")
-                }
-
-            case NutrientsTableViewController.identifier + "." + AddNutrientViewController.identifier:
-                if let vc = segue.destination as? AddNutrientViewController {
-                    // The segue can only be initiated from a button within a BarcodeTableViewCell
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview?.superview as? AddNutrientTableViewCell != nil {
-                            //if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                //ppc.permittedArrowDirections = .any
-                                // I need the button coordinates in the coordinates of the current controller view
-                                //let anchorFrame = button.convert(button.bounds, to: self.view)
-                                //ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                                //ppc.delegate = self
-                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-                                vc.existingNutrients = adaptedNutritionFacts.compactMap { $0.name }
-                            //}
-                        }
-                    }
-                } else {
-                    assert(true, "NutrientsTableViewController: AddNutrient segue preparation wrongly configurated")
-                }
-                */
-/*
-            case NutrientsTableViewController.identifier + "." + SelectNutrientUnitViewController.identifier:
-                if let vc = segue.destination as? SelectNutrientUnitViewController {
-                    // The segue can only be initiated from a button within a BarcodeTableViewCell
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? NutrientsTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .any
-                                // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                                ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-                                let row = button.tag % 100
-                                vc.nutrientRow = row
-                                if row >= 0 && row < adaptedNutritionFacts.count {
-                                    vc.currentNutritionFactKey = adaptedNutritionFacts[row].nutrient.key
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    assert(true, "NutrientsTableViewController: SelectNutrientUnit segue preparation wrongly configurated")
-                }
- 
-            default: break
-            }
-        }
-    }
-    @IBAction func unwindAddNutrientForCancel(_ segue:UIStoryboardSegue) {
-        // reload with first nutrient?
-    }
-    
-    @IBAction func unwindAddNutrientForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? AddNutrientViewController {
-            if let newNutrientTuple = vc.addedNutrientTuple {
-                    var newNutrient = NutritionFactItem()
-                    newNutrient.nutrient = newNutrientTuple.0
-                    newNutrient.itemName = newNutrientTuple.1
-                    switch currentNutritionQuantityDisplayMode {
-                    case .perServing:
-                        newNutrient.unit = newNutrientTuple.2
-                    case .perStandard:
-                        newNutrient.unit = newNutrientTuple.2
-                    default:
-                        break
-                    }
-                    productPair?.update(fact: newNutrient)
-                    refreshProduct()
-            }
-        }
-    }
-    */
     public func setNutritionFactUnit(for row:Int?, with nutritionFactUnit:NutritionFactUnit?) {
         if let nutrientRow = row {
             if productPair!.remoteProduct != nil {
@@ -1118,62 +898,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             refreshProduct()
         }
     }
-    /*
-
-    @IBAction func unwindSetNutrientUnit(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? SelectNutrientUnitViewController {
-            // The new nutrient unit should be set to the nutrient that was edited
-            if let nutrientRow = vc.nutrientRow {
-                if productPair!.remoteProduct != nil {
-                    // copy the existing nutrient and change the unit
-                    var editedNutritionFact = NutritionFactItem()
-                    editedNutritionFact.nutrient = adaptedNutritionFacts[nutrientRow].nutrient
-                    editedNutritionFact.itemName = adaptedNutritionFacts[nutrientRow].name
-                    // this value has been changed
-                    switch currentNutritionQuantityDisplayMode {
-                    case .perServing:
-                        editedNutritionFact.unit = vc.selectedNutritionUnit
-                        editedNutritionFact.serving = adaptedNutritionFacts[nutrientRow].value
-                    case .perStandard:
-                        editedNutritionFact.unit = vc.selectedNutritionUnit
-                        editedNutritionFact.standard = adaptedNutritionFacts[nutrientRow].value
-                    default:
-                        break
-                    }
-                    productPair?.update(fact: editedNutritionFact)
-                    refreshProduct()
-                }
-            }
-        }
-    }
-    @IBAction func unwindSetNutritionFactsTableStyle(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? SelectNutritionFactsTableStyleTableViewCell {
-            // The user decided to not follow the global preferences
-            currentTableStyleSetter = .user
-            if let validSelectedNutritionFactsTableStyle = vc.selectedNutritionFactsTableStyle {
-                selectedNutritionFactsTableStyle = validSelectedNutritionFactsTableStyle
-                currentEnergyDisplayMode = validSelectedNutritionFactsTableStyle.energyUnit
-                currentSaltDisplayMode = validSelectedNutritionFactsTableStyle.saltUnit
-                switch validSelectedNutritionFactsTableStyle.entryUnit {
-                case .perServing:
-                    currentNutritionQuantityDisplayMode = .perServing
-                default:
-                    currentNutritionQuantityDisplayMode = .perStandard
-                }
-                // fill the nutritionList with the missing values
-                if editMode {
-                    for nutrient in validSelectedNutritionFactsTableStyle.mandatoryNutrients {
-                        if !productPair!.remoteProduct!.nutritionFactsContain(nutrient) {
-                            productPair?.update(fact: NutritionFactItem.init(nutrient: nutrient, unit: nutrient.unit(for:validSelectedNutritionFactsTableStyle)))
-                        }
-                    }
-                }
-                refreshProduct()
-            }
-        }
-    }
- */
-
 
     // MARK: - Popover delegation functions
     

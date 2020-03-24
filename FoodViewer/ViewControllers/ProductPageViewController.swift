@@ -497,18 +497,14 @@ class ProductPageViewController: UIPageViewController {
                              if let vc3 = vc2s[0] as? UINavigationController {
                                  let vc3s = vc3.viewControllers
                                  if vc3s.count > 0 {
-                                     if vc3s[0] is AllProductsTableViewController {
-                                         title = "All History Products"
-                                     } else if vc3s[0] is SearchesHistoryTableViewController {
-                                         title = "All Search Queries"
-                                     } else if vc3s[0] is SearchResultsTableViewController {
-                                         title = "All Search Products"
-                                     }
+                                    title = TranslatableStrings.NothingSelected
                                  }
                              }
                          }
                      }
                  }
+        case .notAvailable:
+            title = TranslatableStrings.AddImages
         default:
             title = currentProductPage.description + " " + prefix
         }

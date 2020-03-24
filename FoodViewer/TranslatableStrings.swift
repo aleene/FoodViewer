@@ -18,6 +18,8 @@ struct TranslatableStrings {
     static let AddFrontImageMessage = NSLocalizedString("Add Front Image", comment: "Title of a button to indicate that the front image is missing.")
     static let AddFrontImageFromCamera = NSLocalizedString("Use Camera", comment: "Title of a button to indicate that user can take an image with the Camera.")
     static let AddFrontImageFromPhotos = NSLocalizedString("Use Photos", comment: "Title of a button to indicate that user can pick an image from Photos.")
+    static let AddImages = NSLocalizedString("Add images for new product", comment: "Title of a viewController where the users can add images for a new product.")
+
     static let Additives = NSLocalizedString("Additives", comment: "Text to indicate the additives of a product.")
     static let AdditiveSpecific = NSLocalizedString("Additve %@", comment: "Text to indicate a specific additive.")
     static let AddLanguage = NSLocalizedString("Add Language", comment: "Title of a viewcontroller which allows the user to add a new language to the product languages.")
@@ -295,6 +297,7 @@ struct TranslatableStrings {
     static let NoNutritionDataAvailable = NSLocalizedString("no nutrition data available", comment: "Text in a TagListView, when no nutrition data has been specified in the product data.")
     static let NoNutritionDataIndicated = NSLocalizedString("no nutrition data indicated", comment: "Text in a TagListView, when no nutrition data has been specified in the product data.")
     static let NotOnPackage = NSLocalizedString("nutrition data not on package", comment: "Text in a TagListView, when no nutrition data is available on the package.")
+    static let NothingSelected = NSLocalizedString("nothing selected", comment: "Title of a viewController when no product/search has been selected.")
     static let NoTraceDefined = NSLocalizedString("no trace defined", comment: "Text for language of product, when there is no trace defined.")
     static let NotSearchable = NSLocalizedString("Not searchable", comment: "Text in a search TagListView, when tags can not be set up.")
     static let NoTitle = NSLocalizedString("No title", comment: "Title for viewcontroller with detailed product images, when no title is given. ")

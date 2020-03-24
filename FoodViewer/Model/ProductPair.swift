@@ -868,10 +868,16 @@ class ProductPair {
         } else if remoteProduct?.nutritionFactsDict[validNutrient.key] != nil {
             // create a local version if needed
             initLocalProduct()
-            // copy the existing data
-            localProduct?.nutritionFactsDict[validNutrient.key] = remoteProduct!.nutritionFactsDict[validNutrient.key]!
+            // copy only the values as this are the edited data
+            localProduct?.nutritionFactsDict[validNutrient.key] = NutritionFactItem()
+            localProduct?.nutritionFactsDict[validNutrient.key]?.value =
+                remoteProduct?.nutritionFactsDict[validNutrient.key]?.value
+            localProduct?.nutritionFactsDict[validNutrient.key]?.itemName =
+                remoteProduct?.nutritionFactsDict[validNutrient.key]?.itemName
+            localProduct?.nutritionFactsDict[validNutrient.key]?.nutrient =
+                validNutrient
             // set the new unit
-            localProduct!.nutritionFactsDict[validNutrient.key]!.valueUnit = validUnit
+            localProduct?.nutritionFactsDict[validNutrient.key]?.valueUnit = validUnit
         // This is a new nutrient
         } else {
             // create a local version if needed

@@ -31,6 +31,9 @@
 /* Title of a button to indicate that the front image is missing. */
 "Add Front Image" = "Ajout image frontal";
 
+/* Title of a viewController where the users can add images for a new product. */
+"Add images for new product" = "Ajout images nouveau produit";
+
 /* Title of a viewcontroller which allows the user to add a new language to the product languages. */
 "Add Language" = "Ajout langue";
 
@@ -91,8 +94,11 @@
 /* Title of a segmented control. */
 "Beauty" = "Beauté";
 
+/* Placeholder string in a textfield to explain the purpose of a beauty product barcode search */
+"Beauty  barcode." = "Code barre beauté";
+
 /* Title of ViewController with a list of all food products that has been viewed. */
-"Beauty Products" = "Produits Beauté";
+"Beauty Products" = "Produits beauté";
 
 /* Cell title indicating the product belongs to the beverages category */
 "Beverages category" = "Catégorie Boissons";
@@ -356,8 +362,8 @@
 /* Placeholder string in a textfield to explain the purpose of a food product barcode search */
 "Enter food product barcode." = "Saisis code barre produit alimentaire";
 
-/* Placeholder string in a textfield to explain the purpose of a pet food barcode search */
-"Enter pet food product barcode." = "Saisis code barre produit animalier";
+/* Placeholder string in a textfield to explain the purpose of a petfood barcode search */
+"Enter petfood product barcode." = "Saisis code barre produit animalier";
 
 /* Placeholder text for field where user should enter a postal code. */
 "Enter postal code" = "Code postal";
@@ -406,6 +412,9 @@
 
 /* Title of SegmentedControl segment. */
 "Food" = "Aliments";
+
+/* Placeholder string in a textfield to explain the purpose of a food product barcode search */
+"Food barcode." = "Code barre animalier";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Food Products" = "Alimentaire";
@@ -606,6 +615,9 @@
 /* Text for language of product, when there is no language defined. */
 "no language defined" = "pas de langue défini";
 
+/* String when no diet matches have been found. */
+"No matches for this level detected" = "Pas des correspondances";
+
 /* Text for productname, when no productname is available in the product data. */
 "no name specified" = "pas de nom spécifié";
 
@@ -677,6 +689,9 @@
 
 /* Generic text if a value has not yet been set. */
 "Not set" = "Pas définie";
+
+/* Title of a viewController when no product/search has been selected. */
+"nothing selected" = "Rien sélectionné";
 
 /* Text above the nova value. */
 "NOVA" = "NOVA";
@@ -836,10 +851,13 @@
 "Personal Account" = "Compte personel";
 
 /* Title of a segmented control. */
-"Petfood" = "Animaux";
+"Petfood" = "Animalier";
+
+/* Placeholder string in a textfield to explain the purpose of a pet food barcode search */
+"Petfood barcode." = "Code barre animalier";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
-"Petfood Products" = "Animaux";
+"Petfood Products" = "Produits animaliers";
 
 /* String in PickerViewController to indicate the photographer role of a contributor */
 "Photographer" = "Photographe";
@@ -891,6 +909,9 @@
 
 /* Title of a segmented control. */
 "Product" = "Produit";
+
+/* Placeholder string in a textfield to explain the purpose of a product barcode search */
+"Product barcode." = "Code barre produit";
 
 /* Title of a segment in a UISegmentedControl, which indicates that the values of the product are leading. */
 "Product Defined" = "Produit défini";
