@@ -151,7 +151,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FrZ-jB-hxB">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="" id="qYU-Rc-PQr">
+                                    <navigationItem id="qYU-Rc-PQr">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="CHS-af-eSo">
                                             <connections>
                                                 <action selector="cancelButtonTapped:" destination="Bqh-6B-hUX" id="RgD-er-EWQ"/>
@@ -443,19 +443,19 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Diet Trigger Tags Cell" id="IhZ-qY-jbX" customClass="TagListViewLabelTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="320" height="40.5"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="24.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IhZ-qY-jbX" id="kNI-jT-9Nq">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="40.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="24.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hho-M2-f3Y">
-                                            <rect key="frame" x="16" y="8" width="288" height="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hho-M2-f3Y">
+                                            <rect key="frame" x="16" y="8" width="288" height="0.0"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="5sA-YE-FGq" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="32" width="288" height="0.5"/>
+                                            <rect key="frame" x="16" y="16" width="288" height="0.5"/>
                                         </view>
                                     </subviews>
                                     <constraints>
@@ -1425,14 +1425,13 @@
         <scene sceneID="B20-Pm-QF1">
             <objects>
                 <tableViewController title="" id="gMe-4s-6cz" customClass="AllProductsTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="D6F-oT-6RW">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="D6F-oT-6RW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="76" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UITableViewCell.AllProductsTableViewController" textLabel="h2g-mw-Rqp" detailTextLabel="Qhi-8t-XKu" style="IBUITableViewCellStyleSubtitle" id="bWZ-hV-bq2" customClass="NameTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bWZ-hV-bq2" id="ent-l2-AXm">
                                     <rect key="frame" x="0.0" y="0.0" width="293" height="44"/>
@@ -1460,7 +1459,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TagListViewTableViewCell.AllProductsTableViewController" id="MIA-Lf-G4U" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="99.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MIA-Lf-G4U" id="kTa-FP-bor">
                                     <rect key="frame" x="0.0" y="0.0" width="293" height="44"/>
@@ -4646,7 +4645,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oiq-Qe-YWW">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="" id="18F-0Y-Djv">
+                                    <navigationItem id="18F-0Y-Djv">
                                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="xqo-mz-0cJ">
                                             <connections>
                                                 <action selector="doneButtonTapped:" destination="oCr-2A-ZDa" id="PTM-Sj-RYP"/>
@@ -4864,7 +4863,7 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GNV-RJ-BqM">
-                                        <rect key="frame" x="133" y="129.5" width="54" height="33"/>
+                                        <rect key="frame" x="145" y="129.5" width="30" height="33"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <state key="normal" title=""/>
                                         <connections>
@@ -5329,10 +5328,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7E-Id-R8N" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="185" height="0.5"/>
+                                            <rect key="frame" x="16" y="11" width="135" height="0.5"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-jd-CEe">
-                                            <rect key="frame" x="217" y="-4.5" width="87" height="32.5"/>
+                                            <rect key="frame" x="167" y="-4.5" width="137" height="32.5"/>
                                             <segments>
                                                 <segment title="" image="NotOK"/>
                                                 <segment title="" image="CheckMark"/>
@@ -5364,13 +5363,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9JJ-Xu-7XT">
-                                            <rect key="frame" x="8" y="8" width="263" height="0.5"/>
+                                            <rect key="frame" x="8" y="8" width="238" height="0.5"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4Z-mc-9Ph">
-                                            <rect key="frame" x="279" y="-4.5" width="25" height="25.5"/>
+                                            <rect key="frame" x="254" y="-17" width="50" height="50.5"/>
                                             <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="clearTextViewButtonTapped:" destination="5y9-Bc-FlV" eventType="touchUpInside" id="9lq-Ic-N4N"/>

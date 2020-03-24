@@ -28,6 +28,9 @@
 /* Title of a button to indicate that the front image is missing. */
 "Add Front Image" = "Agregar imagen frontal";
 
+/* Title of a viewController where the users can add images for a new product. */
+"Add images for new product" = "Agregar imagens";
+
 /* Title of a viewcontroller which allows the user to add a new language to the product languages. */
 "Add Language" = "Agregar idioma";
 
@@ -87,6 +90,9 @@
 
 /* Title of a segmented control. */
 "Beauty" = "Cosmético";
+
+/* Placeholder string in a textfield to explain the purpose of a beauty product barcode search */
+"Beauty  barcode." = "Código de barres cosmético";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Beauty Products" = "Productos cosméticos";
@@ -353,8 +359,8 @@
 /* Placeholder string in a textfield to explain the purpose of a food product barcode search */
 "Enter food product barcode." = "Ingrese el código de barras del producto alimenticio";
 
-/* Placeholder string in a textfield to explain the purpose of a pet food barcode search */
-"Enter pet food product barcode." = "Ingrese el código de barras del producto alimenticio para mascotas";
+/* Placeholder string in a textfield to explain the purpose of a petfood barcode search */
+"Enter petfood product barcode." = "Ingrese el código de barras del producto mascotas";
 
 /* Placeholder text for field where user should enter a postal code. */
 "Enter postal code" = "Ingrese el código postal";
@@ -403,6 +409,9 @@
 
 /* Title of SegmentedControl segment. */
 "Food" = "Alimento";
+
+/* Placeholder string in a textfield to explain the purpose of a food product barcode search */
+"Food barcode." = "Código de barres alimenticio";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Food Products" = "Producto alimenticio";
@@ -603,6 +612,9 @@
 /* Text for language of product, when there is no language defined. */
 "no language defined" = "no hay iedioma especificado";
 
+/* String when no diet matches have been found. */
+"No matches for this level detected" = "No hay coincidencias para este nivel";
+
 /* Text for productname, when no productname is available in the product data. */
 "no name specified" = "no hay nombre especificado";
 
@@ -674,6 +686,9 @@
 
 /* Generic text if a value has not yet been set. */
 "Not set" = "No establecido";
+
+/* Title of a viewController when no product/search has been selected. */
+"nothing selected" = "ninguno seleccionado";
 
 /* Text above the nova value. */
 "NOVA" = "NOVA";
@@ -835,6 +850,9 @@
 /* Title of a segmented control. */
 "Petfood" = "Alimentos mascotas";
 
+/* Placeholder string in a textfield to explain the purpose of a pet food barcode search */
+"Petfood barcode." = "Código de barras mascotas";
+
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Petfood Products" = "Productos alimenticios para mascotas";
 
@@ -888,6 +906,9 @@
 
 /* Title of a segmented control. */
 "Product" = "Producto";
+
+/* Placeholder string in a textfield to explain the purpose of a product barcode search */
+"Product barcode." = "Código de barras producto";
 
 /* Title of a segment in a UISegmentedControl, which indicates that the values of the product are leading. */
 "Product Defined" = "Producto definido";
