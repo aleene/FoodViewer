@@ -317,7 +317,7 @@
         <!--Allergen Warnings Table View Controller-->
         <scene sceneID="euK-Dx-95p">
             <objects>
-                <tableViewController storyboardIdentifier="AllergenWarningsTableViewController" extendedLayoutIncludesOpaqueBars="YES" id="x3J-Z2-tIT" customClass="AllergenWarningsTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AllergenWarningsTableViewController" id="x3J-Z2-tIT" customClass="AllergenWarningsTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="DhN-lj-7uC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -364,9 +364,6 @@
                             <outlet property="delegate" destination="x3J-Z2-tIT" id="Ekr-To-6R4"/>
                         </connections>
                     </tableView>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47q-wK-1CI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

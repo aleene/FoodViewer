@@ -45,10 +45,6 @@ final class DietSelectorTableViewController: UITableViewController {
     
     // MARK: - ViewController Lifecycle
     
-    override var prefersStatusBarHidden : Bool {
-        return true
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.reloadData()

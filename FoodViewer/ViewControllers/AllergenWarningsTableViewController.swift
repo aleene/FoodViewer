@@ -46,10 +46,6 @@ class AllergenWarningsTableViewController: UITableViewController {
 
     // MARK: - ViewController Lifecycle
     
-    override var prefersStatusBarHidden : Bool {
-        return true
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         let _ = AllergenWarningDefaults.init()
