@@ -30,7 +30,7 @@ final class ProductImagesCoordinator: Coordinator {
         
     var viewController: UIViewController? = nil
     
-    weak var productPair: ProductPair? = nil
+    weak private var productPair: ProductPair? = nil
 
     private var coordinatorViewController: ProductImagesCollectionViewController? {
         self.viewController as? ProductImagesCollectionViewController
@@ -63,7 +63,8 @@ The caller determines the image that will be shown.
         coordinator.show()
     }
     
-    func showSelectLanguageAndImageType(languageCodes: [String], key: String?) {
+    func showSelectLanguageAndImageType(for productPair: ProductPair?, languageCodes: [String], key: String?) {
+        self.productPair = productPair
         let coordinator = SelectLanguageAndImageTypeCoordinator(with: self, languageCodes:languageCodes, key:key)
         self.childCoordinators.append(coordinator)
         coordinator.show()
@@ -106,7 +107,7 @@ extension ProductImagesCoordinator: ImageCoordinatorProtocol {
 extension ProductImagesCoordinator : SelectLanguageAndImageTypeCoordinatorProtocol {
     
     func selectLanguageAndImageTypeViewController(_ sender: SelectLanguageAndImageTypeViewController, languageCode: String?, imageCategory: ImageTypeCategory?, key: String?) {
-        productPair?.updateImage(key: key, languageCode: languageCode, imageType: imageCategory)
+        self.productPair?.updateImage(key: key, languageCode: languageCode, imageType: imageCategory)
         sender.dismiss(animated: true, completion: nil)
     }
     

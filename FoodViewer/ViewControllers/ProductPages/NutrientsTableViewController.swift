@@ -18,7 +18,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         didSet {
             if delegate != oldValue {
                 refreshInterface()
-                coordinator?.productPair = productPair
             }
         }
     }
@@ -1448,7 +1447,7 @@ extension NutrientsTableViewController: NutrientsCellDelegate {
     }
     /// The NutrientsTableViewCell unit button has been tapped. The coordinator should handle this event.
     func nutrientsTableViewCellUnit(_ sender: NutrientsTableViewCell, nutrient: Nutrient?, unit: NutritionFactUnit?, receivedTapOn button: UIButton) {
-        coordinator?.showNutrientUnitSelector(nutrient: nutrient, unit: unit, anchoredOn: button)
+        coordinator?.showNutrientUnitSelector(for: self.productPair, nutrient: nutrient, unit: unit, anchoredOn: button)
     }
 
 }
@@ -1457,7 +1456,7 @@ extension NutrientsTableViewController: NutrientsCellDelegate {
 //
 extension NutrientsTableViewController:  AddNutrientCellDelegate {
     func addNutrientTableViewCell(_ sender: AddNutrientTableViewCell, tappedOn button: UIButton) {
-        coordinator?.showAddNutrientSelector(current: adaptedNutritionFacts.compactMap { $0.name }, anchoredOn: button)
+        coordinator?.showAddNutrientSelector(for: self.productPair, current: adaptedNutritionFacts.compactMap { $0.name }, anchoredOn: button)
     }
     
     
@@ -1842,9 +1841,9 @@ extension NutrientsTableViewController: LanguageHeaderDelegate {
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
         switch sender.tag {
         case 0:
-            coordinator?.showLanguageSelector(with: currentLanguageCode, atAnchor: sender)
+            coordinator?.showLanguageSelector(for: self.productPair, with: currentLanguageCode, atAnchor: sender)
         case 1:
-            coordinator?.showNutritionFactsTableStyleSelector(selected: selectedNutritionFactsTableStyle, anchoredOn: sender)
+            coordinator?.showNutritionFactsTableStyleSelector(for: self.productPair, selected: selectedNutritionFactsTableStyle, anchoredOn: sender)
             //performSegue(withIdentifier: segueIdentifier(to: SelectNutritionFactsTableStyleTableViewCell.self), sender: sender)
         default:
             break

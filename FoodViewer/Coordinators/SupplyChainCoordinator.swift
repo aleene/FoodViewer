@@ -16,7 +16,7 @@ final class SupplyChainCoordinator: Coordinator {
     
     var viewController: UIViewController? = nil
     
-    weak var productPair: ProductPair? = nil
+    weak private var productPair: ProductPair? = nil
     
     private var coordinatorViewController: SupplyChainTableViewController? {
         self.viewController as? SupplyChainTableViewController
@@ -35,13 +35,15 @@ final class SupplyChainCoordinator: Coordinator {
         // Done in the viewController?
     }
 
-    func selectFavoriteShop() {
+    func selectFavoriteShop(for productPair: ProductPair?) {
+        self.productPair = productPair
         let coordinator = FavoriteShopsCoordinator.init(with: self)
         childCoordinators.append(coordinator)
         coordinator.show()
     }
     
-    func selectExpirationDate(anchoredOn button:UIButton) {
+    func selectExpirationDate(for productPair: ProductPair?, anchoredOn button:UIButton) {
+        self.productPair = productPair
         var currentDate: Date? = nil
         if let validName = productPair?.localProduct?.expirationDate {
             let formatter = DateFormatter()
@@ -61,7 +63,8 @@ final class SupplyChainCoordinator: Coordinator {
         coordinator.show()
     }
 
-    func selectCountry() {
+    func selectCountry(for productPair: ProductPair?) {
+        self.productPair = productPair
         let coordinator = SelectPairCoordinator.init(with:self,
                             original: productPair?.countriesInterpreted?.list,
                             allPairs: OFFplists.manager.allCountries,

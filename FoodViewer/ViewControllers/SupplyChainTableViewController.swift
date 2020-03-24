@@ -16,7 +16,6 @@ class SupplyChainTableViewController: UITableViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                coordinator?.productPair = productPair
                 tableView.reloadData()
             }
         }
@@ -680,7 +679,6 @@ class SupplyChainTableViewController: UITableViewController {
 
     @objc func refreshProduct() {
         productVersion = .new
-        coordinator?.productPair = productPair
         tableView.reloadData()
     }
 
@@ -830,7 +828,7 @@ class SupplyChainTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         coordinator = SupplyChainCoordinator.init(with: self)
-        coordinator?.productPair = productPair
+
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
@@ -875,9 +873,9 @@ extension SupplyChainTableViewController : TagListViewButtonCellDelegate {
         switch currentProductSection {
         case .store,
              .location:
-            coordinator?.selectFavoriteShop()
+            coordinator?.selectFavoriteShop(for: self.productPair)
         case .country:
-            coordinator?.selectCountry()
+            coordinator?.selectCountry(for: self.productPair)
         default:
             break
         }
@@ -887,7 +885,7 @@ extension SupplyChainTableViewController : TagListViewButtonCellDelegate {
 extension SupplyChainTableViewController :  ExpirationDateTableViewDelegate {
     
     func expirationDateTableViewCell(_ sender: ExpirationDateTableViewCell, receivedTapOn button:UIButton) {
-        coordinator?.selectExpirationDate(anchoredOn:button)
+        coordinator?.selectExpirationDate(for: self.productPair, anchoredOn:button)
     }
 }
 

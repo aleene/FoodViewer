@@ -14,7 +14,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                coordinator?.productPair = productPair
                 refreshProduct()
             }
         }
@@ -783,95 +782,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return sectionsAndRows
     }
     
-    
-// MARK: - Navigation
-    /*
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case segueIdentifier(to: ImageViewController.self):
-                if let vc = segue.destination as? ImageViewController,
-                    let validLanguageCode = displayLanguageCode {
-                    vc.imageTitle = TextConstants.ShowIdentificationTitle
-                    if let images = productPair?.localProduct?.ingredientsImages,
-                        !images.isEmpty {
-                        vc.imageData = productPair!.localProduct!.image(for:validLanguageCode, of:.ingredients)
-                    } else {
-                        vc.imageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients)
-                    }
-                }
-            case segueIdentifier(to: SelectLanguageViewController.self):
-                if let vc = segue.destination as? SelectLanguageViewController {
-                    // The segue can only be initiated from a button within a ProductNameTableViewCell
-                    if let button = sender as? UIButton {
-                        // The button should be in a view,
-                        // which is in a TableHeaderFooterView,
-                        // which is in a TableView
-                        if button.superview?.superview?.superview as? UITableView != nil {
-                            //if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                //ppc.permittedArrowDirections = .right
-                                // I need the button coordinates in the coordinates of the current controller view
-                                //let anchorFrame = button.convert(button.bounds, to: self.view)
-                                //ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                //ppc.delegate = self
-                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-                                
-                                vc.currentLanguageCode = displayLanguageCode
-                                vc.languageCodes = productPair!.remoteProduct!.languageCodes
-                                vc.updatedLanguageCodes = productPair?.localProduct?.languageCodes ?? []
-                                vc.primaryLanguageCode = productPair!.remoteProduct?.primaryLanguageCode
-                                vc.sourcePage = 1
-                                vc.editMode = editMode
-                            //}
-                        }
-                    }
-                }
-
-                case segueIdentifier(to: SelectPairViewController.self):
-                    if  let vc = segue.destination as? SelectPairViewController {
-                        if let button = sender as? UIButton {
-                            if button.superview?.superview as? TagListViewButtonTableViewCell != nil {
-                                if let ppc = vc.popoverPresentationController {
-
-                                    // set the main language button as the anchor of the popOver
-                                    ppc.permittedArrowDirections = .right
-                                    // I need the button coordinates in the coordinates of the current controller view
-                                    let anchorFrame = button.convert(button.bounds, to: self.view)
-                                    ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                    ppc.delegate = self
-                                }
-                                
-                                // transfer the traces of the local product (if any or after edit)
-                                // or the countries of the remote product
-                                // The traces will be interpreted (i.e. as english keys)
-                                //vc.configure(original: productPair?.tracesInterpreted?.list,
-                                //             allPairs: OFFplists.manager.allAllergens,
-                                //             multipleSelectionIsAllowed: true,
-                                 //            showOriginalsAsSelected: true,
-                                  //           assignedHeader: TranslatableStrings.SelectedTraces,
-                                  //           unAssignedHeader: TranslatableStrings.UnselectedTraces,
-                                   //          undefinedText: TranslatableStrings.NoTraceDefined,
-                                    //         cellIdentifierExtension: IngredientsTableViewController.identifier)
-                            }
-                        }
-                    }
-            default: break
-            }
-        }
-    }
-
-    // function that defines a pixel on the bottom center of a frame
-    private func leftMiddle(_ frame: CGRect) -> CGRect {
-        var newFrame = frame
-        newFrame.origin.y += frame.size.height / 2
-        newFrame.size.height = 1
-        newFrame.size.width = 1
-        return newFrame
-    }
-    */
-
     @objc func doubleTapOnTableView() {
         // double tapping implies cycling through the product possibilities
         switch productVersion {
@@ -890,18 +800,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
         tableView.reloadData()
     }
-    /*
-    @IBAction func unwindSetTraceForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? SelectPairViewController {
-            // The countries are encoded as keys "en:english"
-            //productPair?.update(tracesTags: vc.selected)
-            tableView.reloadData()
-        }
-    }
-    
-    @IBAction func unwindSetTraceForCancel(_ segue:UIStoryboardSegue) {
-    }
- */
     // MARK: - Popover delegation functions
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -1131,7 +1029,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 //
 extension IngredientsTableViewController: TagListViewButtonCellDelegate {
     func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button: UIButton) {
-        coordinator?.selectTraces(anchoredOn:button)
+        coordinator?.selectTraces(for: self.productPair, anchoredOn:button)
     }
 }
 //
@@ -1554,8 +1452,7 @@ extension IngredientsTableViewController: GKImagePickerDelegate {
 extension IngredientsTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
-        coordinator?.selectLanguage(with: currentLanguageCode, atAnchor: sender)
-        // performSegue(withIdentifier: segueIdentifier(to: SelectLanguageViewController.self), sender: sender)
+        coordinator?.selectLanguage(for: self.productPair, with: currentLanguageCode, atAnchor: sender)
     }
     
     func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {

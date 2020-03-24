@@ -82,7 +82,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                coordinator?.productPair = productPair
+                tableStructure = setupSections()
                 collectionView.reloadData()
             }
         }
@@ -806,7 +806,7 @@ extension ProductImagesCollectionViewController : GalleryCollectionViewCellDeleg
             OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .nutrition)
         case .originalImages:
             guard let validCodes = productPair?.languageCodes else { return }
-            coordinator?.showSelectLanguageAndImageType(languageCodes:validCodes, key: key)
+            coordinator?.showSelectLanguageAndImageType(for: self.productPair, languageCodes:validCodes, key: key)
         }
     }
 }

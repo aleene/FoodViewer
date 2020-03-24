@@ -25,7 +25,6 @@ class CategoriesTableViewController: UITableViewController {
         didSet {
             if delegate != oldValue && delegate != nil {
                 tableView.reloadData()
-                coordinator?.productPair = productPair
             }
         }
     }
@@ -209,59 +208,6 @@ class CategoriesTableViewController: UITableViewController {
         return sectionsAndRows
             
     }
-//
-// MARK: - Navigation
-//
-    /*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case segueIdentifier(to: SelectPairViewController.self):
-                if  let vc = segue.destination as? SelectPairViewController {
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? TagListViewButtonTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
-
-                                // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .right
-                                // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame
-                                ppc.delegate = self
-                            }
-                                
-                            // transfer the categories of the local product (if any or after edit)
-                            // or the categories of the remote product
-                            // The categories will be interpreted (i.e. as english keys)
-                            vc.configure(original: productPair?.categoriesInterpreted?.list,
-                                         allPairs: OFFplists.manager.allCategories,
-                                         multipleSelectionIsAllowed: true,
-                                         showOriginalsAsSelected: true,
-                                         assignedHeader: TranslatableStrings.SelectedCategories,
-                                         unAssignedHeader: TranslatableStrings.UnselectedCategories,
-                                         undefinedText: TranslatableStrings.NoCategoryDefined,
-                                         cellIdentifierExtension: CategoriesTableViewController.identifier)
-                            }
-                        }
-                    }
-
-                default: break
-                }
-            }
-        }
- */
-          /*
-    @IBAction func unwindSetCategoryForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? SelectPairViewController {
-        // The categories are encoded as keys "en:english"
-        //    productPair?.update(categories: vc.selected)
-            tableView.reloadData()
-        }
-    }
-    @IBAction func unwindSetCategoryForCancel(_ segue:UIStoryboardSegue) {
-    }
- */
-
 //
 // MARK: - Notification Handler Functions
 //
@@ -494,7 +440,7 @@ extension CategoriesTableViewController: TagListViewButtonCellDelegate {
     
     // function to let the delegate know that the button was tapped
     func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
-        coordinator?.selectCategory()
+        coordinator?.selectCategory(for: productPair)
         //performSegue(withIdentifier: segueIdentifier(to: SelectPairViewController.self), sender: button)
     }
 }

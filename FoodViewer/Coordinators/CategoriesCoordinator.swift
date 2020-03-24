@@ -18,7 +18,7 @@ final class CategoriesCoordinator: Coordinator {
     
     var viewController: UIViewController? = nil
     
-    weak var productPair: ProductPair? = nil
+    weak private var productPair: ProductPair? = nil
     
     private var coordinatorViewController: CategoriesTableViewController? {
         self.viewController as? CategoriesTableViewController
@@ -38,9 +38,10 @@ final class CategoriesCoordinator: Coordinator {
         // Done in the viewController?
     }
 
-    func selectCategory() {
+    func selectCategory(for productPair: ProductPair?) {
+        self.productPair = productPair
         let coordinator = SelectPairCoordinator.init(with:self,
-                              original: productPair?.categoriesInterpreted?.list,
+                                                     original: self.productPair?.categoriesInterpreted?.list,
                               allPairs: OFFplists.manager.allCategories,
                               multipleSelectionIsAllowed: true,
                               showOriginalsAsSelected: true,

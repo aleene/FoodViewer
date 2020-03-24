@@ -27,10 +27,8 @@ final class IdentificationCoordinator: Coordinator {
         case addLanguage = 1
         case image = 2
     }
-    
-    // private var button: UIButton? = nil
-    
-    weak var productPair: ProductPair? = nil
+        
+    weak private var productPair: ProductPair? = nil
     
     init(with coordinator: Coordinator?) {
         self.viewController = IdentificationTableViewController.instantiate()
@@ -62,9 +60,10 @@ Shows a modal viewController with a tableView that allows the user to select ONE
 
 The selected language will used to set the primary (main) language of the product.
 */
-    func selectMainLanguage() {
+    func selectMainLanguage(for productPair: ProductPair?) {
+        self.productPair = productPair
         let coordinator = SelectPairCoordinator.init(with:self,
-                            original: productPair?.primaryLanguageCode != nil ?                   [productPair!.primaryLanguageCode] : nil,
+                                                     original: self.productPair?.primaryLanguageCode != nil ?                   [self.productPair!.primaryLanguageCode] : nil,
                               allPairs: OFFplists.manager.allLanguages,
                               multipleSelectionIsAllowed: false,
                               showOriginalsAsSelected: false,
@@ -80,9 +79,10 @@ Shows a modal viewController with a tableView that allows the user to select one
      
 The selected languages will be used as new (extra) product languages.
 */
-    func addLanguages() {
+    func addLanguages(for productPair: ProductPair?) {
+        self.productPair = productPair
         let coordinator = SelectPairCoordinator.init(with:self,
-                                original: productPair?.remoteProduct?.languageCodes,
+                                                     original: self.productPair?.remoteProduct?.languageCodes,
                                   allPairs: OFFplists.manager.allLanguages,
                                   multipleSelectionIsAllowed: true,
                                   showOriginalsAsSelected: false,

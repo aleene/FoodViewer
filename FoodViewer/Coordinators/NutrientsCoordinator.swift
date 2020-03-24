@@ -34,7 +34,7 @@ final class NutrientsCoordinator: Coordinator {
         // Done in the viewController?
     }
 
-    weak var productPair: ProductPair? = nil
+    weak private var productPair: ProductPair? = nil
 
     // Show the image with the current display language
     // The coordinator does the right image selection
@@ -44,26 +44,30 @@ final class NutrientsCoordinator: Coordinator {
         coordinator.show()
     }
 
-    func showNutrientUnitSelector(nutrient: Nutrient?, unit: NutritionFactUnit?, anchoredOn button:UIButton) {
+    func showNutrientUnitSelector(for productPair: ProductPair?, nutrient: Nutrient?, unit: NutritionFactUnit?, anchoredOn button:UIButton) {
+        self.productPair = productPair
         let coordinator = NutrientUnitSelectorCoordinator(with: self, nutrient: nutrient, unit: unit, button: button)
         childCoordinators.append(coordinator)
         coordinator.show()
     }
 
-    func showAddNutrientSelector(current nutrients:[String], anchoredOn button:UIButton) {
+    func showAddNutrientSelector(for productPair: ProductPair?, current nutrients:[String], anchoredOn button:UIButton) {
+        self.productPair = productPair
         let coordinator = AddNutrientCoordinator(with: self, nutrients: nutrients, button: button)
         childCoordinators.append(coordinator)
         coordinator.show()
     }
 
-    func showNutritionFactsTableStyleSelector(selected nutritionFactsTableStyle: NutritionFactsLabelStyle?, anchoredOn button:UIButton) {
+    func showNutritionFactsTableStyleSelector(for productPair: ProductPair?, selected nutritionFactsTableStyle: NutritionFactsLabelStyle?, anchoredOn button:UIButton) {
+        self.productPair = productPair
         let coordinator = SelectNutritionFactsTableStyleCoordinator(with: self, nutritionFactsTableStyle: nutritionFactsTableStyle, button: button)
         childCoordinators.append(coordinator)
         coordinator.show()
     }
     
-    func showLanguageSelector(with currentLanguageCode: String?, atAnchor button: UIButton) {
-        let coordinator = SelectLanguageCoordinator(with: self, primaryLanguageCode: productPair?.primaryLanguageCode, currentLanguageCode: currentLanguageCode, languageCodes: productPair?.remoteProduct?.languageCodes, button: button)
+    func showLanguageSelector(for productPair: ProductPair?, with currentLanguageCode: String?, atAnchor button: UIButton) {
+        self.productPair = productPair
+        let coordinator = SelectLanguageCoordinator(with: self, primaryLanguageCode: self.productPair?.primaryLanguageCode, currentLanguageCode: currentLanguageCode, languageCodes: self.productPair?.remoteProduct?.languageCodes, button: button)
         self.childCoordinators.append(coordinator)
         coordinator.show()
     }

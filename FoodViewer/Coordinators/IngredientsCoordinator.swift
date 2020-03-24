@@ -16,7 +16,7 @@ final class IngredientsCoordinator: Coordinator {
   
     var viewController: UIViewController? = nil
     
-    weak var productPair: ProductPair? = nil
+    weak private var productPair: ProductPair? = nil
     
     private var coordinatorViewController: IngredientsTableViewController? {
         self.viewController as? IngredientsTableViewController
@@ -37,20 +37,23 @@ final class IngredientsCoordinator: Coordinator {
 
     /// Show the image with the current display language
     func showImage(imageTitle: String?, imageData: ProductImageData?) {
+        
         let coordinator = ImageViewCoordinator(with: self, imageTitle: imageTitle, imageData: imageData)
         self.childCoordinators.append(coordinator)
         coordinator.show()
     }
 
-    func selectLanguage(with currentLanguageCode: String?, atAnchor button:UIButton) {
-        let coordinator = SelectLanguageCoordinator(with: self, primaryLanguageCode: productPair?.primaryLanguageCode, currentLanguageCode: currentLanguageCode, languageCodes: productPair?.remoteProduct?.languageCodes, button: button)
+    func selectLanguage(for productPair: ProductPair?, with currentLanguageCode: String?, atAnchor button:UIButton) {
+        self.productPair = productPair
+        let coordinator = SelectLanguageCoordinator(with: self, primaryLanguageCode: self.productPair?.primaryLanguageCode, currentLanguageCode: currentLanguageCode, languageCodes: self.productPair?.remoteProduct?.languageCodes, button: button)
         childCoordinators.append(coordinator)
         coordinator.show()
     }
 
-    func selectTraces(anchoredOn button:UIButton) {
+    func selectTraces(for productPair: ProductPair?, anchoredOn button:UIButton) {
+        self.productPair = productPair
         let coordinator = SelectPairCoordinator.init(with:self,
-                            original: productPair?.tracesInterpreted?.list,
+                                                     original: self.productPair?.tracesInterpreted?.list,
                               allPairs: OFFplists.manager.allAllergens,
                               multipleSelectionIsAllowed: true,
                               showOriginalsAsSelected: true,

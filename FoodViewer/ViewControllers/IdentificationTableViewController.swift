@@ -17,7 +17,6 @@ class IdentificationTableViewController: UITableViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
-                coordinator?.productPair = productPair
                 tableView.reloadData()
             }
         }
@@ -947,7 +946,6 @@ class IdentificationTableViewController: UITableViewController {
     
     @objc func refreshProduct() {
         productVersion = .new
-        coordinator?.productPair = productPair
         tableView.reloadData()
         
     }
@@ -1117,7 +1115,7 @@ class IdentificationTableViewController: UITableViewController {
 extension IdentificationTableViewController:  BarcodeTableViewCellDelegate {
     
     func barcodeTableViewCell(_ sender:BarcodeTableViewCell, didTap button:UIButton) {
-        coordinator?.selectMainLanguage()
+        coordinator?.selectMainLanguage(for: self.productPair)
     }
 }
 
@@ -1145,7 +1143,7 @@ extension IdentificationTableViewController: TagListViewButtonCellDelegate {
     
     // function to let the delegate know that the button has been tapped
     func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
-        coordinator?.addLanguages()
+        coordinator?.addLanguages(for: self.productPair)
     }
 }
 //
