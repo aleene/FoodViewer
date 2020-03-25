@@ -166,9 +166,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         get {
             return delegate?.currentLanguageCode
         }
-        //set {
-        //    delegate?.currentLanguageCode = newValue
-        //}
     }
     
     // This variable returns an array with tuples.
@@ -203,10 +200,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         get {
             var newImages: [String:ProductImageSize] = [:]
             switch productVersion {
-            //case .local:
-            //    if let validImages = productPair?.localProduct?.frontImages {
-            //        newImages = validImages
-            //    }
             case .remote:
                 if let validImages = productPair?.remoteProduct?.frontImages {
                     newImages = validImages
@@ -220,8 +213,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     newImages = newImages.merging(images, uniquingKeysWith: { (first, last) in last } )
                 }
             }
-            //images.count > 0 {
-            //newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
             return newImages
         }
     }
@@ -230,10 +221,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         get {
             var newImages: [String:ProductImageSize] = [:]
             switch productVersion {
-            //case .local:
-            //    if let validImages = productPair?.localProduct?.ingredientsImages {
-             //       newImages = validImages
-            //    }
             case .remote:
                 if let validImages = productPair?.remoteProduct?.ingredientsImages {
                     newImages = validImages
@@ -247,8 +234,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     newImages = newImages.merging(images, uniquingKeysWith: { (first, last) in last } )
                 }
             }
-            //images.count > 0 {
-            //newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
             return newImages
         }
     }
@@ -257,10 +242,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         get {
             var newImages: [String:ProductImageSize] = [:]
             switch productVersion {
-            //case .local:
-            //    if let validImages = productPair?.localProduct?.nutritionImages {
-            //        newImages = validImages
-            //    }
             case .remote:
                 if let validImages = productPair?.remoteProduct?.nutritionImages {
                     newImages = validImages
@@ -275,8 +256,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 }
 
             }
-            //images.count > 0 {
-            //newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
             return newImages
         }
     }
@@ -328,7 +307,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         struct CellIdentifier {
             static let GalleryImageCell = "Gallery Image Cell"
             static let AddImageCell = "Add Image Cell"
-            static let SectionHeader =  "SectionHeaderView"
+            static let SectionHeader =  "GallerySectionHeaderView"
+            static let TagListViewCell = "TagListViewCollectionViewCellIdentifier"
         }
         struct NibIdentifier {
             static let AddImageCollectionCell = "AddImageCollectionViewCell"
@@ -345,16 +325,26 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         // If there are updated images, only show those
         switch tableStructure[section] {
         case .frontImages:
-            return editMode ? frontImages.count + 1 : frontImages.count
+            return editMode
+                ? frontImages.count + 1
+                : (frontImages.count == 1 ? frontImages.count : 1)
         case .ingredientsImages:
-            return editMode ? ingredientsImages.count + 1 : ingredientsImages.count
+            return editMode
+                ? ingredientsImages.count + 1
+                : (ingredientsImages.count == 1 ? ingredientsImages.count : 1)
         case .nutritionImages:
-            return editMode ? nutritionImages.count + 1 : nutritionImages.count
+            return editMode
+                ? nutritionImages.count + 1
+                : (nutritionImages.count == 1 ? nutritionImages.count : 1)
         case .originalImages:
             // Allow the user to add an image when in editMode
-            return editMode ? originalImages.count + 1 : originalImages.count
+            return editMode
+                ? originalImages.count + 1
+                : (originalImages.count == 0 ? 1 : originalImages.count)
         }
     }
+    
+    private var addImageType: SectionType?
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -373,16 +363,21 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     }
                 }
                 cell.label.text = keyTuples(for:Array(frontImages.keys))[indexPath.row].1
-          //  }
                 cell.indexPath = indexPath
                 cell.editMode = editMode
                 cell.delegate = self
                 return cell
             } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
-                cell.addImageFromCameraButton?.addTarget(self, action: #selector(ProductImagesCollectionViewController.takePhotoButtonTapped), for: .touchUpInside)
-                cell.addImageFromCameraRoll?.addTarget(self, action: #selector(ProductImagesCollectionViewController.useCameraRollButtonTapped), for: .touchUpInside)
-                return cell
+                if editMode {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
+                    cell.delegate = self
+                    cell.tag = 0
+                    return cell
+                } else {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
+                    cell.setup(datasource: self, delegate: nil, width: 30, tag: 0)
+                    return cell
+                }
             }
         case .ingredientsImages:
             if indexPath.row < ingredientsImages.count && ingredientsImages.count > 0 {
@@ -402,11 +397,16 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 cell.delegate = self
                 return cell
             } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
-                cell.addImageFromCameraButton?.addTarget(self, action: #selector(ProductImagesCollectionViewController.takePhotoButtonTapped), for: .touchUpInside)
-                cell.addImageFromCameraRoll?.addTarget(self, action: #selector(ProductImagesCollectionViewController.useCameraRollButtonTapped), for: .touchUpInside)
-
-                return cell
+                if editMode {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
+                    cell.delegate = self
+                    cell.tag = 1
+                    return cell
+                } else {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
+                 cell.setup(datasource: self, delegate: nil, width: 30, tag: 1)
+                    return cell
+                }
             }
 
         case .nutritionImages:
@@ -427,26 +427,25 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 cell.delegate = self
                 return cell
             } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
-                cell.addImageFromCameraButton?.addTarget(self, action: #selector(ProductImagesCollectionViewController.takePhotoButtonTapped), for: .touchUpInside)
-                cell.addImageFromCameraRoll?.addTarget(self, action: #selector(ProductImagesCollectionViewController.useCameraRollButtonTapped), for: .touchUpInside)
-
-                return cell
+                if editMode {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
+                    cell.delegate = self
+                    cell.tag = 2
+                    return cell
+                } else {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
+                    cell.setup(datasource: self, delegate: nil, width: 30, tag: 2)
+                    return cell
+                }
             }
 
         default:
             // in editMode the last element of a row is an add button
-            if editMode && indexPath.row == originalImages.count {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
-                cell.addImageFromCameraButton?.addTarget(self, action: #selector(ProductImagesCollectionViewController.takePhotoButtonTapped), for: .touchUpInside)
-                cell.addImageFromCameraRoll?.addTarget(self, action: #selector(ProductImagesCollectionViewController.useCameraRollButtonTapped), for: .touchUpInside)
-                return cell
-            } else {
+            if indexPath.row < originalImages.count && originalImages.count > 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                 let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
-            
+                
                 if let result = originalImages[key]?.largest?.fetch() {
-                 
                     switch result {
                     case .success(let image):
                         cell.imageView.image = image
@@ -460,23 +459,37 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 cell.delegate = self
                 cell.imageKey = key
                 return cell
+            } else {
+                if editMode {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
+                    cell.delegate = self
+                    cell.tag = 3
+                    return cell
+                } else {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
+                    cell.setup(datasource: self, delegate: nil, width: 30, tag: 3)
+                    return cell
+                }
             }
         }
     }
+    
 
 // MARK: UICollectionViewDelegate
 
     override func collectionView(_ collectionView: UICollectionView,
                                  viewForSupplementaryElementOfKind kind: String,
                                  at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: Storyboard.CellIdentifier.SectionHeader,
-                                                                         for: indexPath) as! GalleryCollectionReusableView
-        var newTitle = ""
+                                
         //1
         switch kind {
         //2
         case UICollectionView.elementKindSectionHeader:
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                                 withReuseIdentifier: Storyboard.CellIdentifier.SectionHeader,
+                                                                             for: indexPath) as! GalleryCollectionReusableView
+            var newTitle = ""
+
             switch tableStructure[indexPath.section] {
             case .frontImages:
                 switch productVersion {
@@ -524,11 +537,12 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
                 }
             }
-            headerView.label.text = newTitle
+            headerView.label?.text = newTitle
+            return headerView
         default:
             assert(false, "ProductImagesCollectionViewController: Unexpected element kind")
         }
-        return headerView
+        return UICollectionReusableView()
     }
 
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -541,8 +555,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             selectedImage = indexPath
             guard selectedImage != nil else { return }
             let imageTuple = imageDetailsTuple(for: selectedImage!.section)
-            coordinator?.showImage(imageTitle: imageTuple.0, imageData: imageTuple.1)
-            //performSegue(withIdentifier: segueIdentifier(to: ImageViewController.self), sender: self)
+            guard let title = imageTuple.0 else { return }
+            guard let data = imageTuple.1 else { return }
+            coordinator?.showImage(imageTitle: title, imageData: data)
         }
     }
     
@@ -564,7 +579,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
     }
 
-    @objc func takePhotoButtonTapped() {
+    private func takePhotoButtonTapped() {
         // opens the camera and allows the user to take an image and crop
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
@@ -591,7 +606,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         return picker
     }()
 
-    @objc func useCameraRollButtonTapped() {
+    private func useCameraRollButtonTapped() {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true
@@ -785,9 +800,43 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     }
 
 }
-
+//
+// MARK: - AddImageCollectionViewCellDelegate Functions
+//
+extension ProductImagesCollectionViewController : AddImageCollectionViewCellDelegate {
+    func addImageCollectionViewCellAddFromCamera(_ sender: AddImageCollectionViewCell, receivedTapOn button: UIButton) {
+        switch sender.tag {
+        case 0:
+            addImageType = .frontImages("")
+        case 1:
+            addImageType = .ingredientsImages("")
+        case 2:
+            addImageType = .nutritionImages("")
+        default:
+            addImageType = .originalImages("")
+        }
+        useCameraRollButtonTapped()
+    }
+    
+    func addImageCollectionViewCellAddFromCameraRoll(_ sender: AddImageCollectionViewCell, receivedTapOn button: UIButton) {
+        switch sender.tag {
+        case 0:
+            addImageType = .frontImages("")
+        case 1:
+            addImageType = .ingredientsImages("")
+        case 2:
+            addImageType = .nutritionImages("")
+        default:
+            addImageType = .originalImages("")
+        }
+        takePhotoButtonTapped()
+    }
+    
+    
+}
+//
 // MARK: - UICollectionViewDelegateFlowLayout Functions
-
+//
 extension ProductImagesCollectionViewController : GalleryCollectionViewCellDelegate {
     
     // function to let the delegate know that the deselect button has been tapped
@@ -825,6 +874,12 @@ extension ProductImagesCollectionViewController : UICollectionViewDelegateFlowLa
         
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
+    
+    //func collectionView(_ collectionView: UICollectionView, layout
+    //    collectionViewLayout: UICollectionViewLayout,
+     //                   referenceSizeForFooterInSection section: Int) -> CGSize {
+    //    return CGSize(width:200, height:88)
+   // }
     
     //3
     func collectionView(_ collectionView: UICollectionView,
@@ -864,10 +919,19 @@ extension ProductImagesCollectionViewController: UIPopoverPresentationController
 extension ProductImagesCollectionViewController: GKImagePickerDelegate {
     
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
-        
-        // print("front image", image.size)
+        guard productPair != nil else { return }
+
         let newImageID = "\(originalImages.count + 1)"
-        productPair?.update(image: image, id: newImageID)
+        switch addImageType ?? SectionType.originalImages("") {
+        case .frontImages:
+            productPair!.update(frontImage: image, for: productPair!.primaryLanguageCode)
+        case .ingredientsImages:
+            productPair!.update(ingredientsImage: image, for: productPair!.primaryLanguageCode)
+        case .nutritionImages:
+            productPair!.update(nutritionImage: image, for: productPair!.primaryLanguageCode)
+        default:
+            productPair?.update(image: image, id: newImageID)
+        }
         
         collectionView?.reloadData()
         imagePicker.dismiss(animated: true, completion: nil)
@@ -1010,5 +1074,25 @@ extension ProductImagesCollectionViewController: GKImageCropControllerDelegate {
             let indexSet = IndexSet.init(integer: validIndex)
             self.collectionView?.reloadSections(indexSet)
         }
+    }
+}
+//
+// MARK: - TagListView Datasource Functions
+//
+extension ProductImagesCollectionViewController: TagListViewDataSource {
+    
+    public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        return 1
+    }
+    
+    public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        return TranslatableStrings.None
+    }
+    
+    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+    }
+    
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return ColorSchemes.error
     }
 }

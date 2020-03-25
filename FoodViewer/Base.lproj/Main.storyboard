@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -3257,13 +3258,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="mdN-hT-V5V">
                             <size key="itemSize" width="200" height="200"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Gallery Image Cell" id="ze3-ij-q0C" customClass="GalleryCollectionViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="60" y="0.0" width="200" height="200"/>
+                                <rect key="frame" x="60" y="50" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
@@ -3308,7 +3309,51 @@
                                     <outlet property="label" destination="d97-Pg-D0G" id="ZxX-uH-APo"/>
                                 </connections>
                             </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="TagListViewCollectionViewCellIdentifier" id="gwX-y8-Wr0" customClass="TagListViewCollectionViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="60" y="250" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9zJ-kt-jJn">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nvg-Hl-nmX" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="16" width="168" height="168"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Nvg-Hl-nmX" secondAttribute="bottom" constant="8" id="Bhh-Dd-u9u"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Nvg-Hl-nmX" secondAttribute="trailing" constant="8" id="aic-Cs-MXH"/>
+                                        <constraint firstItem="Nvg-Hl-nmX" firstAttribute="leading" secondItem="9zJ-kt-jJn" secondAttribute="leadingMargin" constant="8" id="b0q-cB-ZWG"/>
+                                        <constraint firstItem="Nvg-Hl-nmX" firstAttribute="top" secondItem="9zJ-kt-jJn" secondAttribute="topMargin" constant="8" id="q5D-EP-AOz"/>
+                                    </constraints>
+                                </collectionViewCellContentView>
+                                <connections>
+                                    <outlet property="tagListView" destination="Nvg-Hl-nmX" id="2mq-Po-jgJ"/>
+                                </connections>
+                            </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="GallerySectionHeaderView" id="54l-b1-CLS" customClass="GalleryCollectionReusableView" customModule="FoodViewer" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaX-iy-xh3">
+                                    <rect key="frame" x="16" y="16" width="288" height="34"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="MaX-iy-xh3" firstAttribute="top" secondItem="54l-b1-CLS" secondAttribute="topMargin" constant="8" id="Jtn-Mg-gdz"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="MaX-iy-xh3" secondAttribute="trailing" constant="8" id="Vrl-Nw-Jf3"/>
+                                <constraint firstItem="MaX-iy-xh3" firstAttribute="bottom" secondItem="54l-b1-CLS" secondAttribute="bottomMargin" constant="8" id="Wek-sk-vtN"/>
+                                <constraint firstItem="MaX-iy-xh3" firstAttribute="leading" secondItem="54l-b1-CLS" secondAttribute="leadingMargin" constant="8" id="qR9-sE-1DL"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="label" destination="MaX-iy-xh3" id="TbX-OA-4D9"/>
+                            </connections>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="8yh-Vs-DnU" id="lCB-Qg-kHu"/>
                             <outlet property="delegate" destination="8yh-Vs-DnU" id="VPQ-Fb-6o1"/>
@@ -3322,7 +3367,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dvt-B0-1dl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="yDz-f3-wd1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2938" y="3464"/>
+            <point key="canvasLocation" x="2936.25" y="3463.7323943661972"/>
         </scene>
         <!--Diet Compliancy Table View Controller-->
         <scene sceneID="AbX-Pb-8ek">

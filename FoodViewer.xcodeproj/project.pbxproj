@@ -276,6 +276,7 @@
 		516BA5941CC522D8008A094A /* MostRecentProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BA5931CC522D8008A094A /* MostRecentProduct.swift */; };
 		516BA5961CC769DD008A094A /* EnergyUnitUsed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BA5951CC769DD008A094A /* EnergyUnitUsed.swift */; };
 		516BB741222689FD004D16FF /* ContinuousScanDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BB740222689FC004D16FF /* ContinuousScanDefaults.swift */; };
+		516F88AF242BA73A00EF07CD /* TagListViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516F88AE242BA73800EF07CD /* TagListViewCollectionViewCell.swift */; };
 		5174997A2208957000C3ED3E /* OFFSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517499792208957000C3ED3E /* OFFSearchRequest.swift */; };
 		5174997C2208961100C3ED3E /* SearchFetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174997B2208961100C3ED3E /* SearchFetchStatus.swift */; };
 		5174997E22098A9D00C3ED3E /* OFFSearchProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174997D22098A9D00C3ED3E /* OFFSearchProducts.swift */; };
@@ -697,6 +698,7 @@
 		516BA5931CC522D8008A094A /* MostRecentProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MostRecentProduct.swift; sourceTree = "<group>"; };
 		516BA5951CC769DD008A094A /* EnergyUnitUsed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyUnitUsed.swift; sourceTree = "<group>"; };
 		516BB740222689FC004D16FF /* ContinuousScanDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousScanDefaults.swift; sourceTree = "<group>"; };
+		516F88AE242BA73800EF07CD /* TagListViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		517499792208957000C3ED3E /* OFFSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFSearchRequest.swift; path = API/OFFSearchRequest.swift; sourceTree = "<group>"; };
 		5174997B2208961100C3ED3E /* SearchFetchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFetchStatus.swift; sourceTree = "<group>"; };
 		5174997D22098A9D00C3ED3E /* OFFSearchProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFSearchProducts.swift; path = API/OFFSearchProducts.swift; sourceTree = "<group>"; };
@@ -1056,6 +1058,7 @@
 			children = (
 				512B451A23FAC0AB00BFBCF0 /* AddImageCollectionViewCell.swift */,
 				512B451D23FAC14100BFBCF0 /* GalleryCollectionViewCell.swift */,
+				516F88AE242BA73800EF07CD /* TagListViewCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -1954,6 +1957,7 @@
 				51E6D79023F1AE3E00AD7947 /* IngredientsCoordinator.swift in Sources */,
 				512390FA1E7BEA0700A5D6FD /* PercentUnit.swift in Sources */,
 				512B44E123FABB3C00BFBCF0 /* NutrimentScoreTableViewCell.swift in Sources */,
+				516F88AF242BA73A00EF07CD /* TagListViewCollectionViewCell.swift in Sources */,
 				512B44C323FABA2200BFBCF0 /* SelectNutrientUnitViewController.swift in Sources */,
 				51C769B41DDA0D010000D260 /* CaseCountable.swift in Sources */,
 				512B453C23FBF53200BFBCF0 /* OpenFoodFactsSettingsCoordinator.swift in Sources */,
