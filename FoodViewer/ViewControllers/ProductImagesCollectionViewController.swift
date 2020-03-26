@@ -815,7 +815,7 @@ extension ProductImagesCollectionViewController : AddImageCollectionViewCellDele
         default:
             addImageType = .originalImages("")
         }
-        useCameraRollButtonTapped()
+        takePhotoButtonTapped()
     }
     
     func addImageCollectionViewCellAddFromCameraRoll(_ sender: AddImageCollectionViewCell, receivedTapOn button: UIButton) {
@@ -829,7 +829,7 @@ extension ProductImagesCollectionViewController : AddImageCollectionViewCellDele
         default:
             addImageType = .originalImages("")
         }
-        takePhotoButtonTapped()
+        useCameraRollButtonTapped()
     }
     
     

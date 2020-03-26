@@ -20,7 +20,7 @@
                         <rect key="frame" x="45.5" y="20" width="25" height="25"/>
                         <state key="normal" image="CameraRoll"/>
                         <connections>
-                            <action selector="addImageFromCameraRollButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="v6Y-U8-UHY"/>
+                            <action selector="addImageFromCameraRollButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="z5u-CW-yUT"/>
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eIq-Mh-dNM">
@@ -38,7 +38,7 @@
                         </constraints>
                         <state key="normal" image="Camera"/>
                         <connections>
-                            <action selector="addImageFromCameraButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Tf1-g7-IH5"/>
+                            <action selector="addImageFromCameraButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="ts0-Ni-KM7"/>
                         </connections>
                     </button>
                 </subviews>
@@ -55,8 +55,8 @@
             </constraints>
             <size key="customSize" width="116" height="113"/>
             <connections>
-                <outlet property="addImageFromCameraButton" destination="L02-av-5DD" id="9ez-mB-GE7"/>
-                <outlet property="addImageFromCameraRoll" destination="Uqe-ck-2Nq" id="g7E-cL-XAD"/>
+                <outlet property="addImageFromCameraButton" destination="L02-av-5DD" id="bqT-Zo-KIj"/>
+                <outlet property="addImageFromCameraRoll" destination="Uqe-ck-2Nq" id="Unj-Wc-Pav"/>
             </connections>
             <point key="canvasLocation" x="11" y="73.5"/>
         </collectionViewCell>

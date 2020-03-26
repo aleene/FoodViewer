@@ -146,7 +146,9 @@ class ProductPageViewController: UIPageViewController {
 
             switch validProductPair.remoteStatus {
             case .productNotAvailable:
-                currentProductPage = .gallery
+                if let valid = validProductPair.localProduct?.hasImages, !valid {
+                    currentProductPage = .gallery
+                }
             default:
                 currentProductPage = .identification
             }
@@ -165,7 +167,9 @@ class ProductPageViewController: UIPageViewController {
             }
             switch validProductPair.remoteStatus {
             case .productNotAvailable:
-                currentProductPage = .gallery
+                if let valid = validProductPair.localProduct?.hasImages, !valid {
+                    currentProductPage = .gallery
+                }
             default:
                 break
             }
@@ -349,20 +353,23 @@ class ProductPageViewController: UIPageViewController {
         switch validProductPair.remoteStatus {
         case .productNotAvailable:
             editMode = true
+        //    if let valid = validProductPair.localProduct?.hasImages, !valid {
+        //        pages = [.gallery]
+         //   }
             // This will show a page, which allows the user to add all necessary images.
-            pages = [.gallery]
         default:
-            // define the pages (and order), which will be shown
-            switch currentProductType {
-            case .food:
-                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .nutritionScore, .dietCompliancy, .completion, .json]
-            case .beauty:
-                pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion, .json]
-            case .petFood:
-                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion, .json]
-            case .product:
-                pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion, .json]
+            break
             }
+        // define the pages (and order), which will be shown
+        switch currentProductType {
+        case .food:
+            pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .nutritionScore, .dietCompliancy, .completion, .json]
+        case .beauty:
+            pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion, .json]
+        case .petFood:
+            pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion, .json]
+        case .product:
+            pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion, .json]
         }
     }
     
