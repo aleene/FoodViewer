@@ -143,15 +143,7 @@ class ProductPageViewController: UIPageViewController {
                 return
             }
             actionButton?.isEnabled = true
-
-            switch validProductPair.remoteStatus {
-            case .productNotAvailable:
-                if let valid = validProductPair.localProduct?.hasImages, !valid {
-                    currentProductPage = .gallery
-                }
-            default:
-                currentProductPage = .identification
-            }
+            currentProductPage = .identification
             initPages()
             refreshPageInterface()
             currentLanguageCode = validProductPair.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
@@ -161,17 +153,9 @@ class ProductPageViewController: UIPageViewController {
     
     var currentProductPage: ProductPage = .notSet {
         didSet {
-            guard let validProductPair = productPair else {
+            guard productPair != nil else {
                 currentProductPage = .notSet
                 return
-            }
-            switch validProductPair.remoteStatus {
-            case .productNotAvailable:
-                if let valid = validProductPair.localProduct?.hasImages, !valid {
-                    currentProductPage = .gallery
-                }
-            default:
-                break
             }
             // If a product image is on screen, get rid of it.
             popImageViewController()
@@ -242,8 +226,8 @@ class ProductPageViewController: UIPageViewController {
                     confirmBarButtonItem.image = image
                 }
             } else {
-            if let image = UIImage.init(named: Constant.Button.Edit) {
-                confirmBarButtonItem.image = image
+                if let image = UIImage.init(named: Constant.Button.Edit) {
+                    confirmBarButtonItem.image = image
                 }
             }
         }
@@ -750,6 +734,13 @@ class ProductPageViewController: UIPageViewController {
         setupBackButton()
     }
     
+    @objc func pop() {
+        if self.parent is UINavigationController {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+
+    
     private func setupBackButton() {
         if UIDevice.current.orientation.isLandscape {
             navigationItem.leftBarButtonItem = nil
@@ -758,8 +749,13 @@ class ProductPageViewController: UIPageViewController {
         if UIDevice.current.orientation.isPortrait {
             // This is only needed in the case of a splitView,
             // so on iPhone or slide over is nothing to see
+
             if let splitVC = self.parent?.splitViewController {
                 navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem
+            }
+            
+            if self.traitCollection.horizontalSizeClass == .compact {
+                navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "Back"), style: .plain, target: self, action: #selector(ProductPageViewController.pop))
             }
         }
     }
@@ -776,7 +772,8 @@ class ProductPageViewController: UIPageViewController {
         dataSource = self
         delegate = self
         self.parent?.splitViewController?.delegate = self
-        
+        // On the iPhone a backbutton is needed to the singleProductTVC
+        setupBackButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {

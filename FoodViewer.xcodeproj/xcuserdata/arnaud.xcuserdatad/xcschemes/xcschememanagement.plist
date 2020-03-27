@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>FoodViewer copy.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>FoodViewer.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -22,6 +27,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>516F88C5242D072000EF07CD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5180B9031C5D3B57002DBD21</key>
 		<dict>
 			<key>primary</key>

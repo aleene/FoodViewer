@@ -383,7 +383,8 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
             
         case .expirationDate:
-            if productPair!.barcodeType.productType == .beauty {
+            if productPair != nil,
+                productPair!.barcodeType.productType == .beauty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:UITableViewCell.self), for: indexPath)
                 cell.frame.size.width = tableView.frame.size.width
                 switch productVersion {

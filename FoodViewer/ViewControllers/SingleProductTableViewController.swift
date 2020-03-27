@@ -129,6 +129,9 @@ class SingleProductTableViewController: UITableViewController {
     
     var selectedProductPair: ProductPair? = nil {
         didSet {
+            if let isExistingProduct = selectedProductPair?.localProduct?.hasImages, !isExistingProduct {
+                selectedPageIndex = 1
+            }
             if selectedPageIndex == nil {
                 selectedPageIndex = 0
             }
