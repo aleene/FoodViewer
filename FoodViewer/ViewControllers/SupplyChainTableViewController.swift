@@ -416,16 +416,18 @@ class SupplyChainTableViewController: UITableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:ExpirationDateTableViewCell.self), for: indexPath) as! ExpirationDateTableViewCell
-                // print (productPair?.remoteProduct?.expirationDate, productPair?.remoteProduct?.state)
+                var date: Date?
                 switch productVersion {
                 case .new:
-                    cell.date = productPair?.localProduct?.expirationDate ?? productPair?.remoteProduct?.expirationDate
+                    date = productPair?.localProduct?.expirationDate ?? productPair?.remoteProduct?.expirationDate
                 default:
-                    cell.date = productPair?.remoteProduct?.expirationDate
+                    date = productPair?.remoteProduct?.expirationDate
                 }
-                cell.editMode = editMode
-                cell.delegate = self
-                cell.tag = indexPath.section
+                cell.setup(date: date,
+                    delegate: self,
+                    showButton: editMode,
+                    width: self.tableView.frame.size.width,
+                    tag: indexPath.section)
                 return cell
             }
         case .periodAfterOpening:

@@ -495,22 +495,6 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         }
     }
     
-    // MARK: - Viewcontroller lifecycle
-    /*
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        if let tabVC = self.parent?.parent as? UITabBarController {
-            // start out with the recents tab
-            tabVC.selectedIndex = 0
-            tabVC.delegate = self
-            
-            // show history products
-            //products.list = .recent
-            products.search = nil
-        }
-    }
-    */
     override func viewDidLoad() {
         super.viewDidLoad()
         

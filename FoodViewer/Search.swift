@@ -51,7 +51,6 @@ class Search {
         }
     }
     
-    private var loadStatus: SearchFetchStatus = .notLoaded
 
     // Contains all the search fetch results
     var productPairs: [ProductPair] = []
@@ -77,6 +76,14 @@ class Search {
             return query!.searchPairsWithArray()[component].2
         }
     }
+    
+    func startSearch() {
+        if query != nil {
+            loadAll()
+        }
+    }
+    
+    var searchResultSize: Int? = nil
 
     init() {
         self.query = SearchTemplate()
@@ -96,6 +103,19 @@ class Search {
         createSearchQuery(for:(category, validString))
     }
 
+    
+    private var loadStatus: SearchFetchStatus = .notLoaded
+
+    private func createSearchQuery(for tuple:(SearchComponent?, String?)?) {
+        if let validSearch = tuple,
+            let validComponent = validSearch.0,
+            let validString = validSearch.1 {
+            query = SearchTemplate(for:validString, in:validComponent)
+        } else {
+            query = nil
+        }
+    }
+    
     private func loadAll() {
         // Has a search been setup?
         if query != nil {
@@ -107,25 +127,7 @@ class Search {
           }
         }
     }
-    
-    func startSearch() {
-        if query != nil {
-            loadAll()
-        }
-    }
-    
-    private func createSearchQuery(for tuple:(SearchComponent?, String?)?) {
-        if let validSearch = tuple,
-            let validComponent = validSearch.0,
-            let validString = validSearch.1 {
-            query = SearchTemplate(for:validString, in:validComponent)
-        } else {
-            query = nil
-        }
-    }
-    
-    var searchResultSize: Int? = nil
-    
+
     private func startFreshSearch() {
         if let validQuery = query {
             if !validQuery.isEmpty {
@@ -181,7 +183,7 @@ class Search {
                         switch fetchResult {
                         case .list(let searchResult):
                             // searchResult is a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
-                            self.query?.numberOfSearchResults = searchResult.0
+                            self.searchResultSize = searchResult.0
                             // is this the first page of a search?
                             if searchResult.1 == 1 {
                                 // Then we should restart with an empty product list
@@ -253,13 +255,8 @@ class Search {
 // Notification definitions
 
 extension Notification.Name {
-    //static let ProductListExtended = Notification.Name("OFFSearchProducts.Notification.ProductListExtended")
-    //static let ProductNotAvailable = Notification.Name("OFFSearchProducts.Notification.ProductNotAvailable")
     static let SearchStarted = Notification.Name("OFFSearchProducts.Notification.SearchStarted")
     static let SearchLoaded = Notification.Name("OFFSearchProducts.Notification.SearchLoaded")
-    //static let FirstProductLoaded = Notification.Name("OFFSearchProducts.Notification.FirstProductLoaded")
-    //static let HistoryIsLoaded = Notification.Name("OFFSearchProducts.Notification.HistoryIsLoaded")
-    //static let ProductLoadingError = Notification.Name("OFFSearchProducts.Notification.ProductLoadingError")
 }
 
 

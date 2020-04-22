@@ -968,7 +968,7 @@ class ProductPair {
         ProductStorage.manager.save(validProduct) { (result: ResultType<FoodProduct>) in
             switch result {
             case .success:
-                print("ProductPair: Writing successfull")
+                print("ProductPair: Local save successfull")
             case .failure(let error):
                 print("ProductPair: error code: \(error.localizedDescription)")
             }
@@ -987,7 +987,7 @@ class ProductPair {
             case .failure(let error as NSError):
                 DispatchQueue.main.async(execute: { () -> Void in
                     NotificationCenter.default.post(name: .ProductUpdateFailed, object: nil, userInfo: nil)
-                    print("ProductPair: error code:", error.code)
+                    print("ProductPair: error code:", error.code, error.description)
                 })
 
             }

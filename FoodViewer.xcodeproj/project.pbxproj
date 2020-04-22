@@ -634,6 +634,8 @@
 		516F8B9B242D080400EF07CD /* Allergens.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446A23FAB2AD00BFBCF0 /* Allergens.plist */; };
 		516F8B9C242D080400EF07CD /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512B442B23FAB21B00BFBCF0 /* TagView.xib */; };
 		516F8B9D242D080400EF07CD /* Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B447223FAB2AE00BFBCF0 /* Countries.plist */; };
+		516F8BA62433B9D100EF07CD /* UserStatsSelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516F8BA52433B9CF00EF07CD /* UserStatsSelectorTableViewController.swift */; };
+		516F8BA82433BF2300EF07CD /* UserStatsSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516F8BA72433BF2300EF07CD /* UserStatsSummaryViewController.swift */; };
 		5174997A2208957000C3ED3E /* OFFSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517499792208957000C3ED3E /* OFFSearchRequest.swift */; };
 		5174997C2208961100C3ED3E /* SearchFetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174997B2208961100C3ED3E /* SearchFetchStatus.swift */; };
 		5174997E22098A9D00C3ED3E /* OFFSearchProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174997D22098A9D00C3ED3E /* OFFSearchProducts.swift */; };
@@ -1090,8 +1092,10 @@
 		516F88BB242D06DE00EF07CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		516F88BD242D06DE00EF07CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		516F8A34242D072100EF07CD /* FoodViewer copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FoodViewer copy-Info.plist"; path = "/Users/arnaud/Programming/FoodViewer/FoodViewer copy-Info.plist"; sourceTree = "<absolute>"; };
-		516F8BA3242D080400EF07CD /* FoodViewer iPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FoodViewer iPhone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		516F8BA3242D080400EF07CD /* FoodViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		516F8BA4242D080400EF07CD /* FoodViewer copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FoodViewer copy2-Info.plist"; path = "/Users/arnaud/Programming/FoodViewer/FoodViewer copy2-Info.plist"; sourceTree = "<absolute>"; };
+		516F8BA52433B9CF00EF07CD /* UserStatsSelectorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserStatsSelectorTableViewController.swift; path = UserTab/UserStatsSelectorTableViewController.swift; sourceTree = "<group>"; };
+		516F8BA72433BF2300EF07CD /* UserStatsSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserStatsSummaryViewController.swift; path = UserTab/UserStatsSummaryViewController.swift; sourceTree = "<group>"; };
 		517499792208957000C3ED3E /* OFFSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFSearchRequest.swift; path = API/OFFSearchRequest.swift; sourceTree = "<group>"; };
 		5174997B2208961100C3ED3E /* SearchFetchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFetchStatus.swift; sourceTree = "<group>"; };
 		5174997D22098A9D00C3ED3E /* OFFSearchProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFSearchProducts.swift; path = API/OFFSearchProducts.swift; sourceTree = "<group>"; };
@@ -1741,7 +1745,7 @@
 				5180B9041C5D3B57002DBD21 /* FoodViewer.app */,
 				51975CCB1E6EB84F0075B57B /* FoodViewerTests.xctest */,
 				514EFA7F222FEBB3008FFD2A /* FoodViewerUITests.xctest */,
-				516F8BA3242D080400EF07CD /* FoodViewer iPhone.app */,
+				516F8BA3242D080400EF07CD /* FoodViewer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1891,6 +1895,8 @@
 				512B454F23FD7F1F00BFBCF0 /* SecondLevel */,
 				512B43B923FAB05500BFBCF0 /* Coordinator.swift */,
 				512B453823FB01B800BFBCF0 /* SettingsTab */,
+				516F8BA52433B9CF00EF07CD /* UserStatsSelectorTableViewController.swift */,
+				516F8BA72433BF2300EF07CD /* UserStatsSummaryViewController.swift */,
 			);
 			name = Coordinators;
 			sourceTree = "<group>";
@@ -2106,7 +2112,7 @@
 			);
 			name = "FoodViewer iPhone";
 			productName = FoodViewer;
-			productReference = 516F8BA3242D080400EF07CD /* FoodViewer iPhone.app */;
+			productReference = 516F8BA3242D080400EF07CD /* FoodViewer.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5180B9031C5D3B57002DBD21 /* FoodViewer */ = {
@@ -2705,6 +2711,7 @@
 				512B445B23FAB24200BFBCF0 /* StringExtension.swift in Sources */,
 				512B43DA23FAB16100BFBCF0 /* ShowDietTriggersTableViewController.swift in Sources */,
 				51FA7B802360775700FF2A4E /* ProhibitedBrands.swift in Sources */,
+				516F8BA62433B9D100EF07CD /* UserStatsSelectorTableViewController.swift in Sources */,
 				512B44D323FABAE200BFBCF0 /* NutritionScoreTableViewCell.swift in Sources */,
 				512B442423FAB20100BFBCF0 /* GKImageCropOverlayView.swift in Sources */,
 				5100A96320791DAC00E6E368 /* Sample.swift in Sources */,
@@ -2819,6 +2826,7 @@
 				512B43C023FAB07800BFBCF0 /* SupplyChainCoordinator.swift in Sources */,
 				512B44BF23FABA0900BFBCF0 /* SelectLanguageAndImageTypeViewController.swift in Sources */,
 				512B444F23FAB23600BFBCF0 /* RSEANGenerator.swift in Sources */,
+				516F8BA82433BF2300EF07CD /* UserStatsSummaryViewController.swift in Sources */,
 				512B443523FAB21C00BFBCF0 /* TagListViewDelegate.swift in Sources */,
 				512B44DD23FABB2A00BFBCF0 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */,
 				512B445D23FAB24A00BFBCF0 /* UIColorExtension.swift in Sources */,
@@ -3164,15 +3172,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "FoodViewer copy2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.6;
+				MARKETING_VERSION = 3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FoodViewer;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3192,15 +3200,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "FoodViewer copy2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.6;
+				MARKETING_VERSION = 3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FoodViewer;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -3325,13 +3333,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FoodViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.6;
+				MARKETING_VERSION = 3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -3352,13 +3360,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = FoodViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.6;
+				MARKETING_VERSION = 3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

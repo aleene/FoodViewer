@@ -24,14 +24,19 @@ class ExpirationDateTableViewCell: UITableViewCell {
     fileprivate struct Constants {
         static let NoExpirationDate = TranslatableStrings.NoExpirationDate
     }
-
-    var date: Date? = nil {
-        didSet {
-            setTextFieldStyle()
-        }
+    
+    func setup(date: Date?, delegate: ExpirationDateTableViewDelegate, showButton: Bool, width: CGFloat, tag: Int) {
+        self.date = date
+        self.editMode = showButton
+        self.delegate = delegate
+        self.tag = tag
+        self.frame.size.width = width
+        setTextFieldStyle()
     }
 
-    var editMode: Bool = false {
+    private var date: Date?
+
+    private var editMode: Bool = false {
         didSet {
             if editMode != oldValue {
                 setTextFieldStyle()
@@ -39,7 +44,7 @@ class ExpirationDateTableViewCell: UITableViewCell {
         }
     }
     
-    var delegate: ExpirationDateTableViewDelegate? = nil {
+    private var delegate: ExpirationDateTableViewDelegate? = nil {
         didSet {
             expirationDateTextField?.delegate = delegate as? UITextFieldDelegate
         }
