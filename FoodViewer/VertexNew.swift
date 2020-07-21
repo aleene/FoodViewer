@@ -17,6 +17,7 @@ class VertexNew: Node {
         static let ParentsKey = "Parents"
         static let ChildrenKey = "Children"
         static let KeyKey = "Key"
+        static let LanguagesKey = "Languages"
     }
     
     init() {

@@ -323,25 +323,25 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         // If there are updated images, only show those
+        // In edit mode show the edit controls as a separate item
+        // In non-edit mode show the all the images or an image telling there are no images.
         switch tableStructure[section] {
         case .frontImages:
-            return editMode
-                ? frontImages.count + 1
-                : (frontImages.count == 1 ? frontImages.count : 1)
+            return numberOfItems(in: editMode, for: frontImages.count )
         case .ingredientsImages:
-            return editMode
-                ? ingredientsImages.count + 1
-                : (ingredientsImages.count == 1 ? ingredientsImages.count : 1)
+            return numberOfItems(in: editMode, for: ingredientsImages.count)
         case .nutritionImages:
-            return editMode
-                ? nutritionImages.count + 1
-                : (nutritionImages.count == 1 ? nutritionImages.count : 1)
+            return numberOfItems(in: editMode, for: nutritionImages.count )
         case .originalImages:
             // Allow the user to add an image when in editMode
-            return editMode
-                ? originalImages.count + 1
-                : (originalImages.count == 0 ? 1 : originalImages.count)
+            return numberOfItems(in: editMode, for: originalImages.count )
         }
+    }
+    
+    private func numberOfItems(in editMode: Bool, for number: Int) -> Int {
+        return editMode
+            ? number + 1
+            : ( number == 0 ? 1 : number )
     }
     
     private var addImageType: SectionType?

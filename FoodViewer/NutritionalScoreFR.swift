@@ -118,7 +118,7 @@ public class NutritionalScoreFR: NutritionalScore {
     public var isBeverage = false
     public var isWater = false
 
-    public struct Key {
+    public struct ThisClassKey {
         static let SaturatedFatRatio = "fr-sat-fat-for-fats"
     }
     
@@ -284,12 +284,12 @@ public class NutritionalScoreFR: NutritionalScore {
             if let validSaturatedFatTotalFatRatioPoints = saturatedFatToTotalFatRatioPoints {
                 nutrimentScore.points = validSaturatedFatTotalFatRatioPoints
                 pointsA.removeValue(forKey: Nutrient.saturatedFat.key)
-                pointsA[Key.SaturatedFatRatio] = nutrimentScore
+                pointsA[ThisClassKey.SaturatedFatRatio] = nutrimentScore
             } else {
-                pointsA[Key.SaturatedFatRatio] = nil
+                pointsA[ThisClassKey.SaturatedFatRatio] = nil
             }
         } else {
-            pointsA.removeValue(forKey: Key.SaturatedFatRatio)
+            pointsA.removeValue(forKey: ThisClassKey.SaturatedFatRatio)
         }
     }
     
