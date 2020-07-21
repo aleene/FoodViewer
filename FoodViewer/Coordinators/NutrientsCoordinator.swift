@@ -133,11 +133,12 @@ extension NutrientsCoordinator : AddNutrientCoordinatorProtocol {
     
     func addNutrientViewController(_ sender:AddNutrientViewController, add nutrientTuple:(Nutrient, String, NutritionFactUnit)?) {
         if let newNutrientTuple = nutrientTuple {
-                var newNutrient = NutritionFactItem()
-                newNutrient.nutrient = newNutrientTuple.0
-                newNutrient.itemName = newNutrientTuple.1
-                newNutrient.valueUnit = newNutrientTuple.2
-                productPair?.update(fact: newNutrient)
+            //var newNutrient = NutritionFactItem()
+            //newNutrient.nutrient = newNutrientTuple.0
+            // is it necessary to add the unit?
+            //newNutrient.itemName = newNutrientTuple.1
+            //newNutrient.valueUnit = newNutrientTuple.2
+            productPair?.update(fact: NutritionFactItem.init(nutrient: newNutrientTuple.0, unit: newNutrientTuple.2))
         }
         coordinatorViewController?.refreshProduct()
         sender.dismiss(animated: true, completion: nil)

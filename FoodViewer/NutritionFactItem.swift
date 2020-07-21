@@ -47,7 +47,7 @@ public struct NutritionFactItem {
         self.value = nil
         self.standard = nil
         self.serving = nil
-        self.valueUnit = unit
+        self.standardUnit = unit
         self.nutrient = nutrient
     }
 

@@ -232,12 +232,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 displayFact.unit = fact.valueUnit
             } else {
                 displayFact.value = fact.localeStandardValue(editMode: editMode)
-                switch fact.nutrient {
-                case .fat, .proteins, .fiber:
-                    displayFact.unit = .Percent
-                default:
-                    displayFact.unit = .Gram
-                }
+                // Do not remember why we had this code
+                //switch fact.nutrient {
+                //case .fat, .proteins, .fiber:
+                //    displayFact.unit = .Percent
+                //default:
+                //    displayFact.unit = .Gram
+                //}
+                displayFact.unit = fact.standardUnit
             }
         case .perThousandGram:
             if let validValue = fact.standard, !validValue.isEmpty {
@@ -1179,6 +1181,7 @@ extension NutrientsTableViewController: NutrientsCellDelegate {
 // MARK: - AddNutrientCellDelegate functions
 //
 extension NutrientsTableViewController:  AddNutrientCellDelegate {
+    
     func addNutrientTableViewCell(_ sender: AddNutrientTableViewCell, tappedOn button: UIButton) {
         coordinator?.showAddNutrientSelector(for: self.productPair, current: adaptedNutritionFacts.compactMap { $0.name }, anchoredOn: button)
     }
