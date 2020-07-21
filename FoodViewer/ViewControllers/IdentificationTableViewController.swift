@@ -151,7 +151,9 @@ class IdentificationTableViewController: UITableViewController {
             //    productPair?.remoteProduct?.packagingInterpreted ?? .undefined
             default: break
             }
-            return productPair?.remoteProduct?.packagingOriginal ?? .undefined
+            // remove the currentLanguage prefix if there is one
+            let cleanedTags = productPair?.remoteProduct?.packagingOriginal.prefixed(withAdded: nil, andRemoved: Locale.interfaceLanguageCode)
+            return  cleanedTags ?? .undefined
         }
     }
     

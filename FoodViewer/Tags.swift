@@ -60,8 +60,20 @@ public enum Tags : Equatable {
         self.init()
         self = .available([text])
     }
-
     
+    public var isAvailable: Bool {
+        switch self {
+        case .available:
+            return true
+        default:
+            return false
+        }
+    }
+    
+//
+// MARK: - Clean tag functions
+//
+
     // add a languageCode to tags that have no language and remove languageCode for another language
     public func prefixed(withAdded languageCode: String?, andRemoved otherLanguageCode: String?) -> Tags {
         switch self {
@@ -84,60 +96,13 @@ public enum Tags : Equatable {
         return self
     }
     
-    public var isAvailable: Bool {
-        switch self {
-        case .available:
-            return true
-        default:
-            return false
-        }
-    }
-
-    public static func ==(leftTag: Tags, rightTag: Tags) -> Bool {
-        switch leftTag {
-        case .available(let leftList):
-            switch rightTag {
-            case .available(let rightList):
-                for item in leftList {
-                    if !rightList.contains(item) {
-                        return false
-                    }
-                }
-                return true
-            case .empty, .undefined, .notSearchable:
-                return false
-            }
-        case .empty:
-            switch rightTag {
-            case .empty:
-                return true
-            case .available, .undefined, .notSearchable:
-                return false
-            }
-        case .undefined:
-            switch rightTag {
-            case .undefined:
-                return true
-            case .empty, .available, .notSearchable:
-                return false
-            }
-        case .notSearchable:
-            switch rightTag {
-            case .notSearchable:
-                return true
-            case .empty, .available, .undefined:
-                return false
-            }
-        }
-    }
-
+    
     // add a languageCode to tags that have no language and remove languageCode for another language
-    public func tags(withAdded languageCode: String, andRemoved otherLanguageCode: String) -> [String] {
+    public func tags(withAdded languageCode: String) -> [String] {
         switch self {
         case let .available(list):
             if !list.isEmpty {
-                let newList = addPrefix(list, prefix: languageCode)
-                return strip(newList, of:otherLanguageCode)
+                return addPrefix(list, prefix: languageCode)
             }
         default:
             break
@@ -146,11 +111,12 @@ public enum Tags : Equatable {
     }
     
     // add a languageCode to tags that have no language and remove languageCode for another language
-    public func tags(withAdded languageCode: String) -> [String] {
+    public func tags(withAdded languageCode: String, andRemoved otherLanguageCode: String) -> [String] {
         switch self {
         case let .available(list):
             if !list.isEmpty {
-                return addPrefix(list, prefix: languageCode)
+                let newList = addPrefix(list, prefix: languageCode)
+                return strip(newList, of:otherLanguageCode)
             }
         default:
             break
@@ -200,11 +166,9 @@ public enum Tags : Equatable {
             break
         }
     }
-    
 //
 // MARK: - Multi tag functions
 //
-    
     public var list: [String] {
         switch self {
         case .available(let list):
@@ -215,7 +179,7 @@ public enum Tags : Equatable {
         return []
     }
     
-    var hasTags: Bool {
+    public var hasTags: Bool {
         return !list.isEmpty
     }
 
@@ -317,6 +281,46 @@ public enum Tags : Equatable {
     
     private func add(_ prefix: String, to string: String) -> String {
         return string.contains(":") ? string : prefix + ":" + string
+    }
+//
+// MARK: - Equatable protocol conformance
+//
+    public static func ==(leftTag: Tags, rightTag: Tags) -> Bool {
+        switch leftTag {
+        case .available(let leftList):
+            switch rightTag {
+            case .available(let rightList):
+                for item in leftList {
+                    if !rightList.contains(item) {
+                        return false
+                    }
+                }
+                return true
+            case .empty, .undefined, .notSearchable:
+                return false
+            }
+        case .empty:
+            switch rightTag {
+            case .empty:
+                return true
+            case .available, .undefined, .notSearchable:
+                return false
+            }
+        case .undefined:
+            switch rightTag {
+            case .undefined:
+                return true
+            case .empty, .available, .notSearchable:
+                return false
+            }
+        case .notSearchable:
+            switch rightTag {
+            case .notSearchable:
+                return true
+            case .empty, .available, .undefined:
+                return false
+            }
+        }
     }
 
 }
