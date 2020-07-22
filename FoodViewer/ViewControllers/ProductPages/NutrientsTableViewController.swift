@@ -1517,7 +1517,8 @@ extension NutrientsTableViewController: TagListViewDataSource {
         
         switch tableStructure[tagListView.tag] {
         case .nutritionFacts:
-            return nutritionFactsTagTitle
+            // Will only be shown when there are no nutrients specified
+            return TranslatableStrings.NoNutritionDataIndicated
         case .image:
             return ImageFetchResult.noImageAvailable.description
 
