@@ -47,7 +47,9 @@ class CategoriesTableViewController: UITableViewController {
         //case remoteTagsHierarchy // tags with parents?
         case remoteTagsTranslated // tags with parents?
         //case remoteTagsHierarchyTranslated // tags with parents?
-        case new // new data as entered by the user locally
+        case new
+        // new data as entered by the user locally.
+        // This should be a mix of existing edited data and new data
         
         var isRemote: Bool {
             switch self {
@@ -75,7 +77,13 @@ class CategoriesTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
+                // Show the categories in the interface language
                 if var list = productPair?.localProduct?.categoriesTranslated.list {
+                    // if nothing has been added, initialise with the existing categories
+                    if list.isEmpty,
+                        let oldList = productPair?.remoteProduct?.categoriesTranslated.list {
+                        list = oldList
+                    }
                     list = list.sorted(by: { $0 < $1 })
                     return Tags.init(list:list)
                 }
@@ -383,6 +391,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
             case .undefined, .empty:
                 productPair?.update(categories: [title])
             case var .available(list):
+                // the list contains the old, edited and new entries
                 list.append(title)
                 productPair?.update(categories: list)
             case .notSearchable:

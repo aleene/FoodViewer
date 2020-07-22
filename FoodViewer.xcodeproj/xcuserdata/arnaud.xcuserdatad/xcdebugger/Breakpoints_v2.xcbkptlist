@@ -113,8 +113,8 @@
             filePath = "FoodViewer/ViewControllers/CategoriesTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "325"
-            endingLineNumber = "325"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "tagListView(_:titleForTagAt:)"
             landmarkType = "7">
          </BreakpointContent>
