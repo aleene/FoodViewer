@@ -98,7 +98,7 @@
 "Beauty  barcode." = "Code barre beauté";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
-"Beauty Products" = "Produits beauté";
+"Beauty Products" = "Produits de beauté";
 
 /* Cell title indicating the product belongs to the beverages category */
 "Beverages category" = "Catégorie Boissons";
@@ -360,10 +360,10 @@
 "Enter date" = "Saisis date";
 
 /* Placeholder string in a textfield to explain the purpose of a food product barcode search */
-"Enter food product barcode." = "Saisis code barre produit alimentaire";
+"Enter food product barcode." = "Saisir le code barre produit alimentaire";
 
 /* Placeholder string in a textfield to explain the purpose of a petfood barcode search */
-"Enter petfood product barcode." = "Saisis code barre produit animalier";
+"Enter petfood product barcode." = "Saisir le code barre produit pour animaux";
 
 /* Placeholder text for field where user should enter a postal code. */
 "Enter postal code" = "Code postal";
@@ -372,22 +372,22 @@
 "Enter product barcode." = "Saisis code barre produit";
 
 /* Placeholder text for field where user should enter a shop name. */
-"Enter shop name" = "Saisis nom du magasin";
+"Enter shop name" = "Saisir le nom du magasin";
 
 /* Placeholder text for field where user should enter a street name. */
-"Enter street name" = "Saisis nom de la rue";
+"Enter street name" = "Saisir le nom de la rue";
 
 /* Placeholder text of a textView for the generic product name. */
-"Enter the generic name of the product" = "Saisis nom générique";
+"Enter the generic name of the product" = "Saisir le nom générique";
 
 /* Placeholder text of a textView for the ingredients. */
 "Enter the ingredients of the product" = "Ingrédients";
 
 /* Placeholder text of a textView for the product name. */
-"Enter the name of the product" = "Saisis nom produit";
+"Enter the name of the product" = "Saisir le nom du produit";
 
 /* String to indicate the date, when the product was created on OFF. */
-"Entry Date" = "Date de creation";
+"Entry Date" = "Date de création";
 
 /* String of a button, to prefill the nutrients with the standard EU set. */
 "EU Set" = "UE";
@@ -511,7 +511,7 @@
 "Joules" = "Joules";
 
 /* Title of viewController, which shows the json as is available on OFF. */
-"Json" = "Json";
+"Json" = "JSON";
 
 /* Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories */
 "Kilocalories" = "Kilocalories";
@@ -535,7 +535,7 @@
 "Languages" = "Langues";
 
 /* Generic string to indicate the last date the product was edited */
-"Last Edit Date" = "Dernier date d'édition";
+"Last Edit Date" = "Dernière date d'édition";
 
 /* String to indicate the level (score) of the product. */
 "Level" = "Niveau";
@@ -598,7 +598,7 @@
 "no edit date available" = "pas de date d'édition disponible";
 
 /* Title of cell when no expiration date is avalable */
-"No expiration date" = "DLU pas disponible";
+"No expiration date" = "DLU non disponible";
 
 /* String if no generic name is available */
 "No generic name available" = "Pas de nom générique dispo";
@@ -613,7 +613,7 @@
 "no ingredients specified" = "pas d'ingrédients spécifiés";
 
 /* Text for language of product, when there is no language defined. */
-"no language defined" = "pas de langue défini";
+"no language defined" = "pas de langue définie";
 
 /* String when no diet matches have been found. */
 "No matches for this level detected" = "Pas des correspondances";
@@ -631,34 +631,34 @@
 "No nutrients (non-edited)" = "Pas de nutriments (pas édité)";
 
 /* Text in a TagListView, when no nutrition data has been specified in the product data. */
-"no nutrition data available" = "pas d'info nutritionnelles spécifiés";
+"no nutrition data available" = "pas d'info nutritionnelle spécifiée";
 
 /* Text in a TagListView, when no nutrition data has been specified in the product data. */
-"no nutrition data indicated" = "pas d'info nutritionnelles spécifiés";
+"no nutrition data indicated" = "pas d'info nutritionnelle spécifiée";
 
 /* Text to indicate that the history of products is empty. */
 "No products listed" = "Pas de produits spécifiés";
 
 /* String if no quantity is available */
-"No quantity available" = "Pas des quantités disponible";
+"No quantity available" = "Pas de quantités disponibles";
 
 /* String presented in a tagView if the site did not respond */
 "No reponse" = "Pas de réponse";
 
 /* String in TableView section when a search is not defined. */
-"No search defined" = "Requete pas défini";
+"No search defined" = "Requête non définie";
 
 /* String in TableView section when a search is not yet carried out. */
 "No search result" = "Pas encore de résultats";
 
 /* Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour. */
-"no serving size available" = "pas de portion spécifié";
+"no serving size available" = "pas de portion spécifiée";
 
 /* Title for viewcontroller with detailed product images, when no title is given. */
 "No title" = "Pas de titre";
 
 /* Text for language of product, when there is no trace defined. */
-"no trace defined" = "pas de trace défini";
+"no trace defined" = "pas de trace définie";
 
 /* Text in a pickerView, when no translated text is available */
 "No translation" = "Pas de traduction";
@@ -700,10 +700,10 @@
 "Nova Evaluation Triggers" = "Déclencheurs NOVA";
 
 /* Tag text to indicate that nutrient data for the named nutrient %@ is unavailable. */
-"Nutrient data for %@ unavailable" = "Valeurs pour %@ pas disponible";
+"Nutrient data for %@ unavailable" = "Valeurs pour %@ non disponibles";
 
 /* Tag text to indicate that nutrient data is unavailable. */
-"Nutrient data unavailable" = "Valeurs nutritionnelles pas disponible";
+"Nutrient data unavailable" = "Valeurs nutritionnelles non disponibles";
 
 /* Generic text to indicate the nutrients of a product. */
 "Nutrients" = "Nutriments";
@@ -712,13 +712,13 @@
 "Nutriments Availability" = "Disponibilité nutriments";
 
 /* Text to indicate that the nutriscore is not applicable to this product (type). */
-"NutriScore not Applicable" = "NutriScore pas applicable";
+"NutriScore not Applicable" = "Nutri-Score pas applicable";
 
 /* Text to indicate that the nutriscore can not be calculated due to missing data. */
-"NutriScore not calculable" = "NutriScore indéterminable";
+"NutriScore not calculable" = "Nutri-Score indéterminable";
 
 /* Text in a TagListView, when no nutrition data is available on the package. */
-"nutrition data not on package" = "pas de valeurs nutri sur emballage";
+"nutrition data not on package" = "pas de valeurs nutri sur l'emballage";
 
 /* Text in a TagListView, when the nutrition data has been specified in the product data. */
 "nutrition data per serving and standard unit available" = "info nutritionnelle disponible par portion et unité standard";
@@ -730,19 +730,19 @@
 "Nutrition Facts (edited)" = "Composition nutritionnelle (édité)";
 
 /* Text to indicate the original nutrition facts of a product. */
-"Nutrition Facts (non-edited)" = "Composition nutritionnelle (épas dité)";
+"Nutrition Facts (non-edited)" = "Composition nutritionnelle (pas édité)";
 
 /* Description for NutritionData per one kilogram */
 "Nutrition Facts (per 1 kg)" = "Comp. nutritionnelle (par kg)";
 
 /* Description for NutritionData per standard unit */
-"Nutrition Facts (per 100g/100ml)" = "Comp. nutritionnelle (par 100g/100ml)";
+"Nutrition Facts (per 100g/100ml)" = "Comp. nutritionnelle (pour 100g/100ml)";
 
 /* Description for NutritionData per serving */
 "Nutrition Facts (per serving)" = "Comp. nutritionnelle (par portion)";
 
 /* Tableview header section for the image of the nutritional facts */
-"Nutrition Facts Image" = "Photo info nutritionnelles";
+"Nutrition Facts Image" = "Photo des infos nutritionnelles";
 
 /* Tableview header section for the edited image of the nutritional facts */
 "Nutrition Facts Image (edited)" = "Photo info nutritionnelles (édité)";
@@ -754,25 +754,25 @@
 "Nutrition Scores" = "Évaluations nutritionnelles";
 
 /* Header for a table section showing the total results France calculated by FoodViewer */
-"Nutritional Score France (FV)" = "Score nutritionnel France (FV)";
+"Nutritional Score France (FV)" = "Nutri-Score (FV)";
 
 /* Header for a table section showing the total results France calculated by OFF */
-"Nutritional Score France (OFF)" = "Score nutritionnel France (OFF)";
+"Nutritional Score France (OFF)" = "Nutri-Score (OFF)";
 
 /* Header for a table section showing the total results UK calculated by FoodViewer */
-"Nutritional Score UK (FV)" = "Score nutritionnel  Royaume-Uni (FV)";
+"Nutritional Score UK (FV)" = "Score nutritionnel Royaume-Uni (FV)";
 
 /* Header for a table section showing the total results UK calculated by OFF */
 "Nutritional Score UK (OFF)" = "Score nutritionnel Royaume-Uni (OFF)";
 
 /* Header title of tableview section, indicating the websites for the product */
-"Official product website" = "Site officiele produit";
+"Official product website" = "Site officiel du produit";
 
 /* Header title of tableview section, indicating the edited website for the product */
-"Official product website (edited)" = "Site officiele produit (édité)";
+"Official product website (edited)" = "Site officiel du produit (édité)";
 
 /* Header title of tableview section, indicating the original website for the product */
-"Official product website (non-edited)" = "Site officiele produit (pas édité)";
+"Official product website (non-edited)" = "Site officiel du produit (pas édité)";
 
 /* String in button, to let the user indicate he wants to start the search. */
 "OK" = "OK";
@@ -781,7 +781,7 @@
 "Open Food Facts Preferences" = "Préférences Open Food Facts";
 
 /* String for the Activity Action Screen */
-"Open in Safari" = "Ouvre dans Safari";
+"Open in Safari" = "Ouvrir dans Safari";
 
 /* Description of the original tags in the json */
 "Original" = "Original";
@@ -857,7 +857,7 @@
 "Petfood barcode." = "Code barre animalier";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
-"Petfood Products" = "Produits animaliers";
+"Petfood Products" = "Produits pour animaux";
 
 /* String in PickerViewController to indicate the photographer role of a contributor */
 "Photographer" = "Photographe";
@@ -911,13 +911,13 @@
 "Product" = "Produit";
 
 /* Placeholder string in a textfield to explain the purpose of a product barcode search */
-"Product barcode." = "Code barre produit";
+"Product barcode." = "Code barre du produit";
 
 /* Title of a segment in a UISegmentedControl, which indicates that the values of the product are leading. */
 "Product Defined" = "Produit défini";
 
 /* Alert message, when the product could not be retrieved from Internet. */
-"Product does not exist. Add?" = "Produit n'existe pas. Ajouter?";
+"Product does not exist. Add?" = "Le produit n'existe pas. L'ajouter?";
 
 /* String presented in a tagView if the product has been loaded */
 "Product is loaded" = "Produit chargé";
@@ -926,22 +926,22 @@
 "Product is updated" = "Produit changé";
 
 /* Title of a segmented control segment, which lets the user set the default language of the new product tag entries as Product Language */
-"Product Language" = "Langue produit";
+"Product Language" = "Langue du produit";
 
 /* String presented in a tagView if the product list has been loaded */
 "Product list is loaded" = "Produits chargés";
 
 /* String presented in a tagView if the product is currently being loaded */
-"Product loading" = "En cours de charger produit";
+"Product loading" = "Chargement du produit en cours";
 
 /* String presented in a tagView if the product loading has failed */
-"Product loading failed" = "Chargement produit échoué";
+"Product loading failed" = "Echec du chargement du produit";
 
 /* String in picker, which lets the user select the search result order. Order on the product names. */
-"Product name" = "Nom produit";
+"Product name" = "Nom du produit";
 
 /* Secction title, to indicate the product name does not exist */
-"Product name missing" = "Nom produit manque";
+"Product name missing" = "Nom du produit manquant";
 
 /* String presented in a tagView if no product is available on OFF */
 "Product not available" = "Produit pas disponible";
@@ -956,13 +956,13 @@
 "Purchase address" = "Adresse d'achat";
 
 /* Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought */
-"Purchase address (edited)" = "Adresse d'achat (édité)";
+"Purchase address (edited)" = "Adresse d'achat (éditée)";
 
 /* Generic string to indicate the address original (street/city/postalcode/country) where the product was bought */
-"Purchase address (non-edited)" = "Adresse d'achat (pas édité)";
+"Purchase address (non-edited)" = "Adresse d'achat (pas éditée)";
 
 /* Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought */
-"Purchase address (normalized)" = "Adresse d'achat (normalisé)";
+"Purchase address (normalized)" = "Adresse d'achat (normalisée)";
 
 /* Tableview sectionheader for size of package. */
 "Quantity" = "Quantité";
@@ -974,10 +974,10 @@
 "Quantity (non-edited)" = "Quantité (pas édité)";
 
 /* String in button, to let the user indicate he wants to cancel username/password input. */
-"Reset application" = "Remet appli à zero";
+"Reset application" = "Réinitialise l'appli";
 
 /* String presented in a tagView if a response was received */
-"Response received" = "Réponse reçu";
+"Response received" = "Réponse reçue";
 
 /* Header for section of tableView with names of the stores where the product is sold. */
 "Sale Stores" = "Magasins de vente";
@@ -986,13 +986,13 @@
 "Salt" = "Sel";
 
 /* Text of a label that wil indicate the fat level (low/medium/high) by colour. */
-"Salt level" = "Taux sel";
+"Salt level" = "Taux de sel";
 
 /* Product name of the product shown at first start */
 "Sample Product for Demonstration, the globally known M&M's" = "Produit de démonstration, les M&Ms connu globalement";
 
 /* Text of a label that will indicate the saturated fat level (low/medium/high) by colour. */
-"Saturated Fat level" = "Taux graisse saturé";
+"Saturated Fat level" = "Taux de graisses saturées";
 
 /* Title in cell with the saturated fat to all fat ratio */
 "Saturated Fat to Total Fat ratio" = "Rapport Graisses Saturés sur Graisses Totals";
@@ -1006,8 +1006,8 @@
 /* Title of the first tab of a tabbarVC */
 "Scanner" = "Scanner";
 
-/* Title of a tableview header, which shows the Nutrition Score and Nova Value */
-"Score Summary" = "Sommaire nutri-score";
+/* Title of a tableview header, which shows the Nutrition Score and NOVA Value */
+"Score Summary" = "Sommaire Nutri-Score";
 
 /* Prefix of a title of a Tableview controller
    Title of the third Tabbar item of a TabBarVC, which alows he user to set up and perform OFF searches */
@@ -1032,16 +1032,16 @@
 "Search Products" = "Cherche produits";
 
 /* String presented in a tagView for the search query */
-"Search query" = "Définition de requete";
+"Search query" = "Définition de requête";
 
 /* Part of a sentece indicating the number of search results */
-"search results" = "résultats de récherche";
+"search results" = "résultats de recherche";
 
 /* Indicating that a search has been defined */
-"Search set up" = "Requete définie";
+"Search set up" = "Requête définie";
 
 /* String to indicate the text, which will be used to search multiple fileds of a product. */
-"Search Text" = "Texte à chercher";
+"Search Text" = "Texte à rechercher";
 
 /* Title of a Tableview controller, indicating a search is in progress. */
 "Searching" = "Cherchant";
@@ -1053,13 +1053,13 @@
 "Select a product from the history." = "Sélectionne produit de l'histoire";
 
 /* Title of a picker row where the user has to select an element in the picker. */
-"Select Completion Status" = "Saisis état de complétion";
+"Select Completion Status" = "Saisir l'état de complétion";
 
 /* Title of a viewcontroller where the user has to select a language in a pickerView list of languages. */
-"Select language" = "Sélectionne langue";
+"Select language" = "Sélectionner la langue";
 
 /* First item in a pickerView, indicating what the user should do */
-"Select role" = "Choisit role";
+"Select role" = "Choisir le role";
 
 /* Text of a tableview row, which allows the user to select diets */
 "Select the diets, that you want the app to highlight in the product summary." = "Sélectionne les régimes, qui doivent mis en avant dans le sommaire du produit.";
@@ -1080,7 +1080,7 @@
 "Selected Front Images (edited)" = "Photo du produit sélectionnées (édité)";
 
 /* Gallery header text presenting the non-edited selected front images */
-"Selected Front Images (non-edited)" = "Photo du produit sélectionnées (pas édité)";
+"Selected Front Images (non-edited)" = "Photo du produit sélectionnées (non modifiées)";
 
 /* Gallery header text presenting the selected ingredients images */
 "Selected Ingredients Images" = "Photos d'ingrédients sélectionnées";
@@ -1089,7 +1089,7 @@
 "Selected Ingredients Images (edited)" = "Photos d'ingrédients sélectionnées (édité)";
 
 /* Gallery header text presenting the non-edited selected ingredients images */
-"Selected Ingredients Images (non-edited)" = "Photos d'ingrédients sélectionnées (pas édité)";
+"Selected Ingredients Images (non-edited)" = "Photos d'ingrédients sélectionnées (non modifiées)";
 
 /* Title of a tableview section with the selected languages for a product. */
 "Selected Languages" = "Langues sélectionnés";
@@ -1098,97 +1098,97 @@
 "Selected Nutrition Images" = "Photos de nutrition sélectionnées";
 
 /* Gallery header text presenting the edited selected nutrition images */
-"Selected Nutrition Images (edited)" = "Photos de nutrition sélectionnées (édité)";
+"Selected Nutrition Images (edited)" = "Photos de nutrition sélectionnées (modifiées)";
 
 /* Gallery header text presenting the non-edited selected nutrition images */
-"Selected Nutrition Images (non-edited)" = "Photos de nutrition sélectionnées (pas édité)";
+"Selected Nutrition Images (non-edited)" = "Photos de nutrition sélectionnées (non modifiées)";
 
 /* Title of a tableview section with the selected traces for a product. */
-"Selected Traces" = "Traces sélectionnés";
+"Selected Traces" = "Traces sélectionnées";
 
 /* Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value) */
 "Serving" = "Portion";
 
 /* Title of a segment in a segmentedControl indicating that the a search needs to be setup by tapping. */
-"Set" = "Définie";
+"Set" = "Définir";
 
 /* cell title label, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels. */
-"Set a warning for specific allergen(s)." = "Défini avertissage allergènes/traces";
+"Set a warning for specific allergen(s)." = "Définir des alertes allergènes/traces";
 
 /* Title of second segment in switch, which  indicates the user can set another account */
-"Set Account" = "Défini compte";
+"Set Account" = "Définir un compte";
 
 /* Title of a tableView, in which a user can select rows (diets) to display. */
-"Set Diets to Display" = "Sélectionne le régime à montrer";
+"Set Diets to Display" = "Sélectionner le régime à montrer";
 
 /* Title of a tableView section, which lets the user set warnings */
-"Set ingredient warnings" = "Défini avertissage ingrédients";
+"Set ingredient warnings" = "Définir des alertes ingrédients";
 
 /* Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc */
 "Set preferences for salt/sodium, kJ/kcal/Cal, etc." = "Défini ";
 
 /* TableView row label, which allows the user to set up the application. */
-"Set product type (food/beauty/petFood), reset, etc." = "Défini type produit";
+"Set product type (food/beauty/petFood), reset, etc." = "Définir le type de produit";
 
 /* Row title, which allows the user to set his open food facts username. */
-"Set your OpenFoodFacts account." = "Défini ton compte Open Food Facts";
+"Set your OpenFoodFacts account." = "Définir votre compte Open Food Facts";
 
 /* Title of a tableview header  indicating that the corresding field has been set. */
-"Setup query" = "Définie requête";
+"Setup query" = "Définir une recherche avancée";
 
-/* SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
-"Show" = "Montre";
+/* SegmentedControl index text for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
+"Show" = "Afficher";
 
 /* Title of third segment in switch, which lets the user select between salt or sodium */
 "Sodium" = "Sodium";
 
 /* Header for a table section showing the special categories */
-"Special categories" = "Catégories speciaux";
+"Special categories" = "Catégories spéciales";
 
 /* Title in AlertViewController, which lets the user enter his username/password. */
-"Specify password" = "Spécifie mot de passe";
+"Specify password" = "Saisir votre mot de passe";
 
 /* Explanatory text in AlertViewController, which lets the user enter his username/password. */
 "Specify your credentials for OFF" = "Nom et mot de passe pour OFF";
 
 /* Title in AlertViewController, which lets the user decide if he wants to start a search. */
-"Start Search?" = "Commence Requete?";
+"Start Search?" = "Commencer la recherche?";
 
 /* Generic string to indicate the stores where the product is sold. */
 "Stores" = "Magasins";
 
 /* Generic string to indicate the edited stores where the product is sold. */
-"Stores (edited)" = "Magasins (édité)";
+"Stores (edited)" = "Magasins (modifié)";
 
 /* Generic string to indicate the original (non-edited) stores where the product is sold. */
-"Stores (non-edited)" = "Magasins (pas édité)";
+"Stores (non-edited)" = "Magasins (non modifié)";
 
 /* Generic string to indicate the original (normalized) stores where the product is sold. */
 "Stores (normalized)" = "Magasins (normalisé)";
 
 /* Text of a label that will indicate the sugar level (low/medium/high) by colour. */
-"Sugar level" = "Taux sucres";
+"Sugar level" = "Taux de sucres";
 
 /* Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations). */
 "Supply Chain" = "Circuit logistique";
 
 /* Alert title, to indicate product should be added */
-"Sure" = "Dac";
+"Sure" = "OK";
 
 /* Title of a segmented control segment, which lets the user set the default language of the new product tag entries as System Language */
-"System Language" = "Langue système";
+"System Language" = "Langue du système";
 
 /* Title of a tableView section, which lets the user set the default language of the new product tag entries */
 "Tag Entry Language" = "Langue pour les tags";
 
 /* String of a button which urges the user to take photos of the (new) product. */
-"Take Photos" = "Prend Photos";
+"Take Photos" = "Prendre des Photos";
 
 /* The title of an alert sheet, which allows the user to save he product. */
 "The local product has been changed. Should these changes be saved?" = "Le produit local a changé. Sauvegarder les changements?";
 
 /* String, which urges the user to take photos of the (new) product. */
-"This barcode is not yet listed on OFF. Please take some photos, so the data can be added." = "Ce code-barres n'est pas encore répertorié sur FF. Veuillez prendre quelques photos, afin que les données puissent être ajoutées.";
+"This barcode is not yet listed on OFF. Please take some photos, so the data can be added." = "Ce code-barres n'est pas encore répertorié sur OFF. Veuillez prendre quelques photos, afin que les données puissent être ajoutées.";
 
 /* An explanatory text in the common name field. */
 "This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Ce produit de démonstration vous montre comment une produit est présenté. Passez au pages suivants pour voir plus de détails sur le produit. Quand vous commencez à scanner, ce produit sera supprimé.";
@@ -1197,22 +1197,22 @@
 "Traces" = "Traces";
 
 /* Text to indicate the edited traces of a product. */
-"Traces (edited)" = "Traces (édité)";
+"Traces (edited)" = "Traces (modifiées)";
 
 /* Text to indicate the original (un-edited) traces of a product. */
-"Traces (non-edited)" = "Traces (pas édité)";
+"Traces (non-edited)" = "Traces (mon modifiées)";
 
 /* Text to indicate the original (normalized) traces of a product. */
-"Traces (normalized)" = "Traces (normalisé)";
+"Traces (normalized)" = "Traces (normalisées)";
 
 /* Text to indicate the original (normalized) traces of a product. */
-"Traces (translated)" = "Traces (traduit)";
+"Traces (translated)" = "Traces (traduites)";
 
 /* Description of the interpreted tags in the json as translated by the taxonomy */
 "Translated" = "Traduit";
 
 /* String (in Segmented Control/Tag) to indicate the nutritional score level is undefined (and will not be used in the search) */
-"Undefined" = "Pas defini";
+"Undefined" = "Non défini";
 
 /* Text in a TagListView, when the field in the json was not present. */
 "Unknown" = "Inconnu";
@@ -1230,25 +1230,25 @@
 "Unselected Traces" = "Traces à selectioner";
 
 /* String presented in a tagView if an image is being uploaded */
-"Uploading image" = "Charger image";
+"Uploading image" = "Chargement de l'image…";
 
 /* String of a button, to prefill the nutrients with the standard US set. */
 "US Set" = "US";
 
 /* Title of a button in a navigation bar, which allows the user to adapt an image and use the result. */
-"Use" = "Utilise";
+"Use" = "Utiliser";
 
 /* Title of a button to indicate that user can take an image with the Camera. */
-"Use Camera" = "Utilise camera";
+"Use Camera" = "Utiliser l'appareil photo";
 
 /* Title of a button to indicate that user can pick an image from Photos. */
-"Use Photos" = "Utilise photos";
+"Use Photos" = "Utiliser la gallerie";
 
 /* Title of a segment in a segmentedControl that this parameter will be set by the user. */
 "User defined" = "Défini par l'utilisateur";
 
 /* ViewController/row title, which allows the user to set the application preferences. */
-"User Preferences" = "Préférences utilisateur";
+"User Preferences" = "Préférences";
 
 /* String in textField placeholder, to show that the user has to enter his username. */
 "Username" = "Nom du compte";
