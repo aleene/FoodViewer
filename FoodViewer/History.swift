@@ -13,24 +13,30 @@ import Foundation
 
 public struct History {
 
-    // this is the  barcode structure, each barcode also contains the product type
-    public var barcodeTuples: [(String,String)] = []
+    /// this is the  barcode structure, each barcode also contains the product type
+    /// .0 - barcode
+    /// .1 - barcodeType
+    /// .2 - comment
+    public var barcodeTuples: [(String,String, String?)] = []
     
     private var debug = false
     
     private var defaults = UserDefaults()
     
     private struct Constants {
-        static let HistoryKey = "History Key" // This is only needed for  upgrade
-        static let NewHistoryKey = "HistoryKey"
-        static let BarcodeNumberKey = "BarcodeNumberKey"
-        static let BarcodeTypeKey = "BarcodeTypeKey"
+        struct Key {
+            static let History = "History Key" // This is only needed for  upgrade
+            static let NewHistory = "HistoryKey"
+            static let BarcodeNumber = "BarcodeNumberKey"
+            static let BarcodeType = "BarcodeTypeKey"
+            static let Comment = "Key.Comment"
+        }
         static let HistorySize = 50
     }
     
     private var historyKey: String {
         get {
-            return Constants.NewHistoryKey
+            return Constants.Key.NewHistory
         }
     }
 
@@ -45,17 +51,19 @@ public struct History {
         
         // get rid of old stuff
         barcodeTuples.removeAll()
-        defaults.set(barcodeTuples, forKey: Constants.HistoryKey)
+        defaults.set(barcodeTuples, forKey: Constants.Key.History)
 
         if let barcodeDict = defaults.array(forKey: historyKey) as? [[String:AnyObject]] {
             for dict in barcodeDict {
-                let barcodeNumber = dict[Constants.BarcodeNumberKey] is String ? dict[Constants.BarcodeNumberKey] as! String : ""
-                let barcodeType = dict[Constants.BarcodeTypeKey] is String ? dict[Constants.BarcodeTypeKey] as! String : ""
-                barcodeTuples.append((barcodeNumber,barcodeType))
+                let barcodeNumber = dict[Constants.Key.BarcodeNumber] as? String ?? ""
+                let barcodeType = dict[Constants.Key.BarcodeType] as? String ?? ""
+                let comment = dict[Constants.Key.Comment] as? String
+                barcodeTuples.append((barcodeNumber, barcodeType, comment))
             }
-        } else if let barcodes = defaults.array(forKey: Constants.HistoryKey) as? [String] {
+        // read the old structure
+        } else if let barcodes = defaults.array(forKey: Constants.Key.History) as? [String] {
             for barcode in barcodes {
-                self.barcodeTuples.append((barcode, ProductType.food.rawValue))
+                self.barcodeTuples.append((barcode, ProductType.food.rawValue, nil))
             }
             update()
             // use the new structure
@@ -64,13 +72,17 @@ public struct History {
         
     // see also http://stackoverflow.com/questions/30790882/unable-to-append-string-to-array-in-swift/30790932#30790932
     //
-    mutating func add(barcodeType: BarcodeType) {
+    mutating func add(barcodeType: BarcodeType, with comment: String?
+    ) {
+        var newBarcodeTuple: (String, String, String?) = ("", "", nil)
+        newBarcodeTuple.0 = barcodeType.asString
+        // default to a food product
+        newBarcodeTuple.1 = barcodeType.productType?.rawValue ?? ProductType.food.rawValue
+        newBarcodeTuple.2 = comment
         // is this barcode new?
-        if !barcodeExists(barcodeType.asString) {
-            var newBarcodeTuple: (String,String) = ("", "")
-            newBarcodeTuple.0 = barcodeType.asString
-            // default to a food product
-            newBarcodeTuple.1 = barcodeType.productType?.rawValue ?? ProductType.food.rawValue
+        if let index = barcodeIndex(barcodeType.asString) {
+            barcodeTuples[index] = newBarcodeTuple
+        } else {
             barcodeTuples.insert(newBarcodeTuple, at: 0)
             while barcodeTuples.count > Constants.HistorySize {
                 barcodeTuples.removeLast()
@@ -88,20 +100,24 @@ public struct History {
     }
     
     private func barcodeExists(_ barcodeNumber: String) -> Bool {
-        for barcodeTuple in barcodeTuples {
-            if barcodeTuple.0 == barcodeNumber {
-                return true
-            }
-        }
-        return false
+        return barcodeIndex(barcodeNumber) != nil ? true : false
     }
     
-    func barcodes(for type: ProductType) -> [String] {
-        var list: [String] = []
+    private func barcodeIndex(_ barcodeNumber: String) -> Int? {
+        for (index, barcodeTuple) in barcodeTuples.enumerated() {
+            if barcodeTuple.0 == barcodeNumber {
+                return index
+            }
+        }
+        return nil
+    }
+
+    func info(for type: ProductType) -> [(String, String?)] {
+        var list: [(String, String?)] = []
         for index in 0..<barcodeTuples.count {
             // only append the products for the current product type
             if barcodeTuples[index].1 == type.rawValue {
-                list.append(barcodeTuples[index].0)
+                list.append((barcodeTuples[index].0, barcodeTuples[index].2))
             }
         }
         return list
@@ -140,8 +156,9 @@ public struct History {
         // save the barcodes in the new structure
         for barcodeTuple in self.barcodeTuples {
             var dict: [String:String] = [:]
-            dict[Constants.BarcodeNumberKey] = barcodeTuple.0
-            dict[Constants.BarcodeTypeKey] = barcodeTuple.1
+            dict[Constants.Key.BarcodeNumber] = barcodeTuple.0
+            dict[Constants.Key.BarcodeType] = barcodeTuple.1
+            dict[Constants.Key.Comment] = barcodeTuple.2
             newArray.append(dict)
         }
         defaults.set(newArray, forKey: historyKey)

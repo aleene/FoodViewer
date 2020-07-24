@@ -23,14 +23,17 @@ class ProductPair {
         static let ImageTypeCategoryKey = "ProductPair.Notification.ImageTypeCategory.Key"
     }
 
-    // The barcode identifies a product and thus a productPair
-    // it can not be nil !!!!
-    var barcodeType: BarcodeType = .undefined("not set", nil)
+    /// The barcode identifies a product and thus a productPair
+    /// it can not be nil !!!!
+    public var barcodeType: BarcodeType = .undefined("not set", nil)
     
     // If false, then the use can not update this product
     // This is useful for the sample products and the mostRecent product
-    var updateIsAllowed = true
+    public var updateIsAllowed = true
     
+    /// A comment that can be added by the user. It will not be uploaded to OFF. It will be stored locally in the history. It is unaffected by any update from OFF, or local edits and removals.
+    public var comment: String?
+
     // This defines the type of this product, such as .food, .beauty or .petFood
     //var productType: ProductType = .food
     
@@ -118,7 +121,7 @@ class ProductPair {
         }
     }
 //
-// MARK: Inits
+// MARK: - Initialization functions
 //
     init(remoteStatus: ProductFetchStatus, type: ProductType) {
         self.barcodeType = BarcodeType(barcodeString: remoteStatus.description, type:Preferences.manager.showProductType)
@@ -144,12 +147,17 @@ class ProductPair {
     //}
     
     convenience init(barcodeString: String, type: ProductType) {
-        self.init(barcodeType: BarcodeType(barcodeString: barcodeString, type: type))
+        self.init(barcodeType: BarcodeType(barcodeString: barcodeString, type: type), comment: nil)
     }
-    
-    init(barcodeType: BarcodeType) {
+
+    convenience init(barcodeString: String, comment: String?, type: ProductType) {
+        self.init(barcodeType: BarcodeType(barcodeString: barcodeString, type: type), comment: comment)
+    }
+
+    init(barcodeType: BarcodeType, comment: String?) {
         self.barcodeType = barcodeType
         self.remoteStatus = .initialized
+        self.comment = comment
     }
 
 //
@@ -961,6 +969,12 @@ class ProductPair {
     }
     
     func uploadOperationsDict() -> [String:Operation] {
+        
+        // save any new comment in the history
+        var storedHistory = History()
+        storedHistory.add(barcodeType: barcodeType, with: comment)
+
+
         guard let validProduct = localProduct,
             updateIsAllowed else { return [:] }
         
@@ -974,6 +988,7 @@ class ProductPair {
             }
         }
         
+
         var operations: [String:Operation] = [:]
 
         operations[self.barcodeType.asString] = ProductUpdate(product: validProduct) { (result: ResultType<OFFProductUploadResultJson>) in

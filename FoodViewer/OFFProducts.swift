@@ -52,12 +52,12 @@ class OFFProducts {
     
     private func loadAll() {
         if allProductPairs.isEmpty {
-            let storedList = storedHistory.barcodes(for: currentProductType)
+            let storedList = storedHistory.info(for: currentProductType)
             // If there is no history, we are in the cold start case
             if !storedList.isEmpty {
                 // create all productPairs found in the history
                 storedList.forEach({
-                    allProductPairs.append( ProductPair( barcodeString: $0, type: currentProductType))
+                    allProductPairs.append( ProductPair( barcodeString: $0.0, comment: $0.1, type: currentProductType))
                 })
                 // load the most recent stored product
                 allProductPairs[0].localStatus = .loading( allProductPairs[0].barcodeType.asString )
@@ -183,13 +183,13 @@ class OFFProducts {
             }
         }
         // Create the productPair
-        allProductPairs.insert(ProductPair(barcodeType: barcodeType), at: 0)
+        allProductPairs.insert(ProductPair(barcodeType: barcodeType, comment: nil), at: 0)
         // and start fetching
         allProductPairs[0].newFetch()
         // save the new product as the most recent one
         MostRecentProduct().save(product:allProductPairs[0].remoteProduct)
         // save the new product in the history
-        storedHistory.add(barcodeType: allProductPairs[0].barcodeType )
+        storedHistory.add(barcodeType: allProductPairs[0].barcodeType, with: allProductPairs[0].comment )
         
         // recalculate the productPairs
         setCurrentProductPairs()

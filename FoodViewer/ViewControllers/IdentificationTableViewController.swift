@@ -219,6 +219,7 @@ class IdentificationTableViewController: UITableViewController {
         case packaging(Int, String)
         case quantity(Int, String)
         case image(Int, String)
+        case comment(Int, String)
         
         var header: String {
             switch self {
@@ -229,7 +230,8 @@ class IdentificationTableViewController: UITableViewController {
                  .brands(_, let headerTitle),
                  .packaging(_, let headerTitle),
                  .quantity(_, let headerTitle),
-                 .image(_, let headerTitle):
+                 .image(_, let headerTitle),
+                 .comment(_, let headerTitle):
                 return headerTitle
             }
         }
@@ -243,7 +245,8 @@ class IdentificationTableViewController: UITableViewController {
                  .brands(let numberOfRows, _),
                  .packaging(let numberOfRows, _),
                  .quantity(let numberOfRows, _),
-                 .image(let numberOfRows, _):
+                 .image(let numberOfRows, _),
+                 .comment(let numberOfRows, _):
                 return numberOfRows
             }
         }
@@ -392,6 +395,26 @@ class IdentificationTableViewController: UITableViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewAddImageTableViewCell.self), for: indexPath) as! TagListViewAddImageTableViewCell
                 cell.accessoryType = .none
                 cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: ColorSchemes.error)
+                return cell
+            }
+        // This section shows a personal comment by the user.
+        // It is only stored locally and NOT uploaded to OFF.
+        case .comment:
+            // There is a comment OR we are editing
+            if productPair?.comment != nil || editMode {
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: QuantityTableViewCell.self), for: indexPath) as! QuantityTableViewCell
+                cell.tekst = productPair?.comment
+                cell.editMode = editMode
+                cell.delegate = self
+                cell.tag = indexPath.section
+                return cell
+                // There is no comment and we are not editing
+                // A status tag is shown, indicating no comment has been set
+            } else {
+                // If there is no comment, show a tag with the text "No Comment set"
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
+                cell.accessoryType = .none
+                cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
                 return cell
             }
         }
@@ -753,6 +776,7 @@ class IdentificationTableViewController: UITableViewController {
             static let Packaging = 1
             static let Quantity = 1
             static let Image = 1
+            static let Comment = 1
         }
         struct Header {
             static let Barcode = TranslatableStrings.Barcode
@@ -763,6 +787,7 @@ class IdentificationTableViewController: UITableViewController {
             static let Packaging = TranslatableStrings.Packaging
             static let Quantity = TranslatableStrings.Quantity
             static let Image = TranslatableStrings.MainImage
+            static let Comment = TranslatableStrings.Comment
         }
     }
 
@@ -783,7 +808,8 @@ class IdentificationTableViewController: UITableViewController {
         sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
         sectionsAndRows.append(.quantity(TableSection.Size.Quantity, TableSection.Header.Quantity))
         sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
-        
+        sectionsAndRows.append(.comment(TableSection.Size.Comment, TableSection.Header.Comment))
+
         return sectionsAndRows
     }
 
@@ -1301,6 +1327,9 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return count(packagingToDisplay)
         case .languages:
             return count(languagesToDisplay)
+        case .comment:
+            tagListView.normalColorScheme = ColorSchemes.none
+            return 1
         default:
             return 0
         }
@@ -1328,6 +1357,8 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return title(languagesToDisplay)
         case .image:
             return searchResult
+        case .comment:
+            return TranslatableStrings.NoCommentSet
         default:
             return("IdentificationTableViewController: TagListView titleForTagAt error")
         }
@@ -1535,6 +1566,8 @@ extension IdentificationTableViewController: UITextFieldDelegate {
             if let validText = textField.text {
                 productPair?.update(quantity: validText)
             }
+        case .comment:
+            productPair?.comment = textField.text
         default:
             return
         }
@@ -1557,7 +1590,7 @@ extension IdentificationTableViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         let currentProductSection = tableStructure[textField.tag]
         switch currentProductSection {
-        case .quantity:
+        case .quantity, .comment:
             return editMode
         default:
             // only allow edit for the primary language code

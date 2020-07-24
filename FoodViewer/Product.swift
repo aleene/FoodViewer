@@ -1011,7 +1011,8 @@ class FoodProduct {
         return novaTranslated
     }
 
-    var json: JSON? = nil
+    var json: JSON?
+    
     /*
     struct UniqueContributors {
         var contributors: [Contributor] = []

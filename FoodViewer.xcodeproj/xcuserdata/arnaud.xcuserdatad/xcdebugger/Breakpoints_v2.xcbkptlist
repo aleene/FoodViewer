@@ -202,22 +202,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4D1CA151-F80A-486A-B49E-56383CAB43EE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FoodViewer/OFFProducts.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "273"
-            endingLineNumber = "273"
-            landmarkName = "deselectImage(for:in:of:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "14412E3D-748B-4E6B-9BB6-839D8F413C6B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -225,8 +209,8 @@
             filePath = "FoodViewer/ViewControllers/IdentificationTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1031"
-            endingLineNumber = "1031"
+            startingLineNumber = "1057"
+            endingLineNumber = "1057"
             landmarkName = "imageDeleted(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -241,8 +225,8 @@
             filePath = "FoodViewer/Model/ProductPair.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1059"
-            endingLineNumber = "1059"
+            startingLineNumber = "1074"
+            endingLineNumber = "1074"
             landmarkName = "uploadImages(_:imageTypeCategory:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -337,8 +321,8 @@
             filePath = "FoodViewer/Model/ProductPair.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "941"
-            endingLineNumber = "941"
+            startingLineNumber = "949"
+            endingLineNumber = "949"
             landmarkName = "update(frontImage:for:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -417,8 +401,8 @@
             filePath = "FoodViewer/Model/ProductPair.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "990"
-            endingLineNumber = "990"
+            startingLineNumber = "1005"
+            endingLineNumber = "1005"
             landmarkName = "uploadOperationsDict()"
             landmarkType = "7">
          </BreakpointContent>
@@ -481,8 +465,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1528"
-            endingLineNumber = "1528"
+            startingLineNumber = "1529"
+            endingLineNumber = "1529"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -497,8 +481,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1534"
-            endingLineNumber = "1534"
+            startingLineNumber = "1535"
+            endingLineNumber = "1535"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -529,8 +513,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1824"
-            endingLineNumber = "1824"
+            startingLineNumber = "1825"
+            endingLineNumber = "1825"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
