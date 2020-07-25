@@ -134,14 +134,14 @@ class SupplyChainTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .new:
-                // Local edits of countries are stored as keys "en:english"
-                //if checkedTags(productPair?.localProduct?.countriesInterpreted) != nil {
-                    // translated countries is default
-                    if var list = productPair?.localProduct?.countriesTranslated.list {
-                        list = list.sorted(by: { $0 < $1 })
-                        return Tags.init(list:list)
+                if var list = productPair?.localProduct?.countriesTranslated.list {
+                    if list.isEmpty,
+                        let oldList = productPair?.remoteProduct?.countriesTranslated.list {
+                        list = oldList
                     }
-                //}
+                    list = list.sorted(by: { $0 < $1 })
+                    return Tags.init(list:list)
+                }
             case .remoteTags:
                 return productPair?.remoteProduct?.countriesInterpreted ?? .undefined
             case .remoteUser:
