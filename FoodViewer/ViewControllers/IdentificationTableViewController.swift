@@ -61,7 +61,10 @@ class IdentificationTableViewController: UITableViewController {
             return delegate?.currentLanguageCode
         }
         set {
+            // This is set when a new LanguageCode is added, the interface will be updated
+            // so that the user can enter data for this new languageCode
             delegate?.currentLanguageCode = newValue
+            tableView.reloadData()
         }
     }
     

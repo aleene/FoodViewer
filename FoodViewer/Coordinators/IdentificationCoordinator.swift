@@ -161,6 +161,7 @@ extension IdentificationCoordinator: SelectPairCoordinatorProtocol {
             } else if sender.tag == Pagetype.addLanguage.rawValue {
                 for code in validStrings {
                     productPair?.update(addLanguageCode: code)
+                    coordinatorViewController?.currentLanguageCode = code
                 }
             }
         }
