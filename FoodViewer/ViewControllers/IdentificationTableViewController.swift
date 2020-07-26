@@ -64,7 +64,6 @@ class IdentificationTableViewController: UITableViewController {
             // This is set when a new LanguageCode is added, the interface will be updated
             // so that the user can enter data for this new languageCode
             delegate?.currentLanguageCode = newValue
-            tableView.reloadData()
         }
     }
     
@@ -981,10 +980,10 @@ class IdentificationTableViewController: UITableViewController {
         
     }
         
-    public func refreshInterface(with currentLanguageCode:String?) {
-        self.currentLanguageCode = currentLanguageCode
-        tableView.reloadData()
-    }
+    //public func refreshInterface(with currentLanguageCode:String?) {
+    //    self.currentLanguageCode = currentLanguageCode
+    //    tableView.reloadData()
+    //}
 
 
     fileprivate lazy var imagePicker: GKImagePicker = {
@@ -1070,12 +1069,11 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
-    @objc func removeProduct() {
+    //@objc func removeProduct() {
         //TODO: why is this function?
         //productPair!.remoteProduct = nil
-        tableView.reloadData()
-    }
-    
+        //§tableView.reloadData()
+    //}
 
     @objc func doubleTapOnTableView() {
         // double tapping implies cycling through the product possibilities
@@ -1126,7 +1124,7 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded(_:)), name:.ProductPairImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFProductsImageDeleteSuccess, object:nil)

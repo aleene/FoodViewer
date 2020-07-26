@@ -159,6 +159,7 @@ class ProductPageViewController: UIPageViewController {
             }
             // If a product image is on screen, get rid of it.
             popImageViewController()
+            guard currentProductPage != oldValue else { return }
             setViewControllers(
                     [viewController(for:currentProductPage)],
                     direction: .forward,

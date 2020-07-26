@@ -340,6 +340,9 @@ extension SelectPairViewController: UITableViewDelegate {
         if selectedPairs != nil {
             selectedPairs = selectedPairs!.sorted(by: forward)
         }
+        
+        textFilter = ""
+        searchBar?.text = ""
         setupPairs()
         tableView.reloadData()
         tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
