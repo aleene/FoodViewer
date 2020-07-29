@@ -541,7 +541,8 @@ public struct OFF {
         if barcode.count == 8 {
             // Lidl product
             return barcode
-        } else if barcode.count == 11
+        } else if barcode.count == 10
+            || barcode.count == 11
             || barcode.count == 12
             || barcode.count == 13
             || barcode.count == 22

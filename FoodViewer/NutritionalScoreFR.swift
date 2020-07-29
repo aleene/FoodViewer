@@ -229,11 +229,14 @@ public class NutritionalScoreFR: NutritionalScore {
                 pointsC[Nutrient.fruitsVegetablesNuts.key] = nutrimentScore
             }
             
+            /*
+             // Any estimate value is translated/processed to a true value
             if let validFruitsVegetableNuts = fruitsVegetableNutsEstimated {
                 nutrimentScore.value = validFruitsVegetableNuts
                 nutrimentScore.points = points(validFruitsVegetableNuts, in:Constant.PointsC.FruitsVegetablesInBeverages.Table)
                 pointsC[Nutrient.fruitsVegetablesNutsEstimate.key] = nutrimentScore
             }
+ */
         }
         
         // 'Added fats' refer to fats sold as finished products, not to fats used as ingredients in a recipe. For instance, the following are considered added fats: vegetable oils, margarines, butter, cream or dairy products used as added fats.

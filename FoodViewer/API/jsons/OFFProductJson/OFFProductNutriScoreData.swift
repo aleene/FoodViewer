@@ -78,7 +78,7 @@ class OFFProductNutriScoreData: Codable {
         var fiber: Int? = nil
         var proteins: Int? = nil
         var fruitsVegetableNuts: Int? = nil
-        //var fruitsVegetableNutsEstimated: Double? = nil
+        var fruitsVegetableNutsEstimated: Int? = nil
         var isBeverage = false
         var isFat = false
         var isCheese = false
@@ -139,7 +139,8 @@ class OFFProductNutriScoreData: Codable {
                 fruitsVegetableNuts = foundInt
             //case  "fruits_vegetables_nuts_colza_walnut_olive_oils_value":
             //case   "fruits_vegetables_nuts_colza_walnut_olive_oils":
-                
+            case "fruits_vegetables_nuts_colza_walnut_olive_oils_estimate_points":
+                fruitsVegetableNutsEstimated = foundInt
                 case  "is_beverage":
                     if foundInt != nil,
                         foundInt! == 1 {
