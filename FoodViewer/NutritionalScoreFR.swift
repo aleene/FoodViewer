@@ -363,9 +363,9 @@ public class NutritionalScoreFR: NutritionalScore {
         if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNuts.key] {
             fruitVegetableNuts = nutrientFact.standardGramValue
         }
-        if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNutsEstimate.key] {
-            fruitVegetableNutsEstimated = nutrientFact.standardGramValue
-        }
+        //if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNutsEstimate.key] {
+        //    fruitVegetableNutsEstimated = nutrientFact.standardGramValue
+        //}
 
         self.init(energy: energy, saturatedFat: saturatedFat, saturatedFatToTotalFatRatio: saturatedFatRatio, sugars: sugars, sodium: sodium, fiber: fiber, proteins: proteins, fruitsVegetableNuts: fruitVegetableNuts, fruitsVegetableNutsEstimated: fruitVegetableNutsEstimated, isBeverage: isBeverage, isFat: isFat, isCheese: isCheese)
         

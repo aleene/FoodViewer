@@ -73,6 +73,8 @@ class ProductUpdate: OFFProductUpdateAPI {
         }
         let languageCodeForWrite = useProductLanguageCode ? (productLanguageCode ?? interfaceLanguageCode) : interfaceLanguageCode
                 
+        let languageCodeForCategories = interfaceLanguageCode
+        
         var urlString = OFFWriteAPI.SecurePrefix
             + ( validProduct.type?.rawValue ?? ProductType.food.rawValue )
             + OFFWriteAPI.Domain
@@ -260,7 +262,7 @@ class ProductUpdate: OFFProductUpdateAPI {
         switch validProduct.categoriesOriginal {
         case .available:
             // take into account the language of the tags
-            let list = validProduct.categoriesOriginal.tags(withAdded: languageCodeForWrite)
+            let list = validProduct.categoriesOriginal.tags(withAdded: languageCodeForCategories)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:

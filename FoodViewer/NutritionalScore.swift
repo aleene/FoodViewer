@@ -127,7 +127,8 @@ public class NutritionalScore {
             static let Fats = ["en:fats"]
         }
         static let PositiveNutrients = [Nutrient.energy, Nutrient.saturatedFat, Nutrient.saturatedFatRatio, Nutrient.sugars, Nutrient.sodium]
-        static let NegativeNutrients = [Nutrient.fiber, Nutrient.proteins, Nutrient.fruitsVegetablesNuts, Nutrient.fruitsVegetablesNutsEstimate]
+        // removed: Nutrient.fruitsVegetablesNutsEstimate
+        static let NegativeNutrients = [Nutrient.fiber, Nutrient.proteins, Nutrient.fruitsVegetablesNuts]
     }
     
 
@@ -138,10 +139,10 @@ public class NutritionalScore {
                                                     Nutrient.sugars.key:nil,
                                                     Nutrient.sodium.key:nil ]
 
+    // removed: Nutrient.fruitsVegetablesNutsEstimate.key:nil
     public var pointsC: [String:NutrimentScore?] = [Nutrient.fiber.key:nil,
                                                     Nutrient.proteins.key:nil,
-                                                    Nutrient.fruitsVegetablesNuts.key:nil,
-                                                    Nutrient.fruitsVegetablesNutsEstimate.key:nil]
+                                                    Nutrient.fruitsVegetablesNuts.key:nil]
     /// The NutriScore as calculated (by OFF)
     public var score = 0
     
@@ -232,6 +233,7 @@ public class NutritionalScore {
                 array.append((nutrient.key, point))
             }
         }
+        
         return array
     }
     
@@ -277,11 +279,13 @@ public class NutritionalScore {
             pointsA[Nutrient.sodium.key] = nutrimentScore
         }
         
+        /*
         if let validFruitVegetableNuts = fruitVegetablesNutsEstimated {
             nutrimentScore.value = validFruitVegetableNuts
             nutrimentScore.points = points(validFruitVegetableNuts, in:Constant.PointsC.FruitsVegetables.Table)
             pointsC[Nutrient.fruitsVegetablesNutsEstimate.key] = nutrimentScore
         }
+ */
     
         if let validFruitVegetableNuts = fruitVegetablesNuts {
             nutrimentScore.value = validFruitVegetableNuts
@@ -382,9 +386,9 @@ public class NutritionalScore {
         if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNuts.key] {
             fruitVegetableNuts = nutrientFact.standardGramValue
         }
-        if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNutsEstimate.key] {
-            fruitVegetableNutsEstimated = nutrientFact.standardGramValue
-        }
+        //if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNutsEstimate.key] {
+        //    fruitVegetableNutsEstimated = nutrientFact.standardGramValue
+        //}
         
         self.init(energy: energy, saturatedFat: saturatedFat, sugars: sugars, sodium: sodium, fruitVegetablesNuts: fruitVegetableNuts, fruitVegetablesNutsEstimated: fruitVegetableNutsEstimated, fiber: fiber, proteins: proteins)
         
