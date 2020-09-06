@@ -89,6 +89,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             default:
                 return availableTags(productPair?.remoteProduct?.allergensTranslated) ?? .undefined
             }
+            // There are no local tags. 
         }
     }
 
@@ -188,10 +189,15 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 return availableTags(productPair?.remoteProduct?.labelsOriginal) ?? .undefined
             default: break
             }
-            return availableTags(productPair?.remoteProduct?.labelsTranslated) ?? .undefined
+            // the original labels are in the product main language
+            // In non-editMode the translated and interpreted labels are shown,
+            // otherwise the original labels with the main product language removed
+            return editMode
+                ? ( availableTags(productPair?.remoteProduct?.labelsOriginal)?.prefixed(withAdded: nil, andRemoved: productPair?.primaryLanguageCode) ?? .undefined )
+                : ( availableTags(productPair?.remoteProduct?.labelsTranslated) ?? .undefined )
         }
     }
-
+    
     fileprivate func availableTags(_ tags:Tags?) -> Tags? {
         if let validTags = tags,
             validTags.isAvailable {
@@ -1202,6 +1208,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .labels:
+            // use the original values and not the translated ones to update
             switch labelsToDisplay {
             case .undefined, .empty:
                 productPair?.update(labelTags: [title])
@@ -1233,6 +1240,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .labels:
+            // use the original values and not the translated ones to update
             switch labelsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
@@ -1286,9 +1294,8 @@ extension IngredientsTableViewController: TagListViewDelegate {
         switch tableStructure[tagListView.tag] {
         case .labels:
             switch labelsToDisplay {
-            case .available(var list):
-                list.removeAll()
-                productPair?.update(labelTags: list)
+            case .available:
+                productPair?.update(labelTags: [])
             default:
                 assert(true, "How can I delete a tag when there are none")
             }

@@ -979,11 +979,6 @@ class IdentificationTableViewController: UITableViewController {
         tableView.reloadData()
         
     }
-        
-    //public func refreshInterface(with currentLanguageCode:String?) {
-    //    self.currentLanguageCode = currentLanguageCode
-    //    tableView.reloadData()
-    //}
 
 
     fileprivate lazy var imagePicker: GKImagePicker = {
