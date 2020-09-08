@@ -1,0 +1,13 @@
+{
+    "product": {
+        "attribute_groups_en":  [{
+            "id":"nutritional_quality",
+            "name":"Nutritional quality",
+            "attributes":[{"title":"Nutri-Score D","description_short":"Poor nutritional quality","description":"","match":30,"name":"Nutri-Score","status":"known","id":"nutriscore"}]},{"id":"processing","attributes":[{"title":"NOVA 3","description":"","description_short":"Processed foods","status":"known","match":50,"name":"NOVA group","id":"nova"}],"name":"Food processing"},{"id":"labels","attributes":[{"status":"known","match":100,"name":"Organic farming","id":"labels_organic","title":"Organic product","description":"Organic farming aims to protect the environment and to conserve biodiversity by prohibiting or limiting the use of synthetic fertilizers, pesticides and food additives.","description_short":"Promotes ecological sustainability and biodiversity."},{"status":"known","name":"Fair trade","match":100,"id":"labels_fair_trade","title":"Fair trade product","description":"When you buy fair trade products, producers in developing countries are paid an higher and fairer price, which helps them improve and sustain higher social and often environmental standards.","description_short":"Fair trade products help producers in developping countries."}],"name":"Labels"}],
+            "product_name":"Chocolat noir Pérou 90% fruité et boisé",
+            "code":"3700214614266"
+        },
+    "status_verbose":"product found",
+    "code":"3700214614266",
+    "status":1
+}

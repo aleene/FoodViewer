@@ -31,9 +31,6 @@
 /* Title of a button to indicate that the front image is missing. */
 "Add Front Image" = "Produktfoto (Vorderseite) hinzufügen";
 
-/* Title of a viewController where the users can add images for a new product. */
-"Add images for new product" = "Produktfotos hinzufügen";
-
 /* Title of a viewcontroller which allows the user to add a new language to the product languages. */
 "Add Language" = "Sprache hinzufügen";
 
@@ -95,7 +92,7 @@
 "Beauty" = "Schönheit";
 
 /* Placeholder string in a textfield to explain the purpose of a beauty product barcode search */
-"Beauty  barcode." = "Schönheitstrichcode";
+"Beauty  barcode." = "Schönheits-Barcode";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Beauty Products" = "Schönheitsprodukte";
@@ -363,7 +360,7 @@
 "Enter food product barcode." = "Gebe Nahrungsmittelprodukt Strichcode ein";
 
 /* Placeholder string in a textfield to explain the purpose of a petfood barcode search */
-"Enter petfood product barcode." = "Gebe Tierfütterprodukt Strichcode ein";
+"Enter petfood product barcode." = "Gebe den Tiernahrung-Barcode ein";
 
 /* Placeholder text for field where user should enter a postal code. */
 "Enter postal code" = "Gebe Postleitzahl ein";
@@ -414,7 +411,7 @@
 "Food" = "Lebensmittel";
 
 /* Placeholder string in a textfield to explain the purpose of a food product barcode search */
-"Food barcode." = "Lebensmittelstrichcode";
+"Food barcode." = "Lebensmittel-Barcode";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Food Products" = "Lebensmittelprodukte";
@@ -616,7 +613,7 @@
 "no language defined" = "Kein Sprache angegeben";
 
 /* String when no diet matches have been found. */
-"No matches for this level detected" = "Keine Levelübereinstimmungen";
+"No matches for this level detected" = "Keine Übereinstimmungen für dieses Level festgestellt";
 
 /* Text for productname, when no productname is available in the product data. */
 "no name specified" = "Kein Name angegeben";
@@ -685,13 +682,10 @@
 "Not searchable" = "Nicht durchsuchbar";
 
 /* Text of a button, indicating a contributor role is not selected */
-"not selected" = "nicht ausgewählt";
+"not selected" = "nichts ausgewählt";
 
 /* Generic text if a value has not yet been set. */
 "Not set" = "nicht eingestellt";
-
-/* Title of a viewController when no product/search has been selected. */
-"nothing selected" = "nichts ausgewählt";
 
 /* Text above the nova value. */
 "NOVA" = "NOVA";
@@ -854,10 +848,10 @@
 "Petfood" = "Tierfütter";
 
 /* Placeholder string in a textfield to explain the purpose of a pet food barcode search */
-"Petfood barcode." = "Tierfütterstrichcode";
+"Petfood barcode." = "Tiernahrung-Barcode";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
-"Petfood Products" = "Tierfütterprodukte";
+"Petfood Products" = "Tierfütter";
 
 /* String in PickerViewController to indicate the photographer role of a contributor */
 "Photographer" = "Fotograf";
@@ -911,7 +905,7 @@
 "Product" = "Produkt";
 
 /* Placeholder string in a textfield to explain the purpose of a product barcode search */
-"Product barcode." = "Produktstrichcode";
+"Product barcode." = "Produkt-Barcode";
 
 /* Title of a segment in a UISegmentedControl, which indicates that the values of the product are leading. */
 "Product Defined" = "Produkt definiert";

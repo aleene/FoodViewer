@@ -252,7 +252,7 @@
       </trans-unit>
       <trans-unit id="Beauty  barcode." xml:space="preserve">
         <source>Beauty  barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a beauty product barcode search</note>
+        <note>Placeholder string in a textfield to explain the purpose of a beauty product barcode search</note><target>Code barre produit beauté</target>
       </trans-unit>
       <trans-unit id="Beauty Products" xml:space="preserve">
         <source>Beauty Products</source>
@@ -703,7 +703,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Enter petfood product barcode." xml:space="preserve">
         <source>Enter petfood product barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a petfood barcode search</note>
+        <note>Placeholder string in a textfield to explain the purpose of a petfood barcode search</note><target>Entre code barre produit animalier</target>
       </trans-unit>
       <trans-unit id="Enter postal code" xml:space="preserve">
         <source>Enter postal code</source>
@@ -787,7 +787,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Food barcode." xml:space="preserve">
         <source>Food barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note>
+        <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note><target>Code barre produit alimentaire</target>
       </trans-unit>
       <trans-unit id="Front Image" xml:space="preserve">
         <source>Front Image</source>
@@ -1072,7 +1072,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="No matches for this level detected" xml:space="preserve">
         <source>No matches for this level detected</source>
-        <note>String when no diet matches have been found.</note>
+        <note>String when no diet matches have been found.</note><target>Aucune correspondance pour ce niveau détectée</target>
       </trans-unit>
       <trans-unit id="No nutrients" xml:space="preserve">
         <source>No nutrients</source>
@@ -1412,7 +1412,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Petfood barcode." xml:space="preserve">
         <source>Petfood barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a pet food barcode search</note>
+        <note>Placeholder string in a textfield to explain the purpose of a pet food barcode search</note><target>Code barre produit animalier</target>
       </trans-unit>
       <trans-unit id="Photographer" xml:space="preserve">
         <source>Photographer</source>
@@ -1511,7 +1511,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Product barcode." xml:space="preserve">
         <source>Product barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a product barcode search</note>
+        <note>Placeholder string in a textfield to explain the purpose of a product barcode search</note><target>Code barre produit</target>
       </trans-unit>
       <trans-unit id="Product does not exist. Add?" xml:space="preserve">
         <source>Product does not exist. Add?</source>

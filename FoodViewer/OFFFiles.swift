@@ -281,7 +281,7 @@ class OFFplists {
     private func setupAllCountries(_ localeLanguage: String) -> [Language] {
         var countries: [Language] = []
         if OFFcountries == nil {
-            OFFcountries = readPlist(Constants.LanguagesFileName)
+            OFFcountries = readPlist(Constants.CountriesFileName)
         }
         guard OFFcountries != nil else { return countries }
         let firstSplit = localeLanguage.split(separator:"-").map(String.init)

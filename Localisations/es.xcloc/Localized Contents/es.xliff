@@ -251,7 +251,7 @@
       </trans-unit>
       <trans-unit id="Beauty  barcode." xml:space="preserve">
         <source>Beauty  barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a beauty product barcode search</note>
+        <note>Placeholder string in a textfield to explain the purpose of a beauty product barcode search</note><target>Código de barras de belleza</target>
       </trans-unit>
       <trans-unit id="Beauty Products" xml:space="preserve">
         <source>Beauty Products</source>
@@ -701,7 +701,7 @@
       </trans-unit>
       <trans-unit id="Enter petfood product barcode." xml:space="preserve">
         <source>Enter petfood product barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a petfood barcode search</note>
+        <note>Placeholder string in a textfield to explain the purpose of a petfood barcode search</note><target>Entra el código de barras de alimentos para mascotas</target>
       </trans-unit>
       <trans-unit id="Enter postal code" xml:space="preserve">
         <source>Enter postal code</source>
@@ -785,7 +785,7 @@
       </trans-unit>
       <trans-unit id="Food barcode." xml:space="preserve">
         <source>Food barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note>
+        <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note><target>Código de barras de alimentos</target>
       </trans-unit>
       <trans-unit id="Front Image" xml:space="preserve">
         <source>Front Image</source>
@@ -1070,7 +1070,7 @@
       </trans-unit>
       <trans-unit id="No matches for this level detected" xml:space="preserve">
         <source>No matches for this level detected</source>
-        <note>String when no diet matches have been found.</note>
+        <note>String when no diet matches have been found.</note><target>No se detectaron coincidencias para este nivel</target>
       </trans-unit>
       <trans-unit id="No nutrients" xml:space="preserve">
         <source>No nutrients</source>
@@ -1410,7 +1410,7 @@
       </trans-unit>
       <trans-unit id="Petfood barcode." xml:space="preserve">
         <source>Petfood barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a pet food barcode search</note>
+        <note>Placeholder string in a textfield to explain the purpose of a pet food barcode search</note><target>Código de barras de alimentos para mascotas</target>
       </trans-unit>
       <trans-unit id="Photographer" xml:space="preserve">
         <source>Photographer</source>
@@ -1509,7 +1509,7 @@
       </trans-unit>
       <trans-unit id="Product barcode." xml:space="preserve">
         <source>Product barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a product barcode search</note>
+        <note>Placeholder string in a textfield to explain the purpose of a product barcode search</note><target>Código de barras del producto</target>
       </trans-unit>
       <trans-unit id="Product does not exist. Add?" xml:space="preserve">
         <source>Product does not exist. Add?</source>
