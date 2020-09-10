@@ -14,7 +14,7 @@ enum ProductFetchStatus {
     case initialized
     // the barcode is set, but no load is initialised
     case productNotLoaded(String) // (barcodeString)
-    // loading indicates that it is tried to load the product
+    // loading indicates that it is trying to load the product
     case loading(String) // The string indicates the barcodeString
     // the product has been loaded successfully and can be set.
     case success(FoodProduct)

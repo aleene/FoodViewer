@@ -1013,6 +1013,47 @@ class FoodProduct {
 
     var json: JSON?
     
+    var attributeGroups: [ProductAttributeGroup]? {
+        switch attributeGroupsFetchStatus {
+        // start the fetch
+        case .initialized:
+            fetchAttributes()
+        case .success(let productAttributeGroups):
+            return productAttributeGroups
+        default:
+            break
+        }
+        return nil
+    }
+    
+    private var attributeGroupsFetchStatus: AttributeGroupsFetchStatus = .initialized
+
+    enum AttributeGroupsFetchStatus {
+        // nothing is known at the moment
+        case initialized
+        // loading indicates that it is trying to load the product
+        case loading
+        // it has been retrieved
+        case success([ProductAttributeGroup])
+        // loading failed
+        case failed(String)
+    }
+    
+    private func fetchAttributes() {
+        let request = OpenFoodFactsRequest()
+        request.fetchAttributesJson(for: self.barcode, in: Locale.interfaceLanguageCode) { (completion: ProductFetchStatus) in
+            let fetchResult = completion
+            switch fetchResult {
+            case .success(let product):
+                if product.barcode.asString == self.barcode.asString,
+                    let attributeGroups = product.attributeGroups {
+                    self.attributeGroupsFetchStatus = .success(attributeGroups)
+                }
+            default:
+                self.attributeGroupsFetchStatus = .failed("")
+            }
+        }
+    }
     /*
     struct UniqueContributors {
         var contributors: [Contributor] = []
@@ -1103,11 +1144,25 @@ class FoodProduct {
         informers = nil
         hasNutritionFacts = nil
         contributors = []
+        attributeGroupsFetchStatus = .initialized
     }
     
     convenience init(with barcodeType: BarcodeType) {
         self.init()
         self.barcode = barcodeType
+    }
+    
+    // This init is only meant to retrieve and set the attributes
+    convenience init(attributesJson validProduct: OFFProductDetailed) {
+        self.init()
+        if let offAttributeGroups = validProduct.attribute_groups {
+            var attributeGroups: [ProductAttributeGroup] = []
+            for group in offAttributeGroups {
+                attributeGroups.append(ProductAttributeGroup(data: group))
+            }
+            attributeGroupsFetchStatus = .success(attributeGroups)
+        }
+        
     }
     
     convenience init(json validProduct: OFFProductDetailed) {
@@ -1823,6 +1878,12 @@ class FoodProduct {
         nutritionalScoreUKCalculated = NutritionalScore.init(nutritionFactsDict: nutritionFactsDict)
         nutritionalScoreFRCalculated = NutritionalScoreFR.init(nutritionFactsDict: nutritionFactsDict, taxonomy: categoriesHierarchy)
         //print("UK Calculated: ",nutritionalScoreUKCalculated?.description)
+        // load the attribute groups
+        switch attributeGroupsFetchStatus {
+        case .initialized:
+            fetchAttributes()
+        default: break
+        }
     }
     
     init(product: FoodProduct) {

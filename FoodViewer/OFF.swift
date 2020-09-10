@@ -31,6 +31,8 @@ public struct OFF {
             static let Slash = "/"
             static let Dot = "."
             static let Equal = "="
+            static let QuestionMark = "?"
+            static let Ampersand = "&"
         }
         public struct PartNumber {
             static let Barcode = 5
@@ -46,6 +48,8 @@ public struct OFF {
         static let JSONSearchExtension = "&json=1"
         static let SearchPage = "&page="
         static let JPGextension = ".jpg"
+        static let Fields = "fields="
+        static let Language = "lc="
         static let Images = "images/products/"
         struct Search {
             struct Tag {
@@ -293,6 +297,21 @@ public struct OFF {
         return fetchUrlString
     }
     
+    static func fetchAttributesString(for barcode: BarcodeType, with productType: ProductType, languageCode: String) -> String {
+        var fetchUrlString = URL.Prefix
+        // add the right server
+        fetchUrlString += productType.rawValue
+        fetchUrlString += URL.Postfix
+        fetchUrlString += barcode.asString
+        fetchUrlString += URL.Divider.QuestionMark
+        fetchUrlString += URL.Fields
+        fetchUrlString += "attribute_groups"
+        fetchUrlString += URL.Divider.Ampersand
+        fetchUrlString += URL.Language
+        fetchUrlString += languageCode
+        return fetchUrlString
+    }
+
     static func simpleSearchString(for template: SearchTemplate, on page: Int ) -> String {
         
         // let region = Bundle.main.preferredLocalizations[0] as NSString
@@ -489,7 +508,7 @@ public struct OFF {
         urlString += OFF.URL.TopDomain
         urlString += OFF.URL.EnglishProduct
         urlString += barcode.asString
-        urlString += "/"
+        urlString += OFF.URL.Divider.Slash
         return urlString
     }
     
@@ -503,7 +522,7 @@ public struct OFF {
         if let str = imageURLComponentFor(barcode.asString) {
             urlString += str
         }
-        urlString += "/"
+        urlString += OFF.URL.Divider.Slash
         return urlString
     }
     
@@ -519,7 +538,7 @@ public struct OFF {
         if let str = imageURLComponentFor(barcode.asString) {
             urlString += str
         }
-        urlString += "/"
+        urlString += OFF.URL.Divider.Slash
         urlString += id
         switch size {
         case .thumb:

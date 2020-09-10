@@ -143,5 +143,46 @@ class OpenFoodFactsRequest {
         }
     }
 
+    func fetchAttributesJson(for barcode: BarcodeType, in languageCode: String, completion: @escaping (ProductFetchStatus) -> ()) {
+        self.currentBarcode = barcode
+        DispatchQueue.main.async(execute: { () -> Void in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        })
+        let fetchUrl = URL(string: OFF.fetchAttributesString(for: barcode, with: currentProductType, languageCode: languageCode) )
+        if debug { print("OpenFoodFactsRequest:fetchAttributesForBarcodeInLanguageCode(_:_) - \(String(describing: fetchUrl))") }
+        if let validURL = fetchUrl {
+            let cache = Shared.dataCache
+            cache.fetch(URL: validURL).onSuccess { data in
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .secondsSince1970
+                do {
+                    let productJson = try decoder.decode(OFFProductJson.self, from: data)
+                    if let offProduct = productJson.product {
+                        let newProduct = FoodProduct.init(attributesJson: offProduct)
+                        completion(.success(newProduct))
+                    } else {
+                        if productJson.status_verbose == "product not found" {
+                            completion(.productNotAvailable(barcode.asString))
+                        } else {
+                            completion(.loadingFailed(barcode.asString))
+                        }
+                    }
+                } catch let error {
+                    print(error)
+                    completion(.loadingFailed(barcode.asString))
+                }
+                DispatchQueue.main.async(execute: { () -> Void in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                })
+                return
+            }
+            cache.fetch(URL: validURL).onFailure { error in
+                completion(.loadingFailed(barcode.asString))
+            }
+        } else {
+            completion(.loadingFailed(self.currentBarcode!.asString))
+            return
+        }
+    }
 
 }

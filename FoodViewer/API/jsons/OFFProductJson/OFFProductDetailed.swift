@@ -74,8 +74,11 @@ class OFFProductDetailed: OFFProduct {
         let container = try decoder.container(keyedBy: DetailedKeys.self)
         
         // I need the language_code to build the keys
-        languages_codes = try container.decode(Dictionary.self, forKey: .languages_codes)
-        
+        do {
+            languages_codes = try container.decode(Dictionary.self, forKey: .languages_codes)
+        } catch {
+            //
+        }
         do {
             self.max_imgid = try container.decode(String.self, forKey: .max_imgid)
         } catch {
