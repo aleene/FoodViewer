@@ -11,16 +11,20 @@ import Foundation
 enum CompletionCategory: Int {
     case productName = 0
     case brands
-    case quantity
-    case packaging
-    case ingredients
     case categories
-    case expirationDate
-    case nutritionFacts
-    case photosUploaded
-    case photosValidated
-    case complete
     case characteristics
     case checked
+    case complete
+    case expirationDate
+    case frontPhoto
+    case ingredients
+    case ingredientsPhoto
+    case nutritionFacts
+    case nutritionPhoto
+    case packaging
     case packagingCode
+    case packagingPhoto
+    case photosUploaded
+    case photosValidated
+    case quantity
 }

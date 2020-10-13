@@ -1013,11 +1013,13 @@ class FoodProduct {
 
     var json: JSON?
     
+    
     var attributeGroups: [ProductAttributeGroup]? {
         switch attributeGroupsFetchStatus {
         // start the fetch
         case .initialized:
-            fetchAttributes()
+            //fetchAttributes()
+            print("Product: the attributes will not be fetched.")
         case .success(let productAttributeGroups):
             return productAttributeGroups
         default:
@@ -1220,12 +1222,21 @@ class FoodProduct {
                         .categories_to_be_completed,
                         .expiration_date_completed,
                         .expiration_date_to_be_completed,
+                        .front_photo_selected,
+                        .front_photo_to_be_selected,
                         .ingredients_completed,
                         .ingredients_to_be_completed,
+                        .ingredients_photo_selected,
+                        .ingredients_photo_to_be_selected,
                         .nutrition_facts_completed,
                         .nutrition_facts_to_be_completed,
+                        .nutrition_photo_selected,
+                        .nutrition_photo_to_be_selected,
                         .packaging_completed,
                         .packaging_to_be_completed,
+                        .packaging_photo_selected,
+                        .packaging_photo_to_be_selected,
+                        .packaging_photo_not_selected,
                         .photos_to_be_uploaded,
                         .photos_uploaded,
                         .photos_validated,
@@ -1879,11 +1890,13 @@ class FoodProduct {
         nutritionalScoreFRCalculated = NutritionalScoreFR.init(nutritionFactsDict: nutritionFactsDict, taxonomy: categoriesHierarchy)
         //print("UK Calculated: ",nutritionalScoreUKCalculated?.description)
         // load the attribute groups
-        switch attributeGroupsFetchStatus {
-        case .initialized:
-            fetchAttributes()
-        default: break
-        }
+        
+        // The attributes have no added value, so no need to retrieve them
+        //switch attributeGroupsFetchStatus {
+        //case .initialized:
+        //    fetchAttributes()
+        //default: break
+        //}
     }
     
     init(product: FoodProduct) {

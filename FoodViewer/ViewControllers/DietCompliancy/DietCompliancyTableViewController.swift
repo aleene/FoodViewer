@@ -27,7 +27,6 @@ class DietCompliancyTableViewController: UITableViewController {
 
     private var expandSection: Int? = nil
     
-    // MARK: - Table view data source
 
     // matches has the results for each diet.
     // per diet a list of levels identified per order
@@ -39,6 +38,8 @@ class DietCompliancyTableViewController: UITableViewController {
         matchesPerDietPerLevel = diets.matches(productPair?.remoteProduct, in: Locale.interfaceLanguageCode)
     }
     
+//MARK: - Table view data source
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         guard productPair?.remoteProduct != nil else { return 0 }
         return diets.count ?? 0
@@ -66,9 +67,11 @@ class DietCompliancyTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: DietLevelsTableViewCell.self), for: indexPath) as! DietLevelsTableViewCell
             cell.values = values(forDietAt: indexPath.section)
             if productPair?.remoteProduct != nil {
-                cell.conclusion = diets.conclusion(productPair!.remoteProduct!, withDietAt: indexPath.section, in: Locale.interfaceLanguageCode)
+                cell.conclusion = diets.conclusion(productPair!.remoteProduct!, withSortedDietAt: indexPath.section, in: Locale.interfaceLanguageCode)
             }
             cell.delegate = self
+            cell.dietName = diets.title(atSorted: indexPath.section, in: Locale.interfaceLanguageCode)
+            cell.dietDescription = diets.extendedDescription(atSorted: indexPath.section, in: Locale.interfaceLanguageCode)
             cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
             cell.tag = indexPath.section
             return cell
@@ -90,7 +93,7 @@ class DietCompliancyTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return diets.name(for: section, in: Locale.interfaceLanguageCode)
+        return diets.title(atSorted: section, in: Locale.interfaceLanguageCode)
     }
     
     func refreshProduct() {
@@ -156,9 +159,22 @@ extension DietCompliancyTableViewController: TagListViewDataSource {
 }
 
 //
-// MARK: - QuantityTableViewCellDelegate Function
+// MARK: - DietLevelsTableViewCellDelegate Function
 //
 extension DietCompliancyTableViewController: DietLevelsTableViewCellDelegate {
+    func dietLevelsTableViewCellQuestionmarkButtonTapped(name: String?, extendedDescription: String?) {
+        guard let validName = name  else { return }
+        guard let validExtendedDescription = extendedDescription else { return }
+        let alert = UIAlertController(
+            title: validName,
+            message: validExtendedDescription, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { (action: UIAlertAction) -> Void in
+            // the user cancels to add image
+        })
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     // function to let the delegate know that a tag was double tapped
     func dietLevelsTableViewCell(_ sender: DietLevelsTableViewCell, receivedTapOn: UIButton?) {

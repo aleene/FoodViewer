@@ -18,6 +18,8 @@ protocol DietLevelsTableViewCellDelegate: class {
     /// - parameter _: The tableViewCell that inititated the call.
     /// - parameter receivedTapOn: The id of the button that received the tap. If the cell used doubleTap this will be nil
     func dietLevelsTableViewCell(_ sender: DietLevelsTableViewCell, receivedTapOn button:UIButton?)
+    
+    func dietLevelsTableViewCellQuestionmarkButtonTapped(name: String?, extendedDescription: String?)
 
 }
 /**
@@ -49,9 +51,19 @@ final class DietLevelsTableViewCell: UITableViewCell {
             setup()
         }
     }
+    
+    /// The name for this diet level
+    public var dietName: String?
+    
+    /// The description for this diet level
+    public var dietDescription: String? {
+        didSet {
+            infoButton?.isHidden = dietDescription == nil
+        }
+    }
 
     /// A delegate class, which handles the protocol functions.
-    public var delegate: DietLevelsTableViewCellDelegate? = nil
+    public var delegate: DietLevelsTableViewCellDelegate?
     
     /// Indicates whether the button should be shown, or whether a doubleTap should be accepted instead of the button.
     public var buttonNotDoubleTap: Bool = true {
@@ -72,6 +84,17 @@ final class DietLevelsTableViewCell: UITableViewCell {
 //
 // MARK: - Interface elements
 //
+    @IBOutlet weak var infoButton: UIButton! {
+        didSet {
+            infoButton?.isHidden = dietDescription == nil
+        }
+    }
+    
+    /// Inform the delegate that the questmark has been tapped and give the corresponding name and description
+    @IBAction func infoButtonTapped(_ sender: UIButton) {
+        delegate?.dietLevelsTableViewCellQuestionmarkButtonTapped(name: dietName, extendedDescription: dietDescription)
+    }
+    
     @IBOutlet weak var level0Label: UILabel! {
         didSet {
             level0Label?.layer.cornerRadius = cornerRadius

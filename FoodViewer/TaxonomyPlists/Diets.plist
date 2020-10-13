@@ -8,7 +8,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -549,7 +549,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -1022,7 +1022,7 @@
 		<string>Eggs ok, milk not</string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -1546,7 +1546,7 @@
 		<string>Milk, etc allowed</string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -2029,7 +2029,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -2324,7 +2324,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -2856,7 +2856,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -3060,7 +3060,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -3267,7 +3267,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -3471,7 +3471,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -3718,7 +3718,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -4117,7 +4117,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -4317,7 +4317,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -4517,7 +4517,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -4742,7 +4742,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -4939,7 +4939,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -5178,7 +5178,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -5500,7 +5500,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -5837,7 +5837,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -6148,7 +6148,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -6338,7 +6338,7 @@
 		<string></string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -6870,7 +6870,7 @@
 		<string>Fish and poultry deleted from vegan</string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -7349,7 +7349,7 @@
 		<string>Fish deleted from vegan</string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -7828,7 +7828,7 @@
 		<string>Fish deleted from vegan</string>
 		<key>Neutral</key>
 		<integer>0</integer>
-		<key>Languages</key>
+		<key>Title</key>
 		<dict>
 			<key>de</key>
 			<array>
@@ -8254,6 +8254,460 @@
 						<array>
 							<string>en:E904</string>
 						</array>
+					</array>
+				</dict>
+			</dict>
+		</dict>
+	</dict>
+	<key>en:organic</key>
+	<dict>
+		<key>Comment</key>
+		<string></string>
+		<key>Neutral</key>
+		<integer>0</integer>
+		<key>Title</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ökologische Landwirtschaft</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Organic Agriculture</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Agricultura ecológica</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Agriculture Biologique</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Biologische teelt</string>
+			</array>
+		</dict>
+		<key>Description</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bio-Lebensmittel müssen aus ökologisch kontrolliertem Anbau stammen, dürfen nicht gentechnisch verändert sein und werden ohne Einsatz von chemisch-synthetischen Pflanzenschutzmitteln, Kunstdünger oder Klärschlamm angebaut.</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Organic food is food produced by methods complying with the standards of organic farming and features practices that cycle resources, promote ecological balance, and conserve biodiversity. </string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Se denomina alimento orgánico, alimento ecológico o alimento biológico al producto agrícola o agroindustrial que se produce bajo un conjunto de procedimientos denominados “ecológicos”: evitan el uso de productos sintéticos, como pesticidas, herbicidas y fertilizantes artificiales.
+</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Un aliment biologique est un aliment produit suivant les principes de l&apos;agriculture biologique. L’agriculture biologique est une méthode de production agricole qui exclut le recours à la plupart des produits chimiques de synthèse, les organismes génétiquement modifiés par transgénèse et la conservation des cultures par irradiation.</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Biologische voeding is voedsel dat wordt geproduceerd met methoden die voldoen aan de normen van de biologische landbouw, welke een ecologisch evenwicht en het behoud van biodiversiteit nastreeft.</string>
+			</array>
+		</dict>
+		<key>Levels</key>
+		<dict>
+			<key>en:certified compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>2</integer>
+				<key>Languages</key>
+				<dict>
+					<key>en</key>
+					<array>
+						<string>Certified</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Certifié</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>Certificado</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Gercertificeerd</string>
+					</array>
+					<key>de</key>
+					<array>
+						<string>Kontrolliert</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict>
+					<key>Labels</key>
+					<array>
+						<array>
+							<string>en:eu-organic</string>
+						</array>
+					</array>
+				</dict>
+			</dict>
+			<key>en:claimed complaint</key>
+			<dict>
+				<key>Order</key>
+				<integer>1</integer>
+				<key>Languages</key>
+				<dict>
+					<key>en</key>
+					<array>
+						<string>Claimed by the manufacturer</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Reclamé par le fabricant</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>Reclamado por el fabricante</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Beweerd door de producent</string>
+					</array>
+					<key>de</key>
+					<array>
+						<string>Behaupted durch den Hersteller</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict/>
+			</dict>
+			<key>en:compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>0</integer>
+				<key>Languages</key>
+				<dict>
+					<key>de</key>
+					<array>
+						<string>Keine Kontraindikationen bekannt</string>
+					</array>
+					<key>en</key>
+					<array>
+						<string>No contra-indications known</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>No contraindicaciones conocidas</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Aucune contre-indication connu</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Geen contra-indicaties bekend</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict>
+					<key>Ingredients</key>
+					<array>
+						<array>
+							<string>en:organic</string>
+						</array>
+					</array>
+				</dict>
+			</dict>
+			<key>en:possible non-compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>-1</integer>
+				<key>Languages</key>
+				<dict>
+					<key>de</key>
+					<array>
+						<string>Könnte nicht Konform sein</string>
+					</array>
+					<key>en</key>
+					<array>
+						<string>Possibly non-compliant</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>Pode ser no conforme</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Pourrait être non-conforme</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Mogelijk niet-conform</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict/>
+			</dict>
+			<key>en:non-compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>-2</integer>
+				<key>Languages</key>
+				<dict>
+					<key>de</key>
+					<array>
+						<string>Nicht Konform</string>
+					</array>
+					<key>en</key>
+					<array>
+						<string>Non-compliant</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>No conforme</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Non-conforme</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Niet-conform</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict>
+					<key>Labels</key>
+					<array>
+						<array>
+							<string>en:non-organic</string>
+						</array>
+					</array>
+				</dict>
+			</dict>
+		</dict>
+	</dict>
+	<key>en:faire-trade</key>
+	<dict>
+		<key>Comment</key>
+		<string>Only based on info on the labels</string>
+		<key>Neutral</key>
+		<integer>0</integer>
+		<key>Title</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Fairer Handel</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Fair trade</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Comercio justo</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Commerce équitable</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Rechtvaardige handel</string>
+			</array>
+		</dict>
+		<key>Description</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Als Fairer Handel (englisch fair trade) wird ein kontrollierter Handel bezeichnet, bei dem die Erzeuger für ihre Produkte einen Mindestpreis erhalten, der von einer Fair-Trade-Organisation bestimmt wird. Damit soll den Produzenten auch bei niedrigeren Marktpreisen ein höheres und verlässlicheres Einkommen als im herkömmlichen Handel ermöglicht werden.</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Fair trade is an arrangement designed to help producers in developing countries achieve sustainable and equitable trade relationships. Members of the fair trade movement add the payment of higher prices to exporters, as well as improved social and environmental standards. </string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>El comercio justo es una forma alternativa de comercio promovida por varias ONG (organizaciones no gubernamentales), por la Organización de las Naciones Unidas y por los movimientos sociales y políticos (como el pacifismo y el ecologismo) que promueven una relación comercial voluntaria y justa entre productores y consumidores.</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Le commerce équitable est un système d&apos;échange dont l&apos;objectif est de proposer une plus grande équité dans le commerce conventionnel, voire une alternative à celui-ci, basée notamment sur la réappropriation des échanges marchands par ceux qui les pratiquent.</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Eerlijke handel is internationale handel die gericht is op duurzame ontwikkeling in ontwikkelingslanden, met name bij de export van zulke landen naar rijkere westerse landen. Fair trade duidt op een streven om boeren voor hun exportproducten een prijs te geven die in verhouding staat tot de werkelijke productiekosten, en niet een prijs die wordt bepaald door de verhoudingen op de internationale markt.</string>
+			</array>
+		</dict>
+		<key>Levels</key>
+		<dict>
+			<key>en:certified compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>2</integer>
+				<key>Languages</key>
+				<dict>
+					<key>en</key>
+					<array>
+						<string>Certified</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Certifié</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>Certificado</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Gercertificeerd</string>
+					</array>
+					<key>de</key>
+					<array>
+						<string>Kontrolliert</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict>
+					<key>Labels</key>
+					<array>
+						<array>
+							<string>en:max-havelaar</string>
+							<string>en:fairtrade-international</string>
+							<string>en:small-producers-symbol</string>
+							<string>en:fairtrade-usa</string>
+						</array>
+					</array>
+				</dict>
+			</dict>
+			<key>en:claimed complaint</key>
+			<dict>
+				<key>Order</key>
+				<integer>1</integer>
+				<key>Languages</key>
+				<dict>
+					<key>en</key>
+					<array>
+						<string>Claimed by the manufacturer</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Reclamé par le fabricant</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>Reclamado por el fabricante</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Beweerd door de producent</string>
+					</array>
+					<key>de</key>
+					<array>
+						<string>Behaupted durch den Hersteller</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict/>
+			</dict>
+			<key>en:compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>0</integer>
+				<key>Languages</key>
+				<dict>
+					<key>de</key>
+					<array>
+						<string>Keine Kontraindikationen bekannt</string>
+					</array>
+					<key>en</key>
+					<array>
+						<string>No contra-indications known</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>No contraindicaciones conocidas</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Aucune contre-indication connu</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Geen contra-indicaties bekend</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict>
+					<key>Labels</key>
+					<array>
+						<string>en:fair-trade</string>
+					</array>
+				</dict>
+			</dict>
+			<key>en:possible non-compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>-1</integer>
+				<key>Languages</key>
+				<dict>
+					<key>de</key>
+					<array>
+						<string>Könnte nicht Konform sein</string>
+					</array>
+					<key>en</key>
+					<array>
+						<string>Possibly non-compliant</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>Pode ser no conforme</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Pourrait être non-conforme</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Mogelijk niet-conform</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict/>
+			</dict>
+			<key>en:non-compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>-2</integer>
+				<key>Languages</key>
+				<dict>
+					<key>de</key>
+					<array>
+						<string>Nicht Konform</string>
+					</array>
+					<key>en</key>
+					<array>
+						<string>Non-compliant</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>No conforme</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Non-conforme</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Niet-conform</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict>
+					<key>Labels</key>
+					<array>
+						<string>en:non-fair-trade</string>
 					</array>
 				</dict>
 			</dict>

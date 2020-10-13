@@ -13,7 +13,7 @@ class OFFProductUpdateAPI: Operation {
     var URLString: String? = nil
     private var myCompletion: ( (ResultType<OFFProductUploadResultJson>) -> () ) = { _ in  }
     
-    init(URLString: String?, completion: @escaping ((ResultType<OFFProductUploadResultJson>) -> () )) {
+    init(URLString: String?, completion: @escaping ((ResultType<OFFProductUploadResultJson>) -> () )) { 
         self.URLString = URLString
         self.myCompletion = completion
     }

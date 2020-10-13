@@ -29,7 +29,7 @@ final class DietSelectorTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: SetWarningTableViewCell.self), for: indexPath) as! SetWarningTableViewCell
-        let (dietKey, dietName) = Diets.manager.keyAndName(for: indexPath.row, in: Locale.interfaceLanguageCode) ?? ("", "DietSelectorTableViewController:No diet for this index")
+        let (dietKey, dietName) = Diets.manager.keyAndName(atSorted: indexPath.row, in: Locale.interfaceLanguageCode) ?? ("", "DietSelectorTableViewController:No diet for this index")
         cell.state = SelectedDietsDefaults.manager.selected.contains(dietKey)
         cell.stateTitle = dietName
         cell.delegate = self
@@ -69,7 +69,7 @@ final class DietSelectorTableViewController: UITableViewController {
 //
 extension DietSelectorTableViewController: SetWarningTableViewCellDelegate {
     func setWarningTableViewCell(_ sender: SetWarningTableViewCell, receivedActionOn stateSwitch: UISwitch) {
-        if let (dietKey, _) = Diets.manager.keyAndName(for: sender.tag, in: Locale.interfaceLanguageCode) {
+        if let (dietKey, _) = Diets.manager.keyAndName(atSorted: sender.tag, in: Locale.interfaceLanguageCode) {
             if stateSwitch.isOn {
                 SelectedDietsDefaults.manager.addDiet(with:dietKey)
             } else {

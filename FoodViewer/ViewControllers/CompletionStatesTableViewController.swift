@@ -115,7 +115,7 @@ class CompletionStatesTableViewController: UITableViewController {
                     tapGestureRecognizer.numberOfTapsRequired = 1
                 tapGestureRecognizer.numberOfTouchesRequired = 1
                 cell.addGestureRecognizer(tapGestureRecognizer)
-            case .photosUploaded, .photosValidated:
+            case .photosUploaded, .photosValidated, .frontPhoto, .ingredientsPhoto, .nutritionPhoto, .packagingPhoto:
                 let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.galleryTapped))
                     tapGestureRecognizer.numberOfTapsRequired = 1
                 tapGestureRecognizer.numberOfTouchesRequired = 1

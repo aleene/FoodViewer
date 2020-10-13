@@ -56,13 +56,6 @@ final class ShowDietTriggersTableViewController: UITableViewController {
 
     private var heights: [IndexPath:CGFloat] = [:]
     
-    private var key: String? {
-        if let validDietIndex = dietIndex {
-            return Diets.manager.key(for:validDietIndex, in:Locale.interfaceLanguageCode)
-        } else {
-            return nil
-        }
-    }
 //
 // MARK: - Table view data source
 //
@@ -116,7 +109,7 @@ final class ShowDietTriggersTableViewController: UITableViewController {
     
     private func setTitle() {
         if let validIndex = dietIndex {
-            title = Diets.manager.name(for: validIndex, in: Locale.interfaceLanguageCode)
+            title = Diets.manager.title(atSorted: validIndex, in: Locale.interfaceLanguageCode)
         } else {
             title = TranslatableStrings.NoDietSelected
         }

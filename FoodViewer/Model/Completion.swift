@@ -60,17 +60,35 @@ public struct ProductCompletion: Hashable {
         case .expiration_date_to_be_completed:
             category = .expirationDate
             value = false
+        case .front_photo_selected:
+            category = .frontPhoto
+            value = true
+        case .front_photo_to_be_selected:
+            category = .frontPhoto
+            value = false
         case .ingredients_completed:
             category = .ingredients
             value = true
         case .ingredients_to_be_completed:
             category = .ingredients
             value = false
+        case .ingredients_photo_selected:
+            category = .ingredientsPhoto
+            value = true
+        case .ingredients_photo_to_be_selected:
+            category = .ingredientsPhoto
+            value = false
         case .nutrition_facts_completed:
             category = .nutritionFacts
             value = true
         case .nutrition_facts_to_be_completed:
             category = .nutritionFacts
+            value = false
+        case .nutrition_photo_selected:
+            category = .nutritionPhoto
+            value = true
+        case .nutrition_photo_to_be_selected:
+            category = .nutritionPhoto
             value = false
         case .packaging_completed:
             category = .packaging
@@ -117,6 +135,12 @@ public struct ProductCompletion: Hashable {
         case .packaging_code_to_be_completed:
             category = .packagingCode
             value = false
+        case .packaging_photo_not_selected, .packaging_photo_to_be_selected:
+            category = .packagingPhoto
+            value = false
+        case .packaging_photo_selected:
+            category = .packagingPhoto
+            value = true
         case .to_be_completed:
             category = .complete
             value = false
@@ -133,12 +157,16 @@ public struct ProductCompletion: Hashable {
              .quantity,
              .packaging,
              .ingredients,
+             .ingredientsPhoto,
              .categories,
              .expirationDate,
+             .frontPhoto,
              .nutritionFacts,
+             .nutritionPhoto,
              .complete,
              .characteristics,
              .packagingCode,
+             .packagingPhoto,
              .checked:
             return TranslatableStrings.Set
         case .photosUploaded,
@@ -154,12 +182,16 @@ public struct ProductCompletion: Hashable {
              .quantity,
              .packaging,
              .ingredients,
+             .ingredientsPhoto,
              .categories,
              .expirationDate,
+             .frontPhoto,
              .nutritionFacts,
+             .nutritionPhoto,
              .complete,
              .characteristics,
              .packagingCode,
+             .packagingPhoto,
              .checked:
             return TranslatableStrings.NotSet
         case .photosUploaded,

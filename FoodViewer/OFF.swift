@@ -164,10 +164,16 @@ public struct OFF {
             return "brands" // in JSON and search
         case .quantity:
             return "quantity" // in JSON and search
+        case .frontPhoto:
+            return "front-photo"
         case .packaging:
             return "packaging" // in JSON and search
         case .ingredients:
             return "ingredients" // in JSON and search
+        case .ingredientsPhoto:
+            return "ingredients-photo"
+        case .nutritionPhoto:
+            return "nutrition-photo"
         case .categories:
             return "categories" // in JSON and search
         case .expirationDate:
@@ -178,6 +184,8 @@ public struct OFF {
             return "photos-uploaded" // in JSON and search
         case .photosValidated:
             return "photos-validated" // in JSON and search
+        case .packagingPhoto:
+            return "packaging-photo" // in JSON and search
         case .complete:
             return "complete"
         case .characteristics:
@@ -198,6 +206,10 @@ public struct OFF {
             ProductCompletion.init(.categories, isCompleted: true),
             ProductCompletion.init(.expirationDate, isCompleted: true),
             ProductCompletion.init(.nutritionFacts, isCompleted: true),
+            ProductCompletion.init(.frontPhoto, isCompleted: true),
+            ProductCompletion.init(.ingredientsPhoto, isCompleted: true),
+            ProductCompletion.init(.nutritionPhoto, isCompleted: true),
+            ProductCompletion.init(.packagingPhoto, isCompleted: true),
             ProductCompletion.init(.photosUploaded, isCompleted: true),
             ProductCompletion.init(.photosValidated, isCompleted: true)]
     }

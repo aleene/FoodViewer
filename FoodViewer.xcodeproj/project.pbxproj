@@ -213,7 +213,6 @@
 		512B450B23FABD3900BFBCF0 /* OFFProductUpdateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B450A23FABD3900BFBCF0 /* OFFProductUpdateAPI.swift */; };
 		512B451123FABE5D00BFBCF0 /* OFFDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B451023FABE5D00BFBCF0 /* OFFDatabase.swift */; };
 		512B451323FABFB000BFBCF0 /* TagListViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B451223FABFB000BFBCF0 /* TagListViewTableViewCell.swift */; };
-		512B451523FABFD100BFBCF0 /* Diets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B451423FABFD000BFBCF0 /* Diets.swift */; };
 		512B451723FAC00C00BFBCF0 /* ProductImagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B451623FAC00C00BFBCF0 /* ProductImagesCollectionViewController.swift */; };
 		512B451923FAC07C00BFBCF0 /* SelectedDietsDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B451823FAC07B00BFBCF0 /* SelectedDietsDefaults.swift */; };
 		512B451B23FAC0AB00BFBCF0 /* AddImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B451A23FAC0AB00BFBCF0 /* AddImageCollectionViewCell.swift */; };
@@ -539,7 +538,6 @@
 		516F8B3A242D080400EF07CD /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B451F23FAC15F00BFBCF0 /* TextFieldTableViewCell.swift */; };
 		516F8B3B242D080400EF07CD /* NotAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B448C23FAB89700BFBCF0 /* NotAvailableViewController.swift */; };
 		516F8B3C242D080400EF07CD /* CompletionStatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B449823FAB8CD00BFBCF0 /* CompletionStatesTableViewController.swift */; };
-		516F8B3D242D080400EF07CD /* Diets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B451423FABFD000BFBCF0 /* Diets.swift */; };
 		516F8B3E242D080400EF07CD /* GKImageCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B441C23FAB20100BFBCF0 /* GKImageCropView.swift */; };
 		516F8B3F242D080400EF07CD /* Mass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C421E78687E00336CE8 /* Mass.swift */; };
 		516F8B40242D080400EF07CD /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B446023FAB26400BFBCF0 /* Keyboard.swift */; };
@@ -662,6 +660,8 @@
 		51857FA72508DDF7007B896B /* ProductAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51857FA52508DDF7007B896B /* ProductAttribute.swift */; };
 		51857FA92508DEBE007B896B /* ProductAttributeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51857FA82508DEBE007B896B /* ProductAttributeGroup.swift */; };
 		51857FAA2508DEBE007B896B /* ProductAttributeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51857FA82508DEBE007B896B /* ProductAttributeGroup.swift */; };
+		51857FAC250D02CE007B896B /* Diets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51857FAB250D02CE007B896B /* Diets.swift */; };
+		51857FAD250D02CE007B896B /* Diets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51857FAB250D02CE007B896B /* Diets.swift */; };
 		518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B2FAB1CB13BB5007D8AB9 /* Section.swift */; };
 		518B70201EA2779D00AB35CC /* ProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B701F1EA2779C00AB35CC /* ProductType.swift */; };
 		518ED6DD2028B008002176A9 /* ProductStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED6DC2028B007002176A9 /* ProductStorage.swift */; };
@@ -1022,7 +1022,6 @@
 		512B450A23FABD3900BFBCF0 /* OFFProductUpdateAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFProductUpdateAPI.swift; sourceTree = "<group>"; };
 		512B451023FABE5D00BFBCF0 /* OFFDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OFFDatabase.swift; path = Model/OFF/OFFDatabase.swift; sourceTree = "<group>"; };
 		512B451223FABFB000BFBCF0 /* TagListViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagListViewTableViewCell.swift; path = Cells/TagListViewTableViewCell.swift; sourceTree = "<group>"; };
-		512B451423FABFD000BFBCF0 /* Diets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Diets.swift; path = Model/Diets.swift; sourceTree = "<group>"; };
 		512B451623FAC00C00BFBCF0 /* ProductImagesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductImagesCollectionViewController.swift; path = ViewControllers/ProductImagesCollectionViewController.swift; sourceTree = "<group>"; };
 		512B451823FAC07B00BFBCF0 /* SelectedDietsDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectedDietsDefaults.swift; path = Model/SelectedDietsDefaults.swift; sourceTree = "<group>"; };
 		512B451A23FAC0AB00BFBCF0 /* AddImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddImageCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1061,7 +1060,6 @@
 		5149C5DA22F6EE53000EA690 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		514AFA1D2407D67A0081D50A /* 737628064502.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 737628064502.json; sourceTree = SOURCE_ROOT; };
 		514AFA1F2407D8FB0081D50A /* OFFProductNutriScoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFProductNutriScoreData.swift; path = OFFProductJson/OFFProductNutriScoreData.swift; sourceTree = "<group>"; };
-		514C0BE9230D770200FE9AF7 /* Diets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Diets.swift; path = Taxonomies/Diets.swift; sourceTree = "<group>"; };
 		514C0BEE230ECFF700FE9AF7 /* DietLevelsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DietLevelsTableViewCell.swift; path = Cells/DietLevelsTableViewCell.swift; sourceTree = "<group>"; };
 		514EEF991ED9B70000C4CF54 /* 4005900122063.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4005900122063.json; sourceTree = "<group>"; };
 		514EFA7F222FEBB3008FFD2A /* FoodViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1131,6 +1129,7 @@
 		51857FA22508D3FB007B896B /* OFFProductAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFProductAttribute.swift; path = OFFProductJson/OFFProductAttribute.swift; sourceTree = "<group>"; };
 		51857FA52508DDF7007B896B /* ProductAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductAttribute.swift; path = Model/Product/ProductAttribute.swift; sourceTree = "<group>"; };
 		51857FA82508DEBE007B896B /* ProductAttributeGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductAttributeGroup.swift; path = Model/Product/ProductAttributeGroup.swift; sourceTree = "<group>"; };
+		51857FAB250D02CE007B896B /* Diets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Diets.swift; path = Model/Diets.swift; sourceTree = "<group>"; };
 		518B2FAB1CB13BB5007D8AB9 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		518B701F1EA2779C00AB35CC /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
 		518E2C7122F9E1D1007FC124 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
@@ -1380,7 +1379,7 @@
 				518B2FAB1CB13BB5007D8AB9 /* Section.swift */,
 				511459351CB1391300D25116 /* VertexNew.swift */,
 				5114592C1CB1385100D25116 /* Taxonomy.swift */,
-				514C0BE9230D770200FE9AF7 /* Diets.swift */,
+				51857FAB250D02CE007B896B /* Diets.swift */,
 				51FA7B7F2360775700FF2A4E /* ProhibitedBrands.swift */,
 			);
 			name = Taxonomy;
@@ -2061,7 +2060,6 @@
 			isa = PBXGroup;
 			children = (
 				51C769B31DDA0D010000D260 /* CaseCountable.swift */,
-				512B451423FABFD000BFBCF0 /* Diets.swift */,
 				51C2FF3420E101A200B65509 /* ImageFileCache.swift */,
 				51BED0C31CE1C044006ED62B /* MapPinCategories.swift */,
 				51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */,
@@ -2622,7 +2620,6 @@
 				516F8B3A242D080400EF07CD /* TextFieldTableViewCell.swift in Sources */,
 				516F8B3B242D080400EF07CD /* NotAvailableViewController.swift in Sources */,
 				516F8B3C242D080400EF07CD /* CompletionStatesTableViewController.swift in Sources */,
-				516F8B3D242D080400EF07CD /* Diets.swift in Sources */,
 				516F8B3E242D080400EF07CD /* GKImageCropView.swift in Sources */,
 				516F8B3F242D080400EF07CD /* Mass.swift in Sources */,
 				516F8B40242D080400EF07CD /* Keyboard.swift in Sources */,
@@ -2630,6 +2627,7 @@
 				516F8B42242D080400EF07CD /* OFFFiles.swift in Sources */,
 				516F8B43242D080400EF07CD /* OFFProductUpdateAPI.swift in Sources */,
 				516F8B44242D080400EF07CD /* NoServingSizeTableViewCell.swift in Sources */,
+				51857FAD250D02CE007B896B /* Diets.swift in Sources */,
 				516F8B45242D080400EF07CD /* TagView.swift in Sources */,
 				516F8B46242D080400EF07CD /* OFFProductNutrientLevel.swift in Sources */,
 				516F8B47242D080400EF07CD /* Search.swift in Sources */,
@@ -2744,6 +2742,7 @@
 				512B444E23FAB23600BFBCF0 /* RSCodeGenerator.swift in Sources */,
 				51E2926E20DBE1B2001C7471 /* ImageCache.swift in Sources */,
 				512B453A23FBEC2F00BFBCF0 /* ShowDietTriggersCoordinator.swift in Sources */,
+				51857FAC250D02CE007B896B /* Diets.swift in Sources */,
 				512B44AB23FAB99000BFBCF0 /* FavoriteShopsTableViewController.swift in Sources */,
 				512B43FC23FAB1C700BFBCF0 /* UIView+Haneke.swift in Sources */,
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,
@@ -2958,7 +2957,6 @@
 				512B452023FAC15F00BFBCF0 /* TextFieldTableViewCell.swift in Sources */,
 				512B448D23FAB89700BFBCF0 /* NotAvailableViewController.swift in Sources */,
 				512B449923FAB8CE00BFBCF0 /* CompletionStatesTableViewController.swift in Sources */,
-				512B451523FABFD100BFBCF0 /* Diets.swift in Sources */,
 				512B442523FAB20100BFBCF0 /* GKImageCropView.swift in Sources */,
 				511B2C431E78687E00336CE8 /* Mass.swift in Sources */,
 				512B446323FAB26400BFBCF0 /* Keyboard.swift in Sources */,
