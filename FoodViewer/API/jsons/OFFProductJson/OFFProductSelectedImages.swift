@@ -12,6 +12,7 @@ struct OFFProductSelectedImages: Codable {
     let front: OFFProductSelectedImagesSizes?
     let nutrition: OFFProductSelectedImagesSizes?
     let ingredients: OFFProductSelectedImagesSizes?
+    let packaging: OFFProductSelectedImagesSizes?
 }
 
 struct OFFProductSelectedImagesSizes: Codable {

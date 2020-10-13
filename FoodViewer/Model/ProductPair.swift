@@ -1064,6 +1064,8 @@ class ProductPair {
                                 self.localProduct?.ingredientsImages.removeValue(forKey: element.key)
                             case .nutrition:
                                 self.localProduct?.nutritionImages.removeValue(forKey: element.key)
+                            case .packaging:
+                                self.localProduct?.packagingImages.removeValue(forKey: element.key)
                             case .general:
                                 self.localProduct?.images.removeValue(forKey: element.key)
                             }

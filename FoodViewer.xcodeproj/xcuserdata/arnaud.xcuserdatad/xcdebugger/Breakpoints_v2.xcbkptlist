@@ -202,22 +202,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BF615AAC-908A-4D92-9105-2D706654879D"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FoodViewer/Model/ProductPair.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1074"
-            endingLineNumber = "1074"
-            landmarkName = "uploadImages(_:imageTypeCategory:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "107FA1F4-3024-4E25-88C9-83ACF449AE59"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -385,8 +369,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1891"
-            endingLineNumber = "1891"
+            startingLineNumber = "1926"
+            endingLineNumber = "1926"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -801,8 +785,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1519"
-            endingLineNumber = "1519"
+            startingLineNumber = "1526"
+            endingLineNumber = "1526"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -817,8 +801,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1254"
-            endingLineNumber = "1254"
+            startingLineNumber = "1261"
+            endingLineNumber = "1261"
             landmarkName = "decodeCompletionStates(_:)"
             landmarkType = "9">
          </BreakpointContent>

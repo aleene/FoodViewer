@@ -17,11 +17,6 @@ class OFFImageDeselectAPI: Operation {
         static let ColonSpace = ": "
         static let PNG = ".png"
         static let SemiColonSpace = "; "
-        struct ImageType {
-            static let Front = "front"
-            static let Ingredients = "ingredients"
-            static let Nutrition = "nutrition"
-        }
     }
     
     private struct HTTP {
@@ -40,7 +35,7 @@ class OFFImageDeselectAPI: Operation {
     
     private var languageCode: String? = nil
     private var OFFServer: String? = nil
-    private var imageString: String? = nil
+    private var imageTypeCategory: ImageTypeCategory? = nil
     private var barcodeString: String? = nil
     private var myCompletion: ( (OFFImageDeselectResultJson?) -> () ) = { _ in  }
 
@@ -48,10 +43,10 @@ class OFFImageDeselectAPI: Operation {
     // The dict specifies which language must be deselected
     // the image category is .identification, .nutrition or .ingredients
     // And naturally the product
-    init(_ languageCode: String, OFFServer: String, of imageString: String, for barcodeString: String, completion: @escaping (OFFImageDeselectResultJson?) -> ()) {
+    init(_ languageCode: String, OFFServer: String, of imageTypeCategory: ImageTypeCategory, for barcodeString: String, completion: @escaping (OFFImageDeselectResultJson?) -> ()) {
         self.languageCode = languageCode
         self.OFFServer = OFFServer
-        self.imageString = imageString
+        self.imageTypeCategory = imageTypeCategory
         self.barcodeString = barcodeString
         self.myCompletion = completion
     }
@@ -59,16 +54,17 @@ class OFFImageDeselectAPI: Operation {
     override func main() {
         super.main()
         guard let validLanguageCode = languageCode,
-            let validImageString = imageString,
+            let validImageTypeCategory = imageTypeCategory,
             let validOFFServer = OFFServer,
             let validBarcodeString = barcodeString else { return }
         
-        switch validImageString {
-        case Constants.ImageType.Front,
-            Constants.ImageType.Ingredients,
-            Constants.ImageType.Nutrition:
-            postDeselect(parameters: [OFFHttpPost.UnselectParameter.CodeKey:validBarcodeString,
-                                        OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:validImageString, in:validLanguageCode)],
+        switch validImageTypeCategory {
+        case ImageTypeCategory.front,
+             ImageTypeCategory.ingredients,
+            ImageTypeCategory.nutrition,
+            ImageTypeCategory.packaging:
+            postDeselect(parameters: [OFFHttpPost.UnselectParameter.CodeKey: validBarcodeString,
+                                      OFFHttpPost.UnselectParameter.IdKey: OFFHttpPost.idValue(for: validImageTypeCategory.description, in:validLanguageCode)],
                         url: OFFHttpPost.URL.SecurePrefix +
                             validOFFServer +
                             OFFHttpPost.URL.Domain +

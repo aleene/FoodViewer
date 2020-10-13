@@ -13,6 +13,7 @@ enum ImageTypeCategory: Int {
     case front
     case ingredients
     case nutrition
+    case packaging
     
     // These decriptions are used in the deselect/update API's to OFF
     var description: String {
@@ -23,12 +24,14 @@ enum ImageTypeCategory: Int {
             return "ingredients"
         case .nutrition:
             return "nutrition"
+        case .packaging:
+            return "packaging"
         case .general:
             return "general"
         }
     }
 
     static var list: [ImageTypeCategory] {
-        return [.front, .ingredients, .nutrition]
+        return [.front, .ingredients, .nutrition, .packaging]
     }
 }

@@ -82,7 +82,8 @@ class FoodProduct {
     var frontImages: [String:ProductImageSize] = [:]
     var nutritionImages: [String:ProductImageSize] = [:]
     var ingredientsImages: [String:ProductImageSize] = [:]
-    
+    var packagingImages: [String:ProductImageSize] = [:]
+
     // dictionary with image ID as key and the images in the four sizes as value
     var images: [String:ProductImageSize] = [:]
 
@@ -860,6 +861,12 @@ class FoodProduct {
                 dates.insert(validDate)
             }
         }
+        for (_, imageData) in packagingImages {
+            if let validDate = imageData.date {
+                dates.insert(validDate)
+            }
+        }
+
         return dates.sorted(by: { $0 > $1 })
     }
     var state = CompletionState()
@@ -1613,9 +1620,37 @@ class FoodProduct {
                 ingredientsImages[key]?.small = ProductImageData(url: value)
             }
         }
+        
+        if let validImageSizes = validProduct.selected_images?.packaging {
+
+            for (key, value) in validImageSizes.display {
+                if packagingImages[key] == nil {
+                    packagingImages[key] = ProductImageSize()
+                }
+                packagingImages[key]?.display = ProductImageData(url: value)
+            }
+
+            for (key, value) in validImageSizes.thumb {
+                if packagingImages[key] == nil {
+                    packagingImages[key] = ProductImageSize()
+                }
+                packagingImages[key]?.thumb = ProductImageData(url: value)
+            }
+
+            for (key, value) in validImageSizes.small {
+                if packagingImages[key] == nil {
+                    packagingImages[key] = ProductImageSize()
+                }
+                packagingImages[key]?.small = ProductImageData(url: value)
+            }
+        }
+
         if let validImages = validProduct.images {
             for (key,value) in validImages {
-                if !key.contains("ingredients") && !key.contains("front") && !key.contains("nutrition") {
+                if !key.contains(ImageTypeCategory.front.description)
+                    && !key.contains(ImageTypeCategory.ingredients.description)
+                    && !key.contains(ImageTypeCategory.nutrition.description)
+                    && !key.contains(ImageTypeCategory.packaging.description) {
                     let imageSet = ProductImageSize(for: barcode, and: key)
                     if images.contains(where: { $0.key == key }) {
                         images[key]?.thumb = imageSet.thumb
@@ -1938,10 +1973,11 @@ class FoodProduct {
     
     // Checks if the product has any images defined
     var hasImages: Bool {
-        return images.count > 0 ||
-            nutritionImages.count > 0 ||
-            frontImages.count > 0 ||
-            ingredientsImages.count > 0
+        return images.count > 0
+            || nutritionImages.count > 0
+            || frontImages.count > 0
+            || ingredientsImages.count > 0
+            || packagingImages.count > 0
     }
 
     // checks if the product has any fields defined
@@ -2197,10 +2233,6 @@ class FoodProduct {
     }
      */
 
-    
-    //func worldURL() -> URL? {
-    //    return URL(string: "http://world.openfoodfacts.org/product/" + barcode.asString() + "/")
-    //}
     
     func regionURL() -> URL? {
         return URL(string: OFF.webProductURLFor(barcode))
@@ -2513,5 +2545,6 @@ extension Notification.Name {
     static let MainImageSet = Notification.Name("FoodProduct.Notification.MainImageSet")
     static let IngredientsImageSet = Notification.Name("FoodProduct.Notification.IngredientsImageSet")
     static let NutritionImageSet = Notification.Name("FoodProduct.Notification.NutritionImageSet")
+    static let PackagingImageSet = Notification.Name("FoodProduct.Notification.PackagingImageSet")
 }
 

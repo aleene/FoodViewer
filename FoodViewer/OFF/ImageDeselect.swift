@@ -18,7 +18,7 @@ class ImageDeselect: OFFImageDeselectAPI {
         // - The ImageTypeCategory determines, which image will be deselected
         // - For each productType another OFF-server must be used. This is encoded as the rawValue of ProductType
         // The completionHandler of the parent contains a json and needs to be translated as well
-        super.init(languageCode, OFFServer: productType.rawValue, of: imageTypeCategory.description, for: barcodeString) { ( json: OFFImageDeselectResultJson? ) in
+        super.init(languageCode, OFFServer: productType.rawValue, of: imageTypeCategory, for: barcodeString) { ( json: OFFImageDeselectResultJson? ) in
             if let validStatus = json?.status {
                 if let validStatus_code = json?.status_code {
                     if validStatus_code == 0 {
@@ -38,7 +38,7 @@ class ImageDeselect: OFFImageDeselectAPI {
     
     override func main() {
         switch imageTypeCategory {
-        case .front, .ingredients, .nutrition:
+        case .front, .ingredients, .nutrition, .packaging:
             super.main()
         default:
             return
