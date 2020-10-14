@@ -95,6 +95,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         case frontImages(String)
         case ingredientsImages(String)
         case nutritionImages(String)
+        case packagingImages(String)
         case originalImages(String)
         
         var header: String {
@@ -102,6 +103,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             case .frontImages(let headerTitle),
                  .ingredientsImages(let headerTitle),
                  .nutritionImages(let headerTitle),
+                 .packagingImages(let headerTitle),
                  .originalImages(let headerTitle):
                 return headerTitle
             }
@@ -123,6 +125,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         default:
             sectionsAndRows.append(.nutritionImages(TranslatableStrings.SelectedNutritionImages))
         }
+        sectionsAndRows.append(.packagingImages(TranslatableStrings.SelectedPackagingImages))
         sectionsAndRows.append(.originalImages(TranslatableStrings.OriginalImages))
         
         return sectionsAndRows
@@ -260,6 +263,28 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
 
+    fileprivate var packagingImages: [String:ProductImageSize] {
+        get {
+            var newImages: [String:ProductImageSize] = [:]
+            switch productVersion {
+            case .remote:
+                if let validImages = productPair?.remoteProduct?.packagingImages {
+                    newImages = validImages
+                }
+            case .new:
+                if let validImages = productPair?.localProduct?.packagingImages {
+                    newImages = validImages
+                }
+                if let validImages = productPair?.remoteProduct?.packagingImages {
+                    let images = validImages
+                    newImages = newImages.merging(images, uniquingKeysWith: { (first, last) in last } )
+                }
+
+            }
+            return newImages
+        }
+    }
+
     fileprivate var itemsPerRow: CGFloat {
         switch layoutStyle {
         case .iPadFullscreen:
@@ -332,6 +357,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             return numberOfItems(in: editMode, for: ingredientsImages.count)
         case .nutritionImages:
             return numberOfItems(in: editMode, for: nutritionImages.count )
+        case .packagingImages:
+            return numberOfItems(in: editMode, for: packagingImages.count )
         case .originalImages:
             // Allow the user to add an image when in editMode
             return numberOfItems(in: editMode, for: originalImages.count )
@@ -439,6 +466,36 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 }
             }
 
+            case .packagingImages:
+                if indexPath.row < packagingImages.count && packagingImages.count > 0 {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
+                    let key = keyTuples(for:Array(packagingImages.keys))[indexPath.row].0
+                    if let result = packagingImages[key]?.largest?.fetch() {
+                        switch result {
+                        case .success(let image):
+                            cell.imageView.image = image
+                        default:
+                            cell.imageView.image = UIImage.init(named:"NotOK")
+                        }
+                    }
+                    cell.label.text = keyTuples(for:Array(packagingImages.keys))[indexPath.row].1
+                    cell.indexPath = indexPath
+                    cell.editMode = editMode
+                    cell.delegate = self
+                    return cell
+                } else {
+                    if editMode {
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
+                        cell.delegate = self
+                        cell.tag = 3
+                        return cell
+                    } else {
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
+                        cell.setup(datasource: self, delegate: nil, width: 30, tag: 2)
+                        return cell
+                    }
+                }
+
         default:
             // in editMode the last element of a row is an add button
             if indexPath.row < originalImages.count && originalImages.count > 0 {
@@ -524,6 +581,17 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 default:
                     newTitle = TranslatableStrings.SelectedNutritionImagesOriginal
                 }
+                case .packagingImages:
+                    switch productVersion {
+                    case .new:
+                        if productPair?.localProduct?.packagingImages != nil && !productPair!.localProduct!.packagingImages.isEmpty {
+                            newTitle = TranslatableStrings.SelectedPackagingImagesEdited
+                        } else {
+                            newTitle = TranslatableStrings.SelectedPackagingImages
+                        }
+                    default:
+                        newTitle = TranslatableStrings.SelectedPackagingImagesOriginal
+                    }
             case .originalImages:
                 switch productVersion {
                 case .new:
@@ -572,6 +640,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         case .nutritionImages:
             let languageCode = Array(productPair!.remoteProduct!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
             return ( OFFplists.manager.languageName(for:languageCode), productPair!.remoteProduct!.image(for:languageCode, of:.nutrition) )
+        case .packagingImages:
+            let languageCode = Array(productPair!.remoteProduct!.packagingImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+            return ( OFFplists.manager.languageName(for:languageCode), productPair!.remoteProduct!.image(for:languageCode, of:.packaging) )
         case .originalImages:
             let key = Array(productPair!.remoteProduct!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
             return (key, productPair!.remoteProduct!.images[key]?.largest)
@@ -650,6 +721,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         case .nutritionImages:
             let languageCode = Array(productPair!.remoteProduct!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
             let imageData = productPair!.remoteProduct!.image(for:languageCode, of:.nutrition)
+            let imageTitle = OFFplists.manager.languageName(for:languageCode)
+            return (imageData, imageTitle)
+        case .packagingImages:
+            let languageCode = Array(productPair!.remoteProduct!.packagingImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+            let imageData = productPair!.remoteProduct!.image(for:languageCode, of:.packaging)
             let imageTitle = OFFplists.manager.languageName(for:languageCode)
             return (imageData, imageTitle)
         case .originalImages:
@@ -812,6 +888,8 @@ extension ProductImagesCollectionViewController : AddImageCollectionViewCellDele
             addImageType = .ingredientsImages("")
         case 2:
             addImageType = .nutritionImages("")
+        case 3:
+            addImageType = .packagingImages("")
         default:
             addImageType = .originalImages("")
         }
@@ -826,6 +904,8 @@ extension ProductImagesCollectionViewController : AddImageCollectionViewCellDele
             addImageType = .ingredientsImages("")
         case 2:
             addImageType = .nutritionImages("")
+        case 3:
+            addImageType = .packagingImages("")
         default:
             addImageType = .originalImages("")
         }
@@ -853,6 +933,9 @@ extension ProductImagesCollectionViewController : GalleryCollectionViewCellDeleg
         case .nutritionImages:
             let languageCode = keyTuples(for:Array(validProductPair.remoteProduct!.nutritionImages.keys))[validIndexPath.row].0
             OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .nutrition)
+        case .packagingImages:
+            let languageCode = keyTuples(for:Array(validProductPair.remoteProduct!.packagingImages.keys))[validIndexPath.row].0
+            OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .packaging)
         case .originalImages:
             guard let validCodes = productPair?.languageCodes else { return }
             coordinator?.showSelectLanguageAndImageType(for: self.productPair, languageCodes:validCodes, key: key)
@@ -929,6 +1012,8 @@ extension ProductImagesCollectionViewController: GKImagePickerDelegate {
             productPair!.update(ingredientsImage: image, for: productPair!.primaryLanguageCode)
         case .nutritionImages:
             productPair!.update(nutritionImage: image, for: productPair!.primaryLanguageCode)
+        case .packagingImages:
+            productPair!.update(packagingImage: image, for: productPair!.primaryLanguageCode)
         default:
             productPair?.update(image: image, id: newImageID)
         }

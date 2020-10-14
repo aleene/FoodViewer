@@ -934,6 +934,8 @@ class ProductPair {
                     update(ingredientsImage: image, for: selectedLanguageCode)
                 case .nutrition:
                     update(nutritionImage: image, for: selectedLanguageCode)
+                case .packaging:
+                    update(packagingImage: image, for: selectedLanguageCode)
                 default:
                     break
                 }
@@ -960,6 +962,12 @@ class ProductPair {
         initLocalProduct()
         localProduct!.ingredientsImages[languageCode] = ProductImageSize()
         localProduct!.ingredientsImages[languageCode]?.original = ProductImageData.init(image: ingredientsImage, url: ProductStorage.manager.fileUrl(with: self.barcodeType, for: languageCode, and: .ingredients))
+    }
+    
+    func update(packagingImage: UIImage, for languageCode: String) {
+        initLocalProduct()
+        localProduct!.packagingImages[languageCode] = ProductImageSize()
+        localProduct!.packagingImages[languageCode]?.original = ProductImageData.init(image: packagingImage, url: ProductStorage.manager.fileUrl(with: self.barcodeType, for: languageCode, and: .packaging))
     }
 
     func update(image: UIImage, id: String) {
@@ -1022,6 +1030,11 @@ class ProductPair {
         if validProduct.nutritionImages.count > 0 {
             operations = operations.merging(uploadImages(validProduct.nutritionImages, imageTypeCategory: .nutrition)) { (_, new) in new }
         }
+        
+        if validProduct.packagingImages.count > 0 {
+            operations = operations.merging(uploadImages(validProduct.packagingImages, imageTypeCategory: .packaging)) { (_, new) in new }
+        }
+
         if validProduct.images.count > 0 {
             operations = operations.merging(uploadImages(validProduct.images, imageTypeCategory: .general)) { (_, new) in new }
         }
