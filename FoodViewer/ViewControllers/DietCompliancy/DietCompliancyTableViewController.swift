@@ -67,11 +67,11 @@ class DietCompliancyTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: DietLevelsTableViewCell.self), for: indexPath) as! DietLevelsTableViewCell
             cell.values = values(forDietAt: indexPath.section)
             if productPair?.remoteProduct != nil {
-                cell.conclusion = diets.conclusion(productPair!.remoteProduct!, withSortedDietAt: indexPath.section, in: Locale.interfaceLanguageCode)
+                cell.conclusion = diets.conclusion(productPair!.remoteProduct!, withDietAt: indexPath.section, in: Locale.interfaceLanguageCode)
             }
             cell.delegate = self
-            cell.dietName = diets.title(atSorted: indexPath.section, in: Locale.interfaceLanguageCode)
-            cell.dietDescription = diets.extendedDescription(atSorted: indexPath.section, in: Locale.interfaceLanguageCode)
+            cell.dietName = diets.name(for: indexPath.section, in: Locale.interfaceLanguageCode)
+            // cell.dietDescription = diets.name(atSorted: indexPath.section, in: Locale.interfaceLanguageCode)
             cell.buttonNotDoubleTap = ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
             cell.tag = indexPath.section
             return cell
@@ -93,7 +93,7 @@ class DietCompliancyTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return diets.title(atSorted: section, in: Locale.interfaceLanguageCode)
+        return diets.name(for: section, in: Locale.interfaceLanguageCode)
     }
     
     func refreshProduct() {

@@ -262,7 +262,13 @@ class ProductPageViewController: UIPageViewController {
         } else if let vc = viewController(for: currentProductPage) as? NutrientsTableViewController {
             vc.refreshProduct()
             
+        } else if let vc = viewController(for: currentProductPage) as? EnvironmentTableViewController {
+            vc.refreshProduct()
+
         } else if let vc = viewController(for: currentProductPage) as? SupplyChainTableViewController {
+            vc.refreshProduct()
+
+        } else if let vc = viewController(for: currentProductPage) as? EnvironmentTableViewController {
             vc.refreshProduct()
 
         } else if let vc = viewController(for: currentProductPage) as? CategoriesTableViewController {
@@ -294,9 +300,12 @@ class ProductPageViewController: UIPageViewController {
         } else if viewController is NutrientsTableViewController {
             return .nutritionFacts
                 
+        } else if viewController is EnvironmentTableViewController {
+            return .environment
+                
         } else if viewController is SupplyChainTableViewController {
             return .supplyChain
-                
+
         } else if viewController is CategoriesTableViewController {
             return .categories
                 
@@ -348,13 +357,13 @@ class ProductPageViewController: UIPageViewController {
         // define the pages (and order), which will be shown
         switch currentProductType {
         case .food:
-            pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .nutritionScore, .dietCompliancy, .completion, .json]
+            pages = [.identification, .ingredients, .nutritionFacts, .environment, .supplyChain, .categories, .gallery, .nutritionScore, .dietCompliancy, .completion, .json]
         case .beauty:
-            pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion, .json]
+            pages = [.identification, .ingredients, .environment, .supplyChain, .categories, .gallery, .completion, .json]
         case .petFood:
             pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion, .json]
         case .product:
-            pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion, .json]
+            pages = [.identification, .ingredients, .environment, .supplyChain, .categories, .gallery, .completion, .json]
         }
     }
     
@@ -376,6 +385,9 @@ class ProductPageViewController: UIPageViewController {
         case .nutritionFacts:
             nutritionFactsVC.delegate = self
             
+        case .environment:
+            environmentVC.delegate = self
+
         case .supplyChain:
             supplyChainVC.delegate = self
             
@@ -416,6 +428,7 @@ class ProductPageViewController: UIPageViewController {
             static let Identification = "IdentificationTableViewController"
             static let Ingredients = "IngredientsTableViewController"
             static let Nutrients = "NutrientsTableViewController"
+            static let Environment = "EnvironmentTableViewController"
             static let SupplyChain = "SupplyChainTableViewController"
             static let Categories = "CategoriesTableViewController"
             static let CommunityEffort = "CommunityEffortTableViewController"
@@ -436,6 +449,8 @@ class ProductPageViewController: UIPageViewController {
             return identificationVC
         case .ingredients:
             return ingredientsVC
+        case .environment:
+            return environmentVC
         case .gallery, .notAvailable:
             return galleryVC
         case .nutritionFacts:
@@ -508,6 +523,8 @@ class ProductPageViewController: UIPageViewController {
     
     fileprivate let nutritionFactsVC: NutrientsTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.Nutrients) as! NutrientsTableViewController
     
+    fileprivate let environmentVC: EnvironmentTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.Environment) as! EnvironmentTableViewController
+
     fileprivate let supplyChainVC: SupplyChainTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.SupplyChain) as! SupplyChainTableViewController
     
     fileprivate let categoriesVC: CategoriesTableViewController = UIStoryboard(name: Constant.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constant.ViewControllerIdentifier.Categories) as! CategoriesTableViewController

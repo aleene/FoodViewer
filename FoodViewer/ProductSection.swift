@@ -10,6 +10,7 @@ import Foundation
 
 public enum ProductPage {
     
+    case environment
     case identification
     case gallery
     case ingredients
@@ -25,6 +26,8 @@ public enum ProductPage {
 
     var description: String {
         switch self {
+        case .environment:
+            return  TranslatableStrings.Environment
         case .identification:
             return  TranslatableStrings.Identification
         case .ingredients:

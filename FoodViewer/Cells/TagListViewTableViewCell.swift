@@ -80,7 +80,7 @@ class TagListViewTableViewCell: UITableViewCell {
             self.tag = validTag
             tagListView?.tag = validTag
         }
-        tagListView.reloadData(clearAll: true)
+        tagListView?.reloadData(clearAll: true)
     }
 /**
 Function called when the view disappears
@@ -104,7 +104,7 @@ The TagListView used in this class has gestures to its views. It is possible tha
                 }
             }
         }
-        tagListView.willDisappear()
+        tagListView?.willDisappear()
     }
     
     private var delegate: TagListViewCellDelegate? = nil

@@ -662,6 +662,8 @@
 		51857FAA2508DEBE007B896B /* ProductAttributeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51857FA82508DEBE007B896B /* ProductAttributeGroup.swift */; };
 		51857FAC250D02CE007B896B /* Diets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51857FAB250D02CE007B896B /* Diets.swift */; };
 		51857FAD250D02CE007B896B /* Diets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51857FAB250D02CE007B896B /* Diets.swift */; };
+		51895A072539EF5B007C82F8 /* EnvironmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895A062539EF5B007C82F8 /* EnvironmentTableViewController.swift */; };
+		51895A092539F2C9007C82F8 /* EnvironmentCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895A082539F2C9007C82F8 /* EnvironmentCoordinator.swift */; };
 		518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B2FAB1CB13BB5007D8AB9 /* Section.swift */; };
 		518B70201EA2779D00AB35CC /* ProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B701F1EA2779C00AB35CC /* ProductType.swift */; };
 		518ED6DD2028B008002176A9 /* ProductStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED6DC2028B007002176A9 /* ProductStorage.swift */; };
@@ -1130,6 +1132,8 @@
 		51857FA52508DDF7007B896B /* ProductAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductAttribute.swift; path = Model/Product/ProductAttribute.swift; sourceTree = "<group>"; };
 		51857FA82508DEBE007B896B /* ProductAttributeGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductAttributeGroup.swift; path = Model/Product/ProductAttributeGroup.swift; sourceTree = "<group>"; };
 		51857FAB250D02CE007B896B /* Diets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Diets.swift; path = Model/Diets.swift; sourceTree = "<group>"; };
+		51895A062539EF5B007C82F8 /* EnvironmentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EnvironmentTableViewController.swift; path = ProductsTab/EnvironmentTableViewController.swift; sourceTree = "<group>"; };
+		51895A082539F2C9007C82F8 /* EnvironmentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EnvironmentCoordinator.swift; path = Coordinators/EnvironmentCoordinator.swift; sourceTree = "<group>"; };
 		518B2FAB1CB13BB5007D8AB9 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		518B701F1EA2779C00AB35CC /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
 		518E2C7122F9E1D1007FC124 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
@@ -1518,6 +1522,7 @@
 			children = (
 				512B43BB23FAB05C00BFBCF0 /* CategoriesCoordinator.swift */,
 				512B43BD23FAB07000BFBCF0 /* IdentificationCoordinator.swift */,
+				51895A082539F2C9007C82F8 /* EnvironmentCoordinator.swift */,
 				51E6D78F23F1AE3E00AD7947 /* IngredientsCoordinator.swift */,
 				51E6D79123F1AE6A00AD7947 /* NutrientsCoordinator.swift */,
 				51E6D79323F45A7700AD7947 /* ProductImagesCoordinator.swift */,
@@ -1529,10 +1534,10 @@
 		513982481C89CEB800250FB1 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				512B451623FAC00C00BFBCF0 /* ProductImagesCollectionViewController.swift */,
 				512B449623FAB8C600BFBCF0 /* CategoriesTableViewController.swift */,
 				512B449823FAB8CD00BFBCF0 /* CompletionStatesTableViewController.swift */,
 				512B449E23FAB8F700BFBCF0 /* DietCompliancyTableViewController.swift */,
+				51895A062539EF5B007C82F8 /* EnvironmentTableViewController.swift */,
 				512B448E23FAB89F00BFBCF0 /* IdentificationTableViewController.swift */,
 				512B449023FAB8A800BFBCF0 /* IngredientsTableViewController.swift */,
 				512B449C23FAB8DF00BFBCF0 /* JSONViewController.swift */,
@@ -1540,6 +1545,7 @@
 				512B448A23FAB88E00BFBCF0 /* NotSetPageViewController.swift */,
 				512B452E23FAC70700BFBCF0 /* NutrientsTableViewController.swift */,
 				512B449A23FAB8D800BFBCF0 /* NutritionScoreTableViewController.swift */,
+				512B451623FAC00C00BFBCF0 /* ProductImagesCollectionViewController.swift */,
 				512B449423FAB8BD00BFBCF0 /* SupplyChainTableViewController.swift */,
 			);
 			name = Pages;
@@ -2730,6 +2736,7 @@
 				512B451B23FAC0AB00BFBCF0 /* AddImageCollectionViewCell.swift in Sources */,
 				512B445B23FAB24200BFBCF0 /* StringExtension.swift in Sources */,
 				512B43DA23FAB16100BFBCF0 /* ShowDietTriggersTableViewController.swift in Sources */,
+				51895A092539F2C9007C82F8 /* EnvironmentCoordinator.swift in Sources */,
 				51FA7B802360775700FF2A4E /* ProhibitedBrands.swift in Sources */,
 				516F8BA62433B9D100EF07CD /* UserStatsSelectorTableViewController.swift in Sources */,
 				512B44D323FABAE200BFBCF0 /* NutritionScoreTableViewCell.swift in Sources */,
@@ -2899,6 +2906,7 @@
 				51A7DC801EE6C04400F231B0 /* LanguageHeaderView.swift in Sources */,
 				511D58A920372EC600F5D313 /* OFFProductImageSize.swift in Sources */,
 				512B44CF23FABACB00BFBCF0 /* NameTableViewCell.swift in Sources */,
+				51895A072539EF5B007C82F8 /* EnvironmentTableViewController.swift in Sources */,
 				517907FA1F8F6C950017FCA0 /* Contributor.swift in Sources */,
 				519A8E051E827F7C001C026A /* ImageTypeCategory.swift in Sources */,
 				512B450923FABD1A00BFBCF0 /* OFFImageDeselectAPI.swift in Sources */,

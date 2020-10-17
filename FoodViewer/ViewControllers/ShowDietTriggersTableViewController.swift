@@ -109,7 +109,7 @@ final class ShowDietTriggersTableViewController: UITableViewController {
     
     private func setTitle() {
         if let validIndex = dietIndex {
-            title = Diets.manager.title(atSorted: validIndex, in: Locale.interfaceLanguageCode)
+            title = Diets.manager.name(for: validIndex, in: Locale.interfaceLanguageCode)
         } else {
             title = TranslatableStrings.NoDietSelected
         }

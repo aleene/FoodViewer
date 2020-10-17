@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7r7-kU-whP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7r7-kU-whP">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -3777,14 +3777,6 @@
                                         <view contentMode="scaleToFill" horizontalCompressionResistancePriority="748" translatesAutoresizingMaskIntoConstraints="NO" id="s1P-Rc-WRX" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
                                             <rect key="frame" x="8" y="8" width="287" height="72"/>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uJ5-V0-vsV">
-                                            <rect key="frame" x="287" y="43.5" width="25" height="1"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="25" id="0EY-8O-A3x"/>
-                                                <constraint firstAttribute="height" constant="1" id="dHL-CV-4fy"/>
-                                            </constraints>
-                                        </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LFB-hM-EA8">
                                             <rect key="frame" x="287" y="52.5" width="25" height="25"/>
                                             <constraints>
@@ -3795,6 +3787,14 @@
                                                 <action selector="takePhotoButtonTapped:" destination="rad-cv-BgS" eventType="touchUpInside" id="xRZ-wl-chm"/>
                                             </connections>
                                         </button>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uJ5-V0-vsV">
+                                            <rect key="frame" x="287" y="43.5" width="25" height="1"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="25" id="0EY-8O-A3x"/>
+                                                <constraint firstAttribute="height" constant="1" id="dHL-CV-4fy"/>
+                                            </constraints>
+                                        </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYz-R0-CYv">
                                             <rect key="frame" x="287" y="10.5" width="25" height="25"/>
                                             <constraints>
@@ -3885,6 +3885,167 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jrg-Ju-tn5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-422" y="3692"/>
+        </scene>
+        <!--Environment Table View Controller-->
+        <scene sceneID="0q2-mz-Awt">
+            <objects>
+                <tableViewController storyboardIdentifier="EnvironmentTableViewController" id="Yhg-X3-XaU" customClass="EnvironmentTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="zpE-sP-9wt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="HVE-yu-0fP">
+                            <rect key="frame" x="0.0" y="482.5" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListViewTableViewCell.EnvironmentTableViewController" id="S0o-jk-wNk" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="38.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S0o-jk-wNk" id="MsN-fT-sjb">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="38.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="boL-As-tKA" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="19" width="288" height="0.5"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="boL-As-tKA" firstAttribute="leading" secondItem="MsN-fT-sjb" secondAttribute="leadingMargin" id="2ap-Ak-vKy"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="boL-As-tKA" secondAttribute="bottom" constant="8" id="EAf-ch-IZl"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="boL-As-tKA" secondAttribute="trailing" id="L02-u0-Jgf"/>
+                                        <constraint firstItem="boL-As-tKA" firstAttribute="top" secondItem="MsN-fT-sjb" secondAttribute="topMargin" constant="8" id="uTA-as-bqE"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="tagListView" destination="boL-As-tKA" id="7Gu-VU-8he"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductImageTableViewCell.EnvironmentTableViewController" rowHeight="300" id="Oq7-1V-1KR" customClass="ProductImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="66.5" width="320" height="300"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Oq7-1V-1KR" id="Lcq-Yi-fRN">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pej-oy-oPl">
+                                            <rect key="frame" x="8" y="0.0" width="255" height="300"/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyz-X3-SOm">
+                                            <rect key="frame" x="279" y="137.5" width="25" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="kyz-X3-SOm" secondAttribute="height" multiplier="1:1" id="6hW-xd-KyO"/>
+                                                <constraint firstAttribute="width" constant="25" id="xDX-tX-4Vy"/>
+                                            </constraints>
+                                            <state key="normal" image="Camera"/>
+                                            <connections>
+                                                <action selector="takePhotoButtonTapped:" destination="Oq7-1V-1KR" eventType="touchUpInside" id="jeT-Ci-3fN"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grd-h1-M2N">
+                                            <rect key="frame" x="279" y="178.5" width="25" height="25"/>
+                                            <state key="normal" image="Clear"/>
+                                            <connections>
+                                                <action selector="deselectImageButtonTapped:" destination="Oq7-1V-1KR" eventType="touchUpInside" id="rCa-qs-Fc8"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Zc-JZ-F9y">
+                                            <rect key="frame" x="279" y="96.5" width="25" height="25"/>
+                                            <state key="normal" image="CameraRoll"/>
+                                            <connections>
+                                                <action selector="selectFromCamerRollButtonTapped:" destination="Oq7-1V-1KR" eventType="touchUpInside" id="1s1-No-P7M"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="pej-oy-oPl" firstAttribute="top" secondItem="Lcq-Yi-fRN" secondAttribute="top" id="2Sh-Uy-To3"/>
+                                        <constraint firstItem="kyz-X3-SOm" firstAttribute="leading" secondItem="pej-oy-oPl" secondAttribute="trailing" constant="16" id="4EF-Dg-oBv"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="kyz-X3-SOm" secondAttribute="trailing" id="5PE-fW-z2j"/>
+                                        <constraint firstItem="7Zc-JZ-F9y" firstAttribute="height" secondItem="kyz-X3-SOm" secondAttribute="height" id="9El-eV-OwB"/>
+                                        <constraint firstItem="pej-oy-oPl" firstAttribute="leading" secondItem="Lcq-Yi-fRN" secondAttribute="leading" constant="8" id="OvV-ae-ud2"/>
+                                        <constraint firstItem="grd-h1-M2N" firstAttribute="height" secondItem="kyz-X3-SOm" secondAttribute="height" id="Soe-kc-KN3"/>
+                                        <constraint firstItem="grd-h1-M2N" firstAttribute="centerX" secondItem="kyz-X3-SOm" secondAttribute="centerX" id="VO1-ZC-2j4"/>
+                                        <constraint firstItem="kyz-X3-SOm" firstAttribute="centerY" secondItem="Lcq-Yi-fRN" secondAttribute="centerY" id="ZY9-qo-NO2"/>
+                                        <constraint firstItem="7Zc-JZ-F9y" firstAttribute="width" secondItem="kyz-X3-SOm" secondAttribute="width" id="aeF-Fi-KNl"/>
+                                        <constraint firstItem="7Zc-JZ-F9y" firstAttribute="centerX" secondItem="kyz-X3-SOm" secondAttribute="centerX" id="dFn-te-bhs"/>
+                                        <constraint firstItem="grd-h1-M2N" firstAttribute="top" secondItem="kyz-X3-SOm" secondAttribute="bottom" constant="16" id="e5Y-EJ-NWd"/>
+                                        <constraint firstItem="kyz-X3-SOm" firstAttribute="top" secondItem="7Zc-JZ-F9y" secondAttribute="bottom" constant="16" id="lId-KJ-HCq"/>
+                                        <constraint firstItem="grd-h1-M2N" firstAttribute="width" secondItem="kyz-X3-SOm" secondAttribute="width" id="r1j-f8-QzX"/>
+                                        <constraint firstAttribute="bottom" secondItem="pej-oy-oPl" secondAttribute="bottom" id="xuC-aJ-12g"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="deselectImageButton" destination="grd-h1-M2N" id="UxI-H2-UBd"/>
+                                    <outlet property="productImageView" destination="pej-oy-oPl" id="cDT-RF-dPS"/>
+                                    <outlet property="selectFromCameraRollButton" destination="7Zc-JZ-F9y" id="Z5t-cz-hy3"/>
+                                    <outlet property="takePhotoButton" destination="kyz-X3-SOm" id="bCe-ve-jUG"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListViewAddImageTableViewCell.EnvironmentTableViewController" rowHeight="88" id="8Xg-WI-Z5m" customClass="TagListViewAddImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="366.5" width="320" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Xg-WI-Z5m" id="5P5-8j-M50">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ci6-c1-hbV" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="24" y="19" width="239" height="50"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHF-Us-0FD">
+                                            <rect key="frame" x="275" y="10.5" width="25" height="25"/>
+                                            <state key="normal" image="CameraRoll"/>
+                                            <connections>
+                                                <action selector="selectFromCamerRollButtonTapped:" destination="8Xg-WI-Z5m" eventType="touchUpInside" id="MY6-rB-vLR"/>
+                                            </connections>
+                                        </button>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IAZ-Zf-dR0">
+                                            <rect key="frame" x="287" y="43.5" width="1" height="1"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="1" id="Ogc-e7-Ljh"/>
+                                                <constraint firstAttribute="width" secondItem="IAZ-Zf-dR0" secondAttribute="height" multiplier="1:1" id="SrE-hY-5lh"/>
+                                            </constraints>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfG-bD-wE3">
+                                            <rect key="frame" x="275" y="52.5" width="25" height="25"/>
+                                            <state key="normal" image="Camera"/>
+                                            <connections>
+                                                <action selector="takePhotoButtonTapped:" destination="8Xg-WI-Z5m" eventType="touchUpInside" id="SSd-K5-ZSj"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Ci6-c1-hbV" firstAttribute="centerY" secondItem="IAZ-Zf-dR0" secondAttribute="centerY" id="0Uh-8g-Up7"/>
+                                        <constraint firstAttribute="trailing" secondItem="IAZ-Zf-dR0" secondAttribute="trailing" constant="32" id="Ccb-Bg-zPd"/>
+                                        <constraint firstItem="Ci6-c1-hbV" firstAttribute="leading" secondItem="5P5-8j-M50" secondAttribute="leadingMargin" constant="8" id="Fwq-q9-B7Z"/>
+                                        <constraint firstItem="IAZ-Zf-dR0" firstAttribute="centerX" secondItem="qfG-bD-wE3" secondAttribute="centerX" id="QPq-8d-5lD"/>
+                                        <constraint firstItem="Ci6-c1-hbV" firstAttribute="top" secondItem="5P5-8j-M50" secondAttribute="topMargin" constant="8" id="p7h-y7-1np"/>
+                                        <constraint firstItem="IAZ-Zf-dR0" firstAttribute="leading" secondItem="Ci6-c1-hbV" secondAttribute="trailing" constant="24" id="qa4-Rx-NGp"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Ci6-c1-hbV" secondAttribute="bottom" constant="8" id="uDg-Yq-qsm"/>
+                                        <constraint firstItem="FHF-Us-0FD" firstAttribute="bottom" secondItem="IAZ-Zf-dR0" secondAttribute="top" constant="-8" id="ubx-hj-5dS"/>
+                                        <constraint firstItem="FHF-Us-0FD" firstAttribute="centerX" secondItem="IAZ-Zf-dR0" secondAttribute="centerX" id="xwJ-3p-FRZ"/>
+                                        <constraint firstItem="IAZ-Zf-dR0" firstAttribute="bottom" secondItem="qfG-bD-wE3" secondAttribute="top" constant="-8" id="yrz-XN-t0p"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="selectFromCameraRollButton" destination="FHF-Us-0FD" id="KV9-gq-RVn"/>
+                                    <outlet property="tagListView" destination="Ci6-c1-hbV" id="PG0-Ui-cMY"/>
+                                    <outlet property="takePhotoButton" destination="qfG-bD-wE3" id="J7N-oQ-lK8"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Yhg-X3-XaU" id="fAq-hc-o1N"/>
+                            <outlet property="delegate" destination="Yhg-X3-XaU" id="gju-xF-4AL"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="igc-Hc-q0v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="587" y="3479"/>
         </scene>
         <!--Single Search Product Table View Controller-->
         <scene sceneID="blz-V6-sTt">
@@ -5735,9 +5896,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0nC-9f-6SW"/>
+        <segue reference="hdd-Nk-Dkh"/>
         <segue reference="OjZ-f4-IhZ"/>
-        <segue reference="8Ee-6I-9kA"/>
+        <segue reference="Re1-EV-fYP"/>
         <segue reference="33X-JA-and"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -29,6 +29,7 @@ struct OFFHttpPost {
                 static let General = "general" // value for any image
                 static let Front = "front" // value for front image
                 static let Ingredients = "ingredients" // value for ingredients image
+                static let Packaging = "packaging" // value for nutrition image
                 static let Nutrition = "nutrition" // value for nutrition image
             }
         }

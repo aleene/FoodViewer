@@ -257,8 +257,8 @@
             filePath = "FoodViewer/ViewControllers/ProductPageViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "759"
-            endingLineNumber = "759"
+            startingLineNumber = "776"
+            endingLineNumber = "776"
             landmarkName = "setupBackButton()"
             landmarkType = "7">
          </BreakpointContent>
