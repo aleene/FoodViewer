@@ -194,7 +194,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             // otherwise the original labels with the main product language removed
             return editMode
                 ? ( availableTags(productPair?.remoteProduct?.labelsOriginal)?.prefixed(withAdded: nil, andRemoved: productPair?.primaryLanguageCode) ?? .undefined )
-                : ( availableTags(productPair?.remoteProduct?.labelsTranslated) ?? .undefined )
+                :  availableTags(productPair?.remoteProduct?.labelsTranslated)
+                    ?? .undefined
         }
     }
     
@@ -1365,7 +1366,8 @@ extension IngredientsTableViewController: TagListViewDataSource {
         case .allergens:
             return detectedCount(allergensToDisplay)
         case .labels:
-            return count(labelsToDisplay)
+            guard let validTags = Tags.add(right: labelsToDisplay, left: productPair?.remoteProduct?.robotoffLabelsTags) else { return count(.undefined) }
+            return count(validTags)
         case .image:
             return 1
         case .traces:
@@ -1396,7 +1398,8 @@ extension IngredientsTableViewController: TagListViewDataSource {
         case .image:
             return searchResult
         case .labels:
-            return labelsToDisplay.tag(at:index)!
+            guard let validTags = Tags.add(right: labelsToDisplay, left: productPair?.remoteProduct?.robotoffLabelsTags) else { return "" }
+            return validTags.tag(at:index)!
         case .traces:
             return tracesToDisplay.tag(at:index)!
         case .minerals:
@@ -1421,6 +1424,25 @@ extension IngredientsTableViewController: TagListViewDataSource {
             cellHeight[tagListView.tag] = height
             tableView.setNeedsLayout()
         }
+    }
+
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else {
+            print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
+            return  nil
+        }
+        switch tableStructure[tagListView.tag] {
+        case .labels:
+            // Do I need to take into account any regular tags?
+            if let count = labelsToDisplay.count,
+            tagListView.tag >= count {
+                return nil
+            } else {
+                return ColorSchemes.robotoff
+            }
+        default: break
+        }
+        return nil
     }
 
 }

@@ -708,7 +708,6 @@ class FoodProduct {
     
     var expirationDate: Date? = nil
 
-
     fileprivate func decodeDate(_ date: String?) -> Date? {
         if let validDate = date {
             if !validDate.isEmpty {
@@ -1062,6 +1061,53 @@ class FoodProduct {
                 self.attributeGroupsFetchStatus = .failed("")
             }
         }
+    }
+    
+    private func fetchRobotoffQuestions() {
+        let request = OpenFoodFactsRequest()
+        request.fetchRobotoffQuestionsJson(for: self.barcode, in: Locale.interfaceLanguageCode) { (completion: OFFRobotoffQuestionFetchStatus) in
+            let fetchResult = completion
+            switch fetchResult {
+            case .success(let questions):
+                var validQuestions: [RobotoffQuestion] = []
+                for question in questions {
+                    if question.barcode == self.barcode.asString {
+                        validQuestions.append(question)
+                    }
+                }
+                self.robotoffQuestionsFetchStatus = .success(validQuestions)
+            default:
+                self.robotoffQuestionsFetchStatus = .failed("")
+            }
+        }
+    }
+    
+    var robotoffQuestions: [RobotoffQuestion]? {
+        switch robotoffQuestionsFetchStatus {
+        // start the fetch
+        case .initialized:
+            fetchRobotoffQuestions()
+            robotoffQuestionsFetchStatus = .loading(barcode.asString)
+        case .success(let questions):
+            return questions
+        default:
+            break
+        }
+        return nil
+    }
+    
+    private var robotoffQuestionsFetchStatus: OFFRobotoffQuestionFetchStatus = .initialized
+
+    public var robotoffLabelsTags: Tags {
+        guard let questions = robotoffQuestions else { return .undefined }
+        var tags: [String] = []
+        for question in questions {
+            if question.field == .label,
+                let value = question.value {
+                tags.append("? " + value + " ?")
+            }
+        }
+        return !tags.isEmpty ? Tags(list: tags) : .undefined
     }
     /*
     struct UniqueContributors {

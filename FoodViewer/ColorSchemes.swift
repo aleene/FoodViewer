@@ -12,4 +12,5 @@ struct ColorSchemes {
     static let normal = ColorScheme.init(text: .white, background: .systemGreen, border: .systemGreen)
     static let none = ColorScheme.init(text: .white, background: .systemOrange, border: .systemOrange)
     static let error = ColorScheme.init(text: .white, background: .systemRed, border: .systemRed)
+    static let robotoff = ColorScheme.init(text: .white, background: .blue, border: .blue)
 }

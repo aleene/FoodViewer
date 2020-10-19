@@ -182,6 +182,11 @@ public enum Tags : Equatable {
     public var hasTags: Bool {
         return !list.isEmpty
     }
+    
+    public var count: Int? {
+        return list.count > 0 ? list.count : nil
+    }
+
 
 //
 // MARK: - Private Tags functions
@@ -323,5 +328,38 @@ public enum Tags : Equatable {
         }
     }
 
+    public static func add(right: Tags?, left: Tags?) -> Tags? {
+        if right == nil && left == nil {
+            return nil
+        } else if right == nil && left != nil {
+            return left
+        } else if right != nil && left == nil {
+            return right
+        } else {
+            return right! + left!
+        }
+    }
 }
 
+extension Tags {
+    static func +(left: Tags, right: Tags) -> Tags {
+        switch left {
+        case available(let leftList):
+            switch right {
+            case available(let rightList):
+                return Tags.init(list:leftList + rightList)
+            default:
+                return left
+            }
+        case .undefined:
+            switch right {
+            case available:
+                return right
+            default: break
+            }
+
+        default: break
+        }
+        return .undefined
+    }
+}

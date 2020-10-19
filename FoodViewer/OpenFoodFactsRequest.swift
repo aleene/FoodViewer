@@ -185,4 +185,47 @@ class OpenFoodFactsRequest {
         }
     }
 
+    func fetchRobotoffQuestionsJson(for barcode: BarcodeType, in interfaceLanguageCode: String, completion: @escaping (OFFRobotoffQuestionFetchStatus) -> ()) {
+        self.currentBarcode = barcode
+        DispatchQueue.main.async(execute: { () -> Void in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        })
+        let fetchUrl = URL(string: OFF.fetchQuestionsString(for: barcode, with: currentProductType, languageCode: interfaceLanguageCode) )
+        if debug { print("OpenFoodFactsRequest:fetchRobotoffQuestionsJson(_:_) - \(String(describing: fetchUrl))") }
+        if let validURL = fetchUrl {
+            let cache = Shared.dataCache
+            cache.fetch(URL: validURL).onSuccess { data in
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .secondsSince1970
+                do {
+                    let questionsJson = try decoder.decode(OFFRobotoffQuestionJson.self, from: data)
+                    if let questions = questionsJson.questions {
+                        var newQuestions: [RobotoffQuestion] = []
+                        for question in questions {
+                            newQuestions.append(RobotoffQuestion.init(jsonQuestion: question))
+                        }
+                        completion(.success(newQuestions))
+                    } else {
+                        if questionsJson.status == "not found" {
+                            completion(.questionNotAvailable(barcode.asString))
+                        }
+                    }
+                } catch let error {
+                    print(error)
+                    completion(.failed(barcode.asString))
+                }
+                DispatchQueue.main.async(execute: { () -> Void in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                })
+                return
+            }
+            cache.fetch(URL: validURL).onFailure { error in
+                completion(.failed(barcode.asString))
+            }
+        } else {
+            completion(.failed(self.currentBarcode!.asString))
+            return
+        }
+    }
+
 }

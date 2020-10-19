@@ -16,16 +16,18 @@ class Diets {
         static let FileName = "Diets"
         static let PlistExtension = "plist"
         struct Key {
-            static let Languages = "Languages"
-            static let Levels = "Levels"
-            static let Order = "Order"
-            static let Neutral = "Neutral"
-            static let Taxonomies = "Taxonomies"
             static let Additives = "Additives"
             static let Categories = "Categories"
+            static let Description = "Description"
             static let Ingredients = "Ingredients"
+            static let Languages = "Languages"
             static let Labels = "Labels"
+            static let Levels = "Levels"
+            static let Neutral = "Neutral"
+            static let Order = "Order"
             static let Other = "Other"
+            static let Taxonomies = "Taxonomies"
+            static let Title = "Title"
             static let Traces = "Traces"
         }
     }
@@ -506,14 +508,14 @@ class Diets {
                                 var languages: [Language] = []
                                 var levels: [Level] = []
                                 var neutralLevel: Int? = nil
-                                for (languagesKey, languagesValue) in validDiet {
-                                    if languagesKey == Constant.Key.Languages {
-                                        if let validLanguagesDict = languagesValue as? [String:Any] {
+                                for (key, value) in validDiet {
+                                    if key == Constant.Key.Title {
+                                        if let validLanguagesDict = value as? [String:Any] {
                                             // var dietNamesInLanguage: [String:Any] = [:]
-                                            for (languageCode, languageCodeValue) in validLanguagesDict {
+                                            for (languageCode, value) in validLanguagesDict {
                                                 var dietNames: [String] = []
                                                 // is the value corresponding to the languageCode a string array?
-                                                if let validDietNames = languageCodeValue as? [String] {
+                                                if let validDietNames = value as? [String] {
                                                     dietNames = validDietNames
                                                 }
                                                 languages.append(Language(key: languageCode, names: dietNames))
@@ -521,15 +523,31 @@ class Diets {
                                         } else {
                                             assert(true, "Diets: Diet languages dictionary malformatted")
                                         }
-                                    } else if languagesKey == Constant.Key.Neutral {
-                                        if let neutral = languagesValue as? Int {
+                                        
+                                    } else if key == Constant.Key.Description {
+                                        if let validLanguagesDict = value as? [String:Any] {
+                                            // var dietNamesInLanguage: [String:Any] = [:]
+                                            for (languageCode, value) in validLanguagesDict {
+                                                var dietNames: [String] = []
+                                                // is the value corresponding to the languageCode a string array?
+                                                if let validDietNames = value as? [String] {
+                                                        dietNames = validDietNames
+                                                }
+                                                languages.append(Language(key: languageCode, names: dietNames))
+                                            }
+                                        } else {
+                                            assert(true, "Diets: Diet languages dictionary malformatted")
+                                        }
+
+                                    } else if key == Constant.Key.Neutral {
+                                        if let neutral = value as? Int {
                                             neutralLevel = neutral
                                         } else {
                                             assert(true, "Diets: Diet neutral malformatted")
                                         }
 
-                                    } else if languagesKey == Constant.Key.Levels {
-                                        if let validLevelsDict = languagesValue as? [String:Any] {
+                                    } else if key == Constant.Key.Levels {
+                                        if let validLevelsDict = value as? [String:Any] {
                                             // loop over all levels of the current diet
                                             for (levelKey, levelDict) in validLevelsDict {
                                                 var level = Level.init(key:levelKey, order: 0, languages: [], taxonomies: [])

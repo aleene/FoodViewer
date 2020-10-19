@@ -677,6 +677,11 @@
 		51975CDB1E71538F0075B57B /* NutritionEntryUnitTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CDA1E71538F0075B57B /* NutritionEntryUnitTestSuite.swift */; };
 		51975CE01E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CDF1E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift */; };
 		519884DE1CE4C62F0020B3A1 /* NutritionAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519884DD1CE4C62F0020B3A1 /* NutritionAvailability.swift */; };
+		51992FC7253C3A9800C44214 /* OFFRobotoffQuestionJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FC6253C3A9800C44214 /* OFFRobotoffQuestionJson.swift */; };
+		51992FC9253C3B6500C44214 /* OFFRobotoffInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FC8253C3B6500C44214 /* OFFRobotoffInsight.swift */; };
+		51992FCB253DC94400C44214 /* OFFRobotoffQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FCA253DC94400C44214 /* OFFRobotoffQuestion.swift */; };
+		51992FCD253DCC5800C44214 /* OFFRobotoffQuestionFetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FCC253DCC5800C44214 /* OFFRobotoffQuestionFetchStatus.swift */; };
+		51992FCF253DCDFB00C44214 /* RobotoffQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FCE253DCDFB00C44214 /* RobotoffQuestion.swift */; };
 		5199718020FA528600556467 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5199717F20FA528600556467 /* Reachability.swift */; };
 		519A8E031E827F23001C026A /* ImageSizeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519A8E021E827F23001C026A /* ImageSizeCategory.swift */; };
 		519A8E051E827F7C001C026A /* ImageTypeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519A8E041E827F7C001C026A /* ImageTypeCategory.swift */; };
@@ -1155,6 +1160,12 @@
 		51975CDA1E71538F0075B57B /* NutritionEntryUnitTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionEntryUnitTestSuite.swift; sourceTree = "<group>"; };
 		51975CDF1E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreLevelTestSuite.swift; sourceTree = "<group>"; };
 		519884DD1CE4C62F0020B3A1 /* NutritionAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionAvailability.swift; sourceTree = "<group>"; };
+		51992FC4253C399900C44214 /* Robotoff.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Robotoff.json; sourceTree = SOURCE_ROOT; };
+		51992FC6253C3A9800C44214 /* OFFRobotoffQuestionJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFRobotoffQuestionJson.swift; path = Robotoff/OFFRobotoffQuestionJson.swift; sourceTree = "<group>"; };
+		51992FC8253C3B6500C44214 /* OFFRobotoffInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFRobotoffInsight.swift; path = Robotoff/OFFRobotoffInsight.swift; sourceTree = "<group>"; };
+		51992FCA253DC94400C44214 /* OFFRobotoffQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFRobotoffQuestion.swift; path = Robotoff/OFFRobotoffQuestion.swift; sourceTree = "<group>"; };
+		51992FCC253DCC5800C44214 /* OFFRobotoffQuestionFetchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFRobotoffQuestionFetchStatus.swift; path = Robotoff/OFFRobotoffQuestionFetchStatus.swift; sourceTree = "<group>"; };
+		51992FCE253DCDFB00C44214 /* RobotoffQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RobotoffQuestion.swift; path = Model/Product/RobotoffQuestion.swift; sourceTree = "<group>"; };
 		5199717F20FA528600556467 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = Model/Reachability.swift; sourceTree = "<group>"; };
 		519A8E021E827F23001C026A /* ImageSizeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSizeCategory.swift; sourceTree = "<group>"; };
 		519A8E041E827F7C001C026A /* ImageTypeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTypeCategory.swift; sourceTree = "<group>"; };
@@ -1300,6 +1311,9 @@
 				51F9665D202D9E4000CD58C3 /* OFFProductStates.swift */,
 				5158ECDA2032DF760072261C /* OFFProductUploadResultJson.swift */,
 				511D58A620371CC500F5D313 /* OFFSearchResultJson.swift */,
+				51992FC6253C3A9800C44214 /* OFFRobotoffQuestionJson.swift */,
+				51992FC8253C3B6500C44214 /* OFFRobotoffInsight.swift */,
+				51992FCA253DC94400C44214 /* OFFRobotoffQuestion.swift */,
 			);
 			path = jsons;
 			sourceTree = "<group>";
@@ -1394,6 +1408,7 @@
 			children = (
 				514AFA1D2407D67A0081D50A /* 737628064502.json */,
 				51857F9D2507746C007B896B /* 3700214614266.json */,
+				51992FC4253C399900C44214 /* Robotoff.json */,
 			);
 			name = "Outside target";
 			sourceTree = "<group>";
@@ -1885,6 +1900,7 @@
 				511D58AA20387C7A00F5D313 /* ProductPair.swift */,
 				5153FDC41F5016A100F3E20F /* ProductSection.swift */,
 				518B701F1EA2779C00AB35CC /* ProductType.swift */,
+				51992FCE253DCDFB00C44214 /* RobotoffQuestion.swift */,
 				512390F81E7BE8E000A5D6FD /* Units */,
 				51CF42CE1E069BDA00C9AD91 /* Tags.swift */,
 				51E8BA291F2FA50900D3C742 /* TagsType.swift */,
@@ -2048,6 +2064,7 @@
 				512B450623FABD0A00BFBCF0 /* OFFImageUploadAPI.swift */,
 				512B450823FABD1A00BFBCF0 /* OFFImageDeselectAPI.swift */,
 				512B450A23FABD3900BFBCF0 /* OFFProductUpdateAPI.swift */,
+				51992FCC253DCC5800C44214 /* OFFRobotoffQuestionFetchStatus.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -2880,6 +2897,7 @@
 				5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */,
 				51857FA62508DDF7007B896B /* ProductAttribute.swift in Sources */,
 				512B44B923FAB9E500BFBCF0 /* SelectContributorRoleViewController.swift in Sources */,
+				51992FCF253DCDFB00C44214 /* RobotoffQuestion.swift in Sources */,
 				512B44E923FABB6B00BFBCF0 /* PeriodAfterOpeningTableViewCell.swift in Sources */,
 				51B741701F949E280025F8A1 /* SearchComponent.swift in Sources */,
 				512B448723FAB33C00BFBCF0 /* EditProductViewController.swift in Sources */,
@@ -2890,6 +2908,7 @@
 				5174997C2208961100C3ED3E /* SearchFetchStatus.swift in Sources */,
 				512B440023FAB1C700BFBCF0 /* CryptoSwiftMD5.swift in Sources */,
 				510D9FC01E72B20C00B95B1B /* NutritionalScore.swift in Sources */,
+				51992FC9253C3B6500C44214 /* OFFRobotoffInsight.swift in Sources */,
 				5158ECD92032DD170072261C /* OFFImageUploadResultJson.swift in Sources */,
 				5104F4AE1F9F9E44008D074F /* SearchHeaderView.swift in Sources */,
 				512B44CD23FABAC100BFBCF0 /* CompletionTableViewCell.swift in Sources */,
@@ -2928,6 +2947,7 @@
 				51F9665E202D9E4000CD58C3 /* OFFProductStates.swift in Sources */,
 				512B44B323FAB9BF00BFBCF0 /* SetSortOrderViewController.swift in Sources */,
 				51AADDDB23EDD0D900108F69 /* AddFavoriteShopCoordinator.swift in Sources */,
+				51992FCD253DCC5800C44214 /* OFFRobotoffQuestionFetchStatus.swift in Sources */,
 				5108280D210A3CD40089977D /* PendingOperations.swift in Sources */,
 				512B43F523FAB1C700BFBCF0 /* Log.swift in Sources */,
 				51E1C36E2046C79E00CB68B1 /* ProductUpdate.swift in Sources */,
@@ -2982,10 +3002,12 @@
 				512B44A723FAB97F00BFBCF0 /* EditNutrientsViewController.swift in Sources */,
 				511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFR.swift in Sources */,
 				512B44A323FAB96E00BFBCF0 /* AddLanguageViewController.swift in Sources */,
+				51992FC7253C3A9800C44214 /* OFFRobotoffQuestionJson.swift in Sources */,
 				51DA03251F7674BF000C5F93 /* SearchTemplate.swift in Sources */,
 				51B9048C1E7AEE38004E3439 /* Energy.swift in Sources */,
 				51B3838E1F8936D30086581C /* ButtonWithSegmentedControlTableViewCell.swift in Sources */,
 				512B449D23FAB8DF00BFBCF0 /* JSONViewController.swift in Sources */,
+				51992FCB253DC94400C44214 /* OFFRobotoffQuestion.swift in Sources */,
 				51B721721DD5D208003AF608 /* NutritionFactUnit.swift in Sources */,
 				51D3B3E61F6C3B6600050DA8 /* BarcodeEditTableViewCell.swift in Sources */,
 				516BA5961CC769DD008A094A /* EnergyUnitUsed.swift in Sources */,

@@ -371,6 +371,8 @@ var delegate: ProductPageViewController? = nil {
                 }
             default: break
             }
+            headerView.title = header
+            return headerView
         case .packaging:
             headerView.changeLanguageButton.isHidden = true
 
@@ -401,7 +403,6 @@ var delegate: ProductPageViewController? = nil {
             headerView.title = header
             return headerView
         }
-        return nil
     }
     
     override func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
@@ -425,8 +426,8 @@ var delegate: ProductPageViewController? = nil {
                 let height = Constants.CellHeight.TagListViewAddImageCell
                 return height + 2 * Constants.CellMargin.ContentView
             }
-        default:
-            return UITableView.automaticDimension
+        //default:
+        //    return UITableView.automaticDimension
         }
     }
     fileprivate struct TableSection {
@@ -718,6 +719,8 @@ extension EnvironmentTableViewController: TagListViewDataSource {
         switch currentProductSection {
         case .packaging:
             return count(packagingToDisplay)
+        case .image:
+            return 1
         default:
             return 0
         }
@@ -741,8 +744,8 @@ extension EnvironmentTableViewController: TagListViewDataSource {
             return title(packagingToDisplay)
         case .image:
             return searchResult
-        default:
-            return("EnvironmentTableViewController: TagListView titleForTagAt error")
+        //default:
+        //    return("EnvironmentTableViewController: TagListView titleForTagAt error")
         }
     }
 

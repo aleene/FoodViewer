@@ -38,12 +38,15 @@ public struct OFF {
             static let Barcode = 5
         }
         
-        static let Scheme = "http://"
+        static let Scheme = "https://"
         static let Prefix = "http://world."
+        static let PrefixRobotoff = "robotoff."
         static let TopDomain = ".org/"
         static let AdvancedSearch = "cgi/search.pl?action=process"
         static let EnglishProduct = "en:product/"
         static let Postfix = ".org/api/v0/product/"
+        // /api/v1/questions/
+        static let PostfixRobotoff = ".org/api/v1/questions/"
         static let JSONExtension = ".json"
         static let JSONSearchExtension = "&json=1"
         static let SearchPage = "&page="
@@ -320,6 +323,27 @@ public struct OFF {
         fetchUrlString += "attribute_groups"
         fetchUrlString += URL.Divider.Ampersand
         fetchUrlString += URL.Language
+        fetchUrlString += languageCode
+        return fetchUrlString
+    }
+
+    // https://robotoff.openfoodfacts.org/api/v1/questions/3033490004743?lang=en&count=6"
+/*
+Retrieve the robotoff questions for a product
+ Parameters:
+ - barcode:
+- productType: the type of product (food, petfood, beauty, rest)
+     - languageCode: the required languageCode of the result (default en)
+*/
+    static func fetchQuestionsString(for barcode: BarcodeType, with productType: ProductType, languageCode: String) -> String {
+        var fetchUrlString = URL.Scheme
+        fetchUrlString += URL.PrefixRobotoff
+        // add the right server (works only for food products)
+        fetchUrlString += productType.rawValue
+        fetchUrlString += URL.PostfixRobotoff
+        fetchUrlString += barcode.asString
+        fetchUrlString += URL.Divider.QuestionMark
+        fetchUrlString += "lang="
         fetchUrlString += languageCode
         return fetchUrlString
     }
