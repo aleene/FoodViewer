@@ -1055,8 +1055,10 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
                 tagView.state == .selected ? filterDeselectionAt(currentIndex) : filterSelectionAt(currentIndex)
             }
         }
+        if delegate?.tagListView(self, canTapTagAt: tagView.tag) ?? false {
         // inform the delegate, so that additional tap handling can be done
-        delegate?.tagListView(self, didTapTagAt: tagView.tag)
+         delegate?.tagListView(self, didTapTagAt: tagView.tag)
+        }
     }
     
     public func didLongPressTagView(_ tagView: TagView) {

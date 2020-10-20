@@ -17,6 +17,7 @@ struct OFFWriteAPI {
     static let Prefix = "http://world."
     static let Domain = ".org/"
     static let SecurePrefix = "https://ssl-api."
+    static let SecureHttp = "https:"
     static let Barcode = "code="
     static let UserId = "user_id="
     static let Password = "password="
@@ -52,4 +53,13 @@ struct OFFWriteAPI {
     static let LanguageSpacer = "_"
     static let Equal = "="
     static let Comment = "comment="
+    static let Colon = ":"
+    static let Questionmark = "?"
+    struct Robotoff {
+        static let Robotoff = "//robotoff.openfoodfacts.org"
+        static let Annotate = "/api/v1/insights/annotate"
+        static let Insight = "insight_id"
+        static let Annotation = "annotation"
+        static let Update = "update"
+    }
 }

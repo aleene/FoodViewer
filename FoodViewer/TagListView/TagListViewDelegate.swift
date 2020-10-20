@@ -13,6 +13,9 @@ import Foundation
 public protocol TagListViewDelegate {
     
     /// - parameter tagListView: the tagListView that iniated the call
+    func tagListView(_ tagListView: TagListView, canTapTagAt index: Int) -> Bool
+
+    /// - parameter tagListView: the tagListView that iniated the call
     func tagListView(_ tagListView: TagListView, didTapTagAt index: Int)
 
     /// - parameter tagListView: the tagListView that iniated the call
@@ -82,7 +85,11 @@ public protocol TagListViewDelegate {
 
 // The extension here defines all default implementations
 extension TagListViewDelegate {
-    
+
+    public func tagListView(_ tagListView: TagListView, canTapTagAt index: Int) -> Bool {
+        return false
+    }
+
     public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
     }
 

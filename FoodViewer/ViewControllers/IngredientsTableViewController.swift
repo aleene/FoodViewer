@@ -920,6 +920,42 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return picker
     }()
 
+    private func askRobotoff(_ question: RobotoffQuestion) {
+        var robotoffQuestion = question
+        guard let validValue = question.value else { return }
+        guard let validQuestion = question.question else { return }
+        guard let validProductPair = productPair else { return }
+        let alertController = UIAlertController(title: validValue,
+                                                message: validQuestion,
+                                                preferredStyle:.alert)
+        let robotoffIsCorrect = UIAlertAction(title: TranslatableStrings.Yes,
+                                              style: .default)
+        { action -> Void in
+            // Inform robotoff that it is correct
+            robotoffQuestion.response = RobotoffQuestionResponse.accept
+            OFFProducts.manager.startRobotoffUpload(for: robotoffQuestion, in: validProductPair)
+        }
+        
+        let robotoffIsWrong = UIAlertAction(title: TranslatableStrings.No,
+                                            style: .default)
+        { action -> Void in
+            // Inform robotoff that it is wrong
+            robotoffQuestion.response = RobotoffQuestionResponse.refuse
+            OFFProducts.manager.startRobotoffUpload(for: robotoffQuestion, in: validProductPair)
+        }
+
+        let doNotKnow = UIAlertAction(title: TranslatableStrings.Unknown,
+                                      style: .default)
+        { action -> Void in
+            // Inform Robotoff that I do not now
+            robotoffQuestion.response = RobotoffQuestionResponse.unknown
+            OFFProducts.manager.startRobotoffUpload(for: robotoffQuestion, in: validProductPair)
+        }
+        alertController.addAction(robotoffIsCorrect)
+        alertController.addAction(robotoffIsWrong)
+        alertController.addAction(doNotKnow)
+        self.present(alertController, animated: true, completion: nil)
+    }
 
     fileprivate func newImageSelected(info: [UIImagePickerController.InfoKey : Any]) {
         var image: UIImage? = nil
@@ -1260,6 +1296,60 @@ extension IngredientsTableViewController: TagListViewDelegate {
         tableView.reloadData()
     }
     
+    public func tagListView(_ tagListView: TagListView, canTapTagAt index: Int) -> Bool {
+        
+        guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else {
+            print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
+            return false
+        }
+        
+        switch tableStructure[tagListView.tag] {
+        case .labels:
+            // Do I need to take into account any regular tags?
+            if let count = labelsToDisplay.count {
+                if index <= count - 1 {
+                    return false
+                } else {
+                    return true
+                }
+            } else {
+                return true
+            }
+        default:
+            return false
+        }
+
+    }
+
+    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
+        
+        func askQuestion(for type: RobotoffQuestionType, at index:Int) {
+            guard let question = productPair?.remoteProduct?.robotoffQuestions(for: type)[index] else { return }
+            askRobotoff(question)
+        }
+        
+        guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else {
+            print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
+            return
+        }
+        
+        switch tableStructure[tagListView.tag] {
+        case .labels:
+            // Do I need to take into account any regular tags?
+            if let count = labelsToDisplay.count {
+                if index <= count - 1 {
+                    return
+                } else {
+                    askQuestion(for: .label, at: index - count)
+                }
+            } else {
+                askQuestion(for: .label, at: index)
+            }
+        default:
+            break
+        }
+    }
+
     public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
         
         switch tableStructure[tagListView.tag] {
@@ -1358,7 +1448,12 @@ extension IngredientsTableViewController: TagListViewDataSource {
         case .allergens:
             return detectedCount(allergensToDisplay)
         case .labels:
-            guard let validTags = Tags.add(right: labelsToDisplay, left: productPair?.remoteProduct?.robotoffLabelsTags) else { return count(.undefined) }
+            guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .label),
+                let validTags = Tags.add(right: labelsToDisplay,
+                                         left: Tags(list:questions.map({ $0.value ?? "No value" })))
+            else {
+                return count(.undefined)
+            }
             return count(validTags)
         case .image:
             return 1
@@ -1390,7 +1485,9 @@ extension IngredientsTableViewController: TagListViewDataSource {
         case .image:
             return searchResult
         case .labels:
-            guard let validTags = Tags.add(right: labelsToDisplay, left: productPair?.remoteProduct?.robotoffLabelsTags) else { return "" }
+            guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .label),
+                let validTags = Tags.add(right: labelsToDisplay,
+                                         left: Tags(list:questions.map({ $0.value ?? "No value" }))) else { return "" }
             return validTags.tag(at:index)!
         case .traces:
             return tracesToDisplay.tag(at:index)!
@@ -1465,7 +1562,6 @@ extension IngredientsTableViewController: TagListViewDataSource {
         case .aminoAcids:
             return colorScheme(aminoAcidsToDisplay)
         }
-        return nil
     }
 
 }

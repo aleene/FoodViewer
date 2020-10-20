@@ -682,6 +682,10 @@
 		51992FCB253DC94400C44214 /* OFFRobotoffQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FCA253DC94400C44214 /* OFFRobotoffQuestion.swift */; };
 		51992FCD253DCC5800C44214 /* OFFRobotoffQuestionFetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FCC253DCC5800C44214 /* OFFRobotoffQuestionFetchStatus.swift */; };
 		51992FCF253DCDFB00C44214 /* RobotoffQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FCE253DCDFB00C44214 /* RobotoffQuestion.swift */; };
+		51992FD1253EE3FD00C44214 /* OFFRobotoffAnswerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FD0253EE3FD00C44214 /* OFFRobotoffAnswerAPI.swift */; };
+		51992FD4253EE6CF00C44214 /* OFFRobotoffUploadResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FD2253EE4C600C44214 /* OFFRobotoffUploadResultJson.swift */; };
+		51992FD5253EE6D200C44214 /* OFFRobotoffUploadResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FD2253EE4C600C44214 /* OFFRobotoffUploadResultJson.swift */; };
+		51992FD7253EE7B400C44214 /* RobotoffUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FD6253EE7B400C44214 /* RobotoffUpdate.swift */; };
 		5199718020FA528600556467 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5199717F20FA528600556467 /* Reachability.swift */; };
 		519A8E031E827F23001C026A /* ImageSizeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519A8E021E827F23001C026A /* ImageSizeCategory.swift */; };
 		519A8E051E827F7C001C026A /* ImageTypeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519A8E041E827F7C001C026A /* ImageTypeCategory.swift */; };
@@ -1166,6 +1170,9 @@
 		51992FCA253DC94400C44214 /* OFFRobotoffQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFRobotoffQuestion.swift; path = Robotoff/OFFRobotoffQuestion.swift; sourceTree = "<group>"; };
 		51992FCC253DCC5800C44214 /* OFFRobotoffQuestionFetchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFRobotoffQuestionFetchStatus.swift; path = Robotoff/OFFRobotoffQuestionFetchStatus.swift; sourceTree = "<group>"; };
 		51992FCE253DCDFB00C44214 /* RobotoffQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RobotoffQuestion.swift; path = Model/Product/RobotoffQuestion.swift; sourceTree = "<group>"; };
+		51992FD0253EE3FD00C44214 /* OFFRobotoffAnswerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFRobotoffAnswerAPI.swift; path = Robotoff/OFFRobotoffAnswerAPI.swift; sourceTree = "<group>"; };
+		51992FD2253EE4C600C44214 /* OFFRobotoffUploadResultJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFRobotoffUploadResultJson.swift; path = Robotoff/OFFRobotoffUploadResultJson.swift; sourceTree = "<group>"; };
+		51992FD6253EE7B400C44214 /* RobotoffUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RobotoffUpdate.swift; path = API/Robotoff/RobotoffUpdate.swift; sourceTree = "<group>"; };
 		5199717F20FA528600556467 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = Model/Reachability.swift; sourceTree = "<group>"; };
 		519A8E021E827F23001C026A /* ImageSizeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSizeCategory.swift; sourceTree = "<group>"; };
 		519A8E041E827F7C001C026A /* ImageTypeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTypeCategory.swift; sourceTree = "<group>"; };
@@ -1310,6 +1317,7 @@
 				51AB5F1320342E9D004D74C7 /* OFFProductSelectedImages.swift */,
 				51F9665D202D9E4000CD58C3 /* OFFProductStates.swift */,
 				5158ECDA2032DF760072261C /* OFFProductUploadResultJson.swift */,
+				51992FD2253EE4C600C44214 /* OFFRobotoffUploadResultJson.swift */,
 				511D58A620371CC500F5D313 /* OFFSearchResultJson.swift */,
 				51992FC6253C3A9800C44214 /* OFFRobotoffQuestionJson.swift */,
 				51992FC8253C3B6500C44214 /* OFFRobotoffInsight.swift */,
@@ -1660,6 +1668,7 @@
 				51E1C3692046B9F600CB68B1 /* ImageUpload.swift */,
 				5127CDEE1E48A03600944FE8 /* ProductImageData.swift */,
 				51E1C36D2046C79E00CB68B1 /* ProductUpdate.swift */,
+				51992FD6253EE7B400C44214 /* RobotoffUpdate.swift */,
 				5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */,
 				51A37D58200F992D00AAF5D7 /* ImageLoadError.swift */,
 				516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */,
@@ -2064,6 +2073,7 @@
 				512B450623FABD0A00BFBCF0 /* OFFImageUploadAPI.swift */,
 				512B450823FABD1A00BFBCF0 /* OFFImageDeselectAPI.swift */,
 				512B450A23FABD3900BFBCF0 /* OFFProductUpdateAPI.swift */,
+				51992FD0253EE3FD00C44214 /* OFFRobotoffAnswerAPI.swift */,
 				51992FCC253DCC5800C44214 /* OFFRobotoffQuestionFetchStatus.swift */,
 			);
 			path = API;
@@ -2603,6 +2613,7 @@
 				516F8B12242D080400EF07CD /* RSCode93Generator.swift in Sources */,
 				516F8B13242D080400EF07CD /* SelectPairCoordinator.swift in Sources */,
 				516F8B14242D080400EF07CD /* LastEditDateTableViewCell.swift in Sources */,
+				51992FD4253EE6CF00C44214 /* OFFRobotoffUploadResultJson.swift in Sources */,
 				516F8B15242D080400EF07CD /* OFFProductStates.swift in Sources */,
 				516F8B16242D080400EF07CD /* SetSortOrderViewController.swift in Sources */,
 				516F8B17242D080400EF07CD /* AddFavoriteShopCoordinator.swift in Sources */,
@@ -2808,6 +2819,7 @@
 				512B44EB23FABB7A00BFBCF0 /* BarcodeTableViewCell.swift in Sources */,
 				51C8A6D01F67C38800B3C361 /* CompletionCategory.swift in Sources */,
 				51FB32331CF762FC00A17312 /* AllergenWarningDefaults.swift in Sources */,
+				51992FD1253EE3FD00C44214 /* OFFRobotoffAnswerAPI.swift in Sources */,
 				512B44DF23FABB3400BFBCF0 /* ProductCategoryTableViewCell.swift in Sources */,
 				512B43FE23FAB1C700BFBCF0 /* NSURLResponse+Haneke.swift in Sources */,
 				512B44AD23FAB99800BFBCF0 /* MainLanguageViewController.swift in Sources */,
@@ -2841,6 +2853,7 @@
 				512B454023FBF61C00BFBCF0 /* ApplicationSettingsCoordinator.swift in Sources */,
 				51A37D59200F992F00AAF5D7 /* ImageLoadError.swift in Sources */,
 				512B450123FABBE300BFBCF0 /* PerUnitTableViewCell.swift in Sources */,
+				51992FD7253EE7B400C44214 /* RobotoffUpdate.swift in Sources */,
 				5184F57C1EB35BFC009ECF73 /* BarGaugeView.swift in Sources */,
 				518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */,
 				51DA03231F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift in Sources */,
@@ -2898,6 +2911,7 @@
 				51857FA62508DDF7007B896B /* ProductAttribute.swift in Sources */,
 				512B44B923FAB9E500BFBCF0 /* SelectContributorRoleViewController.swift in Sources */,
 				51992FCF253DCDFB00C44214 /* RobotoffQuestion.swift in Sources */,
+				51992FD5253EE6D200C44214 /* OFFRobotoffUploadResultJson.swift in Sources */,
 				512B44E923FABB6B00BFBCF0 /* PeriodAfterOpeningTableViewCell.swift in Sources */,
 				51B741701F949E280025F8A1 /* SearchComponent.swift in Sources */,
 				512B448723FAB33C00BFBCF0 /* EditProductViewController.swift in Sources */,

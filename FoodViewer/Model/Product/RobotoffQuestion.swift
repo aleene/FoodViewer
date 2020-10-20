@@ -8,18 +8,25 @@
 
 import Foundation
 
-enum RobotoffQuestionField: String {
+enum RobotoffQuestionType: String {
     case label = "label"
     case category = "category"
     case unknown
+}
+
+enum RobotoffQuestionResponse: Int {
+    case accept = 1
+    case unknown = 0
+    case refuse = -1
 }
 
 struct RobotoffQuestion {
     var barcode: String?
     var question: String?
     var value: String?
-    var field: RobotoffQuestionField = .unknown
+    var field: RobotoffQuestionType = .unknown
     var id: String? // needed to report back?
+    var response: RobotoffQuestionResponse?
     
     init(jsonQuestion: OFFRobotoffQuestion) {
         barcode = jsonQuestion.barcode
@@ -28,9 +35,9 @@ struct RobotoffQuestion {
         value = jsonQuestion.value
         if let type = jsonQuestion.insight_type {
             switch type {
-            case RobotoffQuestionField.label.rawValue:
+            case RobotoffQuestionType.label.rawValue:
                 field = .label
-            case RobotoffQuestionField.category.rawValue:
+            case RobotoffQuestionType.category.rawValue:
                 field = .category
             default:
                 field =  .unknown

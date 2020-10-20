@@ -1042,10 +1042,35 @@ class ProductPair {
         return operations
     }
     
+    func uploadRobotoffAnswer(question: RobotoffQuestion) -> [String:Operation] {
+        
+        var operations: [String:Operation] = [:]
+
+        operations[self.barcodeType.asString] = RobotoffUpdate(question: question) { (result: ResultType<OFFRobotoffUploadResultJson>) in
+            switch result {
+            case .success:
+                DispatchQueue.main.async(execute: { () -> Void in
+                    NotificationCenter.default.post(name: .ProductUpdateSucceeded, object: nil, userInfo: nil)
+                })
+
+            case .failure(let error as NSError):
+                DispatchQueue.main.async(execute: { () -> Void in
+                    NotificationCenter.default.post(name: .ProductUpdateFailed, object: nil, userInfo: nil)
+                    print("ProductPair: error code:", error.code, error.description)
+                })
+
+            }
+            self.reload()
+        }
+        
+        return operations
+    }
+
     private func reloadAfterUpdate() {
         // if all local data has been uploaded, I can reset the local product and
         // keep only the remote product
-        if self.localProduct!.isEmpty && !self.localProduct!.hasImages {
+        if self.localProduct!.isEmpty
+            && !self.localProduct!.hasImages {
             self.localStatus = .updated(self.barcodeType.asString)
         }
         // get the new data from OFF

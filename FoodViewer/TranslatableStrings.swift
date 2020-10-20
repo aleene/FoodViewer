@@ -269,6 +269,7 @@ struct TranslatableStrings {
     static let NegativeIngredientDetectionsPreference = NSLocalizedString("Negative Ingredient Detections", comment: "Tableview sectionheader for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? ")
     static let NegativeIngredientDetectionsShow = NSLocalizedString("Show", comment: "SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? ")
     static let NegativeIngredientDetectionsDoNotShow = NSLocalizedString("Do Not Show", comment: "SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? ")
+    static let No = NSLocalizedString("No", comment: "Title of an alert action, when the answer is negative/untrue.")
     static let NoBrandsIndicated = NSLocalizedString("No brands indicated", comment: "Text in a tableview cell, when no brands are available in the product data.")
     static let NoCategoryDefined = NSLocalizedString("No category defined", comment: "Text in a tableview cell, when no category is defined.")
     static let NoCommentSet = NSLocalizedString("No comments set", comment: "Text of a tag, when the user did not set any comments.")
@@ -537,7 +538,8 @@ static let Password = NSLocalizedString("Password", comment: "String in textFiel
     static let ViewToggleModeDoubletap = NSLocalizedString("Doubletap", comment: "Title of a segment of a segmented control, which lets the user set doubletap view toggle mode interface")
 
     //static let Warnings = NSLocalizedString("Set ingredient warnings", comment: "Title of a tableView section, which lets the user set warnings")
-    
+    static let Yes = NSLocalizedString("Yes", comment: "Title of an alert button, which confirms the question")
+
 //
 // MARK: - Other strings
 //

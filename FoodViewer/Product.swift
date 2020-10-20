@@ -1098,16 +1098,16 @@ class FoodProduct {
     
     private var robotoffQuestionsFetchStatus: OFFRobotoffQuestionFetchStatus = .initialized
 
-    public var robotoffLabelsTags: Tags {
-        guard let questions = robotoffQuestions else { return .undefined }
-        var tags: [String] = []
+    /// The robotoff questions filter for a specific type
+    public func robotoffQuestions(for robotoffQuestionType: RobotoffQuestionType) -> [RobotoffQuestion] {
+        guard let questions = robotoffQuestions else { return [] }
+        var filteredQuestions: [RobotoffQuestion] = []
         for question in questions {
-            if question.field == .label,
-                let value = question.value {
-                tags.append("? " + value + " ?")
+            if question.field == robotoffQuestionType {
+                filteredQuestions.append(question)
             }
         }
-        return !tags.isEmpty ? Tags(list: tags) : .undefined
+        return filteredQuestions
     }
     /*
     struct UniqueContributors {
