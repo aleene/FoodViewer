@@ -1325,16 +1325,12 @@ extension IngredientsTableViewController: TagListViewDataSource {
         func count(_ tags: Tags) -> Int {
             switch tags {
             case .undefined:
-                tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
-                tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
             case let .available(list):
-                tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             case .notSearchable:
-                tagListView.normalColorScheme = ColorSchemes.error
                 return 1
             }
         }
@@ -1342,16 +1338,12 @@ extension IngredientsTableViewController: TagListViewDataSource {
         func detectedCount(_ tags: Tags) -> Int {
             switch tags {
             case .undefined:
-                tagListView.normalColorScheme = ColorSchemes.error
                 return 1 // editMode ? 0 : 1
             case .empty:
-                tagListView.normalColorScheme = ColorSchemes.none
                 return 1 // editMode ? 0 : 1
             case let .available(list):
-                tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             case .notSearchable:
-                tagListView.normalColorScheme = ColorSchemes.error
                 return 1
             }
         }
@@ -1427,6 +1419,18 @@ extension IngredientsTableViewController: TagListViewDataSource {
     }
 
     public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        
+        func colorScheme(_ tags: Tags) -> ColorScheme {
+            switch tags {
+            case .undefined, .notSearchable:
+                return ColorSchemes.error
+            case .empty:
+                return ColorSchemes.none
+            case .available:
+                return ColorSchemes.normal
+            }
+        }
+
         guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else {
             print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
             return  nil
@@ -1435,12 +1439,31 @@ extension IngredientsTableViewController: TagListViewDataSource {
         case .labels:
             // Do I need to take into account any regular tags?
             if let count = labelsToDisplay.count,
-            tagListView.tag >= count {
-                return nil
+            index <= count - 1 {
+                return ColorSchemes.normal
             } else {
                 return ColorSchemes.robotoff
             }
-        default: break
+        case .additives:
+            return colorScheme(additivesToDisplay)
+        case .allergens:
+            return colorScheme(allergensToDisplay)
+        case .image:
+            return ColorSchemes.error
+        case .traces:
+            return colorScheme(tracesToDisplay)
+        case .ingredients:
+            return colorScheme(ingredientsToDisplay)
+        case .minerals:
+            return colorScheme(mineralsToDisplay)
+        case .vitamins:
+            return colorScheme(vitaminsToDisplay)
+        case .nucleotides:
+            return colorScheme(nucleotidesToDisplay)
+        case .otherNutritionalSubstances:
+            return colorScheme(otherNutritionalSubstancesToDisplay)
+        case .aminoAcids:
+            return colorScheme(aminoAcidsToDisplay)
         }
         return nil
     }
