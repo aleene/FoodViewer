@@ -1535,11 +1535,15 @@ extension IngredientsTableViewController: TagListViewDataSource {
         switch tableStructure[tagListView.tag] {
         case .labels:
             // Do I need to take into account any regular tags?
-            if let count = labelsToDisplay.count,
-            index <= count - 1 {
+            if let validLabelsCount = labelsToDisplay.count,
+                index <= validLabelsCount - 1 {
                 return ColorSchemes.normal
             } else {
-                return ColorSchemes.robotoff
+                if let questions = productPair?.remoteProduct?.robotoffQuestions(for: .label), !questions.isEmpty {
+                    return ColorSchemes.robotoff
+                } else {
+                    return ColorSchemes.none
+                }
             }
         case .additives:
             return colorScheme(additivesToDisplay)

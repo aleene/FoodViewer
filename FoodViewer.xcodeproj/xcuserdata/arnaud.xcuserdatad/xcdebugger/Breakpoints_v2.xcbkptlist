@@ -113,8 +113,8 @@
             filePath = "FoodViewer/ViewControllers/CategoriesTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
             landmarkName = "tagListView(_:titleForTagAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -513,8 +513,8 @@
             filePath = "FoodViewer/ViewControllers/CategoriesTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "452"
-            endingLineNumber = "452"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
             landmarkName = "tagListViewButtonTableViewCell(_:receivedTapOn:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -890,118 +890,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "97D14EE2-63C6-4742-B3FB-2776C2DB0DB9"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FoodViewer/Model/Product/RobotoffQuestion.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "init(jsonQuestion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CF0BF37E-8D4A-46A8-8326-4A53784A9319"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FoodViewer/Model/ProductPair.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1052"
-            endingLineNumber = "1052"
-            landmarkName = "uploadRobotoffAnswer(question:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "CF0BF37E-8D4A-46A8-8326-4A53784A9319 - d904552b789c14f8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (FoodViewer.ResultType&lt;FoodViewer.OFFRobotoffUploadResultJson&gt;) -&gt; () in FoodViewer.ProductPair.uploadRobotoffAnswer(question: FoodViewer.RobotoffQuestion) -&gt; Swift.Dictionary&lt;Swift.String, __C.NSOperation&gt;"
-                  moduleName = "FoodViewer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/arnaud/Programming/FoodViewer/FoodViewer/Model/ProductPair.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1052"
-                  endingLineNumber = "1052"
-                  offsetFromSymbolStart = "260">
-               </Location>
-               <Location
-                  uuid = "CF0BF37E-8D4A-46A8-8326-4A53784A9319 - 2209370fc8a3e85e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #1 (FoodViewer.ResultType&lt;FoodViewer.OFFRobotoffUploadResultJson&gt;) -&gt; () in FoodViewer.ProductPair.uploadRobotoffAnswer(question: FoodViewer.RobotoffQuestion) -&gt; Swift.Dictionary&lt;Swift.String, __C.NSOperation&gt;"
-                  moduleName = "FoodViewer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/arnaud/Programming/FoodViewer/FoodViewer/Model/ProductPair.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1053"
-                  endingLineNumber = "1053"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "42DB68A4-64D3-41CC-9C71-91C331D5B505"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FoodViewer/Model/ProductPair.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1057"
-            endingLineNumber = "1057"
-            landmarkName = "uploadRobotoffAnswer(question:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "42DB68A4-64D3-41CC-9C71-91C331D5B505 - d904552b789c14f8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (FoodViewer.ResultType&lt;FoodViewer.OFFRobotoffUploadResultJson&gt;) -&gt; () in FoodViewer.ProductPair.uploadRobotoffAnswer(question: FoodViewer.RobotoffQuestion) -&gt; Swift.Dictionary&lt;Swift.String, __C.NSOperation&gt;"
-                  moduleName = "FoodViewer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/arnaud/Programming/FoodViewer/FoodViewer/Model/ProductPair.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1057"
-                  endingLineNumber = "1057"
-                  offsetFromSymbolStart = "740">
-               </Location>
-               <Location
-                  uuid = "42DB68A4-64D3-41CC-9C71-91C331D5B505 - f101f4e220e8425f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 () -&gt; () in closure #1 (FoodViewer.ResultType&lt;FoodViewer.OFFRobotoffUploadResultJson&gt;) -&gt; () in FoodViewer.ProductPair.uploadRobotoffAnswer(question: FoodViewer.RobotoffQuestion) -&gt; Swift.Dictionary&lt;Swift.String, __C.NSOperation&gt;"
-                  moduleName = "FoodViewer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/arnaud/Programming/FoodViewer/FoodViewer/Model/ProductPair.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1058"
-                  endingLineNumber = "1058"
-                  offsetFromSymbolStart = "68">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "A7F72A83-4AD5-4ECF-A26B-CDD7B8640B65"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -1009,9 +897,41 @@
             filePath = "FoodViewer/API/Robotoff/RobotoffUpdate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "init(question:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E31772F8-EBFE-4082-A89A-8F3C0B91D17E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodViewer/Model/Product/RobotoffQuestion.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "init(jsonQuestion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "39C332C2-0F82-492B-8D09-33077ACE0107"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodViewer/ViewControllers/IngredientsTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1537"
+            endingLineNumber = "1537"
+            landmarkName = "tagListView(_:colorSchemeForTagAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

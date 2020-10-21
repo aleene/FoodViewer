@@ -9,8 +9,15 @@
 import Foundation
 
 enum RobotoffQuestionType: String {
-    case label = "label"
+    case brand = "brand"
     case category = "category"
+    case expirationDate = "expiration_date"
+    case ingredientSpellcheck = "ingredient_spellcheck"
+    case label = "label"
+    case nutrient = "nutrient"
+    case packagerCode = "packager_code"
+    case quantity = "product_weight"
+    case store = "store"
     case unknown
 }
 
@@ -35,10 +42,24 @@ struct RobotoffQuestion {
         value = jsonQuestion.value
         if let type = jsonQuestion.insight_type {
             switch type {
-            case RobotoffQuestionType.label.rawValue:
-                field = .label
+            case RobotoffQuestionType.brand.rawValue:
+                field = .brand
             case RobotoffQuestionType.category.rawValue:
                 field = .category
+            case RobotoffQuestionType.expirationDate.rawValue:
+                field = .expirationDate
+            case RobotoffQuestionType.ingredientSpellcheck.rawValue:
+                field = .ingredientSpellcheck
+            case RobotoffQuestionType.label.rawValue:
+                field = .label
+            case RobotoffQuestionType.nutrient.rawValue:
+                field = .nutrient
+            case RobotoffQuestionType.packagerCode.rawValue:
+                field = .packagerCode
+            case RobotoffQuestionType.quantity.rawValue:
+                field = .quantity
+            case RobotoffQuestionType.store.rawValue:
+                field = .store
             default:
                 field =  .unknown
             }

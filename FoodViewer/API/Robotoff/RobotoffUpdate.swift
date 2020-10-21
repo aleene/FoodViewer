@@ -20,7 +20,8 @@ class RobotoffUpdate: OFFRobotoffAnswerAPI {
             switch myCompletionHandler {
             case .success(let json):
                 if let validStatus = json.status {
-                    if validStatus == "updated" {
+                    if validStatus == "updated"
+                    || validStatus == "saved" {
                         return completion (.success(json))
                     } else {
                         let error = NSError.init(domain: "FoodViewer",

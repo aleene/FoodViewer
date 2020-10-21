@@ -67,10 +67,17 @@ class CategoriesTableViewController: UITableViewController {
 
     private var tagListViewHeight: CGFloat = Constants.CellHeight.TagListViewCell
 
-    fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
+    fileprivate var tableStructure: [SectionType] = []
     
     fileprivate enum SectionType {
-        case categories
+        case categories(Int)
+        
+        var numberOfRows: Int {
+            switch self {
+            case .categories(let numberOfRows):
+                return numberOfRows
+            }
+        }
     }
     
     fileprivate var categoriesToDisplay: Tags {
@@ -122,12 +129,11 @@ class CategoriesTableViewController: UITableViewController {
     // MARK: - TableView Functions
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return tableStructureForProduct.count
+        return tableStructure.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let (_, numberOfRows, _) = tableStructureForProduct[section]
-        return numberOfRows
+        return tableStructure[section].numberOfRows
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -143,9 +149,8 @@ class CategoriesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-       
-        var (currentProductSection, _, header) = tableStructureForProduct[section]
-        
+               
+        var header: String
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: LanguageHeaderView.identifier) as! LanguageHeaderView
         var buttonNotDoubleTap: Bool {
             return ViewToggleModeDefaults.manager.buttonNotDoubleTap ?? ViewToggleModeDefaults.manager.buttonNotDoubleTapDefault
@@ -156,7 +161,7 @@ class CategoriesTableViewController: UITableViewController {
         headerView.changeLanguageButton.isHidden = true
         headerView.buttonNotDoubleTap = buttonNotDoubleTap
 
-        switch currentProductSection {
+        switch tableStructure[section] {
         case .categories:
             switch productVersion {
             case .new:
@@ -197,25 +202,68 @@ class CategoriesTableViewController: UITableViewController {
         return tagListViewHeight + 2 * Constants.CellMargin.ContentView
     }
 
+    fileprivate struct TableSection {
+        struct Size {
+            static let Categories = 1
+        }
+    }
+
     struct TableStructure {
         static let CategoriesSectionHeader = TranslatableStrings.Categories
         static let CategoriesSectionSize = 1
     }
 
-    fileprivate func setupTableSections() -> [(SectionType, Int, String?)] {
+    fileprivate func setupTableSections() -> [SectionType] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
         // The returnValue is an array with sections
         // And each element is a tuple with the section type and number of rows
         //
-        var sectionsAndRows: [(SectionType,Int, String?)] = []
-        sectionsAndRows.append((
-            SectionType.categories,
-            TableStructure.CategoriesSectionSize,
-            TableStructure.CategoriesSectionHeader))
+        var sectionsAndRows: [SectionType] = []
+        sectionsAndRows.append(.categories(TableSection.Size.Categories))
         return sectionsAndRows
             
     }
+//
+// MARK: - Robotoff Functions
+//
+    private func askRobotoff(_ question: RobotoffQuestion) {
+        var robotoffQuestion = question
+        guard let validValue = question.value else { return }
+        guard let validQuestion = question.question else { return }
+        guard let validProductPair = productPair else { return }
+        let alertController = UIAlertController(title: validValue,
+                                                message: validQuestion,
+                                                preferredStyle:.alert)
+        let robotoffIsCorrect = UIAlertAction(title: TranslatableStrings.Yes,
+                                              style: .default)
+        { action -> Void in
+            // Inform robotoff that it is correct
+            robotoffQuestion.response = RobotoffQuestionResponse.accept
+            OFFProducts.manager.startRobotoffUpload(for: robotoffQuestion, in: validProductPair)
+        }
+        
+        let robotoffIsWrong = UIAlertAction(title: TranslatableStrings.No,
+                                            style: .default)
+        { action -> Void in
+            // Inform robotoff that it is wrong
+            robotoffQuestion.response = RobotoffQuestionResponse.refuse
+            OFFProducts.manager.startRobotoffUpload(for: robotoffQuestion, in: validProductPair)
+        }
+
+        let doNotKnow = UIAlertAction(title: TranslatableStrings.Unknown,
+                                      style: .default)
+        { action -> Void in
+            // Inform Robotoff that I do not now
+            robotoffQuestion.response = RobotoffQuestionResponse.unknown
+            OFFProducts.manager.startRobotoffUpload(for: robotoffQuestion, in: validProductPair)
+        }
+        alertController.addAction(robotoffIsCorrect)
+        alertController.addAction(robotoffIsWrong)
+        alertController.addAction(doNotKnow)
+        self.present(alertController, animated: true, completion: nil)
+    }
+
 //
 // MARK: - Notification Handler Functions
 //
@@ -262,7 +310,7 @@ class CategoriesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tableStructureForProduct = setupTableSections()
+        tableStructure = setupTableSections()
         
         if delegate != nil {
             tableView.reloadData()
@@ -319,20 +367,26 @@ extension CategoriesTableViewController: TagListViewDataSource {
             }
         }
 
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-
-        switch currentProductSection {
+        switch tableStructure[tagListView.tag] {
         case .categories :
-            return count(categoriesToDisplay)
+            guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .category),
+                let validTags = Tags.add(right: categoriesToDisplay,
+                                         left: Tags(list:questions.map({ $0.value ?? "No value" })))
+            else {
+                return count(.undefined)
+            }
+            return count(validTags)
         }
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
-        switch  currentProductSection {
+        switch  tableStructure[tagListView.tag] {
         case .categories :
-            return categoriesToDisplay.tag(at: index)!
+            guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .category),
+                let validTags = Tags.add(right: categoriesToDisplay,
+                                         left: Tags(list:questions.map({ $0.value ?? "No value" }))) else { return "" }
+            return validTags.tag(at:index)!
         }
     }
     
@@ -345,7 +399,7 @@ extension CategoriesTableViewController: TagListViewDataSource {
     
     public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
         
-        func count(_ tags: Tags) -> ColorScheme {
+        func colorScheme(_ tags: Tags) -> ColorScheme {
             switch tags {
             case .undefined, .notSearchable:
                 return ColorSchemes.error
@@ -360,13 +414,22 @@ extension CategoriesTableViewController: TagListViewDataSource {
             }
         }
         
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        
-        switch currentProductSection {
+        switch tableStructure[tagListView.tag] {
         case .categories :
-            return count(categoriesToDisplay)
+            // Do I need to take into account any regular tags?
+            if let count = categoriesToDisplay.count,
+            index <= count - 1 {
+                return colorScheme(categoriesToDisplay)
+            } else {
+                if let questions = productPair?.remoteProduct?.robotoffQuestions(for: .category), !questions.isEmpty {
+                    return ColorSchemes.robotoff
+                } else {
+                    return colorScheme(categoriesToDisplay)
+                }
+            }
         }
     }
+    
 }
 
 
@@ -383,9 +446,8 @@ extension CategoriesTableViewController: TagListViewDelegate {
     }
     
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
-        switch  currentProductSection {
+        switch  tableStructure[tagListView.tag] {
         case .categories :
             switch categoriesToDisplay {
             case .undefined, .empty:
@@ -402,9 +464,8 @@ extension CategoriesTableViewController: TagListViewDelegate {
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
-        switch  currentProductSection {
+        switch  tableStructure[tagListView.tag] {
         case .categories :
             switch categoriesToDisplay {
             case .undefined, .empty:
@@ -423,18 +484,66 @@ extension CategoriesTableViewController: TagListViewDelegate {
     }
     
     public func didDeleteAllTags(_ tagListView: TagListView) {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
-        switch  currentProductSection {
+        switch  tableStructure[tagListView.tag] {
         case .categories:
             productPair?.update(categories: [])
         }
     }
     
+    public func tagListView(_ tagListView: TagListView, canTapTagAt index: Int) -> Bool {
+        
+        guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else {
+            print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
+            return false
+        }
+        
+        switch tableStructure[tagListView.tag] {
+        case .categories:
+            // Do I need to take into account any regular tags?
+            if let count = categoriesToDisplay.count {
+                if index <= count - 1 {
+                    return false
+                } else {
+                    return true
+                }
+            } else {
+                return true
+            }
+        }
+
+    }
+
+    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
+        
+        func askQuestion(for type: RobotoffQuestionType, at index:Int) {
+            guard let question = productPair?.remoteProduct?.robotoffQuestions(for: type)[index] else { return }
+            askRobotoff(question)
+        }
+        
+        guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else {
+            print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
+            return
+        }
+        
+        switch tableStructure[tagListView.tag] {
+        case .categories:
+            // Do I need to take into account any regular tags?
+            if let count = categoriesToDisplay.count {
+                if index <= count - 1 {
+                    return
+                } else {
+                    askQuestion(for: .category, at: index - count)
+                }
+            } else {
+                askQuestion(for: .category, at: index)
+            }
+        }
+    }
+
     public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
                 
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        switch currentProductSection {
+        switch tableStructure[tagListView.tag] {
         case .categories:
             delegate?.search(for: productPair!.remoteProduct!.categoriesInterpreted.tag(at:index), in: .category)
         }
