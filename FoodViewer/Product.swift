@@ -1062,6 +1062,8 @@ class FoodProduct {
             }
         }
     }
+
+// MARK: - robotoff
     
     private func fetchRobotoffQuestions() {
         let request = OpenFoodFactsRequest()
@@ -1082,7 +1084,7 @@ class FoodProduct {
         }
     }
     
-    var robotoffQuestions: [RobotoffQuestion]? {
+    public var robotoffQuestions: [RobotoffQuestion]? {
         switch robotoffQuestionsFetchStatus {
         // start the fetch
         case .initialized:
@@ -1094,6 +1096,18 @@ class FoodProduct {
             break
         }
         return nil
+    }
+    
+    public func remove(robotoff question: RobotoffQuestion) {
+        switch robotoffQuestionsFetchStatus {
+        case .success(var questions):
+            guard let index = robotoffQuestions?.lastIndex(where: ({ $0 == question }) ) else { return }
+            questions.remove(at: index)
+            robotoffQuestionsFetchStatus = .success(questions)
+        default:
+            break
+        }
+        return
     }
     
     private var robotoffQuestionsFetchStatus: OFFRobotoffQuestionFetchStatus = .initialized

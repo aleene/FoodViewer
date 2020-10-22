@@ -1052,7 +1052,7 @@ class ProductPair {
                 DispatchQueue.main.async(execute: { () -> Void in
                     NotificationCenter.default.post(name: .ProductUpdateSucceeded, object: nil, userInfo: nil)
                 })
-
+                self.remove(question)
             case .failure(let error as NSError):
                 DispatchQueue.main.async(execute: { () -> Void in
                     NotificationCenter.default.post(name: .ProductUpdateFailed, object: nil, userInfo: nil)
@@ -1064,6 +1064,10 @@ class ProductPair {
         }
         
         return operations
+    }
+    
+    private func remove(_ question: RobotoffQuestion) {
+        remoteProduct?.remove(robotoff: question)
     }
 
     private func reloadAfterUpdate() {

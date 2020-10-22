@@ -370,7 +370,9 @@ extension CategoriesTableViewController: TagListViewDataSource {
         switch tableStructure[tagListView.tag] {
         case .categories :
             guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .category),
-                let validTags = Tags.add(right: categoriesToDisplay,
+                let validTags = editMode
+                ? categoriesToDisplay
+                : Tags.add(right: categoriesToDisplay,
                                          left: Tags(list:questions.map({ $0.value ?? "No value" })))
             else {
                 return count(.undefined)
@@ -384,7 +386,9 @@ extension CategoriesTableViewController: TagListViewDataSource {
         switch  tableStructure[tagListView.tag] {
         case .categories :
             guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .category),
-                let validTags = Tags.add(right: categoriesToDisplay,
+                let validTags = editMode
+                ? categoriesToDisplay
+                : Tags.add(right: categoriesToDisplay,
                                          left: Tags(list:questions.map({ $0.value ?? "No value" }))) else { return "" }
             return validTags.tag(at:index)!
         }
@@ -421,7 +425,8 @@ extension CategoriesTableViewController: TagListViewDataSource {
             index <= count - 1 {
                 return colorScheme(categoriesToDisplay)
             } else {
-                if let questions = productPair?.remoteProduct?.robotoffQuestions(for: .category), !questions.isEmpty {
+                if !editMode,
+                    let questions = productPair?.remoteProduct?.robotoffQuestions(for: .category), !questions.isEmpty {
                     return ColorSchemes.robotoff
                 } else {
                     return colorScheme(categoriesToDisplay)
@@ -497,7 +502,8 @@ extension CategoriesTableViewController: TagListViewDelegate {
             print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
             return false
         }
-        
+        guard !editMode else { return false }
+
         switch tableStructure[tagListView.tag] {
         case .categories:
             // Do I need to take into account any regular tags?
@@ -525,7 +531,8 @@ extension CategoriesTableViewController: TagListViewDelegate {
             print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
             return
         }
-        
+        guard !editMode else { return }
+
         switch tableStructure[tagListView.tag] {
         case .categories:
             // Do I need to take into account any regular tags?

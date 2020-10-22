@@ -24,6 +24,7 @@ class RobotoffUpdate: OFFRobotoffAnswerAPI {
                     || validStatus == "saved" {
                         return completion (.success(json))
                     } else {
+                        // "error_already_annotated"
                         let error = NSError.init(domain: "FoodViewer",
                                                  code: 13,
                                                  userInfo:["Class": "RobotoffUpdate",

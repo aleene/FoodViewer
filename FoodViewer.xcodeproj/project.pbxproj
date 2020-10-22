@@ -686,6 +686,8 @@
 		51992FD4253EE6CF00C44214 /* OFFRobotoffUploadResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FD2253EE4C600C44214 /* OFFRobotoffUploadResultJson.swift */; };
 		51992FD5253EE6D200C44214 /* OFFRobotoffUploadResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FD2253EE4C600C44214 /* OFFRobotoffUploadResultJson.swift */; };
 		51992FD7253EE7B400C44214 /* RobotoffUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FD6253EE7B400C44214 /* RobotoffUpdate.swift */; };
+		51992FD925418E8B00C44214 /* RobotoffQuestionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FD825418E8B00C44214 /* RobotoffQuestionCoordinator.swift */; };
+		51992FDB25418F8500C44214 /* RobotoffQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FDA25418F8500C44214 /* RobotoffQuestionViewController.swift */; };
 		5199718020FA528600556467 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5199717F20FA528600556467 /* Reachability.swift */; };
 		519A8E031E827F23001C026A /* ImageSizeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519A8E021E827F23001C026A /* ImageSizeCategory.swift */; };
 		519A8E051E827F7C001C026A /* ImageTypeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519A8E041E827F7C001C026A /* ImageTypeCategory.swift */; };
@@ -1173,6 +1175,8 @@
 		51992FD0253EE3FD00C44214 /* OFFRobotoffAnswerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFRobotoffAnswerAPI.swift; path = Robotoff/OFFRobotoffAnswerAPI.swift; sourceTree = "<group>"; };
 		51992FD2253EE4C600C44214 /* OFFRobotoffUploadResultJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFRobotoffUploadResultJson.swift; path = Robotoff/OFFRobotoffUploadResultJson.swift; sourceTree = "<group>"; };
 		51992FD6253EE7B400C44214 /* RobotoffUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RobotoffUpdate.swift; path = API/Robotoff/RobotoffUpdate.swift; sourceTree = "<group>"; };
+		51992FD825418E8B00C44214 /* RobotoffQuestionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RobotoffQuestionCoordinator.swift; path = Coordinators/SecondLevel/RobotoffQuestionCoordinator.swift; sourceTree = "<group>"; };
+		51992FDA25418F8500C44214 /* RobotoffQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RobotoffQuestionViewController.swift; path = ViewControllers/Select/RobotoffQuestionViewController.swift; sourceTree = "<group>"; };
 		5199717F20FA528600556467 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = Model/Reachability.swift; sourceTree = "<group>"; };
 		519A8E021E827F23001C026A /* ImageSizeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSizeCategory.swift; sourceTree = "<group>"; };
 		519A8E041E827F7C001C026A /* ImageTypeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTypeCategory.swift; sourceTree = "<group>"; };
@@ -1337,6 +1341,7 @@
 				512B44AA23FAB99000BFBCF0 /* FavoriteShopsTableViewController.swift */,
 				512B44AC23FAB99800BFBCF0 /* MainLanguageViewController.swift */,
 				51A16AA31DC0DB16005F59E6 /* ProductUpdatedProtocol.swift */,
+				51992FDA25418F8500C44214 /* RobotoffQuestionViewController.swift */,
 				512B44B423FAB9CD00BFBCF0 /* SelectCompareViewController.swift */,
 				512B44B623FAB9DA00BFBCF0 /* SelectCompletionStateViewController.swift */,
 				512B44B823FAB9E500BFBCF0 /* SelectContributorRoleViewController.swift */,
@@ -1533,6 +1538,7 @@
 				512B454923FD77EF00BFBCF0 /* AddNutrientCoordinator.swift */,
 				512B454523FD489700BFBCF0 /* SelectPairCoordinator.swift */,
 				51AADDD823EDBDF900108F69 /* FavoriteShopsCoordinator.swift */,
+				51992FD825418E8B00C44214 /* RobotoffQuestionCoordinator.swift */,
 				512B454723FD75BB00BFBCF0 /* NutrientUnitSelectorCoordinator.swift */,
 				512B454D23FD7C3C00BFBCF0 /* SelectLanguageCoordinator.swift */,
 				512B455023FD7F3A00BFBCF0 /* SelectLanguageAndImageTypeCoordinator.swift */,
@@ -2725,6 +2731,7 @@
 				512B44EF23FABB8A00BFBCF0 /* QuantityTableViewCell.swift in Sources */,
 				51E8573D1FF00ABC0045B4B3 /* UIImageViewExtension.swift in Sources */,
 				512B453323FAC79E00BFBCF0 /* AddNutrientTableViewCell.swift in Sources */,
+				51992FD925418E8B00C44214 /* RobotoffQuestionCoordinator.swift in Sources */,
 				512B454423FD3DDA00BFBCF0 /* ImageViewCoordinator.swift in Sources */,
 				512B44BD23FAB9F700BFBCF0 /* SelectImageSourceViewController.swift in Sources */,
 				5176AAEB1CA44F5A00B0494A /* Address.swift in Sources */,
@@ -2801,6 +2808,7 @@
 				515CAE711D983C2300A90F96 /* FavoriteShopsDefaults.swift in Sources */,
 				512B442123FAB20100BFBCF0 /* GKCropBorderView.swift in Sources */,
 				5127CDF11E48A0FF00944FE8 /* ProductImageSize.swift in Sources */,
+				51992FDB25418F8500C44214 /* RobotoffQuestionViewController.swift in Sources */,
 				512B445823FAB23600BFBCF0 /* RSCodeLayer.swift in Sources */,
 				512B442023FAB20100BFBCF0 /* ScrollView.swift in Sources */,
 				512B44D923FABB0D00BFBCF0 /* StateTableViewCell.swift in Sources */,

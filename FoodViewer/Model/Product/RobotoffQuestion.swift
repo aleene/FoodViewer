@@ -33,6 +33,7 @@ struct RobotoffQuestion {
     var value: String?
     var field: RobotoffQuestionType = .unknown
     var id: String? // needed to report back?
+    var url: String?
     var response: RobotoffQuestionResponse?
     
     init(jsonQuestion: OFFRobotoffQuestion) {
@@ -40,6 +41,7 @@ struct RobotoffQuestion {
         question = jsonQuestion.question
         id = jsonQuestion.insight_id
         value = jsonQuestion.value
+        url = jsonQuestion.source_image_url
         if let type = jsonQuestion.insight_type {
             switch type {
             case RobotoffQuestionType.brand.rawValue:
@@ -66,5 +68,25 @@ struct RobotoffQuestion {
         } else {
             field = .unknown
         }
+    }
+    
+    var imageID: String? {
+        guard let validURLString = url else { return nil }
+        // https://static.openfoodfacts.org/images/products/303/349/000/4743/37.400.jpg
+        guard let imagePart = validURLString.split(separator: "/").last else { return nil }
+        if let validID = imagePart.split(separator: ".").first {
+            return String(validID)
+        }
+        return nil
+    }
+}
+
+// MARK: - Equatable
+
+extension RobotoffQuestion: Equatable {
+    static func ==(lhs: RobotoffQuestion, rhs: RobotoffQuestion) -> Bool {
+        guard let validLHSid = lhs.id else { return false }
+        guard let validRHSid = rhs.id else { return false }
+        return validLHSid == validRHSid
     }
 }

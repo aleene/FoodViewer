@@ -844,7 +844,9 @@ extension SupplyChainTableViewController: TagListViewDataSource {
                 return countTags(producerTagsToDisplay)
             case .producerCode:
                 guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .packagerCode),
-                    let validTags = Tags.add(right: producerCodeTagsToDisplay,
+                    let validTags = editMode
+                    ? producerCodeTagsToDisplay
+                    : Tags.add(right: producerCodeTagsToDisplay,
                                              left: Tags(list:questions.map({ $0.value ?? "No value" })))
                 else {
                     return countTags(.undefined)
@@ -855,7 +857,9 @@ extension SupplyChainTableViewController: TagListViewDataSource {
                 return countTags(ingredientOriginLocationTagsToDisplay)
             case .store:
                 guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .store),
-                    let validTags = Tags.add(right: storeTagsToDisplay,
+                    let validTags = editMode
+                    ? storeTagsToDisplay
+                    : Tags.add(right: storeTagsToDisplay,
                                              left: Tags(list:questions.map({ $0.value ?? "No value" })))
                 else {
                     return countTags(.undefined)
@@ -880,7 +884,9 @@ extension SupplyChainTableViewController: TagListViewDataSource {
                 return producerTagsToDisplay.tag(at:index)!
             case .producerCode:
                 guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .packagerCode),
-                    let validTags = Tags.add(right: producerCodeTagsToDisplay,
+                    let validTags = editMode
+                    ? producerCodeTagsToDisplay
+                    : Tags.add(right: producerCodeTagsToDisplay,
                                              left: Tags(list:questions.map({ $0.value ?? "No value" }))) else { return "" }
                 return validTags.tag(at:index)!
 
@@ -888,7 +894,9 @@ extension SupplyChainTableViewController: TagListViewDataSource {
                 return ingredientOriginLocationTagsToDisplay.tag(at:index)!
             case .store:
                 guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .store),
-                    let validTags = Tags.add(right: storeTagsToDisplay,
+                    let validTags = editMode
+                    ? storeTagsToDisplay
+                    : Tags.add(right: storeTagsToDisplay,
                                              left: Tags(list:questions.map({ $0.value ?? "No value" }))) else { return "" }
                 return validTags.tag(at:index)!
 
@@ -927,7 +935,8 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             index <= count - 1 {
                 return colorScheme(producerCodeTagsToDisplay)
             } else {
-                if let questions = productPair?.remoteProduct?.robotoffQuestions(for: .packagerCode), !questions.isEmpty {
+                if !editMode,
+                    let questions = productPair?.remoteProduct?.robotoffQuestions(for: .packagerCode), !questions.isEmpty {
                     return ColorSchemes.robotoff
                 } else {
                     return colorScheme(producerCodeTagsToDisplay)
@@ -940,7 +949,8 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             index <= count - 1 {
                 return colorScheme(storeTagsToDisplay)
             } else {
-                if let questions = productPair?.remoteProduct?.robotoffQuestions(for: .store), !questions.isEmpty {
+                if !editMode,
+                    let questions = productPair?.remoteProduct?.robotoffQuestions(for: .store), !questions.isEmpty {
                     return ColorSchemes.robotoff
                 } else {
                     return colorScheme(storeTagsToDisplay)
@@ -952,8 +962,10 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             return colorScheme(ingredientOriginLocationTagsToDisplay)
         case .producer:
             return colorScheme(producerTagsToDisplay)
-        case .sites:
+        case .location:
             return colorScheme(purchaseLocationTagsToDisplay)
+        case .sites:
+            return colorScheme(linksToDisplay)
         default:
             return nil
         }
@@ -1184,10 +1196,11 @@ extension SupplyChainTableViewController: TagListViewDelegate {
     public func tagListView(_ tagListView: TagListView, canTapTagAt index: Int) -> Bool {
         
         guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else {
-            print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
+            print ("SupplychainTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
             return false
         }
-        
+        guard !editMode else { return false }
+
         switch tableStructure[tagListView.tag] {
         case .producerCode:
             // Do I need to take into account any regular tags?
@@ -1228,7 +1241,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
             return
         }
-        
+        guard !editMode else { return }
+
         switch tableStructure[tagListView.tag] {
         case .producerCode:
             // Do I need to take into account any regular tags?

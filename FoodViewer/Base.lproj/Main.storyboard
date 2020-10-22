@@ -4976,7 +4976,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gsc-Fz-YkJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2572.5" y="5909.1549295774648"/>
+            <point key="canvasLocation" x="2558" y="5825"/>
         </scene>
         <!--Select Expiration Date View Controller-->
         <scene sceneID="z2H-NT-F1c">
@@ -5034,6 +5034,86 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1D5-2L-NQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="7153" y="5804"/>
+        </scene>
+        <!--Robotoff Question View Controller-->
+        <scene sceneID="6pQ-hC-Z9V">
+            <objects>
+                <viewController storyboardIdentifier="RobotoffQuestionViewController" id="ku5-ny-X0s" customClass="RobotoffQuestionViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mxe-87-DFX"/>
+                        <viewControllerLayoutGuide type="bottom" id="is5-XQ-IYm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LNi-q9-paa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSH-v1-RjE">
+                                <rect key="frame" x="0.0" y="12" width="320" height="0.0"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMG-IL-Fn6">
+                                <rect key="frame" x="0.0" y="20" width="320" height="0.0"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NdZ-jh-ONy">
+                                <rect key="frame" x="0.0" y="39.5" width="320" height="484.5"/>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nhJ-Oj-q1j">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <items>
+                                    <barButtonItem id="D6O-FL-qqW">
+                                        <connections>
+                                            <action selector="denyButtonTapped:" destination="ku5-ny-X0s" id="Sbs-uR-ZZF"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="gsB-fy-f1c"/>
+                                    <barButtonItem id="tjJ-TL-ZGq">
+                                        <connections>
+                                            <action selector="unknownButtonTapped:" destination="ku5-ny-X0s" id="cwB-Q3-tbF"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="DO5-vA-Imv"/>
+                                    <barButtonItem id="pDG-LW-773">
+                                        <connections>
+                                            <action selector="confirmButtonTapped:" destination="ku5-ny-X0s" id="Z4A-Zy-Cfk"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="NdZ-jh-ONy" firstAttribute="top" secondItem="uMG-IL-Fn6" secondAttribute="bottom" constant="19.5" id="1X9-SS-8sm"/>
+                            <constraint firstAttribute="trailing" secondItem="GSH-v1-RjE" secondAttribute="trailing" id="5tU-eJ-1n7"/>
+                            <constraint firstAttribute="trailing" secondItem="uMG-IL-Fn6" secondAttribute="trailing" id="Byy-cN-QMZ"/>
+                            <constraint firstItem="uMG-IL-Fn6" firstAttribute="leading" secondItem="LNi-q9-paa" secondAttribute="leading" id="C2D-BW-waK"/>
+                            <constraint firstAttribute="trailing" secondItem="NdZ-jh-ONy" secondAttribute="trailing" id="Dn8-3H-W98"/>
+                            <constraint firstItem="is5-XQ-IYm" firstAttribute="top" secondItem="nhJ-Oj-q1j" secondAttribute="bottom" id="NKm-nt-1yO"/>
+                            <constraint firstAttribute="trailing" secondItem="nhJ-Oj-q1j" secondAttribute="trailing" id="O5G-1c-4TL"/>
+                            <constraint firstItem="NdZ-jh-ONy" firstAttribute="leading" secondItem="LNi-q9-paa" secondAttribute="leading" id="P4S-5o-mVo"/>
+                            <constraint firstItem="GSH-v1-RjE" firstAttribute="top" secondItem="Mxe-87-DFX" secondAttribute="bottom" constant="12" id="TlO-Ss-rFk"/>
+                            <constraint firstItem="GSH-v1-RjE" firstAttribute="leading" secondItem="LNi-q9-paa" secondAttribute="leading" id="Ybl-Dt-Ci2"/>
+                            <constraint firstItem="uMG-IL-Fn6" firstAttribute="top" secondItem="GSH-v1-RjE" secondAttribute="bottom" constant="8" id="hfX-vw-Cqn"/>
+                            <constraint firstItem="nhJ-Oj-q1j" firstAttribute="leading" secondItem="LNi-q9-paa" secondAttribute="leading" id="xhg-vw-VyV"/>
+                            <constraint firstItem="nhJ-Oj-q1j" firstAttribute="top" secondItem="NdZ-jh-ONy" secondAttribute="bottom" id="xu1-b1-Z3K"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="confirmButton" destination="pDG-LW-773" id="fdh-fd-gm6"/>
+                        <outlet property="denyButton" destination="D6O-FL-qqW" id="8SP-Qc-bwW"/>
+                        <outlet property="questionLabel" destination="GSH-v1-RjE" id="gGd-cP-Ndq"/>
+                        <outlet property="robotoffImageView" destination="NdZ-jh-ONy" id="5Ms-PO-D2Y"/>
+                        <outlet property="typeLabel" destination="uMG-IL-Fn6" id="d2w-Mc-tmv"/>
+                        <outlet property="unknownButton" destination="tjJ-TL-ZGq" id="5LB-cf-97N"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1aG-Ac-HAB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8289.375" y="6017.9577464788736"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Bs2-OW-cj9">
@@ -5838,7 +5918,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtE-2p-q02" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3658" y="5911"/>
+            <point key="canvasLocation" x="3630" y="5801"/>
         </scene>
         <!--Select Nutrition Facts Table Style Table View Controller-->
         <scene sceneID="7gm-dT-eUM">

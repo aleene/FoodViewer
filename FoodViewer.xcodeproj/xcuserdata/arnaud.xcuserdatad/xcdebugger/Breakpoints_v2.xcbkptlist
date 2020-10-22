@@ -113,8 +113,8 @@
             filePath = "FoodViewer/ViewControllers/CategoriesTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "384"
-            endingLineNumber = "384"
+            startingLineNumber = "386"
+            endingLineNumber = "386"
             landmarkName = "tagListView(_:titleForTagAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -353,8 +353,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1972"
-            endingLineNumber = "1972"
+            startingLineNumber = "1986"
+            endingLineNumber = "1986"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -513,8 +513,8 @@
             filePath = "FoodViewer/ViewControllers/CategoriesTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "561"
-            endingLineNumber = "561"
+            startingLineNumber = "568"
+            endingLineNumber = "568"
             landmarkName = "tagListViewButtonTableViewCell(_:receivedTapOn:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -545,8 +545,8 @@
             filePath = "FoodViewer/ViewControllers/IngredientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1253"
-            endingLineNumber = "1253"
+            startingLineNumber = "1216"
+            endingLineNumber = "1216"
             landmarkName = "tagListView(_:didAddTagWith:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -753,8 +753,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1572"
-            endingLineNumber = "1572"
+            startingLineNumber = "1586"
+            endingLineNumber = "1586"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -769,8 +769,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1307"
-            endingLineNumber = "1307"
+            startingLineNumber = "1321"
+            endingLineNumber = "1321"
             landmarkName = "decodeCompletionStates(_:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -897,8 +897,8 @@
             filePath = "FoodViewer/API/Robotoff/RobotoffUpdate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "init(question:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -913,8 +913,8 @@
             filePath = "FoodViewer/Model/Product/RobotoffQuestion.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "init(jsonQuestion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -922,16 +922,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "39C332C2-0F82-492B-8D09-33077ACE0107"
+            uuid = "D5300C3D-7A65-4A0B-B30B-91110FFD2603"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FoodViewer/ViewControllers/IngredientsTableViewController.swift"
+            filePath = "FoodViewer/ViewControllers/Select/RobotoffQuestionViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1537"
-            endingLineNumber = "1537"
-            landmarkName = "tagListView(_:colorSchemeForTagAt:)"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "imageUpdated(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
