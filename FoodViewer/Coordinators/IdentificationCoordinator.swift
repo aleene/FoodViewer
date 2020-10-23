@@ -10,6 +10,8 @@ import UIKit
 
 final class IdentificationCoordinator: Coordinator {
 
+// MARK: - Public variables
+    
     var parentCoordinator: Coordinator? = nil
 
     var childCoordinators: [Coordinator] = []
@@ -17,6 +19,8 @@ final class IdentificationCoordinator: Coordinator {
     var childCoordinator: Coordinator? = nil
     
     var viewController: UIViewController? = nil
+    
+// MARK: - Private variables
     
     private var coordinatorViewController: IdentificationTableViewController? {
         self.viewController as? IdentificationTableViewController
@@ -30,6 +34,8 @@ final class IdentificationCoordinator: Coordinator {
         
     weak private var productPair: ProductPair? = nil
     
+// MARK: - Initialisation
+    
     init(with coordinator: Coordinator?) {
         self.viewController = IdentificationTableViewController.instantiate()
         self.parentCoordinator = coordinator
@@ -38,6 +44,8 @@ final class IdentificationCoordinator: Coordinator {
     init(with viewController:UIViewController) {
         self.viewController = viewController
     }
+    
+// MARK: - Child viewControllers
     
     func show() {
         // Done in the viewController?
@@ -112,7 +120,16 @@ The selected language will be used to change the current display language of the
 
     }
     
-    
+    /// Show the robotoff question viewcontroller
+    func showQuestion(for productPair: ProductPair?, question: RobotoffQuestion, image: ProductImageSize?) {
+        self.productPair = productPair
+        let coordinator = RobotoffQuestionCoordinator.init(with: self, question: question, image: image)
+        self.childCoordinators.append(coordinator)
+        coordinator.show()
+    }
+
+// MARK: - Lifecycle
+ 
     /// The viewController informs its owner that it has disappeared
     func viewControllerDidDisappear(_ sender: UIViewController) {
         if self.childCoordinators.isEmpty {
@@ -137,6 +154,7 @@ The selected language will be used to change the current display language of the
     }
 }
 
+// MARK: - ImageCoordinatorProtocol
 extension IdentificationCoordinator: ImageCoordinatorProtocol {
     
     func imageViewController(_ sender:ImageViewController, tapped barButton:UIBarButtonItem) {
@@ -148,6 +166,7 @@ extension IdentificationCoordinator: ImageCoordinatorProtocol {
     }
 }
 
+// MARK: - SelectPairCoordinatorProtocol
 
 extension IdentificationCoordinator: SelectPairCoordinatorProtocol {
     
@@ -178,6 +197,8 @@ extension IdentificationCoordinator: SelectPairCoordinatorProtocol {
     
 }
 
+// MARK: - SelectLanguageCoordinatorProtocol
+
 extension IdentificationCoordinator: SelectLanguageCoordinatorProtocol {
     
     public func selectLanguageViewController(_ sender:SelectLanguageViewController, selected languageCode:String?) {
@@ -186,6 +207,17 @@ extension IdentificationCoordinator: SelectLanguageCoordinatorProtocol {
     }
     
     public func selectLanguageViewControllerDidCancel(_ sender:SelectLanguageViewController) {
+        sender.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - RobotoffQuestionCoordinatorProtocol
+
+extension IdentificationCoordinator: RobotoffQuestionCoordinatorProtocol {
+    func robotoffQuestionTableViewController(_ sender: RobotoffQuestionViewController, answered question: RobotoffQuestion?) {
+        guard let validProductPair = productPair else { return }
+        guard let validQuestion = question else { return }
+        OFFProducts.manager.startRobotoffUpload(for: validQuestion, in: validProductPair)
         sender.dismiss(animated: true, completion: nil)
     }
 }

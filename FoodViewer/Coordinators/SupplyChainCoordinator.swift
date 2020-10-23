@@ -9,18 +9,24 @@
 import UIKit
 
 final class SupplyChainCoordinator: Coordinator {
-        
+    
+// MARK: - Public variables
+    
     weak var parentCoordinator: Coordinator? = nil
 
     var childCoordinators: [Coordinator] = []
     
     var viewController: UIViewController? = nil
     
+// MARK: - Private variables
+    
     weak private var productPair: ProductPair? = nil
     
     private var coordinatorViewController: SupplyChainTableViewController? {
         self.viewController as? SupplyChainTableViewController
     }
+    
+// MARK: - Initialisers
     
     init(with coordinator: Coordinator?) {
         self.viewController = SupplyChainTableViewController.instantiate()
@@ -30,6 +36,8 @@ final class SupplyChainCoordinator: Coordinator {
     init(with viewController:UIViewController) {
         self.viewController = viewController
     }
+    
+// MARK: - Child viewController presentation
     
     func show() {
         // Done in the viewController?
@@ -78,6 +86,16 @@ final class SupplyChainCoordinator: Coordinator {
         coordinator.show()
     }
     
+    /// Show the robotoff question viewcontroller
+    func showQuestion(for productPair: ProductPair?, question: RobotoffQuestion, image: ProductImageSize?) {
+        self.productPair = productPair
+        let coordinator = RobotoffQuestionCoordinator.init(with: self, question: question, image: image)
+        self.childCoordinators.append(coordinator)
+        coordinator.show()
+    }
+
+// MARK: - ViewController lifecycle
+    
     /// The viewController informs its owner that it has disappeared
     func viewControllerDidDisappear(_ sender: UIViewController) {
         if self.childCoordinators.isEmpty {
@@ -102,6 +120,7 @@ final class SupplyChainCoordinator: Coordinator {
     }
 }
 
+// MARK: - FavoriteShopsCoordinatorProtocol
 
 extension SupplyChainCoordinator: FavoriteShopsCoordinatorProtocol {
     
@@ -123,6 +142,8 @@ extension SupplyChainCoordinator: FavoriteShopsCoordinatorProtocol {
     
 }
 
+// MARK: - SelectExpirationDateCoordinatorProtocol
+
 extension SupplyChainCoordinator: SelectExpirationDateCoordinatorProtocol {
     
     func selectExpirationDateViewController(_ sender:SelectExpirationDateViewController, selected date:Date?) {
@@ -135,6 +156,8 @@ extension SupplyChainCoordinator: SelectExpirationDateCoordinatorProtocol {
     }
     
 }
+
+// MARK: - SelectPairCoordinatorProtocol
 
 extension SupplyChainCoordinator: SelectPairCoordinatorProtocol {
     
@@ -149,3 +172,13 @@ extension SupplyChainCoordinator: SelectPairCoordinatorProtocol {
     
 }
 
+// MARK: - RobotoffQuestionCoordinatorProtocol
+
+extension SupplyChainCoordinator: RobotoffQuestionCoordinatorProtocol {
+    func robotoffQuestionTableViewController(_ sender: RobotoffQuestionViewController, answered question: RobotoffQuestion?) {
+        guard let validProductPair = productPair else { return }
+        guard let validQuestion = question else { return }
+        OFFProducts.manager.startRobotoffUpload(for: validQuestion, in: validProductPair)
+        sender.dismiss(animated: true, completion: nil)
+    }
+}

@@ -1300,16 +1300,12 @@ extension IdentificationTableViewController: TagListViewDataSource {
         func count(_ tags: Tags) -> Int {
             switch tags {
             case .undefined:
-                tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
-                tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
             case let .available(list):
-                tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             case .notSearchable:
-                tagListView.normalColorScheme = ColorSchemes.error
                 return 1
             }
         }
@@ -1318,13 +1314,21 @@ extension IdentificationTableViewController: TagListViewDataSource {
         
         switch currentProductSection {
         case .brands:
-            return count(brandsToDisplay)
+            // do not show the robotoff labels in editMode
+            guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .brand),
+                let validTags = editMode
+                    ? brandsToDisplay
+                    : Tags.add(right: brandsToDisplay,
+                                         left: Tags(list:questions.map({ $0.value ?? "No value" })))
+            else {
+                return count(.undefined)
+            }
+            return count(validTags)
         case .packaging:
             return count(packagingToDisplay)
         case .languages:
             return count(languagesToDisplay)
         case .comment:
-            tagListView.normalColorScheme = ColorSchemes.none
             return 1
         default:
             return 0
@@ -1346,7 +1350,12 @@ extension IdentificationTableViewController: TagListViewDataSource {
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
         case .brands:
-            return title(brandsToDisplay)
+            guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .brand),
+                let validTags = editMode
+                    ? brandsToDisplay
+                    : Tags.add(right: brandsToDisplay,
+                                         left: Tags(list:questions.map({ $0.value ?? "No value" }))) else { return "" }
+            return title(validTags)
         case .packaging:
             return title(packagingToDisplay)
         case .languages:
@@ -1357,6 +1366,50 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return TranslatableStrings.NoCommentSet
         default:
             return("IdentificationTableViewController: TagListView titleForTagAt error")
+        }
+    }
+
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+            
+        func colorScheme(_ tags: Tags) -> ColorScheme {
+            switch tags {
+            case .undefined, .notSearchable:
+                return ColorSchemes.error
+            case .empty:
+                return ColorSchemes.none
+            case .available:
+                return ColorSchemes.normal
+            }
+        }
+
+        guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else {
+                print ("IdentificationTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
+                return  nil
+            }
+        switch tableStructure[tagListView.tag] {
+        case .brands:
+            // Do I need to take into account any regular tags?
+            if let validLabelsCount = brandsToDisplay.count,
+                index <= validLabelsCount - 1 {
+                return ColorSchemes.normal
+            } else {
+                if !editMode,
+                    let questions = productPair?.remoteProduct?.robotoffQuestions(for: .brand), !questions.isEmpty {
+                    return ColorSchemes.robotoff
+                } else {
+                    return ColorSchemes.none
+                }
+            }
+        case .packaging:
+            return colorScheme(packagingToDisplay)
+        case .languages:
+            return colorScheme(languagesToDisplay)
+        case .image:
+            return ColorSchemes.error
+        case .comment:
+            return ColorSchemes.normal
+        default:
+            return nil
         }
     }
 
@@ -1394,8 +1447,60 @@ extension IdentificationTableViewController: TagListViewDelegate {
         }
     }
     
-    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
+    public func tagListView(_ tagListView: TagListView, canTapTagAt index: Int) -> Bool {
+        
+        guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else {
+            print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
+            return false
+        }
+        
         switch tableStructure[tagListView.tag] {
+        case .brands:
+            guard !editMode else { return false }
+            // Do I need to take into account any regular tags?
+            if let count = brandsToDisplay.count {
+                if index <= count - 1 {
+                    return false
+                } else {
+                    return true
+                }
+            } else {
+                return true
+            }
+        case .languages:
+            return !editMode
+        default:
+            return false
+        }
+
+    }
+
+    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
+        
+        func askQuestion(for type: RobotoffQuestionType, at index:Int) {
+            guard let question = productPair?.remoteProduct?.robotoffQuestions(for: type)[index] else { return }
+            var image: ProductImageSize?
+            if let validID = question.imageID {
+                if let validImages = productPair?.remoteProduct?.images {
+                    image = validImages[validID]
+                }
+            }
+            coordinator?.showQuestion(for: productPair, question: question, image: image)
+        }
+
+        switch tableStructure[tagListView.tag] {
+        case .brands:
+            // Do I need to take into account any regular tags?
+            if let count = brandsToDisplay.count {
+                if index <= count - 1 {
+                    return
+                } else {
+                    askQuestion(for: .label, at: index - count)
+                }
+            } else {
+                askQuestion(for: .label, at: index)
+            }
+
         case .languages:
             // switch the current language to the one the user tapped
             switch languagesToDisplay {

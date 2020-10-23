@@ -113,8 +113,8 @@
             filePath = "FoodViewer/ViewControllers/CategoriesTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
+            startingLineNumber = "346"
+            endingLineNumber = "346"
             landmarkName = "tagListView(_:titleForTagAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -353,8 +353,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1986"
-            endingLineNumber = "1986"
+            startingLineNumber = "2017"
+            endingLineNumber = "2017"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -513,8 +513,8 @@
             filePath = "FoodViewer/ViewControllers/CategoriesTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "568"
-            endingLineNumber = "568"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
             landmarkName = "tagListViewButtonTableViewCell(_:receivedTapOn:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -529,8 +529,8 @@
             filePath = "FoodViewer/Coordinators/CategoriesCoordinator.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "selectPairViewController(_:selected:tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -753,8 +753,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1586"
-            endingLineNumber = "1586"
+            startingLineNumber = "1616"
+            endingLineNumber = "1616"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -769,8 +769,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1321"
-            endingLineNumber = "1321"
+            startingLineNumber = "1351"
+            endingLineNumber = "1351"
             landmarkName = "decodeCompletionStates(_:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -906,22 +906,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E31772F8-EBFE-4082-A89A-8F3C0B91D17E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FoodViewer/Model/Product/RobotoffQuestion.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "init(jsonQuestion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "D5300C3D-7A65-4A0B-B30B-91110FFD2603"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -932,6 +916,22 @@
             startingLineNumber = "126"
             endingLineNumber = "126"
             landmarkName = "imageUpdated(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9F62BFB4-A6FE-4C6B-8E42-ED20E561B2DC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodViewer/Product.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "findImageID(languageCode:imageType:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

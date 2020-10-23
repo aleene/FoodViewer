@@ -636,45 +636,6 @@ class SupplyChainTableViewController: UITableViewController {
         }
     }
 //
-// MARK: - Robotoff Functions
-//
-    private func askRobotoff(_ question: RobotoffQuestion) {
-        var robotoffQuestion = question
-        guard let validValue = question.value else { return }
-        guard let validQuestion = question.question else { return }
-        guard let validProductPair = productPair else { return }
-        let alertController = UIAlertController(title: validValue,
-                                                    message: validQuestion,
-                                                    preferredStyle:.alert)
-        let robotoffIsCorrect = UIAlertAction(title: TranslatableStrings.Yes,
-                                                  style: .default)
-        { action -> Void in
-            // Inform robotoff that it is correct
-            robotoffQuestion.response = RobotoffQuestionResponse.accept
-            OFFProducts.manager.startRobotoffUpload(for: robotoffQuestion, in: validProductPair)
-        }
-            
-        let robotoffIsWrong = UIAlertAction(title: TranslatableStrings.No,
-                                                style: .default)
-        { action -> Void in
-            // Inform robotoff that it is wrong
-            robotoffQuestion.response = RobotoffQuestionResponse.refuse
-            OFFProducts.manager.startRobotoffUpload(for: robotoffQuestion, in: validProductPair)
-        }
-
-        let doNotKnow = UIAlertAction(title: TranslatableStrings.Unknown,
-                                          style: .default)
-        { action -> Void in
-            // Inform Robotoff that I do not now
-            robotoffQuestion.response = RobotoffQuestionResponse.unknown
-            OFFProducts.manager.startRobotoffUpload(for: robotoffQuestion, in: validProductPair)
-           }
-        alertController.addAction(robotoffIsCorrect)
-        alertController.addAction(robotoffIsWrong)
-        alertController.addAction(doNotKnow)
-        self.present(alertController, animated: true, completion: nil)
-    }
-//
 // MARK: - Notification handlers
 //
     func reloadMapSection(_ notification: Notification) {
@@ -1234,9 +1195,15 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         
         func askQuestion(for type: RobotoffQuestionType, at index:Int) {
             guard let question = productPair?.remoteProduct?.robotoffQuestions(for: type)[index] else { return }
-            askRobotoff(question)
+            var image: ProductImageSize?
+            if let validID = question.imageID {
+                if let validImages = productPair?.remoteProduct?.images {
+                    image = validImages[validID]
+                }
+            }
+            coordinator?.showQuestion(for: productPair, question: question, image: image)
         }
-        
+
         guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else {
             print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
             return

@@ -74,10 +74,9 @@ struct RobotoffQuestion {
         guard let validURLString = url else { return nil }
         // https://static.openfoodfacts.org/images/products/303/349/000/4743/37.400.jpg
         guard let imagePart = validURLString.split(separator: "/").last else { return nil }
-        if let validID = imagePart.split(separator: ".").first {
-            return String(validID)
-        }
-        return nil
+        let validID = imagePart.split(separator: ".")
+        guard validID.last == "jpg" else { return nil }
+        return String(validID.first!)
     }
 }
 

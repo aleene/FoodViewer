@@ -78,6 +78,8 @@ class FoodProduct {
         return primaryLanguageCode
     }
     
+// MARK: - image variables and functions
+    
     // dictionaries with languageCode as key
     var frontImages: [String:ProductImageSize] = [:]
     var nutritionImages: [String:ProductImageSize] = [:]
@@ -108,6 +110,34 @@ class FoodProduct {
         return nil
     }
     
+    public func imageID(for robotoffID: String?) -> String? {
+        guard let validID = robotoffID else { return nil }
+        let split = validID.split(separator: "_")
+        guard split.count <= 2 else { return nil }
+        guard split.count > 1 else { return validID }
+        if split[0] == "front"
+            || split[0] == "ingredients"
+            || split[0] == "nutrition" {
+            return findImageID(languageCode: String(split[1]),
+                           imageType: String(split[0]))
+        } else {
+            return nil
+        }
+    }
+    
+    // Is this the same as imageID?
+    private func findImageID(languageCode: String, imageType: String) -> String? {
+        for (key, image) in images {
+            for usedIn in image.usedIn {
+                if usedIn.0 == languageCode
+                    && usedIn.1.description == imageType {
+                    return key
+                }
+            }
+        }
+        return nil
+    }
+
     var languageCodes: [String] = []
     
     var languages: [String] {
@@ -1757,6 +1787,7 @@ class FoodProduct {
 
         }
         
+    
         if let numberOfIngredientsFromPalmOil = validProduct.ingredients_from_palm_oil_n,
             numberOfIngredientsFromPalmOil > 0 {
             containsPalm = true
@@ -2065,233 +2096,6 @@ class FoodProduct {
         hasNutritionFacts == nil
     }
     
-    /*
-    // updates a product with new product data
-    func updateDataWith(_ product: FoodProduct) {
-        // all image data is set to nil, in order to force a reload
-        
-        // is it really the same product?
-        if barcode.asString == product.barcode.asString {
-            // Do I need to replace things, or should I carry out a check first?
-            primaryLanguageCode = product.primaryLanguageCode
-            nameLanguage = product.nameLanguage
-            genericNameLanguage = product.genericNameLanguage
-            brandsOriginal = product.brandsOriginal
-            brandsInterpreted = product.brandsInterpreted
-            frontImages = product.frontImages
-            ingredientsImages = product.ingredientsImages
-            nutritionImages = product.nutritionImages
-            images = product.images
-            packagingInterpreted = product.packagingInterpreted
-            packagingOriginal = product.packagingOriginal
-            packagingHierarchy = product.packagingHierarchy
-            quantity = product.quantity
-            ingredientsLanguage = product.ingredientsLanguage
-            numberOfIngredients = product.numberOfIngredients
-            allergensOriginal = product.allergensOriginal
-            allergensInterpreted = product.allergensInterpreted
-            allergensHierarchy = product.allergensHierarchy
-            tracesInterpreted = product.tracesInterpreted
-            tracesHierarchy = product.tracesHierarchy
-            tracesOriginal = product.tracesOriginal
-            additivesInterpreted = product.additivesInterpreted
-            labelsInterpreted = product.labelsInterpreted
-            labelsOriginal = product.labelsOriginal
-            labelsHierarchy = product.labelsHierarchy
-            manufacturingPlacesInterpreted = product.manufacturingPlacesInterpreted
-            manufacturingPlacesOriginal = product.manufacturingPlacesOriginal
-            originsOriginal = product.originsOriginal
-            originsInterpreted = product.originsInterpreted
-            embCodesInterpreted  = product.embCodesInterpreted
-            embCodesOriginal  = product.embCodesOriginal
-            servingSize = product.servingSize
-            if product.hasNutritionFacts != nil && !product.hasNutritionFacts! {
-                hasNutritionFacts = false
-                nutritionFacts = nil
-            } else {
-                nutritionFacts = product.nutritionFacts
-            }
-            nutritionScore = product.nutritionScore
-            nutritionGrade = product.nutritionGrade
-            purchasePlacesOriginal = product.purchasePlacesOriginal
-            purchasePlacesAddress = product.purchasePlacesAddress
-            purchasePlacesInterpreted = product.purchasePlacesInterpreted
-            storesOriginal = product.storesOriginal
-            storesInterpreted = product.storesInterpreted
-            countriesOriginal = product.countriesOriginal
-            countriesInterpreted = product.countriesInterpreted
-            countriesHierarchy = product.countriesHierarchy
-            additionDate = product.additionDate
-            expirationDateString = product.expirationDateString
-            creator = product.creator
-            state = product.state
-            languageCodes = product.languageCodes
-            categoriesOriginal = product.categoriesOriginal
-            categoriesInterpreted = product.categoriesInterpreted
-            categoriesHierarchy = product.categoriesHierarchy
-            photographers = product.photographers
-            correctors = product.correctors
-            editors = product.editors
-            informers = product.informers
-            contributors = product.contributors
-            hasNutritionFacts = product.hasNutritionFacts
-            // did I miss something?
-        }
-    }
- 
-    // updates a product with new product data
-    func mergeUpdates(from product: FoodProduct?) {
-
-        guard product != nil else { return }
-        
-        if product!.primaryLanguageCode != nil {
-            primaryLanguageCode = product!.primaryLanguageCode
-        }
-        for languageSet in product!.nameLanguage {
-            nameLanguage[languageSet.key] = languageSet.value
-        }
-        for languageSet in product!.genericNameLanguage {
-            genericNameLanguage[languageSet.key] = languageSet.value
-        }
-        
-        //if let validText = product!.searchText {
-        //    searchText = validText
-        //}
-        
-        switch product!.brandsOriginal {
-        case .available(let list):
-            brandsOriginal = Tags.init(list:list)
-        default:
-            break
-        }
-        // brandsInterpreted = product.brandsInterpreted
-        // frontImages = product.frontImages
-        // ingredientsImages = product.ingredientsImages
-        // nutritionImages = product.nutritionImages
-        // images = product.images
-        switch product!.packagingOriginal {
-        case .available(let list):
-            packagingOriginal = Tags.init(list:list)
-        default:
-            break
-        }
-        // packagingInterpreted = product.packagingInterpreted
-        // packagingHierarchy = product.packagingHierarchy
-        // quantity = product.quantity
-        for languageSet in product!.ingredientsLanguage {
-            ingredientsLanguage[languageSet.key] = languageSet.value
-        }
-        // numberOfIngredients = product.numberOfIngredients
-        switch product!.allergensOriginal {
-        case .available(let list):
-            allergensOriginal = Tags.init(list:list)
-        default:
-            break
-        }
-        // allergensInterpreted = product.allergensInterpreted
-        // allergensHierarchy = product.allergensHierarchy
-        switch product!.tracesOriginal {
-        case .available(let list):
-            tracesOriginal = Tags.init(list:list)
-        default:
-            break
-        }
-        // tracesInterpreted = product.tracesInterpreted
-        // tracesHierarchy = product.tracesHierarchy
-        // additivesInterpreted = product.additivesInterpreted
-        switch product!.labelsOriginal {
-        case .available(let list):
-            labelsOriginal = Tags.init(list:list)
-        default:
-            break
-        }
-        // labelsInterpreted = product.labelsInterpreted
-        // labelsHierarchy = product.labelsHierarchy
-        switch product!.manufacturingPlacesOriginal {
-        case .available(let list):
-            manufacturingPlacesOriginal = Tags.init(list:list)
-        default:
-            break
-        }
-        // manufacturingPlacesInterpreted = product.manufacturingPlacesInterpreted
-        switch product!.originsOriginal {
-        case .available(let list):
-            originsOriginal = Tags.init(list:list)
-        default:
-            break
-        }
-        // originsInterpreted = product.originsInterpreted
-        switch product!.embCodesOriginal {
-        case .available(let list):
-            embCodesOriginal = Tags.init(list:list)
-        default:
-            break
-        }
-        // embCodesInterpreted  = product.embCodesInterpreted
-        // servingSize = product.servingSize
-        // nutritionFacts = product.nutritionFacts
-        // nutritionScore = product.nutritionScore
-        // nutritionGrade = product.nutritionGrade
-        switch product!.purchasePlacesOriginal {
-        case .available(let list):
-            purchasePlacesOriginal = Tags.init(list:list)
-        default:
-            break
-        }
-        // purchasePlacesAddress = product.purchasePlacesAddress
-        // purchasePlacesInterpreted = product.purchasePlacesInterpreted
-        switch product!.storesOriginal {
-        case .available(let list):
-            storesOriginal = Tags.init(list:list)
-        default:
-            break
-        }
-        // storesInterpreted = product.storesInterpreted
-        switch product!.countriesOriginal {
-        case .available(let list):
-            countriesOriginal = Tags.init(list:list)
-        default:
-            break
-        }
-        // countriesInterpreted = product.countriesInterpreted
-        // countriesHierarchy = product.countriesHierarchy
-        if product!.additionDate != nil {
-            additionDate = product!.additionDate
-        }
-        if product!.expirationDateString != nil {
-            expirationDateString = product!.expirationDateString
-        }
-        if !product!.languageCodes.isEmpty {
-            languageCodes = product!.languageCodes
-        }
-        switch product!.categoriesOriginal {
-        case .available(let list):
-            categoriesOriginal = Tags.init(list:list)
-        default:
-            break
-        }
-        // categoriesInterpreted = product.categoriesInterpreted
-        // categoriesHierarchy = product.categoriesHierarchy
-        if !product!.state.array.isEmpty {
-            state = product!.state
-        }
-        if product!.creator != nil {
-            creator = product!.creator
-        }
-        if product!.photographers != nil && !product!.photographers!.isEmpty {
-            photographers = product!.photographers!
-        }
-        if product!.correctors != nil && !product!.correctors!.isEmpty {
-            correctors = product!.correctors!
-        }
-        if product!.editors != nil && !product!.editors!.isEmpty {
-            editors = product!.editors!
-        }
-        if product!.informers != nil && !product!.informers!.isEmpty {
-            informers = product!.informers!
-        }
-    }
-     */
 
     
     func regionURL() -> URL? {

@@ -34,4 +34,21 @@ enum ImageTypeCategory: Int {
     static var list: [ImageTypeCategory] {
         return [.front, .ingredients, .nutrition, .packaging]
     }
+    
+    static func type(for string: String) -> ImageTypeCategory {
+        switch string {
+        case ImageTypeCategory.front.description:
+            return .front
+        case ImageTypeCategory.ingredients.description:
+            return .ingredients
+        case ImageTypeCategory.nutrition.description:
+            return .nutrition
+        case ImageTypeCategory.packaging.description:
+            return .packaging
+        case ImageTypeCategory.general.description:
+            return .general
+        default:
+            return .general
+        }
+    }
 }

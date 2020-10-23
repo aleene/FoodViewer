@@ -10,6 +10,8 @@ import UIKit
 
 final class CategoriesCoordinator: Coordinator {
     
+// MARK: - Public variables
+
     var childCoordinator: Coordinator?
     
     weak var parentCoordinator: Coordinator? = nil
@@ -18,11 +20,15 @@ final class CategoriesCoordinator: Coordinator {
     
     var viewController: UIViewController? = nil
     
+// MARK: - Private variables
+
     weak private var productPair: ProductPair? = nil
     
     private var coordinatorViewController: CategoriesTableViewController? {
         self.viewController as? CategoriesTableViewController
     }
+
+// MARK: - Initialisation
 
     init(with coordinator: Coordinator?) {
         self.viewController = CategoriesTableViewController.instantiate()
@@ -33,9 +39,19 @@ final class CategoriesCoordinator: Coordinator {
     init(with viewController:UIViewController) {
         self.viewController = viewController
     }
-    
+        
+// MARK: - Child viewControllers
+        
     func show() {
         // Done in the viewController?
+    }
+    
+    /// Show the robotoff question viewcontroller
+    func showQuestion(for productPair: ProductPair?, question: RobotoffQuestion, image: ProductImageSize?) {
+        self.productPair = productPair
+        let coordinator = RobotoffQuestionCoordinator.init(with: self, question: question, image: image)
+        self.childCoordinators.append(coordinator)
+        coordinator.show()
     }
 
     func selectCategory(for productPair: ProductPair?) {
@@ -52,7 +68,9 @@ final class CategoriesCoordinator: Coordinator {
         childCoordinators.append(coordinator)
         coordinator.show()
     }
-    
+
+// MARK: - Lifecycle
+     
     /// The viewController informs its owner that it has disappeared
     func viewControllerDidDisappear(_ sender: UIViewController) {
         if self.childCoordinators.isEmpty {
@@ -77,6 +95,8 @@ final class CategoriesCoordinator: Coordinator {
     }
 }
 
+// MARK: - SelectPairCoordinatorProtocol
+
 extension CategoriesCoordinator: SelectPairCoordinatorProtocol {
     
     func selectPairViewController(_ sender:SelectPairViewController, selected strings: [String]?, tag: Int) {
@@ -90,5 +110,16 @@ extension CategoriesCoordinator: SelectPairCoordinatorProtocol {
         sender.dismiss(animated: true, completion: nil)
     }
     
+}
+
+// MARK: - RobotoffQuestionCoordinatorProtocol
+
+extension CategoriesCoordinator: RobotoffQuestionCoordinatorProtocol {
+    func robotoffQuestionTableViewController(_ sender: RobotoffQuestionViewController, answered question: RobotoffQuestion?) {
+        guard let validProductPair = productPair else { return }
+        guard let validQuestion = question else { return }
+        OFFProducts.manager.startRobotoffUpload(for: validQuestion, in: validProductPair)
+        sender.dismiss(animated: true, completion: nil)
+    }
 }
 
