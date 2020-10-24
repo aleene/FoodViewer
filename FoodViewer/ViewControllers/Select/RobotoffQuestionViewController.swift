@@ -53,6 +53,13 @@ Configure the class SelectPairViewController in one go. All possible input param
         }
     }
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
+
     @IBOutlet weak var robotoffImageView: UIImageView! {
         didSet {
             setImage()
@@ -118,7 +125,39 @@ Configure the class SelectPairViewController in one go. All possible input param
             }
         }
     }
+    
+    func updateMinZoomScaleForSize(_ size: CGSize) {
+      let widthScale = size.width / robotoffImageView.bounds.width
+      let heightScale = size.height / robotoffImageView.bounds.height
+      let minScale = min(widthScale, heightScale)
+        
+      scrollView.minimumZoomScale = minScale
+      scrollView.zoomScale = minScale
+    }
 
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+      updateConstraintsForSize(view.bounds.size)
+    }
+    // https://www.raywenderlich.com/5758454-uiscrollview-tutorial-getting-started
+    //2
+    func updateConstraintsForSize(_ size: CGSize) {
+      //3
+      let yOffset = max(0, (size.height - robotoffImageView.frame.height) / 2)
+      imageViewTopConstraint.constant = yOffset
+      imageViewBottomConstraint.constant = yOffset
+      
+      //4
+      let xOffset = max(0, (size.width - robotoffImageView.frame.width) / 2)
+      imageViewLeadingConstraint.constant = xOffset
+      imageViewTrailingConstraint.constant = xOffset
+        
+      view.layoutIfNeeded()
+    }
+
+    override func viewWillLayoutSubviews() {
+      super.viewWillLayoutSubviews()
+      updateMinZoomScaleForSize(view.bounds.size)
+    }
 // MARK: - Notification handler
 //
     @objc func imageUpdated(_ notification: Notification) {
@@ -130,6 +169,7 @@ Configure the class SelectPairViewController in one go. All possible input param
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -147,4 +187,11 @@ Configure the class SelectPairViewController in one go. All possible input param
         super.viewDidDisappear(animated)
     }
 
+}
+
+extension RobotoffQuestionViewController: UIScrollViewDelegate {
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return robotoffImageView
+    }
 }

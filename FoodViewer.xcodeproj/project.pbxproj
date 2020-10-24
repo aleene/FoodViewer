@@ -1071,7 +1071,7 @@
 		5149C5D822F6EC0E000EA690 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		5149C5D922F6EE53000EA690 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5149C5DA22F6EE53000EA690 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		514AFA1D2407D67A0081D50A /* 737628064502.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 737628064502.json; sourceTree = SOURCE_ROOT; };
+		514AFA1D2407D67A0081D50A /* 8711200859306.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 8711200859306.json; sourceTree = SOURCE_ROOT; };
 		514AFA1F2407D8FB0081D50A /* OFFProductNutriScoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFProductNutriScoreData.swift; path = OFFProductJson/OFFProductNutriScoreData.swift; sourceTree = "<group>"; };
 		514C0BEE230ECFF700FE9AF7 /* DietLevelsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DietLevelsTableViewCell.swift; path = Cells/DietLevelsTableViewCell.swift; sourceTree = "<group>"; };
 		514EEF991ED9B70000C4CF54 /* 4005900122063.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4005900122063.json; sourceTree = "<group>"; };
@@ -1419,7 +1419,7 @@
 		511459371CB1398F00D25116 /* Outside target */ = {
 			isa = PBXGroup;
 			children = (
-				514AFA1D2407D67A0081D50A /* 737628064502.json */,
+				514AFA1D2407D67A0081D50A /* 8711200859306.json */,
 				51857F9D2507746C007B896B /* 3700214614266.json */,
 				51992FC4253C399900C44214 /* Robotoff.json */,
 			);

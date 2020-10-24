@@ -44,7 +44,7 @@ public struct OFF {
         static let TopDomain = ".org/"
         static let AdvancedSearch = "cgi/search.pl?action=process"
         static let EnglishProduct = "en:product/"
-        static let Postfix = ".org/api/v0/product/"
+        static let Postfix = ".org/api/v1.2/product/"
         // /api/v1/questions/
         static let PostfixRobotoff = ".org/api/v1/questions/"
         static let JSONExtension = ".json"
