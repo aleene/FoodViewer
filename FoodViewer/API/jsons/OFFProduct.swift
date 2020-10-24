@@ -13,8 +13,8 @@ class OFFProduct: Codable {
     // the vars are those that the user can create/edit
     var additives: String? = nil
     var additives_debug_tags: [String]? = nil
-    var additives_n: Int? = nil
-    var additives_old_n: Int? = nil
+    //var additives_n: Int? = nil is in OFFProductDetailed
+    //var additives_old_n: Int? = nil is in OFFProductDetailed
     var additives_old_tags: [String]? = nil
     var additives_original_tags: [String]? = nil
     var additives_prev: String? = nil
@@ -31,8 +31,8 @@ class OFFProduct: Codable {
     var attribute_groups: [OFFProductAttributeGroup]? = nil
     var brands: String? = nil
         var brands_tags: [String]? = nil
-    var carbon_footprint_percent_of_known_ingredients: Int? = nil
-    var carbon_footprint_from_known_ingredients_debug: String? = nil
+    var carbon_footprint_percent_of_known_ingredients: Double? = nil
+    // var carbon_footprint_from_known_ingredients_debug: Int? = nil is in OFFProductDetailed
     var categories: String? = nil
     var categories_debug_tags: [String]? = nil
     var categories_hierarchy: [String]? = nil
@@ -46,8 +46,8 @@ class OFFProduct: Codable {
     var checkers_tags: [String]? = nil
     var ciqual_food_name_tags: [String]? = nil
         var cities_tags: [String]? = nil
-    var code: String? = nil
-    var codes_tags: [String]? = nil
+    // var code: String? = nil is in OFFProductDetailed
+    // var codes_tags: [String]? = nil is in OFFProductDetailed
     var compared_to_category: String? = nil
     var complete: Int? = nil
     var completed_t: Date? = nil
@@ -67,7 +67,7 @@ class OFFProduct: Codable {
     var data_quality_tags: [String]? = nil
     var data_sources: String? = nil
     var data_sources_tags: [String]? = nil
-    var debug_param_sorted_langs: String? = nil
+    var debug_param_sorted_langs: [String]? = nil
     var editors: [String]? = nil
     var editors_tags: [String]? = nil
     var emb_codes: String? = nil
@@ -97,11 +97,11 @@ class OFFProduct: Codable {
     // var ingredients: [OFFProductIngredient]? = nil
     var ingredients_analysis_tags: [String?]? = nil // evaluation of ingredients
     // var ingredients_debug: [String?]? = nil
-    var ingredients_from_palm_oil_n: Int? = nil
+    // var ingredients_from_palm_oil_n: Int? = nil is in OFFProductDetailed
     var ingredients_from_palm_oil_tags: [String]? = nil
     var ingredients_hierarchy: [String]? = nil
     // var ingredients_ids_debug: [String]? = nil
-    var ingredients_n: Int? = nil
+    // var ingredients_n: Int? = nil is in OFFProductDetailed
     // var ingredients_n_tags: [String]? = nil
     var ingredients_original_tags: [String]? = nil // detected ingredients
     var ingredients_percent_analysis: Int? = nil
@@ -110,12 +110,12 @@ class OFFProduct: Codable {
     // ingredients_text_fr is handled in the child
     // var ingredients_text_debug: String? = nil
     var ingredients_text_with_allergens: String? = nil
-    // var ingredients_text_with_allergens_fr is handled in the child
-    var ingredients_that_may_be_from_palm_oil_n: Int? = nil
+    // var ingredients_text_with_allergens_fr is in OFFProductDetailed
+    // var ingredients_that_may_be_from_palm_oil_n: Int? = nil is in OFFProductDetailed
     var ingredients_that_may_be_from_palm_oil_tags: [String]? = nil
     var interface_version_created: String? = nil  // not always with value
     var interface_version_modified: String? = nil
-    var known_ingredients_n: String? = nil
+    var known_ingredients_n: Int? = nil
     var labels: String? = nil
     var labels_debug_tags: [String]? = nil
     var labels_hierarchy: [String]? = nil
@@ -138,13 +138,13 @@ class OFFProduct: Codable {
         var link: String? = nil
     var manufacturing_places: String? = nil
         var manufacturing_places_tags: [String]? = nil
-    var max_imgid: String? = nil
+    // var max_imgid: String? = nil is in OFFProductDetailed
     var minerals_prev_tags: [String]? = nil
     var minerals_tags: [String]? = nil
     var misc_tags: [String]? = nil
     var new_additives_n: Int? = nil
     var no_nutrition_data: String? = nil
-    var nova_group: Int? = nil
+    // var nova_group: Int? = nil is in OFFProductDetailed
     var nova_group_debug: String? = nil
     var nova_groups_tags: [String]? = nil
     var nucleotides_prev_tags: [String]? = nil
@@ -184,13 +184,13 @@ class OFFProduct: Codable {
     var purchase_places: String? = nil
         var purchase_places_tags: [String]? = nil
         var quantity: String? = nil
-    var rev: Int? = nil
+    // var rev: Int? = nil is in OFFProductDetailed
     var scans_n: Int? = nil
     var selected_images: OFFProductSelectedImages? = nil
     var server: String? = nil
         var serving_size: String? = nil
-    var serving_quantity: String? = nil
-    var sortkey: Int? = nil
+    // var serving_quantity: String? = nil is in OFFProductDetailed
+    // var sortkey: Int? = nil is in OFFProductDetailed
     var states: String? = nil
     var states_hierarchy: [OFFProductStates]? = nil
         var states_tags: [OFFProductStates]? = nil

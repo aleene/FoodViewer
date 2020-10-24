@@ -24,7 +24,8 @@ class OFFProductDetailed: OFFProduct {
         static let ingredients_n = DetailedKeys(stringValue: "ingredients_n")!
         static let additives_n = DetailedKeys(stringValue: "additives_n")!
         static let additives_old_n = DetailedKeys(stringValue: "additives_old_n")!
-        static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(stringValue: "ingredients_from_or_that_may_be_from_palm_oil_n")!
+        static let carbon_footprint_from_known_ingredients_debug = DetailedKeys(stringValue: "carbon_footprint_from_known_ingredients_debug")!
+static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(stringValue: "ingredients_from_or_that_may_be_from_palm_oil_n")!
         static let ingredients_from_palm_oil_n = DetailedKeys(stringValue: "ingredients_from_palm_oil_n")!
         static let ingredients_that_may_be_from_palm_oil_n = DetailedKeys(stringValue: "ingredients_that_may_be_from_palm_oil_n")!
         static let languages_codes = DetailedKeys(stringValue: "languages_codes")!
@@ -51,6 +52,7 @@ class OFFProductDetailed: OFFProduct {
     var codes_tags: [String]? = nil
     var additives_n: Int? = nil
     var additives_old_n: Int? = nil
+    var carbon_footprint_from_known_ingredients_debug: Int? = nil
     var generic_names_: [String:String] = [:]
     var ingredients_from_or_that_may_be_from_palm_oil_n: Int? = nil
     var ingredients_from_palm_oil_n: Int? = nil
@@ -79,6 +81,18 @@ class OFFProductDetailed: OFFProduct {
         } catch {
             //
         }
+        
+        do {
+            self.carbon_footprint_from_known_ingredients_debug = try container.decode(Int.self, forKey: .carbon_footprint_from_known_ingredients_debug )
+        } catch {
+            do {
+                let asString = try container.decode(String.self, forKey: .carbon_footprint_from_known_ingredients_debug)
+                self.carbon_footprint_from_known_ingredients_debug = Int(asString)
+            } catch {
+                self.carbon_footprint_from_known_ingredients_debug = nil
+            }
+        }
+
         do {
             self.max_imgid = try container.decode(String.self, forKey: .max_imgid)
         } catch {
