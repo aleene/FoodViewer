@@ -38,6 +38,7 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
         static let rev = DetailedKeys(stringValue: "rev")!
         static let serving_quantity = DetailedKeys(stringValue: "serving_quantity")!
         static let sortkey = DetailedKeys(stringValue: "sortkey")!
+        static let unknown_ingredients_n = DetailedKeys(stringValue: "unknown_ingredients_n")!
 
     }
 
@@ -71,7 +72,8 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
     var rev: Int? = nil
     var serving_quantity: Double? = nil
     var sortkey: Int?
-
+    var unknown_ingredients_n: Int? = nil
+    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: DetailedKeys.self)
         
@@ -266,6 +268,18 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
             self.novaDashgroup_serving = nil
         }
 
+        do {
+            self.unknown_ingredients_n = try container.decode(Int.self, forKey: .unknown_ingredients_n)
+        } catch {
+            do {
+                let asString = try container.decode(String.self, forKey: .unknown_ingredients_n)
+                self.unknown_ingredients_n = Int(asString)
+            } catch {
+                self.unknown_ingredients_n = nil
+            }
+        }
+
+        
         // try to extract all language specific fields
         for languageCode in languages_codes {
             for key in container.allKeys {

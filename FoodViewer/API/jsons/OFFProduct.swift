@@ -202,7 +202,7 @@ class OFFProduct: Codable {
     var traces_hierarchy: [String]? = nil
         var traces_tags: [String]? = nil
     var unique_scans_n: Int? = nil
-    var unknown_ingredients_n: Int? = nil
+    // var unknown_ingredients_n: Int? = nil is in OFFProductDetailed
     var unknown_nutrients_tags: [String]? = nil
     var update_key: String? = nil
     var vitamins_prev_tags: [String]? = nil
