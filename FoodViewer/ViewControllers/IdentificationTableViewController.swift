@@ -422,16 +422,16 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath:IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at:indexPath, animated: false)
         switch tableStructure[indexPath.section] {
         case .image:
             if let validLanguageCode = displayLanguageCode {
                 if let images = productPair?.localProduct?.frontImages,
                     !images.isEmpty {
-                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageData: productPair!.localProduct!.image(for:validLanguageCode, of:.front))
+                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageSize: productPair!.localProduct!.image(for: validLanguageCode, of: .front))
                 } else {
-                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageData: productPair!.remoteProduct!.image(for:validLanguageCode, of:.front))
+                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageSize: productPair!.remoteProduct!.image(for: validLanguageCode, of: .front))
                 }
             }
         default: break
@@ -1780,9 +1780,9 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
         // is there image data?
         if let localProduct = productPair?.localProduct {
             if !localProduct.frontImages.isEmpty {
-                productImageData = localProduct.image(for:validLanguageCode, of:.front)
+                productImageData = localProduct.image(for:validLanguageCode, of:.front)?.largest
             } else {
-                productImageData = localProduct.image(for:validLanguageCode, of:.front)
+                productImageData =                                                                            localProduct.image(for:validLanguageCode, of:.front)?.largest
             }
         }
         // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way

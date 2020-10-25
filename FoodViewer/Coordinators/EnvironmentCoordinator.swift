@@ -37,9 +37,9 @@ final class EnvironmentCoordinator: Coordinator {
     }
 
     /// Show the image with the current display language
-    func showImage(imageTitle: String?, imageData: ProductImageData?) {
+    func showImage(imageTitle: String?, imageSize: ProductImageSize?) {
         
-        let coordinator = ImageViewCoordinator(with: self, imageTitle: imageTitle, imageData: imageData)
+        let coordinator = ImageViewCoordinator(with: self, imageTitle: imageTitle, imageSize: imageSize)
         self.childCoordinators.append(coordinator)
         coordinator.show()
     }

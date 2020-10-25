@@ -735,9 +735,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if let validLanguageCode = displayLanguageCode {
                 if let images = productPair?.localProduct?.nutritionImages,
                     !images.isEmpty {
-                    coordinator?.showImage(imageTitle: TranslatableStrings.NutritionFactsImage, imageData: productPair!.localProduct!.image(for:validLanguageCode, of:.nutrition))
+                    coordinator?.showImage(imageTitle: TranslatableStrings.NutritionFactsImage,
+                                           imageSize: productPair!.localProduct!.image(for:validLanguageCode, of:.nutrition))
                 } else {
-                    coordinator?.showImage(imageTitle: TranslatableStrings.NutritionFactsImage, imageData: productPair!.remoteProduct!.image(for:validLanguageCode, of:.nutrition))
+                    coordinator?.showImage(imageTitle: TranslatableStrings.NutritionFactsImage,
+                                           imageSize: productPair!.remoteProduct!.image(for:validLanguageCode, of:.nutrition))
                 }
             }
         default:
@@ -1603,9 +1605,9 @@ extension NutrientsTableViewController: UITableViewDragDelegate {
         // is there image data?
         if let images = productPair?.localProduct?.nutritionImages,
             !images.isEmpty {
-            productImageData = productPair!.localProduct!.image(for:displayLanguageCode!, of:.nutrition)
+            productImageData = productPair!.localProduct!.image(for:displayLanguageCode!, of: .nutrition)?.largest
         } else {
-            productImageData = productPair!.remoteProduct!.image(for:displayLanguageCode!, of:.nutrition)
+            productImageData = productPair!.remoteProduct!.image(for:displayLanguageCode!, of:.nutrition)?.largest
         }
         // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way
         guard productImageData != nil else { return [] }

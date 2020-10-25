@@ -19,10 +19,12 @@ class OFFProductImageDetailed: OFFProductImage {
         init?(intValue: Int) { return nil }
         
         static let imgid = DetailedKeys(stringValue: "imgid")!
+        static let uploaded_t = DetailedKeys(stringValue: "uploaded_t")!
 
     }
     
-    var imgid: String? = nil
+    public var imgid: String? = nil
+    public var uploaded_t: Double? = nil
     
     required init(from decoder: Decoder) throws {
 
@@ -39,6 +41,27 @@ class OFFProductImageDetailed: OFFProductImage {
             }
         }
 
+        do {
+            self.uploaded_t = try container.decode(Double.self, forKey: .uploaded_t)
+        } catch {
+            do {
+                let intCode = try container.decode(Int.self, forKey: .uploaded_t)
+                self.uploaded_t = Double(intCode)
+            } catch {
+                do {
+                    let intCode = try container.decode(String.self, forKey: .uploaded_t)
+                    self.uploaded_t = Double(intCode)
+                } catch {
+                    self.uploaded_t = nil
+                }
+            }
+        }
+
         try super.init(from: decoder)
+    }
+    
+    public var uploadDate: Date? {
+        guard let validTime = uploaded_t else { return nil }
+        return Date(timeIntervalSince1970: TimeInterval(validTime))
     }
 }

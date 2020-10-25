@@ -13,19 +13,28 @@ protocol ImageCoordinatorProtocol {
     func imageViewController(_ sender:ImageViewController, tapped barButton:UIBarButtonItem)
 }
 
-class ImageViewController: UIViewController {
+final class ImageViewController: UIViewController {
     
-    var imageData: ProductImageData?
+// MARK: - Public variables
     
-    var imageTitle: String? = nil {
+    public var imageSize: ProductImageSize? {
+        didSet {
+            setUploaderName()
+            setDate()
+        }
+    }
+    
+    public var imageTitle: String? = nil {
         didSet {
             setTitle()
         }
     }
     
-    var protocolCoordinator: ImageCoordinatorProtocol? = nil
+    public var protocolCoordinator: ImageCoordinatorProtocol? = nil
     
-    weak var coordinator: Coordinator? = nil
+    weak public var coordinator: Coordinator? = nil
+    
+// MARK: - Storyboard elements
     
     @IBOutlet weak var imageView: UIImageView! {
         didSet {
@@ -47,13 +56,49 @@ class ImageViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var explanationLabel: UILabel! {
+        didSet {
+            explanationLabel?.text = TranslatableStrings.UploadDateAndTime
+        }
+    }
+    
+    @IBOutlet weak var dateTimeLabel: UILabel! {
+        didSet {
+            setDate()
+        }
+    }
+    
+    @IBOutlet weak var uploaderExplanationLabel: UILabel! {
+        didSet {
+            uploaderExplanationLabel?.text = TranslatableStrings.Uploader
+        }
+    }
+    
+    @IBOutlet weak var uploaderLabel: UILabel! {
+        didSet {
+            setUploaderName()
+        }
+    }
     @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
 
+    private func setUploaderName() {
+        uploaderLabel?.text = imageSize?.uploader ?? TranslatableStrings.UploaderUnknown
+    }
+    
     private func setTitle() {
         navItem?.title  = imageTitle != nil ? imageTitle! : TranslatableStrings.NoTitle
+    }
+    
+    private func setDate() {
+        guard let validDate = imageSize?.date else { return }
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .medium
+        dateTimeLabel?.text =  formatter.string(from: validDate)
+        print(formatter.string(from: validDate))
     }
     
     private func setImage() {
@@ -66,8 +111,7 @@ class ImageViewController: UIViewController {
     }
     
     private func currentImage() -> UIImage? {
-        if imageData != nil {
-            if let result = imageData!.fetch() {
+            if let result = imageSize?.largest?.fetch() {
                 switch result {
                 case .success(let image):
                     return image
@@ -78,7 +122,6 @@ class ImageViewController: UIViewController {
                     break
                 }
             }
-        }
         return UIImage.init(named:"NotOK")
     }
     
@@ -102,10 +145,13 @@ class ImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-
-        setImage()
         
         NotificationCenter.default.addObserver(self, selector:#selector(ImageViewController.reloadImage), name:.ImageSet, object:nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setImage()
     }
 
     override func viewDidDisappear(_ animated: Bool) {

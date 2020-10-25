@@ -624,12 +624,12 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             guard selectedImage != nil else { return }
             let imageTuple = imageDetailsTuple(for: selectedImage!.section)
             guard let title = imageTuple.0 else { return }
-            guard let data = imageTuple.1 else { return }
-            coordinator?.showImage(imageTitle: title, imageData: data)
+            guard let size = imageTuple.1 else { return }
+            coordinator?.showImage(imageTitle: title, imageSize: size)
         }
     }
     
-    private func imageDetailsTuple(for section:Int) -> (String?, ProductImageData?) {
+    private func imageDetailsTuple(for section: Int) -> (String?, ProductImageSize?) {
         switch tableStructure[section] {
         case .frontImages:
             let languageCode = Array(productPair!.remoteProduct!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
@@ -645,7 +645,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             return ( OFFplists.manager.languageName(for:languageCode), productPair!.remoteProduct!.image(for:languageCode, of:.packaging) )
         case .originalImages:
             let key = Array(productPair!.remoteProduct!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
-            return (key, productPair!.remoteProduct!.images[key]?.largest)
+            return (key, productPair!.remoteProduct!.images[key])
         }
 
     }
@@ -704,7 +704,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         }
     }
-    
+    /*
     private func imageToShow() -> (ProductImageData?, String?) {
         guard let validSection = selectedImage?.section else { return (nil,nil) }
         switch tableStructure[validSection] {
@@ -735,7 +735,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             return (imageData, imageTitle)
         }
     }
-
+ */
 
     @objc func reloadImages() {
         collectionView?.reloadData()

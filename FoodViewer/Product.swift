@@ -89,7 +89,7 @@ class FoodProduct {
     // dictionary with image ID as key and the images in the four sizes as value
     var images: [String:ProductImageSize] = [:]
 
-    func imageID(for languageCode:String, in imageType: ImageTypeCategory) -> String? {
+    func imageID(for languageCode: String, in imageType: ImageTypeCategory) -> String? {
         for image in images {
             if image.value.isSelected(for: imageType, in: languageCode) {
                 return image.key
@@ -98,18 +98,18 @@ class FoodProduct {
         return nil
     }
     
-    func image(for languageCode:String, of imageType:ImageTypeCategory) -> ProductImageData? {
+    func image(for languageCode: String, of imageType: ImageTypeCategory) -> ProductImageSize? {
         // is the image for the current language available im images?
         if let imageID = imageID(for:languageCode, in:imageType) {
             // then fetch the image
-            return images[imageID]?.largest
+            return images[imageID]
             // try to use the primary image
         } else if let imageID = imageID(for:primaryLanguageCode!, in:imageType) {
-             return images[imageID]?.largest
+             return images[imageID]
         }
         return nil
     }
-    
+        
     public func imageID(for robotoffID: String?) -> String? {
         guard let validID = robotoffID else { return nil }
         let split = validID.split(separator: "_")
@@ -1730,8 +1730,10 @@ class FoodProduct {
             for (key, value) in validImageSizes.small {
                 if packagingImages[key] == nil {
                     packagingImages[key] = ProductImageSize()
+
                 }
                 packagingImages[key]?.small = ProductImageData(url: value)
+
             }
         }
 
@@ -1744,6 +1746,7 @@ class FoodProduct {
                     let imageSet = ProductImageSize(for: barcode, and: key)
                     if images.contains(where: { $0.key == key }) {
                         images[key]?.thumb = imageSet.thumb
+                        images[key]?.date = value.uploadDate
                         images[key]?.small = imageSet.small
                         images[key]?.display = imageSet.display
                         images[key]?.original = imageSet.original
@@ -1764,6 +1767,7 @@ class FoodProduct {
                                     images[localKey] = ProductImageSize()
                                 }
                                 images[localKey]?.usedIn.append((languageCode,.ingredients))
+                                images[localKey]?.date = value.uploadDate
                             }
                         } else if parts[0].contains("front") {
                             if let localKey = value.imgid {
@@ -1771,6 +1775,7 @@ class FoodProduct {
                                     images[localKey] = ProductImageSize()
                                 }
                                 images[localKey]?.usedIn.append((languageCode,.front))
+                                images[localKey]?.date = value.uploadDate
                             }
                         } else if parts[0].contains("nutrition") {
                             if let localKey = value.imgid {
@@ -1778,15 +1783,21 @@ class FoodProduct {
                                     images[localKey] = ProductImageSize()
                                 }
                                 images[localKey]?.usedIn.append((languageCode,.nutrition))
+                                images[localKey]?.date = value.uploadDate
+                        } else if parts[0].contains("packaging") {
+                            if let localKey = value.imgid {
+                                if !images.contains(where: { $0.key == localKey }) {
+                                    images[localKey] = ProductImageSize()
+                                }
+                                images[localKey]?.usedIn.append((languageCode,.packaging))
+                                images[localKey]?.date = value.uploadDate
                             }
                         }
                     }
                 }
-                
             }
-
         }
-        
+        }
     
         if let numberOfIngredientsFromPalmOil = validProduct.ingredients_from_palm_oil_n,
             numberOfIngredientsFromPalmOil > 0 {

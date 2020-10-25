@@ -459,9 +459,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             if let validLanguageCode = displayLanguageCode {
                 if let images = productPair?.localProduct?.ingredientsImages,
                     !images.isEmpty {
-                    coordinator?.showImage(imageTitle: TextConstants.ShowIdentificationTitle, imageData: productPair!.localProduct!.image(for:validLanguageCode, of:.ingredients))
+                    coordinator?.showImage(imageTitle: TextConstants.ShowIdentificationTitle, imageSize: productPair!.localProduct!.image(for:validLanguageCode, of:.ingredients))
                 } else {
-                    coordinator?.showImage(imageTitle: TextConstants.ShowIdentificationTitle, imageData: productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients))
+                    coordinator?.showImage(imageTitle: TextConstants.ShowIdentificationTitle, imageSize: productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients))
                 }
             }
         default:
@@ -1608,9 +1608,9 @@ extension IngredientsTableViewController: UITableViewDragDelegate {
         // is there image data?
         if let images = productPair?.localProduct?.ingredientsImages,
             !images.isEmpty {
-            productImageData = productPair!.localProduct!.image(for:validLanguageCode, of:.ingredients)
+            productImageData = productPair!.localProduct!.image(for:validLanguageCode, of:.ingredients)?.largest
         } else {
-            productImageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients)
+            productImageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients)?.largest
         }
         // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way
         guard productImageData != nil else { return [] }

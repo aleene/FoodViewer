@@ -15,7 +15,7 @@ class OFFProductImage: Codable {
     let rev: String?
     let sizes: OFFProductImageSizes
     let uploader: String?
-    //let uploaded_t: Int?
+    // let uploaded_t: Int? Handled in PFFProductImageDetailed
     let white_magic: String?
 }
 

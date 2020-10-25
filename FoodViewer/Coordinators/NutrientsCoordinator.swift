@@ -38,8 +38,8 @@ final class NutrientsCoordinator: Coordinator {
 
     // Show the image with the current display language
     // The coordinator does the right image selection
-    func showImage(imageTitle: String?, imageData: ProductImageData?) {
-        let coordinator = ImageViewCoordinator(with: self, imageTitle: imageTitle, imageData: imageData)
+    func showImage(imageTitle: String?, imageSize: ProductImageSize?) {
+        let coordinator = ImageViewCoordinator(with: self, imageTitle: imageTitle, imageSize: imageSize)
         childCoordinators.append(coordinator)
         coordinator.show()
     }

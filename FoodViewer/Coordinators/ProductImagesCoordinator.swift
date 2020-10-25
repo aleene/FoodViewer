@@ -57,8 +57,8 @@ The caller determines the image that will be shown.
     - imageTitle: the title to be displayed on the viewController;
     - imageData: the data of the image to be shown;
 */
-    func showImage(imageTitle: String?, imageData: ProductImageData?) {
-        let coordinator = ImageViewCoordinator(with: self, imageTitle: imageTitle, imageData: imageData)
+    func showImage(imageTitle: String?, imageSize: ProductImageSize?) {
+        let coordinator = ImageViewCoordinator(with: self, imageTitle: imageTitle, imageSize: imageSize)
         self.childCoordinators.append(coordinator)
         coordinator.show()
     }

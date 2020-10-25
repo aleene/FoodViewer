@@ -15,6 +15,11 @@ struct ProductImageSize {
     var small: ProductImageData? = nil // 200
     var thumb: ProductImageData? = nil // 100
     var original: ProductImageData? = nil // any
+    
+    var uploader: String?
+    
+    var date: Date?
+
     var usedIn: [(String,ImageTypeCategory)] = []
     
     mutating func reset() {
@@ -57,17 +62,6 @@ struct ProductImageSize {
         }
     }
     
-    var date: Date? {
-        if original?.date != nil {
-            return original!.date
-        } else if display?.date != nil {
-            return display!.date
-        } else if small?.date != nil {
-            return small!.date
-        } else {
-            return thumb!.date
-        }
-    }
 
     init() {
         display = nil

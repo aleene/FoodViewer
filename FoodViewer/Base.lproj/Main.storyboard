@@ -4867,11 +4867,11 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" verticalCompressionResistancePriority="748" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
+                                <rect key="frame" x="0.0" y="44" width="320" height="500"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <gestureRecognizers/>
                                     </imageView>
@@ -4881,27 +4881,65 @@
                                     <constraint firstAttribute="trailing" secondItem="PnH-HO-Mzj" secondAttribute="trailing" id="3j5-dQ-com"/>
                                     <constraint firstItem="PnH-HO-Mzj" firstAttribute="leading" secondItem="KL0-pq-7Ws" secondAttribute="leading" id="bgC-7q-hjc"/>
                                     <constraint firstItem="PnH-HO-Mzj" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="top" id="eSm-gf-gbe"/>
-                                    <constraint firstAttribute="bottom" secondItem="PnH-HO-Mzj" secondAttribute="bottom" id="xz2-Wc-bLC"/>
+                                    <constraint firstAttribute="bottom" secondItem="PnH-HO-Mzj" secondAttribute="bottom" constant="-24" id="xz2-Wc-bLC"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="oCr-2A-ZDa" id="DEa-Cl-hyU"/>
                                 </connections>
                             </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="756" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ExX-6k-CKq">
+                                <rect key="frame" x="16" y="552" width="143" height="0.0"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="757" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i88-j4-6le">
+                                <rect key="frame" x="167" y="552" width="145" height="0.0"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnW-j4-gMQ">
+                                <rect key="frame" x="8" y="560" width="148" height="0.0"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zpv-NX-cVX">
+                                <rect key="frame" x="164" y="544" width="148" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="i88-j4-6le" firstAttribute="trailing" secondItem="uFx-FY-aLO" secondAttribute="trailingMargin" constant="8" id="2dh-Zj-e16"/>
                             <constraint firstItem="Oiq-Qe-YWW" firstAttribute="leading" secondItem="uFx-FY-aLO" secondAttribute="leading" id="4jN-da-95b"/>
                             <constraint firstAttribute="trailing" secondItem="Oiq-Qe-YWW" secondAttribute="trailing" id="5B4-XB-jpV"/>
+                            <constraint firstItem="ExX-6k-CKq" firstAttribute="leading" secondItem="uFx-FY-aLO" secondAttribute="leadingMargin" id="Bs6-FO-xLt"/>
+                            <constraint firstItem="fnW-j4-gMQ" firstAttribute="width" secondItem="Zpv-NX-cVX" secondAttribute="width" id="InT-cX-VEb"/>
                             <constraint firstAttribute="trailing" secondItem="KL0-pq-7Ws" secondAttribute="trailing" id="MEO-hy-Pdw"/>
+                            <constraint firstItem="ExX-6k-CKq" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="bottom" constant="8" id="NmH-nR-b0Z"/>
+                            <constraint firstItem="JuW-uG-QAI" firstAttribute="top" secondItem="fnW-j4-gMQ" secondAttribute="bottom" constant="8" id="Qs5-LR-cto"/>
+                            <constraint firstItem="JuW-uG-QAI" firstAttribute="top" secondItem="Zpv-NX-cVX" secondAttribute="bottom" constant="8" id="RoH-3Z-GFg"/>
+                            <constraint firstItem="i88-j4-6le" firstAttribute="bottom" secondItem="Zpv-NX-cVX" secondAttribute="top" constant="8" id="ZBf-Sh-IOm"/>
+                            <constraint firstAttribute="trailing" secondItem="Zpv-NX-cVX" secondAttribute="trailing" constant="8" id="ctW-lw-WW6"/>
                             <constraint firstItem="KL0-pq-7Ws" firstAttribute="top" secondItem="Oiq-Qe-YWW" secondAttribute="bottom" id="cyt-UH-OqO"/>
+                            <constraint firstItem="i88-j4-6le" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="bottom" constant="8" id="gvm-GC-xos"/>
+                            <constraint firstItem="i88-j4-6le" firstAttribute="leading" secondItem="ExX-6k-CKq" secondAttribute="trailing" constant="8" id="hvN-Wx-k4y"/>
                             <constraint firstItem="KL0-pq-7Ws" firstAttribute="leading" secondItem="uFx-FY-aLO" secondAttribute="leading" id="jVj-he-LMa"/>
+                            <constraint firstItem="fnW-j4-gMQ" firstAttribute="leading" secondItem="uFx-FY-aLO" secondAttribute="leading" constant="8" id="l9B-TJ-kNN"/>
                             <constraint firstItem="Oiq-Qe-YWW" firstAttribute="top" secondItem="u9n-FR-iSu" secondAttribute="bottom" id="ltp-Bu-5vA"/>
-                            <constraint firstItem="JuW-uG-QAI" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="bottom" id="oTS-2k-nHl"/>
-                            <constraint firstItem="JuW-uG-QAI" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="bottom" id="w41-Vn-0F1"/>
+                            <constraint firstItem="ExX-6k-CKq" firstAttribute="width" secondItem="i88-j4-6le" secondAttribute="width" multiplier="0.987261" id="qiD-TA-XbD"/>
+                            <constraint firstItem="Zpv-NX-cVX" firstAttribute="leading" secondItem="fnW-j4-gMQ" secondAttribute="trailing" constant="8" id="teQ-f3-2TL"/>
+                            <constraint firstItem="fnW-j4-gMQ" firstAttribute="top" secondItem="ExX-6k-CKq" secondAttribute="bottom" constant="8" id="xHf-vP-9ez"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gLX-iu-CpE"/>
                     <connections>
+                        <outlet property="dateTimeLabel" destination="i88-j4-6le" id="qnl-gb-DSt"/>
+                        <outlet property="explanationLabel" destination="ExX-6k-CKq" id="Wgc-4g-muP"/>
                         <outlet property="imageView" destination="PnH-HO-Mzj" id="Xwi-bU-DJg"/>
                         <outlet property="imageViewBottomConstraint" destination="xz2-Wc-bLC" id="grm-9p-4Wf"/>
                         <outlet property="imageViewLeadingConstraint" destination="bgC-7q-hjc" id="zWl-bA-MXA"/>
@@ -4909,11 +4947,13 @@
                         <outlet property="imageViewTrailingConstraint" destination="3j5-dQ-com" id="bfQ-tP-eT9"/>
                         <outlet property="navItem" destination="18F-0Y-Djv" id="l05-xG-ILI"/>
                         <outlet property="scrollView" destination="KL0-pq-7Ws" id="AfW-gO-mNr"/>
+                        <outlet property="uploaderExplanationLabel" destination="fnW-j4-gMQ" id="rtc-SU-j4V"/>
+                        <outlet property="uploaderLabel" destination="Zpv-NX-cVX" id="B2T-LF-uRq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oMo-0u-FJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-424" y="5911"/>
+            <point key="canvasLocation" x="-425.625" y="5910.211267605634"/>
         </scene>
         <!--Add Nutrient View Controller-->
         <scene sceneID="CLQ-yT-Bsw">

@@ -28,15 +28,15 @@ final class ImageViewCoordinator: Coordinator {
         if let protocolCoordinator = coordinator as? ImageCoordinatorProtocol {
             self.coordinatorViewController?.protocolCoordinator = protocolCoordinator
         } else {
-            print("SelectNutritionFactsTableStyleCoordinator: coordinator does not conform to protocol")
+            print("ImageViewCoordinator: coordinator does not conform to protocol")
         }
         self.parentCoordinator = coordinator
     }
     
-    convenience init(with coordinator: Coordinator?, imageTitle: String?, imageData: ProductImageData?) {
+    convenience init(with coordinator: Coordinator?, imageTitle: String?, imageSize: ProductImageSize?) {
         self.init(with: coordinator)
         self.coordinatorViewController?.imageTitle = imageTitle
-        self.coordinatorViewController!.imageData = imageData
+        self.coordinatorViewController!.imageSize = imageSize
     }
 
     func show() {

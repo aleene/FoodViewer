@@ -54,14 +54,8 @@ final class SupplyChainCoordinator: Coordinator {
         self.productPair = productPair
         var currentDate: Date? = nil
         if let validName = productPair?.localProduct?.expirationDate {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            formatter.timeStyle = .none
             currentDate = validName
         } else if let validName = productPair?.remoteProduct?.expirationDate {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            formatter.timeStyle = .none
             currentDate = validName
         } else {
             currentDate = nil

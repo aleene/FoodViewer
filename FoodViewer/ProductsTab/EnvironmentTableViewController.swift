@@ -184,9 +184,10 @@ var delegate: ProductPageViewController? = nil {
             if let validLanguageCode = displayLanguageCode {
                 if let images = productPair?.localProduct?.packagingImages,
                     !images.isEmpty {
-                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageData: productPair!.localProduct!.image(for:validLanguageCode, of:.packaging))
+                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification,
+                                           imageSize: productPair!.localProduct!.image(for:validLanguageCode, of:.packaging))
                 } else {
-                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageData: productPair!.remoteProduct!.image(for:validLanguageCode, of:.packaging))
+                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageSize: productPair!.remoteProduct!.image(for:validLanguageCode, of: .packaging))
                 }
             }
         default: break
@@ -940,9 +941,9 @@ extension EnvironmentTableViewController: UITableViewDragDelegate {
         // is there image data?
         if let localProduct = productPair?.localProduct {
             if !localProduct.packagingImages.isEmpty {
-                productImageData = localProduct.image(for:validLanguageCode, of:.packaging)
+                productImageData = localProduct.image(for:validLanguageCode, of:.packaging)?.largest
             } else {
-                productImageData = localProduct.image(for:validLanguageCode, of:.packaging)
+                productImageData = localProduct.image(for:validLanguageCode, of:.packaging)?.largest
             }
         }
         // The largest image here is the display image, as the url for the original packaging image is not offered by OFF in an easy way

@@ -113,8 +113,6 @@ import MobileCoreServices
         }
     }
     
-    var date: Date? = nil
-    
     var hasBarcode: String? = nil
     
     private var downloadTask: DownloadTask? = nil
