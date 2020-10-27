@@ -466,6 +466,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:  ProductImageTableViewCell.self), for: indexPath) as! ProductImageTableViewCell
                 cell.editMode = editMode
                 cell.productImage = currentImage
+                cell.uploadTime = imageUploadDate
                 cell.delegate = self
                 return cell
             } else {
@@ -511,32 +512,38 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         return nil
     }
     
+    private var errorMessage: String?
+    private var imageUploadDate: Double?
+    
     private var remoteImageToShow: UIImage? {
-        // are there any updated nutrition images?
-        if  let images = productPair?.remoteProduct?.nutritionImages,
-            !images.isEmpty,
-            let validLanguageCode = displayLanguageCode,
-            let result = images[validLanguageCode]?.display?.fetch() {
+        func processLanguageCode(_ languageCode: String) -> UIImage? {
+            guard let imageSet = productPair?.remoteProduct?.image(for: languageCode, of: .nutrition) else { return nil }
+            let result = imageSet.display?.fetch()
             switch result {
             case .success(let image):
+                imageUploadDate = imageSet.imageDate
                 return image
+            case .loading, .noResponse:
+                errorMessage = result?.description
+                imageUploadDate = imageSet.imageDate
+                return nil
+            case .loadingFailed(let error):
+                errorMessage = error.localizedDescription
+                imageUploadDate = imageSet.imageDate
+                return nil
             default:
-                break
-            }
-            // fall back to the primary languagecode nutrition image
-            // if we are NOT in edit mode
-        } else if !editMode,
-            let images = productPair?.remoteProduct?.nutritionImages,
-            let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
-            let result = images[primaryLanguageCode]?.display?.fetch() {
-            switch result {
-            case .success(let image):
-                return image
-            default:
-                break
+                return nil
             }
         }
-        return nil
+        
+        guard let validDisplayLanguageCode = displayLanguageCode else { return nil }
+        guard let validPrimaryLanguageCode = productPair?.remoteProduct?.primaryLanguageCode else { return nil }
+        
+        if editMode {
+            return processLanguageCode(validDisplayLanguageCode)
+        } else {
+            return processLanguageCode(validDisplayLanguageCode) ?? processLanguageCode(validPrimaryLanguageCode)
+        }
     }
     
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {

@@ -17,12 +17,15 @@ protocol ProductImageCellDelegate: class {
 
 class ProductImageTableViewCell: UITableViewCell {
 
+// MARK: - Constants
     
     fileprivate struct Constants {
         static let CellContentViewMargin = CGFloat(8)
     }
     
-    var productImage: UIImage? = nil {
+// MARK: - Public variables
+    
+    public var productImage: UIImage? = nil {
         didSet {
             if let newImage = productImage {
                 // print("\(brandLabel): product image size \(newImage.size)")
@@ -56,7 +59,7 @@ class ProductImageTableViewCell: UITableViewCell {
         }
     }
     
-    var editMode: Bool = false {
+    public var editMode: Bool = false {
         didSet {
             setButtonVisibility()
             hideClearButton()
@@ -65,7 +68,19 @@ class ProductImageTableViewCell: UITableViewCell {
         }
     }
     
-    var delegate: ProductImageCellDelegate? = nil
+    public var delegate: ProductImageCellDelegate? = nil
+    
+    /// The uploadTime of the image, calculated in seconds since 1970
+    public var uploadTime: Double? {
+        didSet {
+            imageAgeButton?.isHidden = uploadTime == nil
+            if uploadTime != nil {
+                setImageAge()
+            }
+        }
+    }
+    
+// MARK: - Storyboard elements
     
     @IBOutlet weak var productImageView: UIImageView! {
         didSet {
@@ -99,17 +114,57 @@ class ProductImageTableViewCell: UITableViewCell {
         }
     }
     
-    private func hideClearButton() {
-        deselectImageButton?.isHidden = productImage != nil ? !editMode : true
-    }
     
     @IBAction func deselectImageButtonTapped(_ sender: UIButton) {
         delegate?.productImageTableViewCell(self, receivedActionOnDeselect: sender)
     }
+    
+    
+    @IBOutlet weak var imageAgeButton: UIButton! {
+        didSet {
+            imageAgeButton?.isHidden = productImage == nil
+            
+            if #available(iOS 13.0, *) {
+                if let image = UIImage(systemName: "stop.fill") {
+                    imageAgeButton?.setImage(image.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
+                }
+            } else {
+                if let image = UIImage(named: "Clear") {
+                    imageAgeButton?.setImage(image.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
+                }
+            }
+            setImageAge()
+        }
+    }
+    
+// MARK: - Storyboard setters
+    
+    private func hideClearButton() {
+        deselectImageButton?.isHidden = productImage != nil ? !editMode : true
+    }
 
     private func setButtonVisibility() {
+        imageAgeButton?.isHidden = productImage == nil
         takePhotoButton?.isHidden = !editMode
         selectFromCameraRollButton?.isHidden = !editMode
     }
+    
+    private func setImageAge() {
+        guard let timeInterval = uploadTime else { return }
+        let uploadDate = Date(timeIntervalSince1970: timeInterval)
+        guard let validDate = uploadDate.ageInYears else { return }
+        if validDate >= 4.0 {
+            imageAgeButton?.tintColor = .purple
+        } else if validDate >= 3.0 {
+            imageAgeButton?.tintColor = .red
+        } else if validDate >= 2.0 {
+            imageAgeButton?.tintColor = .orange
+        } else if validDate >= 1.0 {
+            imageAgeButton?.tintColor = .yellow
+        } else {
+            imageAgeButton?.tintColor = .green
+        }
+    }
+
 }
 

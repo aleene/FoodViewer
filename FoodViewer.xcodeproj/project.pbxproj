@@ -688,6 +688,7 @@
 		51992FD7253EE7B400C44214 /* RobotoffUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FD6253EE7B400C44214 /* RobotoffUpdate.swift */; };
 		51992FD925418E8B00C44214 /* RobotoffQuestionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FD825418E8B00C44214 /* RobotoffQuestionCoordinator.swift */; };
 		51992FDB25418F8500C44214 /* RobotoffQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FDA25418F8500C44214 /* RobotoffQuestionViewController.swift */; };
+		51992FDD2546C30500C44214 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51992FDC2546C30200C44214 /* DateExtension.swift */; };
 		5199718020FA528600556467 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5199717F20FA528600556467 /* Reachability.swift */; };
 		519A8E031E827F23001C026A /* ImageSizeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519A8E021E827F23001C026A /* ImageSizeCategory.swift */; };
 		519A8E051E827F7C001C026A /* ImageTypeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519A8E041E827F7C001C026A /* ImageTypeCategory.swift */; };
@@ -1177,6 +1178,7 @@
 		51992FD6253EE7B400C44214 /* RobotoffUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RobotoffUpdate.swift; path = API/Robotoff/RobotoffUpdate.swift; sourceTree = "<group>"; };
 		51992FD825418E8B00C44214 /* RobotoffQuestionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RobotoffQuestionCoordinator.swift; path = Coordinators/SecondLevel/RobotoffQuestionCoordinator.swift; sourceTree = "<group>"; };
 		51992FDA25418F8500C44214 /* RobotoffQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RobotoffQuestionViewController.swift; path = ViewControllers/Select/RobotoffQuestionViewController.swift; sourceTree = "<group>"; };
+		51992FDC2546C30200C44214 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DateExtension.swift; path = FoodViewer/Extensions/DateExtension.swift; sourceTree = SOURCE_ROOT; };
 		5199717F20FA528600556467 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = Model/Reachability.swift; sourceTree = "<group>"; };
 		519A8E021E827F23001C026A /* ImageSizeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSizeCategory.swift; sourceTree = "<group>"; };
 		519A8E041E827F7C001C026A /* ImageTypeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTypeCategory.swift; sourceTree = "<group>"; };
@@ -1988,6 +1990,7 @@
 				51D7E36523D890F900F2911E /* UIViewControllerExtension.swift */,
 				51D7E36723D895E000F2911E /* UITableViewCellExtension.swift */,
 				51D7E36923D8BFD900F2911E /* UITableViewHeaderFooterViewExtension.swift */,
+				51992FDC2546C30200C44214 /* DateExtension.swift */,
 			);
 			name = Extensions;
 			path = "New Group";
@@ -2885,6 +2888,7 @@
 				512B43FA23FAB1C700BFBCF0 /* Fetch.swift in Sources */,
 				512B449523FAB8BD00BFBCF0 /* SupplyChainTableViewController.swift in Sources */,
 				512B441E23FAB20100BFBCF0 /* GKResizableCropOverlayView.swift in Sources */,
+				51992FDD2546C30500C44214 /* DateExtension.swift in Sources */,
 				512B444A23FAB23600BFBCF0 /* RSCode39Mod43Generator.swift in Sources */,
 				51FB32291CF2139D00A17312 /* ReferenceDailyIntakeList.swift in Sources */,
 				512B43BC23FAB05C00BFBCF0 /* CategoriesCoordinator.swift in Sources */,

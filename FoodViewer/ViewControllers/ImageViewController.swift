@@ -21,6 +21,7 @@ final class ImageViewController: UIViewController {
         didSet {
             setUploaderName()
             setDate()
+            setImageAge()
         }
     }
     
@@ -79,6 +80,12 @@ final class ImageViewController: UIViewController {
             setUploaderName()
         }
     }
+    @IBOutlet weak var imageAgeView: UIView! {
+        didSet {
+            setImageAge()
+        }
+    }
+    
     @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
@@ -92,8 +99,28 @@ final class ImageViewController: UIViewController {
         navItem?.title  = imageTitle != nil ? imageTitle! : TranslatableStrings.NoTitle
     }
     
+    private func setImageAge() {
+        imageAgeView?.isHidden = true
+        guard let validTime = imageSize?.imageDate else { return }
+        guard let validDate = Date(timeIntervalSince1970: validTime).ageInYears else { return }
+
+        if validDate >= 4.0 {
+            imageAgeView?.backgroundColor = .purple
+        } else if validDate >= 3.0 {
+            imageAgeView?.backgroundColor = .red
+        } else if validDate >= 2.0 {
+            imageAgeView?.backgroundColor = .orange
+        } else if validDate >= 1.0 {
+            imageAgeView?.backgroundColor = .yellow
+        } else {
+            imageAgeView?.backgroundColor = .green
+        }
+        imageAgeView?.isHidden = false
+    }
+    
     private func setDate() {
-        guard let validDate = imageSize?.date else { return }
+        guard let validTime = imageSize?.imageDate else { return }
+        let validDate = Date(timeIntervalSince1970: validTime)
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium

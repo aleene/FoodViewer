@@ -60,8 +60,4 @@ class OFFProductImageDetailed: OFFProductImage {
         try super.init(from: decoder)
     }
     
-    public var uploadDate: Date? {
-        guard let validTime = uploaded_t else { return nil }
-        return Date(timeIntervalSince1970: TimeInterval(validTime))
-    }
 }

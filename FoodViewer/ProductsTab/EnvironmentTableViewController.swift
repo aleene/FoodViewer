@@ -164,6 +164,7 @@ var delegate: ProductPageViewController? = nil {
                     cell.editMode = productVersion.isRemote ? false : true
                 }
                 cell.productImage = currentImage.0
+                cell.uploadTime = currentImage.2
                 cell.delegate = self
                 return cell
             } else {
@@ -203,97 +204,58 @@ var delegate: ProductPageViewController? = nil {
         
     }
 
-    public var currentImage: (UIImage?, String) {
+    public var currentImage: (UIImage?, String, Double?) {
         switch productVersion {
         case .new:
-            return localPackagingImage ?? remotePackagingImage ?? ( nil,TranslatableStrings.NoImageAvailable)
+            return localPackagingImage ?? remotePackagingImage ?? ( nil,TranslatableStrings.NoImageAvailable, nil)
         default:
-            return remotePackagingImage ?? (nil, TranslatableStrings.NoImageAvailable)
+            return remotePackagingImage ?? (nil, TranslatableStrings.NoImageAvailable, nil)
         }
     }
     
-    private var localPackagingImage: (UIImage?, String)? {
+    private var localPackagingImage: (UIImage?, String, Double?)? {
         if let images = productPair?.localProduct?.packagingImages,
             let validLanguageCode = displayLanguageCode,
             !images.isEmpty,
             let fetchResult = images[validLanguageCode]?.original?.fetch() {
             switch fetchResult {
             case .success(let image):
-                return (image, "Updated Image")
+                return (image, "Updated Image", nil)
             default: break
             }
         }
         return nil
     }
     
-    private var remotePackagingImage: (UIImage?, String)? {
-        // are there any updated packaging images?
-        if let images = productPair?.remoteProduct?.packagingImages,
-            let validLanguageCode = displayLanguageCode,
-            !images.isEmpty,
-            let result = images[validLanguageCode]?.display?.fetch() {
+    private var remotePackagingImage: (UIImage?, String, Double?)? {
+
+        func processLanguageCode(_ languageCode: String) -> (UIImage?, String, Double?)?{
+            guard let imageSet = productPair?.remoteProduct?.image(for: languageCode, of: .packaging) else { return nil }
+            let result = imageSet.display?.fetch()
             switch result {
             case .success(let image):
-                return (image, "Current Language Image")
+                return (image, "Current Language Image", imageSet.imageDate)
             case .loading:
-                return (nil, ImageFetchResult.loading.description)
+                return (nil, ImageFetchResult.loading.description, imageSet.imageDate)
             case .loadingFailed(let error):
-                return (nil, error.localizedDescription)
+                return (nil, error.localizedDescription, imageSet.imageDate)
             case .noResponse:
-                return (nil, ImageFetchResult.noResponse.description)
+                return (nil, ImageFetchResult.noResponse.description, imageSet.imageDate)
             default:
-                break
-            }
-            // fall back to the primary languagecode nutrition image
-            // if we are NOT in edit mode
-        } else if !editMode,
-            let primaryLanguageCode = productPair?.remoteProduct?.primaryLanguageCode,
-            let image = productPair?.remoteProduct?.packagingImages[primaryLanguageCode]?.display,
-            let fetch = image.fetch() {
-            switch fetch {
-            case .success(let image):
-                return (image, "Current Language Image")
-            case .loading:
-                return (nil, ImageFetchResult.loading.description)
-            case .loadingFailed(let error):
-                return (nil, error.localizedDescription)
-            case .noResponse:
-                return (nil, ImageFetchResult.noResponse.description)
-            default:
-                break
+                return nil
             }
         }
-        // No relevant image is available
-        return nil
+        
+        guard let validDisplayLanguageCode = displayLanguageCode else { return nil }
+        guard let validPrimaryLanguageCode = productPair?.remoteProduct?.primaryLanguageCode else { return nil }
+        
+        if editMode {
+            return processLanguageCode(validDisplayLanguageCode)
+        } else {
+            return processLanguageCode(validDisplayLanguageCode) ?? processLanguageCode(validPrimaryLanguageCode)
+        }
     }
 
-    fileprivate var currentProductImageSize: ProductImageSize? {
-        // are there any updated packaging images?
-        if let images = productPair?.localProduct?.packagingImages,
-            !images.isEmpty,
-            let validLanguageCode = displayLanguageCode {
-            // Is there an updated image corresponding to the current language
-            if let productImageSize = images[validLanguageCode] {
-                return productImageSize
-            }
-            
-            // try the regular packaging images
-        } else if !productPair!.remoteProduct!.packagingImages.isEmpty,
-            let validLanguageCode = displayLanguageCode {
-            // is the data for the current language available?
-            if let productImageSize = productPair!.remoteProduct!.packagingImages[validLanguageCode] {
-                return productImageSize
-                // fall back to the primary languagecode nutrition image
-                // if we are NOT in edit mode
-            } else if !editMode,
-                let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
-                let productImageSize = productPair!.remoteProduct!.packagingImages[primaryLanguageCode] {
-                return productImageSize
-            }
-        }
-        // No relevant imageData is available
-        return nil
-    }
 
     func changeLanguage() {
         // set the next language in the array

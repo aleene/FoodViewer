@@ -18,7 +18,12 @@ struct ProductImageSize {
     
     var uploader: String?
     
-    var date: Date?
+    var imageDate: Double? {
+        didSet {
+        
+        }
+        
+    }
 
     var usedIn: [(String,ImageTypeCategory)] = []
     
@@ -78,8 +83,6 @@ struct ProductImageSize {
         display = ProductImageData.init(barcode:barcode, key:key, size:.display)
         original = ProductImageData.init(barcode:barcode, key:key, size:.original)
     }
-
-
     
     func isSelectedAsIngredientsImage(for languageCode:String) -> Bool {
         return isSelected(for:.ingredients, in:languageCode)
@@ -101,7 +104,7 @@ struct ProductImageSize {
         }
         return false
     }
-    
+        
     func flush() {
         // This will remove the stored images and set the fetchResult to flushed
         // The images will be retrieved again from disk or internet

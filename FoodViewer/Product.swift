@@ -98,14 +98,15 @@ class FoodProduct {
         return nil
     }
     
-    func image(for languageCode: String, of imageType: ImageTypeCategory) -> ProductImageSize? {
+/** Provides the image set corresponding to a languageCode and image type. If it does not exist a nil is returned.
+- parameters:
+     - languageCode : a two letter languageCode, i.e. "nl"
+     - imageType : the type of image (.front, .ingredients, .nutrition, .packaging)
+*/
+    public func image(for languageCode: String, of imageType: ImageTypeCategory) -> ProductImageSize? {
         // is the image for the current language available im images?
         if let imageID = imageID(for:languageCode, in:imageType) {
-            // then fetch the image
             return images[imageID]
-            // try to use the primary image
-        } else if let imageID = imageID(for:primaryLanguageCode!, in:imageType) {
-             return images[imageID]
         }
         return nil
     }
@@ -130,7 +131,7 @@ class FoodProduct {
         for (key, image) in images {
             for usedIn in image.usedIn {
                 if usedIn.0 == languageCode
-                    && usedIn.1.description == imageType {
+                && usedIn.1.description == imageType {
                     return key
                 }
             }
@@ -871,28 +872,28 @@ class FoodProduct {
     var imageAddDates: [Date] {
         var dates: Set<Date> = []
         for (_, imageData) in images {
-            if let validDate = imageData.date {
-                dates.insert(validDate)
+            if let validDate = imageData.imageDate {
+                //dates.insert(validDate)
             }
         }
         for (_, imageData) in frontImages {
-            if let validDate = imageData.date {
-                dates.insert(validDate)
+            if let validDate = imageData.imageDate {
+                //dates.insert(validDate)
             }
         }
         for (_, imageData) in ingredientsImages {
-            if let validDate = imageData.date {
-                dates.insert(validDate)
+            if let validDate = imageData.imageDate {
+                //dates.insert(validDate)
             }
         }
         for (_, imageData) in nutritionImages {
-            if let validDate = imageData.date {
-                dates.insert(validDate)
+            if let validDate = imageData.imageDate {
+                //dates.insert(validDate)
             }
         }
         for (_, imageData) in packagingImages {
-            if let validDate = imageData.date {
-                dates.insert(validDate)
+            if let validDate = imageData.imageDate {
+                //dates.insert(validDate)
             }
         }
 
@@ -1602,6 +1603,13 @@ class FoodProduct {
             return array
         }
 
+        func uploadDate(_ time: Double?) -> Date? {
+            guard let validTime = time else { return nil }
+            guard let validTimeInterval = TimeInterval(exactly: validTime) else { return nil }
+            let date = Date(timeIntervalSince1970: validTimeInterval)
+            return date
+        }
+        
         self.init()
         
         barcode = BarcodeType(barcodeString: validProduct.code ?? "no code", type: Preferences.manager.showProductType)
@@ -1746,13 +1754,15 @@ class FoodProduct {
                     let imageSet = ProductImageSize(for: barcode, and: key)
                     if images.contains(where: { $0.key == key }) {
                         images[key]?.thumb = imageSet.thumb
-                        images[key]?.date = value.uploadDate
                         images[key]?.small = imageSet.small
                         images[key]?.display = imageSet.display
                         images[key]?.original = imageSet.original
                     } else {
                         images[key] = imageSet
                     }
+                    images[key]?.uploader = value.uploader
+                    images[key]?.imageDate = value.uploaded_t
+                    
                 } else {
                     // add information on which image is a selected image for a specific language
                     // only look at key that have a language component
@@ -1767,7 +1777,8 @@ class FoodProduct {
                                     images[localKey] = ProductImageSize()
                                 }
                                 images[localKey]?.usedIn.append((languageCode,.ingredients))
-                                images[localKey]?.date = value.uploadDate
+                                //images[localKey]?.date = value.uploadDate
+                                //images[localKey]?.uploader = value.uploader
                             }
                         } else if parts[0].contains("front") {
                             if let localKey = value.imgid {
@@ -1775,7 +1786,8 @@ class FoodProduct {
                                     images[localKey] = ProductImageSize()
                                 }
                                 images[localKey]?.usedIn.append((languageCode,.front))
-                                images[localKey]?.date = value.uploadDate
+                                //images[localKey]?.date = value.uploadDate
+                                //images[localKey]?.uploader = value.uploader
                             }
                         } else if parts[0].contains("nutrition") {
                             if let localKey = value.imgid {
@@ -1783,14 +1795,16 @@ class FoodProduct {
                                     images[localKey] = ProductImageSize()
                                 }
                                 images[localKey]?.usedIn.append((languageCode,.nutrition))
-                                images[localKey]?.date = value.uploadDate
+                                //images[localKey]?.date = value.uploadDate
+                                //images[localKey]?.uploader = value.uploader
                         } else if parts[0].contains("packaging") {
                             if let localKey = value.imgid {
                                 if !images.contains(where: { $0.key == localKey }) {
                                     images[localKey] = ProductImageSize()
                                 }
                                 images[localKey]?.usedIn.append((languageCode,.packaging))
-                                images[localKey]?.date = value.uploadDate
+                                //images[localKey]?.date = value.uploadDate
+                                //images[localKey]?.uploader = value.uploader
                             }
                         }
                     }

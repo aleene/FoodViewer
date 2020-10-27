@@ -149,7 +149,7 @@ import MobileCoreServices
 
     
     convenience init(barcode: BarcodeType, key: String, size: ImageSizeCategory) {
-        self.init(url: URL.init(string: OFF.imageURLFor(barcode, with:key, size:size)))
+        self.init(url: URL.init(string: OFF.imageURLFor(barcode, with:key, size: size)))
     }
     
     convenience init(itemProviderData data: Data, typeIdentifier: String) throws {
@@ -303,7 +303,7 @@ import MobileCoreServices
         downloadTask?.completionHandler = { [weak self] in
             switch $0 {
             case .failure(let error):
-                print(error)
+                print("retrieveData(forUrl: ",error)
                 completionHandler(nil, self?.response, error)
             case .success(let data):
                 // print("Number of bytes: \(data.count)")

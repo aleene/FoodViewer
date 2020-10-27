@@ -208,6 +208,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
 
     fileprivate var searchResult: String = ""
+    
+    private var imageUploadTime: Double?
         
     private var selectedSection: Int? = nil
 
@@ -367,6 +369,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     cell.editMode = productVersion.isRemote ? false : true
                 }
                 cell.productImage = imageToShow
+                cell.uploadTime = imageUploadTime
                 cell.delegate = self
                 return cell
             } else {
@@ -391,32 +394,33 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     private var remoteImageToShow: UIImage? {
-        if let images = productPair?.remoteProduct?.ingredientsImages,
-            !images.isEmpty,
-            let validLanguageCode = displayLanguageCode,
-            let result = images[validLanguageCode]?.display?.fetch() {
+        
+        func processLanguageCode(_ languageCode: String) -> UIImage? {
+            guard let imageSet = productPair?.remoteProduct?.image(for: languageCode, of: .ingredients) else { return nil }
+            let result = imageSet.display?.fetch()
             switch result {
             case .success(let image):
+                self.imageUploadTime = imageSet.imageDate
                 return image
+            case .loading, .noResponse:
+                searchResult = result?.description ?? "NO"
+                return nil
+            case .loadingFailed(let error):
+                searchResult = error.localizedDescription
+                return nil
             default:
-                searchResult = result.description
-                break
-            }
-            // fall back to the primary languagecode ingredient image
-            // if we are NOT in edit mode
-        } else if !editMode,
-            let images = productPair?.remoteProduct?.ingredientsImages,
-            let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
-            let result = images[primaryLanguageCode]?.display?.fetch() {
-            switch result {
-            case .success(let image):
-                return image
-            default:
-                break
+                return nil
             }
         }
-        // No relevant image is available
-        return nil
+        
+        guard let validDisplayLanguageCode = displayLanguageCode else { return nil }
+        guard let validPrimaryLanguageCode = productPair?.remoteProduct?.primaryLanguageCode else { return nil }
+        
+        if editMode {
+            return processLanguageCode(validDisplayLanguageCode)
+        } else {
+            return processLanguageCode(validDisplayLanguageCode) ?? processLanguageCode(validPrimaryLanguageCode)
+        }
     }
     
     private var localImageToShow: UIImage? {

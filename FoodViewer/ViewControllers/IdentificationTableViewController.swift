@@ -389,6 +389,8 @@ class IdentificationTableViewController: UITableViewController {
                     cell.editMode = productVersion.isRemote ? false : true
                 }
                 cell.productImage = currentImage.0
+                cell.uploadTime = currentImage.2
+
                 cell.delegate = self
                 return cell
             } else {
@@ -451,68 +453,56 @@ class IdentificationTableViewController: UITableViewController {
         
     }
 
-    public var currentImage: (UIImage?, String) {
+    public var currentImage: (UIImage?, String, Double?) {
         switch productVersion {
         case .new:
-            return localFrontImage ?? remoteFrontImage ?? ( nil,TranslatableStrings.NoImageAvailable)
+            return localFrontImage ?? remoteFrontImage ?? ( nil, TranslatableStrings.NoImageAvailable, nil)
         default:
-            return remoteFrontImage ?? (nil, TranslatableStrings.NoImageAvailable)
+            return remoteFrontImage ?? (nil, TranslatableStrings.NoImageAvailable, nil)
         }
     }
     
-    private var localFrontImage: (UIImage?, String)? {
+    private var localFrontImage: (UIImage?, String, Double?)? {
         if let frontImages = productPair?.localProduct?.frontImages,
             let validLanguageCode = displayLanguageCode,
             !frontImages.isEmpty,
             let fetchResult = frontImages[validLanguageCode]?.original?.fetch() {
             switch fetchResult {
             case .success(let image):
-                return (image, "Updated Image")
+                return (image, "Updated Image", nil)
             default: break
             }
         }
         return nil
     }
     
-    private var remoteFrontImage: (UIImage?, String)? {
-        // are there any updated front images?
-        if let frontImages = productPair?.remoteProduct?.frontImages,
-            let validLanguageCode = displayLanguageCode,
-            !frontImages.isEmpty,
-            let result = frontImages[validLanguageCode]?.display?.fetch() {
+    private var remoteFrontImage: (UIImage?, String, Double?)? {
+
+        func processLanguageCode(_ languageCode: String) -> (UIImage?, String, Double?)?{
+            guard let imageSet = productPair?.remoteProduct?.image(for: languageCode, of: .front) else { return nil }
+            let result = imageSet.display?.fetch()
             switch result {
             case .success(let image):
-                return (image, "Current Language Image")
+                return (image, "Current Language Image", imageSet.imageDate)
             case .loading:
-                return (nil, ImageFetchResult.loading.description)
+                return (nil, ImageFetchResult.loading.description, imageSet.imageDate)
             case .loadingFailed(let error):
-                return (nil, error.localizedDescription)
+                return (nil, error.localizedDescription, imageSet.imageDate)
             case .noResponse:
-                return (nil, ImageFetchResult.noResponse.description)
+                return (nil, ImageFetchResult.noResponse.description, imageSet.imageDate)
             default:
-                break
-            }
-            // fall back to the primary languagecode nutrition image
-            // if we are NOT in edit mode
-        } else if !editMode,
-            let primaryLanguageCode = productPair?.remoteProduct?.primaryLanguageCode,
-            let image = productPair?.remoteProduct?.frontImages[primaryLanguageCode]?.display,
-            let fetch = image.fetch() {
-            switch fetch {
-            case .success(let image):
-                return (image, "Current Language Image")
-            case .loading:
-                return (nil, ImageFetchResult.loading.description)
-            case .loadingFailed(let error):
-                return (nil, error.localizedDescription)
-            case .noResponse:
-                return (nil, ImageFetchResult.noResponse.description)
-            default:
-                break
+                return nil
             }
         }
-        // No relevant image is available
-        return nil
+        
+        guard let validDisplayLanguageCode = displayLanguageCode else { return nil }
+        guard let validPrimaryLanguageCode = productPair?.remoteProduct?.primaryLanguageCode else { return nil }
+        
+        if editMode {
+            return processLanguageCode(validDisplayLanguageCode)
+        } else {
+            return processLanguageCode(validDisplayLanguageCode) ?? processLanguageCode(validPrimaryLanguageCode)
+        }
     }
 
     fileprivate var currentProductImageSize: ProductImageSize? {
@@ -815,128 +805,8 @@ class IdentificationTableViewController: UITableViewController {
         return sectionsAndRows
     }
 
-    // MARK: - Segue stuff
-/*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case segueIdentifier(to: ImageViewController.self):
-                if let vc = segue.destination as? ImageViewController,
-                    let validLanguageCode = displayLanguageCode {
-                    vc.imageTitle = TranslatableStrings.Identification
-                    if let images = productPair?.localProduct?.frontImages,
-                        !images.isEmpty {
-                        vc.imageData = productPair!.localProduct!.image(for:validLanguageCode, of:.front)
-                    } else {
-                        vc.imageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.front)
-                    }
-                }
-            case segueIdentifier(to: SelectLanguageViewController.self):
-                if let vc = segue.destination as? SelectLanguageViewController {
-                    // The segue can only be initiated from a button within a ProductNameTableViewCell
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview?.superview as? UITableView != nil {
-                            //if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                //ppc.permittedArrowDirections = .right
-                                // I need the button coordinates in the coordinates of the current controller view
-                                //let anchorFrame = button.convert(button.bounds, to: self.view)
-                                //ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                //ppc.delegate = self
-                                
-                                //vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                vc.currentLanguageCode = displayLanguageCode
-                                vc.primaryLanguageCode = productPair?.localProduct?.primaryLanguageCode != nil ? productPair!.localProduct!.primaryLanguageCode : productPair!.remoteProduct!.primaryLanguageCode
-                                vc.languageCodes = productPair!.remoteProduct!.languageCodes
-                                vc.updatedLanguageCodes = productPair?.localProduct?.languageCodes ?? []
-                                vc.editMode = editMode
-                                vc.productPair = productPair
-                                vc.sourcePage = 0
-                            //}
-                        }
-                    }
-                }
-                
-            // This segue allows to ADD a language to the product.
-            case segueIdentifier(to: SelectPairViewController.self):
-                if  let vc = segue.destination as? SelectPairViewController {
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? TagListViewButtonTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .right
-                                // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                ppc.delegate = self
-                            }
-                                
-                                // transfer the traces of the local product (if any or after edit)
-                                // or the countries of the remote product
-                                // The traces will be interpreted (i.e. as english keys)
-                            vc.configure(original: productPair?.languageCodes,
-                                allPairs: OFFplists.manager.allLanguages,
-                                multipleSelectionIsAllowed: true,
-                                showOriginalsAsSelected: false,
-                                assignedHeader: TranslatableStrings.SelectedLanguages,
-                                unAssignedHeader: TranslatableStrings.UnselectedLanguages,
-                                undefinedText: TranslatableStrings.NoLanguageDefined,
-                                cellIdentifierExtension: IdentificationTableViewController.identifier)
-                        }
-                    }
-                }
-            // Segue in order to the change main language?
-            case "MainLanguage." + segueIdentifier(to:  SelectPairViewController.self):
-                if let vc = segue.destination as? SelectPairViewController {
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? BarcodeTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
-                                        // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .right
-                                    // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                ppc.delegate = self
-                            }
-                                        
-                                        // transfer the traces of the local product (if any or after edit)
-                                        // or the countries of the remote product
-                                        // The traces will be interpreted (i.e. as english keys)
-                            vc.configure(original: productPair?.primaryLanguageCode != nil ? [productPair!.primaryLanguageCode] : nil,
-                                        allPairs: OFFplists.manager.allLanguages,
-                                        multipleSelectionIsAllowed: false,
-                                        showOriginalsAsSelected: false,
-                                        assignedHeader: TranslatableStrings.SelectedLanguages,
-                                        unAssignedHeader: TranslatableStrings.UnselectedLanguages,
-                                        undefinedText: TranslatableStrings.NoLanguageDefined,
-                                        cellIdentifierExtension: "MainLanguage." + IdentificationTableViewController.identifier)
-                        }
-                    }
-                }
-            default: break
-            }
-        }
-    }
-
-    @IBAction func unwindChangeMainLanguageForCancel(_ segue:UIStoryboardSegue) {
-        // nothing needs to be done
-    }
-    
-    @IBAction func unwindChangeMainLanguageForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? SelectPairViewController {
-          //  if let newLanguageCode = vc.selected?.first {
-          //      productPair?.update(primaryLanguageCode: newLanguageCode)
-          //      currentLanguageCode = newLanguageCode
-           //     tableView.reloadData()
-           // }
-        }
-    }
- */
-
-
-//
 // MARK: - Notification handlers
-//
+
     @objc func imageUpdated(_ notification: Notification) {
         guard !editMode else { return }
         let userInfo = (notification as NSNotification).userInfo
