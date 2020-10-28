@@ -1037,13 +1037,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 reloadImageSection()
                 return
             }
-            
-            // We are only interested in medium-sized front images
-            if let otherValue = userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as? Int,
-                let imageTypeCategory = ImageTypeCategory(rawValue: otherValue),
-                imageTypeCategory == .nutrition {
-                reloadImageSection()
-            }
+            // Filtering on image type, is not possible as unmarked images are read from cache
+            reloadImageSection()
         }
     }
 

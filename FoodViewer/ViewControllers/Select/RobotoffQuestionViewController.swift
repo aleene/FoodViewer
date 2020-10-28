@@ -138,6 +138,7 @@ Configure the class SelectPairViewController in one go. All possible input param
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
       updateConstraintsForSize(view.bounds.size)
     }
+    
     // https://www.raywenderlich.com/5758454-uiscrollview-tutorial-getting-started
     //2
     func updateConstraintsForSize(_ size: CGSize) {

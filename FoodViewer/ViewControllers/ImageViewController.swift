@@ -43,6 +43,7 @@ final class ImageViewController: UIViewController {
                 imageView.addInteraction(UIDragInteraction(delegate: self))
                 imageView.isUserInteractionEnabled = true
             }
+            imageView?.contentMode = .topLeft
         }
     }
     @IBOutlet weak var navItem: UINavigationItem! {
@@ -125,48 +126,67 @@ final class ImageViewController: UIViewController {
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium
         dateTimeLabel?.text =  formatter.string(from: validDate)
-        print(formatter.string(from: validDate))
     }
-    
+        
     private func setImage() {
-        imageView?.image = currentImage()
-        if let size = imageView?.image?.size {
-            scrollView.updateMinZoomScale(for:size)
-        }
-        // adjust the constraints for the new image
-        updateConstraints(for:view.bounds.size)
-    }
-    
-    private func currentImage() -> UIImage? {
-            if let result = imageSize?.largest?.fetch() {
-                switch result {
-                case .success(let image):
-                    return image
-                // in the other case I should show a loading or impossible image
-                case .loading:
-                    return UIImage.init(named:"Loading")
-                default:
-                    break
-                }
+        var imageToDisplay: UIImage? = nil
+        if let result = imageSize?.largest?.fetch() {
+            switch result {
+            case .success(let image):
+                imageToDisplay = image
+            // in the other case I should show a loading or impossible image
+            case .loading:
+                imageToDisplay = UIImage.init(named:"Loading")
+            default:
+                break
             }
-        return UIImage.init(named:"NotOK")
+        } else {
+             imageToDisplay = UIImage.init(named:"NotOK")
+        }
+        imageView?.image = imageToDisplay
+        if let validSize = imageToDisplay? .size {
+            imageView?.frame.size = validSize
+        }
+        if let validSize = scrollView?.frame.size {
+            updateConstraints(for: validSize)
+        }
     }
     
     @objc func reloadImage() {
         setImage()
+        setUploaderName()
+        setDate()
+        setImageAge()
     }
     
-    fileprivate func updateConstraints(for size: CGSize) {
+    private func updateMinZoomScale(for size: CGSize) {
+      let widthScale = size.width / imageView.bounds.width
+      let heightScale = size.height / imageView.bounds.height
+      let minScale = min(widthScale, heightScale)
         
-        let yOffset = max(0, (size.height - imageView.frame.height) / 2)
-        imageViewTopConstraint.constant = yOffset
-        imageViewBottomConstraint.constant = yOffset
+      scrollView.minimumZoomScale = minScale
+      scrollView.zoomScale = minScale
+    }
+
+    
+    // https://www.raywenderlich.com/5758454-uiscrollview-tutorial-getting-started
+    //2
+    private func updateConstraints(for size: CGSize) {
+      let yOffset = max(0, (size.height - imageView.frame.height) / 2)
+      imageViewTopConstraint.constant = yOffset
+      imageViewBottomConstraint.constant = yOffset
+      
+      //4
+      let xOffset = max(0, (size.width - imageView.frame.width) / 2)
+      imageViewLeadingConstraint.constant = xOffset
+      imageViewTrailingConstraint.constant = xOffset
         
-        let xOffset = max(0, (size.width - imageView.frame.width) / 2)
-        imageViewLeadingConstraint.constant = xOffset
-        imageViewTrailingConstraint.constant = xOffset
-        
-        view.layoutIfNeeded()
+      view.layoutIfNeeded()
+    }
+
+    override func viewWillLayoutSubviews() {
+      super.viewWillLayoutSubviews()
+        updateMinZoomScale(for: scrollView.bounds.size)
     }
 
     override func viewDidLoad() {
@@ -176,7 +196,7 @@ final class ImageViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(ImageViewController.reloadImage), name:.ImageSet, object:nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setImage()
     }
@@ -196,33 +216,9 @@ extension ImageViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        updateConstraints(for:view.bounds.size)
-    }
-    
-}
-
-extension UIScrollView {
-    
-    struct Constants {
-        static let MinimumZoomScale = CGFloat(5) // %
-        static let MaximumZoomScale = CGFloat(500) // %
+        updateConstraints(for: view.bounds.size)
     }
 
-    func updateMinZoomScale(for size: CGSize) {
-        let widthScale = size.width / frame.size.width
-        let heightScale = size.height / frame.size.height
-    
-        //  image larger than width scrollView ?
-        if widthScale > 1.0 || heightScale > 1.0 {
-            zoomScale = 1 / max(widthScale, heightScale) // ( widthScale > heightScale ? widthScale : heightScale )
-        } else {
-            // no zoom needed if image is smaller than screen
-            zoomScale = 1.0
-        }
-        minimumZoomScale = zoomScale * Constants.MinimumZoomScale / 100
-        maximumZoomScale = zoomScale * Constants.MaximumZoomScale / 100
-    }
-    
 }
 
 extension ImageViewController: UIDragInteractionDelegate {
@@ -230,7 +226,7 @@ extension ImageViewController: UIDragInteractionDelegate {
     @available(iOS 11.0, *)
     func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
         
-        guard let image = currentImage() else { return [] }
+        guard let image = imageView.image else { return [] }
         let provider = NSItemProvider(object: image)
         let item = UIDragItem(itemProvider: provider)
         item.localObject = image

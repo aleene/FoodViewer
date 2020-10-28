@@ -836,15 +836,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 reloadImageSection()
                 return
             }
-            if let validValue = userInfo?[ProductImageData.Notification.ImageTypeCategoryKey] as? Int {
-                if let category = ImageTypeCategory(rawValue: validValue),
-                    category == .ingredients {
-                    // We are only interested in medium-sized front images
-                    //if let validValue = userInfo?[ProductImageData.Notification.ImageSizeCategoryKey] as? Int {
-                    //    imageSizeCategory = ImageSizeCategory(rawValue: validValue)
-                    reloadImageSection()
-                }
-            }
+            // Filtering on image type, is not possible as unmarked images are read from cache
+            reloadImageSection()
         }
     }
 

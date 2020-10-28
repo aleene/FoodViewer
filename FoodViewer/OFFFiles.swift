@@ -33,7 +33,7 @@ class OFFplists {
         static let BrandsFileName = "Brands"
         static let CategoriesFileName = "Categories"
         static let CountriesFileName = "Countries"
-        static let GlobalLabelsFileName = "GlobalLabels"
+        static let GlobalLabelsFileName = "Labels"
         static let IngredientsFileName = "Ingredients"
         // The OFF taxonomy is not good for the app.
         // The plist needs several edits:

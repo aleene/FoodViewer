@@ -427,15 +427,8 @@ var delegate: ProductPageViewController? = nil {
         if let barcodeString = productPair?.remoteProduct?.barcode.asString,
             let info = userInfo?[ProductImageData.Notification.BarcodeKey] as? String,
             barcodeString == info {
+            // Filtering on image type, is not possible as unmarked images are read from cache
             reloadImageSection()
-            
-            /* We are only interested in medium-sized packaging images
-            let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
-            let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
-            if imageSizeCategory == .display && imageTypeCategory == .packaging {
-                reloadImageSection()
- 
-            }*/
         }
     }
     

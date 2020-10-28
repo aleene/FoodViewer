@@ -1266,7 +1266,7 @@
 "Uploaded by:" = "Door:";
 
 /* Title of a label, which should show the name of the uploader. */
-"Uploader unknown" = "Toevoeger onbkend";
+"Uploader unknown" = "Toevoeger onbekend";
 
 /* String presented in a tagView if an image is being uploaded */
 "Uploading image" = "Opladen foto";
