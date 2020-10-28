@@ -360,7 +360,7 @@
 "Enter date" = "Voer datum in";
 
 /* Placeholder string in a textfield to explain the purpose of a food product barcode search */
-"Enter food product barcode." = "Voer levensmiddelstreepjescode in";
+"Enter food product barcode." = "Voer lev   ensmiddelstreepjescode in";
 
 /* Placeholder string in a textfield to explain the purpose of a petfood barcode search */
 "Enter petfood product barcode." = "Voer dierenvoedingsstreepjescode in";
@@ -388,6 +388,9 @@
 
 /* String to indicate the date, when the product was created on OFF. */
 "Entry Date" = "Toevoegdatum";
+
+/* String to indicate the title o a page, which details the environmental impact of the product. */
+"Environment" = "Milieu-impact";
 
 /* String of a button, to prefill the nutrients with the standard EU set. */
 "EU Set" = "EU";
@@ -579,11 +582,17 @@
 /* Tableview sectionheader for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
 "Negative Ingredient Detections" = "Niet gedetecteerde ingrediënten";
 
+/* Title of an alert action, when the answer is negative/untrue. */
+"No" = "Nee";
+
 /* Text in a tableview cell, when no brands are available in the product data. */
 "No brands indicated" = "Geen merken vermeld";
 
 /* Text in a tableview cell, when no category is defined. */
 "No category defined" = "geen categorie gedefinieerd";
+
+/* Text of a tag, when the user did not set any comments. */
+"No comments set" = "Geen commentaar ingesteld";
 
 /* Text for language of product, when there is no country defined. */
 "no country defined" = "geen land gedefinieerd";
@@ -826,6 +835,15 @@
 /* Tableview sectionheader for packaging, original version. */
 "Packaging (non-edited)" = "Verpakking (onbewerkt)";
 
+/* Title for the viewcontroller with the packaging image */
+"Packaging Image" = "Verpakkingsfoto";
+
+/* Title for the viewcontroller with the edited packaging image */
+"Packaging Image (edited)" = "Verpakkingsfoto (bewerkt)";
+
+/* Title for the viewcontroller with the original packaging image */
+"Packaging Image (non-edited)" = "Verpakkingsfoto (onbewerkt)";
+
 /* String in textField placeholder, to show that the user has to enter his password */
 "Password" = "Wachtwoord";
 
@@ -849,6 +867,9 @@
 
 /* Title in AlertViewController, which lets the user enter his username/password. */
 "Personal Account" = "Persoonlijke account";
+
+/* Comment string added by the user. */
+"Personal comment" = "Persoonlijk commentaar";
 
 /* Title of a segmented control. */
 "Petfood" = "Dieren";
@@ -1103,6 +1124,15 @@
 /* Gallery header text presenting the non-edited selected nutrition images */
 "Selected Nutrition Images (non-edited)" = "Geselecteerde voedingswaardenfoto (onbewerkt)";
 
+/* Gallery header text presenting the selected packaging images */
+"Selected Packaging Images" = "Geselecteerde verpakkingsfotos";
+
+/* Gallery header text presenting the edited selected nutrition images */
+"Selected Packaging Images (edited)" = "Geselecteerde verpakkingsfotos (bewerkt)";
+
+/* Gallery header text presenting the non-edited selected nutrition images */
+"Selected Packaging Images (non-edited)" = "Geselecteerde verpakkingsfotos (onbewerkt)";
+
 /* Title of a tableview section with the selected traces for a product. */
 "Selected Traces" = "Geselecteerde Sporen";
 
@@ -1190,6 +1220,9 @@
 /* String, which urges the user to take photos of the (new) product. */
 "This barcode is not yet listed on OFF. Please take some photos, so the data can be added." = "Deze barcode staat nog niet op OFF. Neem wat fotos van het product, zodat de data toegevoegd kan worden.";
 
+/* Text of a label, when an image was uploaded. */
+"This image was upload on:" = "Deze foto is toegevoed op:";
+
 /* An explanatory text in the common name field. */
 "This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Dit voorbeeldproduct laat zien hoe de productinformatie wordt getoond. Swipe naar de volgende pagina's om meer productdetails te zien. Na het scannen van het eerste product wordt dit voorbeeldproduct verwijderd.";
 
@@ -1229,6 +1262,12 @@
 /* Title of a tableview section with a list of traces that can be selected. */
 "Unselected Traces" = "Te Selecteren Sporen";
 
+/* Explanation text of a label, which shows the name of the uploader. */
+"Uploaded by:" = "Door:";
+
+/* Title of a label, which should show the name of the uploader. */
+"Uploader unknown" = "Toevoeger onbkend";
+
 /* String presented in a tagView if an image is being uploaded */
 "Uploading image" = "Opladen foto";
 
@@ -1255,4 +1294,7 @@
 
 /* Title of a tableView section, which lets the user set the view toggle mode interface (double tap or button) */
 "View Toggle Mode" = "Viewwijzigingsmodus";
+
+/* Title of an alert button, which confirms the question */
+"Yes" = "Ja";
 

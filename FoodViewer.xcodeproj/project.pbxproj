@@ -134,10 +134,8 @@
 		512B446323FAB26400BFBCF0 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B446023FAB26400BFBCF0 /* Keyboard.swift */; };
 		512B447423FAB2AE00BFBCF0 /* Other_nutritional_substances.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446423FAB2AC00BFBCF0 /* Other_nutritional_substances.plist */; };
 		512B447523FAB2AE00BFBCF0 /* Nucleotides.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446523FAB2AC00BFBCF0 /* Nucleotides.plist */; };
-		512B447623FAB2AE00BFBCF0 /* Ingredients.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446623FAB2AC00BFBCF0 /* Ingredients.plist */; };
 		512B447723FAB2AE00BFBCF0 /* Vitamins.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446723FAB2AD00BFBCF0 /* Vitamins.plist */; };
 		512B447823FAB2AE00BFBCF0 /* Languages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446823FAB2AD00BFBCF0 /* Languages.plist */; };
-		512B447923FAB2AE00BFBCF0 /* GlobalLabels.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446923FAB2AD00BFBCF0 /* GlobalLabels.plist */; };
 		512B447A23FAB2AE00BFBCF0 /* Allergens.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446A23FAB2AD00BFBCF0 /* Allergens.plist */; };
 		512B447B23FAB2AE00BFBCF0 /* Amino_acids.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446B23FAB2AD00BFBCF0 /* Amino_acids.plist */; };
 		512B447C23FAB2AE00BFBCF0 /* Minerals.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446C23FAB2AD00BFBCF0 /* Minerals.plist */; };
@@ -147,7 +145,6 @@
 		512B448023FAB2AE00BFBCF0 /* Diets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B447023FAB2AE00BFBCF0 /* Diets.plist */; };
 		512B448123FAB2AE00BFBCF0 /* ReferenceDailyIntakeValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B447123FAB2AE00BFBCF0 /* ReferenceDailyIntakeValues.plist */; };
 		512B448223FAB2AE00BFBCF0 /* Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B447223FAB2AE00BFBCF0 /* Countries.plist */; };
-		512B448323FAB2AE00BFBCF0 /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B447323FAB2AE00BFBCF0 /* Categories.plist */; };
 		512B448523FAB33000BFBCF0 /* ProductPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B448423FAB33000BFBCF0 /* ProductPageViewController.swift */; };
 		512B448723FAB33C00BFBCF0 /* EditProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B448623FAB33C00BFBCF0 /* EditProductViewController.swift */; };
 		512B448923FAB34400BFBCF0 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B448823FAB34400BFBCF0 /* ImageViewController.swift */; };
@@ -607,7 +604,6 @@
 		516F8B82242D080400EF07CD /* PetFoodProductsDB.csv in Resources */ = {isa = PBXBuildFile; fileRef = 512B452123FAC33500BFBCF0 /* PetFoodProductsDB.csv */; };
 		516F8B83242D080400EF07CD /* Languages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446823FAB2AD00BFBCF0 /* Languages.plist */; };
 		516F8B84242D080400EF07CD /* LanguageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51A7DC7D1EE6BF5F00F231B0 /* LanguageHeaderView.xib */; };
-		516F8B85242D080400EF07CD /* GlobalLabels.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446923FAB2AD00BFBCF0 /* GlobalLabels.plist */; };
 		516F8B86242D080400EF07CD /* 40111490.json in Resources */ = {isa = PBXBuildFile; fileRef = 512B452A23FAC58F00BFBCF0 /* 40111490.json */; };
 		516F8B87242D080400EF07CD /* Diets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B447023FAB2AE00BFBCF0 /* Diets.plist */; };
 		516F8B88242D080400EF07CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 517FC92C1CD5009A00CB89ED /* InfoPlist.strings */; };
@@ -620,14 +616,12 @@
 		516F8B8F242D080400EF07CD /* AddImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F669381F4499190074AACB /* AddImageCollectionViewCell.xib */; };
 		516F8B90242D080400EF07CD /* Keyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512B445E23FAB26300BFBCF0 /* Keyboard.xib */; };
 		516F8B91242D080400EF07CD /* 7613034182067.json in Resources */ = {isa = PBXBuildFile; fileRef = 512B452C23FAC59400BFBCF0 /* 7613034182067.json */; };
-		516F8B92242D080400EF07CD /* Ingredients.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446623FAB2AC00BFBCF0 /* Ingredients.plist */; };
 		516F8B93242D080400EF07CD /* Nutrients.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446F23FAB2AE00BFBCF0 /* Nutrients.plist */; };
 		516F8B94242D080400EF07CD /* Other_nutritional_substances.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446423FAB2AC00BFBCF0 /* Other_nutritional_substances.plist */; };
 		516F8B95242D080400EF07CD /* 4005900122063.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF991ED9B70000C4CF54 /* 4005900122063.json */; };
 		516F8B96242D080400EF07CD /* Additives.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446D23FAB2AD00BFBCF0 /* Additives.plist */; };
 		516F8B97242D080400EF07CD /* NutriScoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5184F5801EB5EF78009ECF73 /* NutriScoreView.xib */; };
 		516F8B98242D080400EF07CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5180B90E1C5D3B57002DBD21 /* Assets.xcassets */; };
-		516F8B99242D080400EF07CD /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B447323FAB2AE00BFBCF0 /* Categories.plist */; };
 		516F8B9A242D080400EF07CD /* ReferenceDailyIntakeValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B447123FAB2AE00BFBCF0 /* ReferenceDailyIntakeValues.plist */; };
 		516F8B9B242D080400EF07CD /* Allergens.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512B446A23FAB2AD00BFBCF0 /* Allergens.plist */; };
 		516F8B9C242D080400EF07CD /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512B442B23FAB21B00BFBCF0 /* TagView.xib */; };
@@ -735,6 +729,11 @@
 		51DBA3D722E4878500C56263 /* NegativeIngredientDetectionsDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DBA3D622E4878500C56263 /* NegativeIngredientDetectionsDefaults.swift */; };
 		51DBA3D922E4904800C56263 /* TagEntryLanguageDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DBA3D822E4904700C56263 /* TagEntryLanguageDefaults.swift */; };
 		51DBA3DD22E4912300C56263 /* ViewToggleModeDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DBA3DC22E4912300C56263 /* ViewToggleModeDefaults.swift */; };
+		51DF5F6F254855110058733E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 51DF5F6D254855110058733E /* Localizable.strings */; };
+		51DF5F72254855110058733E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 51DF5F70254855110058733E /* InfoPlist.strings */; };
+		51DF5F7A25495C8E0058733E /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51DF5F7925495C8E0058733E /* Categories.plist */; };
+		51DF5F7C25495CA20058733E /* Ingredients.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51DF5F7B25495CA10058733E /* Ingredients.plist */; };
+		51DF5F7E25495CF60058733E /* Labels.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51DF5F7D25495CF60058733E /* Labels.plist */; };
 		51E1C3652045EB4200CB68B1 /* ImageDeselect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C3642045EB4200CB68B1 /* ImageDeselect.swift */; };
 		51E1C36A2046B9F600CB68B1 /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C3692046B9F600CB68B1 /* ImageUpload.swift */; };
 		51E1C36E2046C79E00CB68B1 /* ProductUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C36D2046C79E00CB68B1 /* ProductUpdate.swift */; };
@@ -956,10 +955,8 @@
 		512B446023FAB26400BFBCF0 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keyboard.swift; path = Frameworks/Keyboard/Keyboard.swift; sourceTree = "<group>"; };
 		512B446423FAB2AC00BFBCF0 /* Other_nutritional_substances.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Other_nutritional_substances.plist; path = TaxonomyPlists/Other_nutritional_substances.plist; sourceTree = "<group>"; };
 		512B446523FAB2AC00BFBCF0 /* Nucleotides.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Nucleotides.plist; path = TaxonomyPlists/Nucleotides.plist; sourceTree = "<group>"; };
-		512B446623FAB2AC00BFBCF0 /* Ingredients.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Ingredients.plist; path = TaxonomyPlists/Ingredients.plist; sourceTree = "<group>"; };
 		512B446723FAB2AD00BFBCF0 /* Vitamins.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Vitamins.plist; path = TaxonomyPlists/Vitamins.plist; sourceTree = "<group>"; };
 		512B446823FAB2AD00BFBCF0 /* Languages.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Languages.plist; path = TaxonomyPlists/Languages.plist; sourceTree = "<group>"; };
-		512B446923FAB2AD00BFBCF0 /* GlobalLabels.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = GlobalLabels.plist; path = TaxonomyPlists/GlobalLabels.plist; sourceTree = "<group>"; };
 		512B446A23FAB2AD00BFBCF0 /* Allergens.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Allergens.plist; path = TaxonomyPlists/Allergens.plist; sourceTree = "<group>"; };
 		512B446B23FAB2AD00BFBCF0 /* Amino_acids.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Amino_acids.plist; path = TaxonomyPlists/Amino_acids.plist; sourceTree = "<group>"; };
 		512B446C23FAB2AD00BFBCF0 /* Minerals.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Minerals.plist; path = TaxonomyPlists/Minerals.plist; sourceTree = "<group>"; };
@@ -969,7 +966,6 @@
 		512B447023FAB2AE00BFBCF0 /* Diets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Diets.plist; path = TaxonomyPlists/Diets.plist; sourceTree = "<group>"; };
 		512B447123FAB2AE00BFBCF0 /* ReferenceDailyIntakeValues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ReferenceDailyIntakeValues.plist; path = TaxonomyPlists/ReferenceDailyIntakeValues.plist; sourceTree = "<group>"; };
 		512B447223FAB2AE00BFBCF0 /* Countries.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Countries.plist; path = TaxonomyPlists/Countries.plist; sourceTree = "<group>"; };
-		512B447323FAB2AE00BFBCF0 /* Categories.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Categories.plist; path = TaxonomyPlists/Categories.plist; sourceTree = "<group>"; };
 		512B448423FAB33000BFBCF0 /* ProductPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductPageViewController.swift; path = ViewControllers/ProductPageViewController.swift; sourceTree = "<group>"; };
 		512B448623FAB33C00BFBCF0 /* EditProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProductViewController.swift; path = ViewControllers/EditProductViewController.swift; sourceTree = "<group>"; };
 		512B448823FAB34400BFBCF0 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageViewController.swift; path = ViewControllers/ImageViewController.swift; sourceTree = "<group>"; };
@@ -1227,6 +1223,17 @@
 		51DBA3D622E4878500C56263 /* NegativeIngredientDetectionsDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeIngredientDetectionsDefaults.swift; sourceTree = "<group>"; };
 		51DBA3D822E4904700C56263 /* TagEntryLanguageDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagEntryLanguageDefaults.swift; path = Model/Defaults/TagEntryLanguageDefaults.swift; sourceTree = "<group>"; };
 		51DBA3DC22E4912300C56263 /* ViewToggleModeDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewToggleModeDefaults.swift; path = Model/Defaults/ViewToggleModeDefaults.swift; sourceTree = "<group>"; };
+		51DF5F6E254855110058733E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		51DF5F71254855110058733E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		51DF5F732548738F0058733E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		51DF5F742548738F0058733E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		51DF5F75254876A00058733E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		51DF5F7625487AC10058733E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		51DF5F7725487BD30058733E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		51DF5F7825487F310058733E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		51DF5F7925495C8E0058733E /* Categories.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Categories.plist; sourceTree = "<group>"; };
+		51DF5F7B25495CA10058733E /* Ingredients.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Ingredients.plist; sourceTree = "<group>"; };
+		51DF5F7D25495CF60058733E /* Labels.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Labels.plist; sourceTree = "<group>"; };
 		51E1C3642045EB4200CB68B1 /* ImageDeselect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDeselect.swift; path = OFF/ImageDeselect.swift; sourceTree = "<group>"; };
 		51E1C3692046B9F600CB68B1 /* ImageUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageUpload.swift; path = OFF/ImageUpload.swift; sourceTree = "<group>"; };
 		51E1C36D2046C79E00CB68B1 /* ProductUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductUpdate.swift; path = OFF/ProductUpdate.swift; sourceTree = "<group>"; };
@@ -1612,11 +1619,11 @@
 				512B446D23FAB2AD00BFBCF0 /* Additives.plist */,
 				512B446A23FAB2AD00BFBCF0 /* Allergens.plist */,
 				512B446B23FAB2AD00BFBCF0 /* Amino_acids.plist */,
-				512B447323FAB2AE00BFBCF0 /* Categories.plist */,
+				51DF5F7925495C8E0058733E /* Categories.plist */,
 				512B447223FAB2AE00BFBCF0 /* Countries.plist */,
 				512B447023FAB2AE00BFBCF0 /* Diets.plist */,
-				512B446923FAB2AD00BFBCF0 /* GlobalLabels.plist */,
-				512B446623FAB2AC00BFBCF0 /* Ingredients.plist */,
+				51DF5F7B25495CA10058733E /* Ingredients.plist */,
+				51DF5F7D25495CF60058733E /* Labels.plist */,
 				512B446823FAB2AD00BFBCF0 /* Languages.plist */,
 				512B446C23FAB2AD00BFBCF0 /* Minerals.plist */,
 				512B446523FAB2AC00BFBCF0 /* Nucleotides.plist */,
@@ -1789,6 +1796,8 @@
 				5180B9051C5D3B57002DBD21 /* Products */,
 				516F8A34242D072100EF07CD /* FoodViewer copy-Info.plist */,
 				516F8BA4242D080400EF07CD /* FoodViewer copy2-Info.plist */,
+				51DF5F70254855110058733E /* InfoPlist.strings */,
+				51DF5F6D254855110058733E /* Localizable.strings */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2302,7 +2311,7 @@
 				516F8B82242D080400EF07CD /* PetFoodProductsDB.csv in Resources */,
 				516F8B83242D080400EF07CD /* Languages.plist in Resources */,
 				516F8B84242D080400EF07CD /* LanguageHeaderView.xib in Resources */,
-				516F8B85242D080400EF07CD /* GlobalLabels.plist in Resources */,
+				51DF5F6F254855110058733E /* Localizable.strings in Resources */,
 				516F8B86242D080400EF07CD /* 40111490.json in Resources */,
 				516F8B87242D080400EF07CD /* Diets.plist in Resources */,
 				516F8B88242D080400EF07CD /* InfoPlist.strings in Resources */,
@@ -2315,14 +2324,13 @@
 				516F8B8F242D080400EF07CD /* AddImageCollectionViewCell.xib in Resources */,
 				516F8B90242D080400EF07CD /* Keyboard.xib in Resources */,
 				516F8B91242D080400EF07CD /* 7613034182067.json in Resources */,
-				516F8B92242D080400EF07CD /* Ingredients.plist in Resources */,
 				516F8B93242D080400EF07CD /* Nutrients.plist in Resources */,
+				51DF5F72254855110058733E /* InfoPlist.strings in Resources */,
 				516F8B94242D080400EF07CD /* Other_nutritional_substances.plist in Resources */,
 				516F8B95242D080400EF07CD /* 4005900122063.json in Resources */,
 				516F8B96242D080400EF07CD /* Additives.plist in Resources */,
 				516F8B97242D080400EF07CD /* NutriScoreView.xib in Resources */,
 				516F8B98242D080400EF07CD /* Assets.xcassets in Resources */,
-				516F8B99242D080400EF07CD /* Categories.plist in Resources */,
 				516F8B9A242D080400EF07CD /* ReferenceDailyIntakeValues.plist in Resources */,
 				516F8B9B242D080400EF07CD /* Allergens.plist in Resources */,
 				516F8B9C242D080400EF07CD /* TagView.xib in Resources */,
@@ -2343,27 +2351,27 @@
 				512B452223FAC33500BFBCF0 /* PetFoodProductsDB.csv in Resources */,
 				512B447823FAB2AE00BFBCF0 /* Languages.plist in Resources */,
 				51A7DC7E1EE6BF5F00F231B0 /* LanguageHeaderView.xib in Resources */,
-				512B447923FAB2AE00BFBCF0 /* GlobalLabels.plist in Resources */,
 				512B452B23FAC58F00BFBCF0 /* 40111490.json in Resources */,
 				512B448023FAB2AE00BFBCF0 /* Diets.plist in Resources */,
+				51DF5F7E25495CF60058733E /* Labels.plist in Resources */,
 				517FC92A1CD5009A00CB89ED /* InfoPlist.strings in Resources */,
 				512B447523FAB2AE00BFBCF0 /* Nucleotides.plist in Resources */,
 				512B447C23FAB2AE00BFBCF0 /* Minerals.plist in Resources */,
 				51E306A01C68E0B900485A8D /* Main.storyboard in Resources */,
+				51DF5F7C25495CA20058733E /* Ingredients.plist in Resources */,
 				5104F4AC1F9F3D01008D074F /* SearchHeaderView.xib in Resources */,
 				5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */,
 				512B452423FAC34D00BFBCF0 /* BeautyProductsDB.csv in Resources */,
 				51F6693A1F4499190074AACB /* AddImageCollectionViewCell.xib in Resources */,
 				512B446123FAB26400BFBCF0 /* Keyboard.xib in Resources */,
 				512B452D23FAC59500BFBCF0 /* 7613034182067.json in Resources */,
-				512B447623FAB2AE00BFBCF0 /* Ingredients.plist in Resources */,
 				512B447F23FAB2AE00BFBCF0 /* Nutrients.plist in Resources */,
 				512B447423FAB2AE00BFBCF0 /* Other_nutritional_substances.plist in Resources */,
 				514EEF9A1ED9B70000C4CF54 /* 4005900122063.json in Resources */,
 				512B447D23FAB2AE00BFBCF0 /* Additives.plist in Resources */,
 				5184F5811EB5EF78009ECF73 /* NutriScoreView.xib in Resources */,
+				51DF5F7A25495C8E0058733E /* Categories.plist in Resources */,
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
-				512B448323FAB2AE00BFBCF0 /* Categories.plist in Resources */,
 				512B448123FAB2AE00BFBCF0 /* ReferenceDailyIntakeValues.plist in Resources */,
 				512B447A23FAB2AE00BFBCF0 /* Allergens.plist in Resources */,
 				512B443423FAB21C00BFBCF0 /* TagView.xib in Resources */,
@@ -3173,6 +3181,28 @@
 				518E2C7422F9E1D9007FC124 /* de */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		51DF5F6D254855110058733E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51DF5F6E254855110058733E /* de */,
+				51DF5F742548738F0058733E /* nl */,
+				51DF5F75254876A00058733E /* fr */,
+				51DF5F7725487BD30058733E /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		51DF5F70254855110058733E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51DF5F71254855110058733E /* de */,
+				51DF5F732548738F0058733E /* nl */,
+				51DF5F7625487AC10058733E /* fr */,
+				51DF5F7825487F310058733E /* es */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		51E3069E1C68E0B900485A8D /* Main.storyboard */ = {

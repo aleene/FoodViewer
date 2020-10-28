@@ -1,7 +1,7 @@
 /* Class = "UITabBarItem"; title = "Scanner"; ObjectID = "3Vn-bz-g9v"; */
 "3Vn-bz-g9v.title" = "Scanner";
 
-/* Class = "UITextView"; text = "FoodViewer is possible thanks to OpenFoodFacts, a open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels."; ObjectID = "8si-Yq-0ji"; */
+/* Class = "UITextView"; text = "FoodViewer is possible thanks to OpenFoodFacts, an open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels."; ObjectID = "8si-Yq-0ji"; */
 "8si-Yq-0ji.text" = "FoodViewer ist möglich dank OpenFoodFacts, einer offenen Datenbank von Lebensmitteln mit Zutaten, Allergenen, Nährwertangaben und allen Informationen, die Sie auf Lebensmitteletiketten finden können.";
 
 /* Class = "UILabel"; text = "FoodViewer"; ObjectID = "9OJ-E9-8aV"; */
@@ -13,6 +13,6 @@
 /* Class = "UITabBarItem"; title = "User"; ObjectID = "WHd-6b-vLZ"; */
 "WHd-6b-vLZ.title" = "Benutzer";
 
-/* Class = "UILabel"; text = "Copyright © 2019 Hovering Above. All rights reserved."; ObjectID = "znY-gQ-KqA"; */
+/* Class = "UILabel"; text = "Copyright © 2020 Hovering Above. All rights reserved."; ObjectID = "znY-gQ-KqA"; */
 "znY-gQ-KqA.text" = "Copyright 2019 Hovering Above. Alle Rechte vorbehalten";
 

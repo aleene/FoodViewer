@@ -31,6 +31,9 @@
 /* Title of a button to indicate that the front image is missing. */
 "Add Front Image" = "Produktfoto (Vorderseite) hinzufügen";
 
+/* Title of a viewController where the users can add images for a new product. */
+"Add images for new product" = "Füge Fotos für neues Produkt zu";
+
 /* Title of a viewcontroller which allows the user to add a new language to the product languages. */
 "Add Language" = "Sprache hinzufügen";
 
@@ -386,6 +389,9 @@
 /* String to indicate the date, when the product was created on OFF. */
 "Entry Date" = "Eintragungsdatum";
 
+/* String to indicate the title o a page, which details the environmental impact of the product. */
+"Environment" = "Umwelt";
+
 /* String of a button, to prefill the nutrients with the standard EU set. */
 "EU Set" = "EU";
 
@@ -576,11 +582,17 @@
 /* Tableview sectionheader for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
 "Negative Ingredient Detections" = "Erkennung negativer Inhaltsstoffe";
 
+/* Title of an alert action, when the answer is negative/untrue. */
+"No" = "Nein";
+
 /* Text in a tableview cell, when no brands are available in the product data. */
 "No brands indicated" = "Keine Marken angegeben";
 
 /* Text in a tableview cell, when no category is defined. */
 "No category defined" = "kein Kategorie definiert";
+
+/* Text of a tag, when the user did not set any comments. */
+"No comments set" = "Kein Kommentar definiert";
 
 /* Text for language of product, when there is no country defined. */
 "no country defined" = "kein Land definiert";
@@ -686,6 +698,9 @@
 
 /* Generic text if a value has not yet been set. */
 "Not set" = "nicht eingestellt";
+
+/* Title of a viewController when no product/search has been selected. */
+"nothing selected" = "nichts gewält";
 
 /* Text above the nova value. */
 "NOVA" = "NOVA";
@@ -819,6 +834,15 @@
 
 /* Tableview sectionheader for packaging, original version. */
 "Packaging (non-edited)" = "Verpackungsart (unbearbeitet)";
+
+/* Title for the viewcontroller with the packaging image */
+"Packaging Image" = "Verpackungsartfoto";
+
+/* Title for the viewcontroller with the edited packaging image */
+"Packaging Image (edited)" = "Verpackungsartfoto (bearbeitet)";
+
+/* Title for the viewcontroller with the original packaging image */
+"Packaging Image (non-edited)" = "Verpackungsartfoto (unbearbeitet)";
 
 /* String in textField placeholder, to show that the user has to enter his password */
 "Password" = "Passwort";
@@ -1249,4 +1273,7 @@
 
 /* Title of a tableView section, which lets the user set the view toggle mode interface (double tap or button) */
 "View Toggle Mode" = "Anzeige-umschaltmodus";
+
+/* Title of an alert button, which confirms the question */
+"Yes" = "Ja";
 
