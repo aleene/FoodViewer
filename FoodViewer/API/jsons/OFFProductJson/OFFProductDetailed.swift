@@ -36,6 +36,7 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
         static let novaDashgroup_100g = DetailedKeys(stringValue: "nova-group_100g")!
         static let novaDashgroup_serving = DetailedKeys(stringValue: "nova-group_serving")!
         static let rev = DetailedKeys(stringValue: "rev")!
+        static let product_quantity = DetailedKeys(stringValue: "product_quantity")!
         static let serving_quantity = DetailedKeys(stringValue: "serving_quantity")!
         static let sortkey = DetailedKeys(stringValue: "sortkey")!
         static let unknown_ingredients_n = DetailedKeys(stringValue: "unknown_ingredients_n")!
@@ -69,6 +70,7 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
     var novaDashgroup_serving: String? = nil
     var max_imgid: String? = nil
     var product_names_: [String:String] = [:]
+    var product_quantity: String? = nil
     var rev: Int? = nil
     var serving_quantity: Double? = nil
     var sortkey: Int?
@@ -227,7 +229,7 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
                 self.serving_quantity = nil
             }
         }
-        
+
         do {
             self.nova_group = try container.decode(String.self, forKey: .nova_group)
         } catch {
@@ -266,6 +268,17 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
             self.novaDashgroup_serving = try container.decode(String.self, forKey: .novaDashgroup_serving)
         } catch {
             self.novaDashgroup_serving = nil
+        }
+        // var product_quantity: String? = nil is handled in the child
+        do {
+            self.product_quantity = try container.decode(String.self, forKey: .product_quantity)
+        } catch {
+            do {
+                let asInt = try container.decode(Int.self, forKey: .product_quantity)
+                self.product_quantity = "\(asInt)"
+            } catch {
+                self.product_quantity = nil
+            }
         }
 
         do {

@@ -162,7 +162,7 @@ class OFFProduct: Codable {
     var nutrition_score_beverage: Int? = nil
     var nutrition_score_debug: String? = nil
     var nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients: Int? = nil
-    var nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value: Int? = nil
+    var nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value: Double? = nil
     var nutrition_score_warning_no_fiber: Int? = nil
         var nutriments: OFFProductNutriments? = nil
     var origins: String? = nil
@@ -179,7 +179,7 @@ class OFFProduct: Codable {
     var popularity_key: Int? = nil
     var popularity_tags: [String]? = nil
     var product_name: String? = nil
-    var product_quantity: String? = nil
+    // var product_quantity: String? = nil is handled in the child
     // product_name_fr is handled in the child
     var purchase_places: String? = nil
         var purchase_places_tags: [String]? = nil

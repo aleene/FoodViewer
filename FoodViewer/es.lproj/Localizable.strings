@@ -28,6 +28,9 @@
 /* Title of a button to indicate that the front image is missing. */
 "Add Front Image" = "Agregar imagen frontal";
 
+/* Title of a viewController where the users can add images for a new product. */
+"Add images for new product" = "Agrega imágenes para un nuevo producto";
+
 /* Title of a viewcontroller which allows the user to add a new language to the product languages. */
 "Add Language" = "Agregar idioma";
 
@@ -383,6 +386,9 @@
 /* String to indicate the date, when the product was created on OFF. */
 "Entry Date" = "Fecha de entrada";
 
+/* String to indicate the title o a page, which details the environmental impact of the product. */
+"Environment" = "Impacto medioambiental";
+
 /* String of a button, to prefill the nutrients with the standard EU set. */
 "EU Set" = "Conjunto UE";
 
@@ -573,11 +579,17 @@
 /* Tableview sectionheader for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
 "Negative Ingredient Detections" = "Detecciones de ingredientes negativos";
 
+/* Title of an alert action, when the answer is negative/untrue. */
+"No" = "no";
+
 /* Text in a tableview cell, when no brands are available in the product data. */
 "No brands indicated" = "No hay marcas indicadas";
 
 /* Text in a tableview cell, when no category is defined. */
 "No category defined" = "ninguna categoría definida";
+
+/* Text of a tag, when the user did not set any comments. */
+"No comments set" = "Sin comentarios establecidos";
 
 /* Text for language of product, when there is no country defined. */
 "no country defined" = "ningún país definido";
@@ -683,6 +695,9 @@
 
 /* Generic text if a value has not yet been set. */
 "Not set" = "No establecido";
+
+/* Title of a viewController when no product/search has been selected. */
+"nothing selected" = "nada seleccionado";
 
 /* Text above the nova value. */
 "NOVA" = "NOVA";
@@ -817,6 +832,15 @@
 /* Tableview sectionheader for packaging, original version. */
 "Packaging (non-edited)" = "Tipo de envase, formato, material (no editado)";
 
+/* Title for the viewcontroller with the packaging image */
+"Packaging Image" = "Imagen de instrucciones de embalaje";
+
+/* Title for the viewcontroller with the edited packaging image */
+"Packaging Image (edited)" = "Imagen de instrucciones de embalaje (editado)";
+
+/* Title for the viewcontroller with the original packaging image */
+"Packaging Image (non-edited)" = "Imagen de instrucciones de embalaje (no editado)";
+
 /* String in textField placeholder, to show that the user has to enter his password */
 "Password" = "Contraseña";
 
@@ -840,6 +864,9 @@
 
 /* Title in AlertViewController, which lets the user enter his username/password. */
 "Personal Account" = "Cuenta personal";
+
+/* Comment string added by the user. */
+"Personal comment" = "Comentario personal";
 
 /* Title of a segmented control. */
 "Petfood" = "Alimentos mascotas";
@@ -1094,6 +1121,15 @@
 /* Gallery header text presenting the non-edited selected nutrition images */
 "Selected Nutrition Images (non-edited)" = "Fotos de nutrición seleccionadas (no editado)";
 
+/* Gallery header text presenting the selected packaging images */
+"Selected Packaging Images" = "Imágenes de instrucciones de embalaje seleccionadas";
+
+/* Gallery header text presenting the edited selected nutrition images */
+"Selected Packaging Images (edited)" = "Imágenes de instrucciones de embalaje seleccionadas (editado)";
+
+/* Gallery header text presenting the non-edited selected nutrition images */
+"Selected Packaging Images (non-edited)" = "Imágenes de instrucciones de embalaje seleccionadas (no editado)";
+
 /* Title of a tableview section with the selected traces for a product. */
 "Selected Traces" = "Trazas Seleccionados";
 
@@ -1181,6 +1217,9 @@
 /* String, which urges the user to take photos of the (new) product. */
 "This barcode is not yet listed on OFF. Please take some photos, so the data can be added." = "Este código de barras aún no figura en FF. Tome algunas fotos para que se puedan agregar los datos.";
 
+/* Text of a label, when an image was uploaded. */
+"This image was upload on:" = "Esta imagen fue cargada en:";
+
 /* An explanatory text in the common name field. */
 "This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Este producto de demostración le muestra cómo se presenta un producto. Vaya a las siguientes páginas para ver más detalles sobre el producto. Cuando comience a escanear, este producto se eliminará.";
 
@@ -1220,6 +1259,12 @@
 /* Title of a tableview section with a list of traces that can be selected. */
 "Unselected Traces" = "Trazas para Seleccionar";
 
+/* Explanation text of a label, which shows the name of the uploader. */
+"Uploaded by:" = "por:";
+
+/* Title of a label, which should show the name of the uploader. */
+"Uploader unknown" = "Uploader desconocida";
+
 /* String presented in a tagView if an image is being uploaded */
 "Uploading image" = "Cargando foto";
 
@@ -1246,4 +1291,7 @@
 
 /* Title of a tableView section, which lets the user set the view toggle mode interface (double tap or button) */
 "View Toggle Mode" = "Alternar el modo de vista";
+
+/* Title of an alert button, which confirms the question */
+"Yes" = "Si";
 
