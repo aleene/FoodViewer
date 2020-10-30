@@ -18,12 +18,7 @@ struct ProductImageSize {
     
     var uploader: String?
     
-    var imageDate: Double? {
-        didSet {
-        
-        }
-        
-    }
+    var imageDate: Double?
 
     var usedIn: [(String,ImageTypeCategory)] = []
     
@@ -67,7 +62,32 @@ struct ProductImageSize {
         }
     }
     
+/** The imageFetchResult of the largest image (if successful), otherwise the thumbnail
+ **/
+    public var largestOrThumb: ImageFetchResult? {
+        if let validOriginalFetchResult = original?.fetchResult {
+            switch validOriginalFetchResult {
+            case .success:
+                return validOriginalFetchResult
+            default: break
+            }
+        } else {
+            _ = original?.fetch()
+        }
+        if let validThumbFetchResult = thumb?.fetchResult {
+            switch validThumbFetchResult {
+            case .success:
+                return validThumbFetchResult
+            default: break
+            }
+        } else {
+            _ = thumb?.fetch()
+        }
+        return nil
+    }
 
+// MARK: - initialisers
+    
     init() {
         display = nil
         small = nil

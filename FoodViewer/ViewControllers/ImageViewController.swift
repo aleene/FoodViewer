@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreGraphics
 
 protocol ImageCoordinatorProtocol {
     
@@ -17,22 +18,24 @@ final class ImageViewController: UIViewController {
     
 // MARK: - Public variables
     
-    public var imageSize: ProductImageSize? {
+    /// The image set to display
+    public var imageSet: ProductImageSize? {
         didSet {
-            setUploaderName()
-            setDate()
-            setImageAge()
+            setUploaderElements()
         }
     }
     
+    /// The title to use for the viewController
     public var imageTitle: String? = nil {
         didSet {
             setTitle()
         }
     }
     
+    /// The handler of the protocol
     public var protocolCoordinator: ImageCoordinatorProtocol? = nil
     
+    /// The coordinator that manages the flow and initiated this viewController
     weak public var coordinator: Coordinator? = nil
     
 // MARK: - Storyboard elements
@@ -61,29 +64,31 @@ final class ImageViewController: UIViewController {
     @IBOutlet weak var explanationLabel: UILabel! {
         didSet {
             explanationLabel?.text = TranslatableStrings.UploadDateAndTime
+            setUploaderElements()
         }
     }
     
     @IBOutlet weak var dateTimeLabel: UILabel! {
         didSet {
-            setDate()
+            setUploaderElements()
         }
     }
     
     @IBOutlet weak var uploaderExplanationLabel: UILabel! {
         didSet {
             uploaderExplanationLabel?.text = TranslatableStrings.Uploader
+            setUploaderElements()
         }
     }
     
     @IBOutlet weak var uploaderLabel: UILabel! {
         didSet {
-            setUploaderName()
+            setUploaderElements()
         }
     }
     @IBOutlet weak var imageAgeView: UIView! {
         didSet {
-            setImageAge()
+            setUploaderElements()
         }
     }
     
@@ -92,8 +97,34 @@ final class ImageViewController: UIViewController {
     @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
 
+// MARK: - Storyboard setters
+    
+    private var hasImage: Bool {
+        if let result = imageSet?.largest?.fetch() {
+            switch result {
+            case .success:
+                return true
+            default:
+                break
+            }
+        }
+        return false
+    }
+    
+    private func setUploaderElements() {
+        explanationLabel?.isHidden = !hasImage
+        dateTimeLabel?.isHidden = !hasImage
+        uploaderExplanationLabel?.isHidden = !hasImage
+        uploaderLabel?.isHidden = !hasImage
+        imageAgeView?.isHidden = !hasImage
+        
+        setUploaderName()
+        setDate()
+        setImageAge()
+    }
+    
     private func setUploaderName() {
-        uploaderLabel?.text = imageSize?.uploader ?? TranslatableStrings.UploaderUnknown
+        uploaderLabel?.text = imageSet?.uploader ?? TranslatableStrings.UploaderUnknown
     }
     
     private func setTitle() {
@@ -101,8 +132,7 @@ final class ImageViewController: UIViewController {
     }
     
     private func setImageAge() {
-        imageAgeView?.isHidden = true
-        guard let validTime = imageSize?.imageDate else { return }
+        guard let validTime = imageSet?.imageDate else { return }
         guard let validDate = Date(timeIntervalSince1970: validTime).ageInYears else { return }
 
         if validDate >= 4.0 {
@@ -120,7 +150,7 @@ final class ImageViewController: UIViewController {
     }
     
     private func setDate() {
-        guard let validTime = imageSize?.imageDate else { return }
+        guard let validTime = imageSet?.imageDate else { return }
         let validDate = Date(timeIntervalSince1970: validTime)
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -129,8 +159,9 @@ final class ImageViewController: UIViewController {
     }
         
     private func setImage() {
+        
         var imageToDisplay: UIImage? = nil
-        if let result = imageSize?.largest?.fetch() {
+        if let result = imageSet?.largestOrThumb {
             switch result {
             case .success(let image):
                 imageToDisplay = image
@@ -143,47 +174,58 @@ final class ImageViewController: UIViewController {
         } else {
              imageToDisplay = UIImage.init(named:"NotOK")
         }
+        
         imageView?.image = imageToDisplay
-        if let validSize = imageToDisplay? .size {
-            imageView?.frame.size = validSize
+        
+        if let validSize = imageToDisplay?.size {
+            scrollView?.contentSize = validSize
         }
-        if let validSize = scrollView?.frame.size {
-            updateConstraints(for: validSize)
+        setUploaderElements()
+        if let validSize = scrollView?.bounds.size {
+            updateMinZoomScale(for: validSize)
         }
     }
     
     @objc func reloadImage() {
         setImage()
-        setUploaderName()
-        setDate()
-        setImageAge()
     }
     
-    private func updateMinZoomScale(for size: CGSize) {
-      let widthScale = size.width / imageView.bounds.width
-      let heightScale = size.height / imageView.bounds.height
-      let minScale = min(widthScale, heightScale)
+    private func updateMinZoomScale(for scrollViewSize: CGSize) {
+        guard imageView != nil else { return }
+        print("Zoom ", imageView!.frame, scrollViewSize)
+        guard imageView!.bounds.width > .zero &&
+            imageView!.bounds.height > .zero else { return }
+
+        let widthScale = scrollViewSize.width / imageView!.bounds.width
+        let heightScale = scrollViewSize.height / imageView!.bounds.height
+        let minScale = min(widthScale, heightScale)
         
-      scrollView.minimumZoomScale = minScale
-      scrollView.zoomScale = minScale
+        scrollView.minimumZoomScale = minScale
+        scrollView.zoomScale = minScale
+        updateConstraints(for: scrollViewSize)
     }
 
     
     // https://www.raywenderlich.com/5758454-uiscrollview-tutorial-getting-started
-    //2
-    private func updateConstraints(for size: CGSize) {
-      let yOffset = max(0, (size.height - imageView.frame.height) / 2)
-      imageViewTopConstraint.constant = yOffset
-      imageViewBottomConstraint.constant = yOffset
-      
-      //4
-      let xOffset = max(0, (size.width - imageView.frame.width) / 2)
-      imageViewLeadingConstraint.constant = xOffset
-      imageViewTrailingConstraint.constant = xOffset
+
+    private func updateConstraints(for scrollViewSize: CGSize) {
+        guard imageView != nil else { return }
         
-      view.layoutIfNeeded()
+        let yOffset = -max(0, (scrollViewSize.height - imageView!.frame.height) / 2)
+        imageViewTopConstraint.constant = yOffset
+        imageViewBottomConstraint.constant = yOffset
+        
+        //4
+        let xOffset = -max(0, (scrollViewSize.width - imageView!.frame.width) / 2)
+        imageViewLeadingConstraint.constant = xOffset
+        imageViewTrailingConstraint.constant = xOffset
+        print("Constraints ", imageView!.frame, scrollViewSize, xOffset, yOffset)
+
+        view.layoutIfNeeded()
     }
 
+//MARK: - ViewController lifecycle
+    
     override func viewWillLayoutSubviews() {
       super.viewWillLayoutSubviews()
         updateMinZoomScale(for: scrollView.bounds.size)
@@ -196,9 +238,14 @@ final class ImageViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(ImageViewController.reloadImage), name:.ImageSet, object:nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setImage()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //setImage()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -208,6 +255,8 @@ final class ImageViewController: UIViewController {
     }
     
 }
+
+// MARK: - UIScrollViewDelegate
 
 extension ImageViewController: UIScrollViewDelegate {
     
@@ -220,6 +269,8 @@ extension ImageViewController: UIScrollViewDelegate {
     }
 
 }
+
+// MARK: - UIDragInteractionDelegate
 
 extension ImageViewController: UIDragInteractionDelegate {
     

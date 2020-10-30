@@ -95,7 +95,7 @@
 "Beauty" = "Beauty";
 
 /* Placeholder string in a textfield to explain the purpose of a beauty product barcode search */
-"Beauty  barcode." = "Beauty streepjescode";
+"Beauty barcode." = "Beauty streepjescode";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Beauty Products" = "Beauty producten";
@@ -360,7 +360,7 @@
 "Enter date" = "Voer datum in";
 
 /* Placeholder string in a textfield to explain the purpose of a food product barcode search */
-"Enter food product barcode." = "Voer lev   ensmiddelstreepjescode in";
+"Enter food product barcode." = "Voer levensmiddelstreepjescode in";
 
 /* Placeholder string in a textfield to explain the purpose of a petfood barcode search */
 "Enter petfood product barcode." = "Voer dierenvoedingsstreepjescode in";
@@ -1163,7 +1163,7 @@
 /* Row title, which allows the user to set his open food facts username. */
 "Set your OpenFoodFacts account." = "Stel je OpenFoodFacts account in";
 
-/* Title of a tableview header  indicating that the corresding field has been set. */
+/* Title of a tableview header indicating that the corresding field has been set. */
 "Setup query" = "Definieer zoekvraag";
 
 /* SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
@@ -1221,7 +1221,7 @@
 "This barcode is not yet listed on OFF. Please take some photos, so the data can be added." = "Deze barcode staat nog niet op OFF. Neem wat fotos van het product, zodat de data toegevoegd kan worden.";
 
 /* Text of a label, when an image was uploaded. */
-"This image was upload on:" = "Deze foto is toegevoed op:";
+"This image was upload on:" = "Deze foto is toegevoegd op:";
 
 /* An explanatory text in the common name field. */
 "This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Dit voorbeeldproduct laat zien hoe de productinformatie wordt getoond. Swipe naar de volgende pagina's om meer productdetails te zien. Na het scannen van het eerste product wordt dit voorbeeldproduct verwijderd.";

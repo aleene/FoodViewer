@@ -397,7 +397,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         
         func processLanguageCode(_ languageCode: String) -> UIImage? {
             guard let imageSet = productPair?.remoteProduct?.image(for: languageCode, of: .ingredients) else { return nil }
-            let result = imageSet.display?.fetch()
+            let result = imageSet.original?.fetch()
             switch result {
             case .success(let image):
                 self.imageUploadTime = imageSet.imageDate

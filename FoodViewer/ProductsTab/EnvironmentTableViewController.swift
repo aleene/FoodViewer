@@ -231,7 +231,7 @@ var delegate: ProductPageViewController? = nil {
 
         func processLanguageCode(_ languageCode: String) -> (UIImage?, String, Double?)?{
             guard let imageSet = productPair?.remoteProduct?.image(for: languageCode, of: .packaging) else { return nil }
-            let result = imageSet.display?.fetch()
+            let result = imageSet.original?.fetch()
             switch result {
             case .success(let image):
                 return (image, "Current Language Image", imageSet.imageDate)
@@ -677,8 +677,6 @@ extension EnvironmentTableViewController: TagListViewDataSource {
             return count(packagingToDisplay)
         case .image:
             return 1
-        default:
-            return 0
         }
     }
     

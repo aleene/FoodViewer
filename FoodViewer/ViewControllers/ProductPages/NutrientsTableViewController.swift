@@ -518,7 +518,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     private var remoteImageToShow: UIImage? {
         func processLanguageCode(_ languageCode: String) -> UIImage? {
             guard let imageSet = productPair?.remoteProduct?.image(for: languageCode, of: .nutrition) else { return nil }
-            let result = imageSet.display?.fetch()
+            let result = imageSet.original?.fetch()
             switch result {
             case .success(let image):
                 imageUploadDate = imageSet.imageDate

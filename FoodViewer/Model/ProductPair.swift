@@ -370,7 +370,7 @@ class ProductPair {
                         }
                     
                     case .loadingFailed(let barcodeString):
-                        self.remoteStatus = .loadingFailed(barcodeString)
+                         self.remoteStatus = .loadingFailed(barcodeString)
                         // I could try to check the local off database here
                         OFFDatabase.manager.product(for: barcodeString) { (product: FoodProduct?) in
                             if let validProduct = product {

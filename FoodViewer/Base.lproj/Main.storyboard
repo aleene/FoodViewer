@@ -4903,17 +4903,17 @@
                                 <rect key="frame" x="0.0" y="44" width="320" height="500"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                        <rect key="frame" x="0.0" y="44" width="320" height="500"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="PnH-HO-Mzj" secondAttribute="trailing" id="3j5-dQ-com"/>
-                                    <constraint firstItem="PnH-HO-Mzj" firstAttribute="leading" secondItem="KL0-pq-7Ws" secondAttribute="leading" id="bgC-7q-hjc"/>
-                                    <constraint firstItem="PnH-HO-Mzj" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="top" id="eSm-gf-gbe"/>
-                                    <constraint firstAttribute="bottom" secondItem="PnH-HO-Mzj" secondAttribute="bottom" constant="-24" id="xz2-Wc-bLC"/>
+                                    <constraint firstAttribute="top" secondItem="PnH-HO-Mzj" secondAttribute="top" id="Bwz-y6-r2A"/>
+                                    <constraint firstAttribute="trailing" secondItem="PnH-HO-Mzj" secondAttribute="trailing" id="GV8-Wb-JJ8"/>
+                                    <constraint firstAttribute="bottom" secondItem="PnH-HO-Mzj" secondAttribute="bottom" id="KGg-KG-fLY"/>
+                                    <constraint firstAttribute="leading" secondItem="PnH-HO-Mzj" secondAttribute="leading" id="rdC-mF-7BY"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="oCr-2A-ZDa" id="DEa-Cl-hyU"/>
@@ -4983,10 +4983,10 @@
                         <outlet property="explanationLabel" destination="ExX-6k-CKq" id="Wgc-4g-muP"/>
                         <outlet property="imageAgeView" destination="WSI-O3-9TH" id="iPn-GM-6f2"/>
                         <outlet property="imageView" destination="PnH-HO-Mzj" id="Xwi-bU-DJg"/>
-                        <outlet property="imageViewBottomConstraint" destination="xz2-Wc-bLC" id="grm-9p-4Wf"/>
-                        <outlet property="imageViewLeadingConstraint" destination="bgC-7q-hjc" id="zWl-bA-MXA"/>
-                        <outlet property="imageViewTopConstraint" destination="eSm-gf-gbe" id="uBu-73-eAZ"/>
-                        <outlet property="imageViewTrailingConstraint" destination="3j5-dQ-com" id="bfQ-tP-eT9"/>
+                        <outlet property="imageViewBottomConstraint" destination="KGg-KG-fLY" id="8Qj-yG-6Nb"/>
+                        <outlet property="imageViewLeadingConstraint" destination="rdC-mF-7BY" id="wuq-5Q-3GS"/>
+                        <outlet property="imageViewTopConstraint" destination="Bwz-y6-r2A" id="unt-7t-EaU"/>
+                        <outlet property="imageViewTrailingConstraint" destination="GV8-Wb-JJ8" id="IFN-3k-ANX"/>
                         <outlet property="navItem" destination="18F-0Y-Djv" id="l05-xG-ILI"/>
                         <outlet property="scrollView" destination="KL0-pq-7Ws" id="AfW-gO-mNr"/>
                         <outlet property="uploaderExplanationLabel" destination="fnW-j4-gMQ" id="rtc-SU-j4V"/>

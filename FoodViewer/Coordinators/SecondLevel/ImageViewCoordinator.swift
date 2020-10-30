@@ -36,7 +36,7 @@ final class ImageViewCoordinator: Coordinator {
     convenience init(with coordinator: Coordinator?, imageTitle: String?, imageSize: ProductImageSize?) {
         self.init(with: coordinator)
         self.coordinatorViewController?.imageTitle = imageTitle
-        self.coordinatorViewController!.imageSize = imageSize
+        self.coordinatorViewController!.imageSet = imageSize
     }
 
     func show() {

@@ -23,8 +23,14 @@ class RobotoffUpdate: OFFRobotoffAnswerAPI {
                     if validStatus == "updated"
                     || validStatus == "saved" {
                         return completion (.success(json))
+                    } else if validStatus == "error_already_annotated" {
+                        let error = NSError.init(domain: "FoodViewer",
+                                                    code: 13,
+                                                    userInfo:["Class": "RobotoffUpdate",
+                                                            "Function": "update(question: RobotoffQuestion, completion: @escaping (ResultType<OFFRobotoffUploadResultJson>) -> () )",
+                                                            "Reason": "statusCode: Was already notated"])
+                            return completion(.failure(error))
                     } else {
-                        // "error_already_annotated"
                         let error = NSError.init(domain: "FoodViewer",
                                                  code: 13,
                                                  userInfo:["Class": "RobotoffUpdate",
