@@ -160,10 +160,7 @@ class ProductPageViewController: UIPageViewController {
             // If a product image is on screen, get rid of it.
             popImageViewController()
             guard currentProductPage != oldValue else { return }
-            setViewControllers(
-                    [viewController(for:currentProductPage)],
-                    direction: .forward,
-                    animated: false, completion: nil)
+            initPages()
             initPage(currentProductPage)
             refreshPageInterface()
         }
@@ -353,7 +350,7 @@ class ProductPageViewController: UIPageViewController {
             // This will show a page, which allows the user to add all necessary images.
         default:
             break
-            }
+        }
         // define the pages (and order), which will be shown
         switch currentProductType {
         case .food:
@@ -365,6 +362,10 @@ class ProductPageViewController: UIPageViewController {
         case .product:
             pages = [.identification, .ingredients, .environment, .supplyChain, .categories, .gallery, .completion, .json]
         }
+        setViewControllers(
+                [viewController(for:currentProductPage)],
+                direction: .forward,
+                animated: false, completion: nil)
     }
     
     // This function finds the language that must be used to display the product
@@ -786,7 +787,6 @@ class ProductPageViewController: UIPageViewController {
 //
     override func viewDidLoad() {
         super.viewDidLoad()
-        initPages()
         dataSource = self
         delegate = self
         self.parent?.splitViewController?.delegate = self
@@ -796,12 +796,9 @@ class ProductPageViewController: UIPageViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        initPages()
         refreshPageInterface()
         setupBackButton()
-        setViewControllers(
-                [viewController(for:currentProductPage)],
-                direction: .forward,
-                animated: false, completion: nil)
         // listen if a product is set outside of the MasterViewController
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
@@ -862,10 +859,10 @@ extension ProductPageViewController: UITextFieldDelegate {
     }
 
 }
- //
- // MARK: - Pageview Controller DataSource Functions
- //
- extension ProductPageViewController : UIPageViewControllerDataSource {
+
+// MARK: - Pageview Controller DataSource Functions
+
+extension ProductPageViewController : UIPageViewControllerDataSource {
         
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
             
@@ -918,7 +915,8 @@ extension ProductPageViewController: UITextFieldDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
             setTitle()
     }
- }
+}
 
- extension ProductPageViewController : UIPageViewControllerDelegate {
- }
+extension ProductPageViewController : UIPageViewControllerDelegate {
+    
+}
