@@ -871,32 +871,12 @@ class FoodProduct {
     var lastEditDates: [Date]? = nil
     var imageAddDates: [Date] {
         var dates: Set<Date> = []
-        for (_, imageData) in images {
-            if let validDate = imageData.imageDate {
-                //dates.insert(validDate)
+        for (_, image) in images {
+            if let validTime = image.imageDate {
+                let validDate = Date(timeIntervalSince1970: validTime)
+                dates.insert(validDate)
             }
         }
-        for (_, imageData) in frontImages {
-            if let validDate = imageData.imageDate {
-                //dates.insert(validDate)
-            }
-        }
-        for (_, imageData) in ingredientsImages {
-            if let validDate = imageData.imageDate {
-                //dates.insert(validDate)
-            }
-        }
-        for (_, imageData) in nutritionImages {
-            if let validDate = imageData.imageDate {
-                //dates.insert(validDate)
-            }
-        }
-        for (_, imageData) in packagingImages {
-            if let validDate = imageData.imageDate {
-                //dates.insert(validDate)
-            }
-        }
-
         return dates.sorted(by: { $0 > $1 })
     }
     var state = CompletionState()
@@ -1719,6 +1699,8 @@ class FoodProduct {
             }
         }
         
+        /*
+         This is not yet in the json on 30-oct-202
         if let validImageSizes = validProduct.selected_images?.packaging {
 
             for (key, value) in validImageSizes.display {
@@ -1744,7 +1726,7 @@ class FoodProduct {
 
             }
         }
-
+ */
         if let validImages = validProduct.images {
             for (key,value) in validImages {
                 if !key.contains(ImageTypeCategory.front.description)
@@ -1777,8 +1759,6 @@ class FoodProduct {
                                     images[localKey] = ProductImageSize()
                                 }
                                 images[localKey]?.usedIn.append((languageCode,.ingredients))
-                                //images[localKey]?.date = value.uploadDate
-                                //images[localKey]?.uploader = value.uploader
                             }
                         } else if parts[0].contains("front") {
                             if let localKey = value.imgid {
@@ -1786,8 +1766,6 @@ class FoodProduct {
                                     images[localKey] = ProductImageSize()
                                 }
                                 images[localKey]?.usedIn.append((languageCode,.front))
-                                //images[localKey]?.date = value.uploadDate
-                                //images[localKey]?.uploader = value.uploader
                             }
                         } else if parts[0].contains("nutrition") {
                             if let localKey = value.imgid {
@@ -1795,22 +1773,31 @@ class FoodProduct {
                                     images[localKey] = ProductImageSize()
                                 }
                                 images[localKey]?.usedIn.append((languageCode,.nutrition))
-                                //images[localKey]?.date = value.uploadDate
-                                //images[localKey]?.uploader = value.uploader
+                            }
                         } else if parts[0].contains("packaging") {
                             if let localKey = value.imgid {
                                 if !images.contains(where: { $0.key == localKey }) {
                                     images[localKey] = ProductImageSize()
                                 }
                                 images[localKey]?.usedIn.append((languageCode,.packaging))
-                                //images[localKey]?.date = value.uploadDate
-                                //images[localKey]?.uploader = value.uploader
+                                
+                                // Added as a temporary stopgap
+                                let imageSet = ProductImageSize(for: barcode, and: localKey)
+                                if packagingImages.contains(where: { $0.key == localKey }) {
+                                    packagingImages[localKey]?.thumb = imageSet.thumb
+                                    packagingImages[localKey]?.small = imageSet.small
+                                    packagingImages[localKey]?.display = imageSet.display
+                                    packagingImages[localKey]?.original = imageSet.original
+                                } else {
+                                    packagingImages[localKey] = imageSet
+                                }
+                                packagingImages[localKey]?.uploader = value.uploader
+                                packagingImages[localKey]?.imageDate = value.uploaded_t
                             }
                         }
                     }
                 }
             }
-        }
         }
     
         if let numberOfIngredientsFromPalmOil = validProduct.ingredients_from_palm_oil_n,

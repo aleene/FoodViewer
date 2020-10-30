@@ -89,6 +89,9 @@ class OFFProduct: Codable {
     var image_nutrition_small_url: URL? = nil
     var image_nutrition_thumb_url: URL? = nil
     var image_nutrition_url: URL? = nil
+    var image_packaging_small_url: URL? = nil
+    var image_packaging_thumb_url: URL? = nil
+    var image_packaging_url: URL? = nil
     var image_small_url: URL? = nil
     var image_thumb_url: URL? = nil
     var image_url: String? = nil
