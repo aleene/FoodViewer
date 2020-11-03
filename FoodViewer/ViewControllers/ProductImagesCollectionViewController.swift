@@ -520,7 +520,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 if editMode {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
                     cell.delegate = self
-                    cell.tag = 3
+                    cell.tag = 4
                     return cell
                 } else {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell

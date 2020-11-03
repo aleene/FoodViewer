@@ -210,8 +210,12 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     
     func enter() {
         view.endEditing(true)
-        if let validBarcode = activeTextField.text,
+        if var validBarcode = activeTextField.text,
             !validBarcode.isEmpty {
+            // needed to go from UPC-12 to EAN-12
+            if validBarcode.count == 12 {
+                validBarcode = "0" + validBarcode
+            }
             self.scannedProductPair = self.products.createProductPair(with:BarcodeType(barcodeString:validBarcode, type: preferences.showProductType))
             showProductData()
         }
