@@ -1095,43 +1095,43 @@
 "Selected Diets" = "Geselecteerde diëten";
 
 /* Gallery header text presenting the selected front images */
-"Selected Front Images" = "Geselecteerde productfoto";
+"Selected Front Images" = "Geselecteerde productfoto's";
 
 /* Gallery header text presenting the edited selected front images */
-"Selected Front Images (edited)" = "Geselecteerde productfoto (bewerkt)";
+"Selected Front Images (edited)" = "Geselecteerde productfoto's (bewerkt)";
 
 /* Gallery header text presenting the non-edited selected front images */
-"Selected Front Images (non-edited)" = "Geselecteerde productfoto (onbewerkt)";
+"Selected Front Images (non-edited)" = "Geselecteerde productfoto's (onbewerkt)";
 
 /* Gallery header text presenting the selected ingredients images */
-"Selected Ingredients Images" = "Geselecteerde ingrediëntenfoto";
+"Selected Ingredients Images" = "Geselecteerde ingrediëntenfoto's";
 
 /* Gallery header text presenting the edited selected ingredients images */
-"Selected Ingredients Images (edited)" = "Geselecteerde ingrediëntenfoto (bewerkt)";
+"Selected Ingredients Images (edited)" = "Geselecteerde ingrediëntenfoto's (bewerkt)";
 
 /* Gallery header text presenting the non-edited selected ingredients images */
-"Selected Ingredients Images (non-edited)" = "Geselecteerde ingrediëntenfoto (onbewerkt)";
+"Selected Ingredients Images (non-edited)" = "Geselecteerde ingrediëntenfoto's (onbewerkt)";
 
 /* Title of a tableview section with the selected languages for a product. */
 "Selected Languages" = "Geselecteerde Talen";
 
 /* Gallery header text presenting the selected nutrition images */
-"Selected Nutrition Images" = "Geselecteerde voedingswaardenfoto";
+"Selected Nutrition Images" = "Geselecteerde voedingswaardenfoto's";
 
 /* Gallery header text presenting the edited selected nutrition images */
-"Selected Nutrition Images (edited)" = "Geselecteerde voedingswaardenfoto (bewerkt)";
+"Selected Nutrition Images (edited)" = "Geselecteerde voedingswaardenfoto's (bewerkt)";
 
 /* Gallery header text presenting the non-edited selected nutrition images */
-"Selected Nutrition Images (non-edited)" = "Geselecteerde voedingswaardenfoto (onbewerkt)";
+"Selected Nutrition Images (non-edited)" = "Geselecteerde voedingswaardenfoto's (onbewerkt)";
 
 /* Gallery header text presenting the selected packaging images */
-"Selected Packaging Images" = "Geselecteerde verpakkingsfotos";
+"Selected Packaging Images" = "Geselecteerde verpakkingsfoto's";
 
 /* Gallery header text presenting the edited selected nutrition images */
-"Selected Packaging Images (edited)" = "Geselecteerde verpakkingsfotos (bewerkt)";
+"Selected Packaging Images (edited)" = "Geselecteerde verpakkingsfoto's (bewerkt)";
 
 /* Gallery header text presenting the non-edited selected nutrition images */
-"Selected Packaging Images (non-edited)" = "Geselecteerde verpakkingsfotos (onbewerkt)";
+"Selected Packaging Images (non-edited)" = "Geselecteerde verpakkingsfoto's (onbewerkt)";
 
 /* Title of a tableview section with the selected traces for a product. */
 "Selected Traces" = "Geselecteerde Sporen";

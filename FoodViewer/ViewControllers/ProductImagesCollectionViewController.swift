@@ -380,8 +380,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             if frontImages.count > 0 && indexPath.row < frontImages.count {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
 
-                let key = keyTuples(for:Array(frontImages.keys))[indexPath.row].0
-                if let result = frontImages[key]?.largest?.fetch() {
+                let keyTuple = keyTuples(for:Array(frontImages.keys))[indexPath.row]
+                if let result = frontImages[keyTuple.0]?.largest?.fetch() {
                     switch result {
                     case .success(let image):
                         cell.imageView.image = image
@@ -389,7 +389,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                         cell.imageView.image = UIImage.init(named:"NotOK")
                     }
                 }
-                cell.label.text = keyTuples(for:Array(frontImages.keys))[indexPath.row].1
+                cell.label.text = keyTuple.1
                 cell.indexPath = indexPath
                 cell.editMode = editMode
                 cell.delegate = self
@@ -409,8 +409,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         case .ingredientsImages:
             if indexPath.row < ingredientsImages.count && ingredientsImages.count > 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-                let key = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row].0
-                if let result = ingredientsImages[key]?.largest?.fetch() {
+                let keyTuple = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row]
+                if let result = ingredientsImages[keyTuple.0]?.largest?.fetch() {
                     switch result {
                     case .success(let image):
                         cell.imageView.image = image
@@ -418,7 +418,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                         cell.imageView.image = UIImage.init(named:"NotOK")
                     }
                 }
-                cell.label.text = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row].1
+                cell.label.text = keyTuple.1
                 cell.indexPath = indexPath
                 cell.editMode = editMode
                 cell.delegate = self
@@ -439,8 +439,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         case .nutritionImages:
             if indexPath.row < nutritionImages.count && nutritionImages.count > 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-                let key = keyTuples(for:Array(nutritionImages.keys))[indexPath.row].0
-                if let result = nutritionImages[key]?.largest?.fetch() {
+                let keyTuple = keyTuples(for:Array(nutritionImages.keys))[indexPath.row]
+                if let result = nutritionImages[keyTuple.0]?.largest?.fetch() {
                     switch result {
                     case .success(let image):
                         cell.imageView.image = image
@@ -448,7 +448,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                         cell.imageView.image = UIImage.init(named:"NotOK")
                     }
                 }
-                cell.label.text = keyTuples(for:Array(nutritionImages.keys))[indexPath.row].1
+                cell.label.text = keyTuple.1
                 cell.indexPath = indexPath
                 cell.editMode = editMode
                 cell.delegate = self
@@ -469,8 +469,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             case .packagingImages:
                 if indexPath.row < packagingImages.count && packagingImages.count > 0 {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-                    let key = keyTuples(for:Array(packagingImages.keys))[indexPath.row].0
-                    if let result = packagingImages[key]?.largest?.fetch() {
+                    let keyTuple = keyTuples(for:Array(packagingImages.keys))[indexPath.row]
+                    if let result = packagingImages[keyTuple.0]?.largest?.fetch() {
                         switch result {
                         case .success(let image):
                             cell.imageView.image = image
@@ -478,7 +478,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                             cell.imageView.image = UIImage.init(named:"NotOK")
                         }
                     }
-                    cell.label.text = keyTuples(for:Array(packagingImages.keys))[indexPath.row].1
+                    cell.label.text = keyTuple.1
                     cell.indexPath = indexPath
                     cell.editMode = editMode
                     cell.delegate = self

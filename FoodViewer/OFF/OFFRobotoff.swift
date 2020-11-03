@@ -240,6 +240,7 @@ class OFFRobotoff {
         let fetchUrl = URL(string: string )
         if let validURL = fetchUrl {
             let cache = Shared.dataCache
+            cache.remove(URL:validURL)
             cache.fetch(URL: validURL).onSuccess { data in
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .secondsSince1970
@@ -269,8 +270,14 @@ class OFFRobotoff {
                 print("fetchRobotoffQuestionsJson: ", error?.localizedDescription)
                 completion(.failed(error?.localizedDescription ?? "No error description provided"))
             }
+            DispatchQueue.main.async(execute: { () -> Void in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            })
         } else {
             completion(.failed(barcode?.asString ?? ""))
+            DispatchQueue.main.async(execute: { () -> Void in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            })
             return
         }
     }

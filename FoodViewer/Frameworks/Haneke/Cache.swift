@@ -99,7 +99,7 @@ open class Cache<T: DataConvertible> where T.Result == T, T : DataRepresentable 
         return fetch
     }
     
-    @discardableResult open func fetch(fetcher : Fetcher<T>, formatName: String = HanekeGlobals.Cache.OriginalFormatName, failure fail : Fetch<T>.Failer? = nil, success succeed : Fetch<T>.Succeeder? = nil) -> Fetch<T> {
+    @discardableResult open func fetch(fetcher: Fetcher<T>, formatName: String = HanekeGlobals.Cache.OriginalFormatName, failure fail: Fetch<T>.Failer? = nil, success succeed: Fetch<T>.Succeeder? = nil) -> Fetch<T> {
         let key = fetcher.key
         let fetch = Cache.buildFetch(failure: fail, success: succeed)
         self.fetch(key: key, formatName: formatName, failure: { error in
@@ -127,6 +127,11 @@ open class Cache<T: DataConvertible> where T.Result == T, T : DataRepresentable 
             memoryCache.removeObject(forKey: key as AnyObject)
             diskCache.removeData(with: key)
         }
+    }
+    
+    open func remove(URL: URL, formatName: String = HanekeGlobals.Cache.OriginalFormatName) {
+        let fetcher = NetworkFetcher<T>(URL: URL)
+        remove(key: fetcher.key, formatName: formatName)
     }
     
     open func removeAll(_ completion: (() -> ())? = nil) {
@@ -303,7 +308,7 @@ open class Cache<T: DataConvertible> where T.Result == T, T : DataRepresentable 
         return self.fetch(fetcher: fetcher, formatName: formatName, failure: fail, success: succeed)
     }
     
-    open func fetch(URL : Foundation.URL, formatName: String = HanekeGlobals.Cache.OriginalFormatName,  failure fail : Fetch<T>.Failer? = nil, success succeed : Fetch<T>.Succeeder? = nil) -> Fetch<T> {
+    open func fetch(URL: Foundation.URL, formatName: String = HanekeGlobals.Cache.OriginalFormatName,  failure fail : Fetch<T>.Failer? = nil, success succeed : Fetch<T>.Succeeder? = nil) -> Fetch<T> {
         let fetcher = NetworkFetcher<T>(URL: URL)
         return self.fetch(fetcher: fetcher, formatName: formatName, failure: fail, success: succeed)
     }

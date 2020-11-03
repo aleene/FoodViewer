@@ -539,12 +539,6 @@ var delegate: ProductPageViewController? = nil {
         }
     }
 
-    //@objc func removeProduct() {
-        //TODO: why is this function?
-        //productPair!.remoteProduct = nil
-        //§tableView.reloadData()
-    //}
-
     @objc func doubleTapOnTableView() {
         // double tapping implies cycling through the product possibilities
         switch productVersion {
@@ -556,9 +550,8 @@ var delegate: ProductPageViewController? = nil {
         tableView.reloadData()
     }
 
-//
 // MARK: - ViewController Lifecycle
-//
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

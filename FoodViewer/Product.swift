@@ -1783,16 +1783,16 @@ class FoodProduct {
                                 
                                 // Added as a temporary stopgap
                                 let imageSet = ProductImageSize(for: barcode, and: localKey)
-                                if packagingImages.contains(where: { $0.key == localKey }) {
-                                    packagingImages[localKey]?.thumb = imageSet.thumb
-                                    packagingImages[localKey]?.small = imageSet.small
-                                    packagingImages[localKey]?.display = imageSet.display
-                                    packagingImages[localKey]?.original = imageSet.original
+                                if packagingImages.contains(where: { $0.key == languageCode }) {
+                                    packagingImages[languageCode]?.thumb = imageSet.thumb
+                                    packagingImages[languageCode]?.small = imageSet.small
+                                    packagingImages[languageCode]?.display = imageSet.display
+                                    packagingImages[languageCode]?.original = imageSet.original
                                 } else {
-                                    packagingImages[localKey] = imageSet
+                                    packagingImages[languageCode] = imageSet
                                 }
-                                packagingImages[localKey]?.uploader = value.uploader
-                                packagingImages[localKey]?.imageDate = value.uploaded_t
+                                packagingImages[languageCode]?.uploader = value.uploader
+                                packagingImages[languageCode]?.imageDate = value.uploaded_t
                             }
                         }
                     }

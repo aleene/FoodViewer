@@ -38,12 +38,12 @@ Configure the class SelectPairViewController in one go. All possible input param
         self.question = question
         if image == nil {
             if let validUrlString = question?.url {
-                self.imageSet = ProductImageSize()
-                self.imageSet?.original = ProductImageData(url: URL(string: validUrlString))
+                self.imageSet = ProductImageSize(selectedURLString: validUrlString)
             } else {
                 self.imageSet = nil
             }
         } else {
+            // use the provided image
             self.imageSet = image
         }
     }
