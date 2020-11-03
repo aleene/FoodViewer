@@ -96,7 +96,7 @@ class OFFProductNutriScoreData: Codable {
                         let name = try container.decode(Double.self, forKey: key)
                         foundDouble = name
                     } catch {
-                        print("\(key) not convertable")
+                        print("OFFProductNutriScoreData: \(key) not convertable")
                     }
                 }
             }

@@ -505,6 +505,8 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                 controllers[1].tabBarItem?.title = TranslatableStrings.History
                 controllers[2].tabBarItem?.title = TranslatableStrings.Search
                 controllers[3].tabBarItem?.title = TranslatableStrings.Preferences
+                controllers[4].tabBarItem?.title = TranslatableStrings.User
+                controllers[5].tabBarItem?.title = TranslatableStrings.Game
             }
         }
     }

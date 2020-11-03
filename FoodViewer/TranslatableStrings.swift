@@ -186,6 +186,7 @@ struct TranslatableStrings {
 //
     
     static let Gallery = NSLocalizedString("Gallery", comment: "Viewcontroller title for page with images of the product")
+    static let Game = NSLocalizedString("Game", comment: "Tabbar title for page with the robotoff game")
     static let GenericName = NSLocalizedString("Common Name", comment: "Tableview sectionheader for long product name")
     static let GenericNameEdited = NSLocalizedString("Generic Name (edited)", comment: "Tableview sectionheader for the edited long product name")
     static let GenericNameOriginal = NSLocalizedString("Generic Name (non-edited)", comment: "Tableview sectionheader for the original long product name")
@@ -530,6 +531,7 @@ static let Password = NSLocalizedString("Password", comment: "String in textFiel
     static let Uploader = NSLocalizedString("Uploaded by:", comment: "Explanation text of a label, which shows the name of the uploader.")
     static let UploaderUnknown = NSLocalizedString("Uploader unknown", comment: "Title of a label, which should show the name of the uploader.")
     static let Use = NSLocalizedString("Use", comment: "Title of a button in a navigation bar, which allows the user to adapt an image and use the result.")
+    static let User = NSLocalizedString("User", comment: "Title Tab bar, which shows some statistics of the user.")
     static let Username = NSLocalizedString("Username", comment: "String in textField placeholder, to show that the user has to enter his username.")
     static let UserScene = NSLocalizedString("User Preferences", comment: "ViewController/row title, which allows the user to set the application preferences.")
 

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icons8-customer.png",
+      "filename" : "icons8-clock-2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icons8-customer-1.png",
+      "filename" : "icons8-clock-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icons8-customer-2.png",
+      "filename" : "icons8-clock.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

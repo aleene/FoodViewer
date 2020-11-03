@@ -21,11 +21,13 @@ class OFFProductDetailed: OFFProduct {
         
         static let code = DetailedKeys(stringValue: "code")!
         static let codes_tags = DetailedKeys(stringValue: "codes_tags")!
+        static let completeness = DetailedKeys(stringValue: "completeness")!
         static let ingredients_n = DetailedKeys(stringValue: "ingredients_n")!
         static let additives_n = DetailedKeys(stringValue: "additives_n")!
         static let additives_old_n = DetailedKeys(stringValue: "additives_old_n")!
         static let carbon_footprint_from_known_ingredients_debug = DetailedKeys(stringValue: "carbon_footprint_from_known_ingredients_debug")!
-static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(stringValue: "ingredients_from_or_that_may_be_from_palm_oil_n")!
+        static let carbon_footprint_percent_of_known_ingredients = DetailedKeys(stringValue: "carbon_footprint_percent_of_known_ingredients")!
+        static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(stringValue: "ingredients_from_or_that_may_be_from_palm_oil_n")!
         static let ingredients_from_palm_oil_n = DetailedKeys(stringValue: "ingredients_from_palm_oil_n")!
         static let ingredients_that_may_be_from_palm_oil_n = DetailedKeys(stringValue: "ingredients_that_may_be_from_palm_oil_n")!
         static let languages_codes = DetailedKeys(stringValue: "languages_codes")!
@@ -35,6 +37,8 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
         static let novaDashgroup = DetailedKeys(stringValue: "nova-group")!
         static let novaDashgroup_100g = DetailedKeys(stringValue: "nova-group_100g")!
         static let novaDashgroup_serving = DetailedKeys(stringValue: "nova-group_serving")!
+        static let nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value = DetailedKeys(stringValue: "nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value")!
+        static let popularity_key = DetailedKeys(stringValue: "popularity_key")!
         static let rev = DetailedKeys(stringValue: "rev")!
         static let product_quantity = DetailedKeys(stringValue: "product_quantity")!
         static let serving_quantity = DetailedKeys(stringValue: "serving_quantity")!
@@ -55,6 +59,8 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
     var additives_n: Int? = nil
     var additives_old_n: Int? = nil
     var carbon_footprint_from_known_ingredients_debug: Int? = nil
+    var carbon_footprint_percent_of_known_ingredients: Double? = nil
+    var completeness: Double? = nil
     var generic_names_: [String:String] = [:]
     var ingredients_from_or_that_may_be_from_palm_oil_n: Int? = nil
     var ingredients_from_palm_oil_n: Int? = nil
@@ -68,7 +74,9 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
     var novaDashgroup: String? = nil
     var novaDashgroup_100g: String? = nil
     var novaDashgroup_serving: String? = nil
+    var nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value: Double? = nil
     var max_imgid: String? = nil
+    var popularity_key: Int? = nil
     var product_names_: [String:String] = [:]
     var product_quantity: String? = nil
     var rev: Int? = nil
@@ -94,6 +102,28 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
                 self.carbon_footprint_from_known_ingredients_debug = Int(asString)
             } catch {
                 self.carbon_footprint_from_known_ingredients_debug = nil
+            }
+        }
+        
+        do {
+            self.completeness = try container.decode(Double.self, forKey: .completeness)
+        } catch {
+            do {
+                let asInt = try container.decode(Int.self, forKey: .completeness)
+                self.completeness = Double(asInt)
+            } catch {
+                self.completeness = nil
+            }
+        }
+
+        do {
+            self.carbon_footprint_percent_of_known_ingredients = try container.decode(Double.self, forKey: .carbon_footprint_percent_of_known_ingredients)
+        } catch {
+            do {
+                let asInt = try container.decode(Int.self, forKey: .carbon_footprint_percent_of_known_ingredients)
+                self.carbon_footprint_percent_of_known_ingredients = Double(asInt)
+            } catch {
+                self.carbon_footprint_percent_of_known_ingredients = nil
             }
         }
 
@@ -269,6 +299,18 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
         } catch {
             self.novaDashgroup_serving = nil
         }
+        
+        do {
+            self.nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value = try container.decode(Double.self, forKey: .nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value)
+        } catch {
+            do {
+                let asString = try container.decode(String.self, forKey: .product_quantity)
+                self.nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value = Double(asString)
+            } catch {
+                self.nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value = nil
+            }
+        }
+
         // var product_quantity: String? = nil is handled in the child
         do {
             self.product_quantity = try container.decode(String.self, forKey: .product_quantity)
@@ -280,7 +322,7 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
                 self.product_quantity = nil
             }
         }
-
+        
         do {
             self.unknown_ingredients_n = try container.decode(Int.self, forKey: .unknown_ingredients_n)
         } catch {
@@ -289,6 +331,18 @@ static let ingredients_from_or_that_may_be_from_palm_oil_n = DetailedKeys(string
                 self.unknown_ingredients_n = Int(asString)
             } catch {
                 self.unknown_ingredients_n = nil
+            }
+        }
+
+        
+        do {
+            self.popularity_key = try container.decode(Int.self, forKey: .popularity_key)
+        } catch {
+            do {
+                let asString = try container.decode(String.self, forKey: .popularity_key)
+                self.popularity_key = Int(asString)
+            } catch {
+                self.popularity_key = nil
             }
         }
 

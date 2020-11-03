@@ -31,7 +31,7 @@ class OFFProduct: Codable {
     var attribute_groups: [OFFProductAttributeGroup]? = nil
     var brands: String? = nil
         var brands_tags: [String]? = nil
-    var carbon_footprint_percent_of_known_ingredients: Double? = nil
+    // var carbon_footprint_percent_of_known_ingredients: Double? = nil is in OFFProductDetailed
     // var carbon_footprint_from_known_ingredients_debug: Int? = nil is in OFFProductDetailed
     var categories: String? = nil
     var categories_debug_tags: [String]? = nil
@@ -51,7 +51,7 @@ class OFFProduct: Codable {
     var compared_to_category: String? = nil
     var complete: Int? = nil
     var completed_t: Date? = nil
-    var completeness: Double? = nil
+    // var completeness: Double? = nil is in OFFProductDetailed
     var correctors_tags: [String]? = nil
     var countries: String? = nil
     var countries_debug_tags: [String]? = nil
@@ -165,7 +165,7 @@ class OFFProduct: Codable {
     var nutrition_score_beverage: Int? = nil
     var nutrition_score_debug: String? = nil
     var nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients: Int? = nil
-    var nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value: Double? = nil
+    // var nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value: Double? = nil is handled in the child
     var nutrition_score_warning_no_fiber: Int? = nil
         var nutriments: OFFProductNutriments? = nil
     var origins: String? = nil
@@ -179,7 +179,7 @@ class OFFProduct: Codable {
     var pnns_groups_1_tags: [String]? = nil
     var pnns_groups_2: String? = nil
     var pnns_groups_2_tags: [String]? = nil
-    var popularity_key: Int? = nil
+    // var popularity_key: Int? = nil is handled in the child
     var popularity_tags: [String]? = nil
     var product_name: String? = nil
     // var product_quantity: String? = nil is handled in the child

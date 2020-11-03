@@ -46,7 +46,7 @@ public struct OFF {
         static let EnglishProduct = "en:product/"
         static let Postfix = ".org/api/v1.2/product/"
         // /api/v1/questions/
-        static let PostfixRobotoff = ".org/api/v1/questions/"
+        static let PostfixRobotoff = ".org/api/v1/questions"
         static let JSONExtension = ".json"
         static let JSONSearchExtension = "&json=1"
         static let SearchPage = "&page="
@@ -335,16 +335,25 @@ Retrieve the robotoff questions for a product
 - productType: the type of product (food, petfood, beauty, rest)
      - languageCode: the required languageCode of the result (default en)
 */
-    static func fetchQuestionsString(for barcode: BarcodeType, with productType: ProductType, languageCode: String) -> String {
+    static func fetchQuestionsString(for barcode: BarcodeType?, with productType: ProductType, languageCode: String, count: Int?) -> String {
         var fetchUrlString = URL.Scheme
         fetchUrlString += URL.PrefixRobotoff
         // add the right server (works only for food products)
         fetchUrlString += productType.rawValue
         fetchUrlString += URL.PostfixRobotoff
-        fetchUrlString += barcode.asString
+        if let validBarcode = barcode {
+            fetchUrlString += URL.Divider.Slash
+            fetchUrlString += validBarcode.asString
+        }
         fetchUrlString += URL.Divider.QuestionMark
         fetchUrlString += "lang="
         fetchUrlString += languageCode
+        if let validCount = count,
+            validCount > 0  {
+            fetchUrlString += URL.Divider.QuestionMark
+            fetchUrlString += "count="
+            fetchUrlString += "\(validCount)"
+        }
         return fetchUrlString
     }
 

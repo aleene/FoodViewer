@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "icons8-heart-5.png",
+      "filename" : "icons8-puzzle.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "icons8-heart.png",
+      "filename" : "icons8-puzzle-5.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icons8-heart-4.png",
+      "filename" : "icons8-puzzle-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "icons8-heart-1.png",
+      "filename" : "icons8-puzzle-4.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icons8-heart-3.png",
+      "filename" : "icons8-puzzle-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "icons8-heart-2.png",
+      "filename" : "icons8-puzzle-3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

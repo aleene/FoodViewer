@@ -36,7 +36,16 @@ Configure the class SelectPairViewController in one go. All possible input param
     func configure(question: RobotoffQuestion?,
                    image: ProductImageSize?) {
         self.question = question
-        self.image = image
+        if image == nil {
+            if let validUrlString = question?.url {
+                self.imageSet = ProductImageSize()
+                self.imageSet?.original = ProductImageData(url: URL(string: validUrlString))
+            } else {
+                self.imageSet = nil
+            }
+        } else {
+            self.imageSet = image
+        }
     }
 
 // MARK: - Storyboard elements
@@ -106,10 +115,11 @@ Configure the class SelectPairViewController in one go. All possible input param
     private var question: RobotoffQuestion? {
         didSet {
             questionLabel?.text = question?.question
+            typeLabel?.text = question?.value
         }
     }
     
-    private var image: ProductImageSize? {
+    private var imageSet: ProductImageSize? {
         didSet {
             setImage()
         }
@@ -117,34 +127,43 @@ Configure the class SelectPairViewController in one go. All possible input param
 
     private func setImage() {
         var imageToDisplay: UIImage? = nil
-        if let result = image?.largest?.fetch() {
+        if let result = imageSet?.largestOrThumb {
             switch result {
             case .success(let image):
                 imageToDisplay = image
-                case .loading:
-                    imageToDisplay = UIImage.init(named:"Loading")
-                default:
-                    break
-                }
-            } else {
-                 imageToDisplay = UIImage.init(named:"NotOK")
+            // in the other case I should show a loading or impossible image
+            case .loading:
+                imageToDisplay = UIImage.init(named:"Loading")
+            default:
+                break
             }
-            robotoffImageView?.image = imageToDisplay
-        if let validSize = imageToDisplay? .size {
-            robotoffImageView?.frame.size = validSize
+        } else {
+             imageToDisplay = UIImage.init(named:"NotOK")
         }
-        if let validSize = scrollView?.frame.size {
-            updateConstraints(for: validSize)
+        
+        robotoffImageView?.image = imageToDisplay
+        
+        if let validSize = imageToDisplay?.size {
+            scrollView?.contentSize = validSize
+        }
+        if let validSize = scrollView?.bounds.size {
+            updateMinZoomScale(for: validSize)
         }
     }
     
-    func updateMinZoomScaleForSize(_ size: CGSize) {
-      let widthScale = size.width / robotoffImageView.bounds.width
-      let heightScale = size.height / robotoffImageView.bounds.height
+    func updateMinZoomScale(for scrollViewSize: CGSize) {
+      guard robotoffImageView != nil else { return }
+      //print("Zoom ", robotoffImageView!.frame, scrollViewSize)
+      guard robotoffImageView!.bounds.width > .zero &&
+          robotoffImageView!.bounds.height > .zero else { return }
+
+      let widthScale = scrollViewSize.width / robotoffImageView!.bounds.width
+      let heightScale = scrollViewSize.height / robotoffImageView!.bounds.height
       let minScale = min(widthScale, heightScale)
-        
+      
       scrollView.minimumZoomScale = minScale
       scrollView.zoomScale = minScale
+      updateConstraints(for: scrollViewSize)
     }
 
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
@@ -153,28 +172,29 @@ Configure the class SelectPairViewController in one go. All possible input param
     
     // https://www.raywenderlich.com/5758454-uiscrollview-tutorial-getting-started
     //2
-    func updateConstraints(for size: CGSize) {
-      //3
-      let yOffset = max(0, (size.height - robotoffImageView.frame.height) / 2)
+    func updateConstraints(for scrollViewSize: CGSize) {
+      guard robotoffImageView != nil else { return }
+      
+      let yOffset = max(0, (scrollViewSize.height - robotoffImageView!.frame.height) / 2)
       imageViewTopConstraint.constant = yOffset
       imageViewBottomConstraint.constant = yOffset
       
       //4
-      let xOffset = max(0, (size.width - robotoffImageView.frame.width) / 2)
+      let xOffset = max(0, (scrollViewSize.width - robotoffImageView!.frame.width) / 2)
       imageViewLeadingConstraint.constant = xOffset
       imageViewTrailingConstraint.constant = xOffset
-        
+      //print("Constraints ", robotoffImageView!.frame, scrollViewSize, xOffset, yOffset)
+
       view.layoutIfNeeded()
     }
 
     override func viewWillLayoutSubviews() {
       super.viewWillLayoutSubviews()
-      updateMinZoomScaleForSize(view.bounds.size)
+        updateMinZoomScale(for: scrollView.bounds.size)
     }
 // MARK: - Notification handler
 //
     @objc func imageUpdated(_ notification: Notification) {
-        //let userInfo = (notification as NSNotification).userInfo
         setImage()
     }
 
@@ -187,6 +207,7 @@ Configure the class SelectPairViewController in one go. All possible input param
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // Informs the viewController that an image has been received.
         NotificationCenter.default.addObserver(self, selector:#selector(RobotoffQuestionViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
 
     }

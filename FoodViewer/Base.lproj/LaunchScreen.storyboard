@@ -106,6 +106,44 @@
             </objects>
             <point key="canvasLocation" x="-562" y="1819"/>
         </scene>
+        <!--Game-->
+        <scene sceneID="l4J-h4-kJ0">
+            <objects>
+                <viewController id="nqN-mB-W6o" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zNS-Xp-KL8"/>
+                        <viewControllerLayoutGuide type="bottom" id="3hE-Kw-qte"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pp1-LG-eB8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Game" image="Game" selectedImage="Game" id="szq-J1-leR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k8C-At-WvS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-562" y="2480"/>
+        </scene>
+        <!--Preferences-->
+        <scene sceneID="ozr-4m-QmV">
+            <objects>
+                <viewController id="8wH-mj-Gb0" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="72V-gf-NX3"/>
+                        <viewControllerLayoutGuide type="bottom" id="E1I-bV-okD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8oa-2S-D5G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Preferences" image="Preferences" selectedImage="Preferences" id="Uqq-0f-VGW"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yi6-Nv-p2n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-562" y="3153"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="IDo-vr-M3F">
             <objects>
@@ -139,6 +177,8 @@
                         <segue destination="Hf3-p6-NcW" kind="relationship" relationship="viewControllers" id="qhr-7F-a2i"/>
                         <segue destination="kFb-JX-pcc" kind="relationship" relationship="viewControllers" id="U9t-EX-AKo"/>
                         <segue destination="IQb-Tb-cBe" kind="relationship" relationship="viewControllers" id="XAc-NT-k9m"/>
+                        <segue destination="nqN-mB-W6o" kind="relationship" relationship="viewControllers" id="DgG-SG-3kQ"/>
+                        <segue destination="8wH-mj-Gb0" kind="relationship" relationship="viewControllers" id="fxU-qk-FxN"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sqa-gh-Jh6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -148,7 +188,9 @@
     </scenes>
     <resources>
         <image name="Barcode Scanner" width="25" height="25"/>
+        <image name="Game" width="25" height="25"/>
         <image name="OFFlogo" width="300" height="209"/>
+        <image name="Preferences" width="25" height="25"/>
         <image name="Search" width="25" height="25"/>
         <image name="User" width="25" height="25"/>
     </resources>

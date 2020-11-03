@@ -46,9 +46,3 @@ class ImageDeselect: OFFImageDeselectAPI {
 
     }
 }
-
-// Definition:
-extension Notification.Name {
-    static let OFFUpdateImageDeleteSuccess = Notification.Name("OFFUpdate.Notification.ImageDeleteSuccess")
-}
-

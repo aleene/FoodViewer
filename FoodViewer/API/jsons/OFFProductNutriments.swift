@@ -67,7 +67,15 @@ class OFFProductNutriments: Codable {
                             let name = try container.decode(Float.self, forKey: key)
                             nutrimentsFound[nutriment]?.base = "\(name)"
                         } catch {
-                            print("\(nutriment) not convertable")
+                            do {
+                                if nutrimentsFound[nutriment] == nil {
+                                    nutrimentsFound[nutriment] = OFFProductNutrimentValues()
+                                }
+                                let name = try container.decode(Int.self, forKey: key)
+                                nutrimentsFound[nutriment]?.base = "\(name)"
+                            } catch {
+                                print("OFFProductNutriments: \(nutriment) not convertable")
+                            }
                         }
                     }
                     break

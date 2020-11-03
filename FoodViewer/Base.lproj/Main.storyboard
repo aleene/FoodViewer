@@ -1893,6 +1893,61 @@
             </objects>
             <point key="canvasLocation" x="3218" y="179"/>
         </scene>
+        <!--Game View Controller-->
+        <scene sceneID="V9u-Yu-Q39">
+            <objects>
+                <viewController id="kJj-FO-fgH" customClass="GameViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JgW-Ff-IP8"/>
+                        <viewControllerLayoutGuide type="bottom" id="85X-1W-LtG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VFo-HN-FtU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NdK-s5-24Z">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCC-74-pdb">
+                                <rect key="frame" x="139" y="274" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dls-Pa-LFL">
+                                <rect key="frame" x="8" y="481" width="304" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="startButtonTapped:" destination="kJj-FO-fgH" eventType="touchUpInside" id="OD8-dF-bVi"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="NdK-s5-24Z" secondAttribute="trailing" id="277-vj-DgY"/>
+                            <constraint firstItem="SCC-74-pdb" firstAttribute="centerX" secondItem="VFo-HN-FtU" secondAttribute="centerX" id="Hi8-5L-KdY"/>
+                            <constraint firstItem="Dls-Pa-LFL" firstAttribute="centerX" secondItem="VFo-HN-FtU" secondAttribute="centerX" id="JSY-fx-lyj"/>
+                            <constraint firstItem="Dls-Pa-LFL" firstAttribute="trailing" secondItem="VFo-HN-FtU" secondAttribute="trailingMargin" constant="8" id="Lbo-mt-Nz3"/>
+                            <constraint firstItem="SCC-74-pdb" firstAttribute="centerY" secondItem="VFo-HN-FtU" secondAttribute="centerY" id="R2Q-0C-1WK"/>
+                            <constraint firstItem="85X-1W-LtG" firstAttribute="top" secondItem="Dls-Pa-LFL" secondAttribute="bottom" constant="8" id="VC2-f0-duW"/>
+                            <constraint firstItem="Dls-Pa-LFL" firstAttribute="leading" secondItem="VFo-HN-FtU" secondAttribute="leading" constant="8" id="WVT-GK-3dR"/>
+                            <constraint firstItem="85X-1W-LtG" firstAttribute="top" secondItem="NdK-s5-24Z" secondAttribute="bottom" id="X0t-5Z-08W"/>
+                            <constraint firstItem="NdK-s5-24Z" firstAttribute="leading" secondItem="VFo-HN-FtU" secondAttribute="leading" id="dJm-5H-fau"/>
+                            <constraint firstItem="NdK-s5-24Z" firstAttribute="top" secondItem="JgW-Ff-IP8" secondAttribute="bottom" id="prD-z1-J4r"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="Game" selectedImage="Game" id="EJY-Ds-T0J"/>
+                    <connections>
+                        <outlet property="containerView" destination="NdK-s5-24Z" id="CuY-3H-rmI"/>
+                        <outlet property="explanationLabel" destination="SCC-74-pdb" id="YMW-5d-JZu"/>
+                        <outlet property="startButton" destination="Dls-Pa-LFL" id="7B3-3W-Hra"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KRI-QT-L9d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1788.75" y="-4422.8873239436616"/>
+        </scene>
         <!--Split View Controller-->
         <scene sceneID="ehe-4M-pkI">
             <objects>
@@ -5662,8 +5717,9 @@
                         <segue destination="Mt9-fg-Ddf" kind="relationship" relationship="viewControllers" id="cgx-80-Om4"/>
                         <segue destination="a8d-2e-7z8" kind="relationship" relationship="viewControllers" id="b5A-3O-1at"/>
                         <segue destination="mEm-W8-Lla" kind="relationship" relationship="viewControllers" id="DF3-54-cdy"/>
-                        <segue destination="sAK-Zs-gzL" kind="relationship" relationship="viewControllers" id="MkP-13-7qC"/>
                         <segue destination="kb2-eR-Hkr" kind="relationship" relationship="viewControllers" id="YQN-U3-STm"/>
+                        <segue destination="kJj-FO-fgH" kind="relationship" relationship="viewControllers" id="liM-fI-0HU"/>
+                        <segue destination="sAK-Zs-gzL" kind="relationship" relationship="viewControllers" id="MkP-13-7qC"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W3W-yb-fJZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -6091,6 +6147,7 @@
         <image name="Clear" width="25" height="25"/>
         <image name="DownToOpen" width="25" height="25"/>
         <image name="Edit" width="25" height="25"/>
+        <image name="Game" width="25" height="25"/>
         <image name="Heart" width="25" height="25"/>
         <image name="NotOK" width="25" height="25"/>
         <image name="Preferences" width="25" height="25"/>

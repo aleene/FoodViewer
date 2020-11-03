@@ -184,13 +184,18 @@ class OpenFoodFactsRequest {
             return
         }
     }
-
-    func fetchRobotoffQuestionsJson(for barcode: BarcodeType, in interfaceLanguageCode: String, completion: @escaping (OFFRobotoffQuestionFetchStatus) -> ()) {
+    
+    /// gets a single random robotoff question
+    func fetchRandomRobotoffQuestionsJson(in interfaceLanguageCode: String, count: Int?, completion: @escaping (OFFRobotoffQuestionFetchStatus) -> ()) {
+        fetchRobotoffQuestionsJson(for: nil, in: interfaceLanguageCode, count: count, completion: completion)
+    }
+    
+    func fetchRobotoffQuestionsJson(for barcode: BarcodeType?, in interfaceLanguageCode: String, count: Int?, completion: @escaping (OFFRobotoffQuestionFetchStatus) -> ()) {
         self.currentBarcode = barcode
         DispatchQueue.main.async(execute: { () -> Void in
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         })
-        let fetchUrl = URL(string: OFF.fetchQuestionsString(for: barcode, with: currentProductType, languageCode: interfaceLanguageCode) )
+        let fetchUrl = URL(string: OFF.fetchQuestionsString(for: barcode, with: currentProductType, languageCode: interfaceLanguageCode, count: nil) )
         if debug { print("OpenFoodFactsRequest:fetchRobotoffQuestionsJson(_:_) - \(String(describing: fetchUrl))") }
         if let validURL = fetchUrl {
             let cache = Shared.dataCache
@@ -207,12 +212,12 @@ class OpenFoodFactsRequest {
                         completion(.success(newQuestions))
                     } else {
                         if questionsJson.status == "not found" {
-                            completion(.questionNotAvailable(barcode.asString))
+                            completion(.questionNotAvailable(barcode?.asString ?? ""))
                         }
                     }
                 } catch let error {
                     print(error)
-                    completion(.failed(barcode.asString))
+                    completion(.failed(barcode?.asString ?? ""))
                 }
                 DispatchQueue.main.async(execute: { () -> Void in
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -220,7 +225,7 @@ class OpenFoodFactsRequest {
                 return
             }
             cache.fetch(URL: validURL).onFailure { error in
-                completion(.failed(barcode.asString))
+                completion(.failed(barcode?.asString ?? ""))
             }
         } else {
             completion(.failed(self.currentBarcode!.asString))

@@ -32,7 +32,7 @@ class RobotoffUpdate: OFFRobotoffAnswerAPI {
                             return completion(.failure(error))
                     } else {
                         let error = NSError.init(domain: "FoodViewer",
-                                                 code: 13,
+                                                 code: 14,
                                                  userInfo:["Class": "RobotoffUpdate",
                                                            "Function": "update(question: RobotoffQuestion, completion: @escaping (ResultType<OFFRobotoffUploadResultJson>) -> () )",
                                                            "Reason": "Unrecognized status_code received"])
@@ -40,7 +40,7 @@ class RobotoffUpdate: OFFRobotoffAnswerAPI {
                     }
                 }
                 let error = NSError.init(domain: "FoodViewer",
-                                         code: 13,
+                                         code: 15,
                                          userInfo:["Class": "RobotoffUpdate",
                                                    "Function": "update(question: RobotoffQuestion, completion: @escaping (ResultType<OFFRobotoffUploadResultJson>) -> () )",
                                                    "Reason": "no valid status_code received"])

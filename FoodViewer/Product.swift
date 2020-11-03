@@ -1078,7 +1078,7 @@ class FoodProduct {
     
     private func fetchRobotoffQuestions() {
         let request = OpenFoodFactsRequest()
-        request.fetchRobotoffQuestionsJson(for: self.barcode, in: Locale.interfaceLanguageCode) { (completion: OFFRobotoffQuestionFetchStatus) in
+        request.fetchRobotoffQuestionsJson(for: self.barcode, in: Locale.interfaceLanguageCode, count: nil) { (completion: OFFRobotoffQuestionFetchStatus) in
             let fetchResult = completion
             switch fetchResult {
             case .success(let questions):
