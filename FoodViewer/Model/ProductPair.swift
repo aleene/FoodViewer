@@ -857,43 +857,66 @@ class ProductPair {
             }
     }
     
-    func update(fact: NutritionFactItem?) {
-        if let validFact = fact {
-            initLocalProduct()
-            localProduct?.nutritionFactsDict[validFact.key] = validFact
-            // if nutritionFacts specified indicate as available
-            localProduct?.hasNutritionFacts = true
-        }
+    func add(fact: NutritionFactItem?) {
+        guard let validFact = fact  else { return }
+        initLocalProduct()
+        localProduct?.nutritionFactsDict[validFact.key] = validFact
+        // if nutritionFacts specified indicate as available
+        localProduct?.hasNutritionFacts = true
+    }
+
+    func update(fact: NutritionFactItem?, perUnit: NutritionEntryUnit) {
+        guard let validFact = fact  else { return }
+        initLocalProduct()
+        localProduct?.nutritionFactsDict[validFact.key] = validFact
+        // if nutritionFacts specified indicate as available
+        localProduct?.hasNutritionFacts = true
+        localProduct?.nutritionFactsIndicationUnit = perUnit
     }
     
-    func update(nutrient: Nutrient?, unit: NutritionFactUnit?) {
+/**
+Update the nutrient unit of a nutrient. If  the nutrient already exists remotely, the corresponding values will be copied.
+
+- Parameters:
+    - nutrient: the nutrient to be changed
+    - unit: the new unit to be used (kJ, Cal, milligram, etc)
+    - perUnit: the per (serving/100g)
+*/
+    func update(nutrient: Nutrient?, unit: NutritionFactUnit?, perUnit: NutritionEntryUnit) {
         guard let validNutrient = nutrient else { return }
-        guard let validUnit = unit else { return }
+        guard let validUnitEdited = unit else { return }
         // has this nutrient already been edited?
         if  localProduct?.nutritionFactsDict[validNutrient.key] != nil {
-            localProduct!.nutritionFactsDict[validNutrient.key]!.valueUnit = validUnit
-        // is this an existing nutrient?
+            localProduct!.nutritionFactsDict[validNutrient.key]!.valueUnitEdited = validUnitEdited
+        // is this an remotely existing nutrient?
         } else if remoteProduct?.nutritionFactsDict[validNutrient.key] != nil {
             // create a local version if needed
             initLocalProduct()
             // copy only the values as this are the edited data
             localProduct?.nutritionFactsDict[validNutrient.key] = NutritionFactItem()
-            localProduct?.nutritionFactsDict[validNutrient.key]?.value =
-                remoteProduct?.nutritionFactsDict[validNutrient.key]?.value
+            switch perUnit {
+            case .perStandardUnit:
+                localProduct?.nutritionFactsDict[validNutrient.key]?.valueEdited =
+                    remoteProduct?.nutritionFactsDict[validNutrient.key]?.standard
+            case .perServing:
+                localProduct?.nutritionFactsDict[validNutrient.key]?.valueEdited =
+                    remoteProduct?.nutritionFactsDict[validNutrient.key]?.serving
+            }
             localProduct?.nutritionFactsDict[validNutrient.key]?.itemName =
                 remoteProduct?.nutritionFactsDict[validNutrient.key]?.itemName
             localProduct?.nutritionFactsDict[validNutrient.key]?.nutrient =
                 validNutrient
             // set the new unit
-            localProduct?.nutritionFactsDict[validNutrient.key]?.valueUnit = validUnit
-        // This is a new nutrient
+            localProduct?.nutritionFactsDict[validNutrient.key]?.valueUnitEdited = validUnitEdited
+        // This nutrient does not exist remotely or locally
         } else {
             // create a local version if needed
             initLocalProduct()
             // set the new unit
-            localProduct!.nutritionFactsDict[validNutrient.key]!.valueUnit = validUnit
+            localProduct!.nutritionFactsDict[validNutrient.key]!.valueUnitEdited = validUnitEdited
         }
         sendLocalStatusChangeNotification()
+        localProduct?.nutritionFactsIndicationUnit = perUnit
     }
     
     func update(facts: [String:NutritionFactItem]) {

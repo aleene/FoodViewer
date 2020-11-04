@@ -1538,33 +1538,13 @@ class FoodProduct {
                 nutritionItem.standardUnit = OFFplists.manager.unit(for: nutrient)
             }
             
-            if let unit = nutritionItem.standardUnit {
-                switch unit {
-                case .Gram: // requires normalization
-                    // per100g has already been transformed by OFF to gram
-                    var (value, unit) = NutritionFactUnit.normalize(validValues.per100g)
-                    nutritionItem.standard = value
-                    nutritionItem.standardUnit = unit
-
-                    // This is the value AND unit as entered by the user
-                    (value, unit) = NutritionFactUnit.normalize(validValues.value)
-                    nutritionItem.value = value
-                    if let validUnit = validValues.unit {
-                        nutritionItem.valueUnit = NutritionFactUnit(validUnit)
-                    }
-
-                    (value, unit) = NutritionFactUnit.normalize(validValues.serving)
-                    nutritionItem.serving = value
-                default: // does not require normalization
-                    nutritionItem.standard = validValues.per100g
-                    nutritionItem.serving = validValues.serving
-                    nutritionItem.value = validValues.value
-                }
-                nutritionItem.serving = validValues.value
-            }
+            nutritionItem.standard = validValues.per100g
+            nutritionItem.value = validValues.value
+            nutritionItem.serving = validValues.serving
             
             // only add a fact if it has valid values
-            if nutritionItem.standard != nil || nutritionItem.serving != nil {
+            if nutritionItem.standard != nil
+                || nutritionItem.serving != nil {
                 return nutritionItem
             }
             return nil

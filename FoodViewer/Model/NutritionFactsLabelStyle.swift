@@ -70,6 +70,7 @@ enum NutritionFactsLabelStyle {
             return [.energy, .proteins, .fat, .carbohydrates, .fiber, .sodium]
         case .northAmerica:
             return [.energy, .fat, .saturatedFat, .transFat, .cholesterol, .sodium, .carbohydrates, .fiber, .sugars, .proteins, .vitaminA, .vitaminC, .calcium, .iron]
+        // This sets the new US style nutrition table
         case .unitedStates:
             return [.energy, .fat, .saturatedFat, .transFat, .cholesterol, .sodium, .carbohydrates, .fiber, .sugars,
                     .addedSugars, .proteins, .vitaminD, .calcium, .iron, .potassium]

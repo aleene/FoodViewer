@@ -40,7 +40,7 @@ enum NutritionDisplayMode {
         }
     }
     
-    var index: Int {
+    public var index: Int {
         switch self {
         case .perServing: return 0
         case .perStandard: return 1
@@ -49,12 +49,21 @@ enum NutritionDisplayMode {
         }
     }
     
-    var key: String {
+    public var key: String {
         switch self {
         case .perServing: return "per serving"
         case .perStandard: return "per standard unit"
         case .perThousandGram: return "per 1000 gram"
         case .perDailyValue: return "per daily value"
+        }
+    }
+    
+    public var nutritionEntryUnit: NutritionEntryUnit {
+        switch self {
+        case .perServing: return .perServing
+        case .perStandard: return .perStandardUnit
+        case .perThousandGram: return .perStandardUnit
+        case .perDailyValue: return .perStandardUnit
         }
     }
 }

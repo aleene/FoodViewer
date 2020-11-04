@@ -35,7 +35,8 @@ final class NutrientsCoordinator: Coordinator {
     }
 
     weak private var productPair: ProductPair? = nil
-
+    private var perUnit: NutritionEntryUnit = .perStandardUnit
+    
     // Show the image with the current display language
     // The coordinator does the right image selection
     func showImage(imageTitle: String?, imageSize: ProductImageSize?) {
@@ -44,8 +45,9 @@ final class NutrientsCoordinator: Coordinator {
         coordinator.show()
     }
 
-    func showNutrientUnitSelector(for productPair: ProductPair?, nutrient: Nutrient?, unit: NutritionFactUnit?, anchoredOn button:UIButton) {
+    func showNutrientUnitSelector(for productPair: ProductPair?, nutrient: Nutrient?, unit: NutritionFactUnit?, perUnit: NutritionEntryUnit, anchoredOn button: UIButton) {
         self.productPair = productPair
+        self.perUnit = perUnit
         let coordinator = NutrientUnitSelectorCoordinator(with: self, nutrient: nutrient, unit: unit, button: button)
         childCoordinators.append(coordinator)
         coordinator.show()
@@ -119,7 +121,7 @@ extension NutrientsCoordinator: SelectNutritionFactsTableStyleCoordinatorProtoco
 extension NutrientsCoordinator: SelectNutrientCoordinatorProtocol {
     
     func selectNutrientUnitViewController(_ sender: SelectNutrientUnitViewController, nutrient: Nutrient?, unit: NutritionFactUnit?) {
-        productPair?.update(nutrient:nutrient, unit:unit)
+        productPair?.update(nutrient: nutrient, unit: unit, perUnit: perUnit)
         sender.dismiss(animated: true, completion: nil)
     }
 
@@ -133,12 +135,7 @@ extension NutrientsCoordinator : AddNutrientCoordinatorProtocol {
     
     func addNutrientViewController(_ sender:AddNutrientViewController, add nutrientTuple:(Nutrient, String, NutritionFactUnit)?) {
         if let newNutrientTuple = nutrientTuple {
-            //var newNutrient = NutritionFactItem()
-            //newNutrient.nutrient = newNutrientTuple.0
-            // is it necessary to add the unit?
-            //newNutrient.itemName = newNutrientTuple.1
-            //newNutrient.valueUnit = newNutrientTuple.2
-            productPair?.update(fact: NutritionFactItem.init(nutrient: newNutrientTuple.0, unit: newNutrientTuple.2))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: newNutrientTuple.0, unit: newNutrientTuple.2))
         }
         coordinatorViewController?.refreshProduct()
         sender.dismiss(animated: true, completion: nil)

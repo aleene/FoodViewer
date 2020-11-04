@@ -9,11 +9,12 @@
 
 import Foundation
 
-// this enum describes how the user entered the nutrition data
-
+/// This enum describes how the user entered the nutrition data
 public enum NutritionEntryUnit {
     
+    /// Nutritional values for nutrients are entered per serving
     case perServing
+    /// Nutritional values for nutrients are entered per 100g or 100ml
     case perStandardUnit
     
     func description() -> String {

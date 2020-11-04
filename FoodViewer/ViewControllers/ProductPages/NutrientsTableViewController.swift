@@ -224,25 +224,25 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         // The values as processed by OFF are used
         switch currentNutritionQuantityDisplayMode {
         case .perStandard:
-            if let validValue = fact.standard, !validValue.isEmpty {
+            // Show in editMode the edited value if there is one,
+            // Otherwise show the standard value
+            if editMode,
+                let validValue = fact.valueEdited {
+                displayFact.value = validValue
+                displayFact.unit = fact.valueUnitEdited
+            // Show the values as derived by OFF
+            } else if let validValue = fact.standard,
+                !validValue.isEmpty {
                 displayFact.value = validValue
                 displayFact.unit = fact.standardUnit
-            } else if let validValue = fact.value {
-                displayFact.value = validValue
-                displayFact.unit = fact.valueUnit
             } else {
+                // Show the values entered by the user as provided by OFF
                 displayFact.value = fact.localeStandardValue(editMode: editMode)
-                // Do not remember why we had this code
-                //switch fact.nutrient {
-                //case .fat, .proteins, .fiber:
-                //    displayFact.unit = .Percent
-                //default:
-                //    displayFact.unit = .Gram
-                //}
                 displayFact.unit = fact.standardUnit
             }
         case .perThousandGram:
-            if let validValue = fact.standard, !validValue.isEmpty {
+            if let validValue = fact.standard,
+                !validValue.isEmpty {
                 displayFact.value = validValue
             } else if let validValue = fact.value {
                 displayFact.value = validValue
@@ -256,11 +256,26 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 displayFact.unit = .Gram
             }
         case .perServing:
-            displayFact.value = fact.serving != nil ? fact.localeServingValue(editMode: editMode) : ""
-            displayFact.unit = fact.valueUnit ?? fact.standardUnit
+            if editMode,
+                let validValue = fact.valueEdited {
+                displayFact.value = validValue
+                displayFact.unit = fact.valueUnitEdited
+                // Show the values as derived by OFF
+            } else if let validValue = fact.serving {
+                displayFact.value =  validValue
+                displayFact.unit = fact.standardUnit
+            }
         case .perDailyValue:
             displayFact.value = fact.dailyFractionPerServing != nil ? fact.localeDailyValue : ""
             displayFact.unit = NutritionFactUnit.None // The numberformatter already provides a % sign
+        }
+        // convert values to easier readable units
+        switch displayFact.unit {
+        case .Gram:
+            let (value, unit) = NutritionFactUnit.normalize(displayFact.value)
+            displayFact.value = value
+            displayFact.unit = unit
+        default: break
         }
         displayFact.nutrient = fact.nutrient
         return displayFact
@@ -272,8 +287,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         switch productVersion {
         case .remote:
             adaptedNutritionFacts = adaptNutritionFacts(productPair?.remoteProduct?.nutritionFactsDict ?? [:])
-        //case .local:
-        //    adaptedNutritionFacts = adaptNutritionFacts(productPair?.localProduct?.nutritionFactsDict ?? [:])
         case .new:
             // merge the two dictionaries, the local version wins!
             let facts = productPair?.remoteProduct?.nutritionFactsDict.merging(productPair?.localProduct?.nutritionFactsDict ?? [:]) { (_, new) in new }
@@ -861,31 +874,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         return productPair?.hasNutritionFacts ?? true
     }
 
-    public func setNutritionFactUnit(for row:Int?, with nutritionFactUnit:NutritionFactUnit?) {
+    public func setNutritionFactUnit(for row: Int?, with nutritionFactUnit:NutritionFactUnit?) {
         if let nutrientRow = row {
-            if productPair!.remoteProduct != nil {
-                // copy the existing nutrient and change the unit
-                var editedNutritionFact = NutritionFactItem()
-                editedNutritionFact.nutrient = adaptedNutritionFacts[nutrientRow].nutrient
-                editedNutritionFact.itemName = adaptedNutritionFacts[nutrientRow].name
-                // this value has been changed
-                switch currentNutritionQuantityDisplayMode {
-                case .perServing:
-                    editedNutritionFact.standardUnit = nutritionFactUnit
-                    editedNutritionFact.serving = adaptedNutritionFacts[nutrientRow].value
-                case .perStandard:
-                    editedNutritionFact.standardUnit = nutritionFactUnit
-                    editedNutritionFact.standard = adaptedNutritionFacts[nutrientRow].value
-                default:
-                    break
-                }
-                productPair?.update(fact: editedNutritionFact)
-                refreshProduct()
-            }
+            productPair?.update(nutrient: adaptedNutritionFacts[nutrientRow].nutrient, unit: nutritionFactUnit, perUnit: currentNutritionQuantityDisplayMode.nutritionEntryUnit)
+            refreshProduct()
         }
     }
     
-    public func setNutritionFactsTableStyle(to nutritionFactsTableStyle:NutritionFactsLabelStyle?) {
+    public func setNutritionFactsTableStyle(to nutritionFactsTableStyle: NutritionFactsLabelStyle?) {
         // The user decided to not follow the global preferences
         currentTableStyleSetter = .user
         if let validSelectedNutritionFactsTableStyle = nutritionFactsTableStyle {
@@ -902,7 +898,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if editMode {
                 for nutrient in validSelectedNutritionFactsTableStyle.mandatoryNutrients {
                     if !productPair!.remoteProduct!.nutritionFactsContain(nutrient) {
-                        productPair?.update(fact: NutritionFactItem.init(nutrient: nutrient, unit: nutrient.unit(for:validSelectedNutritionFactsTableStyle)))
+                        productPair?.add(fact: NutritionFactItem.init(nutrient: nutrient, unit: nutrient.unit(for:validSelectedNutritionFactsTableStyle)))
                     }
                 }
             }
@@ -1157,6 +1153,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
 }
 
+// MARK: - NutrientsCellDelegate functions
+
 extension NutrientsTableViewController: NutrientsCellDelegate {
 
     func nutrientsTableViewCell(_ sender: NutrientsTableViewCell, receivedTapOn button:UIButton) {
@@ -1177,7 +1175,7 @@ extension NutrientsTableViewController: NutrientsCellDelegate {
     }
     /// The NutrientsTableViewCell unit button has been tapped. The coordinator should handle this event.
     func nutrientsTableViewCellUnit(_ sender: NutrientsTableViewCell, nutrient: Nutrient?, unit: NutritionFactUnit?, receivedTapOn button: UIButton) {
-        coordinator?.showNutrientUnitSelector(for: self.productPair, nutrient: nutrient, unit: unit, anchoredOn: button)
+        coordinator?.showNutrientUnitSelector(for: self.productPair, nutrient: nutrient, unit: unit, perUnit: currentNutritionQuantityDisplayMode.nutritionEntryUnit, anchoredOn: button)
     }
 
 }
@@ -1196,39 +1194,39 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         
         // Energy
         if !productPair!.remoteProduct!.nutritionFactsContain(.energy) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .energy, unit: .Joule))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .energy, unit: .Joule))
         }
         // Energy kcal
         if !productPair!.remoteProduct!.nutritionFactsContain(.energyKcal) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .energyKcal, unit: .KiloCalories))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .energyKcal, unit: .KiloCalories))
         }
         // Fat
         if !productPair!.remoteProduct!.nutritionFactsContain(.fat) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .fat, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .fat, unit: .Gram))
         }
         // Saturated Fat
         if !productPair!.remoteProduct!.nutritionFactsContain(.saturatedFat) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .saturatedFat, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .saturatedFat, unit: .Gram))
         }
         // Carbohydrates
         if !productPair!.remoteProduct!.nutritionFactsContain(.carbohydrates) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .carbohydrates, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .carbohydrates, unit: .Gram))
         }
         // Sugars
         if !productPair!.remoteProduct!.nutritionFactsContain(.sugars) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .sugars, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .sugars, unit: .Gram))
         }
         // Fibers
         if !productPair!.remoteProduct!.nutritionFactsContain(.fiber) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .fiber, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .fiber, unit: .Gram))
         }
         // Proteins
         if !productPair!.remoteProduct!.nutritionFactsContain(.proteins) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .proteins, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .proteins, unit: .Gram))
         }
         // Salt
         if !productPair!.remoteProduct!.nutritionFactsContain(.salt) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .salt, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .salt, unit: .Gram))
         }
         refreshProduct()
     }
@@ -1243,80 +1241,80 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         
         // Energy
         if !productPair!.remoteProduct!.nutritionFactsContain(.energy) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .energy, unit: .Calories))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .energy, unit: .Calories))
         }
         // Energy from Fat Old Label
         if !productPair!.remoteProduct!.nutritionFactsContain(.energyFromFat) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .energyFromFat, unit: .Calories))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .energyFromFat, unit: .Calories))
         }
 
         // Fat
         if !productPair!.remoteProduct!.nutritionFactsContain(.fat) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .fat, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .fat, unit: .Gram))
         }
         // Saturated Fat
         if !productPair!.remoteProduct!.nutritionFactsContain(.saturatedFat) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .saturatedFat, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .saturatedFat, unit: .Gram))
         }
         // Trans Fat
         if !productPair!.remoteProduct!.nutritionFactsContain(.transFat) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .transFat, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .transFat, unit: .Gram))
         }
 
         // Cholesterol
         if !productPair!.remoteProduct!.nutritionFactsContain(.cholesterol) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .cholesterol, unit: .Milligram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .cholesterol, unit: .Milligram))
         }
         // Sodium
         if !productPair!.remoteProduct!.nutritionFactsContain(.sodium) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .sodium, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .sodium, unit: .Gram))
         }
         // Total Carbohydrates
         if !productPair!.remoteProduct!.nutritionFactsContain(.carbohydrates) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .carbohydrates, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .carbohydrates, unit: .Gram))
         }
         // Dietary Fiber
         if !productPair!.remoteProduct!.nutritionFactsContain(.fiber) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .fiber, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .fiber, unit: .Gram))
         }
 
         // Sugars
         if !productPair!.remoteProduct!.nutritionFactsContain(.sugars) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .sugars, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .sugars, unit: .Gram))
         }
         // Added Sugars New Label
         if !productPair!.remoteProduct!.nutritionFactsContain(.addedSugars) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .addedSugars, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .addedSugars, unit: .Gram))
         }
 
         // Proteins
         if !productPair!.remoteProduct!.nutritionFactsContain(.proteins) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .proteins, unit: .Gram))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .proteins, unit: .Gram))
         }
         // Vitamin A New Label
         if !productPair!.remoteProduct!.nutritionFactsContain(.vitaminA) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .vitaminA, unit: .Percent))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .vitaminA, unit: .Percent))
         }
         // Vitamin C Old Label
         if !productPair!.remoteProduct!.nutritionFactsContain(.vitaminC) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .vitaminC, unit: .Percent))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .vitaminC, unit: .Milligram))
         }
         // Vitamin D New Label
         if !productPair!.remoteProduct!.nutritionFactsContain(.vitaminD) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .vitaminD, unit: .Percent))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .vitaminD, unit: .Milligram))
         }
 
         // Calcium
         if !productPair!.remoteProduct!.nutritionFactsContain(.calcium) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .calcium, unit: .Percent))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .calcium, unit: .Milligram))
         }
         // Iron Old Label
         if !productPair!.remoteProduct!.nutritionFactsContain(.iron) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .iron, unit: .Percent))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .iron, unit: .Milligram))
         }
         // Potassium New Label
         if !productPair!.remoteProduct!.nutritionFactsContain(.potassium) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .potassium, unit: .Percent))
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .potassium, unit: .Milligram))
         }
 
         mergeNutritionFacts()
@@ -1431,31 +1429,33 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                 var editedNutritionFact = NutritionFactItem()
                 editedNutritionFact.nutrient = adaptedNutritionFacts[row].nutrient
                 editedNutritionFact.itemName = adaptedNutritionFacts[row].name
+                // Any new values will be in the current per setting
+                // And will be written as NutritionFactValue
                 if currentNutritionQuantityDisplayMode == .perStandard {
-                    editedNutritionFact.valueUnit = adaptedNutritionFacts[row].unit
+                    editedNutritionFact.valueUnitEdited = adaptedNutritionFacts[row].unit
 
                     // this value has been changed
                     if let text = textField.text {
-                        editedNutritionFact.value = String(text.map {
+                        editedNutritionFact.valueEdited = String(text.map {
                             $0 == "," ? "." : $0
                         })
                         
                     }
                 } else if currentNutritionQuantityDisplayMode == .perServing {
-                    editedNutritionFact.valueUnit = adaptedNutritionFacts[row].unit
+                    editedNutritionFact.valueUnitEdited = adaptedNutritionFacts[row].unit
 
                     // this value has been changed
                     if let text = textField.text {
-                        editedNutritionFact.serving = String(text.map {
+                        editedNutritionFact.valueEdited = String(text.map {
                             $0 == "," ? "." : $0
                         })
                     }
                 } else if currentNutritionQuantityDisplayMode == .perThousandGram {
-                    editedNutritionFact.valueUnit = adaptedNutritionFacts[row].unit
+                    editedNutritionFact.valueUnitEdited = adaptedNutritionFacts[row].unit
                     
                     // this value has been changed
                     if let validText = textField.text {
-                        editedNutritionFact.value = String(validText.map {
+                        editedNutritionFact.valueEdited = String(validText.map {
                             $0 == "," ? "." : $0
                         })
                         if let validType = type,
@@ -1466,14 +1466,15 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                                     // floatValue = floatValue / 10.0
                                     let numberFormatter = NumberFormatter()
                                     numberFormatter.numberStyle = .decimal
-                                    editedNutritionFact.value = numberFormatter.string(from: NSNumber(value: floatValue))
+                                    editedNutritionFact.valueEdited = numberFormatter.string(from: NSNumber(value: floatValue))
                                 }
                             default: break
                             }
                         }
                     }
                 }
-                productPair?.update(fact: editedNutritionFact)
+                // Warning, this might change the settings for all values
+                productPair?.update(fact: editedNutritionFact, perUnit: currentNutritionQuantityDisplayMode.nutritionEntryUnit)
                 mergeNutritionFacts()
             }
         default:

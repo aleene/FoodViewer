@@ -171,26 +171,23 @@ class ProductUpdate: OFFProductUpdateAPI {
         }
         
         if validProduct.type != nil && validProduct.type != .beauty {
+            var hasNewNutritionFacts = false
             for fact in validProduct.nutritionFactsDict {
-                if var validValue = fact.value.value {
+                if var validValue = fact.value.valueEdited {
+                    // If there is a space the user wants to delete the value
                     if validValue == " " {
                         urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal)
-                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
                     } else {
                         // The values must be converted to a standard unit
                         // this is only valid if the unit is gram
-                        if let value = fact.value.valueGramValue {
+                        if let value = fact.value.valueEditedGramValue {
                             validValue = "\(value)"
                         } // else the unit as is is used
                         urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal + validValue)
-                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
                     }
-                } else if let validValue = fact.value.serving {
-                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal + validValue)
-                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPerServing)
                 }
                         
-                if let validUnit = fact.value.valueUnit {
+                if let validUnit = fact.value.valueUnitEdited {
                     var validValueUnit = ""
                     switch validUnit {
                     case .Milligram, .Microgram:
@@ -200,13 +197,21 @@ class ProductUpdate: OFFProductUpdateAPI {
                     }
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
                     urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
-              //  } else if let validValueUnit = fact.value.valueUnit?.short() {
-               //     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
-               //     urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
                 }
                 productUpdated = true
+                hasNewNutritionFacts = true
+            }
+            if hasNewNutritionFacts {
+                switch validProduct.nutritionFactsIndicationUnit {
+                case .perStandardUnit:
+                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
+                case .perServing:
+                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPerServing)
+                default: break
+                }
             }
         }
+        
         
         switch validProduct.brandsOriginal {
         case let .available(list):

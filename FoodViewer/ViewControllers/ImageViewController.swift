@@ -192,7 +192,7 @@ final class ImageViewController: UIViewController {
     
     private func updateMinZoomScale(for scrollViewSize: CGSize) {
         guard imageView != nil else { return }
-        print("Zoom ", imageView!.frame, scrollViewSize)
+        //print("Zoom ", imageView!.frame, scrollViewSize)
         guard imageView!.bounds.width > .zero &&
             imageView!.bounds.height > .zero else { return }
 
@@ -200,7 +200,7 @@ final class ImageViewController: UIViewController {
         let heightScale = scrollViewSize.height / imageView!.bounds.height
         let minScale = min(widthScale, heightScale)
         
-        scrollView.minimumZoomScale = minScale
+        scrollView.minimumZoomScale = minScale * 0.5
         scrollView.zoomScale = minScale
         updateConstraints(for: scrollViewSize)
     }
@@ -219,7 +219,7 @@ final class ImageViewController: UIViewController {
         let xOffset = -max(0, (scrollViewSize.width - imageView!.frame.width) / 2)
         imageViewLeadingConstraint.constant = xOffset
         imageViewTrailingConstraint.constant = xOffset
-        print("Constraints ", imageView!.frame, scrollViewSize, xOffset, yOffset)
+        //print("Constraints ", imageView!.frame, scrollViewSize, xOffset, yOffset)
 
         view.layoutIfNeeded()
     }

@@ -10,23 +10,26 @@ import Foundation
 
 public struct NutritionFactItem {
     public var itemName: String? = nil
+    /// The value normalised to standard units (100 g or 100 ml)
     public var standard: String? = nil
+    /// The standard unit as used by OFF
     public var standardUnit: NutritionFactUnit? = nil
+    /// The value per serving as calculated by OFF
     public var serving: String? = nil
+    /// The value entered by the user  in FoodViewer.
+    public var valueEdited: String? = nil
+    /// The unit entered by the user  in FoodViewer
+    public var valueUnitEdited: NutritionFactUnit? = nil
+    /// The value the user originally entered provided by OFF
     public var value: String? = nil
+    /// The unit of the value  the user originally entered provided by OFF
     public var valueUnit: NutritionFactUnit? = nil
+    /// The standard value as daily fraction
     public var dailyFractionPerServing: Double? = nil
+    /// The nutrient the values and units apply to
     public var nutrient: Nutrient = .undefined
 
-    public init() {
-        itemName = nil
-        standard = nil // this is the value normalised to standard units
-        standardUnit = nil // the standard unit as used by OFF
-        valueUnit = nil // the unit of the value entered by the user
-        serving = nil // this is calculated
-        value = nil // the value entered by the user
-        nutrient = .undefined
-    }
+    public init() { }
 
     public init(name: String?, standard: String?, standardUnit: String?, value: String?, valueUnit: String?, serving: String?, nutrient: Nutrient) {
         itemName = name
@@ -93,8 +96,31 @@ public struct NutritionFactItem {
     }
     
     public var valueGramValue: Double? {
-        if let validString = standard {
+        if let validString = value {
             if let validUnit = valueUnit {
+                switch validUnit {
+                case .Milligram:
+                    if let validDouble = Double(validString) {
+                        return validDouble / 1000.0
+                    }
+                case .Microgram:
+                    if let validDouble = Double(validString) {
+                        return validDouble / 1000000.0
+                    }
+                case .Gram:
+                    return Double(validString)
+                default:
+                    break
+                }
+            }
+        }
+        return nil
+    }
+
+    /// Transforms the valued edited in FoodViewer to Gram
+    public var valueEditedGramValue: Double? {
+        if let validString = valueEdited {
+            if let validUnit = valueUnitEdited {
                 switch validUnit {
                 case .Milligram:
                     if let validDouble = Double(validString) {
