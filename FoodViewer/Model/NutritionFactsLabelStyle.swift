@@ -69,13 +69,13 @@ enum NutritionFactsLabelStyle {
         case .mexico:
             return [.energy, .proteins, .fat, .carbohydrates, .fiber, .sodium]
         case .northAmerica:
-            return [.energy, .fat, .saturatedFat, .transFat, .cholesterol, .sodium, .carbohydrates, .fiber, .sugars, .proteins, .vitaminA, .vitaminC, .calcium, .iron]
+            return [.energyKcal, .energyFromFat, .fat, .saturatedFat, .transFat, .cholesterol, .sodium, .carbohydrates, .fiber, .sugars, .proteins, .vitaminA, .vitaminC, .calcium, .iron]
         // This sets the new US style nutrition table
         case .unitedStates:
-            return [.energy, .fat, .saturatedFat, .transFat, .cholesterol, .sodium, .carbohydrates, .fiber, .sugars,
+            return [.energyKcal, .fat, .saturatedFat, .transFat, .cholesterol, .sodium, .carbohydrates, .fiber, .sugars,
                     .addedSugars, .proteins, .vitaminD, .calcium, .iron, .potassium]
         case .thailand:
-            return [.energy, .fat, .saturatedFat, .transFat, .cholesterol, .proteins, .carbohydrates, .fiber, .sugars, .sodium, .vitaminA, .vitaminB1, .vitaminB2, .calcium, .iron, .vitaminE, .iodine]
+            return [.energyKcal, .fat, .saturatedFat, .transFat, .cholesterol, .proteins, .carbohydrates, .fiber, .sugars, .sodium, .vitaminA, .vitaminB1, .vitaminB2, .calcium, .iron, .vitaminE, .iodine]
         }
     }
     
@@ -246,7 +246,7 @@ enum NutritionFactsLabelStyle {
             
         // Protein on position 2, uses Sodium
         case .australia, .china, .india, .japan, .mexico, .northAmerica, .unitedStates, .world:
-            return [.energy, .proteins, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
+            return [.energyKcal, .proteins, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
                     .transFat, .carbohydrates, .sugars,
                     .addedSugars, .fructose, .glucose, .lactose, .maltose, .maltodextrins, .polyols, .sucrose, .starch,
                     

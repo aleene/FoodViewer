@@ -15,8 +15,8 @@ class LocalizedEnergy : Energy {
         case joule
     }
     
-    static let key = "energy"
-    static let prefixKey = "en:energy"
+    static let key = Nutrient.energy.rawValue
+    static let prefixKey = "en:" + key
     
     public var baseUnit: UnitsToUse = .joule
 
@@ -34,8 +34,7 @@ class LocalizedEnergyKcal : Energy {
         case joule
     }
     
-    static let key = "energy-kcal"
-    static let prefixKey = "en:energy-kcal"
+    static let key = Nutrient.energyKcal.rawValue
     
     public var baseUnit: UnitsToUse = .calories
 
@@ -44,5 +43,24 @@ class LocalizedEnergyKcal : Energy {
         return OFFplists.manager.translateNutrient(LocalizedEnergyKcal.key, language:preferredLanguage) ?? LocalizedEnergyKcal.key
     }
     
+}
+   
+class LocalizedEnergyFromFat : Energy {
+        
+    enum UnitsToUse {
+        case calories
+        case joule
+    }
+        
+    static let key = Nutrient.energyFromFat.rawValue
+    static let prefixKey = "en:" + key
+        
+    public var baseUnit: UnitsToUse = .calories
+
+    public var title: String {
+        let preferredLanguage = Locale.preferredLanguages[0]
+        return OFFplists.manager.translateNutrient(LocalizedEnergyFromFat.key, language:preferredLanguage) ?? LocalizedEnergyFromFat.key
+    }
+        
 }
 

@@ -141,30 +141,3 @@ public enum Nutrient: String, CaseIterable {
         }
     }
 }
-
-/*
-public protocol EnumCollection : Hashable {}
-
-extension EnumCollection {
-    
-    public static func allValues() -> [Self] {
-        typealias S = Self
-        
-        let retVal = AnySequence { () -> AnyIterator<S> in
-            var raw = 0
-            return AnyIterator {
-                let current = withUnsafePointer(to: &raw) {
-                    $0.withMemoryRebound(to: S.self, capacity: 1) { $0.pointee }
-                }
-                guard current.hashValue == raw else { return nil }
-                raw += 1
-                return current
-            }
-        }
-        
-        return [S](retVal)
-    }
-
-}
-*/
-

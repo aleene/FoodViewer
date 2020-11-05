@@ -166,30 +166,71 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 case .calories:
                     newFact = NutritionFactItem.init(
                             name: OFFplists.manager.translateNutrient(nutrient: .energyKcal, language:Locale.preferredLanguages[0]),
-                            standard: fact.value.valueInCalories(fact.value.standard),
+                            standard: fact.value.standard,
                             standardUnit: EnergyUnitUsed.calories.unit(),
                             value: fact.value.value,
                             valueUnit: fact.value.valueUnit?.short(),
-                            serving: fact.value.valueInCalories(fact.value.serving),
+                            serving: fact.value.serving,
                             nutrient: .energyKcal)
-                    // show energy as kcalorie
+                // show energy as kcalorie
                 case .kilocalorie:
                     newFact = NutritionFactItem.init(
                         name: OFFplists.manager.translateNutrient(nutrient: .energyKcal, language:Locale.preferredLanguages[0]),
-                        standard: fact.value.valueInCalories(fact.value.standard),
+                        standard: fact.value.standard,
                         standardUnit: EnergyUnitUsed.kilocalorie.unit(),
                         value: fact.value.value,
                         valueUnit: fact.value.valueUnit?.short(),
-                        serving: fact.value.valueInCalories(fact.value.serving),
+                        serving: fact.value.serving,
                         nutrient: .energyKcal)
                 default:
                     newFact = NutritionFactItem.init(
                         name: OFFplists.manager.translateNutrient(nutrient: .energyKcal, language:Locale.preferredLanguages[0]),
-                        standard: fact.value.standard,
+                        standard: fact.value.valueInJoule(fact.value.standard),
                         standardUnit: EnergyUnitUsed.joule.unit(),
                         value: nil,
                         valueUnit: fact.value.valueUnit?.short(),
-                        serving: nil,
+                        serving: fact.value.valueInJoule(fact.value.serving),
+                        nutrient: .energyKcal)
+
+                    newFact?.standardUnit = .Joule
+                }
+            } else if fact.key == Nutrient.energyFromFat.rawValue {
+                let useEnergyDisplayMode = editMode ? .kilocalorie : currentEnergyDisplayMode
+                switch useEnergyDisplayMode {
+                    // show energy as Calories (US)
+                case .calories:
+                    newFact = NutritionFactItem.init(
+                        name: OFFplists.manager.translateNutrient(
+                            nutrient: .energyFromFat,
+                            language:Locale.preferredLanguages[0]),
+                        standard: fact.value.standard,
+                        standardUnit: EnergyUnitUsed.calories.unit(),
+                        value: fact.value.value,
+                        valueUnit: fact.value.valueUnit?.short(),
+                        serving: fact.value.serving,
+                        nutrient: .energyKcal)
+                // show energy as kcalorie
+                case .kilocalorie:
+                    newFact = NutritionFactItem.init(
+                        name: OFFplists.manager.translateNutrient(
+                            nutrient: .energyFromFat,
+                            language:Locale.preferredLanguages[0]),
+                        standard: fact.value.standard,
+                        standardUnit: EnergyUnitUsed.kilocalorie.unit(),
+                        value: fact.value.value,
+                           valueUnit: fact.value.valueUnit?.short(),
+                        serving: fact.value.serving,
+                        nutrient: .energyKcal)
+                default:
+                    newFact = NutritionFactItem.init(
+                        name: OFFplists.manager.translateNutrient(
+                            nutrient: .energyFromFat,
+                            language:Locale.preferredLanguages[0]),
+                        standard: fact.value.valueInJoule(fact.value.standard),
+                        standardUnit: EnergyUnitUsed.joule.unit(),
+                        value: nil,
+                        valueUnit: fact.value.valueUnit?.short(),
+                        serving: fact.value.valueInJoule(fact.value.serving),
                         nutrient: .energyKcal)
 
                     newFact?.standardUnit = .Joule
@@ -1163,11 +1204,12 @@ extension NutrientsTableViewController: NutrientsCellDelegate {
         let row = button.tag % 100
         // only add taps gestures when NOT in editMode
         if !editMode {
-            if  (adaptedNutritionFacts[row].nutrient.rawValue ==   NatriumChloride.salt.key) ||
-                (adaptedNutritionFacts[row].nutrient.rawValue == NatriumChloride.sodium.key) {
+            if  adaptedNutritionFacts[row].nutrient.rawValue ==   NatriumChloride.salt.key
+                || adaptedNutritionFacts[row].nutrient.rawValue == NatriumChloride.sodium.key {
                 doubleTapOnSaltSodiumTableViewCell()
-            } else if  (adaptedNutritionFacts[row].nutrient.key == LocalizedEnergy.key) ||
-                (adaptedNutritionFacts[row].nutrient.key == LocalizedEnergyKcal.key) {
+            } else if  adaptedNutritionFacts[row].nutrient.key == LocalizedEnergy.key
+                || adaptedNutritionFacts[row].nutrient.key == LocalizedEnergyKcal.key
+                || adaptedNutritionFacts[row].nutrient.key == LocalizedEnergyFromFat.key {
                doubleTapOnEnergyTableViewCell()
             }
         }
@@ -1240,8 +1282,8 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         currentSaltDisplayMode = .sodium
         
         // Energy
-        if !productPair!.remoteProduct!.nutritionFactsContain(.energy) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .energy, unit: .Calories))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.energyKcal) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .energyKcal, unit: .Calories))
         }
         // Energy from Fat Old Label
         if !productPair!.remoteProduct!.nutritionFactsContain(.energyFromFat) {

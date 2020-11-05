@@ -54,6 +54,7 @@ class NutrientsTableViewCell: UITableViewCell {
     @IBOutlet weak var toggleViewModeButton: UIButton! {
         didSet {
             toggleViewModeButton.isHidden = true
+            toggleViewModeButton.tag = tag
         }
     }
     
@@ -106,6 +107,7 @@ class NutrientsTableViewCell: UITableViewCell {
         didSet {
             textField?.tag = tag
             unitButton?.tag = tag
+            toggleViewModeButton?.tag = tag
         }
     }
     
