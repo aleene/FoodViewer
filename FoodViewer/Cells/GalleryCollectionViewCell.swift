@@ -35,10 +35,13 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     var editMode: Bool = false {
         didSet {
             if let validIndexPath = indexPath {
-                if validIndexPath.section > 2 {
+                // Is this the section with all the images?
+                if validIndexPath.section > 3 {
+                    // Allows to assign an image
                     button.setImage(UIImage.init(named: "Select"), for: .normal)
                 } else {
-                    button.setImage(UIImage.init(named: "ClearBlue"), for: .normal)
+                    // Allows to deselect an image
+                    button.setImage(UIImage.init(named: "Delete"), for: .normal)
                 }
                 button.isHidden = !editMode
             }

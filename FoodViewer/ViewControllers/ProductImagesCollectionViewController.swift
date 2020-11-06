@@ -766,9 +766,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     @objc func doubleTapOnTableView() {
         switch productVersion {
         case .remote:
-            //productVersion = .local
-            //delegate?.title = TranslatableStrings.Gallery + " (Local)"
-        //case .local:
             productVersion = .new
             delegate?.title = TranslatableStrings.Gallery + " (New)"
         case .new:
@@ -983,7 +980,6 @@ extension ProductImagesCollectionViewController : UICollectionViewDelegateFlowLa
 
 extension ProductImagesCollectionViewController: UIPopoverPresentationControllerDelegate {
     
-    // MARK: - Popover delegation functions
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
@@ -998,6 +994,8 @@ extension ProductImagesCollectionViewController: UIPopoverPresentationController
     }
     
 }
+
+// MARK: - GKImagePickerDelegate functions
 
 extension ProductImagesCollectionViewController: GKImagePickerDelegate {
     

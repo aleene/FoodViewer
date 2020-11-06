@@ -1041,8 +1041,8 @@
             filePath = "FoodViewer/ViewControllers/ProductImagesCollectionViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1018"
-            endingLineNumber = "1018"
+            startingLineNumber = "1016"
+            endingLineNumber = "1016"
             landmarkName = "imagePicker(_:cropped:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1057,8 +1057,8 @@
             filePath = "FoodViewer/ViewControllers/ProductImagesCollectionViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1016"
-            endingLineNumber = "1016"
+            startingLineNumber = "1014"
+            endingLineNumber = "1014"
             landmarkName = "imagePicker(_:cropped:)"
             landmarkType = "7">
          </BreakpointContent>
