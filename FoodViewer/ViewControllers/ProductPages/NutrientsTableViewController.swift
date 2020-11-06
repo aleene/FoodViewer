@@ -209,15 +209,16 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 switch useEnergyDisplayMode {
                     // show energy as Calories (US)
                 case .calories:
+                    //  The interpreted data from OFF is always in kJ !!!!!
                     newFact = NutritionFactItem.init(
                         name: OFFplists.manager.translateNutrient(
                             nutrient: .energyFromFat,
                             language:Locale.preferredLanguages[0]),
-                        standard: fact.value.standard,
+                        standard: fact.value.valueInCalories(fact.value.standard),
                         standardUnit: EnergyUnitUsed.calories.unit(),
                         value: fact.value.value,
                         valueUnit: fact.value.valueUnit?.short() ?? EnergyUnitUsed.calories.unit(),
-                        serving: fact.value.serving,
+                        serving: fact.value.valueInCalories(fact.value.serving),
                         valueEdited: fact.value.valueEdited,
                         valueUnitEdited: fact.value.valueUnitEdited?.short() ?? EnergyUnitUsed.calories.unit(),
                         nutrient: .energyFromFat)
@@ -227,11 +228,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         name: OFFplists.manager.translateNutrient(
                             nutrient: .energyFromFat,
                             language:Locale.preferredLanguages[0]),
-                        standard: fact.value.standard,
+                        standard: fact.value.valueInCalories(fact.value.standard),
                         standardUnit: EnergyUnitUsed.kilocalorie.unit(),
                         value: fact.value.value,
                         valueUnit: fact.value.valueUnit?.short() ?? EnergyUnitUsed.kilocalorie.unit(),
-                        serving: fact.value.serving,
+                        serving: fact.value.valueInCalories(fact.value.serving),
                         valueEdited: fact.value.valueEdited,
                         valueUnitEdited: fact.value.valueUnitEdited?.short() ?? EnergyUnitUsed.kilocalorie.unit(),
                         nutrient: .energyFromFat)
@@ -240,11 +241,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         name: OFFplists.manager.translateNutrient(
                             nutrient: .energyFromFat,
                             language:Locale.preferredLanguages[0]),
-                        standard: fact.value.valueInJoule(fact.value.standard),
+                        standard: fact.value.standard,
                         standardUnit: EnergyUnitUsed.joule.unit(),
                         value: nil,
                         valueUnit: fact.value.valueUnit?.short() ?? EnergyUnitUsed.joule.unit(),
-                        serving: fact.value.valueInJoule(fact.value.serving),
+                        serving: fact.value.serving,
                         valueEdited: fact.value.valueEdited,
                         valueUnitEdited: fact.value.valueUnitEdited?.short() ?? EnergyUnitUsed.joule.unit(),
                         nutrient: .energyFromFat)

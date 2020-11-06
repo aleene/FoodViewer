@@ -698,6 +698,8 @@ struct OFFReadAPIkeysJSON {
     static let SmallKey = "small"
     static let ThumbKey = "thumb"
     
+    // The nutrient key can be found in the class  Nutrient
+    /*
     static let SodiumKey = "sodium"
     static let SaltKey = "salt"
     static let SugarsKey = "sugars"
@@ -789,6 +791,7 @@ struct OFFReadAPIkeysJSON {
     static let TaurineKey = "taurine"
     static let PhKey = "ph"
     static let CacaoKey = "cocoa"
+    */
     static let NutritionScoreFr100gKey = "nutrition-score-fr_100g"
     static let NutritionScoreFrKey = "nutrition-score-fr"
     static let NutritionScoreUk100gKey = "nutrition-score-uk_100g"

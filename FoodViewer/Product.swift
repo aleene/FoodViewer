@@ -1899,9 +1899,11 @@ class FoodProduct {
                            NutritionLevelQuantity.value(for:validProduct.nutrient_levels?.sugars)),
                           (NutritionItem.salt,
                            NutritionLevelQuantity.value(for:validProduct.nutrient_levels?.salt))]
-
-        // Warning: the order of these nutrients is important. It will be displayed as such.
         
+        for nutrient in Nutrient.allCases {
+            add(fact: nutritionDecode(nutrient, with: validProduct.nutriments?.nutriments[nutrient.rawValue]))
+        }
+        /*
         add(fact: nutritionDecode(.energy, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.EnergyKey]))
         add(fact: nutritionDecode(.energyKcal, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.EnergyKcalKey]))
         add(fact: nutritionDecode(.fat, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FatKey]))
@@ -1999,7 +2001,7 @@ class FoodProduct {
         add(fact: nutritionDecode(.cocoa, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CacaoKey]))
         add(fact: nutritionDecode(.fruitsVegetablesNuts, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FruitsVegetablesNutsKey]))
         add(fact: nutritionDecode(.fruitsVegetablesNutsEstimate, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FruitsVegetablesNutsEstimateKey]))
-
+*/
         
         decodeNutritionalScore(validProduct.nutrition_score_debug)
         nutritionalScoreFRDecoded = validProduct.nutriscore_data?.nutriscore
