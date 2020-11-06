@@ -26,6 +26,8 @@ Informs the delegate that the nutrient uint button has been tapped.
 
 class NutrientsTableViewCell: UITableViewCell {
     
+// MARK: - Storybard elements
+    
     @IBOutlet weak var itemLabel: UILabel! {
         didSet {
             itemLabel.text =  nutritionDisplayFactItem?.name ?? TranslatableStrings.UnknownValue

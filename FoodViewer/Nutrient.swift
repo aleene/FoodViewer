@@ -15,7 +15,9 @@ public enum Nutrient: String, CaseIterable {
     case alphaLinolenicAcid = "alpha-linolenic-acid"
     case arachidicAcid = "arachidic-acid"
     case arachidonicAcid = "arachidonic-acid"
+    case ausUnits = "aus-units"
     case behenicAcid = "behenic-acid"
+    case betaCarotene = "beta-carotene"
     case bicarbonate = "bicarbonate"
     case biotin = "biotin"
     case butyricAcid = "butyric-acid"
@@ -25,13 +27,18 @@ public enum Nutrient: String, CaseIterable {
     case caproicAcid = "caproic-acid"
     case caprylicAcid = "caprylic-acid"
     case carbohydrates = "carbohydrates"
+    case carnitine = "carnitine"
+    case carbonFootprint = "carbon-footprint"
     // "carbon-footprint_100g"
     case casein = "casein"
     case chloride = "chloride"
+    case chlorophyl = "chlorophyl"
+    case choline = "choline"
     case chromium = "chromium"
     case ceroticAcid = "cerotic-acid"
     case cholesterol = "cholesterol"
     case cocoa = "cocoa"
+    case collagenMeatProteinRatio = "collagen-meat-protein-ratio"
     case copper = "copper"
     case dihomoGammaLinolenicAcid = "dihomo-gamma-linolenic-acid"
     case docosahexaenoicAcid = "docosahexaenoic-acid"
@@ -50,6 +57,10 @@ public enum Nutrient: String, CaseIterable {
     case gammaLinolenicAcid = "gamma-linolenic-acid"
     case glucose = "glucose"
     case gondoicAcid = "gondoic-acid"
+    case hydrogencarbonates = "hydrogencarbonates"
+    case ieUnits = "ie-units"
+    case inositol = "inositol"
+    case insolubleFiber = "insoluble-fiber"
     case iodine = "iodine"
     case iron = "iron"
     case lactose = "lactose"
@@ -62,12 +73,15 @@ public enum Nutrient: String, CaseIterable {
     case manganese = "manganese"
     case meadAcid = "mead-acid"
     case melissicAcid = "melissic-acid"
+    case mineral = "mineral"
     case molybdenum = "molybdenum"
     case monounsaturatedFat = "monounsaturated-fat"
     case montanicAcid = "montanic-acid"
     case myristicAcid = "myristic-acid"
     case nervonicAcid = "nervonic-acid"
     case nucleotides = "nucleotides"
+    case numberOfMinerals = "#minerals"
+    case numberOfVitamins = "#vitamins"
     case oleicAcid = "oleic-acid"
     case omega3Fat = "omega-3-fat"
     case omega6Fat = "omega-6-fat"
@@ -76,18 +90,22 @@ public enum Nutrient: String, CaseIterable {
     case pantothenicAcid = "pantothenic-acid"
     case ph = "ph"
     case phosphorus = "phosphorus"
+    case phylloquinone = "phylloquinone"
     case polyols = "polyols"
     case polyunsaturatedFat = "polyunsaturated-fat"
     case potassium = "potassium"
     case proteins = "proteins"
     case salt = "salt"
+    case saltEquivalent = "salt-equivalent"
     case saturatedFat = "saturated-fat"
     case saturatedFatRatio = "fr-sat-fat-for-fats"
+    case saUnits = "sa-units"
     case selenium = "selenium"
     case serumProteins = "serum-proteins"
     case silica = "silica"
     case sodium = "sodium"
     case sucrose = "sucrose"
+    case sulfates = "sulfates"
     case sugars = "sugars"
     case starch = "starch"
     case stearicAcid = "stearic-acid"
@@ -105,6 +123,8 @@ public enum Nutrient: String, CaseIterable {
     case vitaminB6 = "vitamin-b6"
     case vitaminB9 = "vitamin-b9"
     case vitaminB12 = "vitamin-b12"
+    case vitamins = "vitamins"
+    case waterHardness = "water-hardness"
     case zinc = "zinc"
     
     case undefined = "undefined"
@@ -119,13 +139,13 @@ public enum Nutrient: String, CaseIterable {
                 return value
             }
         }
-        print("Nutrient: ", key, "not found" )
+        print("Nutrient: ", key, "not found, it must be added to the enum" )
         return .undefined
     }
     
     func unit(for style:NutritionFactsLabelStyle) -> NutritionFactUnit {
         switch self {
-        case .energy, .energyKcal:
+        case .energy, .energyKcal, .energyFromFat:
             switch style.energyUnit {
             case .calories:
                 return .Calories
@@ -134,7 +154,7 @@ public enum Nutrient: String, CaseIterable {
             case .kilocalorie:
                 return .KiloCalories
             }
-        case .ph:
+        case .ph, .ausUnits, .numberOfMinerals, .numberOfVitamins, .saUnits, .ieUnits:
             return .None
         default:
             return .Gram

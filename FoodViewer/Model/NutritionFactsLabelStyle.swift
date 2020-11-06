@@ -220,11 +220,12 @@ enum NutritionFactsLabelStyle {
         }
     }
     
-    var keys: [Nutrient] {
+    /// Defines the order of the nutrients, closely matching the regulations and the logic (energy with energy fat with fat, etc).
+    public var keys: [Nutrient] {
         switch self {
         // Salt, Protein before Salt
         case .europe:
-            return [.energy, .energyKcal, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
+            return [.energy, .energyKcal, .energyFromFat, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
                     .transFat, .carbohydrates, .sugars,
                     .addedSugars, .fructose, .glucose, .lactose, .maltose, .maltodextrins, .polyols, .sucrose, .starch,
                     
@@ -246,7 +247,7 @@ enum NutritionFactsLabelStyle {
             
         // Protein on position 2, uses Sodium
         case .australia, .china, .india, .japan, .mexico, .northAmerica, .unitedStates, .world:
-            return [.energyKcal, .proteins, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
+            return [.energy, .energyKcal, .energyFromFat, .proteins, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
                     .transFat, .carbohydrates, .sugars,
                     .addedSugars, .fructose, .glucose, .lactose, .maltose, .maltodextrins, .polyols, .sucrose, .starch,
                     
@@ -265,7 +266,7 @@ enum NutritionFactsLabelStyle {
                     
                     .caffeine, .casein, .serumProteins, .nucleotides, .alcohol, .ph, .cocoa]
         case .thailand:
-            return [.energy, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
+            return [.energy, .energyKcal, .energyFromFat, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
                      .transFat, .carbohydrates,
                      .cholesterol, .proteins,
                     .sugars, .addedSugars, .fructose, .glucose, .lactose, .maltose, .maltodextrins,

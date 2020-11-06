@@ -31,13 +31,19 @@ public struct NutritionFactItem {
 
     public init() { }
 
-    public init(name: String?, standard: String?, standardUnit: String?, value: String?, valueUnit: String?, serving: String?, nutrient: Nutrient) {
+// MARK: - initialisers
+    
+    public init(name: String?, standard: String?, standardUnit: String?, value: String?, valueUnit: String?, serving: String?, valueEdited: String?, valueUnitEdited: String?, nutrient: Nutrient) {
         itemName = name
         self.standard = standard
         self.serving = serving
         self.value = value
+        self.valueEdited = valueEdited
         if let validUnit = standardUnit {
             self.standardUnit = NutritionFactUnit(validUnit)
+        }
+        if let validUnit = standardUnit {
+            self.valueUnitEdited = NutritionFactUnit(validUnit)
         }
         if let validUnit = valueUnit {
             self.valueUnit = NutritionFactUnit(validUnit)
