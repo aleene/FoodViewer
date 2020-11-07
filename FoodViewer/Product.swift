@@ -1570,6 +1570,36 @@ class FoodProduct {
             return date
         }
         
+        func decodeSelectedImages(imageType: ImageTypeCategory) -> [String:ProductImageSize] {
+            guard let validImages = validProduct.images else { return [:] }
+            var selectedImageSet: [String:ProductImageSize] = [:]
+            // Loop over all normal images
+            for (selectedImageKey, value) in validImages {
+                // is the imageType encoded in the key?
+                guard selectedImageKey.contains(imageType.description) else { continue }
+                guard let validImageId = value.imgid else { continue }
+                // add information on which image is a selected image for a specific language
+                // only look at key that have a language component
+                // parts[0] is the image type and parts[1] the languageCode
+                let parts = selectedImageKey.split(separator: "_")
+                guard parts.count > 1 && parts.count <= 2 else { continue }
+                // look only at elements that have a language component, i.e. count == 2
+                guard parts[0].contains(imageType.description) else { continue }
+                    
+                let languageCode = String(parts[1])
+                                
+                images[validImageId]?.usedIn.append((languageCode, imageType))
+
+                // Is there an original image corresponding assigned to this imageType?
+                var imageSet = ProductImageSize(for: barcode, and: validImageId)
+                // The uploader and uploaded time are not encoded for the selected images.
+                imageSet.uploader = images[validImageId]?.uploader
+                imageSet.imageDate = images[validImageId]?.imageDate
+                selectedImageSet[languageCode] = imageSet
+            }
+            return selectedImageSet
+        }
+        
         self.init()
         
         barcode = BarcodeType(barcodeString: validProduct.code ?? "no code", type: Preferences.manager.showProductType)
@@ -1606,6 +1636,7 @@ class FoodProduct {
         ingredientsTags = Tags(list: validProduct.ingredients_original_tags)
         ingredientsHierarchy = Tags(list: validProduct.ingredients_hierarchy)
         
+        /*
         if let validImageSizes = validProduct.selected_images?.front {
             for (key, value) in validImageSizes.display {
                 if frontImages[key] == nil {
@@ -1679,7 +1710,6 @@ class FoodProduct {
             }
         }
         
-        /*
          This is not yet in the json on 30-oct-202
         if let validImageSizes = validProduct.selected_images?.packaging {
 
@@ -1707,6 +1737,7 @@ class FoodProduct {
             }
         }
  */
+        // First extract the non selected images
         if let validImages = validProduct.images {
             for (key,value) in validImages {
                 if !key.contains(ImageTypeCategory.front.description)
@@ -1724,8 +1755,24 @@ class FoodProduct {
                     }
                     images[key]?.uploader = value.uploader
                     images[key]?.imageDate = value.uploaded_t
-                    
-                } else {
+                    // Whether this image is also used as selected image,
+                    // will be decoded in the selected images decoder
+                }
+            }
+        }
+        
+        frontImages = decodeSelectedImages(imageType: .front)
+        ingredientsImages = decodeSelectedImages(imageType: .ingredients)
+        nutritionImages = decodeSelectedImages(imageType: .nutrition)
+        packagingImages = decodeSelectedImages(imageType: .packaging)
+
+        /* Then extract the selected images
+        if let validImages = validProduct.images {
+            for (key,value) in validImages {
+                if key.contains(ImageTypeCategory.front.description)
+                    || !key.contains(ImageTypeCategory.ingredients.description)
+                    || !key.contains(ImageTypeCategory.nutrition.description)
+                    || !key.contains(ImageTypeCategory.packaging.description) {
                     // add information on which image is a selected image for a specific language
                     // only look at key that have a language component
                     // parts[0] is the image type and parts[1] the languageCode
@@ -1733,35 +1780,80 @@ class FoodProduct {
                     // look only at elements that have a language component, i.e. count == 2
                     if parts.count > 1 && parts.count <= 2 {
                         let languageCode = String(parts[1])
-                        if parts[0].contains("ingredients") {
+                        if parts[0].contains(ImageTypeCategory.ingredients.description) {
                             if let localKey = value.imgid {
                                 if !images.contains(where: { $0.key == localKey }) {
                                     images[localKey] = ProductImageSize()
                                 }
-                                images[localKey]?.usedIn.append((languageCode,.ingredients))
-                            }
-                        } else if parts[0].contains("front") {
-                            if let localKey = value.imgid {
-                                if !images.contains(where: { $0.key == localKey }) {
-                                    images[localKey] = ProductImageSize()
-                                }
-                                images[localKey]?.usedIn.append((languageCode,.front))
-                            }
-                        } else if parts[0].contains("nutrition") {
-                            if let localKey = value.imgid {
-                                if !images.contains(where: { $0.key == localKey }) {
-                                    images[localKey] = ProductImageSize()
-                                }
-                                images[localKey]?.usedIn.append((languageCode,.nutrition))
-                            }
-                        } else if parts[0].contains("packaging") {
-                            if let localKey = value.imgid {
-                                if !images.contains(where: { $0.key == localKey }) {
-                                    images[localKey] = ProductImageSize()
-                                }
-                                images[localKey]?.usedIn.append((languageCode,.packaging))
+                                images[localKey]?.usedIn.append((languageCode, .ingredients))
                                 
-                                // Added as a temporary stopgap
+                                let imageSet = ProductImageSize(for: barcode, and: localKey)
+                                
+                                if ingredientsImages.contains(where: { $0.key == languageCode }) {
+                                    ingredientsImages[languageCode]?.thumb = imageSet.thumb
+                                    ingredientsImages[languageCode]?.small = imageSet.small
+                                    ingredientsImages[languageCode]?.display = imageSet.display
+                                    ingredientsImages[languageCode]?.original = imageSet.original
+                                } else {
+                                    ingredientsImages[languageCode] = imageSet
+                                }
+                                if let id = findImageID(languageCode: languageCode, imageType: ImageTypeCategory.ingredients.description) {
+                                    ingredientsImages[languageCode]?.uploader = images[id]?.uploader
+                                    ingredientsImages[languageCode]?.imageDate = images[id]?.imageDate
+                                }
+                            }
+                            
+                        } else if parts[0].contains(ImageTypeCategory.front.description) {
+                            if let localKey = value.imgid {
+                                if !images.contains(where: { $0.key == localKey }) {
+                                    images[localKey] = ProductImageSize()
+                                }
+                                images[localKey]?.usedIn.append((languageCode, .front))
+                                
+                                let imageSet = ProductImageSize(for: barcode, and: localKey)
+                                if frontImages.contains(where: { $0.key == languageCode }) {
+                                    frontImages[languageCode]?.thumb = imageSet.thumb
+                                    frontImages[languageCode]?.small = imageSet.small
+                                    frontImages[languageCode]?.display = imageSet.display
+                                    frontImages[languageCode]?.original = imageSet.original
+                                } else {
+                                    frontImages[languageCode] = imageSet
+                                }
+                                if let id = findImageID(languageCode: languageCode, imageType: ImageTypeCategory.front.description) {
+                                    frontImages[languageCode]?.uploader = images[id]?.uploader
+                                    frontImages[languageCode]?.imageDate = images[id]?.imageDate
+                                }
+
+                            }
+                        } else if parts[0].contains(ImageTypeCategory.nutrition.description) {
+                            if let localKey = value.imgid {
+                                if !images.contains(where: { $0.key == localKey }) {
+                                    images[localKey] = ProductImageSize()
+                                }
+                                images[localKey]?.usedIn.append((languageCode, .nutrition))
+                                
+                                let imageSet = ProductImageSize(for: barcode, and: localKey)
+                                if nutritionImages.contains(where: { $0.key == languageCode }) {
+                                    nutritionImages[languageCode]?.thumb = imageSet.thumb
+                                    nutritionImages[languageCode]?.small = imageSet.small
+                                    nutritionImages[languageCode]?.display = imageSet.display
+                                    nutritionImages[languageCode]?.original = imageSet.original
+                                } else {
+                                    nutritionImages[languageCode] = imageSet
+                                }
+                                if let id = findImageID(languageCode: languageCode, imageType: ImageTypeCategory.nutrition.description) {
+                                nutritionImages[languageCode]?.uploader = images[id]?.uploader
+                                nutritionImages[languageCode]?.imageDate = images[id]?.imageDate
+                                }
+                            }
+                            
+                        } else if parts[0].contains(ImageTypeCategory.packaging.description) {
+                            if let localKey = value.imgid {
+                                if !images.contains(where: { $0.key == localKey }) {
+                                    images[localKey] = ProductImageSize()
+                                }
+                                images[localKey]?.usedIn.append((languageCode, .packaging))
+                                
                                 let imageSet = ProductImageSize(for: barcode, and: localKey)
                                 if packagingImages.contains(where: { $0.key == languageCode }) {
                                     packagingImages[languageCode]?.thumb = imageSet.thumb
@@ -1771,14 +1863,17 @@ class FoodProduct {
                                 } else {
                                     packagingImages[languageCode] = imageSet
                                 }
-                                packagingImages[languageCode]?.uploader = value.uploader
-                                packagingImages[languageCode]?.imageDate = value.uploaded_t
+                                if let id = findImageID(languageCode: languageCode, imageType: ImageTypeCategory.packaging.description) {
+                                    packagingImages[languageCode]?.uploader = images[id]?.uploader
+                                    packagingImages[languageCode]?.imageDate = images[id]?.imageDate
+                                }
                             }
                         }
                     }
                 }
             }
         }
+ */
     
         if let numberOfIngredientsFromPalmOil = validProduct.ingredients_from_palm_oil_n,
             numberOfIngredientsFromPalmOil > 0 {

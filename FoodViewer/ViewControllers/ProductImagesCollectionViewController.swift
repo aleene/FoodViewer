@@ -380,7 +380,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             if frontImages.count > 0 && indexPath.row < frontImages.count {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
 
-                let keyTuple = keyTuples(for:Array(frontImages.keys))[indexPath.row]
+                let keyTuple = keyTuples(for: Array(frontImages.keys))[indexPath.row]
                 if let result = frontImages[keyTuple.0]?.largest?.fetch() {
                     switch result {
                     case .success(let image):
@@ -393,6 +393,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 cell.indexPath = indexPath
                 cell.editMode = editMode
                 cell.delegate = self
+                cell.uploadTime = frontImages[keyTuple.0]?.imageDate
                 return cell
             } else {
                 if editMode {
@@ -422,6 +423,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 cell.indexPath = indexPath
                 cell.editMode = editMode
                 cell.delegate = self
+                cell.uploadTime = ingredientsImages[keyTuple.0]?.imageDate
                 return cell
             } else {
                 if editMode {
@@ -452,6 +454,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 cell.indexPath = indexPath
                 cell.editMode = editMode
                 cell.delegate = self
+                cell.uploadTime = nutritionImages[keyTuple.0]?.imageDate
                 return cell
             } else {
                 if editMode {
@@ -482,6 +485,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     cell.indexPath = indexPath
                     cell.editMode = editMode
                     cell.delegate = self
+                    cell.uploadTime = packagingImages[keyTuple.0]?.imageDate
                     return cell
                 } else {
                     if editMode {
@@ -515,6 +519,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 cell.editMode = editMode
                 cell.delegate = self
                 cell.imageKey = key
+                cell.uploadTime = originalImages[key]?.imageDate
                 return cell
             } else {
                 if editMode {
@@ -704,38 +709,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         }
     }
-    /*
-    private func imageToShow() -> (ProductImageData?, String?) {
-        guard let validSection = selectedImage?.section else { return (nil,nil) }
-        switch tableStructure[validSection] {
-        case .frontImages:
-            let languageCode = Array(productPair!.remoteProduct!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-            let imageData = productPair!.remoteProduct!.image(for:languageCode, of:.front)
-            let imageTitle = OFFplists.manager.languageName(for:languageCode)
-            return (imageData, imageTitle)
-        case .ingredientsImages:
-            let languageCode = Array(productPair!.remoteProduct!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-            let imageData = productPair!.remoteProduct!.image(for:languageCode, of:.ingredients)
-            let imageTitle = OFFplists.manager.languageName(for:languageCode)
-            return (imageData, imageTitle)
-        case .nutritionImages:
-            let languageCode = Array(productPair!.remoteProduct!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-            let imageData = productPair!.remoteProduct!.image(for:languageCode, of:.nutrition)
-            let imageTitle = OFFplists.manager.languageName(for:languageCode)
-            return (imageData, imageTitle)
-        case .packagingImages:
-            let languageCode = Array(productPair!.remoteProduct!.packagingImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-            let imageData = productPair!.remoteProduct!.image(for:languageCode, of:.packaging)
-            let imageTitle = OFFplists.manager.languageName(for:languageCode)
-            return (imageData, imageTitle)
-        case .originalImages:
-            let key = Array(productPair!.remoteProduct!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
-            let imageData = productPair!.remoteProduct!.images[key]?.largest
-            let imageTitle = key
-            return (imageData, imageTitle)
-        }
-    }
- */
 
     @objc func reloadImages() {
         collectionView?.reloadData()

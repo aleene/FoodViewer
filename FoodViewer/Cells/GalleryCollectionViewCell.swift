@@ -30,9 +30,13 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         delegate?.galleryCollectionViewCell(self, receivedTapOn: sender, for:imageKey)
     }
     
-    var delegate: GalleryCollectionViewCellDelegate? = nil
+    @IBOutlet weak var imageAgeButton: UIButton!
     
-    var editMode: Bool = false {
+    public var delegate: GalleryCollectionViewCellDelegate? = nil
+    
+// MARK: - public variables
+    
+    public var editMode: Bool = false {
         didSet {
             if let validIndexPath = indexPath {
                 // Is this the section with all the images?
@@ -48,11 +52,39 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var indexPath: IndexPath? = nil {
+    public var indexPath: IndexPath? = nil {
         didSet {
             guard indexPath != nil else { return }
         }
     }
     
-    var imageKey: String? = nil
+    /// The uploadTime of the image, calculated in seconds since 1970
+    public var uploadTime: Double? {
+        didSet {
+            imageAgeButton?.isHidden = uploadTime == nil
+            if uploadTime != nil {
+                setImageAge()
+            }
+        }
+    }
+
+    public var imageKey: String? = nil
+    
+    private func setImageAge() {
+        guard let timeInterval = uploadTime else { return }
+        let uploadDate = Date(timeIntervalSince1970: timeInterval)
+        guard let validDate = uploadDate.ageInYears else { return }
+        if validDate >= 4.0 {
+            imageAgeButton?.tintColor = .purple
+        } else if validDate >= 3.0 {
+            imageAgeButton?.tintColor = .red
+        } else if validDate >= 2.0 {
+            imageAgeButton?.tintColor = .orange
+        } else if validDate >= 1.0 {
+            imageAgeButton?.tintColor = .yellow
+        } else {
+            imageAgeButton?.tintColor = .green
+        }
+    }
+
 }
