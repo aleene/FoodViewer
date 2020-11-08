@@ -67,9 +67,8 @@ final class NutrientsCoordinator: Coordinator {
         coordinator.show()
     }
     
-    func showLanguageSelector(for productPair: ProductPair?, with currentLanguageCode: String?, atAnchor button: UIButton) {
-        self.productPair = productPair
-        let coordinator = SelectLanguageCoordinator(with: self, primaryLanguageCode: self.productPair?.primaryLanguageCode, currentLanguageCode: currentLanguageCode, languageCodes: self.productPair?.remoteProduct?.languageCodes, button: button)
+    func selectLanguage(primaryLanguageCode: String, currentLanguageCode: String?, productLanguageCodes: [String], atAnchor button: UIButton) {
+        let coordinator = SelectLanguageCoordinator(with: self, primaryLanguageCode: primaryLanguageCode, currentLanguageCode: currentLanguageCode, languageCodes: productLanguageCodes, button: button)
         self.childCoordinators.append(coordinator)
         coordinator.show()
     }

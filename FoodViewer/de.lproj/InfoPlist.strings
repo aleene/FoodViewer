@@ -2,7 +2,7 @@
 "CFBundleName" = "FoodViewer";
 
 /* Privacy - Media Library Usage Description */
-"NSAppleMusicUsageDescription" = "In der Fotobibliothek werden Bilder von Produkten ausgewählt, die auf OFF hochgeladen werden sollen";
+"NSAppleMusicUsageDescription" = "In der Fotobibliothek werden Bilder von Produkten ausgewählt, die auf OFF hochgeladen werden sollen\n";
 
 /* Privacy - Camera Usage Description */
 "NSCameraUsageDescription" = "Die Kamera wird zum Scannen von Barcodes und zum Aufnehmen von Produktbildern zum Hochladen auf OFF benötigt";

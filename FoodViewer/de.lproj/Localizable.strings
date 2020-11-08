@@ -437,6 +437,15 @@
 /* Viewcontroller title for page with images of the product */
 "Gallery" = "Gallery";
 
+/* Tabbar title for page with the robotoff game */
+"Game" = "Spiel";
+
+/* Button text, which indicate the game can not be set up. */
+"Game can not be prepared, try another time" = "Spiel kann nicht geladen werden; versuche es ein anderes Mal";
+
+/* Button text, which indicate the prepare (retrieval) status of the game. */
+"Game preparing" = "Spielvorbereitung";
+
 /* Tableview sectionheader for the edited long product name */
 "Generic Name (edited)" = "Allgemeiner Name (bearbeitet)";
 
@@ -445,6 +454,9 @@
 
 /* Standard weight unit. */
 "gram (g)" = "Gramm (g)";
+
+/* Label text to explain the robotoff game */
+"Help OFF improving its automatic recognition of brand, ingredients, etc." = "Helfe OFF dabei, die automatische Erkennung von Marken, Kategorien, Zutaten usw. zu verbessern.";
 
 /* Title of the secnd Tabbar item of a TabBarVC */
 "History" = "Geschichte";
@@ -868,6 +880,9 @@
 /* Title in AlertViewController, which lets the user enter his username/password. */
 "Personal Account" = "Persönliches OFF-Benutzerkonto";
 
+/* Comment string added by the user. */
+"Personal comment" = "Persönlicher Kommentar";
+
 /* Title of a segmented control. */
 "Petfood" = "Tierfütter";
 
@@ -903,6 +918,9 @@
 
 /* Description of the prefixed corrected tags */
 "Prefix corrected" = "Corrigierte prefix";
+
+/* Button title to start preparing for the next set of questions */
+"Prepare Game" = "Spiel vorbereiten";
 
 /* Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion. */
 "Presentation format" = "Präsentationsformat";
@@ -1121,6 +1139,15 @@
 /* Gallery header text presenting the non-edited selected nutrition images */
 "Selected Nutrition Images (non-edited)" = "Ausgewählte Foto der Nährwertinformationen (unbearbeitet)";
 
+/* Gallery header text presenting the selected packaging images */
+"Selected Packaging Images" = "Ausgewählte Verpackungsbilder";
+
+/* Gallery header text presenting the edited selected nutrition images */
+"Selected Packaging Images (edited)" = "Ausgewählte Verpackungsbilder (bearbeitet)";
+
+/* Gallery header text presenting the non-edited selected nutrition images */
+"Selected Packaging Images (non-edited)" = "Ausgewählte Verpackungsbilder (unbearbeitet)";
+
 /* Title of a tableview section with the selected traces for a product. */
 "Selected Traces" = "Gewählte Spuren";
 
@@ -1169,6 +1196,9 @@
 /* Explanatory text in AlertViewController, which lets the user enter his username/password. */
 "Specify your credentials for OFF" = "Gebe dein OFF Benutzername und Passwort";
 
+/* Button text, which indicate that the game can be started. */
+"Start game" = "Start Spiel";
+
 /* Title in AlertViewController, which lets the user decide if he wants to start a search. */
 "Start Search?" = "Suche starten?";
 
@@ -1207,6 +1237,9 @@
 
 /* String, which urges the user to take photos of the (new) product. */
 "This barcode is not yet listed on OFF. Please take some photos, so the data can be added." = "Dieser Barcode ist noch nicht bei OFF gelistet. Bitte machen Sie einige Fotos, damit die Daten hinzugefügt werden können.";
+
+/* Text of a label, when an image was uploaded. */
+"This image was upload on:" = "Dieses Bild wurde hochgeladen auf:";
 
 /* An explanatory text in the common name field. */
 "This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Dieses Produktbeispiel zeigt Ihnen, wie ein Produkt präsentiert wird. Streichen Sie zu den anderen Seiten, um weitere Produktdetails anzuzeigen. Sobald Sie mit dem Scannen von Barcodes beginnen, wird dieses Produkt nicht mehr angezeigt.";
@@ -1247,6 +1280,12 @@
 /* Title of a tableview section with a list of traces that can be selected. */
 "Unselected Traces" = "Zu wählen Spuren";
 
+/* Explanation text of a label, which shows the name of the uploader. */
+"Uploaded by:" = "Hochgeladen von:";
+
+/* Title of a label, which should show the name of the uploader. */
+"Uploader unknown" = "Hochlader unbekannt";
+
 /* String presented in a tagView if an image is being uploaded */
 "Uploading image" = "Hochladen Foto";
 
@@ -1261,6 +1300,9 @@
 
 /* Title of a button to indicate that user can pick an image from Photos. */
 "Use Photos" = "Fotos";
+
+/* Title Tab bar, which shows some statistics of the user. */
+"User" = "Benutzer";
 
 /* Title of a segment in a segmentedControl that this parameter will be set by the user. */
 "User defined" = "Benutzerdefinierten";

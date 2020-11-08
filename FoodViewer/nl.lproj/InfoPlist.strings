@@ -2,11 +2,11 @@
 "CFBundleName" = "FoodViewer";
 
 /* Privacy - Media Library Usage Description */
-"NSAppleMusicUsageDescription" = "Kies foto voor laden";
+"NSAppleMusicUsageDescription" = "De fotobibliotheek wordt gebruikt om foto's te selecteren om naar OFF te kunnen sturen.";
 
 /* Privacy - Camera Usage Description */
-"NSCameraUsageDescription" = "Gebruikt om streepjescodes te scannen";
+"NSCameraUsageDescription" = "De camera wordt gebruikt om streepjescodes te scannen en om foto's te maken van producten om naar OFF te sturen.";
 
 /* Privacy - Photo Library Usage Description */
-"NSPhotoLibraryUsageDescription" = "Gebruikt om fotos te kiezen en te laden";
+"NSPhotoLibraryUsageDescription" = "De fotobibliotheek wordt gebruikt om foto's te selecteren om naar OFF te kunnen sturen.";
 

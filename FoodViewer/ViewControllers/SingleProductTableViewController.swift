@@ -250,7 +250,7 @@ class SingleProductTableViewController: UITableViewController {
             if let language = selectedProductPair?.primaryLanguageCode,
                 let frontImages = selectedProductPair?.remoteProduct?.frontImages ?? selectedProductPair?.localProduct?.frontImages,
                 !frontImages.isEmpty,
-                let result = frontImages[language]?.small?.fetch() {
+                let result = frontImages[language]?.display?.fetch() {
                 switch result {
                 case .success(let image):
                     let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ImagesPageTableViewCell.self), for: indexPath) as! ImagesPageTableViewCell

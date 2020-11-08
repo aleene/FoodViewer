@@ -187,6 +187,11 @@ struct TranslatableStrings {
     
     static let Gallery = NSLocalizedString("Gallery", comment: "Viewcontroller title for page with images of the product")
     static let Game = NSLocalizedString("Game", comment: "Tabbar title for page with the robotoff game")
+    static let GameContinue = NSLocalizedString("Prepare Game", comment: "Button title to start preparing for the next set of questions")
+    static let GameExplanation = NSLocalizedString("Help OFF improving its automatic recognition of brand, ingredients, etc.", comment: "Label text to explain the robotoff game")
+    static let GameNotPrepared = NSLocalizedString("Game can not be prepared, try another time", comment: "Button text, which indicate the game can not be set up.")
+    static let GamePreparing = NSLocalizedString("Game preparing", comment: "Button text, which indicate the prepare (retrieval) status of the game.")
+    static let GameStart = NSLocalizedString("Start game", comment: "Button text, which indicate that the game can be started.")
     static let GenericName = NSLocalizedString("Common Name", comment: "Tableview sectionheader for long product name")
     static let GenericNameEdited = NSLocalizedString("Generic Name (edited)", comment: "Tableview sectionheader for the edited long product name")
     static let GenericNameOriginal = NSLocalizedString("Generic Name (non-edited)", comment: "Tableview sectionheader for the original long product name")

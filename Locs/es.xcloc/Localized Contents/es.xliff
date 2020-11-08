@@ -1,56 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
-  <file original="FoodViewer/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="es" datatype="plaintext">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.3" build-num="11C29"/>
-    </header>
-    <body>
-      <trans-unit id="3Vn-bz-g9v.title" xml:space="preserve">
-        <source>Scanner</source>
-        <target>Escáner</target>
-        <note>Class = "UITabBarItem"; title = "Scanner"; ObjectID = "3Vn-bz-g9v";</note>
-      </trans-unit>
-      <trans-unit id="8si-Yq-0ji.text" xml:space="preserve">
-        <source>FoodViewer is possible thanks to OpenFoodFacts, a open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels.</source>
-        <target>FoodViewer es posible gracias a OpenFoodFacts, una base de datos abierta de productos alimenticios con ingredientes, alérgenos, información nutricional y toda la información que puede encontrar en las etiquetas de los alimentos.</target>
-        <note>Class = "UITextView"; text = "FoodViewer is possible thanks to OpenFoodFacts, a open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels."; ObjectID = "8si-Yq-0ji";</note>
-      </trans-unit>
-      <trans-unit id="9OJ-E9-8aV.text" xml:space="preserve">
-        <source>FoodViewer</source>
-        <target>FoodViewer</target>
-        <note>Class = "UILabel"; text = "FoodViewer"; ObjectID = "9OJ-E9-8aV";</note>
-      </trans-unit>
-      <trans-unit id="WHd-6b-vLZ.title" xml:space="preserve">
-        <source>User</source>
-        <target>Usuario</target>
-        <note>Class = "UITabBarItem"; title = "User"; ObjectID = "WHd-6b-vLZ";</note>
-      </trans-unit>
-      <trans-unit id="u7v-kh-6sa.title" xml:space="preserve">
-        <source>Search</source>
-        <target>Buscar</target>
-        <note>Class = "UITabBarItem"; title = "Search"; ObjectID = "u7v-kh-6sa";</note>
-      </trans-unit>
-      <trans-unit id="znY-gQ-KqA.text" xml:space="preserve">
-        <source>Copyright © 2019 Hovering Above. All rights reserved.</source>
-        <target>Copyright © 2019 Hovering Above. All rights reserved.</target>
-        <note>Class = "UILabel"; text = "Copyright © 2019 Hovering Above. All rights reserved."; ObjectID = "znY-gQ-KqA";</note>
-      </trans-unit>
-    </body>
-  </file>
-  <file original="FoodViewer/Base.lproj/Main.storyboard" source-language="en" target-language="es" datatype="plaintext">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.3" build-num="11C29"/>
-    </header>
-    <body>
-      <trans-unit id="hho-M2-f3Y.text" xml:space="preserve">
-        <source>  </source>
-        <note>Class = "UILabel"; text = "  "; ObjectID = "hho-M2-f3Y";</note>
-      </trans-unit>
-    </body>
-  </file>
   <file original="FoodViewer/en.lproj/InfoPlist.strings" source-language="en" target-language="es" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.3" build-num="11C29"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.7" build-num="11E801a"/>
     </header>
     <body>
       <trans-unit id="CFBundleName" xml:space="preserve">
@@ -77,7 +29,7 @@
   </file>
   <file original="FoodViewer/en.lproj/Localizable.strings" source-language="en" target-language="es" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.3" build-num="11C29"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.7" build-num="11E801a"/>
     </header>
     <body>
       <trans-unit id=" " xml:space="preserve">
@@ -121,7 +73,8 @@
       </trans-unit>
       <trans-unit id="Add images for new product" xml:space="preserve">
         <source>Add images for new product</source>
-        <note>Title of a viewController where the users can add images for a new product.</note><target>Agregar imagens</target>
+        <target>Agrega imágenes para un nuevo producto</target>
+        <note>Title of a viewController where the users can add images for a new product.</note>
       </trans-unit>
       <trans-unit id="Additives" xml:space="preserve">
         <source>Additives</source>
@@ -215,7 +168,8 @@
       </trans-unit>
       <trans-unit id="Beauty  barcode." xml:space="preserve">
         <source>Beauty  barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a beauty product barcode search</note><target>Código de barres cosmético</target>
+        <target>Código de barras de belleza</target>
+        <note>Placeholder string in a textfield to explain the purpose of a beauty product barcode search</note>
       </trans-unit>
       <trans-unit id="Beauty Products" xml:space="preserve">
         <source>Beauty Products</source>
@@ -665,7 +619,8 @@
       </trans-unit>
       <trans-unit id="Enter petfood product barcode." xml:space="preserve">
         <source>Enter petfood product barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a petfood barcode search</note><target>Ingrese el código de barras del producto mascotas</target>
+        <target>Entra el código de barras de alimentos para mascotas</target>
+        <note>Placeholder string in a textfield to explain the purpose of a petfood barcode search</note>
       </trans-unit>
       <trans-unit id="Enter postal code" xml:space="preserve">
         <source>Enter postal code</source>
@@ -706,6 +661,11 @@
         <source>Entry Date</source>
         <target>Fecha de entrada</target>
         <note>String to indicate the date, when the product was created on OFF.</note>
+      </trans-unit>
+      <trans-unit id="Environment" xml:space="preserve">
+        <source>Environment</source>
+        <target>Impacto medioambiental</target>
+        <note>String to indicate the title o a page, which details the environmental impact of the product.</note>
       </trans-unit>
       <trans-unit id="Exclude" xml:space="preserve">
         <source>Exclude</source>
@@ -749,7 +709,8 @@
       </trans-unit>
       <trans-unit id="Food barcode." xml:space="preserve">
         <source>Food barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note><target>Código de barres alimenticio</target>
+        <target>Código de barras de alimentos</target>
+        <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note>
       </trans-unit>
       <trans-unit id="Front Image" xml:space="preserve">
         <source>Front Image</source>
@@ -771,6 +732,21 @@
         <target>Pinacoteca</target>
         <note>Viewcontroller title for page with images of the product</note>
       </trans-unit>
+      <trans-unit id="Game" xml:space="preserve">
+        <source>Game</source>
+        <target>Juego</target>
+        <note>Tabbar title for page with the robotoff game</note>
+      </trans-unit>
+      <trans-unit id="Game can not be prepared, try another time" xml:space="preserve">
+        <source>Game can not be prepared, try another time</source>
+        <target>No se puede iniciar el juego. Por favor intente mas tarde.</target>
+        <note>Button text, which indicate the game can not be set up.</note>
+      </trans-unit>
+      <trans-unit id="Game preparing" xml:space="preserve">
+        <source>Game preparing</source>
+        <target>Preparación del juego</target>
+        <note>Button text, which indicate the prepare (retrieval) status of the game.</note>
+      </trans-unit>
       <trans-unit id="Generic Name (edited)" xml:space="preserve">
         <source>Generic Name (edited)</source>
         <target>Denominación general (editado)</target>
@@ -780,6 +756,11 @@
         <source>Generic Name (non-edited)</source>
         <target>Denominación general (no editado)</target>
         <note>Tableview sectionheader for the original long product name</note>
+      </trans-unit>
+      <trans-unit id="Help OFF improving its automatic recognition of brand, ingredients, etc." xml:space="preserve">
+        <source>Help OFF improving its automatic recognition of brand, ingredients, etc.</source>
+        <target>Ayude a OFF a mejorar su reconocimiento automático de salvados, ingredientes, categorías, etc.</target>
+        <note>Label text to explain the robotoff game</note>
       </trans-unit>
       <trans-unit id="History" xml:space="preserve">
         <source>History</source>
@@ -1002,6 +983,11 @@
         <target>Detecciones de ingredientes negativos</target>
         <note>Tableview sectionheader for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected?</note>
       </trans-unit>
+      <trans-unit id="No" xml:space="preserve">
+        <source>No</source>
+        <target>no</target>
+        <note>Title of an alert action, when the answer is negative/untrue.</note>
+      </trans-unit>
       <trans-unit id="No brands indicated" xml:space="preserve">
         <source>No brands indicated</source>
         <target>No hay marcas indicadas</target>
@@ -1011,6 +997,11 @@
         <source>No category defined</source>
         <target>ninguna categoría definida</target>
         <note>Text in a tableview cell, when no category is defined.</note>
+      </trans-unit>
+      <trans-unit id="No comments set" xml:space="preserve">
+        <source>No comments set</source>
+        <target>Sin comentarios establecidos</target>
+        <note>Text of a tag, when the user did not set any comments.</note>
       </trans-unit>
       <trans-unit id="No expiration date" xml:space="preserve">
         <source>No expiration date</source>
@@ -1034,7 +1025,8 @@
       </trans-unit>
       <trans-unit id="No matches for this level detected" xml:space="preserve">
         <source>No matches for this level detected</source>
-        <note>String when no diet matches have been found.</note><target>No hay coincidencias para este nivel</target>
+        <target>No se detectaron coincidencias para este nivel</target>
+        <note>String when no diet matches have been found.</note>
       </trans-unit>
       <trans-unit id="No nutrients" xml:space="preserve">
         <source>No nutrients</source>
@@ -1327,6 +1319,21 @@
         <target>Tipo de envase, formato, material (no editado)</target>
         <note>Tableview sectionheader for packaging, original version.</note>
       </trans-unit>
+      <trans-unit id="Packaging Image" xml:space="preserve">
+        <source>Packaging Image</source>
+        <target>Imagen de instrucciones de embalaje</target>
+        <note>Title for the viewcontroller with the packaging image</note>
+      </trans-unit>
+      <trans-unit id="Packaging Image (edited)" xml:space="preserve">
+        <source>Packaging Image (edited)</source>
+        <target>Imagen de instrucciones de embalaje (editado)</target>
+        <note>Title for the viewcontroller with the edited packaging image</note>
+      </trans-unit>
+      <trans-unit id="Packaging Image (non-edited)" xml:space="preserve">
+        <source>Packaging Image (non-edited)</source>
+        <target>Imagen de instrucciones de embalaje (no editado)</target>
+        <note>Title for the viewcontroller with the original packaging image</note>
+      </trans-unit>
       <trans-unit id="Password" xml:space="preserve">
         <source>Password</source>
         <target>Contraseña</target>
@@ -1362,6 +1369,11 @@
         <target>Cuenta personal</target>
         <note>Title in AlertViewController, which lets the user enter his username/password.</note>
       </trans-unit>
+      <trans-unit id="Personal comment" xml:space="preserve">
+        <source>Personal comment</source>
+        <target>Comentario personal</target>
+        <note>Comment string added by the user.</note>
+      </trans-unit>
       <trans-unit id="Petfood" xml:space="preserve">
         <source>Petfood</source>
         <target>Alimentos mascotas</target>
@@ -1374,7 +1386,8 @@
       </trans-unit>
       <trans-unit id="Petfood barcode." xml:space="preserve">
         <source>Petfood barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a pet food barcode search</note><target>Código de barras mascotas</target>
+        <target>Código de barras de alimentos para mascotas</target>
+        <note>Placeholder string in a textfield to explain the purpose of a pet food barcode search</note>
       </trans-unit>
       <trans-unit id="Photographer" xml:space="preserve">
         <source>Photographer</source>
@@ -1420,6 +1433,11 @@
         <source>Prefix corrected</source>
         <target>Prefijo de idioma corregido</target>
         <note>Description of the prefixed corrected tags</note>
+      </trans-unit>
+      <trans-unit id="Prepare Game" xml:space="preserve">
+        <source>Prepare Game</source>
+        <target>Preparar el juego</target>
+        <note>Button title to start preparing for the next set of questions</note>
       </trans-unit>
       <trans-unit id="Presentation format" xml:space="preserve">
         <source>Presentation format</source>
@@ -1473,7 +1491,8 @@
       </trans-unit>
       <trans-unit id="Product barcode." xml:space="preserve">
         <source>Product barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a product barcode search</note><target>Código de barras producto</target>
+        <target>Código de barras del producto</target>
+        <note>Placeholder string in a textfield to explain the purpose of a product barcode search</note>
       </trans-unit>
       <trans-unit id="Product does not exist. Add?" xml:space="preserve">
         <source>Product does not exist. Add?</source>
@@ -1776,6 +1795,21 @@
         <target>Fotos de nutrición seleccionadas (no editado)</target>
         <note>Gallery header text presenting the non-edited selected nutrition images</note>
       </trans-unit>
+      <trans-unit id="Selected Packaging Images" xml:space="preserve">
+        <source>Selected Packaging Images</source>
+        <target>Imágenes de instrucciones de embalaje seleccionadas</target>
+        <note>Gallery header text presenting the selected packaging images</note>
+      </trans-unit>
+      <trans-unit id="Selected Packaging Images (edited)" xml:space="preserve">
+        <source>Selected Packaging Images (edited)</source>
+        <target>Imágenes de instrucciones de embalaje seleccionadas (editado)</target>
+        <note>Gallery header text presenting the edited selected nutrition images</note>
+      </trans-unit>
+      <trans-unit id="Selected Packaging Images (non-edited)" xml:space="preserve">
+        <source>Selected Packaging Images (non-edited)</source>
+        <target>Imágenes de instrucciones de embalaje seleccionadas (no editado)</target>
+        <note>Gallery header text presenting the non-edited selected nutrition images</note>
+      </trans-unit>
       <trans-unit id="Selected Traces" xml:space="preserve">
         <source>Selected Traces</source>
         <target>Trazas Seleccionados</target>
@@ -1861,6 +1895,11 @@
         <target>¿Iniciar busqueda?</target>
         <note>Title in AlertViewController, which lets the user decide if he wants to start a search.</note>
       </trans-unit>
+      <trans-unit id="Start game" xml:space="preserve">
+        <source>Start game</source>
+        <target>Empezar juego</target>
+        <note>Button text, which indicate that the game can be started.</note>
+      </trans-unit>
       <trans-unit id="Stores" xml:space="preserve">
         <source>Stores</source>
         <target>Tiendas</target>
@@ -1920,6 +1959,11 @@
         <source>This barcode is not yet listed on OFF. Please take some photos, so the data can be added.</source>
         <target>Este código de barras aún no figura en FF. Tome algunas fotos para que se puedan agregar los datos.</target>
         <note>String, which urges the user to take photos of the (new) product.</note>
+      </trans-unit>
+      <trans-unit id="This image was upload on:" xml:space="preserve">
+        <source>This image was upload on:</source>
+        <target>Esta imagen fue cargada en:</target>
+        <note>Text of a label, when an image was uploaded.</note>
       </trans-unit>
       <trans-unit id="This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." xml:space="preserve">
         <source>This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.</source>
@@ -1991,6 +2035,16 @@
         <target>Trazas para Seleccionar</target>
         <note>Title of a tableview section with a list of traces that can be selected.</note>
       </trans-unit>
+      <trans-unit id="Uploaded by:" xml:space="preserve">
+        <source>Uploaded by:</source>
+        <target>por:</target>
+        <note>Explanation text of a label, which shows the name of the uploader.</note>
+      </trans-unit>
+      <trans-unit id="Uploader unknown" xml:space="preserve">
+        <source>Uploader unknown</source>
+        <target>Uploader desconocida</target>
+        <note>Title of a label, which should show the name of the uploader.</note>
+      </trans-unit>
       <trans-unit id="Uploading image" xml:space="preserve">
         <source>Uploading image</source>
         <target>Cargando foto</target>
@@ -2011,6 +2065,11 @@
         <target>Usa fotos</target>
         <note>Title of a button to indicate that user can pick an image from Photos.</note>
       </trans-unit>
+      <trans-unit id="User" xml:space="preserve">
+        <source>User</source>
+        <target>Usário</target>
+        <note>Title Tab bar, which shows some statistics of the user.</note>
+      </trans-unit>
       <trans-unit id="User Preferences" xml:space="preserve">
         <source>User Preferences</source>
         <target>Ajustes del usuario</target>
@@ -2030,6 +2089,11 @@
         <source>View Toggle Mode</source>
         <target>Alternar el modo de vista</target>
         <note>Title of a tableView section, which lets the user set the view toggle mode interface (double tap or button)</note>
+      </trans-unit>
+      <trans-unit id="Yes" xml:space="preserve">
+        <source>Yes</source>
+        <target>Si</target>
+        <note>Title of an alert button, which confirms the question</note>
       </trans-unit>
       <trans-unit id="for %@ in %@" xml:space="preserve">
         <source>for %1$@ in %2$@</source>
@@ -2118,7 +2182,8 @@
       </trans-unit>
       <trans-unit id="nothing selected" xml:space="preserve">
         <source>nothing selected</source>
-        <note>Title of a viewController when no product/search has been selected.</note><target>ninguno seleccionado</target>
+        <target>nada seleccionado</target>
+        <note>Title of a viewController when no product/search has been selected.</note>
       </trans-unit>
       <trans-unit id="nutrition data not on package" xml:space="preserve">
         <source>nutrition data not on package</source>
@@ -2164,6 +2229,53 @@
         <source>🔦</source>
         <target>🔦</target>
         <note>Image to indicate that the user modified information of the product.</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="FoodViewer/Localisation/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="es" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.7" build-num="11E801a"/>
+    </header>
+    <body>
+      <trans-unit id="3Vn-bz-g9v.title" xml:space="preserve">
+        <source>Scanner</source>
+        <target>Escáner</target>
+        <note>Class = "UITabBarItem"; title = "Scanner"; ObjectID = "3Vn-bz-g9v";</note>
+      </trans-unit>
+      <trans-unit id="8si-Yq-0ji.text" xml:space="preserve">
+        <source>FoodViewer is possible thanks to OpenFoodFacts, an open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels.</source>
+        <target>FoodViewer es posible gracias a OpenFoodFacts, una base de datos abierta de productos alimenticios con ingredientes, alérgenos, información nutricional y toda la información que puede encontrar en las etiquetas de los alimentos.</target>
+        <note>Class = "UITextView"; text = "FoodViewer is possible thanks to OpenFoodFacts, an open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels."; ObjectID = "8si-Yq-0ji";</note>
+      </trans-unit>
+      <trans-unit id="9OJ-E9-8aV.text" xml:space="preserve">
+        <source>FoodViewer</source>
+        <target>FoodViewer</target>
+        <note>Class = "UILabel"; text = "FoodViewer"; ObjectID = "9OJ-E9-8aV";</note>
+      </trans-unit>
+      <trans-unit id="Uqq-0f-VGW.title" xml:space="preserve">
+        <source>Preferences</source>
+        <target>Preferencias</target>
+        <note>Class = "UITabBarItem"; title = "Preferences"; ObjectID = "Uqq-0f-VGW";</note>
+      </trans-unit>
+      <trans-unit id="WHd-6b-vLZ.title" xml:space="preserve">
+        <source>User</source>
+        <target>Usario</target>
+        <note>Class = "UITabBarItem"; title = "User"; ObjectID = "WHd-6b-vLZ";</note>
+      </trans-unit>
+      <trans-unit id="szq-J1-leR.title" xml:space="preserve">
+        <source>Game</source>
+        <target>Juego</target>
+        <note>Class = "UITabBarItem"; title = "Game"; ObjectID = "szq-J1-leR";</note>
+      </trans-unit>
+      <trans-unit id="u7v-kh-6sa.title" xml:space="preserve">
+        <source>Search</source>
+        <target>Buscar</target>
+        <note>Class = "UITabBarItem"; title = "Search"; ObjectID = "u7v-kh-6sa";</note>
+      </trans-unit>
+      <trans-unit id="znY-gQ-KqA.text" xml:space="preserve">
+        <source>Copyright © 2020 Hovering Above. All rights reserved.</source>
+        <target>Derechos de autor © 2020 Hovering Above. Todos los derechos reservados</target>
+        <note>Class = "UILabel"; text = "Copyright © 2020 Hovering Above. All rights reserved."; ObjectID = "znY-gQ-KqA";</note>
       </trans-unit>
     </body>
   </file>

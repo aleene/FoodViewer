@@ -261,7 +261,7 @@
 "Detected Allergens (translated)" = "Allergènes détectés (traduit)";
 
 /* Text to indicate the detected aminoacids of a product. */
-"Detected Aminoacids" = "\t\nAcides aminés";
+"Detected Aminoacids" = "Acides aminés";
 
 /* Text to indicate the normalized detected aminoacids of a product. */
 "Detected Aminoacids (normalized)" = "Acides aminés (normalisé)";
@@ -437,6 +437,15 @@
 /* Viewcontroller title for page with images of the product */
 "Gallery" = "Gallerie";
 
+/* Tabbar title for page with the robotoff game */
+"Game" = "Jeu";
+
+/* Button text, which indicate the game can not be set up. */
+"Game can not be prepared, try another time" = "Jeu ne peut pas être téléchargé, essaie ulterieurement";
+
+/* Button text, which indicate the prepare (retrieval) status of the game. */
+"Game preparing" = "Jeu en préparation";
+
 /* Tableview sectionheader for the edited long product name */
 "Generic Name (edited)" = "Nom générique (édité)";
 
@@ -445,6 +454,9 @@
 
 /* Standard weight unit. */
 "gram (g)" = "gramme (g)";
+
+/* Label text to explain the robotoff game */
+"Help OFF improving its automatic recognition of brand, ingredients, etc." = "Aide OFF avec sa reconnaissance automatique des marques, ingrédients, catégories, etc.";
 
 /* Title of the secnd Tabbar item of a TabBarVC */
 "History" = "Histoire";
@@ -907,6 +919,9 @@
 /* Description of the prefixed corrected tags */
 "Prefix corrected" = "Préfix corrigé";
 
+/* Button title to start preparing for the next set of questions */
+"Prepare Game" = "Prépare jeu";
+
 /* Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion. */
 "Presentation format" = "Format de présentation";
 
@@ -1181,6 +1196,9 @@
 /* Explanatory text in AlertViewController, which lets the user enter his username/password. */
 "Specify your credentials for OFF" = "Nom et mot de passe pour OFF";
 
+/* Button text, which indicate that the game can be started. */
+"Start game" = "Démarre jeu";
+
 /* Title in AlertViewController, which lets the user decide if he wants to start a search. */
 "Start Search?" = "Commencer la recherche?";
 
@@ -1282,6 +1300,9 @@
 
 /* Title of a button to indicate that user can pick an image from Photos. */
 "Use Photos" = "Utiliser la gallerie";
+
+/* Title Tab bar, which shows some statistics of the user. */
+"User" = "Utilisateur";
 
 /* Title of a segment in a segmentedControl that this parameter will be set by the user. */
 "User defined" = "Défini par l'utilisateur";

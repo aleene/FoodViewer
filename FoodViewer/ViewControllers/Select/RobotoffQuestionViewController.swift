@@ -127,7 +127,7 @@ Configure the class SelectPairViewController in one go. All possible input param
 
     private func setImage() {
         var imageToDisplay: UIImage? = nil
-        if let result = imageSet?.largestOrThumb {
+        if let result = imageSet?.largest?.fetch() {
             switch result {
             case .success(let image):
                 imageToDisplay = image

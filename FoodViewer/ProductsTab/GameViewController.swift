@@ -14,7 +14,7 @@ class GameViewController: UIViewController {
         didSet {
             startButton?.isHidden = showQuestion
             startButton?.isEnabled = false
-            startButton?.setTitle("Game preparing", for: .normal)
+            startButton?.setTitle(TranslatableStrings.GamePreparing, for: .normal)
         }
     }
     
@@ -24,7 +24,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var explanationLabel: UILabel! {
         didSet {
-            explanationLabel?.text = "Help OFF improving its automatic recognition of brand, ingredients, etc."
+            explanationLabel?.text = TranslatableStrings.GameExplanation
             explanationLabel?.isHidden = showQuestion
         }
     }
@@ -48,7 +48,7 @@ class GameViewController: UIViewController {
             currentQuestionIndex += 1
             setQuestion()
         } else {
-            startButton?.setTitle("Continue game", for: .normal)
+            startButton?.setTitle(TranslatableStrings.GameContinue, for: .normal)
             startNewQuestionSet()
         }
     }
@@ -67,7 +67,7 @@ class GameViewController: UIViewController {
             switch fetchStatus {
             case .success(let questions):
                 startButton?.isEnabled = true
-                startButton?.setTitle("Start Game", for: .normal)
+                startButton?.setTitle(TranslatableStrings.GameStart, for: .normal)
                 if !questions.isEmpty {
                     if currentQuestionIndex < questions.count  {
                         containerViewController?.configure(question: questions[currentQuestionIndex], image: nil)
@@ -75,14 +75,12 @@ class GameViewController: UIViewController {
                 }
             case .loading:
                 startButton?.setTitle(TranslatableStrings.SearchLoading, for: .normal)
-            case .failed(let error):
-                startButton?.setTitle(error, for: .normal)
+            case .failed:
+                startButton?.setTitle(TranslatableStrings.GameNotPrepared, for: .normal)
             case .initialized:
-                startButton?.setTitle("Game preparing", for: .normal)
+                startButton?.setTitle(TranslatableStrings.GamePreparing, for: .normal)
             default: break
             }
-        } else {
-            startButton?.setTitle("Nil issue", for: .normal)
         }
     }
     

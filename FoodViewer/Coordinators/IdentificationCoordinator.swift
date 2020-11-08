@@ -109,11 +109,11 @@ The selected language will be used to change the current display language of the
      - currentLanguageCode: the current languageCode that is displayed in the viewController. This languageCode will be selected in the pickerView;
      - button: the button that will be used to anchor the popover;
 */
-    func selectLanguage(currentLanguageCode: String?, atAnchor button:UIButton) {
+    func selectLanguage(primaryLanguageCode: String?, currentLanguageCode: String?, productLanguageCodes: [String], atAnchor button:UIButton) {
         let coordinator = SelectLanguageCoordinator(with: self,
-                                                    primaryLanguageCode: productPair?.primaryLanguageCode,
+                                                    primaryLanguageCode: primaryLanguageCode,
                                                     currentLanguageCode: currentLanguageCode,
-                                                    languageCodes: productPair?.remoteProduct?.languageCodes,
+                                                    languageCodes: productLanguageCodes,
                                                     button: button)
         childCoordinators.append(coordinator)
         coordinator.show()

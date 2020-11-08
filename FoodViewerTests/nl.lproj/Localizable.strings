@@ -1,9 +1,0 @@
-/* The JSON file is wrongly formatted. */
-"Error: No verbose status" = "Foutmelding: No verbose status";
-
-/* Probably a programming error. */
-"Error: URL encoding failed" = "Foutmelding: URL encoding failed";
-
-/* Probably a programming error. */
-"Error: URL is wrong somehow" = "Foutmelding: URL wrongly formatted";
-

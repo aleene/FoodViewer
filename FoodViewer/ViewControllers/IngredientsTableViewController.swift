@@ -1578,7 +1578,9 @@ extension IngredientsTableViewController: GKImagePickerDelegate {
 extension IngredientsTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
-        coordinator?.selectLanguage(for: self.productPair, with: currentLanguageCode, atAnchor: sender)
+        guard let primaryLanguageCode = self.productPair?.primaryLanguageCode else { return }
+        guard let languageCodes = self.productPair?.languageCodes else { return }
+        coordinator?.selectLanguage(primaryLanguageCode: primaryLanguageCode, currentLanguageCode: displayLanguageCode, productLanguageCodes: languageCodes, atAnchor: sender)
     }
     
     func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {

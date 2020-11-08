@@ -95,7 +95,7 @@
 "Beauty" = "Beauty";
 
 /* Placeholder string in a textfield to explain the purpose of a beauty product barcode search */
-"Beauty barcode." = "Beauty streepjescode";
+"Beauty  barcode." = "Drogisterijproduct streepjescode";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Beauty Products" = "Beauty producten";
@@ -437,6 +437,15 @@
 /* Viewcontroller title for page with images of the product */
 "Gallery" = "Fotogalerij";
 
+/* Tabbar title for page with the robotoff game */
+"Game" = "Spel";
+
+/* Button text, which indicate the game can not be set up. */
+"Game can not be prepared, try another time" = "Spel kan niet geladen worden. Probeer later nog eens.";
+
+/* Button text, which indicate the prepare (retrieval) status of the game. */
+"Game preparing" = "Spel is aan het laden";
+
 /* Tableview sectionheader for the edited long product name */
 "Generic Name (edited)" = "Generieke productnaam (bewerkt)";
 
@@ -445,6 +454,9 @@
 
 /* Standard weight unit. */
 "gram (g)" = "gram (g)";
+
+/* Label text to explain the robotoff game */
+"Help OFF improving its automatic recognition of brand, ingredients, etc." = "Help OFF bij het automatisch herkennen van merken, ingrediënten, categorieën, etc.";
 
 /* Title of the secnd Tabbar item of a TabBarVC */
 "History" = "Geschiedenis";
@@ -907,6 +919,9 @@
 /* Description of the prefixed corrected tags */
 "Prefix corrected" = "Gecorrigeerde prefix";
 
+/* Button title to start preparing for the next set of questions */
+"Prepare Game" = "Bereid spel voor";
+
 /* Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion. */
 "Presentation format" = "Presentatie format";
 
@@ -1163,7 +1178,7 @@
 /* Row title, which allows the user to set his open food facts username. */
 "Set your OpenFoodFacts account." = "Stel je OpenFoodFacts account in";
 
-/* Title of a tableview header indicating that the corresding field has been set. */
+/* Title of a tableview header  indicating that the corresding field has been set. */
 "Setup query" = "Definieer zoekvraag";
 
 /* SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected? */
@@ -1180,6 +1195,9 @@
 
 /* Explanatory text in AlertViewController, which lets the user enter his username/password. */
 "Specify your credentials for OFF" = "Geef OFF gebruikersnaam en wachtwoord";
+
+/* Button text, which indicate that the game can be started. */
+"Start game" = "Start spel";
 
 /* Title in AlertViewController, which lets the user decide if he wants to start a search. */
 "Start Search?" = "Start zoekvraag?";
@@ -1282,6 +1300,9 @@
 
 /* Title of a button to indicate that user can pick an image from Photos. */
 "Use Photos" = "Fotos";
+
+/* Title Tab bar, which shows some statistics of the user. */
+"User" = "Gebruiker";
 
 /* Title of a segment in a segmentedControl that this parameter will be set by the user. */
 "User defined" = "Gebruikerbepaald";

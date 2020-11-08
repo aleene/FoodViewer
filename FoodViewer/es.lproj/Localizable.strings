@@ -434,6 +434,15 @@
 /* Viewcontroller title for page with images of the product */
 "Gallery" = "Pinacoteca";
 
+/* Tabbar title for page with the robotoff game */
+"Game" = "Juego";
+
+/* Button text, which indicate the game can not be set up. */
+"Game can not be prepared, try another time" = "No se puede iniciar el juego. Por favor intente mas tarde.";
+
+/* Button text, which indicate the prepare (retrieval) status of the game. */
+"Game preparing" = "Preparación del juego";
+
 /* Tableview sectionheader for the edited long product name */
 "Generic Name (edited)" = "Denominación general (editado)";
 
@@ -442,6 +451,9 @@
 
 /* Standard weight unit. */
 "gram (g)" = "gramo (g)";
+
+/* Label text to explain the robotoff game */
+"Help OFF improving its automatic recognition of brand, ingredients, etc." = "Ayude a OFF a mejorar su reconocimiento automático de salvados, ingredientes, categorías, etc.";
 
 /* Title of the secnd Tabbar item of a TabBarVC */
 "History" = "Historia";
@@ -904,6 +916,9 @@
 /* Description of the prefixed corrected tags */
 "Prefix corrected" = "Prefijo de idioma corregido";
 
+/* Button title to start preparing for the next set of questions */
+"Prepare Game" = "Preparar el juego";
+
 /* Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion. */
 "Presentation format" = "Formato de presentación";
 
@@ -1178,6 +1193,9 @@
 /* Explanatory text in AlertViewController, which lets the user enter his username/password. */
 "Specify your credentials for OFF" = "Especifique sus credenciales para OFF";
 
+/* Button text, which indicate that the game can be started. */
+"Start game" = "Empezar juego";
+
 /* Title in AlertViewController, which lets the user decide if he wants to start a search. */
 "Start Search?" = "¿Iniciar busqueda?";
 
@@ -1279,6 +1297,9 @@
 
 /* Title of a button to indicate that user can pick an image from Photos. */
 "Use Photos" = "Usa fotos";
+
+/* Title Tab bar, which shows some statistics of the user. */
+"User" = "Usário";
 
 /* Title of a segment in a segmentedControl that this parameter will be set by the user. */
 "User defined" = "Definido por el usuario";

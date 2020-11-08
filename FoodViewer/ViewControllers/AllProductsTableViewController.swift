@@ -270,9 +270,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
             }
         }
     }
-    
-    // private var productIndexForMainImage: Int? = nil
-    
+        
     private func switchToTab(withIndex index: Int) {
         if let tabVC = self.parent?.parent as? UITabBarController {
             tabVC.selectedIndex = index

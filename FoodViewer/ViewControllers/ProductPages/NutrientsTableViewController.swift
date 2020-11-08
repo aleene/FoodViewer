@@ -1639,7 +1639,9 @@ extension NutrientsTableViewController: LanguageHeaderDelegate {
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
         switch sender.tag {
         case 0:
-            coordinator?.showLanguageSelector(for: self.productPair, with: currentLanguageCode, atAnchor: sender)
+            guard let primaryLanguageCode = self.productPair?.primaryLanguageCode else { return }
+            guard let languageCodes = self.productPair?.languageCodes else { return }
+            coordinator?.selectLanguage(primaryLanguageCode: primaryLanguageCode, currentLanguageCode: displayLanguageCode, productLanguageCodes: languageCodes, atAnchor: sender)
         case 1:
             coordinator?.showNutritionFactsTableStyleSelector(for: self.productPair, selected: selectedNutritionFactsTableStyle, anchoredOn: sender)
             //performSegue(withIdentifier: segueIdentifier(to: SelectNutritionFactsTableStyleTableViewCell.self), sender: sender)

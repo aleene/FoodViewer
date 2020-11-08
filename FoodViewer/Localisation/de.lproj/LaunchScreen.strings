@@ -2,17 +2,23 @@
 "3Vn-bz-g9v.title" = "Scanner";
 
 /* Class = "UITextView"; text = "FoodViewer is possible thanks to OpenFoodFacts, an open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels."; ObjectID = "8si-Yq-0ji"; */
-"8si-Yq-0ji.text" = "FoodViewer wordt mogelijk gemaakt dankzij OPenFoodFacts, een open levensmiddelenbestand met ingrediênten, allergenen, voedingswaarden en alle informatie die op je op de etiketten van levensmiddelen kan vinden.";
+"8si-Yq-0ji.text" = "FoodViewer ist möglich dank OpenFoodFacts, einer offenen Datenbank von Lebensmitteln mit Zutaten, Allergenen, Nährwertangaben und allen Informationen, die Sie auf Lebensmitteletiketten finden können.";
 
 /* Class = "UILabel"; text = "FoodViewer"; ObjectID = "9OJ-E9-8aV"; */
-"9OJ-E9-8aV.text" = "Geschiedenis";
+"9OJ-E9-8aV.text" = "FoodViewer";
+
+/* Class = "UITabBarItem"; title = "Game"; ObjectID = "szq-J1-leR"; */
+"szq-J1-leR.title" = "Spiel";
 
 /* Class = "UITabBarItem"; title = "Search"; ObjectID = "u7v-kh-6sa"; */
-"u7v-kh-6sa.title" = "Zoeken";
+"u7v-kh-6sa.title" = "Suchen";
+
+/* Class = "UITabBarItem"; title = "Preferences"; ObjectID = "Uqq-0f-VGW"; */
+"Uqq-0f-VGW.title" = "Einstellungen";
 
 /* Class = "UITabBarItem"; title = "User"; ObjectID = "WHd-6b-vLZ"; */
-"WHd-6b-vLZ.title" = "Gebruiker";
+"WHd-6b-vLZ.title" = "Benutzer";
 
 /* Class = "UILabel"; text = "Copyright © 2020 Hovering Above. All rights reserved."; ObjectID = "znY-gQ-KqA"; */
-"znY-gQ-KqA.text" = "Copyright 2019 Hovering Above. Alle rechten voorbehouden";
+"znY-gQ-KqA.text" = "Copyright 2020 Hovering Above. Alle Rechte vorbehalten";
 
