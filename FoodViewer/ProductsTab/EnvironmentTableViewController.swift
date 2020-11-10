@@ -100,6 +100,8 @@ var delegate: ProductPageViewController? = nil {
     
     fileprivate var searchResult: String = ""
 
+    private var uploadProgressRatio: CGFloat? = nil
+
     // MARK: - Action methods
     
     // should redownload the current product and reload it in this scene
@@ -110,7 +112,7 @@ var delegate: ProductPageViewController? = nil {
         }
     }
     
-    // MARK: - Tableview methods
+// MARK: - Tableview methods
 
     fileprivate var tableStructure: [SectionType] = []
     
@@ -165,6 +167,8 @@ var delegate: ProductPageViewController? = nil {
                 }
                 cell.productImage = currentImage.0
                 cell.uploadTime = currentImage.2
+                // show the up-/download ratio
+                cell.progressRatio = self.uploadProgressRatio
                 cell.delegate = self
                 return cell
             } else {
@@ -549,6 +553,23 @@ var delegate: ProductPageViewController? = nil {
         }
         tableView.reloadData()
     }
+    
+    /// Function that handles image upload progress notifications
+    @objc func progress(_ notification: Notification) {
+        guard !editMode else { return }
+        // Check if this upload progress is relevant to this product
+        guard let barcode = notification.userInfo?[OFFImageUploadAPI.Notification.BarcodeKey] as? String else { return }
+        guard let productBarcode = productPair!.remoteProduct?.barcode.asString else { return }
+        guard barcode == productBarcode else { return }
+                    // is it relevant to the main image?
+        guard let id = notification.userInfo?[OFFImageUploadAPI.Notification.ImageTypeCategoryKey] as? String else { return }
+        guard id.contains(OFFHttpPost.AddParameter.ImageField.Value.Packaging) else  { return }
+        guard let progress = notification.userInfo?[OFFImageUploadAPI.Notification.ProgressKey] as? String else { return }
+        guard let progressDouble = Double(progress) else { return }
+        self.uploadProgressRatio = CGFloat(progressDouble)
+        // reload the tabel to update the progress indicator
+        self.tableView.reloadData()
+    }
 
 // MARK: - ViewController Lifecycle
 
@@ -582,15 +603,40 @@ var delegate: ProductPageViewController? = nil {
         
         NotificationCenter.default.addObserver(
             self,
-            selector:#selector(IdentificationTableViewController.refreshProduct),
+            selector:#selector(EnvironmentTableViewController.refreshProduct),
             name: .ProductPairLocalStatusChanged, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductPairRemoteStatusChanged, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.HistoryHasBeenDeleted, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded(_:)), name:.ProductPairImageUploadSuccess, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFProductsImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(EnvironmentTableViewController.imageUpdated(_:)),
+            name:.ImageSet, object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(EnvironmentTableViewController.refreshProduct),
+            name:.ProductPairRemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(EnvironmentTableViewController.refreshProduct),
+            name:.ProductUpdateSucceeded, object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(EnvironmentTableViewController.refreshProduct),
+            name:.HistoryHasBeenDeleted, object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(EnvironmentTableViewController.imageUploaded(_:)),
+            name:.ProductPairImageUploadSuccess, object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(EnvironmentTableViewController.imageDeleted(_:)),
+            name:.ProductPairImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(EnvironmentTableViewController.imageDeleted(_:)),
+            name:.OFFProductsImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(EnvironmentTableViewController.progress(_:)),
+            name:.ImageUploadProgress, object:nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -625,9 +671,9 @@ extension EnvironmentTableViewController: ProductImageCellDelegate {
     }
     
 }
-//
+
 // MARK: - TagListViewAddImageCellDelegate functions
-//
+
 extension EnvironmentTableViewController: TagListViewAddImageCellDelegate {
     
     func tagListViewAddImageTableViewCell(_ sender: TagListViewAddImageTableViewCell, receivedActionOnCamera button:UIButton) {
@@ -639,9 +685,9 @@ extension EnvironmentTableViewController: TagListViewAddImageCellDelegate {
     }
     
 }
-//
+
 // MARK: - TagListView DataSource Functions
-//
+
 extension EnvironmentTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {

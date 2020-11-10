@@ -39,6 +39,12 @@ class OFFImageUploadAPI: Operation {
         static let NameKey = "name="
     }
     
+    internal struct Notification {
+        static let BarcodeKey = "OFFImageUploadAPI.Notification.Barcode.Key"
+        static let ProgressKey = "OFFImageUploadAPI.Notification.Progress.Key"
+        static let ImageTypeCategoryKey = "OFFImageUploadAPI.Notification.ImageTypeCategory.Key"
+    }
+
     private var image: UIImage? = nil
     private var languageCode: String? = nil
     private var OFFServer: String? = nil
@@ -80,43 +86,30 @@ class OFFImageUploadAPI: Operation {
              completionHandler: myCompletion )
     }
     
+    //private var observation: NSKeyValueObservation?
+    fileprivate var progress: Double? = nil {
+        didSet {
+            if let validProgress = progress,
+                let validBarcodeString = barcodeString,
+                let validImageTYpeString = imageTypeString {
+                DispatchQueue.main.async(execute: { () -> Void in
+                let userInfo = [Notification.BarcodeKey: validBarcodeString as String,
+                                Notification.ImageTypeCategoryKey: validImageTYpeString as String,
+                                Notification.ProgressKey:
+                                    "\(validProgress)" as String]
+                NotificationCenter.default.post(name: .ImageUploadProgress, object: nil, userInfo: userInfo)
+            })
+            }
+        }
+    }
+    
     private func post(image: UIImage, parameters: Dictionary<String, String>, imageType: String, url: String, languageCode: String, completionHandler: @escaping (OFFImageUploadResultJson?) -> ()) {
         let urlString = URL(string: url)
         guard urlString != nil else { return }
         
-        /*
-        if image.imageOrientation == UIImageOrientation.left {
-            print("left")
-        } else if image.imageOrientation == UIImageOrientation.right {
-            print("right")
-        } else if image.imageOrientation == UIImageOrientation.down {
-            print("down")
-        } else if image.imageOrientation == UIImageOrientation.up {
-            print("up")
-        }
-        */
         let ewImage = image.setOrientationToLeftUpCorner()
-        /*
-        if ewImage.imageOrientation == UIImageOrientation.left {
-            print("left")
-        } else if ewImage.imageOrientation == UIImageOrientation.right {
-            print("right")
-        } else if ewImage.imageOrientation == UIImageOrientation.down {
-            print("down")
-        } else if ewImage.imageOrientation == UIImageOrientation.up {
-            print("up")
-        }
-         */
-        //print(image.description)
-        //let data = UIImagePNGRepresentation()
-        //print(ewImage.description)
         
         guard let data = ewImage.pngData() else { return }
-        
-        
-        // let TWITTERFON_FORM_BOUNDARY:String = "FoodViewer"
-        // let MPboundary:String = "--\(TWITTERFON_FORM_BOUNDARY)"
-        // let endMPboundary:String = "\(MPboundary)--"
         
         let body:NSMutableString = NSMutableString();
         
@@ -155,7 +148,12 @@ class OFFImageUploadAPI: Operation {
         DispatchQueue.main.async(execute: { () -> Void in
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         })
-        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
+        
+        let configuration = URLSessionConfiguration.default
+        let mainQueue = OperationQueue.main
+        let session = URLSession(configuration: configuration, delegate: self, delegateQueue: mainQueue)
+
+        let task = session.uploadTask(with: request as URLRequest, from: myRequestData as Data, completionHandler: {
             data, response, error in
             if error != nil {
                 print(error as Any)
@@ -167,10 +165,74 @@ class OFFImageUploadAPI: Operation {
             }
             completionHandler(data.resultForImageUpload())
         })
+        /*
+        let task = session.dataTask(with: request as URLRequest, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            guard let data = data else {
+                completionHandler(nil)
+                return
+            }
+            completionHandler(data.resultForImageUpload())
+        })
+ */
         task.resume()
+        /*
+            observation = task.progress.observe(\.fractionCompleted) { progress, _ in
+                print("progress: ", progress.fractionCompleted)
+                DispatchQueue.main.async(execute: { () -> Void in
+                    let userInfo = [Notification.BarcodeKey: parameters[OFFHttpPost.AddParameter.BarcodeKey]! as String,
+                                    Notification.ImageTypeCategoryKey: imageType as String,
+                                    Notification.ProgressKey:
+                                    "\(progress.fractionCompleted)" as String]
+                    NotificationCenter.default.post(name: .ImageUploadProgress, object: nil, userInfo: userInfo)
+                })
+            }
+ */
     }
+    
+    /*
+    deinit {
+      observation?.invalidate()
+    }
+ */
+
 }
 
+extension OFFImageUploadAPI: URLSessionTaskDelegate {
+    
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        // the task finished
+        if let err = error {
+            print("Error: \(err.localizedDescription)")
+        } else {
+            print("The upload was successful.")
+            //self.session?.finishTasksAndInvalidate()
+        }
+    }
+
+    private func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        print("did receive response")
+        print(response)
+        completionHandler(URLSession.ResponseDisposition.allow)
+    }  // end func
+
+     func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
+        self.progress = Double(Float(totalBytesSent) / Float(totalBytesExpectedToSend))
+        print("progress: ", progress)
+    }  // end func
+
+
+     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        completionHandler(Foundation.URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+    }
+
+
+}
 extension Data {
     fileprivate func resultForImageUpload() -> OFFImageUploadResultJson? {
         do {
@@ -182,3 +244,7 @@ extension Data {
     }
 }
 
+
+extension Notification.Name {
+    static let ImageUploadProgress = Notification.Name("OFFImageUploadAPI.Notification.ImageUploadProgress")
+}

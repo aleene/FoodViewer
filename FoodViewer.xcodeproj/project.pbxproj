@@ -259,6 +259,23 @@
 		5158ECD92032DD170072261C /* OFFImageUploadResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5158ECD82032DD170072261C /* OFFImageUploadResultJson.swift */; };
 		5158ECDB2032DF760072261C /* OFFProductUploadResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5158ECDA2032DF760072261C /* OFFProductUploadResultJson.swift */; };
 		515A29D21EC08FB000916F3D /* LastServerDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A29D11EC08FB000916F3D /* LastServerDefaults.swift */; };
+		515A5A4B25583D3F002DEEBA /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A3525583D3F002DEEBA /* Property.swift */; };
+		515A5A4C25583D3F002DEEBA /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A3725583D3F002DEEBA /* CircularProgressView.swift */; };
+		515A5A4D25583D3F002DEEBA /* ProgressAtRatioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A3825583D3F002DEEBA /* ProgressAtRatioView.swift */; };
+		515A5A4E25583D3F002DEEBA /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A3925583D3F002DEEBA /* ProgressView.swift */; };
+		515A5A4F25583D3F002DEEBA /* GradientArcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A3B25583D3F002DEEBA /* GradientArcView.swift */; };
+		515A5A5025583D3F002DEEBA /* ArcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A3C25583D3F002DEEBA /* ArcView.swift */; };
+		515A5A5125583D3F002DEEBA /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A3D25583D3F002DEEBA /* Background.swift */; };
+		515A5A5225583D3F002DEEBA /* WindowBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A3E25583D3F002DEEBA /* WindowBuilder.swift */; };
+		515A5A5325583D3F002DEEBA /* GradientArcWithClearColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A3F25583D3F002DEEBA /* GradientArcWithClearColorView.swift */; };
+		515A5A5425583D3F002DEEBA /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A4025583D3F002DEEBA /* ProgressViewController.swift */; };
+		515A5A5525583D3F002DEEBA /* ColorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A4325583D3F002DEEBA /* ColorUtil.swift */; };
+		515A5A5625583D3F002DEEBA /* GradientCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A4425583D3F002DEEBA /* GradientCircularProgress.swift */; };
+		515A5A5725583D3F002DEEBA /* GreenLightStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A4625583D3F002DEEBA /* GreenLightStyle.swift */; };
+		515A5A5825583D3F002DEEBA /* BlueIndicatorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A4725583D3F002DEEBA /* BlueIndicatorStyle.swift */; };
+		515A5A5925583D3F002DEEBA /* BlueDarkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A4825583D3F002DEEBA /* BlueDarkStyle.swift */; };
+		515A5A5A25583D3F002DEEBA /* OrangeClearStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A4925583D3F002DEEBA /* OrangeClearStyle.swift */; };
+		515A5A5B25583D3F002DEEBA /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A5A4A25583D3F002DEEBA /* Style.swift */; };
 		515CAE711D983C2300A90F96 /* FavoriteShopsDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */; };
 		515E715123D1B7840028D0A8 /* SelectPairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515E715023D1B7840028D0A8 /* SelectPairViewController.swift */; };
 		5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5160C29B1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift */; };
@@ -704,6 +721,24 @@
 		515A5A3025570303002DEEBA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		515A5A31255704C7002DEEBA /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		515A5A32255704C7002DEEBA /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		515A5A3525583D3F002DEEBA /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
+		515A5A3725583D3F002DEEBA /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		515A5A3825583D3F002DEEBA /* ProgressAtRatioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressAtRatioView.swift; sourceTree = "<group>"; };
+		515A5A3925583D3F002DEEBA /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		515A5A3B25583D3F002DEEBA /* GradientArcView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientArcView.swift; sourceTree = "<group>"; };
+		515A5A3C25583D3F002DEEBA /* ArcView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcView.swift; sourceTree = "<group>"; };
+		515A5A3D25583D3F002DEEBA /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		515A5A3E25583D3F002DEEBA /* WindowBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowBuilder.swift; sourceTree = "<group>"; };
+		515A5A3F25583D3F002DEEBA /* GradientArcWithClearColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientArcWithClearColorView.swift; sourceTree = "<group>"; };
+		515A5A4025583D3F002DEEBA /* ProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
+		515A5A4125583D3F002DEEBA /* GradientCircularProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientCircularProgress.h; sourceTree = "<group>"; };
+		515A5A4325583D3F002DEEBA /* ColorUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorUtil.swift; sourceTree = "<group>"; };
+		515A5A4425583D3F002DEEBA /* GradientCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientCircularProgress.swift; sourceTree = "<group>"; };
+		515A5A4625583D3F002DEEBA /* GreenLightStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenLightStyle.swift; sourceTree = "<group>"; };
+		515A5A4725583D3F002DEEBA /* BlueIndicatorStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueIndicatorStyle.swift; sourceTree = "<group>"; };
+		515A5A4825583D3F002DEEBA /* BlueDarkStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueDarkStyle.swift; sourceTree = "<group>"; };
+		515A5A4925583D3F002DEEBA /* OrangeClearStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrangeClearStyle.swift; sourceTree = "<group>"; };
+		515A5A4A25583D3F002DEEBA /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteShopsDefaults.swift; sourceTree = "<group>"; };
 		515E715023D1B7840028D0A8 /* SelectPairViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectPairViewController.swift; path = Cells/SelectPairViewController.swift; sourceTree = "<group>"; };
 		5160C29A1DBCFE6A00CB3EF0 /* FoodViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoodViewer.entitlements; sourceTree = "<group>"; };
@@ -1078,6 +1113,7 @@
 		5124013E1CDB84910051F120 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				515A5A3325583D3F002DEEBA /* GradientCircularProgress */,
 				51C2FF6620E5074C00B65509 /* Haneke */,
 				5141969C20839C2100528877 /* CSV */,
 				5150464F200904610094EE50 /* Download */,
@@ -1312,6 +1348,72 @@
 				5174997B2208961100C3ED3E /* SearchFetchStatus.swift */,
 			);
 			name = OFF;
+			sourceTree = "<group>";
+		};
+		515A5A3325583D3F002DEEBA /* GradientCircularProgress */ = {
+			isa = PBXGroup;
+			children = (
+				515A5A3425583D3F002DEEBA /* Progress */,
+				515A5A4125583D3F002DEEBA /* GradientCircularProgress.h */,
+				515A5A4225583D3F002DEEBA /* Utils */,
+				515A5A4425583D3F002DEEBA /* GradientCircularProgress.swift */,
+				515A5A4525583D3F002DEEBA /* Styles */,
+			);
+			name = GradientCircularProgress;
+			path = Frameworks/GradientCircularProgress;
+			sourceTree = "<group>";
+		};
+		515A5A3425583D3F002DEEBA /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				515A5A3525583D3F002DEEBA /* Property.swift */,
+				515A5A3625583D3F002DEEBA /* Core */,
+				515A5A3925583D3F002DEEBA /* ProgressView.swift */,
+				515A5A3A25583D3F002DEEBA /* Elements */,
+				515A5A4025583D3F002DEEBA /* ProgressViewController.swift */,
+			);
+			path = Progress;
+			sourceTree = "<group>";
+		};
+		515A5A3625583D3F002DEEBA /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				515A5A3725583D3F002DEEBA /* CircularProgressView.swift */,
+				515A5A3825583D3F002DEEBA /* ProgressAtRatioView.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		515A5A3A25583D3F002DEEBA /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				515A5A3B25583D3F002DEEBA /* GradientArcView.swift */,
+				515A5A3C25583D3F002DEEBA /* ArcView.swift */,
+				515A5A3D25583D3F002DEEBA /* Background.swift */,
+				515A5A3E25583D3F002DEEBA /* WindowBuilder.swift */,
+				515A5A3F25583D3F002DEEBA /* GradientArcWithClearColorView.swift */,
+			);
+			path = Elements;
+			sourceTree = "<group>";
+		};
+		515A5A4225583D3F002DEEBA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				515A5A4325583D3F002DEEBA /* ColorUtil.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		515A5A4525583D3F002DEEBA /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				515A5A4625583D3F002DEEBA /* GreenLightStyle.swift */,
+				515A5A4725583D3F002DEEBA /* BlueIndicatorStyle.swift */,
+				515A5A4825583D3F002DEEBA /* BlueDarkStyle.swift */,
+				515A5A4925583D3F002DEEBA /* OrangeClearStyle.swift */,
+				515A5A4A25583D3F002DEEBA /* Style.swift */,
+			);
+			path = Styles;
 			sourceTree = "<group>";
 		};
 		5160FE631CD3ADD200CA4A6E /* RSBarcodesSwift */ = {
@@ -1992,9 +2094,12 @@
 				51FA7B802360775700FF2A4E /* ProhibitedBrands.swift in Sources */,
 				516F8BA62433B9D100EF07CD /* UserStatsSelectorTableViewController.swift in Sources */,
 				512B44D323FABAE200BFBCF0 /* NutritionScoreTableViewCell.swift in Sources */,
+				515A5A5925583D3F002DEEBA /* BlueDarkStyle.swift in Sources */,
 				512B442423FAB20100BFBCF0 /* GKImageCropOverlayView.swift in Sources */,
 				5100A96320791DAC00E6E368 /* Sample.swift in Sources */,
 				512B451E23FAC14100BFBCF0 /* GalleryCollectionViewCell.swift in Sources */,
+				515A5A5125583D3F002DEEBA /* Background.swift in Sources */,
+				515A5A4D25583D3F002DEEBA /* ProgressAtRatioView.swift in Sources */,
 				51A16AA41DC0DB16005F59E6 /* ProductUpdatedProtocol.swift in Sources */,
 				512B445523FAB23600BFBCF0 /* RSCodeDataMatrixGenerator.swift in Sources */,
 				512B446223FAB26400BFBCF0 /* KeyboardViewController.swift in Sources */,
@@ -2005,6 +2110,8 @@
 				512B44AB23FAB99000BFBCF0 /* FavoriteShopsTableViewController.swift in Sources */,
 				512B43FC23FAB1C700BFBCF0 /* UIView+Haneke.swift in Sources */,
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,
+				515A5A5025583D3F002DEEBA /* ArcView.swift in Sources */,
+				515A5A4B25583D3F002DEEBA /* Property.swift in Sources */,
 				512B444C23FAB23600BFBCF0 /* RSITF14Generator.swift in Sources */,
 				512B43D023FAB12C00BFBCF0 /* ApplicationSettingsTableViewController.swift in Sources */,
 				51CF42CF1E069BDD00C9AD91 /* Tags.swift in Sources */,
@@ -2037,6 +2144,7 @@
 				51B384FB1FED52BD00F201AE /* UIImageExtension.swift in Sources */,
 				51E8573F1FF3B2120045B4B3 /* LocaleExtension.swift in Sources */,
 				512B443723FAB21C00BFBCF0 /* TagListViewBackspaceTextField.swift in Sources */,
+				515A5A5325583D3F002DEEBA /* GradientArcWithClearColorView.swift in Sources */,
 				516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */,
 				511DB40D1E09B181009D4A4B /* OFFWriteAPI.swift in Sources */,
 				512B453723FB019F00BFBCF0 /* SettingsCoordinator.swift in Sources */,
@@ -2105,6 +2213,8 @@
 				512B441E23FAB20100BFBCF0 /* GKResizableCropOverlayView.swift in Sources */,
 				51992FDD2546C30500C44214 /* DateExtension.swift in Sources */,
 				512B444A23FAB23600BFBCF0 /* RSCode39Mod43Generator.swift in Sources */,
+				515A5A5425583D3F002DEEBA /* ProgressViewController.swift in Sources */,
+				515A5A5725583D3F002DEEBA /* GreenLightStyle.swift in Sources */,
 				51FB32291CF2139D00A17312 /* ReferenceDailyIntakeList.swift in Sources */,
 				512B43BC23FAB05C00BFBCF0 /* CategoriesCoordinator.swift in Sources */,
 				51FDC3152029D99900ED0DD7 /* OFFProductJson.swift in Sources */,
@@ -2152,11 +2262,13 @@
 				51992FC9253C3B6500C44214 /* OFFRobotoffInsight.swift in Sources */,
 				5158ECD92032DD170072261C /* OFFImageUploadResultJson.swift in Sources */,
 				5104F4AE1F9F9E44008D074F /* SearchHeaderView.swift in Sources */,
+				515A5A4E25583D3F002DEEBA /* ProgressView.swift in Sources */,
 				512B44CD23FABAC100BFBCF0 /* CompletionTableViewCell.swift in Sources */,
 				512B452F23FAC70700BFBCF0 /* NutrientsTableViewController.swift in Sources */,
 				512B43C823FAB0EF00BFBCF0 /* SearchesHistoryTableViewController.swift in Sources */,
 				51F96664202DA09A00CD58C3 /* OFFProduct.swift in Sources */,
 				5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */,
+				515A5A5A25583D3F002DEEBA /* OrangeClearStyle.swift in Sources */,
 				512B443623FAB21C00BFBCF0 /* TagListViewDatasource.swift in Sources */,
 				51857FA92508DEBE007B896B /* ProductAttributeGroup.swift in Sources */,
 				512B454E23FD7C3C00BFBCF0 /* SelectLanguageCoordinator.swift in Sources */,
@@ -2183,6 +2295,7 @@
 				51F96668202DA44A00CD58C3 /* OFFProductIngredient.swift in Sources */,
 				512B44F723FABBBB00BFBCF0 /* NoNutrientsImageTableViewCell.swift in Sources */,
 				512B445223FAB23600BFBCF0 /* RSCode93Generator.swift in Sources */,
+				515A5A5B25583D3F002DEEBA /* Style.swift in Sources */,
 				512B454623FD489700BFBCF0 /* SelectPairCoordinator.swift in Sources */,
 				512B44D723FABAFF00BFBCF0 /* LastEditDateTableViewCell.swift in Sources */,
 				51F9665E202D9E4000CD58C3 /* OFFProductStates.swift in Sources */,
@@ -2192,6 +2305,7 @@
 				5108280D210A3CD40089977D /* PendingOperations.swift in Sources */,
 				512B43F523FAB1C700BFBCF0 /* Log.swift in Sources */,
 				51E1C36E2046C79E00CB68B1 /* ProductUpdate.swift in Sources */,
+				515A5A4C25583D3F002DEEBA /* CircularProgressView.swift in Sources */,
 				5174997E22098A9D00C3ED3E /* OFFSearchProducts.swift in Sources */,
 				512B440223FAB1C700BFBCF0 /* String+Haneke.swift in Sources */,
 				51AADDD923EDBDF900108F69 /* FavoriteShopsCoordinator.swift in Sources */,
@@ -2232,6 +2346,7 @@
 				5153FDC51F5016A100F3E20F /* ProductSection.swift in Sources */,
 				5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */,
 				512B450B23FABD3900BFBCF0 /* OFFProductUpdateAPI.swift in Sources */,
+				515A5A4F25583D3F002DEEBA /* GradientArcView.swift in Sources */,
 				512B44FB23FABBCA00BFBCF0 /* NoServingSizeTableViewCell.swift in Sources */,
 				512B443123FAB21C00BFBCF0 /* TagView.swift in Sources */,
 				51F96660202D9FC400CD58C3 /* OFFProductNutrientLevel.swift in Sources */,
@@ -2239,6 +2354,7 @@
 				5154DEE52211C5F900C49EBE /* OFFProductImageDetailed.swift in Sources */,
 				512B455123FD7F3A00BFBCF0 /* SelectLanguageAndImageTypeCoordinator.swift in Sources */,
 				512B44F123FABB9B00BFBCF0 /* IngredientsFullTableViewCell.swift in Sources */,
+				515A5A5225583D3F002DEEBA /* WindowBuilder.swift in Sources */,
 				512B44BB23FAB9EF00BFBCF0 /* SelectExpirationDateViewController.swift in Sources */,
 				512B44A723FAB97F00BFBCF0 /* EditNutrientsViewController.swift in Sources */,
 				511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFR.swift in Sources */,
@@ -2256,8 +2372,10 @@
 				5150D9C41F8133FE0003DE8E /* NutrimentSearch.swift in Sources */,
 				512B448B23FAB88F00BFBCF0 /* NotSetPageViewController.swift in Sources */,
 				512B453E23FBF5A900BFBCF0 /* ProductPresentationSettingsCoordinator.swift in Sources */,
+				515A5A5625583D3F002DEEBA /* GradientCircularProgress.swift in Sources */,
 				514196B82083B66300528877 /* TagListViewButtonTableViewCell.swift in Sources */,
 				512B44B723FAB9DA00BFBCF0 /* SelectCompletionStateViewController.swift in Sources */,
+				515A5A5525583D3F002DEEBA /* ColorUtil.swift in Sources */,
 				51BED0C41CE1C044006ED62B /* MapPinCategories.swift in Sources */,
 				519A8E031E827F23001C026A /* ImageSizeCategory.swift in Sources */,
 				51B9048A1E7AEC9C004E3439 /* Weight.swift in Sources */,
@@ -2273,6 +2391,7 @@
 				512B43C623FAB0E300BFBCF0 /* AddSearchQueryTableViewController.swift in Sources */,
 				513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */,
 				512B444D23FAB23600BFBCF0 /* RSUPCEGenerator.swift in Sources */,
+				515A5A5825583D3F002DEEBA /* BlueIndicatorStyle.swift in Sources */,
 				5174997A2208957000C3ED3E /* OFFSearchRequest.swift in Sources */,
 				512B448F23FAB89F00BFBCF0 /* IdentificationTableViewController.swift in Sources */,
 				512B445923FAB23600BFBCF0 /* RSCornersLayer.swift in Sources */,
@@ -2556,7 +2675,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 62;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FoodViewer/Info.plist;
@@ -2583,7 +2702,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 62;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = FoodViewer/Info.plist;

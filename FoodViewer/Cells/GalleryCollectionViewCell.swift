@@ -32,6 +32,12 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageAgeButton: UIButton!
     
+    @IBOutlet weak var progressView: UIView! {
+        didSet {
+            progressView.isHidden = true
+        }
+    }
+    
     public var delegate: GalleryCollectionViewCellDelegate? = nil
     
 // MARK: - public variables

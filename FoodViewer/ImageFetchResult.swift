@@ -10,7 +10,7 @@
 import Foundation
 import UIKit
 
-enum ImageFetchResult {
+public enum ImageFetchResult {
     case loading
     case loadingFailed(Error)
     case noData
@@ -33,7 +33,7 @@ enum ImageFetchResult {
         }
     }
 
-    var rawValue: Int {
+    public var rawValue: Int {
         switch self {
         case .success: return 1
         case .loading: return 2

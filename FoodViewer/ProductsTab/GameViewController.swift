@@ -60,6 +60,7 @@ class GameViewController: UIViewController {
         currentQuestionIndex = 0
         showQuestion = false
         startButton?.isEnabled = false
+        startButton?.setTitle(TranslatableStrings.GamePreparing, for: .normal)
     }
     
     private func setQuestion() {
@@ -68,10 +69,8 @@ class GameViewController: UIViewController {
             case .success(let questions):
                 startButton?.isEnabled = true
                 startButton?.setTitle(TranslatableStrings.GameStart, for: .normal)
-                if !questions.isEmpty {
-                    if currentQuestionIndex < questions.count  {
-                        containerViewController?.configure(question: questions[currentQuestionIndex], image: nil)
-                    }
+                if let validQuestion = validQuestion(questions: questions) {
+                    containerViewController?.configure(question: validQuestion, image: nil)
                 }
             case .loading:
                 startButton?.setTitle(TranslatableStrings.SearchLoading, for: .normal)
@@ -82,6 +81,19 @@ class GameViewController: UIViewController {
             default: break
             }
         }
+    }
+    
+    private func validQuestion(questions: [RobotoffQuestion]) -> RobotoffQuestion? {
+        if questions.isEmpty { return nil }
+        
+        while currentQuestionIndex < questions.count  {
+            if questions[currentQuestionIndex].url != nil {
+                return questions[currentQuestionIndex]
+            }
+            // try next question
+            currentQuestionIndex += 1
+        }
+        return nil
     }
     
     private var showQuestion: Bool = false {

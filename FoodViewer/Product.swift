@@ -718,9 +718,7 @@ class FoodProduct {
         
         // does the main image contain info on product type?
         if let lan = primaryLanguageCode {
-            if let imageResult = frontImages[lan]?.small {
-                return imageResult.type()
-            }
+            return frontImages[lan]?.small?.url?.productServertype
         }
         
         // Finally just return the current preference setting product type

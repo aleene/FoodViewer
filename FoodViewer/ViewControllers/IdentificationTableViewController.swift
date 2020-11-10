@@ -24,6 +24,8 @@ class IdentificationTableViewController: UITableViewController {
     
     var coordinator: IdentificationCoordinator? = nil
     
+// MARK: - private variables
+    
     private var editMode: Bool {
         return delegate?.editMode ?? false
     }
@@ -198,6 +200,8 @@ class IdentificationTableViewController: UITableViewController {
     
     fileprivate var searchResult: String = ""
 
+    private var uploadProgressRatio: CGFloat? = nil
+    
     // MARK: - Action methods
     
     // should redownload the current product and reload it in this scene
@@ -390,7 +394,8 @@ class IdentificationTableViewController: UITableViewController {
                 }
                 cell.productImage = currentImage.0
                 cell.uploadTime = currentImage.2
-
+                // show the up-/download ratio
+                cell.progressRatio = self.uploadProgressRatio
                 cell.delegate = self
                 return cell
             } else {
@@ -809,22 +814,21 @@ class IdentificationTableViewController: UITableViewController {
 
     @objc func imageUpdated(_ notification: Notification) {
         guard !editMode else { return }
-        let userInfo = (notification as NSNotification).userInfo
-        guard userInfo != nil && imageSectionIndex != nil else { return }
+
         // only update if the image barcode corresponds to the current product
-        if let barcodeString = productPair?.remoteProduct?.barcode.asString,
-            let info = userInfo?[ProductImageData.Notification.BarcodeKey] as? String,
-            barcodeString == info {
-            reloadImageSection()
+        guard let currentProductBarcode = productPair?.remoteProduct?.barcode.asString else { return }
+        guard let noticifationBarcode = notification.userInfo?[ProductImageData.Notification.BarcodeKey] as? String else { return }
+        guard currentProductBarcode == noticifationBarcode else { return }
+        
+        // We can not check the imageType,
+        // as the image might be retrieved from disk
+        // is it relevant to the main image?
+        //guard let id = notification.userInfo?[ProductImageData.Notification.ImageTypeCategoryKey] as? String else { return }
+        //guard id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) else { return }
+        
+        self.uploadProgressRatio = nil
+        reloadImageSection()
             
-            /* We are only interested in medium-sized front images
-            let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
-            let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
-            if imageSizeCategory == .display && imageTypeCategory == .front {
-                reloadImageSection()
- 
-            }*/
-        }
     }
     
     private func reloadImageSection() {
@@ -904,21 +908,38 @@ class IdentificationTableViewController: UITableViewController {
     @objc func imageUploaded(_ notification: Notification) {
         guard !editMode else { return }
         // Check if this image is relevant to this product
-        if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
-            if let productBarcode = productPair!.remoteProduct?.barcode.asString {
-                if barcode == productBarcode {
-                    // is it relevant to the main image?
-                    if let id = notification.userInfo?[ProductPair.Notification.ImageTypeCategoryKey] as? String {
-                        if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
-                            // reload product data
-                            self.productPair?.reload()
-                        }
-                    }
-                }
-            }
-        }
+        guard let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String else { return }
+        guard let productBarcode = productPair!.remoteProduct?.barcode.asString else { return }
+        guard barcode == productBarcode else { return }
+        
+        // is it relevant to the main image?
+        guard let id = notification.userInfo?[ProductPair.Notification.ImageTypeCategoryKey] as? String else { return }
+        guard id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) else { return }
+                            
+        // reload product data
+        self.productPair?.reload()
     }
     
+    @objc func progress(_ notification: Notification) {
+        guard !editMode else { return }
+        
+        // Check if this upload notification is relevant to this product
+        guard let barcode = notification.userInfo?[OFFImageUploadAPI.Notification.BarcodeKey] as? String else { return }
+        guard let productBarcode = productPair!.remoteProduct?.barcode.asString else { return }
+        guard barcode == productBarcode else { return }
+        
+        // is this notification relevant to the front image?
+        guard let id = notification.userInfo?[OFFImageUploadAPI.Notification.ImageTypeCategoryKey] as? String else { return }
+        guard id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) else  { return }
+        
+        guard let progress = notification.userInfo?[OFFImageUploadAPI.Notification.ProgressKey] as? String else { return }
+        guard let progressDouble = Double(progress) else { return }
+        self.uploadProgressRatio = CGFloat(progressDouble)
+        
+        // reload the table to update the progress indicator
+        self.tableView.reloadData()
+    }
+
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
@@ -993,6 +1014,7 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded(_:)), name:.ProductPairImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFProductsImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.progress(_:)), name:.ImageUploadProgress, object:nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -86,10 +86,12 @@ struct ProductImageSize {
         
         // Determine image size from url
         if selectedURLString.contains(".400.") {
-            thumb = ProductImageData(url: URL(string: selectedURLString.replacingOccurrences(of: ".400.", with: ".100.")))
+            var string = selectedURLString.replacingOccurrences(of: ".400.", with: ".100.")
+            thumb = ProductImageData(url: URL(string: string))
             small = ProductImageData(url: URL(string: selectedURLString.replacingOccurrences(of: ".400.", with: ".200.")))
             display = ProductImageData(url: URL(string: selectedURLString))
-            original = ProductImageData(url: URL(string: selectedURLString.replacingOccurrences(of: ".400.", with: ".")))
+            string = selectedURLString.replacingOccurrences(of: ".400.", with: ".")
+            original = ProductImageData(url: URL(string: string))
 
         } else if selectedURLString.contains(".200.") {
             thumb = ProductImageData(url: URL(string: selectedURLString.replacingOccurrences(of: ".200.", with: ".100.")))

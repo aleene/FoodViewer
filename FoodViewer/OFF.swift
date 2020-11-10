@@ -21,12 +21,12 @@ public struct OFF {
             static let Ingredients = "ingredients"
             static let Nutrition = "nutrition"
         }
-        public struct ImageSize {
-            static let Thumb = ".100"
-            static let Small = ".200"
-            static let Display = ".400"
-            static let Original = ""
-        }
+        //public struct ImageSize {
+        //    static let Thumb = ".100"
+        //    static let Small = ".200"
+        //    static let Display = ".400"
+        //    static let Original = ""
+        //}
         public struct Divider {
             static let Slash = "/"
             static let Dot = "."
@@ -587,13 +587,16 @@ Retrieve the robotoff questions for a product
         urlString += id
         switch size {
         case .thumb:
-            urlString += OFF.URL.ImageSize.Thumb
+            urlString += OFF.URL.Divider.Dot
+            urlString += ImageSizeCategory.thumb.size
         case .small:
-            urlString += OFF.URL.ImageSize.Small
+            urlString += OFF.URL.Divider.Dot
+            urlString += ImageSizeCategory.small.size
         case .display:
-            urlString += OFF.URL.ImageSize.Display
+            urlString += OFF.URL.Divider.Dot
+            urlString += ImageSizeCategory.display.size
         case .original:
-            urlString += OFF.URL.ImageSize.Original
+            urlString += ImageSizeCategory.original.size
         default:
             assert(false, "OFF.imageURLFor(_:with:size:)")
         }

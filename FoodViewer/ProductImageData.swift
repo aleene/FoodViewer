@@ -12,8 +12,25 @@ import MobileCoreServices
 
  public final class ProductImageData: NSObject, NSItemProviderReading, NSItemProviderWriting  {
     
+// MARK: - static variables and functions
+    
     public static var  writableTypeIdentifiersForItemProvider: [String] {
         return [kUTTypePNG as NSString as String, kUTTypeJPEG as NSString as String]
+    }
+    
+    public static var readableTypeIdentifiersForItemProvider: [String] {
+        return [kUTTypeImage as String]
+    }
+    
+    public static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> ProductImageData {
+        return try ProductImageData(itemProviderData: data, typeIdentifier: typeIdentifier)
+    }
+    
+    public struct Notification {
+        static let ImageSizeCategoryKey = "ProductImageData.Notification.ImageSizeCategory.Key"
+        static let ImageTypeCategoryKey = "ProductImageData.Notification.ImageTypeCategory.Key"
+        static let ImageIDKey = "ProductImageData.Notification.ImageID.Key"
+        static let BarcodeKey = "ProductImageData.Notification.Barcode.Key"
     }
     
     @available(iOS 11.0, *)
@@ -53,25 +70,12 @@ import MobileCoreServices
         return self.progress
     }
     
-    public static var readableTypeIdentifiersForItemProvider: [String] {
-        return [kUTTypeImage as String]
-    }
-    
-    public static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> ProductImageData {
-        return try ProductImageData(itemProviderData: data, typeIdentifier: typeIdentifier)
-    }
-    
-    public struct Notification {
-        static let ImageSizeCategoryKey = "ProductImageData.Notification.ImageSizeCategory.Key"
-        static let ImageTypeCategoryKey = "ProductImageData.Notification.ImageTypeCategory.Key"
-        static let BarcodeKey = "ProductImageData.Notification.Barcode.Key"
-    }
 
-    // This is available if the data has been retrieve from OFF, otherwise it is nil.
-    // An image however can be set locally
-    var url: URL? = nil
+    /// The URL of the image as can be found remotely.
+    /// If the value is nil, the image is already available (from camera or photo library).
+    public var url: URL? = nil
     
-    var fetchResult: ImageFetchResult? = nil {
+    public var fetchResult: ImageFetchResult? = nil {
         didSet {
             // If an image has been retrieved fetchResult is set
             // and the image can be set as well
@@ -81,10 +85,17 @@ import MobileCoreServices
                 switch fetchResult! {
                 case .success:
                     DispatchQueue.main.async(execute: { () -> Void in
-                        userInfo[Notification.BarcodeKey] = self.barcode ?? "ProductImageData: no valid barcode"
-                        userInfo[Notification.ImageTypeCategoryKey] = self.imageType().rawValue
-                        if self.imageSize() != .unknown {
-                            userInfo[Notification.ImageSizeCategoryKey] = self.imageSize().rawValue
+                        if let validBarcode = self.url?.OFFbarcode {
+                            userInfo[Notification.BarcodeKey] = validBarcode
+                        }
+                        if let validImageType = self.url?.OFFimageType {
+                            userInfo[Notification.ImageTypeCategoryKey] = validImageType.rawValue
+                        }
+                        if let validImageSize = self.url?.OFFimageSize {
+                            userInfo[Notification.ImageSizeCategoryKey] = validImageSize.rawValue
+                        }
+                        if let validImageID = self.url?.OFFimageID {
+                            userInfo[Notification.ImageIDKey] = validImageID
                         }
                         NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
                     })
@@ -94,18 +105,33 @@ import MobileCoreServices
             }
         }
     }
+    
+    public var hasBarcode: String? = nil
 
-    // A local image can be set, then no url will be defined.
+    private var progress: Progress = Progress(totalUnitCount: 100)
+ 
+    private var response: URLResponse? = nil
+ 
+// MARK: - private variables
+    
+    /// A local image can be set, then no url will be defined.
     private var image: UIImage? = nil {
         didSet {
             if image != nil {
-                //fetchResult = .available
-                // encode imageSize, imageType and barcode
                 var userInfo: [String:Any] = [:]
-                userInfo[Notification.ImageSizeCategoryKey] = imageSize().rawValue
-                userInfo[Notification.ImageTypeCategoryKey] = imageType().rawValue
-                userInfo[Notification.BarcodeKey] = barcode ?? "ProductImageData: no valid barcode"
-                
+                if let validBarcode = url?.OFFbarcode {
+                    userInfo[Notification.BarcodeKey] = validBarcode
+                }
+                if let validImageType = url?.OFFimageType {
+                    userInfo[Notification.ImageTypeCategoryKey] = validImageType.rawValue
+                }
+                if let validImageSize = url?.OFFimageSize {
+                    userInfo[Notification.ImageSizeCategoryKey] = validImageSize.rawValue
+                }
+                if let validImageID = url?.OFFimageID {
+                    userInfo[Notification.ImageIDKey] = validImageID
+                }
+
                 DispatchQueue.main.async(execute: { () -> Void in
                     NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
                 })
@@ -113,14 +139,10 @@ import MobileCoreServices
         }
     }
     
-    var hasBarcode: String? = nil
-    
     private var downloadTask: DownloadTask? = nil
 
-    var progress: Progress = Progress(totalUnitCount: 100)
-    
-    var response: URLResponse? = nil
-    
+// MARK: - Initialisers
+
     override init() {
         super.init()
         url = nil
@@ -147,7 +169,6 @@ import MobileCoreServices
         self.fetchResult = .success(image)
     }
 
-    
     convenience init(barcode: BarcodeType, key: String, size: ImageSizeCategory) {
         self.init(url: URL.init(string: OFF.imageURLFor(barcode, with:key, size: size)))
     }
@@ -165,7 +186,9 @@ import MobileCoreServices
         throw NSError.init(domain: "FoodViewer.ProductImageData", code: 1, userInfo: [:])
     }
     
-    func fetch() -> ImageFetchResult? {
+// MARK: - public functions
+    
+    public func fetch() -> ImageFetchResult? {
         if fetchResult == nil {
             fetchResult = .loading
             // launch the image retrieval
@@ -176,26 +199,11 @@ import MobileCoreServices
         return fetchResult
     }
     
-    func reset() {
+    public func reset() {
         fetchResult = nil
     }
-    
-    func type() -> ProductType? {
-        if let validUrl = url {
-            if validUrl.absoluteString.contains(ProductType.food.rawValue) {
-                return .food
-            } else if validUrl.absoluteString.contains(ProductType.petFood.rawValue) {
-                return .petFood
-            } else if validUrl.absoluteString.contains(ProductType.beauty.rawValue) {
-                return .beauty
-            } else if validUrl.absoluteString.contains(ProductType.product.rawValue) {
-                return .product
-            }
-        }
-        return nil
-    }
-    
-    func retrieveImage(completion: @escaping (ImageFetchResult) -> ()) {
+        
+    private func retrieveImage(completion: @escaping (ImageFetchResult) -> ()) {
         // Is there a local image?
         if let validImage = image {
             // The local image can no longer be present due to flushing
@@ -218,79 +226,14 @@ import MobileCoreServices
                 let cache = Shared.imageCache
                 cache.fetch(fetcher: fetcher).onSuccess { image in
                     
-                    self.getExifDataFrom(image)
                     completion(.success(image))
                     return
                 }
             }
         }
-        /*
-        // I could check the cache to see whether there is the corresponding image
-        } else if let image = self.url?.cachedImage {
-            completion(.success(image))
-            return
-        // if not is there something in the image cache?
-        } else if let validUrlString = self.url?.absoluteString, ImageFileCache.manager.cache.checkInCache(key: validUrlString) {
-            ImageFileCache.manager.cache.get(key: validUrlString) { image in
-                guard let validImage = image else {
-                    completion(.noImageAvailable)
-                    return
-                }
-                completion(.success(validImage))
-                return
-            }
-        // if not try the off-server
-        } else {
-        retrieveData(for: self.url, completionHandler: { (data, response, error)
-            in
-            guard error == nil else {
-                print(error!.localizedDescription)
-                completion(.loadingFailed(error!))
-                return
-            }
-            
-            //print(response?.description)
-            //guard data != nil && data?.count != 0 else { completion (.noData); return }
-            //completion(.success(data!))
-            //return
-
-             guard let httpResponse = response as? HTTPURLResponse else {
-             completion(.noResponse)
-             return
-             }
-
-            switch httpResponse.statusCode {
-            case 200 :
-                let dateString = httpResponse.allHeaderFields["Last-Modified"] as! String //EXAMPLE:  "Mon, 19 Oct 2015 05:57:12 GMT"
-                if let shortDateString = dateString.substring(0, length: 16) {
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "EEE, dd MMM yyyy"
-                    // dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
-                    dateFormatter.locale = Locale(identifier: "en_US_POSIX") // This is essential as otherwise the language of the string is unknown?
-                    self.date = dateFormatter.date(from: shortDateString)
-                }
-                guard let validData = data,
-                    validData.count != 0,
-                    let validUrlString = self.url?.absoluteString,
-                    let validImage = UIImage(data: validData) else { completion (.noData); return }
-                ImageCache.shared.setObject(
-                        validImage,
-                        forKey: validUrlString as NSString,
-                        cost: validData.count)
-                ImageFileCache.manager.cache.put(key: validUrlString, value: validImage)
-                completion(.success(validImage))
-                return
-            default:
-                print(httpResponse.description)
-                completion(.response(httpResponse))
-                return
-            }
-        })
-        }
-  */
     }
     
-    func retrieveData(for url: URL?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) {
+    public func retrieveData(for url: URL?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) {
         guard let imageURL = url  else {
             completionHandler(nil, nil, nil)
             return
@@ -319,66 +262,12 @@ import MobileCoreServices
         downloadTask?.responseHandler = { response in
             self.response = response
         }
-
     }
     
-    private func imageType() -> ImageTypeCategory {
-        guard url != nil else { return .general }
-        
-        if url!.absoluteString.contains(OFF.URL.ImageType.Front) {
-            return .front
-        } else if url!.absoluteString.contains(OFF.URL.ImageType.Ingredients) {
-            return .ingredients
-        } else if url!.absoluteString.contains(OFF.URL.ImageType.Nutrition) {
-            return .nutrition
-        }
-        return .general
-    }
-    
-    private func imageSize() -> ImageSizeCategory {
-        guard url != nil else { return .unknown }
-        
-        if url!.absoluteString.contains(OFF.ImageSize.thumb.rawValue) {
-            return .thumb
-        } else if url!.absoluteString.contains(OFF.ImageSize.medium.rawValue) {
-            return .small
-        } else if url!.absoluteString.contains(OFF.ImageSize.large.rawValue) {
-            return .display
-        } else if url!.absoluteString.contains(OFF.ImageSize.original.rawValue) {
-            return .original
-        }
-        return .unknown
-    }
-
-    private var barcode: String? {
-        // decode the url to get the barcode
-        guard url != nil else { return nil }
-        // let separator = OFF.URL.Divider.Slash
-        let elements = url!.absoluteString.split(separator:"/").map(String.init)
-        // https://static.openfoodfacts.org/images/products/327/019/002/5337/ingredients_fr.27.100.jpg
-        if elements.count >= 8 {
-            return elements[4] + elements[5] + elements[6] + elements[7]
-        } else if elements.count == 6 {
-            return elements[4]
-        } else {
-            return "ProductImageData: No valid barcode"
-        }
-    }
-    
-    
-    private func getExifDataFrom(_ image: UIImage) {
-        //if let imageData = UIImageJPEGRepresentation(image, 1.0) {
-        //   let imageCFData = imageData as CFData
-         //   if let cgImage = CGImageSourceCreateWithData(imageCFData, nil),
-         //       let metaDict: NSDictionary = CGImageSourceCopyPropertiesAtIndex(cgImage, 0, nil) {
-         //       let exifDict: NSDictionary = metaDict.object(forKey: kCGImagePropertyExifDictionary) as! NSDictionary
-                // print(getExifDataFrom: exifDict)
-         //   }
-       // }
-    }
 }
 
-// Definition:
+// MARK: - Notification
+ 
 extension Notification.Name {
     static let ImageSet = Notification.Name("ProductImageData.Notification.ImageSet")
 }

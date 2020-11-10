@@ -15,7 +15,7 @@ enum ImageSizeCategory: Int {
     case original
     case unknown
     
-    func description() -> String {
+    var description: String {
         switch self {
         case .thumb:
             return "thumb-sized image"
@@ -29,4 +29,18 @@ enum ImageSizeCategory: Int {
             return "unknown-sized image"
         }
     }
+    
+    var size: String {
+        switch self {
+        case .thumb:
+            return "100"
+        case .small:
+            return "200"
+        case .display:
+            return "400"
+        default:
+            return ""
+        }
+    }
+
 }

@@ -25,8 +25,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     private var applicationSize: (description:String, size:CGRect) {
         return ("\n\nAPPLICATION SIZE:\nwidth: \(UIApplication.shared.windows[0].bounds.size.width)\nheight: \(UIApplication.shared.windows[0].bounds.size.height)", UIApplication.shared.windows[0].bounds)
     }
+    
+    private var uploadProgressRatio: CGFloat? = nil
 
-    enum LayoutStyle: String {
+    private enum LayoutStyle: String {
         case iPadFullscreen         = "iPad Full Screen"
         case iPadHalfScreen         = "iPad 1/2 Screen"
         case iPadTwoThirdScreeen    = "iPad 2/3 Screen"
@@ -748,6 +750,22 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         collectionView?.reloadData()
     }
 
+    @objc func progress(_ notification: Notification) {
+        guard !editMode else { return }
+        // Check if this upload progress is relevant to this product
+        guard let barcode = notification.userInfo?[OFFImageUploadAPI.Notification.BarcodeKey] as? String else { return }
+        guard let productBarcode = productPair!.remoteProduct?.barcode.asString else { return }
+        guard barcode == productBarcode else { return }
+                    // is it relevant to the main image?
+        //guard let id = notification.userInfo?[OFFImageUploadAPI.Notification.ImageTypeCategoryKey] as? String else { return }
+        //guard id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) else  { return }
+        guard let progress = notification.userInfo?[OFFImageUploadAPI.Notification.ProgressKey] as? String else { return }
+        guard let progressDouble = Double(progress) else { return }
+        self.uploadProgressRatio = CGFloat(progressDouble)
+        // reload the tabel to update the progress indicator
+        self.reloadImages()
+    }
+
     func registerCollectionViewCell() {
         guard let collectionView = self.collectionView else
         {
@@ -819,6 +837,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             selector:#selector(ProductImagesCollectionViewController.reloadProduct),
             name:.ProductPairImageUploadSuccess,
             object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(ProductImagesCollectionViewController.progress(_:)),
+            name:.ImageUploadProgress, object:nil)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -12,9 +12,11 @@ import MobileCoreServices
 
 class NutrientsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     
-    var coordinator: NutrientsCoordinator? = nil
+// MARK: - public variables
+    
+    public var coordinator: NutrientsCoordinator? = nil
 
-    var delegate: ProductPageViewController? = nil {
+    public var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
                 refreshInterface()
@@ -22,7 +24,20 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
     }
     
-    fileprivate var adaptedNutritionFacts: [DisplayFact] = []
+    public var currentLanguageCode: String? {
+        get {
+            return delegate?.currentLanguageCode
+        }
+        set {
+            delegate?.currentLanguageCode = newValue
+        }
+    }
+// MARK: - private variables
+    
+    private var adaptedNutritionFacts: [DisplayFact] = []
+
+// MARK: - fileprivate variables
+    
     
     // setup the current display modes to app wide defaults
     fileprivate var currentNutritionQuantityDisplayMode: NutritionDisplayMode = .perStandard
@@ -82,15 +97,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     private var editMode: Bool {
         return delegate?.editMode ?? false
     }
+    private var uploadProgressRatio: CGFloat? = nil
 
-    var currentLanguageCode: String? {
-        get {
-            return delegate?.currentLanguageCode
-        }
-        set {
-            delegate?.currentLanguageCode = newValue
-        }
-    }
     
     // This variable defined the languageCode that must be used to display the product data
     // It first does a validity check
@@ -544,6 +552,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 cell.editMode = editMode
                 cell.productImage = currentImage
                 cell.uploadTime = imageUploadDate
+                // show the up-/download ratio
+                cell.progressRatio = self.uploadProgressRatio
                 cell.delegate = self
                 return cell
             } else {
@@ -1143,6 +1153,23 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
         tableView.reloadData()
     }
+    
+    /// Function that handles image upload progress notifications
+    @objc func progress(_ notification: Notification) {
+        guard !editMode else { return }
+        // Check if this upload progress is relevant to this product
+        guard let barcode = notification.userInfo?[OFFImageUploadAPI.Notification.BarcodeKey] as? String else { return }
+        guard let productBarcode = productPair!.remoteProduct?.barcode.asString else { return }
+        guard barcode == productBarcode else { return }
+                    // is it relevant to the main image?
+        guard let id = notification.userInfo?[OFFImageUploadAPI.Notification.ImageTypeCategoryKey] as? String else { return }
+        guard id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) else  { return }
+        guard let progress = notification.userInfo?[OFFImageUploadAPI.Notification.ProgressKey] as? String else { return }
+        guard let progressDouble = Double(progress) else { return }
+        self.uploadProgressRatio = CGFloat(progressDouble)
+        // reload the tabel to update the progress indicator
+        self.tableView.reloadData()
+    }
 
 //
 // MARK: - ViewController Lifecycle
@@ -1196,6 +1223,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.imageUploaded), name:.ProductPairImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.progress(_:)), name:.ImageUploadProgress, object:nil)
 
         // delegate?.title = TranslatableStrings.NutritionFacts
 

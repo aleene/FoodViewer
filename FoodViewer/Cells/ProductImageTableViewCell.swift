@@ -48,6 +48,7 @@ class ProductImageTableViewCell: UITableViewCell {
                 } else {
                     productImageView?.image = newImage
                 }
+                
                 // still need to solved what happens when the image is very high
                 
                 imageView?.contentMode = .center
@@ -63,6 +64,7 @@ class ProductImageTableViewCell: UITableViewCell {
         didSet {
             setButtonVisibility()
             hideClearButton()
+            //setupProgressView()
             // deselect button only relevant if there is a photo
             layoutSubviews()
         }
@@ -79,6 +81,22 @@ class ProductImageTableViewCell: UITableViewCell {
             }
         }
     }
+    
+    /// The upload progress ratio. If it is set to nil, the ratio indicator will be removed
+    public var progressRatio: CGFloat? = nil {
+        didSet {
+            // Do we need to update something?
+            if progressRatio != oldValue {
+                if progressRatio != nil {
+                    progress.updateRatio(progressRatio!)
+                }
+            }
+            // The progresView is only shown when the progressRatio is valid
+            progressView?.isHidden = progressRatio == nil
+        }
+    }
+    
+    private var progress = GradientCircularProgress()
     
 // MARK: - Storyboard elements
     
@@ -137,10 +155,28 @@ class ProductImageTableViewCell: UITableViewCell {
         }
     }
     
-// MARK: - Storyboard setters
+    @IBOutlet weak var progressView: UIView! {
+        didSet {
+            if let newView = progress.showAtRatio(frame: progressView.bounds,   display: true, style: GreenLightStyle()) {
+                progressView.addSubview(newView)
+            }
+        }
+    }
+    
+    // MARK: - Storyboard setters
     
     private func hideClearButton() {
         deselectImageButton?.isHidden = productImage != nil ? !editMode : true
+    }
+
+    private func setupProgressView() {
+        // remove any subViews first
+        for subView in progressView.subviews {
+            subView.removeFromSuperview()
+        }
+        if let newView = progress.showAtRatio(frame: progressView.bounds,   display: true, style: GreenLightStyle()) {
+            progressView.addSubview(newView)
+        }
     }
 
     private func setButtonVisibility() {

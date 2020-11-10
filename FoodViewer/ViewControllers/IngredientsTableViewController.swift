@@ -208,7 +208,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
 
     fileprivate var searchResult: String = ""
-    
+
+    private var uploadProgressRatio: CGFloat? = nil
+
     private var imageUploadTime: Double?
         
     private var selectedSection: Int? = nil
@@ -368,6 +370,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 if localImageToShow != nil {
                     cell.editMode = productVersion.isRemote ? false : true
                 }
+                // show the up-/download ratio
+                cell.progressRatio = self.uploadProgressRatio
                 cell.productImage = imageToShow
                 cell.uploadTime = imageUploadTime
                 cell.delegate = self
@@ -946,6 +950,22 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
+    @objc func progress(_ notification: Notification) {
+        guard !editMode else { return }
+        // Check if this upload progress is relevant to this product
+        guard let barcode = notification.userInfo?[OFFImageUploadAPI.Notification.BarcodeKey] as? String else { return }
+        guard let productBarcode = productPair!.remoteProduct?.barcode.asString else { return }
+        guard barcode == productBarcode else { return }
+                    // is it relevant to the main image?
+        guard let id = notification.userInfo?[OFFImageUploadAPI.Notification.ImageTypeCategoryKey] as? String else { return }
+        guard id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) else  { return }
+        guard let progress = notification.userInfo?[OFFImageUploadAPI.Notification.ProgressKey] as? String else { return }
+        guard let progressDouble = Double(progress) else { return }
+        self.uploadProgressRatio = CGFloat(progressDouble)
+        // reload the tabel to update the progress indicator
+        self.tableView.reloadData()
+    }
+
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
@@ -1013,6 +1033,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             self,
             selector:#selector(IngredientsTableViewController.refreshProduct),
             name: .ProductPairLocalStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.progress(_:)), name:.ImageUploadProgress, object:nil)
 
     }
     
