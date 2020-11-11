@@ -1075,8 +1075,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1685"
             endingLineNumber = "1685"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "changeViewModeButtonTapped(_:in:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1091,8 +1091,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1284"
             endingLineNumber = "1284"
-            landmarkName = "NutrientsTableViewController"
-            landmarkType = "21">
+            landmarkName = "addNutrientTableViewCell(_:tappedOn:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "442525C3-A0F1-4D22-B60D-2784BCF6CA5F - f5212e3b32a9be5b"
