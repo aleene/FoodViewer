@@ -832,17 +832,19 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 // MARK: - Notification handler
 //
     @objc func imageUpdated(_ notification: Notification) {
-        let userInfo = (notification as NSNotification).userInfo
-        guard userInfo != nil && imageSectionIndex != nil else { return }
-        // only update if the image barcode corresponds to the current product
-        if productPair!.remoteProduct!.barcode.asString == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
-            if userInfo!.count == 1 {
-                reloadImageSection()
-                return
-            }
-            // Filtering on image type, is not possible as unmarked images are read from cache
-            reloadImageSection()
-        }
+        guard let currentProductBarcode = productPair?.remoteProduct?.barcode.asString else { return }
+        guard let noticifationBarcode = notification.userInfo?[ProductImageData.Notification.BarcodeKey] as? String else { return }
+        guard currentProductBarcode == noticifationBarcode else { return }
+
+        // We can not check the imageType,
+        // as the image might be retrieved from disk
+        // is it relevant to the main image?
+        //guard let id = notification.userInfo?[ProductImageData.Notification.ImageTypeCategoryKey] as? String else { return }
+        //guard id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) else { return }
+
+        self.uploadProgressRatio = nil
+        // Filtering on image type, is not possible as unmarked images are read from cache
+        reloadImageSection()
     }
 
     @objc func reloadImageSection() { // (_ notification: Notification) {

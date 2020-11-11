@@ -82,53 +82,23 @@ struct ProductImageSize {
     }
     
     // initialises the imageSet based on the url of a selected image
-    init(selectedURLString: String) {
+    init(selectedURL: URL) {
         
-        // Determine image size from url
-        if selectedURLString.contains(".400.") {
-            var string = selectedURLString.replacingOccurrences(of: ".400.", with: ".100.")
-            thumb = ProductImageData(url: URL(string: string))
-            small = ProductImageData(url: URL(string: selectedURLString.replacingOccurrences(of: ".400.", with: ".200.")))
-            display = ProductImageData(url: URL(string: selectedURLString))
-            string = selectedURLString.replacingOccurrences(of: ".400.", with: ".")
-            original = ProductImageData(url: URL(string: string))
-
-        } else if selectedURLString.contains(".200.") {
-            thumb = ProductImageData(url: URL(string: selectedURLString.replacingOccurrences(of: ".200.", with: ".100.")))
-            small = ProductImageData(url: URL(string: selectedURLString))
-            display = ProductImageData(url: URL(string: selectedURLString.replacingOccurrences(of: ".200.", with: ".400.")))
-            original = ProductImageData(url: URL(string: selectedURLString.replacingOccurrences(of: ".200.", with: ".")))
-
-        } else if selectedURLString.contains(".100.") {
-            thumb = ProductImageData(url: URL(string: selectedURLString))
-            small = ProductImageData(url: URL(string: selectedURLString.replacingOccurrences(of: ".100.", with: ".200.")))
-            display = ProductImageData(url: URL(string: selectedURLString.replacingOccurrences(of: ".100.", with: ".400.")))
-            original = ProductImageData(url: URL(string: selectedURLString.replacingOccurrences(of: ".100.", with: ".")))
-
-        } else {
-            print("ProductImageSize:", selectedURLString)
-        }
+        /* I tried to be smart, but that did not work out
+         I am not able to translate the url offered by robotoff to an original image.
+         The selectedURL might not contain info on the original image
+        thumb = ProductImageData(url: selectedURL.OFFthumbImageURL)
+        small = ProductImageData(url: selectedURL.OFFsmallImageURL)
+        display = ProductImageData(url: selectedURL.OFFdisplayImageURL)
+        original = ProductImageData(url: selectedURL.OFForiginalImageURL)
+        */
+        original = ProductImageData(url: selectedURL)
         
-        // determine languageCode of image url
-        let splits = selectedURLString.split(separator: "_")
-        if splits.count == 2 {
-            let fileSplits = splits[1].split(separator: ".")
-            if fileSplits.count > 0 {
-                let languageCode = String(fileSplits[0]) as String
-                
-                // determine imageType from url
-                if selectedURLString.contains(ImageTypeCategory.front.description)  {
-                    usedIn.append((languageCode, ImageTypeCategory.front))
-                } else if selectedURLString.contains(ImageTypeCategory.ingredients.description)  {
-                    usedIn.append((languageCode, ImageTypeCategory.ingredients))
-                } else if selectedURLString.contains(ImageTypeCategory.nutrition.description)  {
-                    usedIn.append((languageCode, ImageTypeCategory.nutrition))
-                } else if selectedURLString.contains(ImageTypeCategory.packaging.description)  {
-                    usedIn.append((languageCode, ImageTypeCategory.packaging))
-                }
+        if let languageCode = selectedURL.OFFlanguageCode {
+            if let imageTypeCategory = selectedURL.OFFimageType {
+                usedIn.append((languageCode, imageTypeCategory))
             }
         }
-
     }
 
 // MARK: - public functions

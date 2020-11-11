@@ -60,6 +60,7 @@ extension URL {
         }
         return .general
     }
+    
     /// decode the barcode from an OFF image URL
     var OFFbarcode: String? {
         let elements = self.absoluteString.split(separator:"/").map(String.init)
@@ -135,8 +136,9 @@ extension URL {
     /// converts an OFF image URL to a original image URL
     var OFForiginalImageURL: URL? {
         let slashSplits = self.absoluteString.split(separator: "/")
-        let firstPart = slashSplits.joined(separator: "/")
-        guard var dotSplits = slashSplits.last?.split(separator: ".") else { return nil }
+        let lastPart = slashSplits.last
+        let firstPart = slashSplits.dropLast().joined(separator: "/")
+        guard var dotSplits = lastPart?.split(separator: ".") else { return nil }
         switch dotSplits.count {
         case 2:
             // 2.jpg
@@ -159,28 +161,30 @@ extension URL {
     
     func OFFImageURL(for imageSize: ImageSizeCategory) -> URL? {
         let slashSplits = self.absoluteString.split(separator: "/")
-        let firstPart = slashSplits.joined(separator: "/")
-        guard let dotSplits = slashSplits.last?.split(separator: ".") else { return nil }
-        var dotSplitsString: [String] = dotSplits.map({ String($0) })
+        let lastPart = slashSplits.last
+        let firstPart = slashSplits.dropLast().joined(separator: "/")
+        guard let dotSplits = lastPart?.split(separator: ".") else { return nil }
         switch dotSplits.count {
         case 2:
             // 2.jpg
             var newURLString = firstPart
             newURLString += "/"
-            newURLString += dotSplitsString[0]
+            newURLString += String(dotSplits.first!)
             newURLString +=  "."
             newURLString += imageSize.size
             newURLString += "."
-            newURLString += dotSplitsString[1]
+            newURLString += String(dotSplits.last!)
             return URL(string: newURLString)
         case 3:
             // 2.100.jpg
+            var dotSplitsString: [String] = dotSplits.map({ String($0) })
             dotSplitsString[1] = imageSize.size
             let newURLString = firstPart + "/" + dotSplitsString.joined(separator: ".")
             return URL(string: newURLString)
         case 4:
             // front_de.126.200.jpg
-            dotSplitsString[3] = imageSize.size
+            var dotSplitsString: [String] = dotSplits.dropFirst().map({ String($0) })
+            dotSplitsString[1] = imageSize.size
             let newURLString = firstPart + "/" + dotSplitsString.joined(separator: ".")
             return URL(string: newURLString)
         default: break

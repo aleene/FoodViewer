@@ -37,8 +37,9 @@ Configure the class SelectPairViewController in one go. All possible input param
                    image: ProductImageSize?) {
         self.question = question
         if image == nil {
-            if let validUrlString = question?.url {
-                self.imageSet = ProductImageSize(selectedURLString: validUrlString)
+            if let validUrlString = question?.url,
+                let validUrl = URL(string: validUrlString) {
+                self.imageSet = ProductImageSize(selectedURL: validUrl)
             } else {
                 self.imageSet = nil
             }
@@ -142,9 +143,10 @@ Configure the class SelectPairViewController in one go. All possible input param
         }
         
         robotoffImageView?.image = imageToDisplay
-        
+
         if let validSize = imageToDisplay?.size {
             scrollView?.contentSize = validSize
+            robotoffImageView?.bounds = CGRect(origin: CGPoint.zero, size: validSize)
         }
         if let validSize = scrollView?.bounds.size {
             updateMinZoomScale(for: validSize)
@@ -152,18 +154,19 @@ Configure the class SelectPairViewController in one go. All possible input param
     }
     
     func updateMinZoomScale(for scrollViewSize: CGSize) {
-      guard robotoffImageView != nil else { return }
-      //print("Zoom ", robotoffImageView!.frame, scrollViewSize)
-      guard robotoffImageView!.bounds.width > .zero &&
+        guard robotoffImageView != nil else { return }
+        guard robotoffImageView!.bounds.width > .zero &&
           robotoffImageView!.bounds.height > .zero else { return }
 
-      let widthScale = scrollViewSize.width / robotoffImageView!.bounds.width
-      let heightScale = scrollViewSize.height / robotoffImageView!.bounds.height
-      let minScale = min(widthScale, heightScale)
+        let widthScale = scrollViewSize.width / robotoffImageView!.bounds.width
+        let heightScale = scrollViewSize.height / robotoffImageView!.bounds.height
+        let minScale = min(widthScale, heightScale)
       
-      scrollView.minimumZoomScale = minScale
-      scrollView.zoomScale = minScale
-      updateConstraints(for: scrollViewSize)
+        scrollView.minimumZoomScale = minScale * 0.1
+        scrollView.zoomScale = minScale
+        scrollView.maximumZoomScale = minScale * 10
+        updateConstraints(for: scrollViewSize)
+        //print("Zoom ", robotoffImageView!.frame, scrollViewSize, widthScale, heightScale)
     }
 
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
@@ -183,7 +186,7 @@ Configure the class SelectPairViewController in one go. All possible input param
       let xOffset = max(0, (scrollViewSize.width - robotoffImageView!.frame.width) / 2)
       imageViewLeadingConstraint.constant = xOffset
       imageViewTrailingConstraint.constant = xOffset
-      //print("Constraints ", robotoffImageView!.frame, scrollViewSize, xOffset, yOffset)
+      //print("Constraints ", robotoffImageView!.frame, scrollViewSize, xOffset, yOffset, scrollView.zoomScale)
 
       view.layoutIfNeeded()
     }
