@@ -828,7 +828,6 @@ class IdentificationTableViewController: UITableViewController {
         
         self.uploadProgressRatio = nil
         reloadImageSection()
-            
     }
     
     private func reloadImageSection() {
