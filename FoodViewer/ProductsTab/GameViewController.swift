@@ -35,6 +35,57 @@ class GameViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var navigationBarTitle: UINavigationItem! {
+        didSet {
+            navigationBarTitle.title = "Game"
+        }
+    }
+    
+    @IBAction func actionBarButtonItemTapped(_ sender: UIBarButtonItem) {
+        guard currentQuestion != nil else { return }
+        
+        var sharingItems = [AnyObject]()
+            
+        if let text = currentQuestion?.barcode {
+            sharingItems.append(text as AnyObject)
+        }
+        // add the image
+        if let validUrlString = currentQuestion?.url,
+            let validUrl = URL(string: validUrlString) {
+            let imageSet = ProductImageSize(selectedURL: validUrl)
+            if let fetchResult = imageSet.largest?.fetch() {
+                switch fetchResult {
+                case .success(let image):
+                    sharingItems.append(image)
+                default: break
+                }
+            }
+        }
+        
+        if let validBarcode = currentQuestion?.barcode {
+            let url = OFF.webProductURLFor(BarcodeType(barcodeString: validBarcode, type: .food))
+            sharingItems.append(url as AnyObject)
+        }
+            
+        let activity = TUSafariActivity()
+            
+        let activityViewController = UIActivityViewController(activityItems: sharingItems, applicationActivities: [activity])
+            
+        activityViewController.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.print, UIActivity.ActivityType.openInIBooks, UIActivity.ActivityType.assignToContact, UIActivity.ActivityType.addToReadingList]
+            
+        // This is necessary for the iPad
+        let presCon = activityViewController.popoverPresentationController
+        presCon?.barButtonItem = sender
+            
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    @IBOutlet weak var actionBarButtonTime: UIBarButtonItem! {
+        didSet {
+            actionBarButtonTime.isEnabled = showQuestion && currentQuestion != nil
+        }
+    }
+    
     private var containerViewController: RobotoffQuestionViewController?
     
     private var robotoff: OFFRobotoff? = nil
@@ -95,6 +146,8 @@ class GameViewController: UIViewController {
         }
         return nil
     }
+    
+    private var currentQuestion: RobotoffQuestion? = nil
     
     private var showQuestion: Bool = false {
         didSet {

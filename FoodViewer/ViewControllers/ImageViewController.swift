@@ -201,6 +201,7 @@ final class ImageViewController: UIViewController {
         let minScale = min(widthScale, heightScale)
         
         scrollView.minimumZoomScale = minScale * 0.5
+        scrollView.maximumZoomScale = 10.0
         scrollView.zoomScale = minScale
         updateConstraints(for: scrollViewSize)
     }
