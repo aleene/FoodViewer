@@ -529,26 +529,30 @@ class FoodProduct {
     var nutritionFactsAreAvailable: NutritionAvailability {
         get {
             // Figures out whether a nutrition fact contains values per serving and/or standard
-                if !nutritionFactsDict.isEmpty {
-                    if nutritionFactsDict.first?.value.serving != nil &&
-                        !nutritionFactsDict.first!.value.serving!.isEmpty &&
-                        nutritionFactsDict.first?.value.standard != nil &&
-                        !nutritionFactsDict.first!.value.standard!.isEmpty {
-                        return .perServingAndStandardUnit
-                    } else if nutritionFactsDict.first?.value.serving != nil &&
-                        !nutritionFactsDict.first!.value.serving!.isEmpty {
-                        return .perServing
-                    } else if nutritionFactsDict.first?.value.standard != nil &&
-                        !nutritionFactsDict.first!.value.standard!.isEmpty {
-                        return .perStandardUnit
-                    }
+            // We use the first nutritionfact that is available and check the OFF processed data
+            if !nutritionFactsDict.isEmpty {
+                if nutritionFactsDict.first?.value.serving != nil &&
+                    !nutritionFactsDict.first!.value.serving!.isEmpty &&
+                    nutritionFactsDict.first?.value.standard != nil &&
+                    !nutritionFactsDict.first!.value.standard!.isEmpty {
+                    return .perServingAndStandardUnit
+                } else if nutritionFactsDict.first?.value.serving != nil &&
+                    !nutritionFactsDict.first!.value.serving!.isEmpty {
+                    return .perServing
+                } else if nutritionFactsDict.first?.value.standard != nil &&
+                    !nutritionFactsDict.first!.value.standard!.isEmpty {
+                    return .perStandardUnit
                 }
-            return .notIndicated
+            }
+            if hasNutritionFacts != nil {
+                return .notIndicated
+            }
+            return .notAvailable
         }
     }
     
     // This variable indicates whether there are nutrition facts available on the package.
-    var hasNutritionFacts: Bool? = nil // nil indicates that it is not known
+    var hasNutritionFacts: Bool? = nil // nil indicates that it is not known/provided by OFF
     
     // hasNutritionFacts can be nil even if there are nutriments defined
     var nutrimentFactsAvailability: Bool {
@@ -1530,8 +1534,8 @@ class FoodProduct {
             
             // Try to find the default OFF unit for the current nutriment
             switch OFFplists.manager.unit(for: nutrient) {
-            case .Milligram, .Microgram:
-                nutritionItem.standardUnit = .Gram
+            case .milligram, .microgram:
+                nutritionItem.standardUnit = .gram
             default:
                 nutritionItem.standardUnit = OFFplists.manager.unit(for: nutrient)
             }

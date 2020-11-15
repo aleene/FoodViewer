@@ -10,41 +10,46 @@ import Foundation
 
 public enum NutritionFactUnit {
     
-    case Gram
-    case Milligram
-    case Microgram
-    case Joule
-    case Calories // big calories?
-    case KiloCalories
-    case Percent
-    case None
+    case gram
+    case milligram
+    case microgram
+    case joule
+    case calories // big calories?
+    case kiloCalories
+    case percent
+    case dailyValuePercent
+    case none
     
     public init(_ text: String) {
         switch text {
         case Strings.Joule:
-            self = .Joule
+            self = .joule
         case Strings.Calories:
-            self =  .Calories
+            self =  .calories
         case Strings.KiloCalories:
-            self =  .KiloCalories
+            self =  .kiloCalories
         case Strings.Gram:
-            self =  .Gram
+            self =  .gram
         case Strings.Milligram:
-            self =  .Milligram
+            self =  .milligram
         case Strings.Microgram:
-            self =  .Microgram
+            self =  .microgram
         case Strings.Percent:
-            self =  .Percent
+            self =  .percent
+        case Strings.DailyValuePercent:
+            self =  .percent
+        case Strings.None:
+            self =  .none
         default:
-            self =  .None
+            self = .none
         }
     }
     
     public static func units(for energy:Bool) -> [NutritionFactUnit] {
         if energy {
-            return [.Joule, .KiloCalories, .Calories]
+            return [.joule, .kiloCalories, .calories]
         } else {
-            return [.Gram, .Milligram, .Microgram, .Percent, .None]
+            return [.gram, .milligram, .microgram, .percent, .dailyValuePercent, .none]
         }
     }
     
@@ -58,36 +63,39 @@ public enum NutritionFactUnit {
         }
     }
     
-    func description() -> String {
+    public var description: String {
         switch self {
-        case .Joule: return TranslatableStrings.Joule
-        case .KiloCalories: return TranslatableStrings.KiloCalorie
-        case .Calories: return TranslatableStrings.Calories
-        case .Gram: return TranslatableStrings.Gram
-        case .Milligram: return TranslatableStrings.Milligram
-        case .Microgram: return TranslatableStrings.Microgram
-        case .Percent: return TranslatableStrings.Percentage
-        case .None: return TranslatableStrings.None
+        case .joule: return TranslatableStrings.Joule
+        case .kiloCalories: return TranslatableStrings.KiloCalorie
+        case .calories: return TranslatableStrings.Calories
+        case .gram: return TranslatableStrings.Gram
+        case .milligram: return TranslatableStrings.Milligram
+        case .microgram: return TranslatableStrings.Microgram
+        case .percent: return TranslatableStrings.Percentage
+        case .dailyValuePercent: return TranslatableStrings.DailyValue
+        case .none: return TranslatableStrings.None
         }
     }
     
-    public func short() -> String {
+    public var short: String {
         switch self {
-        case .Joule:
+        case .joule:
             return Strings.Joule
-        case .Calories :
+        case .calories:
             return Strings.Calories
-        case .KiloCalories :
+        case .kiloCalories:
             return Strings.KiloCalories
-        case .Gram :
+        case .gram:
             return Strings.Gram
-        case .Milligram :
+        case .milligram:
             return Strings.Milligram
-        case .Microgram :
+        case .microgram:
             return Strings.Microgram
-        case .Percent :
+        case .percent:
             return Strings.Percent
-        case .None :
+        case .dailyValuePercent:
+            return Strings.DailyValuePercent
+        case .none:
             return Strings.None
         }
     }
@@ -96,27 +104,29 @@ public enum NutritionFactUnit {
         // is this an energy nutrient?
         if key.hasPrefix(LocalizedEnergy.prefixKey) {
             switch self {
-            case .Joule:
+            case .joule:
                 return Strings.Joule
-            case .Calories :
+            case .calories :
                 return Strings.Calories
-            case .KiloCalories :
+            case .kiloCalories :
                 return Strings.KiloCalories
-            case .Percent :
+            case .percent :
                 return Strings.Percent
             default :
                 return Strings.None
             }
         } else {
             switch self {
-            case .Gram :
+            case .gram:
                 return Strings.Gram
-            case .Milligram :
+            case .milligram:
                 return Strings.Milligram
-            case .Microgram :
+            case .microgram:
                 return Strings.Microgram
-            case .Percent :
+            case .percent:
                 return Strings.Percent
+            case .dailyValuePercent:
+                return Strings.DailyValuePercent
             default :
                 return Strings.None
             }
@@ -131,15 +141,16 @@ public enum NutritionFactUnit {
         static let Milligram = "mg"
         static let Microgram = "µg"
         static let Percent = "%"
+        static let DailyValuePercent = "%DV"
         static let None = "-"
     }
 
     // assume we start with grams
     static func normalize(_ value: String?) -> (String?, NutritionFactUnit) {
         var newValue: String? = nil
-        var newUnit: NutritionFactUnit = .Gram
+        var newUnit: NutritionFactUnit = .gram
         
-        guard value != nil else { return (nil, NutritionFactUnit.Gram) }
+        guard value != nil else { return (nil, NutritionFactUnit.gram) }
         
         if var doubleValue = Double(value!) {
             // the value can be converted to a number
@@ -152,17 +163,17 @@ public enum NutritionFactUnit {
                     // we use only the values standerdized on g
                     if doubleValue < 0.99 {
                         // this is nanogram, probably the value is just 0
-                        newUnit = NutritionFactUnit.Gram
+                        newUnit = NutritionFactUnit.gram
                     } else {
-                        newUnit = NutritionFactUnit.Microgram
+                        newUnit = NutritionFactUnit.microgram
                     }
                 } else {
                     // more than 1 milligram, use milligram
-                    newUnit = NutritionFactUnit.Milligram
+                    newUnit = NutritionFactUnit.milligram
                 }
             } else {
                 // larger than 1, use gram
-                newUnit = NutritionFactUnit.Gram
+                newUnit = NutritionFactUnit.gram
             }
             // print("standard: \(key) \(doubleValue) " + nutritionItem.standardValueUnit! )
             newValue = "\(doubleValue)"
@@ -176,7 +187,7 @@ public enum NutritionFactUnit {
     
     public var isNone: Bool {
         switch self {
-        case .None:
+        case .none:
             return true
         default:
             return false

@@ -62,7 +62,7 @@ class SearchNutrientsTableViewCell: UITableViewCell {
     
     private func setUnit() {
         if let validUnit = searchNutrition?.unit {
-            unitButton.setTitle(validUnit.short(), for: .normal)
+            unitButton.setTitle(validUnit.short, for: .normal)
         } else {
             unitButton.setTitle(TranslatableStrings.UnknownValue, for: .normal)
         }

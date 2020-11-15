@@ -24,10 +24,24 @@ public struct NutritionFactItem {
     public var value: String? = nil
     /// The unit of the value  the user originally entered provided by OFF
     public var valueUnit: NutritionFactUnit? = nil
-    /// The standard value as daily fraction
-    public var dailyFractionPerServing: Double? = nil
     /// The nutrient the values and units apply to
     public var nutrient: Nutrient = .undefined
+
+    public var valuePair: (String?, NutritionFactUnit) {
+        return (value, valueUnit ?? .none)
+    }
+    
+    public var editedValuePair: (String?, NutritionFactUnit) {
+        return (valueEdited, valueUnitEdited ?? .none)
+    }
+
+    public var standardPair: (String?, NutritionFactUnit) {
+        return (standard, standardUnit ?? .none)
+    }
+
+    public var servingPair: (String?, NutritionFactUnit) {
+        return (serving, standardUnit ?? .none)
+    }
 
     public init() { }
 
@@ -83,15 +97,15 @@ public struct NutritionFactItem {
         if let validString = standard {
             if let validUnit = standardUnit {
                 switch validUnit {
-                case .Milligram:
+                case .milligram:
                     if let validDouble = Double(validString) {
                         return validDouble / 1000.0
                     }
-                case .Microgram:
+                case .microgram:
                     if let validDouble = Double(validString) {
                         return validDouble / 1000000.0
                     }
-                case .Gram:
+                case .gram:
                     return Double(validString)
                 default:
                     break
@@ -105,15 +119,15 @@ public struct NutritionFactItem {
         if let validString = value {
             if let validUnit = valueUnit {
                 switch validUnit {
-                case .Milligram:
+                case .milligram:
                     if let validDouble = Double(validString) {
                         return validDouble / 1000.0
                     }
-                case .Microgram:
+                case .microgram:
                     if let validDouble = Double(validString) {
                         return validDouble / 1000000.0
                     }
-                case .Gram:
+                case .gram:
                     return Double(validString)
                 default:
                     break
@@ -128,15 +142,15 @@ public struct NutritionFactItem {
         if let validString = valueEdited {
             if let validUnit = valueUnitEdited {
                 switch validUnit {
-                case .Milligram:
+                case .milligram:
                     if let validDouble = Double(validString) {
                         return validDouble / 1000.0
                     }
-                case .Microgram:
+                case .microgram:
                     if let validDouble = Double(validString) {
                         return validDouble / 1000000.0
                     }
-                case .Gram:
+                case .gram:
                     return Double(validString)
                 default:
                     break
@@ -190,23 +204,29 @@ public struct NutritionFactItem {
         return ""
     }
 
-    public func localeStandardValue(editMode: Bool) -> String {
+    public func localeStandardValue(editMode: Bool) -> (String?, NutritionFactUnit) {
         return localeValue(standard, multiplier: 1.0, editMode: editMode)
     }
     
-    public func localeThousandValue(editMode: Bool) -> String {
-        return localeValue(standard, multiplier: 1.0, editMode: editMode)
+    public func localeThousandValue(editMode: Bool) -> (String?, NutritionFactUnit) {
+        return localeValue(standard, multiplier: 10.0, editMode: editMode)
     }
 
-    public func localeServingValue(editMode: Bool) -> String {
+    public func localeServingValue(editMode: Bool) -> (String?, NutritionFactUnit) {
         return localeValue(serving, multiplier: 1.0, editMode: editMode)
     }
 
-    fileprivate func localeValue(_ stringValue: String?, multiplier: Float, editMode: Bool) -> String {
+    fileprivate func localeValue(_ stringValue: String?, multiplier: Float, editMode: Bool) -> (String?, NutritionFactUnit) {
+        // a percentage can not be transformed to a daily value
+        if let validStandardUnit = standardUnit,
+                validStandardUnit == .percent
+                || validStandardUnit == .dailyValuePercent {
+            return (stringValue, validStandardUnit)
+        }
 
         if let value = stringValue {
             // an empty string does not have to be analysed
-            guard !value.isEmpty else { return "" }
+            guard !value.isEmpty else { return ("???", standardUnit ?? .none) }
             // remove any unicode a0 (non-breaking space)
             let newValue = value.replacingOccurrences(of: "\u{a0}", with: "")
 
@@ -217,27 +237,51 @@ public struct NutritionFactItem {
                 numberFormatter.numberStyle = .decimal
                 numberFormatter.maximumSignificantDigits = 4
                 numberFormatter.usesGroupingSeparator = !editMode
-                return numberFormatter.string(from: NSNumber(value: floatValue)) ?? ""
+                return (numberFormatter.string(from: NSNumber(value: floatValue)), standardUnit ?? .none)
             } else {
-                return value
+                return (value, standardUnit ?? .none)
             }
         }
-        return ""
+        return ("???", standardUnit ?? .none)
 
     }
     
-    var localeDailyValue: String {
+    var dailyValuePercentage: (String?, NutritionFactUnit) {
+        // a percentage can not be transforemd to a daily value
+        if let validStandardUnit = standardUnit,
+                validStandardUnit == .percent
+                || validStandardUnit == .dailyValuePercent {
+            return (standard, validStandardUnit)
+        }
         
-        if let validValue = dailyFractionPerServing {
-            
-            // convert standard value to a number in the users locale
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .percent
-            if let returnString = numberFormatter.string(from: NSNumber.init(value: validValue as Double)) {
-                return returnString
+        guard var validServing = serving else { return ("?!?", .none) }
+        
+        // the reference values are in in kJ, so any calories must be converted
+        if nutrient == .energy
+            || nutrient == .energyKcal
+            || nutrient == .energyFromFat {
+            if let validUnit = standardUnit,
+                validUnit == .calories || validUnit == .kiloCalories {
+                validServing = valueInJoule(validServing)
             }
         }
-        return ""
+
+        // sometimes there are comma's instead of dots used in the number
+        let servingWithDots = validServing.replacingOccurrences(of: ",", with: ".")
+
+        let dailyFractionPerServing = ReferenceDailyIntakeList.manager.dailyValue(serving: servingWithDots, nutrient: nutrient)
+        
+        if let validValue = dailyFractionPerServing {
+            // convert standard value to a number in the users locale
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            numberFormatter.maximumFractionDigits = 1
+            let validValue: Double = Double(validValue) * 100.0
+            if let returnString = numberFormatter.string(from: NSNumber(value: validValue)) {
+                return (returnString, .dailyValuePercent)
+            }
+        }
+        return ("?!?", .none)
     }
 
 }

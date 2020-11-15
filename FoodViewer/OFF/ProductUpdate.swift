@@ -190,10 +190,10 @@ class ProductUpdate: OFFProductUpdateAPI {
                 if let validUnit = fact.value.valueUnitEdited {
                     var validValueUnit = ""
                     switch validUnit {
-                    case .Milligram, .Microgram:
-                        validValueUnit = NutritionFactUnit.Gram.short()
+                    case .milligram, .microgram:
+                        validValueUnit = NutritionFactUnit.gram.short
                     default:
-                        validValueUnit = validUnit.short()
+                        validValueUnit = validUnit.short
                     }
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
                     urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
@@ -357,7 +357,7 @@ class ProductUpdate: OFFProductUpdateAPI {
         }
 
         if productUpdated {
-            self.URLString = urlString
+             self.URLString = urlString
             super.main()
         }
         return

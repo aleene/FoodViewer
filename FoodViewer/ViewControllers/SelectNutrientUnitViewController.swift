@@ -93,7 +93,7 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        return row >= Constants.RowOffset ? NutritionFactUnit.units(for:energyUnit)[row - Constants.RowOffset].short() : ""
+        return row >= Constants.RowOffset ? NutritionFactUnit.units(for:energyUnit)[row - Constants.RowOffset].short : ""
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

@@ -62,7 +62,7 @@ extension EmptyNutrientsTableViewCell: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        return availability.description()
+        return availability.description
     }
     
     public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {

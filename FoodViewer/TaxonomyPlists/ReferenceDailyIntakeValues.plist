@@ -68,6 +68,22 @@
 	</dict>
 	<dict>
 		<key>key</key>
+		<string>energy-kcal</string>
+		<key>value</key>
+		<integer>8400</integer>
+		<key>unit</key>
+		<string>kJ</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>energy-from-fat</string>
+		<key>value</key>
+		<integer>8400</integer>
+		<key>unit</key>
+		<string>kJ</string>
+	</dict>
+	<dict>
+		<key>key</key>
 		<string>fat</string>
 		<key>value</key>
 		<integer>65</integer>
@@ -79,6 +95,14 @@
 		<string>fiber</string>
 		<key>value</key>
 		<integer>25</integer>
+		<key>unit</key>
+		<string>g</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>trans-fat</string>
+		<key>value</key>
+		<integer>2</integer>
 		<key>unit</key>
 		<string>g</string>
 	</dict>

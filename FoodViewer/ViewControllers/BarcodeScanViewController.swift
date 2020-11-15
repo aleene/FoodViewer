@@ -69,25 +69,25 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     
     @IBOutlet weak var fatLabel: UILabel! {
         didSet {
-            fatLabel.text = NutritionFactItem.init(nutrient: .fat, unit: .Gram).itemName
+            fatLabel.text = NutritionFactItem.init(nutrient: .fat, unit: .gram).itemName
         }
     }
     
     @IBOutlet weak var saturatedFatLabel: UILabel! {
         didSet {
-            saturatedFatLabel.text = NutritionFactItem.init(nutrient: .saturatedFat, unit: .Gram).itemName
+            saturatedFatLabel.text = NutritionFactItem.init(nutrient: .saturatedFat, unit: .gram).itemName
         }
     }
     
     @IBOutlet weak var sugarLabel: UILabel! {
         didSet {
-            sugarLabel.text = NutritionFactItem.init(nutrient: .sugars, unit: .Gram).itemName
+            sugarLabel.text = NutritionFactItem.init(nutrient: .sugars, unit: .gram).itemName
         }
     }
     
     @IBOutlet weak var saltLabel: UILabel! {
         didSet {
-            saltLabel.text = NutritionFactItem.init(nutrient: .salt, unit: .Gram).itemName
+            saltLabel.text = NutritionFactItem.init(nutrient: .salt, unit: .gram).itemName
         }
     }
     

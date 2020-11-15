@@ -148,16 +148,16 @@ public enum Nutrient: String, CaseIterable {
         case .energy, .energyKcal, .energyFromFat:
             switch style.energyUnit {
             case .calories:
-                return .Calories
+                return .calories
             case .joule:
-                return .Joule
+                return .joule
             case .kilocalorie:
-                return .KiloCalories
+                return .kiloCalories
             }
         case .ph, .ausUnits, .numberOfMinerals, .numberOfVitamins, .saUnits, .ieUnits:
-            return .None
+            return .none
         default:
-            return .Gram
+            return .gram
         }
     }
 }

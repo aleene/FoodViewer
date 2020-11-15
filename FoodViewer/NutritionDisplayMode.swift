@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum NutritionDisplayMode {
-    case perServing
-    case perStandard
-    case perThousandGram
-    case perDailyValue
+enum NutritionDisplayMode: Int {
+    case perStandard = 0
+    case perThousandGram = 1
+    case perServing = 2
+    case perDailyValue = 3
     
     var description: String {
         switch self {
@@ -29,25 +29,26 @@ enum NutritionDisplayMode {
     
     init(_ index: Int) {
         switch index {
-        case 1:
+        case NutritionDisplayMode.perServing.rawValue:
             self = .perServing
-        case 2:
+        case NutritionDisplayMode.perThousandGram.rawValue:
             self = .perThousandGram
-        case 3:
-            self = .perServing
+        case NutritionDisplayMode.perDailyValue.rawValue:
+            self = .perDailyValue
         default:
             self = .perStandard
         }
     }
-    
+    /*
     public var index: Int {
         switch self {
-        case .perServing: return 0
-        case .perStandard: return 1
-        case .perThousandGram: return 2
-        case .perDailyValue: return 3
+        case .perServing: return NutritionDisplayMode.perServing.rawValue
+        case .perStandard: return NutritionDisplayMode.perStandard.rawValue
+        case .perThousandGram: return NutritionDisplayMode.perThousandGram.rawValue
+        case .perDailyValue: return NutritionDisplayMode.perDailyValue.rawValue
         }
     }
+ */
     
     public var key: String {
         switch self {

@@ -44,7 +44,7 @@ class NutrientsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var unitButton: UIButton! {
         didSet {
-            unitButton?.setTitle(nutritionDisplayFactItem?.unit?.short(), for: .normal)
+            unitButton?.setTitle(nutritionDisplayFactItem?.unit?.short, for: .normal)
             unitButton?.tag = tag
         }
     }
@@ -69,7 +69,7 @@ class NutrientsTableViewCell: UITableViewCell {
             if let item = nutritionDisplayFactItem {
                 itemLabel.text = item.name ?? TranslatableStrings.UnknownValue
                 textField?.text = item.value ?? TranslatableStrings.UnknownValue
-                item.unit != nil ? unitButton.setTitle(item.unit!.short(), for: .normal) : unitButton.setTitle(TranslatableStrings.UnknownValue, for: .normal)
+                item.unit != nil ? unitButton.setTitle(item.unit!.short, for: .normal) : unitButton.setTitle(TranslatableStrings.UnknownValue, for: .normal)
             }
         }
     }

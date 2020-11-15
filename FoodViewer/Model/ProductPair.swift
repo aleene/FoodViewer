@@ -898,9 +898,15 @@ Update the nutrient unit of a nutrient. If  the nutrient already exists remotely
             case .perStandardUnit:
                 localProduct?.nutritionFactsDict[validNutrient.key]?.valueEdited =
                     remoteProduct?.nutritionFactsDict[validNutrient.key]?.standard
+            case .per1000Gram:
+                localProduct?.nutritionFactsDict[validNutrient.key]?.valueEdited =
+                    "1000 gram"
             case .perServing:
                 localProduct?.nutritionFactsDict[validNutrient.key]?.valueEdited =
                     remoteProduct?.nutritionFactsDict[validNutrient.key]?.serving
+            case .perDailyValue:
+                localProduct?.nutritionFactsDict[validNutrient.key]?.valueEdited =
+                    "daily value"
             }
             localProduct?.nutritionFactsDict[validNutrient.key]?.itemName =
                 remoteProduct?.nutritionFactsDict[validNutrient.key]?.itemName

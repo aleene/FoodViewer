@@ -113,12 +113,12 @@ class OFFplists {
             // get the language array for the current language
             let translatedValues = currentVertex.leaves[firstSplit[0]]
             let englishValues = currentVertex.leaves["en"]
-            var unit: NutritionFactUnit = .None
+            var unit: NutritionFactUnit = .none
             if let validUnit = currentVertex.leaves["unit"] {
                 if !validUnit.isEmpty {
                     if validUnit[0] == "none" {
                         // for unitless nutrition facts
-                        unit = .None
+                        unit = .none
                     } else {
                         unit = NutritionFactUnit(validUnit[0])
                     }
@@ -176,7 +176,7 @@ class OFFplists {
                 }
             }
         }
-        return .None
+        return .none
     }
     /*
     func nutrientVertex(atIndex index: Int) -> VertexNew? {

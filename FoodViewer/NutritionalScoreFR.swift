@@ -337,7 +337,7 @@ public class NutritionalScoreFR: NutritionalScore {
         var fiber: Double? = nil
         var proteins: Double? = nil
         var fruitVegetableNuts: Double? = nil
-        var fruitVegetableNutsEstimated: Double? = nil
+        let fruitVegetableNutsEstimated: Double? = nil
 
         if let nutrientFact = nutritionFactsDict[Nutrient.energy.key] {
             energy = nutrientFact.standardAsDouble

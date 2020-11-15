@@ -209,10 +209,10 @@
             filePath = "FoodViewer/Model/ProductPair.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "974"
-            endingLineNumber = "974"
-            landmarkName = "update(frontImage:for:)"
-            landmarkType = "7">
+            startingLineNumber = "980"
+            endingLineNumber = "980"
+            landmarkName = "ProductPair"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -273,8 +273,8 @@
             filePath = "FoodViewer/Model/ProductPair.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1036"
-            endingLineNumber = "1036"
+            startingLineNumber = "1042"
+            endingLineNumber = "1042"
             landmarkName = "uploadOperationsDict()"
             landmarkType = "7">
          </BreakpointContent>
@@ -337,8 +337,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2104"
-            endingLineNumber = "2104"
+            startingLineNumber = "2108"
+            endingLineNumber = "2108"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -419,8 +419,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "293"
             endingLineNumber = "293"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "init(energy:saturatedFat:sugars:sodium:fruitVegetablesNuts:fruitVegetablesNutsEstimated:fiber:proteins:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -435,8 +435,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "286"
             endingLineNumber = "286"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "init(energy:saturatedFat:sugars:sodium:fruitVegetablesNuts:fruitVegetablesNutsEstimated:fiber:proteins:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -451,8 +451,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "390"
             endingLineNumber = "390"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "init(nutritionFactsDict:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -625,8 +625,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1612"
-            endingLineNumber = "1612"
+            startingLineNumber = "1616"
+            endingLineNumber = "1616"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -641,8 +641,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1330"
-            endingLineNumber = "1330"
+            startingLineNumber = "1334"
+            endingLineNumber = "1334"
             landmarkName = "decodeCompletionStates(_:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -849,8 +849,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1849"
-            endingLineNumber = "1849"
+            startingLineNumber = "1853"
+            endingLineNumber = "1853"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -929,8 +929,8 @@
             filePath = "FoodViewer/Model/ProductPair.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "991"
-            endingLineNumber = "991"
+            startingLineNumber = "997"
+            endingLineNumber = "997"
             landmarkName = "update(packagingImage:for:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -977,8 +977,8 @@
             filePath = "FoodViewer/ViewControllers/ProductPages/NutrientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "352"
-            endingLineNumber = "352"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
             landmarkName = "localizeFact(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -987,14 +987,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "EF68C4B5-8AE7-4DFD-889D-031323F09FF2"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodViewer/Model/ProductPair.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "886"
-            endingLineNumber = "886"
+            startingLineNumber = "902"
+            endingLineNumber = "902"
             landmarkName = "update(nutrient:unit:perUnit:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1025,8 +1025,8 @@
             filePath = "FoodViewer/Model/ProductPair.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "923"
-            endingLineNumber = "923"
+            startingLineNumber = "929"
+            endingLineNumber = "929"
             landmarkName = "update(facts:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1057,9 +1057,9 @@
             filePath = "FoodViewer/Model/ProductPair.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "919"
-            endingLineNumber = "919"
-            landmarkName = "update(nutrient:unit:perUnit:)"
+            startingLineNumber = "925"
+            endingLineNumber = "925"
+            landmarkName = "update(facts:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1073,8 +1073,8 @@
             filePath = "FoodViewer/ViewControllers/ProductPages/NutrientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1685"
-            endingLineNumber = "1685"
+            startingLineNumber = "1742"
+            endingLineNumber = "1742"
             landmarkName = "changeViewModeButtonTapped(_:in:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1089,8 +1089,8 @@
             filePath = "FoodViewer/ViewControllers/ProductPages/NutrientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1284"
-            endingLineNumber = "1284"
+            startingLineNumber = "1332"
+            endingLineNumber = "1332"
             landmarkName = "addNutrientTableViewCell(_:tappedOn:)"
             landmarkType = "7">
             <Locations>
@@ -1137,8 +1137,8 @@
             filePath = "FoodViewer/ViewControllers/ProductPages/NutrientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "358"
-            endingLineNumber = "358"
+            startingLineNumber = "415"
+            endingLineNumber = "415"
             landmarkName = "mergeNutritionFacts()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1153,8 +1153,8 @@
             filePath = "FoodViewer/ViewControllers/ProductPages/NutrientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "adaptNutritionFacts(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1163,14 +1163,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "536D8393-4E8A-49EF-B110-8C1D9F493757"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodViewer/ViewControllers/ProductPages/NutrientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "326"
-            endingLineNumber = "326"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
             landmarkName = "localizeFact(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1201,8 +1201,8 @@
             filePath = "FoodViewer/ViewControllers/ProductPages/NutrientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
             landmarkName = "order(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1217,8 +1217,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1780"
-            endingLineNumber = "1780"
+            startingLineNumber = "1784"
+            endingLineNumber = "1784"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1441,8 +1441,8 @@
             filePath = "FoodViewer/ProductsTab/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1477,6 +1477,118 @@
             endingLineNumber = "155"
             landmarkName = "init(url:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "46C2619C-6DEE-4395-98E9-AC2B1708F7B8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodViewer/ProductsTab/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "actionBarButtonItemTapped(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AE6F3FC8-BBE0-4FB2-B761-CF66857EE33D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodViewer/ProductsTab/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "actionBarButtonItemTapped(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "46413433-9EA9-43D4-BFB4-C592292D82E0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodViewer/ViewControllers/ProductPages/NutrientsTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1493"
+            endingLineNumber = "1493"
+            landmarkName = "perUnitTableViewCell(_:receivedActionOn:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "715EC0FE-711E-410E-AA10-F1523EF482F8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodViewer/Model/ProductPair.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "908"
+            endingLineNumber = "908"
+            landmarkName = "update(nutrient:unit:perUnit:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2D7C7F98-CBC5-4DDC-9E1D-0BF03B37B3D1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodViewer/Cells/PerUnitTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "setSegmentEnabledState()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7EA1CAFC-C68F-4CBB-949B-B345D3CB90B6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodViewer/ReferenceDailyIntakeList.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "dailyValue(value:forKey:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C6339CAA-F5A6-4B73-95F6-BD3AADA33EDC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodViewer/NutritionFactItem.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
+            landmarkName = "dailyValuePercentage"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

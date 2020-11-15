@@ -113,12 +113,21 @@ class ReferenceDailyIntakeList {
     }
 
     // returns the daily recommended value as fraction for a specific key
-    func dailyValue(value: Double, forKey: String) -> Double? {
+    public func dailyValue(value: Double, forKey: String) -> Double? {
         if let dv = valueForKey(key: forKey) {
             return value / dv
         } else {
             return nil
         }
     }
+    
+    // returns the daily recommended value as fraction for a specific key
+    public func dailyValue(serving: String?, nutrient: Nutrient) -> Double? {
+        guard let validServing = serving else { return nil }
+        guard let validDouble = Double(validServing) else { return nil }
+        
+        return dailyValue(value: validDouble, forKey: nutrient.key)
+    }
+
 }
 

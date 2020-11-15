@@ -80,6 +80,24 @@ class GameViewController: UIViewController {
         self.present(activityViewController, animated: true, completion: nil)
     }
     
+    @IBOutlet weak var editBarButtonItem: UIBarButtonItem! {
+        didSet {
+            editBarButtonItem.isEnabled = showQuestion && currentQuestion != nil
+        }
+    }
+    
+    @IBAction func editBarButtonItemTapped(_ sender: UIBarButtonItem) {
+        if let validBarcode = currentQuestion?.barcode {
+            self.scannedProductPair = OFFProducts.manager.createProductPair(with:BarcodeType(barcodeString: validBarcode, type: .food))
+            //print("Barcode found: type= " +  barcode.type.rawValue + " value=" + self.currentBarcode)
+            // create this barcode in the history and launch te fetch
+            DispatchQueue.main.async(execute: {
+                // open the product in the History tab
+                self.switchToHistoryTab()
+            })
+        }
+    }
+    
     @IBOutlet weak var actionBarButtonTime: UIBarButtonItem! {
         didSet {
             actionBarButtonTime.isEnabled = showQuestion && currentQuestion != nil
@@ -121,7 +139,10 @@ class GameViewController: UIViewController {
                 startButton?.isEnabled = true
                 startButton?.setTitle(TranslatableStrings.GameStart, for: .normal)
                 if let validQuestion = validQuestion(questions: questions) {
+                    currentQuestion = validQuestion
                     containerViewController?.configure(question: validQuestion, image: nil)
+                } else {
+                    currentQuestion = nil
                 }
             case .loading:
                 startButton?.setTitle(TranslatableStrings.SearchLoading, for: .normal)
@@ -147,7 +168,12 @@ class GameViewController: UIViewController {
         return nil
     }
     
-    private var currentQuestion: RobotoffQuestion? = nil
+    private var currentQuestion: RobotoffQuestion? = nil {
+        didSet {
+            editBarButtonItem.isEnabled = currentQuestion != nil
+            actionBarButtonTime.isEnabled = currentQuestion != nil
+        }
+    }
     
     private var showQuestion: Bool = false {
         didSet {
@@ -157,6 +183,26 @@ class GameViewController: UIViewController {
         }
     }
     
+    fileprivate var scannedProductPair: ProductPair? = nil
+
+    private func switchToHistoryTab() {
+        if let tabVC = self.parent as? UITabBarController {
+            tabVC.selectedIndex = 1
+            // prepare the controller before moving there
+            if let controllers = tabVC.viewControllers,
+                controllers.count > 1,
+                let firstSplit = controllers[1] as? UISplitViewController,
+                firstSplit.viewControllers.count > 0,
+                let navController = firstSplit.viewControllers[0] as? UINavigationController,
+                navController.children.count > 0,
+                let controller = navController.children[0] as? AllProductsTableViewController {
+                controller.start()
+            }
+        } else {
+            assert(true, "BarcodeScanViewController:switchToTab:with: TabBar hierarchy error")
+        }
+    }
+
     @objc func updateQuestionStatus() {
         setQuestion()
     }
@@ -213,3 +259,13 @@ extension GameViewController: RobotoffQuestionCoordinatorProtocol {
     }
 }
 
+// MARK: - UITabBarControllerDelegate Functions
+
+extension GameViewController: UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        // The user tapped on one of the tabs, so the selected/scanned product will be reset.
+        scannedProductPair = nil
+    }
+    
+}

@@ -623,7 +623,7 @@ class SearchTemplate {
         }
             
         for nutrient in allNutrimentsSearch {
-            pairs.append(( .nutrient, [nutrient.name], nutrient.searchOperator.rawValue + " " + "\(nutrient.value)" + nutrient.unit.short() ))
+            pairs.append(( .nutrient, [nutrient.name], nutrient.searchOperator.rawValue + " " + "\(nutrient.value)" + nutrient.unit.short ))
         }
         
         return pairs
