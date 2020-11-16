@@ -180,13 +180,23 @@ class ProductUpdate: OFFProductUpdateAPI {
                     } else {
                         // The values must be converted to a standard unit
                         // this is only valid if the unit is gram
+                        
                         if let value = fact.value.valueEditedGramValue {
                             validValue = "\(value)"
-                        } // else the unit as is is used
+                        }
+                        // If the unit is as daily percentage
+                        if let validUnit = fact.value.valueUnitEdited,
+                            validUnit == .dailyValuePercent,
+                            let validDouble = fact.value.valueEditedAsDouble {
+                            // divide the value by 100 to get a fraction
+                            validValue = "\(validDouble/100.0)"
+                        }
+                        // else the unit as is is used
                         urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal + validValue)
                     }
                 }
                         
+                // Add the unit of the nutrient
                 if let validUnit = fact.value.valueUnitEdited {
                     var validValueUnit = ""
                     switch validUnit {
@@ -203,9 +213,9 @@ class ProductUpdate: OFFProductUpdateAPI {
             }
             if hasNewNutritionFacts {
                 switch validProduct.nutritionFactsIndicationUnit {
-                case .perStandardUnit:
+                case .perStandardUnit, .per1000Gram:
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
-                case .perServing:
+                case .perServing, .perDailyValue:
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPerServing)
                 default: break
                 }

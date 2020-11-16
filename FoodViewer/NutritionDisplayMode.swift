@@ -59,12 +59,13 @@ enum NutritionDisplayMode: Int {
         }
     }
     
+    // The nutrition entry unit that corresponds to nutrition display mode
     public var nutritionEntryUnit: NutritionEntryUnit {
         switch self {
         case .perServing: return .perServing
         case .perStandard: return .perStandardUnit
-        case .perThousandGram: return .perStandardUnit
-        case .perDailyValue: return .perStandardUnit
+        case .perThousandGram: return .per1000Gram
+        case .perDailyValue: return .perDailyValue
         }
     }
 }

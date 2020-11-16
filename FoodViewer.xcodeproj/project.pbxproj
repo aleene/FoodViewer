@@ -349,6 +349,8 @@
 		51A62CFE1F87D21E00B0A810 /* SetNutritionScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A62CFD1F87D21E00B0A810 /* SetNutritionScoreTableViewCell.swift */; };
 		51A7DC7E1EE6BF5F00F231B0 /* LanguageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51A7DC7D1EE6BF5F00F231B0 /* LanguageHeaderView.xib */; };
 		51A7DC801EE6C04400F231B0 /* LanguageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A7DC7F1EE6C04400F231B0 /* LanguageHeaderView.swift */; };
+		51A94B0E2561864100C5B4C7 /* OFFOCRRequestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A94B0D2561864100C5B4C7 /* OFFOCRRequestAPI.swift */; };
+		51A94B10256195A700C5B4C7 /* OFFocrJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A94B0F256195A700C5B4C7 /* OFFocrJson.swift */; };
 		51AADDD923EDBDF900108F69 /* FavoriteShopsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AADDD823EDBDF900108F69 /* FavoriteShopsCoordinator.swift */; };
 		51AADDDB23EDD0D900108F69 /* AddFavoriteShopCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AADDDA23EDD0D900108F69 /* AddFavoriteShopCoordinator.swift */; };
 		51AB5F1220342E8D004D74C7 /* OFFProductDetailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB5F1120342E8D004D74C7 /* OFFProductDetailed.swift */; };
@@ -838,6 +840,8 @@
 		51A7DC7D1EE6BF5F00F231B0 /* LanguageHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LanguageHeaderView.xib; sourceTree = "<group>"; };
 		51A7DC7F1EE6C04400F231B0 /* LanguageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageHeaderView.swift; sourceTree = "<group>"; };
 		51A932E5231FF17100C74A95 /* SelectedDietsDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectedDietsDefaults.swift; path = PreferencesScene/SelectedDietsDefaults.swift; sourceTree = "<group>"; };
+		51A94B0D2561864100C5B4C7 /* OFFOCRRequestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFOCRRequestAPI.swift; sourceTree = "<group>"; };
+		51A94B0F256195A700C5B4C7 /* OFFocrJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFocrJson.swift; sourceTree = "<group>"; };
 		51AADDD823EDBDF900108F69 /* FavoriteShopsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoriteShopsCoordinator.swift; path = Coordinators/FavoriteShopsCoordinator.swift; sourceTree = "<group>"; };
 		51AADDDA23EDD0D900108F69 /* AddFavoriteShopCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddFavoriteShopCoordinator.swift; path = Coordinators/AddFavoriteShopCoordinator.swift; sourceTree = "<group>"; };
 		51AB5F1120342E8D004D74C7 /* OFFProductDetailed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OFFProductDetailed.swift; path = OFFProductJson/OFFProductDetailed.swift; sourceTree = "<group>"; };
@@ -970,6 +974,7 @@
 				51992FD2253EE4C600C44214 /* OFFRobotoffUploadResultJson.swift */,
 				511D58A620371CC500F5D313 /* OFFSearchResultJson.swift */,
 				51992FC6253C3A9800C44214 /* OFFRobotoffQuestionJson.swift */,
+				51A94B0F256195A700C5B4C7 /* OFFocrJson.swift */,
 				51992FC8253C3B6500C44214 /* OFFRobotoffInsight.swift */,
 				51992FCA253DC94400C44214 /* OFFRobotoffQuestion.swift */,
 			);
@@ -1799,6 +1804,7 @@
 				5107554E202DE0240047EC09 /* jsons */,
 				512B450623FABD0A00BFBCF0 /* OFFImageUploadAPI.swift */,
 				512B450823FABD1A00BFBCF0 /* OFFImageDeselectAPI.swift */,
+				51A94B0D2561864100C5B4C7 /* OFFOCRRequestAPI.swift */,
 				512B450A23FABD3900BFBCF0 /* OFFProductUpdateAPI.swift */,
 				51992FD0253EE3FD00C44214 /* OFFRobotoffAnswerAPI.swift */,
 				51992FCC253DCC5800C44214 /* OFFRobotoffQuestionFetchStatus.swift */,
@@ -2179,6 +2185,7 @@
 				511459361CB1391300D25116 /* VertexNew.swift in Sources */,
 				511B2C411E78672900336CE8 /* SIUnit.swift in Sources */,
 				511D58AB20387C7A00F5D313 /* ProductPair.swift in Sources */,
+				51A94B10256195A700C5B4C7 /* OFFocrJson.swift in Sources */,
 				51DF5F80254DBD310058733E /* GameViewController.swift in Sources */,
 				512B445623FAB23600BFBCF0 /* RSUnifiedCodeGenerator.swift in Sources */,
 				512B44B123FAB9B600BFBCF0 /* SetLastEditDateViewController.swift in Sources */,
@@ -2276,6 +2283,7 @@
 				518ED6DF2028BB00002176A9 /* URLExtension.swift in Sources */,
 				512B443223FAB21C00BFBCF0 /* TagColorScheme.swift in Sources */,
 				51A7DC801EE6C04400F231B0 /* LanguageHeaderView.swift in Sources */,
+				51A94B0E2561864100C5B4C7 /* OFFOCRRequestAPI.swift in Sources */,
 				511D58A920372EC600F5D313 /* OFFProductImageSize.swift in Sources */,
 				512B44CF23FABACB00BFBCF0 /* NameTableViewCell.swift in Sources */,
 				51895A072539EF5B007C82F8 /* EnvironmentTableViewController.swift in Sources */,

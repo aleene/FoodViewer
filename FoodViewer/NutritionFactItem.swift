@@ -35,6 +35,10 @@ public struct NutritionFactItem {
         return (valueEdited, valueUnitEdited ?? .none)
     }
 
+    public var editedValuePairAsDouble: (Double?, NutritionFactUnit) {
+        return (valueAsDouble, valueUnitEdited ?? .none)
+    }
+
     public var standardPair: (String?, NutritionFactUnit) {
         return (standard, standardUnit ?? .none)
     }
@@ -93,69 +97,48 @@ public struct NutritionFactItem {
         return nil
     }
 
+    public var servingAsDouble: Double? {
+        if let validString = serving {
+            return Double(validString)
+        }
+        return nil
+    }
+
+    public var valueAsDouble: Double? {
+        if let validString = value {
+            return Double(validString)
+        }
+        return nil
+    }
+
+    public var valueEditedAsDouble: Double? {
+        if let validString = valueEdited {
+            return Double(validString)
+        }
+        return nil
+    }
+
     public var standardGramValue: Double? {
-        if let validString = standard {
-            if let validUnit = standardUnit {
-                switch validUnit {
-                case .milligram:
-                    if let validDouble = Double(validString) {
-                        return validDouble / 1000.0
-                    }
-                case .microgram:
-                    if let validDouble = Double(validString) {
-                        return validDouble / 1000000.0
-                    }
-                case .gram:
-                    return Double(validString)
-                default:
-                    break
-                }
-            }
+        guard let divider = standardUnit?.divider else { return nil }
+        if let validDouble = standardAsDouble {
+            return validDouble / Double(divider)
         }
         return nil
     }
     
     public var valueGramValue: Double? {
-        if let validString = value {
-            if let validUnit = valueUnit {
-                switch validUnit {
-                case .milligram:
-                    if let validDouble = Double(validString) {
-                        return validDouble / 1000.0
-                    }
-                case .microgram:
-                    if let validDouble = Double(validString) {
-                        return validDouble / 1000000.0
-                    }
-                case .gram:
-                    return Double(validString)
-                default:
-                    break
-                }
-            }
+        guard let divider = valueUnit?.divider else { return nil }
+        if let validDouble = valueAsDouble {
+            return validDouble / Double(divider)
         }
         return nil
     }
 
     /// Transforms the valued edited in FoodViewer to Gram
     public var valueEditedGramValue: Double? {
-        if let validString = valueEdited {
-            if let validUnit = valueUnitEdited {
-                switch validUnit {
-                case .milligram:
-                    if let validDouble = Double(validString) {
-                        return validDouble / 1000.0
-                    }
-                case .microgram:
-                    if let validDouble = Double(validString) {
-                        return validDouble / 1000000.0
-                    }
-                case .gram:
-                    return Double(validString)
-                default:
-                    break
-                }
-            }
+        guard let divider = valueUnit?.divider else { return nil }
+        if let validDouble = valueEditedAsDouble {
+            return validDouble / Double(divider)
         }
         return nil
     }
@@ -226,7 +209,7 @@ public struct NutritionFactItem {
 
         if let value = stringValue {
             // an empty string does not have to be analysed
-            guard !value.isEmpty else { return ("???", standardUnit ?? .none) }
+            guard !value.isEmpty else { return ("", standardUnit ?? .none) }
             // remove any unicode a0 (non-breaking space)
             let newValue = value.replacingOccurrences(of: "\u{a0}", with: "")
 
@@ -242,7 +225,7 @@ public struct NutritionFactItem {
                 return (value, standardUnit ?? .none)
             }
         }
-        return ("???", standardUnit ?? .none)
+        return ("", standardUnit ?? .none)
 
     }
     

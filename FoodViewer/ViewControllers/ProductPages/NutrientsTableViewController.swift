@@ -369,7 +369,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             } else {
                 // Show the values entered by the user as provided by OFF
                 // Does this ever happen?
-                (displayFact.value, displayFact.unit) = fact.localeStandardValue(editMode: editMode)
+                (displayFact.value, displayFact.unit) = fact.localeThousandValue(editMode: editMode)
             }
         case .perServing:
             if productPair?.localProduct != nil,
@@ -551,7 +551,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
                         }
-                        cell?.unitButtonIsEnabled = editMode ? true : false
+                        // disallow changing the units in daily value display mode
+                        cell?.unitButtonIsEnabled = editMode ? ( currentNutritionQuantityDisplayMode == .perDailyValue ? false : true ) : false
                         cell?.toggleViewModeButton.isHidden = editMode ? true : !buttonNotDoubleTap
                     } else if  adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key
                         || adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergyKcal.key
@@ -565,10 +566,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
                         }
                         // In editMode the user may not change the units. They are fixed to kJ and kcal.
-                        cell?.unitButtonIsEnabled = false
+                        cell?.unitButtonIsEnabled =  false
                         cell?.toggleViewModeButton.isHidden = editMode ? true : !buttonNotDoubleTap
                     } else {
-                        cell?.unitButtonIsEnabled = editMode ? true : false
+                        // disallow changing the units in daily value display mode
+                        cell?.unitButtonIsEnabled = editMode ? ( currentNutritionQuantityDisplayMode == .perDailyValue ? false : true ) : false
                         cell?.toggleViewModeButton.isHidden = true
                     }
                     cell?.editMode = editMode
@@ -1611,22 +1613,16 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                         editedNutritionFact.valueEdited = String(validText.map {
                             $0 == "," ? "." : $0
                         })
-                        if let validType = type,
-                            let validValue = editedNutritionFact.value {
-                            switch validType {
-                            case .petFood:
-                                if let floatValue = Float(validValue) {
-                                    // floatValue = floatValue / 10.0
-                                    let numberFormatter = NumberFormatter()
-                                    numberFormatter.numberStyle = .decimal
-                                    editedNutritionFact.valueEdited = numberFormatter.string(from: NSNumber(value: floatValue))
-                                }
-                            default: break
-                            }
+                        // store the edited data as per 100g
+                        if var validValue = editedNutritionFact.valueEditedAsDouble {
+                            validValue = validValue / 10.0
+                            let numberFormatter = NumberFormatter()
+                            numberFormatter.numberStyle = .decimal
+                            editedNutritionFact.valueEdited = numberFormatter.string(from: NSNumber(value: validValue))
                         }
                     }
                 }
-                // Warning, this might change the settings for all values
+                // NOTE that the current valid display mode is used for ALL values
                 productPair?.update(fact: editedNutritionFact, perUnit: validNutritionQuantityDisplayMode.nutritionEntryUnit)
                 mergeNutritionFacts()
             }

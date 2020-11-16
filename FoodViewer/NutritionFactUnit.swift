@@ -63,6 +63,18 @@ public enum NutritionFactUnit {
         }
     }
     
+    /// The divider required to normalize the unit
+    public var divider: Int {
+        switch self {
+        case .milligram:
+            return 1000
+        case .microgram:
+            return 1000000
+        default:
+            return 1
+        }
+    }
+    
     public var description: String {
         switch self {
         case .joule: return TranslatableStrings.Joule
@@ -150,7 +162,7 @@ public enum NutritionFactUnit {
         var newValue: String? = nil
         var newUnit: NutritionFactUnit = .gram
         
-        guard value != nil else { return (nil, NutritionFactUnit.gram) }
+        guard value != nil else { return (nil, .gram) }
         
         if var doubleValue = Double(value!) {
             // the value can be converted to a number
@@ -163,17 +175,17 @@ public enum NutritionFactUnit {
                     // we use only the values standerdized on g
                     if doubleValue < 0.99 {
                         // this is nanogram, probably the value is just 0
-                        newUnit = NutritionFactUnit.gram
+                        newUnit = .gram
                     } else {
-                        newUnit = NutritionFactUnit.microgram
+                        newUnit = .microgram
                     }
                 } else {
                     // more than 1 milligram, use milligram
-                    newUnit = NutritionFactUnit.milligram
+                    newUnit = .milligram
                 }
             } else {
                 // larger than 1, use gram
-                newUnit = NutritionFactUnit.gram
+                newUnit = .gram
             }
             // print("standard: \(key) \(doubleValue) " + nutritionItem.standardValueUnit! )
             newValue = "\(doubleValue)"

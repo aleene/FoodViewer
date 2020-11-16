@@ -45,9 +45,9 @@ class LanguageHeaderView: UITableViewHeaderFooterView {
         delegate?.changeViewModeButtonTapped(changeViewModeButton, in: section)
     }
     
-    weak var delegate: LanguageHeaderDelegate?
+    weak var delegate: LanguageHeaderDelegate? = nil
     
-    var section: Int!
+    var section: Int = 0
     
     var buttonText: String? = nil {
         didSet {
@@ -58,6 +58,19 @@ class LanguageHeaderView: UITableViewHeaderFooterView {
     var title: String? = nil {
         didSet {
             setTitle()
+        }
+    }
+    
+    // Set the image of the button:
+    // - true: the OCR-button
+    // - false: the change viewmode-button
+    var setButtonTypeToOCR: Bool = false {
+        didSet {
+            if setButtonTypeToOCR {
+                changeViewModeButton.setImage(UIImage.init(named: "OCR"), for: .normal)
+            } else {
+                changeViewModeButton.setImage(UIImage.init(named: "TripleTap"), for: .normal)
+            }
         }
     }
 

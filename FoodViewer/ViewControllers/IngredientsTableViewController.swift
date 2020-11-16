@@ -213,6 +213,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     private var imageUploadTime: Double?
         
+    private var ocrRequest: OFFOCRRequestAPI? = nil
+    
     private var selectedSection: Int? = nil
 
     fileprivate var productPair: ProductPair? {
@@ -514,6 +516,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         headerView.delegate = self
         headerView.changeViewModeButton.isHidden = true
         headerView.buttonNotDoubleTap = buttonNotDoubleTap
+        headerView.setButtonTypeToOCR = false
         var header = ""
 
         switch currentProductSection {
@@ -527,6 +530,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 } else {
                     headerView.changeLanguageButton.isHidden = false
                 }
+                headerView.setButtonTypeToOCR = editMode
                 switch productVersion {
                 case .new:
                     if localImageToShow != nil {
@@ -541,6 +545,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 headerView.title = header + " "
 
             case .ingredients:
+                headerView.changeViewModeButton.isHidden = !editMode
                 switch productVersion {
                 case .new:
                     if let validLanguageCode = displayLanguageCode,
@@ -1607,7 +1612,17 @@ extension IngredientsTableViewController: LanguageHeaderDelegate {
     }
     
     func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {
-        doubleTapOnTableView()
+        // If this comes from the ingredients section, then the behaviour depends
+        if section == 0
+            && editMode {
+            guard let validBarcodeType = productPair?.barcodeType else { return }
+            guard let validLanguageCode = currentLanguageCode else { return }
+            // start OCR
+            ocrRequest = OFFOCRRequestAPI(barcode: validBarcodeType, productType: currentProductType, languageCode: validLanguageCode)
+            ocrRequest?.performOCR()
+        } else {
+            doubleTapOnTableView()
+        }
     }
 }
 
