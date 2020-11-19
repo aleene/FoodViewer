@@ -41,7 +41,7 @@ class NotAvailableViewController: UIViewController {
     }
     
     @IBAction func takeFrontImageButtonTapped(_ sender: UIButton) {
-        takePhoto(for:.front)
+        takePhoto(for: .front(""))
     }
     
     @IBOutlet weak var selectFrontImageButton: UIButton! {
@@ -50,7 +50,7 @@ class NotAvailableViewController: UIViewController {
         }
     }
     @IBAction func selectFrontImageButtonTapped(_ sender: UIButton) {
-        selectCameraRollPhoto(for:.front)
+        selectCameraRollPhoto(for:.front(""))
     }
 
     @IBOutlet weak var addIngredientImageLabel: UILabel! {
@@ -65,7 +65,7 @@ class NotAvailableViewController: UIViewController {
     }
     
     @IBAction func takeIngredientsImageButtonTapped(_ sender: UIButton) {
-        takePhoto(for:.ingredients)
+        takePhoto(for: .ingredients(""))
     }
 
     @IBOutlet weak var selectIngredientsImageButton: UIButton! {
@@ -74,7 +74,7 @@ class NotAvailableViewController: UIViewController {
         }
     }
     @IBAction func selectIngredientsImageButtonTapped(_ sender: UIButton) {
-        selectCameraRollPhoto(for:.ingredients)
+        selectCameraRollPhoto(for:.ingredients(""))
     }
 
     // Nutrition Images
@@ -90,7 +90,7 @@ class NotAvailableViewController: UIViewController {
         }
     }
     @IBAction func takeNutritionImageButtonTapped(_ sender: UIButton) {
-        takePhoto(for:.nutrition)
+        takePhoto(for:.nutrition(""))
     }
 
     @IBOutlet weak var selectNutritionImageButton: UIButton! {
@@ -99,7 +99,7 @@ class NotAvailableViewController: UIViewController {
         }
     }
     @IBAction func selectNutritionImageButtonTapped(_ sender: UIButton) {
-        selectCameraRollPhoto(for:.nutrition)
+        selectCameraRollPhoto(for:.nutrition(""))
     }
 
     // Other Images
@@ -117,7 +117,7 @@ class NotAvailableViewController: UIViewController {
     }
     
     @IBAction func takeOtherImageButtonTapped(_ sender: UIButton) {
-        takePhoto(for:.general)
+        takePhoto(for: .general("takeOtherImageButtonTapped"))
     }
 
     @IBOutlet weak var selectOtherImageButton: UIButton! {
@@ -127,7 +127,7 @@ class NotAvailableViewController: UIViewController {
     }
     
     @IBAction func selectOtherImageButtonTapped(_ sender: UIButton) {
-        selectCameraRollPhoto(for:.general)
+        selectCameraRollPhoto(for: .general("selectOtherImageButtonTapped"))
     }
     
     fileprivate lazy var imagePicker: GKImagePicker = {
@@ -155,7 +155,7 @@ class NotAvailableViewController: UIViewController {
         }
     }
     
-    func selectCameraRollPhoto(for category:ImageTypeCategory) {
+    func selectCameraRollPhoto(for category: ImageTypeCategory) {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true

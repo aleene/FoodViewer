@@ -402,7 +402,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     private var remoteImageToShow: UIImage? {
         
         func processLanguageCode(_ languageCode: String) -> UIImage? {
-            guard let imageSet = productPair?.remoteProduct?.image(for: languageCode, of: .ingredients) else { return nil }
+            guard let imageSet = productPair?.remoteProduct?.image(imageType: .ingredients(languageCode)) else { return nil }
             let result = imageSet.original?.fetch()
             switch result {
             case .success(let image):
@@ -469,9 +469,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             if let validLanguageCode = displayLanguageCode {
                 if let images = productPair?.localProduct?.ingredientsImages,
                     !images.isEmpty {
-                    coordinator?.showImage(imageTitle: TextConstants.ShowIdentificationTitle, imageSize: productPair!.localProduct!.image(for:validLanguageCode, of:.ingredients))
+                    coordinator?.showImage(imageTitle: TextConstants.ShowIdentificationTitle, imageSize: productPair!.localProduct!.image(imageType:.ingredients(validLanguageCode)))
                 } else {
-                    coordinator?.showImage(imageTitle: TextConstants.ShowIdentificationTitle, imageSize: productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients))
+                    coordinator?.showImage(imageTitle: TextConstants.ShowIdentificationTitle, imageSize: productPair!.remoteProduct!.image(imageType: .ingredients(validLanguageCode)))
                 }
             }
         default:
@@ -1078,7 +1078,7 @@ extension IngredientsTableViewController: ProductImageCellDelegate {
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
         guard let validLanguageCode = displayLanguageCode,
             let validProductPair = productPair else { return }
-        OFFProducts.manager.deselectImage(for: validProductPair, in: validLanguageCode, of: .ingredients)
+        OFFProducts.manager.deselectImage(for: validProductPair, in: validLanguageCode, of: .ingredients(validLanguageCode))
     }
 
 }
@@ -1645,9 +1645,9 @@ extension IngredientsTableViewController: UITableViewDragDelegate {
         // is there image data?
         if let images = productPair?.localProduct?.ingredientsImages,
             !images.isEmpty {
-            productImageData = productPair!.localProduct!.image(for:validLanguageCode, of:.ingredients)?.largest
+            productImageData = productPair!.localProduct!.image(imageType: .ingredients(validLanguageCode))?.largest
         } else {
-            productImageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients)?.largest
+            productImageData = productPair!.remoteProduct!.image(imageType:.ingredients(validLanguageCode))?.largest
         }
         // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way
         guard productImageData != nil else { return [] }

@@ -43,6 +43,7 @@ class OFFImageUploadAPI: Operation {
         static let BarcodeKey = "OFFImageUploadAPI.Notification.Barcode.Key"
         static let ProgressKey = "OFFImageUploadAPI.Notification.Progress.Key"
         static let ImageTypeCategoryKey = "OFFImageUploadAPI.Notification.ImageTypeCategory.Key"
+        static let ImageIDKey = "OFFImageUploadAPI.Notification.ImageID.Key"
     }
 
     private var image: UIImage? = nil
@@ -55,11 +56,23 @@ class OFFImageUploadAPI: Operation {
     // The dict specifies which language must be deselected
     // the image category is .identification, .nutrition or .ingredients
     // And naturally the product
-    init(image: UIImage, languageCode: String, OFFServer: String, imageTypeString: String, barcodeString: String, completion: @escaping (OFFImageUploadResultJson?) -> ()) {
+    /**
+Setup the image uploading
+- parameters:
+     - image: the image to be uploaded
+     - languageCode: the languageCode of the image. This is ignored if the image is not assigned to front/ingredients/ nutrition/ packaging.
+     - OFFServer: the product type as defined by the server string (openfoodfacts/ openpetfoodfacts/ openbeautyfacts/ openproductfacts).
+     - imageTypeString: the assigned imagettype (front/ingredients/ nutrition/ packaging)
+     - imageID: the id of the image as taken from the localProduct, used to distinghuish between uploaded images
+     - barcodeString: the barcode string of the product
+     - completion: the write result json
+     */
+    init(image: UIImage, languageCode: String, OFFServer: String, imageTypeCategory: ImageTypeCategory, barcodeString: String, completion: @escaping (OFFImageUploadResultJson?) -> ()) {
         self.image = image
         self.languageCode = languageCode
         self.OFFServer = OFFServer
-        self.imageTypeString = imageTypeString
+        self.imageTypeString = imageTypeCategory.description
+        self.imageID = imageTypeCategory.associatedString
         self.barcodeString = barcodeString
         self.myCompletion = completion
     }
@@ -67,11 +80,14 @@ class OFFImageUploadAPI: Operation {
     override func main() {
         super.main()
         
+        // check if the required data has been setup.
         guard let validImage = image,
             let validImageTypeString = imageTypeString,
             let validBarCodeString = barcodeString,
             let validLanguageCode = languageCode,
             let validOFFServer = OFFServer else { return }
+        
+        // start the upload
         post(image: validImage,
              parameters: [OFFHttpPost.AddParameter.BarcodeKey: validBarCodeString,
                               OFFHttpPost.AddParameter.ImageField.Key:OFFHttpPost.idValue(for:validImageTypeString, in:validLanguageCode),
@@ -86,22 +102,24 @@ class OFFImageUploadAPI: Operation {
              completionHandler: myCompletion )
     }
     
-    //private var observation: NSKeyValueObservation?
-    fileprivate var progress: Double? = nil {
+    private var progress: Double? = nil {
         didSet {
             if let validProgress = progress,
                 let validBarcodeString = barcodeString,
-                let validImageTYpeString = imageTypeString {
+                let validImageTypeString = imageTypeString {
                 DispatchQueue.main.async(execute: { () -> Void in
                 let userInfo = [Notification.BarcodeKey: validBarcodeString as String,
-                                Notification.ImageTypeCategoryKey: validImageTYpeString as String,
-                                Notification.ProgressKey:
-                                    "\(validProgress)" as String]
+                                Notification.ImageTypeCategoryKey: validImageTypeString as String,
+                                Notification.ImageIDKey: self.imageID as String,
+                                Notification.ProgressKey: "\(validProgress)" as String]
                 NotificationCenter.default.post(name: .ImageUploadProgress, object: nil, userInfo: userInfo)
             })
             }
         }
     }
+    
+    // The id string of a generic image
+    private var imageID: String = "not assigned"
     
     private func post(image: UIImage, parameters: Dictionary<String, String>, imageType: String, url: String, languageCode: String, completionHandler: @escaping (OFFImageUploadResultJson?) -> ()) {
         let urlString = URL(string: url)
@@ -165,40 +183,8 @@ class OFFImageUploadAPI: Operation {
             }
             completionHandler(data.resultForImageUpload())
         })
-        /*
-        let task = session.dataTask(with: request as URLRequest, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print(error as Any)
-                return
-            }
-            guard let data = data else {
-                completionHandler(nil)
-                return
-            }
-            completionHandler(data.resultForImageUpload())
-        })
- */
         task.resume()
-        /*
-            observation = task.progress.observe(\.fractionCompleted) { progress, _ in
-                print("progress: ", progress.fractionCompleted)
-                DispatchQueue.main.async(execute: { () -> Void in
-                    let userInfo = [Notification.BarcodeKey: parameters[OFFHttpPost.AddParameter.BarcodeKey]! as String,
-                                    Notification.ImageTypeCategoryKey: imageType as String,
-                                    Notification.ProgressKey:
-                                    "\(progress.fractionCompleted)" as String]
-                    NotificationCenter.default.post(name: .ImageUploadProgress, object: nil, userInfo: userInfo)
-                })
-            }
- */
     }
-    
-    /*
-    deinit {
-      observation?.invalidate()
-    }
- */
 
 }
 
@@ -208,22 +194,22 @@ extension OFFImageUploadAPI: URLSessionTaskDelegate {
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         // the task finished
         if let err = error {
-            print("Error: \(err.localizedDescription)")
+            print("OFFImageUploadAPI.urlSession error: \(err.localizedDescription)")
         } else {
-            print("The upload was successful.")
+            print("OFFImageUploadAPI.urlSession: The upload was successful.")
             //self.session?.finishTasksAndInvalidate()
         }
     }
 
     private func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
-        print("did receive response")
-        print(response)
+        //print("did receive response")
+        //print(response)
         completionHandler(URLSession.ResponseDisposition.allow)
     }  // end func
 
      func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
         self.progress = Double(Float(totalBytesSent) / Float(totalBytesExpectedToSend))
-        print("progress: ", progress)
+        //print("progress: ", progress)
     }  // end func
 
 
@@ -238,7 +224,7 @@ extension Data {
         do {
             return try JSONDecoder().decode(OFFImageUploadResultJson.self, from:self)
         } catch(let error) {
-            print(error)
+            print("resultForImageUpload ", error)
             return nil
         }
     }

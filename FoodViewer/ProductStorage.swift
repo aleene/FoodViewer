@@ -67,7 +67,8 @@ public struct ProductStorage {
         }
 
         if !product.images.isEmpty {
-            let newImagesUrl = productUrl(for:product.barcode).appendingPathComponent(ImageTypeCategory.general.description)
+            let type = ImageTypeCategory.general("")
+            let newImagesUrl = productUrl(for:product.barcode).appendingPathComponent(type.description)
             if !fileManager.fileExists(atPath: newImagesUrl.path) {
                 // create a directory for this product
                 do {
@@ -101,7 +102,8 @@ public struct ProductStorage {
         // store the front images
         
         if !product.frontImages.isEmpty {
-            let frontImagesUrl = productUrl(for: product.barcode).appendingPathComponent(ImageTypeCategory.front.description)
+            let type = ImageTypeCategory.front("")
+            let frontImagesUrl = productUrl(for: product.barcode).appendingPathComponent(type.description)
             if !fileManager.fileExists(atPath: frontImagesUrl.path) {
                 // create a directory for this product
                 do {
@@ -133,7 +135,8 @@ public struct ProductStorage {
         // store the selected ingredients images
         
         if !product.ingredientsImages.isEmpty {
-            let ingredientsImagesUrl = productUrl(for: product.barcode).appendingPathComponent(ImageTypeCategory.general.description)
+            let type = ImageTypeCategory.ingredients("")
+            let ingredientsImagesUrl = productUrl(for: product.barcode).appendingPathComponent(type.description)
             if !fileManager.fileExists(atPath: ingredientsImagesUrl.path) {
                 // create a directory for this product
                 do {
@@ -164,7 +167,8 @@ public struct ProductStorage {
         // store the selected nutrition images
         
         if !product.nutritionImages.isEmpty {
-            let nutritionImagesUrl = productUrl(for: product.barcode).appendingPathComponent(ImageTypeCategory.nutrition.description)
+            let type = ImageTypeCategory.nutrition("")
+            let nutritionImagesUrl = productUrl(for: product.barcode).appendingPathComponent(type.description)
             if !fileManager.fileExists(atPath: nutritionImagesUrl.path) {
                 // create a directory for this product
                 do {
@@ -192,6 +196,39 @@ public struct ProductStorage {
                 }
             }
         }
+        // store the selected packaging images
+        
+        if !product.packagingImages.isEmpty {
+            let type = ImageTypeCategory.packaging("")
+            let nutritionImagesUrl = productUrl(for: product.barcode).appendingPathComponent(type.description)
+            if !fileManager.fileExists(atPath: nutritionImagesUrl.path) {
+                // create a directory for this product
+                do {
+                    try fileManager.createDirectory(at: nutritionImagesUrl, withIntermediateDirectories: false, attributes: nil)
+                } catch let error {
+                    print("ProductStorage: Product directory creation failed \(error.localizedDescription)")
+                    return completionHandler(.failure(error))
+                }
+            }
+
+            for imageDict in product.packagingImages {
+                if let fetchResult = imageDict.value.original?.fetch() {
+                    switch fetchResult {
+                    case .success(let image):
+                        do {
+                            let fileURL =  nutritionImagesUrl.appendingPathComponent(imageDict.key).appendingPathExtension(Constant.ImageExtension)
+                            try image.jpegData(compressionQuality: 1.0)?.write(to: fileURL, options: .atomic)
+                        } catch {
+                            print("ProductStorage: Not able to create and write image")
+                            return completionHandler(.failure(error))
+                        }
+                    default:
+                        break
+                    }
+                }
+            }
+        }
+
         return completionHandler(.success(product))
     }
     
@@ -232,13 +269,17 @@ public struct ProductStorage {
             }
         }
         
-        storedFoodProduct?.images.merge(loadImages(for:barcodeType, in:.general), uniquingKeysWith: { (first, last) in last })
+        storedFoodProduct?.images.merge(loadImages(for: barcodeType,
+                                                   in: .general("")),
+                                        uniquingKeysWith: { (first, last) in last })
         
-        storedFoodProduct?.frontImages.merge(loadImages(for:barcodeType, in:.front), uniquingKeysWith: { (first, last) in last })
+        storedFoodProduct?.frontImages.merge(loadImages(for:barcodeType, in:.front("")), uniquingKeysWith: { (first, last) in last })
         
-        storedFoodProduct?.ingredientsImages.merge(loadImages(for:barcodeType, in:.ingredients), uniquingKeysWith: { (first, last) in last })
+        storedFoodProduct?.ingredientsImages.merge(loadImages(for:barcodeType, in:.ingredients("")), uniquingKeysWith: { (first, last) in last })
 
-        storedFoodProduct?.nutritionImages.merge(loadImages(for:barcodeType, in:.nutrition), uniquingKeysWith: { (first, last) in last })
+        storedFoodProduct?.nutritionImages.merge(loadImages(for:barcodeType, in:.nutrition("")), uniquingKeysWith: { (first, last) in last })
+
+        storedFoodProduct?.packagingImages.merge(loadImages(for:barcodeType, in:.packaging("")), uniquingKeysWith: { (first, last) in last })
 
         return storedFoodProduct
     }

@@ -744,11 +744,6 @@ class ProductPageViewController: UIPageViewController {
 
     }
 
-    @objc func infoClicked() {
-        //TODO: why is this function?
-        //productPair!.remoteProduct = nil
-    }
-    
     @objc func deviceHasRotated() {
         setupBackButton()
     }
@@ -800,13 +795,38 @@ class ProductPageViewController: UIPageViewController {
         refreshPageInterface()
         setupBackButton()
         // listen if a product is set outside of the MasterViewController
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToFailure), name:.ProductUpdateFailed, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.setPrefixedTitle(_:)), name:.ProductPairUpdated, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeTitle(_:)), name:.SearchLoaded, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.alertUser(_:)), name:.ProductLoadingError, object:nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(deviceHasRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(ProductPageViewController.loadFirstProduct),
+            name:.FirstProductLoaded, object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess),
+            name:.ProductUpdateSucceeded, object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(ProductPageViewController.changeConfirmButtonToFailure), name:.ProductUpdateFailed,
+            object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(ProductPageViewController.setPrefixedTitle(_:)),
+            name:.ProductPairUpdated,
+            object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(ProductPageViewController.changeTitle(_:)),
+            name:.SearchLoaded,
+            object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(ProductPageViewController.alertUser(_:)),
+            name:.ProductLoadingError,
+            object:nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(deviceHasRotated),
+            name: UIDevice.orientationDidChangeNotification,
+            object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -190,9 +190,9 @@ var delegate: ProductPageViewController? = nil {
                 if let images = productPair?.localProduct?.packagingImages,
                     !images.isEmpty {
                     coordinator?.showImage(imageTitle: TranslatableStrings.Identification,
-                                           imageSize: productPair!.localProduct!.image(for:validLanguageCode, of:.packaging))
+                                           imageSize: productPair!.localProduct!.image(imageType:  .packaging(validLanguageCode)))
                 } else {
-                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageSize: productPair!.remoteProduct!.image(for:validLanguageCode, of: .packaging))
+                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageSize: productPair!.remoteProduct!.image(imageType: .packaging(validLanguageCode)))
                 }
             }
         default: break
@@ -234,7 +234,7 @@ var delegate: ProductPageViewController? = nil {
     private var remotePackagingImage: (UIImage?, String, Double?)? {
 
         func processLanguageCode(_ languageCode: String) -> (UIImage?, String, Double?)?{
-            guard let imageSet = productPair?.remoteProduct?.image(for: languageCode, of: .packaging) else { return nil }
+            guard let imageSet = productPair?.remoteProduct?.image(imageType: .packaging(languageCode)) else { return nil }
             let result = imageSet.original?.fetch()
             switch result {
             case .success(let image):
@@ -671,7 +671,7 @@ extension EnvironmentTableViewController: ProductImageCellDelegate {
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
         guard let validLanguageCode = displayLanguageCode,
         let validProductPair = productPair else { return }
-        OFFProducts.manager.deselectImage(for: validProductPair, in: validLanguageCode, of: .packaging)
+        OFFProducts.manager.deselectImage(for: validProductPair, in: validLanguageCode, of: .packaging(validLanguageCode))
     }
     
 }
@@ -937,9 +937,9 @@ extension EnvironmentTableViewController: UITableViewDragDelegate {
         // is there image data?
         if let localProduct = productPair?.localProduct {
             if !localProduct.packagingImages.isEmpty {
-                productImageData = localProduct.image(for:validLanguageCode, of:.packaging)?.largest
+                productImageData = localProduct.image(imageType:.packaging(validLanguageCode))?.largest
             } else {
-                productImageData = localProduct.image(for:validLanguageCode, of:.packaging)?.largest
+                productImageData = localProduct.image(imageType:.packaging(validLanguageCode))?.largest
             }
         }
         // The largest image here is the display image, as the url for the original packaging image is not offered by OFF in an easy way

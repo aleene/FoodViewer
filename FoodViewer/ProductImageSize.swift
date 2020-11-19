@@ -23,7 +23,8 @@ struct ProductImageSize {
     
     public var imageDate: Double?
 
-    public var usedIn: [(String, ImageTypeCategory)] = []
+    /// Lists where this image has been used as selected image
+    public var usedIn: [ImageTypeCategory] = []
     
     /// The image data of the largest image available
     public var largest: ProductImageData? {
@@ -94,10 +95,8 @@ struct ProductImageSize {
         */
         original = ProductImageData(url: selectedURL)
         
-        if let languageCode = selectedURL.OFFlanguageCode {
-            if let imageTypeCategory = selectedURL.OFFimageType {
-                usedIn.append((languageCode, imageTypeCategory))
-            }
+        if let imageTypeCategory = selectedURL.OFFimageType {
+            usedIn.append(imageTypeCategory)
         }
     }
 
@@ -131,22 +130,25 @@ struct ProductImageSize {
         }
     }
         
-    public func isSelectedAsIngredientsImage(for languageCode:String) -> Bool {
-        return isSelected(for:.ingredients, in:languageCode)
+    public func isSelectedAsIngredientsImage(languageCode:String) -> Bool {
+        return isSelected(imageType: .ingredients(languageCode))
     }
     
-    public func isSelectedAsFrontImage(for languageCode:String) -> Bool {
-        return isSelected(for:.front, in:languageCode)
+    public func isSelectedAsFrontImage(languageCode:String) -> Bool {
+        return isSelected(imageType: .front(languageCode))
     }
     
-    public func isSelectedAsNutritionImage(for languageCode:String) -> Bool {
-        return isSelected(for:.nutrition, in:languageCode)
+    public func isSelectedAsNutritionImage(languageCode:String) -> Bool {
+        return isSelected(imageType: .nutrition(languageCode))
     }
 
-    public func isSelected(for type:ImageTypeCategory, in languageCode:String) -> Bool {
-        for value in usedIn {
-            let (usageLC, usageType) = value
-            if  usageLC == languageCode && usageType == type {
+    public func isSelectedAsPackagingImage(languageCode:String) -> Bool {
+        return isSelected(imageType: .packaging(languageCode))
+    }
+
+    public func isSelected(imageType: ImageTypeCategory) -> Bool {
+        for imageTypeCategory in usedIn {
+            if imageTypeCategory ~= imageType {
                 return true
             }
         }

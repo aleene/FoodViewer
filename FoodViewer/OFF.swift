@@ -20,6 +20,7 @@ public struct OFF {
             static let Front = "front"
             static let Ingredients = "ingredients"
             static let Nutrition = "nutrition"
+            static let Packaging = "packaging"
         }
         //public struct ImageSize {
         //    static let Thumb = ".100"

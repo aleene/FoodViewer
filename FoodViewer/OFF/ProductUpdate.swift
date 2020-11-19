@@ -185,11 +185,14 @@ class ProductUpdate: OFFProductUpdateAPI {
                             validValue = "\(value)"
                         }
                         // If the unit is as daily percentage
+                        // The data must be converted to grams per servings
+                        // OFF does not accept/undestand %DV (17-nov-2020)
                         if let validUnit = fact.value.valueUnitEdited,
-                            validUnit == .dailyValuePercent,
-                            let validDouble = fact.value.valueEditedAsDouble {
+                            validUnit == .dailyValuePercent {
+                            //let validDouble = fact.value.valueEditedAsDouble,
+                            //let gram = ReferenceDailyIntakeList.manager.gram(dailyValuePercentage: validDouble, nutrient: fact.value.nutrient) {
                             // divide the value by 100 to get a fraction
-                            validValue = "\(validDouble/100.0)"
+                            validValue = "\(validValue)"
                         }
                         // else the unit as is is used
                         urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal + validValue)
@@ -200,8 +203,11 @@ class ProductUpdate: OFFProductUpdateAPI {
                 if let validUnit = fact.value.valueUnitEdited {
                     var validValueUnit = ""
                     switch validUnit {
+                        // The addition of dailyValue is due to the inability of OFF to recognized %DV
                     case .milligram, .microgram:
                         validValueUnit = NutritionFactUnit.gram.short
+                    case .dailyValuePercent:
+                        validValueUnit = "% DV"
                     default:
                         validValueUnit = validUnit.short
                     }

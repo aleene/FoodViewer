@@ -20,6 +20,7 @@ class GameViewController: UIViewController {
     
     @IBAction func startButtonTapped(_ sender: Any) {
         showQuestion = true
+        showBarButtons = true
     }
     
     @IBOutlet weak var explanationLabel: UILabel! {
@@ -63,7 +64,7 @@ class GameViewController: UIViewController {
         }
         
         if let validBarcode = currentQuestion?.barcode {
-            let url = OFF.webProductURLFor(BarcodeType(barcodeString: validBarcode, type: .food))
+            let url = URL(string:OFF.webProductURLFor(BarcodeType(barcodeString: validBarcode, type: .food)))
             sharingItems.append(url as AnyObject)
         }
             
@@ -82,7 +83,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var editBarButtonItem: UIBarButtonItem! {
         didSet {
-            editBarButtonItem.isEnabled = showQuestion && currentQuestion != nil
+            editBarButtonItem.isEnabled = false
         }
     }
     
@@ -100,7 +101,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var actionBarButtonTime: UIBarButtonItem! {
         didSet {
-            actionBarButtonTime.isEnabled = showQuestion && currentQuestion != nil
+            actionBarButtonTime.isEnabled = false
         }
     }
     
@@ -108,15 +109,17 @@ class GameViewController: UIViewController {
     
     private var robotoff: OFFRobotoff? = nil
         
-    private var currentQuestionIndex = 0
+    private var currentQuestionIndex = -1
     
-    private var questionSetSize = 10
+    // Does not seem to have any effect
+    private var questionSetSize = 30
         
     private func prepareNextQuestion() {
         if  currentQuestionIndex < questionSetSize - 1 {
             currentQuestionIndex += 1
             setQuestion()
         } else {
+            showBarButtons = false
             startButton?.setTitle(TranslatableStrings.GameContinue, for: .normal)
             startNewQuestionSet()
         }
@@ -124,7 +127,7 @@ class GameViewController: UIViewController {
     
     private func startNewQuestionSet() {
         robotoff = nil
-        robotoff = OFFRobotoff(barcode: nil, count: 20)
+        robotoff = OFFRobotoff(barcode: nil, count: questionSetSize)
         robotoff?.refresh()
         currentQuestionIndex = 0
         showQuestion = false
@@ -136,6 +139,7 @@ class GameViewController: UIViewController {
         if let fetchStatus = robotoff?.robotoffQuestionsFetchStatus {
             switch fetchStatus {
             case .success(let questions):
+                questionSetSize = questions.count
                 startButton?.isEnabled = true
                 startButton?.setTitle(TranslatableStrings.GameStart, for: .normal)
                 if let validQuestion = validQuestion(questions: questions) {
@@ -168,12 +172,7 @@ class GameViewController: UIViewController {
         return nil
     }
     
-    private var currentQuestion: RobotoffQuestion? = nil {
-        didSet {
-            editBarButtonItem.isEnabled = currentQuestion != nil
-            actionBarButtonTime.isEnabled = currentQuestion != nil
-        }
-    }
+    private var currentQuestion: RobotoffQuestion? = nil
     
     private var showQuestion: Bool = false {
         didSet {
@@ -183,6 +182,12 @@ class GameViewController: UIViewController {
         }
     }
     
+    private var showBarButtons: Bool = false {
+        didSet {
+            editBarButtonItem.isEnabled = showBarButtons
+            actionBarButtonTime.isEnabled = showBarButtons
+        }
+    }
     fileprivate var scannedProductPair: ProductPair? = nil
 
     private func switchToHistoryTab() {
@@ -199,7 +204,7 @@ class GameViewController: UIViewController {
                 controller.start()
             }
         } else {
-            assert(true, "BarcodeScanViewController:switchToTab:with: TabBar hierarchy error")
+            assert(true, "GameViewController:switchToHistoryTab - TabBar hierarchy error")
         }
     }
 
@@ -223,7 +228,7 @@ class GameViewController: UIViewController {
                 containerViewController!.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 0),
                 containerViewController!.view.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0),
                 containerViewController!.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0)
-        ])
+            ])
         }
         containerViewController?.didMove(toParent: self)
         containerViewController?.protocolCoordinator = self

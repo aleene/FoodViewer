@@ -10,7 +10,8 @@ import Foundation
 
 class ImageDeselect: OFFImageDeselectAPI {
     
-    private var imageTypeCategory: ImageTypeCategory = .general
+    // Deselect is only for selected/assigned images
+    private var imageTypeCategory: ImageTypeCategory = .general("ImageDeselect")
     
     init(_ languageCode: String, imageTypeCategory: ImageTypeCategory, productType:ProductType, barcodeString: String, completion: @escaping (ProductUpdateStatus?) -> ()) {
         self.imageTypeCategory = imageTypeCategory

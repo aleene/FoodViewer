@@ -34,10 +34,38 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var progressView: UIView! {
         didSet {
-            progressView.isHidden = true
+            if let newView = progress.showAtRatio(frame: progressView.bounds,   display: true, style: GreenLightStyle()) {
+                progressView.addSubview(newView)
+            }
         }
     }
     
+    /// The upload progress ratio. If it is set to nil, the ratio indicator will be removed
+    public var progressRatio: CGFloat? = nil {
+        didSet {
+            // Do we need to update something?
+            if progressRatio != oldValue {
+                if progressRatio != nil {
+                    progress.updateRatio(progressRatio!)
+                }
+            }
+            // The progresView is only shown when the progressRatio is valid
+            progressView?.isHidden = progressRatio == nil
+        }
+    }
+    
+    private var progress = GradientCircularProgress()
+    
+    private func setupProgressView() {
+        // remove any subViews first
+        for subView in progressView.subviews {
+            subView.removeFromSuperview()
+        }
+        if let newView = progress.showAtRatio(frame: progressView.bounds,   display: true, style: GreenLightStyle()) {
+            progressView.addSubview(newView)
+        }
+    }
+
     public var delegate: GalleryCollectionViewCellDelegate? = nil
     
 // MARK: - public variables

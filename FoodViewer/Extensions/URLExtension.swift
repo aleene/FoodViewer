@@ -52,13 +52,35 @@ extension URL {
     /// decode the image type from an OFF image URL
     var OFFimageType: ImageTypeCategory? {
         if self.absoluteString.contains(OFF.URL.ImageType.Front) {
-            return .front
+            if let languageCode = self.OFFlanguageCode {
+                return .front(languageCode)
+            } else {
+                return .front("has no languageCode")
+            }
         } else if self.absoluteString.contains(OFF.URL.ImageType.Ingredients) {
-            return .ingredients
+            if let languageCode = self.OFFlanguageCode {
+                return .ingredients(languageCode)
+            } else {
+                return .ingredients("has no languageCode")
+            }
         } else if self.absoluteString.contains(OFF.URL.ImageType.Nutrition) {
-            return .nutrition
+            if let languageCode = self.OFFlanguageCode {
+                return .nutrition(languageCode)
+            } else {
+                return .nutrition("has no languageCode")
+            }
+        } else if self.absoluteString.contains(OFF.URL.ImageType.Packaging) {
+            if let languageCode = self.OFFlanguageCode {
+                return .packaging(languageCode)
+            } else {
+                return .packaging("has no languageCode")
+            }
         }
-        return .general
+        if let imageID = self.OFFimageID {
+            return .general(imageID)
+        } else {
+            return .general("has no ImageID")
+        }
     }
     
     /// decode the barcode from an OFF image URL

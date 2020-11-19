@@ -192,7 +192,7 @@ class OFFRobotoff {
                 DispatchQueue.main.async(execute: { () -> Void in
 
                 })
-                self.remove(question)
+                //self.remove(question)
             case .failure(let error as NSError):
                 print("uploadRobotoffAnswer: ", error.localizedDescription)
                 DispatchQueue.main.async(execute: { () -> Void in

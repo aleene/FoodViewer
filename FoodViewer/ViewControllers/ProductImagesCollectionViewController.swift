@@ -26,7 +26,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         return ("\n\nAPPLICATION SIZE:\nwidth: \(UIApplication.shared.windows[0].bounds.size.width)\nheight: \(UIApplication.shared.windows[0].bounds.size.height)", UIApplication.shared.windows[0].bounds)
     }
     
-    private var uploadProgressRatio: CGFloat? = nil
+    private var uploadProgressRatio: [ImageTypeCategory:CGFloat] = [:]
 
     private enum LayoutStyle: String {
         case iPadFullscreen         = "iPad Full Screen"
@@ -396,6 +396,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 cell.editMode = editMode
                 cell.delegate = self
                 cell.uploadTime = frontImages[keyTuple.0]?.imageDate
+                cell.progressRatio = uploadProgressRatio[ImageTypeCategory.front(keyTuple.0)]
                 return cell
             } else {
                 if editMode {
@@ -426,6 +427,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 cell.editMode = editMode
                 cell.delegate = self
                 cell.uploadTime = ingredientsImages[keyTuple.0]?.imageDate
+                cell.progressRatio = uploadProgressRatio[ImageTypeCategory.ingredients(keyTuple.0)]
                 return cell
             } else {
                 if editMode {
@@ -457,6 +459,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 cell.editMode = editMode
                 cell.delegate = self
                 cell.uploadTime = nutritionImages[keyTuple.0]?.imageDate
+                cell.progressRatio = uploadProgressRatio[ImageTypeCategory.nutrition(keyTuple.0)]
                 return cell
             } else {
                 if editMode {
@@ -488,6 +491,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     cell.editMode = editMode
                     cell.delegate = self
                     cell.uploadTime = packagingImages[keyTuple.0]?.imageDate
+                    cell.progressRatio = uploadProgressRatio[ImageTypeCategory.packaging(keyTuple.0)]
                     return cell
                 } else {
                     if editMode {
@@ -522,6 +526,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 cell.delegate = self
                 cell.imageKey = key
                 cell.uploadTime = originalImages[key]?.imageDate
+                cell.progressRatio = uploadProgressRatio[ImageTypeCategory.general(key)]
                 return cell
             } else {
                 if editMode {
@@ -539,7 +544,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     }
     
 
-// MARK: UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate
 
     override func collectionView(_ collectionView: UICollectionView,
                                  viewForSupplementaryElementOfKind kind: String,
@@ -640,16 +645,16 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         switch tableStructure[section] {
         case .frontImages:
             let languageCode = Array(productPair!.remoteProduct!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-            return ( OFFplists.manager.languageName(for:languageCode), productPair!.remoteProduct!.image(for:languageCode, of:.front) )
+            return ( OFFplists.manager.languageName(for: languageCode), productPair!.remoteProduct!.image(imageType:.front(languageCode)) )
         case .ingredientsImages:
             let languageCode = Array(productPair!.remoteProduct!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-            return ( OFFplists.manager.languageName(for:languageCode), productPair!.remoteProduct!.image(for:languageCode, of:.ingredients) )
+            return ( OFFplists.manager.languageName(for: languageCode), productPair!.remoteProduct!.image(imageType:.ingredients(languageCode)) )
         case .nutritionImages:
             let languageCode = Array(productPair!.remoteProduct!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-            return ( OFFplists.manager.languageName(for:languageCode), productPair!.remoteProduct!.image(for:languageCode, of:.nutrition) )
+            return ( OFFplists.manager.languageName(for: languageCode), productPair!.remoteProduct!.image(imageType:.nutrition(languageCode)) )
         case .packagingImages:
             let languageCode = Array(productPair!.remoteProduct!.packagingImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-            return ( OFFplists.manager.languageName(for:languageCode), productPair!.remoteProduct!.image(for:languageCode, of:.packaging) )
+            return ( OFFplists.manager.languageName(for: languageCode), productPair!.remoteProduct!.image(imageType:.packaging(languageCode)) )
         case .originalImages:
             let key = Array(productPair!.remoteProduct!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
             return (key, productPair!.remoteProduct!.images[key])
@@ -718,24 +723,31 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
     @objc func reloadProduct(_ notification: Notification) {
         // Check if this image was relevant to this product
-        if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
-            if barcode == productPair!.barcodeType.asString {
-                // reload product data
-                OFFProducts.manager.reload(productPair: productPair)
-                // This will result in a new notification if successfull, which will load the new images in turn
-            }
+        guard let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String else { return }
+        guard barcode == productPair!.barcodeType.asString  else { return }
+        // reload product data
+        OFFProducts.manager.reload(productPair: productPair)
+    }
+
+    @objc func imageUploadSuccessfull(_ notification: Notification) {
+        // Check if this image was relevant to this product
+        guard let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String else { return }
+        guard barcode == productPair!.barcodeType.asString  else { return }
+        //Encode the image on which the progress has been reported
+        if let imageTypeCategoryString = notification.userInfo?[ProductPair.Notification.ImageTypeCategoryKey] as? String,
+            let id = notification.userInfo?[ProductPair.Notification.ImageIDKey] as? String {
+            self.uploadProgressRatio.removeValue(forKey: ImageTypeCategory.type(typeString: imageTypeCategoryString, associated: id))
         }
+        // reload images only. The reload of the product is already done in ProductPair
+        self.reloadImages()
     }
 
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
-        if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
-            if barcode == productPair!.barcodeType.asString {
-                // reload product data
-                OFFProducts.manager.reload(productPair: productPair)
-                // This will result in a new notification if successfull, which will load the new images in turn
-            }
-        }
+        guard let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String else { return }
+        guard barcode == productPair!.barcodeType.asString else { return }
+        // reload product data
+        OFFProducts.manager.reload(productPair: productPair)
     }
     
     @objc func doubleTapOnTableView() {
@@ -756,12 +768,18 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         guard let barcode = notification.userInfo?[OFFImageUploadAPI.Notification.BarcodeKey] as? String else { return }
         guard let productBarcode = productPair!.remoteProduct?.barcode.asString else { return }
         guard barcode == productBarcode else { return }
-                    // is it relevant to the main image?
-        //guard let id = notification.userInfo?[OFFImageUploadAPI.Notification.ImageTypeCategoryKey] as? String else { return }
+
+        var receivedImageTypeCategory = ImageTypeCategory.general("not set")
+        //Encode the image on which the progress has been reported
+        if let imageTypeCategory = notification.userInfo?[OFFImageUploadAPI.Notification.ImageTypeCategoryKey] as? String,
+            let id = notification.userInfo?[OFFImageUploadAPI.Notification.ImageIDKey] as? String {
+            receivedImageTypeCategory = ImageTypeCategory.type(typeString: imageTypeCategory, associated: id)
+        }
+
         //guard id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) else  { return }
         guard let progress = notification.userInfo?[OFFImageUploadAPI.Notification.ProgressKey] as? String else { return }
         guard let progressDouble = Double(progress) else { return }
-        self.uploadProgressRatio = CGFloat(progressDouble)
+        self.uploadProgressRatio[receivedImageTypeCategory] = CGFloat(progressDouble)
         // reload the tabel to update the progress indicator
         self.reloadImages()
     }
@@ -834,7 +852,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             object:nil)
         NotificationCenter.default.addObserver(
             self,
-            selector:#selector(ProductImagesCollectionViewController.reloadProduct),
+            selector:#selector(ProductImagesCollectionViewController.imageUploadSuccessfull),
             name:.ProductPairImageUploadSuccess,
             object:nil)
         NotificationCenter.default.addObserver(
@@ -914,21 +932,21 @@ extension ProductImagesCollectionViewController : GalleryCollectionViewCellDeleg
     
     // function to let the delegate know that the deselect button has been tapped
     func galleryCollectionViewCell(_ sender: GalleryCollectionViewCell, receivedTapOn button:UIButton, for key:String?) {
-        guard let validIndexPath = sender.indexPath,
-             let validProductPair = productPair else { return }
+        guard let validIndexPath = sender.indexPath else { return }
+        guard let validProductPair = productPair else { return }
         switch tableStructure[validIndexPath.section] {
         case .frontImages:
             let languageCode = keyTuples(for:Array(validProductPair.remoteProduct!.frontImages.keys))[validIndexPath.row].0
-                OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .front)
+                OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .front(languageCode))
         case .ingredientsImages:
                 let languageCode = keyTuples(for:Array(validProductPair.remoteProduct!.ingredientsImages.keys))[validIndexPath.row].0
-            OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .ingredients)
+            OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .ingredients(languageCode))
         case .nutritionImages:
             let languageCode = keyTuples(for:Array(validProductPair.remoteProduct!.nutritionImages.keys))[validIndexPath.row].0
-            OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .nutrition)
+            OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .nutrition(languageCode))
         case .packagingImages:
             let languageCode = keyTuples(for:Array(validProductPair.remoteProduct!.packagingImages.keys))[validIndexPath.row].0
-            OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .packaging)
+            OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .packaging(languageCode))
         case .originalImages:
             guard let validCodes = productPair?.languageCodes else { return }
             coordinator?.showSelectLanguageAndImageType(for: self.productPair, languageCodes:validCodes, key: key)

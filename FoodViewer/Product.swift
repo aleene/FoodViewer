@@ -89,9 +89,9 @@ class FoodProduct {
     // dictionary with image ID as key and the images in the four sizes as value
     var images: [String:ProductImageSize] = [:]
 
-    func imageID(for languageCode: String, in imageType: ImageTypeCategory) -> String? {
+    func imageID(imageType: ImageTypeCategory) -> String? {
         for image in images {
-            if image.value.isSelected(for: imageType, in: languageCode) {
+            if image.value.isSelected(imageType: imageType) {
                 return image.key
             }
         }
@@ -100,12 +100,11 @@ class FoodProduct {
     
 /** Provides the image set corresponding to a languageCode and image type. If it does not exist a nil is returned.
 - parameters:
-     - languageCode : a two letter languageCode, i.e. "nl"
      - imageType : the type of image (.front, .ingredients, .nutrition, .packaging)
 */
-    public func image(for languageCode: String, of imageType: ImageTypeCategory) -> ProductImageSize? {
+    public func image(imageType: ImageTypeCategory) -> ProductImageSize? {
         // is the image for the current language available im images?
-        if let imageID = imageID(for:languageCode, in:imageType) {
+        if let imageID = imageID(imageType: imageType) {
             return images[imageID]
         }
         return nil
@@ -1741,11 +1740,11 @@ class FoodProduct {
  */
         // First extract the non selected images
         if let validImages = validProduct.images {
-            for (key,value) in validImages {
-                if !key.contains(ImageTypeCategory.front.description)
-                    && !key.contains(ImageTypeCategory.ingredients.description)
-                    && !key.contains(ImageTypeCategory.nutrition.description)
-                    && !key.contains(ImageTypeCategory.packaging.description) {
+            for (key, value) in validImages {
+                if !key.contains(ImageTypeCategory.front("").description)
+                    && !key.contains(ImageTypeCategory.ingredients("").description)
+                    && !key.contains(ImageTypeCategory.nutrition("").description)
+                    && !key.contains(ImageTypeCategory.packaging("").description) {
                     let imageSet = ProductImageSize(for: barcode, and: key)
                     if images.contains(where: { $0.key == key }) {
                         images[key]?.thumb = imageSet.thumb
@@ -1763,10 +1762,10 @@ class FoodProduct {
             }
         }
         
-        frontImages = decodeSelectedImages(imageType: .front)
-        ingredientsImages = decodeSelectedImages(imageType: .ingredients)
-        nutritionImages = decodeSelectedImages(imageType: .nutrition)
-        packagingImages = decodeSelectedImages(imageType: .packaging)
+        frontImages = decodeSelectedImages(imageType: .front(""))
+        ingredientsImages = decodeSelectedImages(imageType: .ingredients(""))
+        nutritionImages = decodeSelectedImages(imageType: .nutrition(""))
+        packagingImages = decodeSelectedImages(imageType: .packaging(""))
 
         /* Then extract the selected images
         if let validImages = validProduct.images {
@@ -2189,8 +2188,8 @@ class FoodProduct {
     
 
     
-    func regionURL() -> URL? {
-        return URL(string: OFF.webProductURLFor(barcode))
+    var regionURL: URL? {
+        URL(string: OFF.webProductURLFor(barcode))
     }
     
     func add(shop: String?) -> [String]? {

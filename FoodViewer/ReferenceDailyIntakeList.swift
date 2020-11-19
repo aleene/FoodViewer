@@ -112,6 +112,8 @@ class ReferenceDailyIntakeList {
 
     }
 
+// MARK: - Convert grams per serving to Daily Value
+    
     // returns the daily recommended value as fraction for a specific key
     public func dailyValue(value: Double, forKey: String) -> Double? {
         if let dv = valueForKey(key: forKey) {
@@ -127,6 +129,17 @@ class ReferenceDailyIntakeList {
         guard let validDouble = Double(validServing) else { return nil }
         
         return dailyValue(value: validDouble, forKey: nutrient.key)
+    }
+
+// MARK: - Convert Daily Value to gram
+    
+    // returns the daily recommended value as fraction for a specific key
+    public func gram(dailyValuePercentage: Double, nutrient: Nutrient) -> Double? {
+        if let dv = valueForKey(key: nutrient.key) {
+            return dv * dailyValuePercentage / 100.0    
+        } else {
+            return nil
+        }
     }
 
 }

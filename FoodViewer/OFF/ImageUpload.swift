@@ -13,7 +13,7 @@ class ImageUpload : OFFImageUploadAPI {
     
     init(image: UIImage, languageCode: String, productType: ProductType, imageTypeCategory: ImageTypeCategory, barcodeString: String, completion: @escaping (ProductUpdateStatus?) -> () ) {
         
-        super.init(image: image, languageCode: languageCode, OFFServer: productType.rawValue, imageTypeString: imageTypeCategory.description, barcodeString: barcodeString ) {
+        super.init(image: image, languageCode: languageCode, OFFServer: productType.rawValue, imageTypeCategory: imageTypeCategory, barcodeString: barcodeString ) {
             ( json: OFFImageUploadResultJson? ) in
             if let validStatus = json?.status {
                 if validStatus == "status ok" {

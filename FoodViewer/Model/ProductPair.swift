@@ -21,6 +21,7 @@ class ProductPair {
         static let RemoteStatusKey = "ProductPair.Notification.RemoteStatus.Key"
         static let ProductPairUpdatedKey = "ProductPair.Notification.Updated.Key"
         static let ImageTypeCategoryKey = "ProductPair.Notification.ImageTypeCategory.Key"
+        static let ImageIDKey = "ProductPair.Notification.ImageID.Key"
     }
 
     /// The barcode identifies a product and thus a productPair
@@ -196,7 +197,7 @@ class ProductPair {
     }
     
     var regionURL: URL? {
-        return remoteProduct?.regionURL() ?? localProduct?.regionURL()
+        return remoteProduct?.regionURL ?? localProduct?.regionURL
     }
     
     var frontImages:[String:ProductImageSize] {
@@ -978,31 +979,31 @@ Update the nutrient unit of a nutrient. If  the nutrient already exists remotely
     func update(frontImage: UIImage, for languageCode: String) {
         initLocalProduct()
         localProduct?.frontImages[languageCode] = ProductImageSize()
-        localProduct?.frontImages[languageCode]?.original = ProductImageData.init(image: frontImage, url: ProductStorage.manager.fileUrl(with: self.barcodeType, for: languageCode, and: .front))
+        localProduct?.frontImages[languageCode]?.original = ProductImageData.init(image: frontImage, url: ProductStorage.manager.fileUrl(with: self.barcodeType, for: languageCode, and: .front(languageCode)))
     }
     
     func update(nutritionImage: UIImage, for languageCode: String) {
         initLocalProduct()
         localProduct!.nutritionImages[languageCode] = ProductImageSize()
-        localProduct!.nutritionImages[languageCode]?.original = ProductImageData.init(image: nutritionImage, url: ProductStorage.manager.fileUrl(with: self.barcodeType, for: languageCode, and: .nutrition))
+        localProduct!.nutritionImages[languageCode]?.original = ProductImageData.init(image: nutritionImage, url: ProductStorage.manager.fileUrl(with: self.barcodeType, for: languageCode, and: .nutrition(languageCode)))
     }
     
     func update(ingredientsImage: UIImage, for languageCode: String) {
         initLocalProduct()
         localProduct!.ingredientsImages[languageCode] = ProductImageSize()
-        localProduct!.ingredientsImages[languageCode]?.original = ProductImageData.init(image: ingredientsImage, url: ProductStorage.manager.fileUrl(with: self.barcodeType, for: languageCode, and: .ingredients))
+        localProduct!.ingredientsImages[languageCode]?.original = ProductImageData.init(image: ingredientsImage, url: ProductStorage.manager.fileUrl(with: self.barcodeType, for: languageCode, and: .ingredients(languageCode)))
     }
     
     func update(packagingImage: UIImage, for languageCode: String) {
         initLocalProduct()
         localProduct!.packagingImages[languageCode] = ProductImageSize()
-        localProduct!.packagingImages[languageCode]?.original = ProductImageData.init(image: packagingImage, url: ProductStorage.manager.fileUrl(with: self.barcodeType, for: languageCode, and: .packaging))
+        localProduct!.packagingImages[languageCode]?.original = ProductImageData.init(image: packagingImage, url: ProductStorage.manager.fileUrl(with: self.barcodeType, for: languageCode, and: .packaging(languageCode)))
     }
 
     func update(image: UIImage, id: String) {
         initLocalProduct()
         localProduct!.images[id] = ProductImageSize()
-        localProduct!.images[id]?.display = ProductImageData.init(image: image, url: ProductStorage.manager.fileUrl(with: self.barcodeType, for: id, and: .general))
+        localProduct!.images[id]?.display = ProductImageData.init(image: image, url: ProductStorage.manager.fileUrl(with: self.barcodeType, for: id, and: .general(id)))
     }
     
     func uploadOperationsDict() -> [String:Operation] {
@@ -1049,23 +1050,23 @@ Update the nutrient unit of a nutrient. If  the nutrient already exists remotely
         
         // add the image upload operations
         if validProduct.frontImages.count > 0 {
-            operations = operations.merging(uploadImages(validProduct.frontImages, imageTypeCategory: .front)) { (_, new) in new }
+            operations = operations.merging(uploadImages(validProduct.frontImages, imageTypeCategory: .front(""))) { (_, new) in new }
         }
         
         if validProduct.ingredientsImages.count > 0 {
-            operations = operations.merging(uploadImages(validProduct.ingredientsImages, imageTypeCategory: .ingredients)) { (_, new) in new }
+            operations = operations.merging(uploadImages(validProduct.ingredientsImages, imageTypeCategory: .ingredients(""))) { (_, new) in new }
         }
         
         if validProduct.nutritionImages.count > 0 {
-            operations = operations.merging(uploadImages(validProduct.nutritionImages, imageTypeCategory: .nutrition)) { (_, new) in new }
+            operations = operations.merging(uploadImages(validProduct.nutritionImages, imageTypeCategory: .nutrition(""))) { (_, new) in new }
         }
         
         if validProduct.packagingImages.count > 0 {
-            operations = operations.merging(uploadImages(validProduct.packagingImages, imageTypeCategory: .packaging)) { (_, new) in new }
+            operations = operations.merging(uploadImages(validProduct.packagingImages, imageTypeCategory: .packaging(""))) { (_, new) in new }
         }
 
         if validProduct.images.count > 0 {
-            operations = operations.merging(uploadImages(validProduct.images, imageTypeCategory: .general)) { (_, new) in new }
+            operations = operations.merging(uploadImages(validProduct.images, imageTypeCategory: .general(""))) { (_, new) in new }
         }
 
         return operations
@@ -1124,7 +1125,12 @@ Update the nutrient unit of a nutrient. If  the nutrient already exists remotely
                     // start by unselecting any existing image
                     // this will remove any selected images from the cache as well
                     let imageDeselectOperationDict = deselect(element.key, of: imageTypeCategory)
-                    let imageUploadOperation: Operation = ImageUpload(image: image, languageCode: element.key, productType: self.barcodeType.productType!, imageTypeCategory: imageTypeCategory, barcodeString: self.barcodeType.asString ) { (result: ProductUpdateStatus?) in
+                    let imageUploadOperation = ImageUpload(image: image,
+                                                           languageCode: element.key,
+                                                           productType: self.barcodeType.productType!,
+                                                           imageTypeCategory: encodeImageType(key: element.key, type: imageTypeCategory),
+                                                           barcodeString: self.barcodeType.asString ) {
+                                                            (result: ProductUpdateStatus?) in
                         guard let validResult = result else { return }
                         switch validResult {
                         case .success:
@@ -1143,8 +1149,9 @@ Update the nutrient unit of a nutrient. If  the nutrient already exists remotely
                             DispatchQueue.main.async(execute: {
                                 print("ProductPair: image upload succeeded")
                                 let userInfo = [Notification.BarcodeKey: self.barcodeType.asString as String,
-                                            Notification.ImageTypeCategoryKey: imageTypeCategory.description as String]
-                                NotificationCenter.default.post(name: .ProductPairImageDeleteSuccess, object: nil, userInfo: userInfo)
+                                            Notification.ImageTypeCategoryKey: imageTypeCategory.description as String,
+                                            Notification.ImageIDKey: element.key as String]
+                                NotificationCenter.default.post(name: .ProductPairImageUploadSuccess, object: nil, userInfo: userInfo)
                                 self.reloadAfterUpdate()
                             })
                         default:
@@ -1164,6 +1171,21 @@ Update the nutrient unit of a nutrient. If  the nutrient already exists remotely
             }
         }
         return operations
+    }
+    
+    private func encodeImageType(key: String, type: ImageTypeCategory) -> ImageTypeCategory {
+        switch type {
+        case .general:
+            return .general(key)
+        case .front:
+            return .front(key)
+        case .ingredients:
+            return .ingredients(key)
+        case .nutrition:
+            return .nutrition(key)
+        case .packaging:
+            return .packaging(key)
+        }
     }
     
     func deselect(_ languageCode: String, of imageTypeCategory: ImageTypeCategory) -> [String:Operation] {

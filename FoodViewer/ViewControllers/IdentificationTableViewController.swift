@@ -433,13 +433,12 @@ class IdentificationTableViewController: UITableViewController {
         tableView.deselectRow(at:indexPath, animated: false)
         switch tableStructure[indexPath.section] {
         case .image:
-            if let validLanguageCode = displayLanguageCode {
-                if let images = productPair?.localProduct?.frontImages,
-                    !images.isEmpty {
-                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageSize: productPair!.localProduct!.image(for: validLanguageCode, of: .front))
-                } else {
-                    coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageSize: productPair!.remoteProduct!.image(for: validLanguageCode, of: .front))
-                }
+            guard let validLanguageCode = displayLanguageCode else { return }
+            if let images = productPair?.localProduct?.frontImages,
+                !images.isEmpty {
+                coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageSize: productPair!.localProduct!.image(imageType: .front(validLanguageCode)))
+            } else {
+                coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageSize: productPair!.remoteProduct!.image(imageType: .front(validLanguageCode)))
             }
         default: break
         }
@@ -484,7 +483,7 @@ class IdentificationTableViewController: UITableViewController {
     private var remoteFrontImage: (UIImage?, String, Double?)? {
 
         func processLanguageCode(_ languageCode: String) -> (UIImage?, String, Double?)?{
-            guard let imageSet = productPair?.remoteProduct?.image(for: languageCode, of: .front) else { return nil }
+            guard let imageSet = productPair?.remoteProduct?.image(imageType: .front(languageCode)) else { return nil }
             let result = imageSet.display?.fetch()
             switch result {
             case .success(let image):
@@ -1092,7 +1091,7 @@ extension IdentificationTableViewController: ProductImageCellDelegate {
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
         guard let validLanguageCode = displayLanguageCode,
         let validProductPair = productPair else { return }
-        OFFProducts.manager.deselectImage(for: validProductPair, in: validLanguageCode, of: .front)
+        OFFProducts.manager.deselectImage(for: validProductPair, in: validLanguageCode, of: .front(validLanguageCode))
     }
     
 }
@@ -1673,9 +1672,9 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
         // is there image data?
         if let localProduct = productPair?.localProduct {
             if !localProduct.frontImages.isEmpty {
-                productImageData = localProduct.image(for:validLanguageCode, of:.front)?.largest
+                productImageData = localProduct.image(imageType:.front(validLanguageCode))?.largest
             } else {
-                productImageData =                                                                            localProduct.image(for:validLanguageCode, of:.front)?.largest
+                productImageData = localProduct.image(imageType: .front(validLanguageCode))?.largest
             }
         }
         // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way

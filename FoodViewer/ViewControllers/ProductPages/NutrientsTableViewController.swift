@@ -654,7 +654,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     private var remoteImageToShow: UIImage? {
         func processLanguageCode(_ languageCode: String) -> UIImage? {
-            guard let imageSet = productPair?.remoteProduct?.image(for: languageCode, of: .nutrition) else { return nil }
+            guard let imageSet = productPair?.remoteProduct?.image(imageType: .nutrition(languageCode)) else { return nil }
             let result = imageSet.original?.fetch()
             switch result {
             case .success(let image):
@@ -876,15 +876,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         selectedIndexPath = indexPath
         switch tableStructure[indexPath.section] {
         case .image:
-            if let validLanguageCode = displayLanguageCode {
-                if let images = productPair?.localProduct?.nutritionImages,
+            guard let validLanguageCode = displayLanguageCode else { return }
+            if let images = productPair?.localProduct?.nutritionImages,
                     !images.isEmpty {
-                    coordinator?.showImage(imageTitle: TranslatableStrings.NutritionFactsImage,
-                                           imageSize: productPair!.localProduct!.image(for:validLanguageCode, of:.nutrition))
-                } else {
-                    coordinator?.showImage(imageTitle: TranslatableStrings.NutritionFactsImage,
-                                           imageSize: productPair!.remoteProduct!.image(for:validLanguageCode, of:.nutrition))
-                }
+                coordinator?.showImage(imageTitle: TranslatableStrings.NutritionFactsImage,
+                                       imageSize: productPair!.localProduct!.image(imageType: .nutrition(validLanguageCode)))
+            } else {
+                coordinator?.showImage(imageTitle: TranslatableStrings.NutritionFactsImage,
+                                       imageSize: productPair!.remoteProduct!.image(imageType:.nutrition(validLanguageCode)))
             }
         default:
             break
@@ -1511,9 +1510,9 @@ extension NutrientsTableViewController:  ProductImageCellDelegate {
     }
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
-        guard let validLanguageCode = displayLanguageCode,
-            let validProductPair = productPair else { return }
-        OFFProducts.manager.deselectImage(for: validProductPair, in: validLanguageCode, of: .nutrition)
+        guard let validLanguageCode = displayLanguageCode else { return }
+        guard let validProductPair = productPair else { return }
+        OFFProducts.manager.deselectImage(for: validProductPair, in: validLanguageCode, of: .nutrition(validLanguageCode))
     }
     
 }
@@ -1759,9 +1758,9 @@ extension NutrientsTableViewController: UITableViewDragDelegate {
         // is there image data?
         if let images = productPair?.localProduct?.nutritionImages,
             !images.isEmpty {
-            productImageData = productPair!.localProduct!.image(for:displayLanguageCode!, of: .nutrition)?.largest
+            productImageData = productPair!.localProduct!.image(imageType: .nutrition(displayLanguageCode!))?.largest
         } else {
-            productImageData = productPair!.remoteProduct!.image(for:displayLanguageCode!, of:.nutrition)?.largest
+            productImageData = productPair!.remoteProduct!.image(imageType:.nutrition(displayLanguageCode!))?.largest
         }
         // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way
         guard productImageData != nil else { return [] }
