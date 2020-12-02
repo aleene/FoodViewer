@@ -14,27 +14,27 @@ class ForestFootprintIngredientHeaderTableViewCell: UITableViewCell {
     
     @IBOutlet weak var ingredientLabel: UILabel! {
         didSet {
-            ingredientLabel?.text = "Ingredient"
+            ingredientLabel?.text = TranslatableStrings.Ingredient
         }
     }
 
     @IBOutlet weak var percentInProductLabel: UILabel! {
         didSet {
-            percentInProductLabel?.text = "% in product"
+            percentInProductLabel?.text = TranslatableStrings.ForestFootprintPercentInProduct
         }
     }
     
     /// Processing factor (% of food after processing)
     @IBOutlet weak var processingFactorLabel: UILabel! {
         didSet {
-            processingFactorLabel?.text = "Processing factor\n(% of food after processing)"
+            processingFactorLabel?.text = TranslatableStrings.ForestFootprintProcessingFactor
         }
     }
     
     /// Forest footprint (m² per kg of food)
     @IBOutlet weak var forestFootprintLabel: UILabel! {
         didSet {
-            forestFootprintLabel?.text = "Forest footprint\n(m² per kg of food)"
+            forestFootprintLabel?.text = TranslatableStrings.ForestFootprintDescription
         }
     }
     
@@ -42,28 +42,28 @@ class ForestFootprintIngredientHeaderTableViewCell: UITableViewCell {
     
     @IBOutlet weak var typeLabel: UILabel! {
         didSet {
-            typeLabel?.text = "Type"
+            typeLabel?.text = TranslatableStrings.ForestFootprintIngredientType
         }
     }
     
     /// Soy feed factor (kg of soy per kg of food)
     @IBOutlet weak var soyFeedFactorLabel: UILabel! {
         didSet {
-            soyFeedFactorLabel?.text = "Soy feed factor\n(kg of soy per kg of food)"
+            soyFeedFactorLabel?.text = TranslatableStrings.ForestFootprintSoyFeedFactor
         }
     }
     
     /// Soy yield (kg of soy per m²)
     @IBOutlet weak var soyYieldLabel: UILabel! {
         didSet {
-            soyYieldLabel?.text = "Soy yield\n(kg of soy per m²)"
+            soyYieldLabel?.text = TranslatableStrings.ForestFootprintSoyYield
         }
     }
     
     /// Deforestation risk (%)
     @IBOutlet weak var deforestationRiskLabel: UILabel! {
         didSet {
-            deforestationRiskLabel?.text = "Deforestation risk\n(%)"
+            deforestationRiskLabel?.text = TranslatableStrings.ForestFootprintDeforestationRisk
         }
     }
     
