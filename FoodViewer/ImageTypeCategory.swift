@@ -115,17 +115,34 @@ enum ImageTypeCategory: Equatable, Hashable {
 
     // These decriptions are used in the deselect/update API's to OFF
     public var associatedString: String {
-        switch self {
-        case .front(let string):
-            return string
-        case .ingredients(let string):
-            return string
-        case .nutrition(let string):
-            return string
-        case .packaging(let string):
-            return string
-        case .general(let string):
-            return string
+        get{
+            switch self {
+            case .front(let string):
+                return string
+            case .ingredients(let string):
+                return string
+            case .nutrition(let string):
+                return string
+            case .packaging(let string):
+                return string
+            case .general(let string):
+                return string
+            }
+        }
+        set {
+            switch self {
+            case .front(let string):
+                self = .front(string)
+            case .ingredients(let string):
+                self = .ingredients(string)
+            case .nutrition(let string):
+                self = .nutrition(string)
+            case .packaging(let string):
+                self = .packaging(string)
+            case .general(let string):
+                self = .general(string)
+            }
+
         }
     }
 

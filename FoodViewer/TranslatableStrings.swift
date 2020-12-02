@@ -177,6 +177,9 @@ struct TranslatableStrings {
     static let FilterLanguagePlaceholder = NSLocalizedString("Enter characters to filter the list.", comment: "Placeholder in a textField, where a user can enter characters to filter a list.")
     static let FoodProducts = NSLocalizedString("Food Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
     static let Food = NSLocalizedString("Food", comment: "Title of SegmentedControl segment.")
+    static let ForestFootprint = NSLocalizedString("Forest footprint", comment: "Title of the vc.")
+    static let ForestFootprintConclusion = NSLocalizedString("Total forest footprint\n(m² per kg of food)", comment: "Conclusion line in forest footprint explanation vc.")
+    static let ForestFootprintExplanation = NSLocalizedString("L'empreinte forêt est calculée en prenant en compte les ingrédients dont l'élaboration nécessite du soja dont la culture est liée à la déforestation.", comment: "L'empreinte forêt est calculée en prenant en compte les ingrédients dont l'élaboration nécessite du soja dont la culture est liée à la déforestation.")
     static let FrontImage = NSLocalizedString("Front Image", comment: "Title for the viewcontroller with the front image")
     static let FrontImageEdited = NSLocalizedString("Front Image (edited)", comment: "Title for the viewcontroller with the edited front image")
     static let FrontImageOriginal = NSLocalizedString("Front Image (non-edited)", comment: "Title for the viewcontroller with the original front image")
@@ -251,7 +254,7 @@ struct TranslatableStrings {
     static let Level = NSLocalizedString("Level", comment: "String to indicate the level (score) of the product.")
     static let ListedOnPackage = NSLocalizedString("Listed on package?", comment: "Label to indicate whether any nutrients are indicated on the package")
     //static let LoadingFailed = NSLocalizedString("Loading Failed", comment: "Error message when the product failed to load.")
-    //static let Loading = NSLocalizedString("Loading", comment: "Message as tag when the search is loading.")
+    static let Loading = NSLocalizedString("Loading", comment: "Message as tag when something is loading.")
     static let LoadMoreResults = NSLocalizedString("Load more results", comment: "String presented in a tagView if there are more results available")
 
 //

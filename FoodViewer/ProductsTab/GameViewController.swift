@@ -114,7 +114,7 @@ class GameViewController: UIViewController {
     // Does not seem to have any effect
     private var questionSetSize = 30
         
-    private func prepareNextQuestion() {
+    @objc private func prepareNextQuestion() {
         if  currentQuestionIndex < questionSetSize - 1 {
             currentQuestionIndex += 1
             setQuestion()
@@ -259,8 +259,11 @@ extension GameViewController: RobotoffQuestionCoordinatorProtocol {
     func robotoffQuestionTableViewController(_ sender: RobotoffQuestionViewController, answered question: RobotoffQuestion?) {
         guard let validQuestion = question else { return }
         robotoff?.uploadAnswer(for: validQuestion)
-        // Show next question
-        prepareNextQuestion()
+        // show next question after a little time
+        // otherwise the question is shown to fast
+        // resulting in accidentally presses
+        _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(GameViewController.prepareNextQuestion), userInfo: nil, repeats: false)
+
     }
 }
 

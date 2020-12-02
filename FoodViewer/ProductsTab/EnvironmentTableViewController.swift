@@ -117,12 +117,16 @@ var delegate: ProductPageViewController? = nil {
     fileprivate var tableStructure: [SectionType] = []
     
     fileprivate enum SectionType {
+        case ecoscore(Int, String)
         case packaging(Int, String)
         case image(Int, String)
+        case forestFootprint(Int, String)
         
         var header: String {
             switch self {
-            case .packaging(_, let headerTitle),
+            case .ecoscore(_, let headerTitle),
+                 .packaging(_, let headerTitle),
+                 .forestFootprint(_, let headerTitle),
                  .image(_, let headerTitle):
                 return headerTitle
             }
@@ -130,7 +134,9 @@ var delegate: ProductPageViewController? = nil {
         
         var numberOfRows: Int {
             switch self {
-            case .packaging(let numberOfRows, _),
+            case .ecoscore(let numberOfRows, _),
+                 .packaging(let numberOfRows, _),
+                 .forestFootprint(let numberOfRows, _),
                  .image(let numberOfRows, _):
                 return numberOfRows
             }
@@ -151,6 +157,23 @@ var delegate: ProductPageViewController? = nil {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch tableStructure[indexPath.section] {
+        case .forestFootprint:
+            let cell = tableView.dequeueReusableCell(withIdentifier:  "ForestFootprinyViewCell.EnvironmentTableViewController", for: indexPath)
+            cell.accessoryType = .detailButton
+            if let forestfootPrint = productPair?.remoteProduct?.forestFootprint?.footprintPerKg {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .decimal
+                formatter.maximumSignificantDigits = 2
+                cell.textLabel?.text = formatter.string(from: NSNumber(value: forestfootPrint))
+            } else {
+                cell.textLabel?.text = "footprint not available"
+            }
+            cell.detailTextLabel?.text = "m² per kg of food"
+            return cell
+        case .ecoscore:
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ImageTableViewCell.self), for: indexPath) as! ImageTableViewCell
+            cell.setup(ecoscore: productPair?.remoteProduct?.ecoscore)
+            return cell
         case .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
@@ -195,6 +218,9 @@ var delegate: ProductPageViewController? = nil {
                     coordinator?.showImage(imageTitle: TranslatableStrings.Identification, imageSize: productPair!.remoteProduct!.image(imageType: .packaging(validLanguageCode)))
                 }
             }
+        case .forestFootprint:
+            guard let validForestFootprint = productPair?.remoteProduct?.forestFootprint else { return }
+            coordinator?.showForestFootprint(forestFootprint: validForestFootprint)
         default: break
         }
     }
@@ -367,9 +393,10 @@ var delegate: ProductPageViewController? = nil {
             default:
                 break
             }
-            headerView.title = header
-            return headerView
+        default: break
         }
+        headerView.title = header
+        return headerView
     }
     
     override func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
@@ -393,6 +420,10 @@ var delegate: ProductPageViewController? = nil {
                 let height = Constants.CellHeight.TagListViewAddImageCell
                 return height + 2 * Constants.CellMargin.ContentView
             }
+        case .ecoscore:
+            return 66
+        case .forestFootprint:
+            return 44
         //default:
         //    return UITableView.automaticDimension
         }
@@ -401,10 +432,14 @@ var delegate: ProductPageViewController? = nil {
         struct Size {
             static let Packaging = 1
             static let Image = 1
+            static let Ecoscore = 1
+            static let ForestFootprint = 1
         }
         struct Header {
             static let Packaging = TranslatableStrings.Packaging
             static let Image = TranslatableStrings.MainImage
+            static let Ecoscore = "Ecoscore"
+            static let ForestFootprint = "Forest Footprint"
         }
     }
 
@@ -414,6 +449,8 @@ var delegate: ProductPageViewController? = nil {
         //
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
+        sectionsAndRows.append(.ecoscore(TableSection.Size.Ecoscore, TableSection.Header.Ecoscore))
+        sectionsAndRows.append(.forestFootprint(TableSection.Size.ForestFootprint, TableSection.Header.ForestFootprint))
         sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
         sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
 
@@ -718,7 +755,7 @@ extension EnvironmentTableViewController: TagListViewDataSource {
         switch currentProductSection {
         case .packaging:
             return count(packagingToDisplay)
-        case .image:
+        case .image, .ecoscore, .forestFootprint:
             return 1
         }
     }
@@ -739,7 +776,7 @@ extension EnvironmentTableViewController: TagListViewDataSource {
         switch currentProductSection {
         case .packaging:
             return title(packagingToDisplay)
-        case .image:
+        case .image, .ecoscore, .forestFootprint:
             return searchResult
         //default:
         //    return("EnvironmentTableViewController: TagListView titleForTagAt error")

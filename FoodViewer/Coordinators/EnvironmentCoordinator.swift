@@ -44,6 +44,13 @@ final class EnvironmentCoordinator: Coordinator {
         coordinator.show()
     }
     
+    /// Show the forest footprint data details
+    func showForestFootprint(forestFootprint: ForestFootprint) {
+        let coordinator = ForestFootprintCoordinator(with: self, forestFootprint: forestFootprint)
+        self.childCoordinators.append(coordinator)
+        coordinator.show()
+    }
+    
     /// The viewController informs its owner that it has disappeared
     func viewControllerDidDisappear(_ sender: UIViewController) {
         if self.childCoordinators.isEmpty {
@@ -76,3 +83,9 @@ extension EnvironmentCoordinator: ImageCoordinatorProtocol {
     }
 }
 
+extension EnvironmentCoordinator: ForestFootprintCoordinatorProtocol {
+    
+    func forestFootprintViewControllerDidTapDone(_ sender: ForestFootprintViewController) {
+        sender.dismiss(animated: true, completion: nil)
+    }
+}

@@ -270,8 +270,6 @@ class SingleProductTableViewController: UITableViewController {
                     
             cell.ingredientsText = TranslatableStrings.Ingredients
             if let number = selectedProductPair?.remoteProduct?.numberOfIngredients {
-                let formatter = NumberFormatter()
-                formatter.numberStyle = .decimal
                 cell.ingredientsBadgeText = "\(number)"
             } else {
                 cell.ingredientsBadgeText = TranslatableStrings.Undefined
@@ -317,8 +315,6 @@ class SingleProductTableViewController: UITableViewController {
                     cell.labelText = TranslatableStrings.NutritionFacts
                     
             if let facts = selectedProductPair?.remoteProduct?.nutritionFactsDict ?? selectedProductPair?.localProduct?.nutritionFactsDict {
-                let formatter = NumberFormatter()
-                formatter.numberStyle = .decimal
                 cell.badgeText = "\(facts.count)"
             } else {
                 cell.badgeText = TranslatableStrings.Undefined
@@ -338,8 +334,6 @@ class SingleProductTableViewController: UITableViewController {
                 case .undefined, .empty:
                     cell.badgeText = TranslatableStrings.Undefined
                 case let .available(list):
-                    let formatter = NumberFormatter()
-                    formatter.numberStyle = .decimal
                     cell.badgeText = "\(list.count)"
                 case .notSearchable:
                     assert(true, "ProductTableViewController Error: How can I set a categorie is non-editable")
@@ -358,8 +352,6 @@ class SingleProductTableViewController: UITableViewController {
             if let validCountries = ( selectedProductPair?.remoteProduct?.countriesTranslated ?? selectedProductPair?.localProduct?.countriesOriginal ) {
                 switch validCountries {
                 case .available(let countries):
-                    let formatter = NumberFormatter()
-                    formatter.numberStyle = .decimal
                     cell.badgeText = "\(countries.count)"
                 default:
                     cell.badgeText = TranslatableStrings.Undefined

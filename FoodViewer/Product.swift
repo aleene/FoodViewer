@@ -129,8 +129,7 @@ class FoodProduct {
     private func findImageID(languageCode: String, imageType: String) -> String? {
         for (key, image) in images {
             for usedIn in image.usedIn {
-                if usedIn.0 == languageCode
-                && usedIn.1.description == imageType {
+                if usedIn == ImageTypeCategory.type(typeString: imageType, associated: languageCode)  {
                     return key
                 }
             }
@@ -611,6 +610,7 @@ class FoodProduct {
     var nutritionalScoreUKCalculated: NutritionalScore? = nil
     var nutritionalScoreFRCalculated: NutritionalScoreFR? = nil
 
+    var ecoscore: Ecoscore = .unknown
     var purchasePlacesAddress: Address? = nil //or a set?
     var purchasePlacesInterpreted: Tags = .undefined
     var purchasePlacesOriginal: Tags = .undefined
@@ -1030,7 +1030,7 @@ class FoodProduct {
     }
 
     var json: JSON?
-    
+    var forestFootprint: ForestFootprint? = nil
     
     var attributeGroups: [ProductAttributeGroup]? {
         switch attributeGroupsFetchStatus {
@@ -1571,6 +1571,39 @@ class FoodProduct {
             return date
         }
         
+        func decodeForestFootPrint(_ jsonForestFoodPrint: OFFProductForestFootPrintData?) -> ForestFootprint? {
+            if let validForestFootprint = jsonForestFoodPrint {
+                var forestFootprint = ForestFootprint()
+                forestFootprint.footprintPerKg = validForestFootprint.footprint_per_kg
+                if let validIngredients = validForestFootprint.ingredients,
+                !validIngredients.isEmpty {
+                    var newIngredients: [ForestFootprintIngredient] = []
+                    for ingredient in validIngredients {
+                        var new = ForestFootprintIngredient()
+                        //new.conditions = ingredient.conditions_tags ?? []
+                        new.tagID = ingredient.tag_id
+                        var type = ForestFootprintIngredientType()
+                        type.deforestationRisk = ingredient.type?.deforestation_risk
+                        type.name = ingredient.type?.name
+                        type.soyFeedFactor = ingredient.type?.soy_feed_factor
+                        type.soyYield = ingredient.type?.soy_yield
+                        new.type = type
+                        new.matchingTagID = ingredient.matching_tag_id
+                        new.tagType = ingredient.tag_type
+                        new.footprintPerKg = ingredient.footprint_per_kg
+                        new.percent = ingredient.percent
+                        new.percentEstimate = ingredient.percent_estimate
+                        new.processingFactor = ingredient.processing_factor
+                        
+                        newIngredients.append(new)
+                    }
+                    forestFootprint.ingredients = newIngredients
+                }
+                return forestFootprint
+            }
+            return nil
+        }
+        
         func decodeSelectedImages(imageType: ImageTypeCategory) -> [String:ProductImageSize] {
             guard let validImages = validProduct.images else { return [:] }
             var selectedImageSet: [String:ProductImageSize] = [:]
@@ -1588,8 +1621,9 @@ class FoodProduct {
                 guard parts[0].contains(imageType.description) else { continue }
                     
                 let languageCode = String(parts[1])
-                                
-                images[validImageId]?.usedIn.append((languageCode, imageType))
+                var decodedImageType = imageType
+                decodedImageType.associatedString = languageCode
+                images[validImageId]?.usedIn.append(decodedImageType)
 
                 // Is there an original image corresponding assigned to this imageType?
                 var imageSet = ProductImageSize(for: barcode, and: validImageId)
@@ -1950,7 +1984,9 @@ class FoodProduct {
         var grade: NutritionalScoreLevel = .undefined
         grade.string(validProduct.nutrition_grade_fr)
         nutritionGrade = grade
-        
+        if let validEcoscore = validProduct.ecoscore_grade {
+            ecoscore = Ecoscore(rawValue: "\(validEcoscore)") ?? .unknown
+        }
         storesOriginal = Tags(string: validProduct.stores)
         storesInterpreted = Tags(list: validProduct.stores_tags)
         
@@ -1999,6 +2035,9 @@ class FoodProduct {
         for nutrient in Nutrient.allCases {
             add(fact: nutritionDecode(nutrient, with: validProduct.nutriments?.nutriments[nutrient.rawValue]))
         }
+        
+        self.forestFootprint = decodeForestFootPrint(validProduct.forest_footprint_data)
+        
         /*
         add(fact: nutritionDecode(.energy, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.EnergyKey]))
         add(fact: nutritionDecode(.energyKcal, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.EnergyKcalKey]))

@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:FoodViewer.xcodeproj">
+      location = "group:/Users/arnaud/Programming/FoodViewer/FoodViewer/ForestFootprintIngredientTableViewCell.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/arnaud/Programming/FoodViewer/FoodViewer/ForestFootprint.swift">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

@@ -85,6 +85,7 @@ Configure the class SelectPairViewController in one go. All possible input param
     @IBAction func denyButtonTapped(_ sender: UIBarButtonItem) {
         // Inform robotoff that it is wrong
         question?.response = RobotoffQuestionResponse.refuse
+        showAnswerButtons = false
         protocolCoordinator?.robotoffQuestionTableViewController(self, answered: question)
     }
     
@@ -96,6 +97,7 @@ Configure the class SelectPairViewController in one go. All possible input param
     
     @IBAction func unknownButtonTapped(_ sender: UIBarButtonItem) {
         question?.response = RobotoffQuestionResponse.unknown
+        showAnswerButtons = false
         protocolCoordinator?.robotoffQuestionTableViewController(self, answered: question)
     }
     
@@ -108,6 +110,7 @@ Configure the class SelectPairViewController in one go. All possible input param
     @IBAction func confirmButtonTapped(_ sender: UIBarButtonItem) {
         // Inform robotoff that it is correct
         question?.response = RobotoffQuestionResponse.accept
+        showAnswerButtons = false
         protocolCoordinator?.robotoffQuestionTableViewController(self, answered: question)
     }
     
@@ -117,9 +120,17 @@ Configure the class SelectPairViewController in one go. All possible input param
         didSet {
             questionLabel?.text = question?.question
             typeLabel?.text = question?.value
+            showAnswerButtons = true
         }
     }
     
+    private var showAnswerButtons = true {
+        didSet {
+            confirmButton?.isEnabled = showAnswerButtons
+            unknownButton?.isEnabled = showAnswerButtons
+            denyButton?.isEnabled = showAnswerButtons
+        }
+    }
     private var imageSet: ProductImageSize? {
         didSet {
             setImage()

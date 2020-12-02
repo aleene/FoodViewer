@@ -68,6 +68,8 @@ class OFFProduct: Codable {
     var data_sources: String? = nil
     var data_sources_tags: [String]? = nil
     var debug_param_sorted_langs: [String]? = nil
+    //var ecoscore_alpha: String? = nil
+    var ecoscore_grade: String? = nil
     var editors: [String]? = nil
     var editors_tags: [String]? = nil
     var emb_codes: String? = nil
@@ -76,6 +78,7 @@ class OFFProduct: Codable {
         var emb_codes_tags: [String]? = nil
         var expiration_date: String? = nil // "04/12/2016"
     var entry_dates_tags: [String]? = nil
+    var forest_footprint_data: OFFProductForestFootPrintData? = nil
     // generic_name_fr is handled in the child
     //var fruits-vegetables-nuts_100g_estimate: Int? = nil
     var generic_name: String? = nil

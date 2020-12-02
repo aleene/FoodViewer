@@ -85,6 +85,7 @@ class ProductImageTableViewCell: UITableViewCell {
     /// The upload progress ratio. If it is set to nil, the ratio indicator will be removed
     public var progressRatio: CGFloat? = nil {
         didSet {
+            /*
             // Do we need to update something?
             if progressRatio != oldValue {
                 if progressRatio != nil {
@@ -93,6 +94,14 @@ class ProductImageTableViewCell: UITableViewCell {
             }
             // The progresView is only shown when the progressRatio is valid
             progressView?.isHidden = progressRatio == nil
+             */
+            if let validRatio = progressRatio {
+                progressView?.ratio = validRatio
+                progressView?.isHidden = false
+                // progressAtRatioView?.setNeedsDisplay()
+            } else {
+                progressView?.isHidden = true
+            }
         }
     }
     
@@ -155,11 +164,21 @@ class ProductImageTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var progressView: UIView! {
+    @IBOutlet weak var progressView: ProgressAtRatioView! {
         didSet {
+            /*
             if let newView = progress.showAtRatio(frame: progressView.bounds,   display: true, style: GreenLightStyle()) {
                 progressView.addSubview(newView)
             }
+             */
+            progressView?.setup(prop: Property(style: GreenLightStyle()))
+            //progressView?.initialize(frame: progressView!.frame)
+        }
+    }
+    
+    @IBOutlet weak var tagListView: TagListView! {
+        didSet {
+            tagListView.isHidden = true
         }
     }
     

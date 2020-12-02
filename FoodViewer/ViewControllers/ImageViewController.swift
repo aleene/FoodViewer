@@ -97,8 +97,24 @@ final class ImageViewController: UIViewController {
     @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
 
-// MARK: - Storyboard setters
-    
+    @IBOutlet weak var tagListView: TagListView! {
+        didSet {
+            tagListView.isHidden = true
+            tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+            tagListView.alignment = .center
+            if #available(iOS 13.0, *) {
+                tagListView.removableColorScheme = ColorScheme(text: .secondaryLabel, background: .secondarySystemFill, border: .systemBackground)
+            } else {
+                tagListView.removableColorScheme = ColorScheme(text: .white, background: .darkGray, border: .black)
+            }
+            tagListView.cornerRadius = 10
+            tagListView.prefixLabelText = nil
+            tagListView?.datasource = self
+        }
+    }
+
+    private var delegate: TagListViewCellDelegate? = nil
+
     private var hasImage: Bool {
         if let result = imageSet?.largest?.fetch() {
             switch result {
@@ -158,32 +174,49 @@ final class ImageViewController: UIViewController {
         dateTimeLabel?.text =  formatter.string(from: validDate)
     }
         
+    private var tagListViewText: String? = nil
+    
     private func setImage() {
         
-        var imageToDisplay: UIImage? = nil
         if let result = imageSet?.largestOrThumb {
             switch result {
             case .success(let image):
-                imageToDisplay = image
-            // in the other case I should show a loading or impossible image
+                                
+                imageView?.image = image
+                
+                if let validSize = imageView?.image?.size {
+                    scrollView?.contentSize = validSize
+                }
+                
+                setUploaderElements()
+                if let validSize = scrollView?.bounds.size {
+                    updateMinZoomScale(for: validSize)
+                }
+                imageView?.isHidden = false
+                tagListView?.isHidden = true
+                return
+                
+            // in the other case I should show a status tag
+            case .loadingFailed(let error):
+                self.tagListViewText = error.localizedDescription
             case .loading:
-                imageToDisplay = UIImage.init(named:"Loading")
-            default:
-                break
+                self.tagListViewText = TranslatableStrings.Loading
+            case .noResponse:
+                self.tagListViewText = "No response"
+            case .noData:
+                self.tagListViewText = "No data"
+            case .noImageAvailable:
+                self.tagListViewText = "No image available"
+            case .response(let response):
+                self.tagListViewText = "\(response.statusCode)"
+            case .uploading:
+                self.tagListViewText = "uploading"
             }
         } else {
-             imageToDisplay = UIImage.init(named:"NotOK")
+            self.tagListViewText = TranslatableStrings.ImageWasEmpty
         }
-        
-        imageView?.image = imageToDisplay
-        
-        if let validSize = imageToDisplay?.size {
-            scrollView?.contentSize = validSize
-        }
-        setUploaderElements()
-        if let validSize = scrollView?.bounds.size {
-            updateMinZoomScale(for: validSize)
-        }
+        imageView?.isHidden = true
+        tagListView?.isHidden = false
     }
     
     @objc func reloadImage() {
@@ -286,4 +319,24 @@ extension ImageViewController: UIDragInteractionDelegate {
         return [item]
     }
     
+}
+
+// MARK: - TagListView Datasource Functions
+
+extension ImageViewController: TagListViewDataSource {
+    
+    public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        return 1
+    }
+    
+    public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        return tagListViewText ?? TranslatableStrings.None
+    }
+    
+    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+    }
+    
+    public func tagListView(_ tagListView: TagListView, colorSchemeForTagAt index: Int) -> ColorScheme? {
+        return ColorSchemes.error
+    }
 }

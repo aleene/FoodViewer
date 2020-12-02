@@ -77,10 +77,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         reloadImages()
     }
 
+
+// MARK: - public variables
+    
     var coordinator: ProductImagesCoordinator? = nil
 
-    // MARK: - public variables
-    
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
@@ -90,60 +91,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
     
-    
-    fileprivate var tableStructure: [SectionType] = []
-
-    fileprivate enum SectionType {
-        case frontImages(String)
-        case ingredientsImages(String)
-        case nutritionImages(String)
-        case packagingImages(String)
-        case originalImages(String)
-        
-        var header: String {
-            switch self {
-            case .frontImages(let headerTitle),
-                 .ingredientsImages(let headerTitle),
-                 .nutritionImages(let headerTitle),
-                 .packagingImages(let headerTitle),
-                 .originalImages(let headerTitle):
-                return headerTitle
-            }
-        }
-    }
-    
-    fileprivate func setupSections() -> [SectionType] {
-        // The returnValue is an array with sections
-        // And each element is a  section type with the number of rows and the section title
-        //
-        var sectionsAndRows: [SectionType] = []
-        
-        sectionsAndRows.append(.frontImages(TranslatableStrings.SelectedFrontImages))
-        sectionsAndRows.append(.ingredientsImages(TranslatableStrings.SelectedIngredientImages))
-
-        switch Preferences.manager.showProductType {
-        case .beauty:
-            break
-        default:
-            sectionsAndRows.append(.nutritionImages(TranslatableStrings.SelectedNutritionImages))
-        }
-        sectionsAndRows.append(.packagingImages(TranslatableStrings.SelectedPackagingImages))
-        sectionsAndRows.append(.originalImages(TranslatableStrings.OriginalImages))
-        
-        return sectionsAndRows
-    }
-    
-    var originalImagesSection: Int? {
-        for (index,section) in tableStructure.enumerated() {
-            switch section {
-            case .originalImages:
-                return index
-            default:
-                break
-            }
-        }
-        return nil
-    }
+// MARK : - private variables related to the product
     
     fileprivate enum ProductVersion {
         //case local
@@ -151,14 +99,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         case new
     }
     
-    // Determines which version of the product needs to be shown, the remote or local
-    
+    /// Determines which version of the product needs to be shown, the remote or local
     fileprivate var productVersion: ProductVersion = .new//
-
-    // MARK: - public variables
     
     private var productPair: ProductPair? {
-        // collectionView?.reloadData()
         return delegate?.productPair
     }
 
@@ -172,6 +116,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             return delegate?.currentLanguageCode
         }
     }
+        
     
     // This variable returns an array with tuples.
     // A tuple consists of a languageCode and the corresponding language in the interface language.
@@ -179,7 +124,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     fileprivate func keyTuples(for keys: [String]) -> [(String, String)] {
         var tuples: [(String, String)] = []
         for key in keys {
-            tuples.append((key,OFFplists.manager.languageName(for:key)))
+            tuples.append((key, OFFplists.manager.languageName(for:key)))
         }
         return tuples.sorted(by: { $0.1 < $1.1 } )
     }
@@ -287,26 +232,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
 
-    fileprivate var itemsPerRow: CGFloat {
-        switch layoutStyle {
-        case .iPadFullscreen:
-            return 8
-        case .iPadHalfScreen:
-            return 5
-        case .iPadTwoThirdScreeen:
-            return 6
-        case .iPadOneThirdScreen:
-            return 3
-        case .iPhoneFullScreen:
-            return 3
-        }
-    }
     
-    fileprivate let sectionInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
 
     private var selectedImage: IndexPath? = nil
     
-    // MARK: - Action methods
+// MARK: - Action methods
     
     @IBOutlet weak var addImageFromCameraButton: UIButton!
     
@@ -328,8 +258,52 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
     
-    // MARK: UICollectionViewDataSource
+// MARK: - collectionView helpers
 
+    /// Structure of the collectionView as array of sections
+    fileprivate var tableStructure: [SectionType] = []
+
+    /// Defitition of each section of the collectionView
+    fileprivate enum SectionType {
+            case frontImages(String)
+            case ingredientsImages(String)
+            case nutritionImages(String)
+            case packagingImages(String)
+            case originalImages(String)
+                
+            var header: String {
+                switch self {
+                case .frontImages(let headerTitle),
+                    .ingredientsImages(let headerTitle),
+                    .nutritionImages(let headerTitle),
+                    .packagingImages(let headerTitle),
+                    .originalImages(let headerTitle):
+                    return headerTitle
+                }
+            }
+        }
+            
+        /// The returnValue is an array with sections
+        /// And each element is a  section type with the number of rows and the section title
+        fileprivate func setupSections() -> [SectionType] {
+            var sectionsAndRows: [SectionType] = []
+                
+            sectionsAndRows.append(.frontImages(TranslatableStrings.SelectedFrontImages))
+            sectionsAndRows.append(.ingredientsImages(TranslatableStrings.SelectedIngredientImages))
+
+            switch Preferences.manager.showProductType {
+            case .beauty:
+                break
+            default:
+                sectionsAndRows.append(.nutritionImages(TranslatableStrings.SelectedNutritionImages))
+            }
+            sectionsAndRows.append(.packagingImages(TranslatableStrings.SelectedPackagingImages))
+            sectionsAndRows.append(.originalImages(TranslatableStrings.OriginalImages))
+                
+        return sectionsAndRows
+    }
+
+    /// The constants used to define the strings used in the storyboard
     fileprivate struct Storyboard {
         struct CellIdentifier {
             static let GalleryImageCell = "Gallery Image Cell"
@@ -341,6 +315,42 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             static let AddImageCollectionCell = "AddImageCollectionViewCell"
         }
     }
+
+    /// required for the extension
+    fileprivate let sectionInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
+
+    /// The number of items (images) shown per row.
+    /// This depends on the device width
+    fileprivate var itemsPerRow: CGFloat {
+        switch layoutStyle {
+        case .iPadFullscreen:
+            return 8
+        case .iPadHalfScreen:
+            return 5
+        case .iPadTwoThirdScreeen:
+            return 6
+        case .iPadOneThirdScreen:
+            return 3
+        case .iPhoneFullScreen:
+            return 3
+        }
+    }
+    
+    /// The section that has been used for the original images
+    private var originalImagesSection: Int? {
+        for (index, section) in tableStructure.enumerated() {
+            switch section {
+            case .originalImages:
+                return index
+            default:
+                break
+            }
+        }
+        return nil
+    }
+    
+// MARK: - UICollectionViewDataSource
+
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return tableStructure.count
@@ -380,25 +390,47 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         switch tableStructure[indexPath.section] {
         case .frontImages: // Front Images
             if frontImages.count > 0 && indexPath.row < frontImages.count {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
 
                 let keyTuple = keyTuples(for: Array(frontImages.keys))[indexPath.row]
+                return getCell(imageSet: frontImages[keyTuple.0], imageID: keyTuple.0, text: keyTuple.1, indexPath: indexPath)
+                /*
                 if let result = frontImages[keyTuple.0]?.largest?.fetch() {
                     switch result {
                     case .success(let image):
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                         cell.imageView.image = image
-                    default:
-                        cell.imageView.image = UIImage.init(named:"NotOK")
+                        cell.label.text = keyTuple.1
+                        cell.indexPath = indexPath
+                        cell.editMode = editMode
+                        cell.delegate = self
+                        cell.uploadTime = frontImages[keyTuple.0]?.imageDate
+                        cell.progressRatio = uploadProgressRatio[ImageTypeCategory.front(keyTuple.0)]
+                        return cell
+                    case .loadingFailed(let error):
+                        tagListViewText = error.localizedDescription
+                    case .loading:
+                        tagListViewText = TranslatableStrings.ImageIsBeingLoaded
+                    case .noResponse:
+                        tagListViewText = "No response"
+                    case .noData:
+                        tagListViewText = "No data"
+                    case .noImageAvailable:
+                        tagListViewText = "No image available"
+                    case .response(let response):
+                        tagListViewText = "\(response.statusCode)"
+                    case .uploading:
+                        tagListViewText = "uploading"
                     }
+                } else {
+                    tagListViewText = TranslatableStrings.ImageWasEmpty
                 }
-                cell.label.text = keyTuple.1
-                cell.indexPath = indexPath
-                cell.editMode = editMode
-                cell.delegate = self
-                cell.uploadTime = frontImages[keyTuple.0]?.imageDate
-                cell.progressRatio = uploadProgressRatio[ImageTypeCategory.front(keyTuple.0)]
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
+                cell.setup(datasource: self, delegate: nil, width: 30, tag: 3)
                 return cell
+ */
             } else {
+                return getCellForNoImageSet(editMode: self.editMode, indexPath: indexPath)
+/*
                 if editMode {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
                     cell.delegate = self
@@ -409,27 +441,50 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     cell.setup(datasource: self, delegate: nil, width: 30, tag: 0)
                     return cell
                 }
+ */
             }
         case .ingredientsImages:
             if indexPath.row < ingredientsImages.count && ingredientsImages.count > 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                 let keyTuple = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row]
+                return getCell(imageSet: ingredientsImages[keyTuple.0], imageID: keyTuple.0, text: keyTuple.1, indexPath: indexPath)
+                /*
                 if let result = ingredientsImages[keyTuple.0]?.largest?.fetch() {
                     switch result {
                     case .success(let image):
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                         cell.imageView.image = image
-                    default:
-                        cell.imageView.image = UIImage.init(named:"NotOK")
+                        cell.label.text = keyTuple.1
+                        cell.indexPath = indexPath
+                        cell.editMode = editMode
+                        cell.delegate = self
+                        cell.uploadTime = ingredientsImages[keyTuple.0]?.imageDate
+                        cell.progressRatio = uploadProgressRatio[ImageTypeCategory.ingredients(keyTuple.0)]
+                        return cell
+                    case .loadingFailed(let error):
+                        tagListViewText = error.localizedDescription
+                    case .loading:
+                        tagListViewText = TranslatableStrings.ImageIsBeingLoaded
+                    case .noResponse:
+                        tagListViewText = "No response"
+                    case .noData:
+                        tagListViewText = "No data"
+                    case .noImageAvailable:
+                        tagListViewText = "No image available"
+                    case .response(let response):
+                        tagListViewText = "\(response.statusCode)"
+                    case .uploading:
+                        tagListViewText = "uploading"
                     }
+                } else {
+                    tagListViewText = TranslatableStrings.ImageWasEmpty
                 }
-                cell.label.text = keyTuple.1
-                cell.indexPath = indexPath
-                cell.editMode = editMode
-                cell.delegate = self
-                cell.uploadTime = ingredientsImages[keyTuple.0]?.imageDate
-                cell.progressRatio = uploadProgressRatio[ImageTypeCategory.ingredients(keyTuple.0)]
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
+                cell.setup(datasource: self, delegate: nil, width: 30, tag: 3)
                 return cell
+ */
             } else {
+                return getCellForNoImageSet(editMode: self.editMode, indexPath: indexPath)
+                /*
                 if editMode {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
                     cell.delegate = self
@@ -440,28 +495,51 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                  cell.setup(datasource: self, delegate: nil, width: 30, tag: 1)
                     return cell
                 }
+ */
             }
 
         case .nutritionImages:
             if indexPath.row < nutritionImages.count && nutritionImages.count > 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                 let keyTuple = keyTuples(for:Array(nutritionImages.keys))[indexPath.row]
+                return getCell(imageSet: nutritionImages[keyTuple.0], imageID: keyTuple.0, text: keyTuple.1, indexPath: indexPath)
+                /*
                 if let result = nutritionImages[keyTuple.0]?.largest?.fetch() {
                     switch result {
                     case .success(let image):
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                         cell.imageView.image = image
-                    default:
-                        cell.imageView.image = UIImage.init(named:"NotOK")
+                        cell.label.text = keyTuple.1
+                        cell.indexPath = indexPath
+                        cell.editMode = editMode
+                        cell.delegate = self
+                        cell.uploadTime = nutritionImages[keyTuple.0]?.imageDate
+                        cell.progressRatio = uploadProgressRatio[ImageTypeCategory.nutrition(keyTuple.0)]
+                        return cell
+                    case .loadingFailed(let error):
+                        tagListViewText = error.localizedDescription
+                    case .loading:
+                        tagListViewText = TranslatableStrings.ImageIsBeingLoaded
+                    case .noResponse:
+                        tagListViewText = "No response"
+                    case .noData:
+                        tagListViewText = "No data"
+                    case .noImageAvailable:
+                        tagListViewText = "No image available"
+                    case .response(let response):
+                        tagListViewText = "\(response.statusCode)"
+                    case .uploading:
+                        tagListViewText = "uploading"
                     }
+                } else {
+                    tagListViewText = TranslatableStrings.ImageWasEmpty
                 }
-                cell.label.text = keyTuple.1
-                cell.indexPath = indexPath
-                cell.editMode = editMode
-                cell.delegate = self
-                cell.uploadTime = nutritionImages[keyTuple.0]?.imageDate
-                cell.progressRatio = uploadProgressRatio[ImageTypeCategory.nutrition(keyTuple.0)]
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
+                cell.setup(datasource: self, delegate: nil, width: 30, tag: 3)
                 return cell
+                 */
             } else {
+                return getCellForNoImageSet(editMode: self.editMode, indexPath: indexPath)
+                /*
                 if editMode {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
                     cell.delegate = self
@@ -472,28 +550,51 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     cell.setup(datasource: self, delegate: nil, width: 30, tag: 2)
                     return cell
                 }
+ */
             }
 
             case .packagingImages:
                 if indexPath.row < packagingImages.count && packagingImages.count > 0 {
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                     let keyTuple = keyTuples(for:Array(packagingImages.keys))[indexPath.row]
+                    return getCell(imageSet: packagingImages[keyTuple.0], imageID: keyTuple.0, text: keyTuple.1, indexPath: indexPath)
+                    /*
                     if let result = packagingImages[keyTuple.0]?.largest?.fetch() {
                         switch result {
                         case .success(let image):
+                            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                             cell.imageView.image = image
-                        default:
-                            cell.imageView.image = UIImage.init(named:"NotOK")
+                            cell.label.text = keyTuple.1
+                            cell.indexPath = indexPath
+                            cell.editMode = editMode
+                            cell.delegate = self
+                            cell.uploadTime = packagingImages[keyTuple.0]?.imageDate
+                            cell.progressRatio = uploadProgressRatio[ImageTypeCategory.packaging(keyTuple.0)]
+                            return cell
+                        case .loadingFailed(let error):
+                            tagListViewText = error.localizedDescription
+                        case .loading:
+                            tagListViewText = TranslatableStrings.ImageIsBeingLoaded
+                        case .noResponse:
+                            tagListViewText = "No response"
+                        case .noData:
+                            tagListViewText = "No data"
+                        case .noImageAvailable:
+                            tagListViewText = "No image available"
+                        case .response(let response):
+                            tagListViewText = "\(response.statusCode)"
+                        case .uploading:
+                            tagListViewText = "uploading"
                         }
+                    } else {
+                        tagListViewText = TranslatableStrings.ImageWasEmpty
                     }
-                    cell.label.text = keyTuple.1
-                    cell.indexPath = indexPath
-                    cell.editMode = editMode
-                    cell.delegate = self
-                    cell.uploadTime = packagingImages[keyTuple.0]?.imageDate
-                    cell.progressRatio = uploadProgressRatio[ImageTypeCategory.packaging(keyTuple.0)]
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
+                    cell.setup(datasource: self, delegate: nil, width: 30, tag: 3)
                     return cell
+                     */
                 } else {
+                    return getCellForNoImageSet(editMode: self.editMode, indexPath: indexPath)
+                    /*
                     if editMode {
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
                         cell.delegate = self
@@ -501,34 +602,56 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                         return cell
                     } else {
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
-                        cell.setup(datasource: self, delegate: nil, width: 30, tag: 2)
+                        cell.setup(datasource: self, delegate: nil, width: 30, tag: 3)
                         return cell
                     }
+ */
                 }
 
         default:
             // in editMode the last element of a row is an add button
             if indexPath.row < originalImages.count && originalImages.count > 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                 let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
-                
+                return getCell(imageSet: originalImages[key], imageID: key, text: key, indexPath: indexPath)
+                /*
                 if let result = originalImages[key]?.largest?.fetch() {
                     switch result {
                     case .success(let image):
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                         cell.imageView.image = image
-                    default:
-                        cell.imageView.image = UIImage.init(named:"NotOK")
+                        cell.indexPath = indexPath
+                        cell.editMode = editMode
+                        cell.delegate = self
+                        cell.imageKey = key
+                        cell.label.text = key
+                        cell.uploadTime = originalImages[key]?.imageDate
+                        cell.progressRatio = uploadProgressRatio[ImageTypeCategory.general(key)]
+                        return cell
+                    case .loadingFailed(let error):
+                        tagListViewText = error.localizedDescription
+                    case .loading:
+                        tagListViewText = TranslatableStrings.ImageIsBeingLoaded
+                    case .noResponse:
+                        tagListViewText = "No response"
+                    case .noData:
+                        tagListViewText = "No data"
+                    case .noImageAvailable:
+                        tagListViewText = "No image available"
+                    case .response(let response):
+                        tagListViewText = "\(response.statusCode)"
+                    case .uploading:
+                        tagListViewText = "uploading"
                     }
-                    cell.label.text = key
+                } else {
+                    tagListViewText = TranslatableStrings.ImageWasEmpty
                 }
-                cell.indexPath = indexPath
-                cell.editMode = editMode
-                cell.delegate = self
-                cell.imageKey = key
-                cell.uploadTime = originalImages[key]?.imageDate
-                cell.progressRatio = uploadProgressRatio[ImageTypeCategory.general(key)]
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
+                cell.setup(datasource: self, delegate: nil, width: 30, tag: 3)
                 return cell
+                 */
             } else {
+                return getCellForNoImageSet(editMode: self.editMode, indexPath: indexPath)
+                /*
                 if editMode {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
                     cell.delegate = self
@@ -536,13 +659,66 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     return cell
                 } else {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
-                    cell.setup(datasource: self, delegate: nil, width: 30, tag: 3)
+                    cell.setup(datasource: self, delegate: nil, width: 30, tag: 4)
                     return cell
                 }
+                 */
             }
         }
     }
     
+    private func getCell(imageSet: ProductImageSize?, imageID: String, text: String, indexPath: IndexPath) -> UICollectionViewCell {
+        if let result = imageSet?.largest?.fetch() {
+            switch result {
+            case .success(let image):
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
+                cell.imageView.image = image
+                cell.label.text = text
+                cell.indexPath = indexPath
+                cell.editMode = editMode
+                cell.delegate = self
+                cell.uploadTime = imageSet?.imageDate
+                cell.progressRatio = uploadProgressRatio[ImageTypeCategory.packaging(imageID)]
+                return cell
+            case .loadingFailed(let error):
+                self.tagListViewText = error.localizedDescription
+            case .loading:
+                self.tagListViewText = TranslatableStrings.Loading
+            case .noResponse:
+                self.tagListViewText = "No response"
+            case .noData:
+                self.tagListViewText = "No data"
+            case .noImageAvailable:
+                self.tagListViewText = "No image available"
+            case .response(let response):
+                self.tagListViewText = "\(response.statusCode)"
+            case .uploading:
+                self.tagListViewText = "uploading"
+            }
+        } else {
+            self.tagListViewText = TranslatableStrings.ImageWasEmpty
+        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
+        cell.setup(datasource: self, delegate: nil, width: 30, tag: 3)
+        return cell
+    }
+    
+    private func getCellForNoImageSet(editMode: Bool, indexPath: IndexPath) -> UICollectionViewCell {
+        if editMode {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
+            cell.delegate = self
+            cell.tag = indexPath.section
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.TagListViewCell, for: indexPath) as! TagListViewCollectionViewCell
+            cell.setup(datasource: self, delegate: nil, width: 30, tag: indexPath.section)
+            return cell
+        }
+    }
+    
+    /// Text that will bes hown as text of a texListView
+    /// Used when an image is not avaiable, during loading, etc.
+    private var tagListViewText: String? = nil
 
 // MARK: - UICollectionViewDelegate
 
@@ -662,6 +838,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
     }
 
+// MARK: - add image functions
+    
     private func takePhotoButtonTapped() {
         // opens the camera and allows the user to take an image and crop
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -680,7 +858,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             }
         }
     }
-    
     
     fileprivate lazy var imagePicker: GKImagePicker = {
         let picker = GKImagePicker.init()
@@ -708,7 +885,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
     
-    
     fileprivate func newImageSelected(info: [UIImagePickerController.InfoKey : Any]) {
         var image: UIImage? = nil
         image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
@@ -717,6 +893,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
 
+// MARK: - notification functions
+    
     @objc func reloadImages() {
         collectionView?.reloadData()
     }
@@ -784,18 +962,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         self.reloadImages()
     }
 
-    func registerCollectionViewCell() {
-        guard let collectionView = self.collectionView else
-        {
-            print("We don't have a reference to the collection view.")
-            return
-        }
-        
-        let nib = UINib(nibName: Storyboard.NibIdentifier.AddImageCollectionCell, bundle: Bundle.main)
-        
-        collectionView.register(nib, forCellWithReuseIdentifier: Storyboard.CellIdentifier.AddImageCell)
-    }
-
+// MARK: - viewController lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -827,6 +995,16 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         collectionView?.addGestureRecognizer(doubleTapGestureRecognizer)
     }
     
+    private func registerCollectionViewCell() {
+        guard let collectionView = self.collectionView else {
+            print("We don't have a reference to the collection view.")
+            return
+        }
+        
+        let nib = UINib(nibName: Storyboard.NibIdentifier.AddImageCollectionCell, bundle: Bundle.main)
+        collectionView.register(nib, forCellWithReuseIdentifier: Storyboard.CellIdentifier.AddImageCell)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -891,18 +1069,19 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 // MARK: - AddImageCollectionViewCellDelegate Functions
 //
 extension ProductImagesCollectionViewController : AddImageCollectionViewCellDelegate {
+    
     func addImageCollectionViewCellAddFromCamera(_ sender: AddImageCollectionViewCell, receivedTapOn button: UIButton) {
         switch sender.tag {
         case 0:
-            addImageType = .frontImages("")
+            self.addImageType = .frontImages("")
         case 1:
-            addImageType = .ingredientsImages("")
+            self.addImageType = .ingredientsImages("")
         case 2:
-            addImageType = .nutritionImages("")
+            self.addImageType = .nutritionImages("")
         case 3:
-            addImageType = .packagingImages("")
+            self.addImageType = .packagingImages("")
         default:
-            addImageType = .originalImages("")
+            self.addImageType = .originalImages("")
         }
         takePhotoButtonTapped()
     }
@@ -910,15 +1089,15 @@ extension ProductImagesCollectionViewController : AddImageCollectionViewCellDele
     func addImageCollectionViewCellAddFromCameraRoll(_ sender: AddImageCollectionViewCell, receivedTapOn button: UIButton) {
         switch sender.tag {
         case 0:
-            addImageType = .frontImages("")
+            self.addImageType = .frontImages("")
         case 1:
-            addImageType = .ingredientsImages("")
+            self.addImageType = .ingredientsImages("")
         case 2:
-            addImageType = .nutritionImages("")
+            self.addImageType = .nutritionImages("")
         case 3:
-            addImageType = .packagingImages("")
+            self.addImageType = .packagingImages("")
         default:
-            addImageType = .originalImages("")
+            self.addImageType = .originalImages("")
         }
         useCameraRollButtonTapped()
     }
@@ -1183,7 +1362,7 @@ extension ProductImagesCollectionViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        return TranslatableStrings.None
+        return tagListViewText ?? TranslatableStrings.None
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
