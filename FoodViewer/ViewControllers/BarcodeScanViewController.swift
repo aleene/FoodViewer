@@ -500,7 +500,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         super.awakeFromNib()
         
         if let tabVC = self.parent as? UITabBarController {
-            // start out with the recents tab
+            // start out with the scanner tab
             tabVC.selectedIndex = 0
             tabVC.delegate = self
             if let controllers = tabVC.viewControllers,
@@ -508,8 +508,8 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                 controllers[0].tabBarItem?.title = TranslatableStrings.Scanner
                 controllers[1].tabBarItem?.title = TranslatableStrings.History
                 controllers[2].tabBarItem?.title = TranslatableStrings.Search
-                controllers[3].tabBarItem?.title = TranslatableStrings.User
-                controllers[4].tabBarItem?.title = TranslatableStrings.Game
+                controllers[3].tabBarItem?.title = TranslatableStrings.Game
+                controllers[4].tabBarItem?.title = TranslatableStrings.User
                 controllers[5].tabBarItem?.title = TranslatableStrings.Preferences
             }
         }
