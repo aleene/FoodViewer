@@ -392,7 +392,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             if frontImages.count > 0 && indexPath.row < frontImages.count {
 
                 let keyTuple = keyTuples(for: Array(frontImages.keys))[indexPath.row]
-                return getCell(imageSet: frontImages[keyTuple.0], imageID: keyTuple.0, text: keyTuple.1, indexPath: indexPath)
+                return getCell(imageSet: frontImages[keyTuple.0], imageID: .front(keyTuple.0), text: keyTuple.1, indexPath: indexPath)
                 /*
                 if let result = frontImages[keyTuple.0]?.largest?.fetch() {
                     switch result {
@@ -446,7 +446,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         case .ingredientsImages:
             if indexPath.row < ingredientsImages.count && ingredientsImages.count > 0 {
                 let keyTuple = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row]
-                return getCell(imageSet: ingredientsImages[keyTuple.0], imageID: keyTuple.0, text: keyTuple.1, indexPath: indexPath)
+                return getCell(imageSet: ingredientsImages[keyTuple.0], imageID: .ingredients(keyTuple.0), text: keyTuple.1, indexPath: indexPath)
                 /*
                 if let result = ingredientsImages[keyTuple.0]?.largest?.fetch() {
                     switch result {
@@ -501,7 +501,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         case .nutritionImages:
             if indexPath.row < nutritionImages.count && nutritionImages.count > 0 {
                 let keyTuple = keyTuples(for:Array(nutritionImages.keys))[indexPath.row]
-                return getCell(imageSet: nutritionImages[keyTuple.0], imageID: keyTuple.0, text: keyTuple.1, indexPath: indexPath)
+                return getCell(imageSet: nutritionImages[keyTuple.0], imageID: .nutrition(keyTuple.0), text: keyTuple.1, indexPath: indexPath)
                 /*
                 if let result = nutritionImages[keyTuple.0]?.largest?.fetch() {
                     switch result {
@@ -556,7 +556,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             case .packagingImages:
                 if indexPath.row < packagingImages.count && packagingImages.count > 0 {
                     let keyTuple = keyTuples(for:Array(packagingImages.keys))[indexPath.row]
-                    return getCell(imageSet: packagingImages[keyTuple.0], imageID: keyTuple.0, text: keyTuple.1, indexPath: indexPath)
+                    return getCell(imageSet: packagingImages[keyTuple.0], imageID: .packaging(keyTuple.0), text: keyTuple.1, indexPath: indexPath)
                     /*
                     if let result = packagingImages[keyTuple.0]?.largest?.fetch() {
                         switch result {
@@ -612,7 +612,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             // in editMode the last element of a row is an add button
             if indexPath.row < originalImages.count && originalImages.count > 0 {
                 let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
-                return getCell(imageSet: originalImages[key], imageID: key, text: key, indexPath: indexPath)
+                return getCell(imageSet: originalImages[key], imageID: .general(key), text: key, indexPath: indexPath)
                 /*
                 if let result = originalImages[key]?.largest?.fetch() {
                     switch result {
@@ -667,7 +667,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
     
-    private func getCell(imageSet: ProductImageSize?, imageID: String, text: String, indexPath: IndexPath) -> UICollectionViewCell {
+    private func getCell(imageSet: ProductImageSize?, imageID: ImageTypeCategory, text: String, indexPath: IndexPath) -> UICollectionViewCell {
         if let result = imageSet?.largest?.fetch() {
             switch result {
             case .success(let image):
@@ -678,7 +678,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 cell.editMode = editMode
                 cell.delegate = self
                 cell.uploadTime = imageSet?.imageDate
-                cell.progressRatio = uploadProgressRatio[ImageTypeCategory.packaging(imageID)]
+                cell.progressRatio = uploadProgressRatio[imageID]
                 return cell
             case .loadingFailed(let error):
                 self.tagListViewText = error.localizedDescription
@@ -941,7 +941,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     }
 
     @objc func progress(_ notification: Notification) {
-        guard !editMode else { return }
+        //guard !editMode else { return }
         // Check if this upload progress is relevant to this product
         guard let barcode = notification.userInfo?[OFFImageUploadAPI.Notification.BarcodeKey] as? String else { return }
         guard let productBarcode = productPair!.remoteProduct?.barcode.asString else { return }
