@@ -136,7 +136,7 @@ public struct NutritionFactItem {
 
     /// Transforms the valued edited in FoodViewer to Gram
     public var valueEditedGramValue: Double? {
-        guard let divider = valueUnit?.divider else { return nil }
+        guard let divider = valueUnitEdited?.divider else { return nil }
         if let validDouble = valueEditedAsDouble {
             return validDouble / Double(divider)
         }

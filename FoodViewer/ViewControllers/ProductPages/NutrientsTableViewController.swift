@@ -1727,7 +1727,6 @@ extension NutrientsTableViewController: LanguageHeaderDelegate {
             coordinator?.selectLanguage(primaryLanguageCode: primaryLanguageCode, currentLanguageCode: displayLanguageCode, productLanguageCodes: languageCodes, atAnchor: sender)
         case 1:
             coordinator?.showNutritionFactsTableStyleSelector(for: self.productPair, selected: selectedNutritionFactsTableStyle, anchoredOn: sender)
-            //performSegue(withIdentifier: segueIdentifier(to: SelectNutritionFactsTableStyleTableViewCell.self), sender: sender)
         default:
             break
         }

@@ -117,7 +117,4 @@ extension ForestFootprintViewController: UITableViewDataSource {
 
     }
     
-    //func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> //String? {
-        //return "Ingredients requiring soy"
-   // }
 }

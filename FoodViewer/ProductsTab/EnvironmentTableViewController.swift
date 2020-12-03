@@ -166,9 +166,9 @@ var delegate: ProductPageViewController? = nil {
                 formatter.maximumSignificantDigits = 2
                 cell.textLabel?.text = formatter.string(from: NSNumber(value: forestfootPrint))
             } else {
-                cell.textLabel?.text = "footprint not available"
+                cell.textLabel?.text = TranslatableStrings.ForestFootprintNotAvailable
             }
-            cell.detailTextLabel?.text = "m² per kg of food"
+            cell.detailTextLabel?.text = TranslatableStrings.ForestFootprintUnit
             return cell
         case .ecoscore:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ImageTableViewCell.self), for: indexPath) as! ImageTableViewCell
