@@ -90,12 +90,8 @@ class FoodProduct {
     var images: [String:ProductImageSize] = [:]
 
     func imageID(imageType: ImageTypeCategory) -> String? {
-        for image in images {
-            if image.value.isSelected(imageType: imageType) {
-                return image.key
-            }
-        }
-        return nil
+        return findImageID(languageCode: imageType.associatedString,
+        imageType: imageType.description)
     }
     
 /** Provides the image set corresponding to a languageCode and image type. If it does not exist a nil is returned.

@@ -425,6 +425,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         if editMode {
             return processLanguageCode(validDisplayLanguageCode)
         } else {
+            // Try the display languageCode image first.
+            // If that is not there try to fallback to the primary languageCode image
             return processLanguageCode(validDisplayLanguageCode) ?? processLanguageCode(validPrimaryLanguageCode)
         }
     }

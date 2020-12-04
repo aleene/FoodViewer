@@ -131,16 +131,16 @@ enum ImageTypeCategory: Equatable, Hashable {
         }
         set {
             switch self {
-            case .front(let string):
-                self = .front(string)
-            case .ingredients(let string):
-                self = .ingredients(string)
-            case .nutrition(let string):
-                self = .nutrition(string)
-            case .packaging(let string):
-                self = .packaging(string)
-            case .general(let string):
-                self = .general(string)
+            case .front(_):
+                self = .front(newValue)
+            case .ingredients(_):
+                self = .ingredients(newValue)
+            case .nutrition(_):
+                self = .nutrition(newValue)
+            case .packaging(_):
+                self = .packaging(newValue)
+            case .general(_):
+                self = .general(newValue)
             }
 
         }

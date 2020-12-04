@@ -130,31 +130,6 @@ struct ProductImageSize {
         }
     }
         
-    public func isSelectedAsIngredientsImage(languageCode:String) -> Bool {
-        return isSelected(imageType: .ingredients(languageCode))
-    }
-    
-    public func isSelectedAsFrontImage(languageCode:String) -> Bool {
-        return isSelected(imageType: .front(languageCode))
-    }
-    
-    public func isSelectedAsNutritionImage(languageCode:String) -> Bool {
-        return isSelected(imageType: .nutrition(languageCode))
-    }
-
-    public func isSelectedAsPackagingImage(languageCode:String) -> Bool {
-        return isSelected(imageType: .packaging(languageCode))
-    }
-
-    public func isSelected(imageType: ImageTypeCategory) -> Bool {
-        for imageTypeCategory in usedIn {
-            if imageTypeCategory ~= imageType {
-                return true
-            }
-        }
-        return false
-    }
-        
     public func flush() {
         // This will remove the stored images and set the fetchResult to flushed
         // The images will be retrieved again from disk or internet
