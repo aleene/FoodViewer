@@ -596,8 +596,8 @@ class IdentificationTableViewController: UITableViewController {
         headerView.delegate = self
         // do not add any button or double tap
         headerView.buttonNotDoubleTap = buttonNotDoubleTap
-
         headerView.changeViewModeButton.isHidden = true
+        
         var header = tableStructure[section].header
         // The headers with a language
         switch currentProductSection {
@@ -657,14 +657,17 @@ class IdentificationTableViewController: UITableViewController {
                 break
             }
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
-            headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
-            // add a dash to nice separate the title from the language button
+            /// Enable the mode view button only when we are NOT in editmode
+            headerView.languageButtonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
+            headerView.changeViewModeButton.isHidden = true
+            // add a space to nice separate the title from the language button
             headerView.title = header + " "
             return headerView
             
         case .barcode, .brands, .packaging, .quantity:
             headerView.changeLanguageButton.isHidden = true
-
+            headerView.changeViewModeButton.isHidden = editMode
+            
             switch currentProductSection {
             case .barcode:
                 // it is not possible to edit the barcode
@@ -684,10 +687,7 @@ class IdentificationTableViewController: UITableViewController {
                         header = TranslatableStrings.Brands
                     }
                 default:
-                //case .remoteUser:
                     header = TranslatableStrings.BrandsOriginal
-                //case .remoteTags:
-                //    header = TranslatableStrings.BrandsInterpreted
                 }
                 
             case .packaging:
@@ -705,10 +705,7 @@ class IdentificationTableViewController: UITableViewController {
                         header = TranslatableStrings.Packaging
                     }
                 default:
-                //case .remoteUser:
                     header = TranslatableStrings.PackagingOriginal
-                //case .remoteTags:
-                //    header = TranslatableStrings.PackagingInterpreted
                 }
                 
             case .quantity:

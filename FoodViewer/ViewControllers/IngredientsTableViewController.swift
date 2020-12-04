@@ -573,124 +573,125 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
             headerView.title = headerView.changeLanguageButton.isHidden ? header : header + " "
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
-            headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
+            headerView.languageButtonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
+            headerView.changeViewModeButton.isHidden = editMode
             return headerView
         
         case .labels, .traces, .additives, .allergens, .aminoAcids, .minerals, .vitamins, .nucleotides, .otherNutritionalSubstances:
             headerView.changeLanguageButton.isHidden = true
-            
-                switch currentProductSection {
-                case .labels:
-                    switch productVersion {
-                    case .new:
-                        if let newTags = productPair?.localProduct?.labelsOriginal {
-                            switch newTags {
-                            case .available:
-                                // the local version has been requested and is available
-                                header = TranslatableStrings.LabelsEdited
-                            default:
-                                header = TranslatableStrings.Labels
-                            }
-                        } else {
+            headerView.changeViewModeButton.isHidden = editMode
+            switch currentProductSection {
+            case .labels:
+                switch productVersion {
+                case .new:
+                    if let newTags = productPair?.localProduct?.labelsOriginal {
+                        switch newTags {
+                        case .available:
+                            // the local version has been requested and is available
+                            header = TranslatableStrings.LabelsEdited
+                        default:
                             header = TranslatableStrings.Labels
                         }
-                    case .remoteUser:
-                        header = TranslatableStrings.LabelsOriginal
-                    case .remoteTags:
-                        header = TranslatableStrings.LabelsNormalized
-                    default:
-                        header = TranslatableStrings.LabelsTranslated
+                    } else {
+                        header = TranslatableStrings.Labels
                     }
+                case .remoteUser:
+                    header = TranslatableStrings.LabelsOriginal
+                case .remoteTags:
+                    header = TranslatableStrings.LabelsNormalized
+                default:
+                    header = TranslatableStrings.LabelsTranslated
+                }
 
-                case .traces:
-                    switch productVersion {
-                    case .new:
-                        if let newTags = productPair?.localProduct?.tracesOriginal {
-                            switch newTags {
-                            case .available:
-                                // the local version has been requested and is available
+            case .traces:
+                switch productVersion {
+                case .new:
+                    if let newTags = productPair?.localProduct?.tracesOriginal {
+                        switch newTags {
+                        case .available:
+                            // the local version has been requested and is available
                                 header = TranslatableStrings.TracesEdited
-                            default:
-                                header = TranslatableStrings.Traces
-                            }
-                        } else {
+                        default:
                             header = TranslatableStrings.Traces
                         }
-                    case .remoteUser:
-                        header = TranslatableStrings.TracesOriginal
-                    case .remoteTags:
-                        header = TranslatableStrings.TracesNormalized
-                    default:
-                        header = TranslatableStrings.TracesTranslated
+                    } else {
+                        header = TranslatableStrings.Traces
                     }
-                case .additives:
-                    switch productVersion {
-                    case .new:
-                        header = TranslatableStrings.DetectedAdditives
-                    case .remoteTags:
-                        header = TranslatableStrings.DetectedAdditivesNormalized
-                    default:
-                        header = TranslatableStrings.DetectedAdditivesTranslated
-                    }
-
-                case .allergens:
-                    switch productVersion {
-                    case .new:
-                        header = TranslatableStrings.DetectedAllergens
-                    case .remoteTags:
-                        header = TranslatableStrings.DetectedAllergensNormalized
-                    default:
-                        header = TranslatableStrings.DetectedAllergensTranslated
-                    }
-                case .minerals:
-                    switch productVersion {
-                    case .new:
-                        header = TranslatableStrings.DetectedMinerals
-                    case .remoteTags:
-                        header = TranslatableStrings.DetectedMineralsNormalized
-                    default:
-                        header = TranslatableStrings.DetectedMineralsTranslated
-                    }
-                case .aminoAcids:
-                    switch productVersion {
-                    case .new:
-                        header = TranslatableStrings.DetectedAminoAcids
-                    case .remoteTags:
-                        header = TranslatableStrings.DetectedAminoAcidsNormalized
-                    default:
-                        header = TranslatableStrings.DetectedAminoAcidsTranslated
-                    }
-
-                case .otherNutritionalSubstances:
-                    switch productVersion {
-                    case .new:
-                        header = TranslatableStrings.DetectedOtherNutritionalSubstances
-                    case .remoteTags:
-                        header = TranslatableStrings.DetectedOtherNutritionalSubstancesNormalized
-                    default:
-                        header = TranslatableStrings.DetectedOtherNutritionalSubstancesTranslated
-                    }
-                case .vitamins:
-                    switch productVersion {
-                    case .new:
-                        header = TranslatableStrings.DetectedVitamins
-                    case .remoteTags:
-                        header = TranslatableStrings.DetectedVitaminsNormalized
-                    default:
-                        header = TranslatableStrings.DetectedVitaminsTranslated
-                    }
-                case .nucleotides:
-                    switch productVersion {
-                    case .new:
-                        header = TranslatableStrings.DetectedNucleotides
-                    case .remoteTags:
-                        header = TranslatableStrings.DetectedNucleotidesNormalized
-                    default:
-                        header = TranslatableStrings.DetectedNucleotidesTranslated
-                    }
+                case .remoteUser:
+                    header = TranslatableStrings.TracesOriginal
+                case .remoteTags:
+                    header = TranslatableStrings.TracesNormalized
                 default:
-                    break
+                    header = TranslatableStrings.TracesTranslated
                 }
+            case .additives:
+                switch productVersion {
+                case .new:
+                    header = TranslatableStrings.DetectedAdditives
+                case .remoteTags:
+                    header = TranslatableStrings.DetectedAdditivesNormalized
+                default:
+                    header = TranslatableStrings.DetectedAdditivesTranslated
+                }
+
+            case .allergens:
+                switch productVersion {
+                case .new:
+                    header = TranslatableStrings.DetectedAllergens
+                case .remoteTags:
+                    header = TranslatableStrings.DetectedAllergensNormalized
+                default:
+                    header = TranslatableStrings.DetectedAllergensTranslated
+                }
+            case .minerals:
+                switch productVersion {
+                case .new:
+                    header = TranslatableStrings.DetectedMinerals
+                case .remoteTags:
+                    header = TranslatableStrings.DetectedMineralsNormalized
+                default:
+                    header = TranslatableStrings.DetectedMineralsTranslated
+                }
+            case .aminoAcids:
+                switch productVersion {
+                case .new:
+                    header = TranslatableStrings.DetectedAminoAcids
+                case .remoteTags:
+                    header = TranslatableStrings.DetectedAminoAcidsNormalized
+                default:
+                    header = TranslatableStrings.DetectedAminoAcidsTranslated
+                }
+
+            case .otherNutritionalSubstances:
+                switch productVersion {
+                case .new:
+                    header = TranslatableStrings.DetectedOtherNutritionalSubstances
+                case .remoteTags:
+                    header = TranslatableStrings.DetectedOtherNutritionalSubstancesNormalized
+                default:
+                    header = TranslatableStrings.DetectedOtherNutritionalSubstancesTranslated
+                }
+            case .vitamins:
+                switch productVersion {
+                case .new:
+                    header = TranslatableStrings.DetectedVitamins
+                case .remoteTags:
+                    header = TranslatableStrings.DetectedVitaminsNormalized
+                default:
+                    header = TranslatableStrings.DetectedVitaminsTranslated
+                }
+            case .nucleotides:
+                switch productVersion {
+                case .new:
+                    header = TranslatableStrings.DetectedNucleotides
+                case .remoteTags:
+                    header = TranslatableStrings.DetectedNucleotidesNormalized
+                default:
+                    header = TranslatableStrings.DetectedNucleotidesTranslated
+                }
+            default:
+                break
+            }
             headerView.title = header
             return headerView
         }

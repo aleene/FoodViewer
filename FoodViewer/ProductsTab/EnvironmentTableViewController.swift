@@ -336,7 +336,6 @@ var delegate: ProductPageViewController? = nil {
         // do not add any button or double tap
         headerView.buttonNotDoubleTap = buttonNotDoubleTap
 
-        headerView.changeViewModeButton.isHidden = true
         var header = tableStructure[section].header
         // The headers with a language
         switch currentProductSection {
@@ -364,11 +363,12 @@ var delegate: ProductPageViewController? = nil {
                 }
             default: break
             }
+            headerView.changeViewModeButton.isHidden = editMode
+            headerView.languageButtonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
             headerView.title = header
             return headerView
+            
         case .packaging:
-            headerView.changeLanguageButton.isHidden = true
-
             switch currentProductSection {
             case .packaging:
                 switch productVersion {
@@ -385,16 +385,25 @@ var delegate: ProductPageViewController? = nil {
                         header = TranslatableStrings.Packaging
                     }
                 default:
-                //case .remoteUser:
                     header = TranslatableStrings.PackagingOriginal
-                //case .remoteTags:
-                //    header = TranslatableStrings.PackagingInterpreted
                 }
             default:
                 break
             }
+            if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
+            // Hide the change language button if there is only one language, but not in editMode
+                headerView.changeLanguageButton.isHidden = validNumberOfProductLanguages > 1 ? false : !editMode
+            } else {
+                headerView.changeLanguageButton.isHidden = false
+            }
+            headerView.changeViewModeButton.isHidden = editMode
+            headerView.languageButtonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
+            headerView.title = header
+            return headerView
         default: break
         }
+        headerView.changeLanguageButton.isHidden = true
+        headerView.changeViewModeButton.isHidden = true
         headerView.title = header
         return headerView
     }

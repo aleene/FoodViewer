@@ -747,7 +747,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
             headerView.changeLanguageButton.tag = 0
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
-            headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
+            headerView.languageButtonIsEnabled = editMode ? false : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
             // add a dash to nice separate the title from the language button
             headerView.title = header + " "
             return headerView
@@ -768,7 +768,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 header = TranslatableStrings.NutritionFacts
             }
             headerView.buttonText = currentNutritionFactsTableStyle.description
-            headerView.buttonIsEnabled = true
             headerView.title = header + " "
             return headerView
             
