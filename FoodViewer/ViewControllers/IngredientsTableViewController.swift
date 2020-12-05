@@ -547,7 +547,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 headerView.title = header + " "
 
             case .ingredients:
-                headerView.changeViewModeButton.isHidden = !editMode
                 switch productVersion {
                 case .new:
                     if let validLanguageCode = displayLanguageCode,

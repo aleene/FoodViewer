@@ -50,7 +50,24 @@ final class EnvironmentCoordinator: Coordinator {
         self.childCoordinators.append(coordinator)
         coordinator.show()
     }
-    
+/**
+Shows a popover viewController with a pickerView that allows the user to select a language.
+         
+The selected language will be used to change the current display language of the product.
+- parameters:
+    - currentLanguageCode: the current languageCode that is displayed in the viewController. This languageCode will be selected in the pickerView;
+    - button: the button that will be used to anchor the popover;
+*/
+    func selectLanguage(primaryLanguageCode: String?, currentLanguageCode: String?, productLanguageCodes: [String], atAnchor button:UIButton) {
+        let coordinator = SelectLanguageCoordinator(with: self,
+                                                    primaryLanguageCode: primaryLanguageCode,
+                                                    currentLanguageCode: currentLanguageCode,
+                                                    languageCodes: productLanguageCodes,
+                                                    button: button)
+        childCoordinators.append(coordinator)
+        coordinator.show()
+    }
+
     /// The viewController informs its owner that it has disappeared
     func viewControllerDidDisappear(_ sender: UIViewController) {
         if self.childCoordinators.isEmpty {
@@ -86,6 +103,20 @@ extension EnvironmentCoordinator: ImageCoordinatorProtocol {
 extension EnvironmentCoordinator: ForestFootprintCoordinatorProtocol {
     
     func forestFootprintViewControllerDidTapDone(_ sender: ForestFootprintViewController) {
+        sender.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - SelectLanguageCoordinatorProtocol
+
+extension EnvironmentCoordinator: SelectLanguageCoordinatorProtocol {
+    
+    public func selectLanguageViewController(_ sender:SelectLanguageViewController, selected languageCode:String?) {
+        coordinatorViewController?.currentLanguageCode = languageCode
+        sender.dismiss(animated: true, completion: nil)
+    }
+    
+    public func selectLanguageViewControllerDidCancel(_ sender:SelectLanguageViewController) {
         sender.dismiss(animated: true, completion: nil)
     }
 }

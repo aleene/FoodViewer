@@ -363,9 +363,10 @@ var delegate: ProductPageViewController? = nil {
                 }
             default: break
             }
-            headerView.changeViewModeButton.isHidden = editMode
+            headerView.title = headerView.changeLanguageButton.isHidden ? header : header + " "
+            headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             headerView.languageButtonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
-            headerView.title = header
+            headerView.changeViewModeButton.isHidden = editMode
             return headerView
             
         case .packaging:
@@ -390,15 +391,10 @@ var delegate: ProductPageViewController? = nil {
             default:
                 break
             }
-            if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
-            // Hide the change language button if there is only one language, but not in editMode
-                headerView.changeLanguageButton.isHidden = validNumberOfProductLanguages > 1 ? false : !editMode
-            } else {
-                headerView.changeLanguageButton.isHidden = false
-            }
-            headerView.changeViewModeButton.isHidden = editMode
+            headerView.title = headerView.changeLanguageButton.isHidden ? header : header + " "
+            headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             headerView.languageButtonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
-            headerView.title = header
+            headerView.changeViewModeButton.isHidden = editMode
             return headerView
         default: break
         }
@@ -958,9 +954,13 @@ extension EnvironmentTableViewController: GKImagePickerDelegate {
 extension EnvironmentTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
+        guard let primaryLanguageCode = self.productPair?.primaryLanguageCode else { return }
+        guard let languageCodes = self.productPair?.languageCodes else { return }
+        coordinator?.selectLanguage(primaryLanguageCode: primaryLanguageCode, currentLanguageCode: displayLanguageCode, productLanguageCodes: languageCodes, atAnchor: sender)
     }
     
     func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {
+        doubleTapOnTableView()
     }
 }
 //
