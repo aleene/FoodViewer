@@ -321,8 +321,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2142"
-            endingLineNumber = "2142"
+            startingLineNumber = "2157"
+            endingLineNumber = "2157"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -593,8 +593,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1645"
-            endingLineNumber = "1645"
+            startingLineNumber = "1653"
+            endingLineNumber = "1653"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -609,8 +609,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1329"
-            endingLineNumber = "1329"
+            startingLineNumber = "1337"
+            endingLineNumber = "1337"
             landmarkName = "decodeCompletionStates(_:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1537,8 +1537,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1984"
-            endingLineNumber = "1984"
+            startingLineNumber = "1999"
+            endingLineNumber = "1999"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1553,8 +1553,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1571"
-            endingLineNumber = "1571"
+            startingLineNumber = "1579"
+            endingLineNumber = "1579"
             landmarkName = "decodeForestFootPrint(_:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1569,8 +1569,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2035"
-            endingLineNumber = "2035"
+            startingLineNumber = "2050"
+            endingLineNumber = "2050"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1585,8 +1585,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1636"
-            endingLineNumber = "1636"
+            startingLineNumber = "1644"
+            endingLineNumber = "1644"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1777,8 +1777,8 @@
             filePath = "FoodViewer/Product.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1622"
-            endingLineNumber = "1622"
+            startingLineNumber = "1630"
+            endingLineNumber = "1630"
             landmarkName = "decodeSelectedImages(imageType:)"
             landmarkType = "9">
          </BreakpointContent>

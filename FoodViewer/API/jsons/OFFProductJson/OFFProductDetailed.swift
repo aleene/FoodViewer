@@ -48,10 +48,16 @@ class OFFProductDetailed: OFFProduct {
     }
 
     private struct KeyPreFix {
+        static let ConservationConditions = "conservation_conditions_"
+        static let CustomerService = "customer_service_"
         static let ProductName = "product_name_"
         static let GenericName = "generic_name_"
         static let IngredientsText = "ingredients_text_"
         static let IngredientsTextWithAllergens = "ingredients_text_with_allergens_"
+        static let OtherInformation = "other_information_"
+        static let Preparation = "preparation_"
+        static let Producer = "producer_"
+        static let Warning = "warning_"
     }
     
     var code: String? = nil
@@ -60,7 +66,9 @@ class OFFProductDetailed: OFFProduct {
     var additives_old_n: Int? = nil
     var carbon_footprint_from_known_ingredients_debug: Int? = nil
     var carbon_footprint_percent_of_known_ingredients: Double? = nil
+    var customer_service_: [String:String] = [:]
     var completeness: Double? = nil
+    var conservation_conditions_: [String:String] = [:]
     var generic_names_: [String:String] = [:]
     var ingredients_from_or_that_may_be_from_palm_oil_n: Int? = nil
     var ingredients_from_palm_oil_n: Int? = nil
@@ -76,14 +84,18 @@ class OFFProductDetailed: OFFProduct {
     var novaDashgroup_serving: String? = nil
     var nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value: Double? = nil
     var max_imgid: String? = nil
+    var other_information_: [String:String] = [:]
     var popularity_key: Int? = nil
+    var preparation_: [String:String] = [:]
+    var producer_: [String:String] = [:]
     var product_names_: [String:String] = [:]
     var product_quantity: String? = nil
     var rev: Int? = nil
     var serving_quantity: Double? = nil
     var sortkey: Int?
     var unknown_ingredients_n: Int? = nil
-    
+    var warning_: [String:String] = [:]
+
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: DetailedKeys.self)
         
@@ -368,6 +380,30 @@ class OFFProductDetailed: OFFProduct {
                         ingredients_texts_[languageCode.key] = name
                     }
                 }
+                if key.stringValue == KeyPreFix.Preparation + languageCode.key {
+                    do {
+                        let name = try container.decode(String.self, forKey: key)
+                        preparation_[languageCode.key] = name
+                    }
+                }
+                if key.stringValue == KeyPreFix.CustomerService + languageCode.key {
+                    do {
+                        let name = try container.decode(String.self, forKey: key)
+                        customer_service_[languageCode.key] = name
+                    }
+                }
+                if key.stringValue == KeyPreFix.ConservationConditions + languageCode.key {
+                    do {
+                        let name = try container.decode(String.self, forKey: key)
+                        conservation_conditions_[languageCode.key] = name
+                    }
+                }
+                if key.stringValue == KeyPreFix.Warning + languageCode.key {
+                    do {
+                        let name = try container.decode(String.self, forKey: key)
+                        warning_[languageCode.key] = name
+                    }
+                }
                 /*
                 if key.stringValue ==  KeyPreFix.IngredientsTextWithAllergens + languageCode.key {
                     do {
@@ -390,11 +426,17 @@ class OFFProductDetailed: OFFProduct {
     
     override init() {
         super.init()
+        self.customer_service_ = [:]
+        self.conservation_conditions_ = [:]
         self.languages_codes = [:]
-        self.product_names_ = [:]
         self.generic_names_ = [:]
         self.ingredients_texts_ = [:]
         self.ingredients_texts_with_allergens_ = [:]
+        self.other_information_ = [:]
+        self.preparation_ = [:]
+        self.producer_ = [:]
+        self.product_names_ = [:]
+        self.warning_ = [:]
     }
 
     //  This init initialises with the changes that the user can make.
@@ -406,7 +448,9 @@ class OFFProductDetailed: OFFProduct {
                      brands_tags: [String],
                      categories_tags: [String],
                      code: String,
+                     //conservation_conditions: [String:String],
                      countries_tags: [String],
+                     //customer_service: [String:String],
                      emb_codes_tags: [String],
                      expiration_date: String,
                      labels_tags: [String],
@@ -414,12 +458,17 @@ class OFFProductDetailed: OFFProduct {
                      manufacturing_places_tags: [String],
                      nutriments: OFFProductNutriments,
                      origins_tags: [String],
+                     //other_information: [String:String],
                      packaging_tags: [String],
+                     //preparation: [String:String],
+                     //producer: [String:String],
                      purchase_places_tags: [String],
                      quantity: String,
                      serving_size: String,
                      stores_tags: [String],
-                     traces_tags: [String] ) {
+                     traces_tags: [String]
+                     //, warning: [String:String]
+                    ) {
         
         self.init()
         
@@ -435,7 +484,6 @@ class OFFProductDetailed: OFFProduct {
         self.emb_codes = emb_codes_tags.joined(separator: ",")
         self.emb_codes_tags = emb_codes_tags
         self.expiration_date = expiration_date
-        self.ingredients_texts_ = ingredients
         self.labels = labels_tags.joined(separator: ",")
         self.labels_tags = labels_tags
         self.link = link
@@ -444,6 +492,7 @@ class OFFProductDetailed: OFFProduct {
         self.nutriments = nutriments
         self.origins = origins_tags.joined(separator: ",")
         self.origins_tags = origins_tags
+        //self.other_information_ = other_information
         self.packaging = packaging_tags.joined(separator: ",")
         self.packaging_tags = packaging_tags
         self.purchase_places = purchase_places_tags.joined(separator: ",")
@@ -462,9 +511,14 @@ class OFFProductDetailed: OFFProduct {
             newLanguageCodes[language] = 0
         }
         self.languages_codes = newLanguageCodes
+       // self.conservation_conditions_ = conservation_conditions
+        //self.customer_service_ = customer_service
         self.product_names_ = names
         self.generic_names_ = generic_names
         self.ingredients_texts_ = ingredients
+        //self.preparation_ = preparation
+        //self.producer_ = producer
+        //self.warning_ = warning
     }
     
     override func encode(to encoder: Encoder) throws {
@@ -483,14 +537,32 @@ class OFFProductDetailed: OFFProduct {
         }
         
         for (languageCode, _) in languages_codes {
-            if let key = DetailedKeys(stringValue: KeyPreFix.ProductName + languageCode) {
-                try container.encodeIfPresent(product_names_[languageCode], forKey: key)
+            if let key = DetailedKeys(stringValue: KeyPreFix.ConservationConditions + languageCode) {
+                try container.encodeIfPresent(conservation_conditions_[languageCode], forKey: key)
+            }
+            if let key = DetailedKeys(stringValue: KeyPreFix.CustomerService + languageCode) {
+                try container.encodeIfPresent(customer_service_[languageCode], forKey: key)
             }
             if let key = DetailedKeys(stringValue: KeyPreFix.GenericName + languageCode) {
                 try container.encodeIfPresent(generic_names_[languageCode], forKey: key)
             }
             if let key = DetailedKeys(stringValue: KeyPreFix.IngredientsText + languageCode) {
                 try container.encodeIfPresent(ingredients_texts_[languageCode], forKey: key)
+            }
+            if let key = DetailedKeys(stringValue: KeyPreFix.OtherInformation + languageCode) {
+                try container.encodeIfPresent(other_information_[languageCode], forKey: key)
+            }
+            if let key = DetailedKeys(stringValue: KeyPreFix.Preparation + languageCode) {
+                try container.encodeIfPresent(preparation_[languageCode], forKey: key)
+            }
+            if let key = DetailedKeys(stringValue: KeyPreFix.Producer + languageCode) {
+                try container.encodeIfPresent(producer_[languageCode], forKey: key)
+            }
+            if let key = DetailedKeys(stringValue: KeyPreFix.ProductName + languageCode) {
+                try container.encodeIfPresent(product_names_[languageCode], forKey: key)
+            }
+            if let key = DetailedKeys(stringValue: KeyPreFix.Warning + languageCode) {
+                try container.encodeIfPresent(warning_[languageCode], forKey: key)
             }
         }
     }

@@ -52,6 +52,7 @@ class OFFProduct: Codable {
     var complete: Int? = nil
     var completed_t: Date? = nil
     // var completeness: Double? = nil is in OFFProductDetailed
+    var conservation_conditions: String? = nil
     var correctors_tags: [String]? = nil
     var countries: String? = nil
     var countries_debug_tags: [String]? = nil
@@ -60,6 +61,7 @@ class OFFProduct: Codable {
         var countries_tags: [String]? = nil
     var created_t: Date? = nil // 1410949750
     var creator: String? = nil
+    var customer_service: String? = nil
     var data_quality_bugs_tags: [String]? = nil
     var data_quality_errors_tags: [String]? = nil
     var data_quality_info_tags: [String]? = nil
@@ -173,6 +175,7 @@ class OFFProduct: Codable {
         var nutriments: OFFProductNutriments? = nil
     var origins: String? = nil
         var origins_tags: [String]? = nil
+    // var other_information_nl: String? = nil is handled in OFFProductDetailed
     var other_nutritional_substances_tags: [String]? = nil
     var packaging: String? = nil
         var packaging_tags: [String]? = nil
@@ -182,10 +185,13 @@ class OFFProduct: Codable {
     var pnns_groups_1_tags: [String]? = nil
     var pnns_groups_2: String? = nil
     var pnns_groups_2_tags: [String]? = nil
-    // var popularity_key: Int? = nil is handled in the child
+    // var popularity_key: Int? = nil is handled in OFFProductDetailed
     var popularity_tags: [String]? = nil
+    // var preparation_fr: String? = nil is handled in OFFProductDetailed
+    var producer: String? = nil
+    // var producer_nl: String is handled in OFFProductDetailed
     var product_name: String? = nil
-    // var product_quantity: String? = nil is handled in the child
+    // var product_quantity: String? = nil is handled in OFFProductDetailed
     // product_name_fr is handled in the child
     var purchase_places: String? = nil
         var purchase_places_tags: [String]? = nil
@@ -202,6 +208,7 @@ class OFFProduct: Codable {
         var states_tags: [OFFProductStates]? = nil
     var stores: String? = nil
         var stores_tags: [String]? = nil
+    var teams: String? = nil
     var traces: String? = nil
     var traces_from_ingredients: String? = nil
     var traces_from_user: String? = nil
@@ -213,6 +220,7 @@ class OFFProduct: Codable {
     var update_key: String? = nil
     var vitamins_prev_tags: [String]? = nil
     var vitamins_tags: [String]? = nil
+    var warning: String? = nil
     var _id: String? = nil
     var _keywords: [String]? = nil
     

@@ -626,7 +626,15 @@ class FoodProduct {
             self.purchasePlacesAddress!.locationString = validLocationString
         }
     }
-    
+
+    // suplied by producers
+    var producerLanguage: [String:String?] = [:]
+    var customerServiceLanguage: [String:String?] = [:]
+    var conservationConditionsLanguage: [String:String?] = [:]
+    var preparationLanguage: [String:String?] = [:]
+    var warningLanguage: [String:String?] = [:]
+    var otherInformationLanguage: [String:String?] = [:]
+
     var storesOriginal: Tags = .undefined
     var storesInterpreted: Tags = .undefined
     
@@ -1972,6 +1980,13 @@ class FoodProduct {
         purchasePlacesInterpreted = Tags(list: validProduct.purchase_places_tags)
         purchasePlacesOriginal = Tags(string: validProduct.purchase_places)
         
+        producerLanguage = validProduct.producer_
+        customerServiceLanguage = validProduct.customer_service_
+        conservationConditionsLanguage = validProduct.conservation_conditions_
+        preparationLanguage = validProduct.preparation_
+        warningLanguage = validProduct.warning_
+        otherInformationLanguage = validProduct.other_information_
+
         additionDate = validProduct.created_t
         hasNutritionFacts = decodeNutritionDataAvalailable(validProduct.no_nutrition_data)
         
