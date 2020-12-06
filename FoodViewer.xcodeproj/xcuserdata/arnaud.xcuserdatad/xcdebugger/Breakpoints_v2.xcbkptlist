@@ -465,8 +465,8 @@
             filePath = "FoodViewer/ViewControllers/IngredientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1262"
-            endingLineNumber = "1262"
+            startingLineNumber = "1292"
+            endingLineNumber = "1292"
             landmarkName = "tagListView(_:didDeleteTagAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1297,8 +1297,8 @@
             filePath = "FoodViewer/ViewControllers/IngredientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "949"
-            endingLineNumber = "949"
+            startingLineNumber = "979"
+            endingLineNumber = "979"
             landmarkName = "imageUploaded(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1313,8 +1313,8 @@
             filePath = "FoodViewer/ViewControllers/IngredientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "560"
-            endingLineNumber = "560"
+            startingLineNumber = "571"
+            endingLineNumber = "571"
             landmarkName = "tableView(_:viewForHeaderInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1697,8 +1697,8 @@
             filePath = "FoodViewer/ViewControllers/IngredientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "405"
-            endingLineNumber = "405"
+            startingLineNumber = "416"
+            endingLineNumber = "416"
             landmarkName = "remoteImageToShow"
             landmarkType = "24">
          </BreakpointContent>
@@ -1729,8 +1729,8 @@
             filePath = "FoodViewer/ViewControllers/IngredientsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "430"
-            endingLineNumber = "430"
+            startingLineNumber = "441"
+            endingLineNumber = "441"
             landmarkName = "remoteImageToShow"
             landmarkType = "24">
          </BreakpointContent>

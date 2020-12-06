@@ -267,6 +267,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         case labels(Int)
         case additives(Int)
         case aminoAcids(Int)
+        case warning(Int)
         case image(Int)
         
         var numberOfRows: Int {
@@ -281,6 +282,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                  .labels(let numberOfRows),
                  .additives(let numberOfRows),
                  .aminoAcids(let numberOfRows),
+                 .warning(let numberOfRows),
                  .image(let numberOfRows):
                 return numberOfRows
             }
@@ -361,10 +363,19 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             return cell
 
         case .labels:
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
             return cell
-        
+            
+        case .warning:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BasicTableViewCell.IngredientsTableViewController", for: indexPath)
+            if let validLanguageCode = displayLanguageCode,
+                let validWarning = productPair?.remoteProduct?.warningLanguage[validLanguageCode] {
+                cell.textLabel?.text = validWarning
+            } else {
+                cell.textLabel?.text = "No warning in this language"
+            }
+            return cell
         case .image:
             if imageToShow != nil {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:ProductImageTableViewCell.self), for: indexPath) as! ProductImageTableViewCell
@@ -522,7 +533,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         var header = ""
 
         switch currentProductSection {
-        case .image, .ingredients : // Header with a language
+        case .image, .ingredients: // Header with a language AND switcher
             headerView.changeLanguageButton.isHidden = true
             switch currentProductSection {
             case .image:
@@ -575,9 +586,21 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             headerView.title = headerView.changeLanguageButton.isHidden ? header : header + " "
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             headerView.languageButtonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
-            headerView.changeViewModeButton.isHidden = editMode
+            headerView.changeViewModeButton.isHidden = true
             return headerView
         
+        // Header with language, but NO variant switcher
+        case .warning:
+            if let validLanguageCode = displayLanguageCode,
+                productPair?.remoteProduct?.warningLanguage[validLanguageCode] != nil {
+                header = "Warning"
+            }
+            headerView.title = headerView.changeLanguageButton.isHidden ? header : header + " "
+            headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
+            headerView.languageButtonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
+            headerView.changeViewModeButton.isHidden = editMode
+            return headerView
+            
         case .labels, .traces, .additives, .allergens, .aminoAcids, .minerals, .vitamins, .nucleotides, .otherNutritionalSubstances:
             headerView.changeLanguageButton.isHidden = true
             headerView.changeViewModeButton.isHidden = editMode
@@ -730,6 +753,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             static let Traces = 1
             static let Additives = 1
             static let Labels = 1
+            static let Warning = 1
             static let Image = 1
         }
     }
@@ -786,6 +810,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             if validProductPair.hasOtherNutritionalSubstances || show {
                 sectionsAndRows.append(.otherNutritionalSubstances(TableSection.Size.OtherNutritionalSubstances))
                 cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
+                rowIndex += 1
+            }
+            if let validProductWarning = validProductPair.remoteProduct?.warningLanguage,
+                !validProductWarning.isEmpty {
+                sectionsAndRows.append(.warning(TableSection.Size.Warning))
+                cellHeight[rowIndex] = 44.0
                 rowIndex += 1
             }
 
@@ -1456,7 +1486,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
                 return count(.undefined)
             }
             return count(validTags)
-        case .image:
+        case .image, .warning:
             return 1
         case .traces:
             return count(tracesToDisplay)
@@ -1483,7 +1513,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             return additivesToDisplay.tag(at:index)!
         case .allergens:
             return allergensToDisplay.tag(at:index)!
-        case .image:
+        case .image, .warning:
             return searchResult
         case .labels:
             guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: .label),
@@ -1553,7 +1583,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             return colorScheme(additivesToDisplay)
         case .allergens:
             return colorScheme(allergensToDisplay)
-        case .image:
+        case .image, .warning:
             return ColorSchemes.error
         case .traces:
             return colorScheme(tracesToDisplay)
