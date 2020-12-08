@@ -12,7 +12,6 @@ class SupplyChainTableViewController: UITableViewController {
     
 // MARK: - Public Functions/Variables
     
-    
     var delegate: ProductPageViewController? = nil {
         didSet {
             if delegate != oldValue {
@@ -23,8 +22,25 @@ class SupplyChainTableViewController: UITableViewController {
 
     var coordinator: SupplyChainCoordinator? = nil
 
+    var currentLanguageCode: String? {
+        get {
+            return delegate?.currentLanguageCode
+        }
+        set {
+            delegate?.currentLanguageCode = newValue
+        }
+    }
+        
 // MARK: Private Functions/Variables
-    
+        
+    /// This variable defined the languageCode that must be used to display the product data
+    /// It first does a validity check
+    private var displayLanguageCode: String? {
+        get {
+            let value = currentLanguageCode ?? productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
+            return value
+        }
+    }
     
     private var editMode: Bool {
         return delegate?.editMode ?? false
@@ -50,8 +66,7 @@ class SupplyChainTableViewController: UITableViewController {
         return delegate?.productPair
     }
     
-    // Determines which version of the product needs to be shown, the remote or local
-
+    /// Determines which version of the product needs to be shown, the remote or local
     fileprivate var productVersion: ProductVersion = .new
     
     fileprivate var producerTagsToDisplay: Tags {
@@ -206,8 +221,6 @@ class SupplyChainTableViewController: UITableViewController {
     }
     
     fileprivate struct Constants {
-        static let ViewControllerTitle = TranslatableStrings.SupplyChain
-        static let NoExpirationDate = TranslatableStrings.NoExpirationDate
         struct CellHeight {
             static let TagListViewCell = CGFloat(27.0)
         }
@@ -230,6 +243,7 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate struct TableStructure {
         struct SectionHeader {
             static let Producer = TranslatableStrings.Producer
+            static let ProducerSupplied = "Producer (supplied)"
             static let ProducerCode = TranslatableStrings.ProductCodes
             static let IngredientOrigin = TranslatableStrings.IngredientOrigins
             static let Location = TranslatableStrings.PurchaseAddress
@@ -239,18 +253,7 @@ class SupplyChainTableViewController: UITableViewController {
             static let ExpirationDate = TranslatableStrings.ExpirationDate
             static let Sites = TranslatableStrings.ProductWebSites
             static let PAO = TranslatableStrings.PeriodAfterOpening
-        }
-        struct SectionSize {
-            static let Producer = 1
-            static let ProducerCode = 1
-            static let IngredientOrigin = 1
-            static let Location = 1
-            static let Countries = 1
-            static let Stores = 1
-            static let MapSectionSize = 1
-            static let ExpirationDate = 1
-            static let Sites = 1
-            static let PAO = 1
+            static let CustomerService = "Customer Service"
         }
     }
     
@@ -259,33 +262,18 @@ class SupplyChainTableViewController: UITableViewController {
     }
 
     fileprivate enum SectionType {
-        case ingredientOrigin(Int)
-        case producer(Int)
-        case producerCode(Int)
-        case location(Int)
-        case store(Int)
-        case country(Int)
-        case map(Int)
-        case expirationDate(Int)
-        case sites(Int)
-        case periodAfterOpening(Int)
-        
-        var numberOfRows: Int {
-            switch self {
-            case .ingredientOrigin(let numberOfRows),
-                 .producer(let numberOfRows),
-                 .producerCode(let numberOfRows),
-                 .location(let numberOfRows),
-                 .store(let numberOfRows),
-                 .country(let numberOfRows),
-                 .map(let numberOfRows),
-                 .expirationDate(let numberOfRows),
-                 .sites(let numberOfRows),
-                 .periodAfterOpening(let numberOfRows):
-                return numberOfRows
-            }
-        }
-
+        case ingredientOrigin
+        case producer
+        case producerSupplied
+        case producerCode
+        case location
+        case store
+        case country
+        case map
+        case expirationDate
+        case sites
+        case periodAfterOpening
+        case customerService
     }
     
     private var tagListViewHeight: [Int:CGFloat] = [:]
@@ -297,34 +285,62 @@ class SupplyChainTableViewController: UITableViewController {
         // And each element is a tuple with the section type and number of rows
         //
         var sectionsAndRows: [SectionType] = []
-        
+        var index = 0
         switch currentProductType {
         case .beauty:
-            sectionsAndRows.append(.periodAfterOpening(TableStructure.SectionSize.PAO))
+            sectionsAndRows.append(.periodAfterOpening)
         default:
-            sectionsAndRows.append(.expirationDate(TableStructure.SectionSize.ExpirationDate))
+            sectionsAndRows.append(.expirationDate)
         }
+        index += 1
+        
         // ingredient origin section
-        sectionsAndRows.append(.ingredientOrigin(TableStructure.SectionSize.IngredientOrigin))
-        tagListViewHeight[1] = Constants.CellHeight.TagListViewCell
+        sectionsAndRows.append(.ingredientOrigin)
+        tagListViewHeight[index] = Constants.CellHeight.TagListViewCell
+        index += 1
+
         // producer section
-        sectionsAndRows.append(.producer(TableStructure.SectionSize.Producer))
-        tagListViewHeight[2] = Constants.CellHeight.TagListViewCell
+        sectionsAndRows.append(.producer)
+        tagListViewHeight[index] = Constants.CellHeight.TagListViewCell
+        index += 1
+
+        // producer supplied by the producer
+        if let validProducer = productPair?.remoteProduct?.producerLanguage,
+            !validProducer.isEmpty {
+            sectionsAndRows.append(.producerSupplied)
+            index += 1
+        }
+        
         // producer codes section
-        sectionsAndRows.append(.producerCode(TableStructure.SectionSize.ProducerCode))
-        tagListViewHeight[3] = Constants.CellHeight.TagListViewCell
+        sectionsAndRows.append(.producerCode)
+        tagListViewHeight[index] = Constants.CellHeight.TagListViewCell
+        index += 1
+
         // producer sites
-        sectionsAndRows.append(.sites(TableStructure.SectionSize.Sites))
-        tagListViewHeight[4] = Constants.CellHeight.TagListViewCell
+        sectionsAndRows.append(.sites)
+        tagListViewHeight[index] = Constants.CellHeight.TagListViewCell
+        index += 1
+
+        // customer service as provided through the producers
+        if let validCustomerService = productPair?.remoteProduct?.customerServiceLanguage,
+            !validCustomerService.isEmpty {
+            sectionsAndRows.append(.customerService)
+            index += 1
+        }
         // stores section
-        sectionsAndRows.append(.store(TableStructure.SectionSize.Stores))
-        tagListViewHeight[5] = Constants.CellHeight.TagListViewCell
+        sectionsAndRows.append(.store)
+        tagListViewHeight[index] = Constants.CellHeight.TagListViewCell
+        index += 1
         // purchase Location section
-        sectionsAndRows.append(.location(TableStructure.SectionSize.Location))
-        tagListViewHeight[6] = Constants.CellHeight.TagListViewCell
+        sectionsAndRows.append(.location)
+        tagListViewHeight[index] = Constants.CellHeight.TagListViewCell
+        index += 1
+        
         // countries section
-        sectionsAndRows.append(.country(TableStructure.SectionSize.Countries))
-        tagListViewHeight[7] = Constants.CellHeight.TagListViewCell
+        sectionsAndRows.append(.country)
+        tagListViewHeight[index] = Constants.CellHeight.TagListViewCell
+        index += 1
+
         //sectionsAndRows.append((
         //    SectionType.map,
         //    TableStructure.MapSectionSize,
@@ -339,7 +355,7 @@ class SupplyChainTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableStructure[section].numberOfRows
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -417,6 +433,7 @@ class SupplyChainTableViewController: UITableViewController {
                     tag: indexPath.section)
                 return cell
             }
+            
         case .periodAfterOpening:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for:PeriodAfterOpeningTableViewCell.self), for: indexPath) as! PeriodAfterOpeningTableViewCell
             switch periodAfterOpeningToDisplay {
@@ -428,6 +445,27 @@ class SupplyChainTableViewController: UITableViewController {
             cell.editMode = editMode
             cell.delegate = self
             cell.tag = indexPath.section
+            return cell
+            
+        // Basic default cell
+        case .customerService, .producerSupplied:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BasicTableViewCell.SupplyChainTableViewController", for: indexPath)
+            switch tableStructure[indexPath.section] {
+            case .producerSupplied:
+                if let validLanguageCode = displayLanguageCode,
+                    let validProducer = productPair?.remoteProduct?.producerLanguage[validLanguageCode] {
+                    cell.textLabel?.text = validProducer
+                } else {
+                    cell.textLabel?.text = "No producer supplied for this language"
+                }
+            default:
+                if let validLanguageCode = displayLanguageCode,
+                    let validCustomerService = productPair?.remoteProduct?.customerServiceLanguage[validLanguageCode] {
+                    cell.textLabel?.text = validCustomerService
+                } else {
+                    cell.textLabel?.text = "No customer service for this language"
+                }
+            }
             return cell
         }
     }
@@ -445,6 +483,22 @@ class SupplyChainTableViewController: UITableViewController {
         headerView.buttonNotDoubleTap = buttonNotDoubleTap
 
         switch tableStructure[section] {
+        case .customerService, .producerSupplied:
+            if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
+            // Hide the change language button if there is only one language, but not in editMode
+                headerView.changeLanguageButton.isHidden = validNumberOfProductLanguages > 1 ? false : !editMode
+            } else {
+                headerView.changeLanguageButton.isHidden = false
+            }
+            switch tableStructure[section] {
+            case .customerService:
+                headerView.title = "Customer Service" + " "
+            default:
+                headerView.title = "Producer (supplied)" + " "
+            }
+            headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
+            return headerView
+
         case .ingredientOrigin:
             switch productVersion {
             case .new:
@@ -742,7 +796,9 @@ extension SupplyChainTableViewController :  ExpirationDateTableViewDelegate {
 extension SupplyChainTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
-        // not needed
+        guard let primaryLanguageCode = self.productPair?.primaryLanguageCode else { return }
+        guard let languageCodes = self.productPair?.languageCodes else { return }
+        coordinator?.selectLanguage(primaryLanguageCode: primaryLanguageCode, currentLanguageCode: displayLanguageCode, productLanguageCodes: languageCodes, atAnchor: sender)
     }
     
     func changeViewModeButtonTapped(_ sender: UIButton, in section: Int) {

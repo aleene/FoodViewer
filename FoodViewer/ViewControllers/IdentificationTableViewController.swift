@@ -217,45 +217,17 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var tableStructure: [SectionType] = []
     
     fileprivate enum SectionType {
-        case barcode(Int, String)
-        case name(Int, String)
-        case genericName(Int, String)
-        case languages(Int, String)
-        case brands(Int, String)
-        case packaging(Int, String)
-        case quantity(Int, String)
-        case image(Int, String)
-        case comment(Int, String)
-        
-        var header: String {
-            switch self {
-            case .barcode(_, let headerTitle),
-                 .name(_, let headerTitle),
-                 .genericName(_, let headerTitle),
-                 .languages(_, let headerTitle),
-                 .brands(_, let headerTitle),
-                 .packaging(_, let headerTitle),
-                 .quantity(_, let headerTitle),
-                 .image(_, let headerTitle),
-                 .comment(_, let headerTitle):
-                return headerTitle
-            }
-        }
-        
-        var numberOfRows: Int {
-            switch self {
-            case .barcode(let numberOfRows, _),
-                 .name(let numberOfRows, _),
-                 .genericName(let numberOfRows, _),
-                 .languages(let numberOfRows, _),
-                 .brands(let numberOfRows, _),
-                 .packaging(let numberOfRows, _),
-                 .quantity(let numberOfRows, _),
-                 .image(let numberOfRows, _),
-                 .comment(let numberOfRows, _):
-                return numberOfRows
-            }
-        }
+        case barcode
+        case name
+        case genericName
+        case languages
+        case brands
+        case packaging
+        case quantity
+        case conservation
+        case preparation
+        case image
+        case comment
     }
 
     private var tagListViewHeight: [Int:CGFloat] = [:]
@@ -266,7 +238,7 @@ class IdentificationTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableStructure[section].numberOfRows
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -383,6 +355,26 @@ class IdentificationTableViewController: UITableViewController {
             cell.tag = indexPath.section
             return cell
             
+        case .preparation, .conservation:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BasicTableViewCell.IdentificationTableViewController", for: indexPath)
+            switch tableStructure[indexPath.section] {
+            case .preparation:
+                if let validLanguageCode = displayLanguageCode,
+                    let valid = productPair?.remoteProduct?.preparationLanguage[validLanguageCode] {
+                    cell.textLabel?.text = valid
+                } else {
+                    cell.textLabel?.text = "No preparation supplied for this language"
+                }
+            default:
+                if let validLanguageCode = displayLanguageCode,
+                    let valid = productPair?.remoteProduct?.conservationConditionsLanguage[validLanguageCode] {
+                    cell.textLabel?.text = valid
+                } else {
+                    cell.textLabel?.text = "No conservation conditions supplied for this language"
+                }
+            }
+            return cell
+            
         case .image:
             if currentImage.0 != nil {
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ProductImageTableViewCell.self), for: indexPath) as! ProductImageTableViewCell
@@ -406,6 +398,7 @@ class IdentificationTableViewController: UITableViewController {
                 cell.setup(datasource: self, delegate: self, editMode: editMode, width: tableView.frame.size.width, tag: indexPath.section, prefixLabelText: nil, scheme: ColorSchemes.error)
                 return cell
             }
+            
         // This section shows a personal comment by the user.
         // It is only stored locally and NOT uploaded to OFF.
         case .comment:
@@ -574,14 +567,13 @@ class IdentificationTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let currentProductSection = tableStructure[section]
-        switch currentProductSection {
-        case .barcode, .brands, .image, .name, .genericName, .packaging, .quantity :
-            return nil
-        default:
-            break
+        switch tableStructure[section] {
+        case .languages:
+            return TranslatableStrings.Languages
+        case .comment:
+            return TranslatableStrings.Comment
+        default: return nil
         }
-        return tableStructure[section].header
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -598,7 +590,7 @@ class IdentificationTableViewController: UITableViewController {
         headerView.buttonNotDoubleTap = buttonNotDoubleTap
         headerView.changeViewModeButton.isHidden = true
         
-        var header = tableStructure[section].header
+        var header = ""
         // The headers with a language
         switch currentProductSection {
             
@@ -729,6 +721,21 @@ class IdentificationTableViewController: UITableViewController {
             headerView.title = header
             return headerView
             
+        case .preparation, .conservation:
+            if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
+            // Hide the change language button if there is only one language, but not in editMode
+                headerView.changeLanguageButton.isHidden = validNumberOfProductLanguages > 1 ? false : !editMode
+            } else {
+                headerView.changeLanguageButton.isHidden = false
+            }
+            switch tableStructure[section] {
+            case .conservation:
+                    headerView.title = "Conservation" + " "
+            default:
+                    headerView.title = "Preparation" + " "
+            }
+            headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
+            return headerView
         default:
             return nil
         }
@@ -759,30 +766,6 @@ class IdentificationTableViewController: UITableViewController {
             return UITableView.automaticDimension
         }
     }
-    fileprivate struct TableSection {
-        struct Size {
-            static let Barcode = 1
-            static let Name = 1
-            static let CommonName = 1
-            static let Languages = 1
-            static let Brands = 1
-            static let Packaging = 1
-            static let Quantity = 1
-            static let Image = 1
-            static let Comment = 1
-        }
-        struct Header {
-            static let Barcode = TranslatableStrings.Barcode
-            static let Name = TranslatableStrings.Name
-            static let CommonName = TranslatableStrings.GenericName
-            static let Languages = TranslatableStrings.Languages
-            static let Brands = TranslatableStrings.Brands
-            static let Packaging = TranslatableStrings.Packaging
-            static let Quantity = TranslatableStrings.Quantity
-            static let Image = TranslatableStrings.MainImage
-            static let Comment = TranslatableStrings.Comment
-        }
-    }
 
     fileprivate func setupSections() -> [SectionType] {
         // The returnValue is an array with sections
@@ -790,18 +773,51 @@ class IdentificationTableViewController: UITableViewController {
         //
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
-        sectionsAndRows.append(.barcode(TableSection.Size.Barcode, TableSection.Header.Barcode))
-        sectionsAndRows.append(.name(TableSection.Size.Name, TableSection.Header.Name))
-        sectionsAndRows.append(.genericName(TableSection.Size.CommonName, TableSection.Header.CommonName))
-        tagListViewHeight[3] = Constants.CellHeight.TagListViewCell
-        sectionsAndRows.append(.languages(TableSection.Size.Languages, TableSection.Header.Languages))
-        tagListViewHeight[4] = Constants.CellHeight.TagListViewCell
-        sectionsAndRows.append(.brands(TableSection.Size.Brands, TableSection.Header.Brands))
+        var index = 0
+
+        sectionsAndRows.append(.barcode)
+        index += 1
+
+        sectionsAndRows.append(.name)
+        index += 1
+
+        sectionsAndRows.append(.genericName)
+        index += 1
+
+        sectionsAndRows.append(.languages)
+        tagListViewHeight[index] = Constants.CellHeight.TagListViewCell
+        index += 1
+
+        sectionsAndRows.append(.brands)
+        tagListViewHeight[index] = Constants.CellHeight.TagListViewCell
+        index += 1
+
+        sectionsAndRows.append(.packaging)
         tagListViewHeight[5] = Constants.CellHeight.TagListViewCell
-        sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
-        sectionsAndRows.append(.quantity(TableSection.Size.Quantity, TableSection.Header.Quantity))
-        sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
-        sectionsAndRows.append(.comment(TableSection.Size.Comment, TableSection.Header.Comment))
+        index += 1
+
+        sectionsAndRows.append(.quantity)
+        index += 1
+        
+        // conservation conditions supplied by the producer
+        if let valid = productPair?.remoteProduct?.conservationConditionsLanguage,
+            !valid.isEmpty {
+            sectionsAndRows.append(.conservation)
+            index += 1
+        }
+        
+        // preparation supplied by the producer
+        if let valid = productPair?.remoteProduct?.preparationLanguage,
+            !valid.isEmpty {
+            sectionsAndRows.append(.preparation)
+            index += 1
+        }
+
+        sectionsAndRows.append(.image)
+        index += 1
+        
+        sectionsAndRows.append(.comment)
+        index += 1
 
         return sectionsAndRows
     }

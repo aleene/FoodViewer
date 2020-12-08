@@ -80,6 +80,12 @@ final class SupplyChainCoordinator: Coordinator {
         coordinator.show()
     }
     
+    func selectLanguage(primaryLanguageCode: String, currentLanguageCode: String?, productLanguageCodes: [String], atAnchor button: UIButton) {
+        let coordinator = SelectLanguageCoordinator(with: self, primaryLanguageCode: primaryLanguageCode, currentLanguageCode: currentLanguageCode, languageCodes: productLanguageCodes, button: button)
+        self.childCoordinators.append(coordinator)
+        coordinator.show()
+    }
+
     /// Show the robotoff question viewcontroller
     func showQuestion(for productPair: ProductPair?, question: RobotoffQuestion, image: ProductImageSize?) {
         self.productPair = productPair
@@ -164,6 +170,18 @@ extension SupplyChainCoordinator: SelectPairCoordinatorProtocol {
         sender.dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension SupplyChainCoordinator: SelectLanguageCoordinatorProtocol {
+    
+    public func selectLanguageViewController(_ sender:SelectLanguageViewController, selected languageCode:String?) {
+        coordinatorViewController?.currentLanguageCode = languageCode
+        sender.dismiss(animated: true, completion: nil)
+    }
+    
+    public func selectLanguageViewControllerDidCancel(_ sender:SelectLanguageViewController) {
+        sender.dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - RobotoffQuestionCoordinatorProtocol

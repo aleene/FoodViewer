@@ -257,36 +257,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     // MARK: - Table view data source
     
     fileprivate enum SectionType {
-        case ingredients(Int)
-        case allergens(Int)
-        case minerals(Int)
-        case vitamins(Int)
-        case nucleotides(Int)
-        case otherNutritionalSubstances(Int)
-        case traces(Int)
-        case labels(Int)
-        case additives(Int)
-        case aminoAcids(Int)
-        case warning(Int)
-        case image(Int)
-        
-        var numberOfRows: Int {
-            switch self {
-            case .ingredients(let numberOfRows),
-                 .minerals(let numberOfRows),
-                 .vitamins(let numberOfRows),
-                 .nucleotides(let numberOfRows),
-                 .otherNutritionalSubstances(let numberOfRows),
-                 .allergens(let numberOfRows),
-                 .traces(let numberOfRows),
-                 .labels(let numberOfRows),
-                 .additives(let numberOfRows),
-                 .aminoAcids(let numberOfRows),
-                 .warning(let numberOfRows),
-                 .image(let numberOfRows):
-                return numberOfRows
-            }
-        }
+        case ingredients
+        case allergens
+        case minerals
+        case vitamins
+        case nucleotides
+        case otherNutritionalSubstances
+        case traces
+        case labels
+        case additives
+        case aminoAcids
+        case warning
+        case image
     }
     
     private var cellHeight: [Int:CGFloat] = [:]
@@ -310,8 +292,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let numberOfRows = tableStructure[section].numberOfRows
-        return numberOfRows
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -741,22 +722,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
         return "??"
     }
-
-    fileprivate struct TableSection {
-        struct Size {
-            static let Ingredients = 1
-            static let Minerals = 1
-            static let Vitamins = 1
-            static let Nucleotides = 1
-            static let OtherNutritionalSubstances = 1
-            static let Allergens = 1
-            static let Traces = 1
-            static let Additives = 1
-            static let Labels = 1
-            static let Warning = 1
-            static let Image = 1
-        }
-    }
     
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
@@ -774,7 +739,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         var sectionsAndRows: [SectionType] = []
         var rowIndex = 0
         
-        sectionsAndRows.append(.ingredients(TableSection.Size.Ingredients))
+        sectionsAndRows.append(.ingredients)
         cellHeight[0] = 44.0
         rowIndex += 1
         // not needed for .product, .petFood and .beauty
@@ -782,39 +747,39 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         case .food:
             // 1:  allergens section
             if validProductPair.hasAllergens || show {
-                sectionsAndRows.append(.allergens(TableSection.Size.Allergens))
+                sectionsAndRows.append(.allergens)
                 cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
                 rowIndex += 1
             }
             
             // 2: traces section
-            sectionsAndRows.append(.traces(TableSection.Size.Traces))
+            sectionsAndRows.append(.traces)
             cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
             rowIndex += 1
 
             if validProductPair.hasMinerals || show {
-                sectionsAndRows.append(.minerals(TableSection.Size.Minerals))
+                sectionsAndRows.append(.minerals)
                 cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
                 rowIndex += 1
             }
             if validProductPair.hasVitamins || show {
-                sectionsAndRows.append(.vitamins(TableSection.Size.Vitamins))
+                sectionsAndRows.append(.vitamins)
                 cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
                 rowIndex += 1
             }
             if validProductPair.hasNucleotides || show {
-                sectionsAndRows.append(.minerals(TableSection.Size.Nucleotides))
+                sectionsAndRows.append(.minerals)
                 cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
                 rowIndex += 1
             }
             if validProductPair.hasOtherNutritionalSubstances || show {
-                sectionsAndRows.append(.otherNutritionalSubstances(TableSection.Size.OtherNutritionalSubstances))
+                sectionsAndRows.append(.otherNutritionalSubstances)
                 cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
                 rowIndex += 1
             }
             if let validProductWarning = validProductPair.remoteProduct?.warningLanguage,
                 !validProductWarning.isEmpty {
-                sectionsAndRows.append(.warning(TableSection.Size.Warning))
+                sectionsAndRows.append(.warning)
                 cellHeight[rowIndex] = 44.0
                 rowIndex += 1
             }
@@ -823,13 +788,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             break
         }
         if validProductPair.hasAdditives {
-            sectionsAndRows.append(.additives(TableSection.Size.Additives))
+            sectionsAndRows.append(.additives)
             cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
             rowIndex += 1
         }
-        sectionsAndRows.append(.labels(TableSection.Size.Labels))
+        sectionsAndRows.append(.labels)
         cellHeight[rowIndex] = Constants.CellHeight.TagListViewCell
-        sectionsAndRows.append(.image(TableSection.Size.Image))
+        sectionsAndRows.append(.image)
         
         return sectionsAndRows
     }

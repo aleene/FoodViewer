@@ -362,10 +362,16 @@ class OFFProductDetailed: OFFProduct {
         // try to extract all language specific fields
         for languageCode in languages_codes {
             for key in container.allKeys {
-                if key.stringValue ==  KeyPreFix.ProductName + languageCode.key {
+                if key.stringValue == KeyPreFix.ConservationConditions + languageCode.key {
                     do {
                         let name = try container.decode(String.self, forKey: key)
-                        product_names_[languageCode.key] = name
+                        conservation_conditions_[languageCode.key] = name
+                    }
+                }
+                if key.stringValue == KeyPreFix.CustomerService + languageCode.key {
+                    do {
+                        let name = try container.decode(String.self, forKey: key)
+                        customer_service_[languageCode.key] = name
                     }
                 }
                 if key.stringValue == KeyPreFix.GenericName + languageCode.key {
@@ -386,16 +392,16 @@ class OFFProductDetailed: OFFProduct {
                         preparation_[languageCode.key] = name
                     }
                 }
-                if key.stringValue == KeyPreFix.CustomerService + languageCode.key {
+                if key.stringValue == KeyPreFix.Producer + languageCode.key {
                     do {
                         let name = try container.decode(String.self, forKey: key)
-                        customer_service_[languageCode.key] = name
+                        producer_[languageCode.key] = name
                     }
                 }
-                if key.stringValue == KeyPreFix.ConservationConditions + languageCode.key {
+                if key.stringValue ==  KeyPreFix.ProductName + languageCode.key {
                     do {
                         let name = try container.decode(String.self, forKey: key)
-                        conservation_conditions_[languageCode.key] = name
+                        product_names_[languageCode.key] = name
                     }
                 }
                 if key.stringValue == KeyPreFix.Warning + languageCode.key {
