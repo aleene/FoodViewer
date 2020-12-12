@@ -158,8 +158,9 @@ var delegate: ProductPageViewController? = nil {
         
         switch tableStructure[indexPath.section] {
         case .forestFootprint:
-            let cell = tableView.dequeueReusableCell(withIdentifier:  "ForestFootprinyViewCell.EnvironmentTableViewController", for: indexPath)
-            cell.accessoryType = .detailButton
+            let cell = tableView.dequeueReusableCell(withIdentifier:  "ForestFootprintViewCell.EnvironmentTableViewController", for: indexPath)
+            cell.accessoryType = productPair?.remoteProduct?.forestFootprint != nil
+                ? .detailButton : .none
             if let forestfootPrint = productPair?.remoteProduct?.forestFootprint?.footprintPerKg {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .decimal
@@ -170,10 +171,14 @@ var delegate: ProductPageViewController? = nil {
             }
             cell.detailTextLabel?.text = TranslatableStrings.ForestFootprintUnit
             return cell
+            
         case .ecoscore:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ImageTableViewCell.self), for: indexPath) as! ImageTableViewCell
+            cell.accessoryType = productPair?.remoteProduct?.ecoscoreData != nil
+                ? .detailButton : .none
             cell.setup(ecoscore: productPair?.remoteProduct?.ecoscore)
             return cell
+            
         case .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
             cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
@@ -221,6 +226,9 @@ var delegate: ProductPageViewController? = nil {
         case .forestFootprint:
             guard let validForestFootprint = productPair?.remoteProduct?.forestFootprint else { return }
             coordinator?.showForestFootprint(forestFootprint: validForestFootprint)
+        case .ecoscore:
+            guard let validEcoscoreData = productPair?.remoteProduct?.ecoscoreData else { return }
+            coordinator?.showEcoscoreData(ecoscoreData: validEcoscoreData)
         default: break
         }
     }

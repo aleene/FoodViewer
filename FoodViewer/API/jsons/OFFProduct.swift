@@ -71,6 +71,7 @@ class OFFProduct: Codable {
     var data_sources_tags: [String]? = nil
     var debug_param_sorted_langs: [String]? = nil
     //var ecoscore_alpha: String? = nil
+    var ecoscore_data: OFFProductEcoscoreData? = nil
     var ecoscore_grade: String? = nil
     var editors: [String]? = nil
     var editors_tags: [String]? = nil

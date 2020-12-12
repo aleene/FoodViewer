@@ -326,6 +326,7 @@
 		51895A092539F2C9007C82F8 /* EnvironmentCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895A082539F2C9007C82F8 /* EnvironmentCoordinator.swift */; };
 		518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B2FAB1CB13BB5007D8AB9 /* Section.swift */; };
 		518B70201EA2779D00AB35CC /* ProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B701F1EA2779C00AB35CC /* ProductType.swift */; };
+		518BFB422583A754006E26BE /* EcoscoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518BFB412583A754006E26BE /* EcoscoreTableViewCell.swift */; };
 		518ED6DD2028B008002176A9 /* ProductStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED6DC2028B007002176A9 /* ProductStorage.swift */; };
 		518ED6DF2028BB00002176A9 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED6DE2028BB00002176A9 /* URLExtension.swift */; };
 		5191878722F09C8E003D848D /* LevelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5191878622F09C8E003D848D /* LevelTableViewCell.swift */; };
@@ -417,6 +418,9 @@
 		51F057FB1CB68A3000849532 /* NatriumChloride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F057FA1CB68A3000849532 /* NatriumChloride.swift */; };
 		51F057FD1CB6AFEF00849532 /* OFFProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F057FC1CB6AFEF00849532 /* OFFProducts.swift */; };
 		51F6693A1F4499190074AACB /* AddImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F669381F4499190074AACB /* AddImageCollectionViewCell.xib */; };
+		51F81B7C25811A3700A2F9DF /* OFFProductEcoscoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F81B7B25811A3700A2F9DF /* OFFProductEcoscoreData.swift */; };
+		51F81B80258149C100A2F9DF /* EcoscoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F81B7F258149C100A2F9DF /* EcoscoreTableViewController.swift */; };
+		51F81B822582377300A2F9DF /* EcoscoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F81B812582377300A2F9DF /* EcoscoreCoordinator.swift */; };
 		51F9665E202D9E4000CD58C3 /* OFFProductStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F9665D202D9E4000CD58C3 /* OFFProductStates.swift */; };
 		51F96660202D9FC400CD58C3 /* OFFProductNutrientLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F9665F202D9FC400CD58C3 /* OFFProductNutrientLevel.swift */; };
 		51F96662202DA01A00CD58C3 /* OFFProductNutrientLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F96661202DA01900CD58C3 /* OFFProductNutrientLevels.swift */; };
@@ -823,6 +827,7 @@
 		5189FEB82556E25A00379D13 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Localisation/de.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		518B2FAB1CB13BB5007D8AB9 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		518B701F1EA2779C00AB35CC /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
+		518BFB412583A754006E26BE /* EcoscoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EcoscoreTableViewCell.swift; path = Cells/EcoscoreTableViewCell.swift; sourceTree = "<group>"; };
 		518ED6DC2028B007002176A9 /* ProductStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductStorage.swift; sourceTree = "<group>"; };
 		518ED6DE2028BB00002176A9 /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = URLExtension.swift; path = FoodViewer/Extensions/URLExtension.swift; sourceTree = SOURCE_ROOT; };
 		5191878622F09C8E003D848D /* LevelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LevelTableViewCell.swift; path = Cells/LevelTableViewCell.swift; sourceTree = "<group>"; };
@@ -919,6 +924,9 @@
 		51F057FA1CB68A3000849532 /* NatriumChloride.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NatriumChloride.swift; sourceTree = "<group>"; };
 		51F057FC1CB6AFEF00849532 /* OFFProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFProducts.swift; sourceTree = "<group>"; };
 		51F669381F4499190074AACB /* AddImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		51F81B7B25811A3700A2F9DF /* OFFProductEcoscoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductEcoscoreData.swift; sourceTree = "<group>"; };
+		51F81B7F258149C100A2F9DF /* EcoscoreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EcoscoreTableViewController.swift; path = ViewControllers/EcoscoreTableViewController.swift; sourceTree = "<group>"; };
+		51F81B812582377300A2F9DF /* EcoscoreCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EcoscoreCoordinator.swift; path = Coordinators/SecondLevel/EcoscoreCoordinator.swift; sourceTree = "<group>"; };
 		51F9665D202D9E4000CD58C3 /* OFFProductStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductStates.swift; sourceTree = "<group>"; };
 		51F9665F202D9FC400CD58C3 /* OFFProductNutrientLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductNutrientLevel.swift; sourceTree = "<group>"; };
 		51F96661202DA01900CD58C3 /* OFFProductNutrientLevels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductNutrientLevels.swift; sourceTree = "<group>"; };
@@ -1000,6 +1008,7 @@
 				51A94B0F256195A700C5B4C7 /* OFFocrJson.swift */,
 				51992FC8253C3B6500C44214 /* OFFRobotoffInsight.swift */,
 				51992FCA253DC94400C44214 /* OFFRobotoffQuestion.swift */,
+				51F81B7B25811A3700A2F9DF /* OFFProductEcoscoreData.swift */,
 			);
 			path = jsons;
 			sourceTree = "<group>";
@@ -1013,7 +1022,9 @@
 				512B44A623FAB97E00BFBCF0 /* EditNutrientsViewController.swift */,
 				512B44A823FAB98600BFBCF0 /* ExtendLanguagesViewController.swift */,
 				512B44AA23FAB99000BFBCF0 /* FavoriteShopsTableViewController.swift */,
+				514CA08A2573F02200243193 /* ForestFootprintViewController.swift */,
 				512B44AC23FAB99800BFBCF0 /* MainLanguageViewController.swift */,
+				51F81B7F258149C100A2F9DF /* EcoscoreTableViewController.swift */,
 				51A16AA31DC0DB16005F59E6 /* ProductUpdatedProtocol.swift */,
 				51992FDA25418F8500C44214 /* RobotoffQuestionViewController.swift */,
 				512B44B423FAB9CD00BFBCF0 /* SelectCompareViewController.swift */,
@@ -1024,12 +1035,11 @@
 				512B44BE23FABA0900BFBCF0 /* SelectLanguageAndImageTypeViewController.swift */,
 				512B44C223FABA2100BFBCF0 /* SelectNutrientUnitViewController.swift */,
 				51216E2B20B71BEE004D356C /* SelectNutritionFactsTableStyleTableViewCell.swift */,
-				512B44AE23FAB9AD00BFBCF0 /* SetCreationDateViewController.swift */,
 				512B44C023FABA1500BFBCF0 /* SelectLanguageViewController.swift */,
+				515E715023D1B7840028D0A8 /* SelectPairViewController.swift */,
+				512B44AE23FAB9AD00BFBCF0 /* SetCreationDateViewController.swift */,
 				512B44B023FAB9B600BFBCF0 /* SetLastEditDateViewController.swift */,
 				512B44B223FAB9BF00BFBCF0 /* SetSortOrderViewController.swift */,
-				515E715023D1B7840028D0A8 /* SelectPairViewController.swift */,
-				514CA08A2573F02200243193 /* ForestFootprintViewController.swift */,
 			);
 			name = EditPages;
 			sourceTree = "<group>";
@@ -1217,6 +1227,7 @@
 			isa = PBXGroup;
 			children = (
 				512B454B23FD7A8400BFBCF0 /* SelectNutritionFactsTableStyleCoordinator.swift */,
+				51F81B812582377300A2F9DF /* EcoscoreCoordinator.swift */,
 				514CA08E25740B3900243193 /* ForestFootprintCoordinator.swift */,
 				512B455323FD91AA00BFBCF0 /* SelectExpirationDateCoordinator.swift */,
 				512B454323FD3DDA00BFBCF0 /* ImageViewCoordinator.swift */,
@@ -1790,6 +1801,7 @@
 				512B44D423FABAF600BFBCF0 /* ButtonTableViewCell.swift */,
 				512B451C23FAC0B900BFBCF0 /* CollectionViewCells */,
 				514CA096257534A400243193 /* ForestFootprintIngredientTableViewCell.swift */,
+				518BFB412583A754006E26BE /* EcoscoreTableViewCell.swift */,
 				51C829D42576BF8B00BD981C /* ForestFootprintIngredientHeaderTableViewCell.swift */,
 				51B3838D1F8936D30086581C /* ButtonWithSegmentedControlTableViewCell.swift */,
 				512B44C823FABAAA00BFBCF0 /* SetWarningTableViewCell.swift */,
@@ -2083,6 +2095,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51F81B7C25811A3700A2F9DF /* OFFProductEcoscoreData.swift in Sources */,
 				512B44EF23FABB8A00BFBCF0 /* QuantityTableViewCell.swift in Sources */,
 				514CA0832571495400243193 /* ImageTableViewCell.swift in Sources */,
 				51E8573D1FF00ABC0045B4B3 /* UIImageViewExtension.swift in Sources */,
@@ -2189,6 +2202,7 @@
 				516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */,
 				511DB40D1E09B181009D4A4B /* OFFWriteAPI.swift in Sources */,
 				512B453723FB019F00BFBCF0 /* SettingsCoordinator.swift in Sources */,
+				51F81B822582377300A2F9DF /* EcoscoreCoordinator.swift in Sources */,
 				512B440123FAB1C700BFBCF0 /* Haneke.swift in Sources */,
 				512B44EB23FABB7A00BFBCF0 /* BarcodeTableViewCell.swift in Sources */,
 				51C8A6D01F67C38800B3C361 /* CompletionCategory.swift in Sources */,
@@ -2336,6 +2350,7 @@
 				512B442623FAB20100BFBCF0 /* GKImagePickerProtocol.swift in Sources */,
 				5199718020FA528600556467 /* Reachability.swift in Sources */,
 				51E6D79223F1AE6A00AD7947 /* NutrientsCoordinator.swift in Sources */,
+				51F81B80258149C100A2F9DF /* EcoscoreTableViewController.swift in Sources */,
 				512B454C23FD7A8400BFBCF0 /* SelectNutritionFactsTableStyleCoordinator.swift in Sources */,
 				51E1C3652045EB4200CB68B1 /* ImageDeselect.swift in Sources */,
 				519884DE1CE4C62F0020B3A1 /* NutritionAvailability.swift in Sources */,
@@ -2400,6 +2415,7 @@
 				51749980220C592700C3ED3E /* Search.swift in Sources */,
 				5154DEE52211C5F900C49EBE /* OFFProductImageDetailed.swift in Sources */,
 				512B455123FD7F3A00BFBCF0 /* SelectLanguageAndImageTypeCoordinator.swift in Sources */,
+				518BFB422583A754006E26BE /* EcoscoreTableViewCell.swift in Sources */,
 				512B44F123FABB9B00BFBCF0 /* IngredientsFullTableViewCell.swift in Sources */,
 				515A5A5225583D3F002DEEBA /* WindowBuilder.swift in Sources */,
 				512B44BB23FAB9EF00BFBCF0 /* SelectExpirationDateViewController.swift in Sources */,

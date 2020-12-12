@@ -36,7 +36,7 @@ final class EnvironmentCoordinator: Coordinator {
         // Done in the viewController?
     }
 
-    /// Show the image with the current display language
+   /// Show the image with the current display language
     func showImage(imageTitle: String?, imageSize: ProductImageSize?) {
         
         let coordinator = ImageViewCoordinator(with: self, imageTitle: imageTitle, imageSize: imageSize)
@@ -44,12 +44,20 @@ final class EnvironmentCoordinator: Coordinator {
         coordinator.show()
     }
     
-    /// Show the forest footprint data details
+/// Show the forest footprint data details
     func showForestFootprint(forestFootprint: ForestFootprint) {
         let coordinator = ForestFootprintCoordinator(with: self, forestFootprint: forestFootprint)
         self.childCoordinators.append(coordinator)
         coordinator.show()
     }
+    
+/// Show the ecoscore data details
+    func showEcoscoreData(ecoscoreData: OFFProductEcoscoreData) {
+        let coordinator = EcoscoreCoordinator(with: self, ecoscoreData: ecoscoreData)
+        self.childCoordinators.append(coordinator)
+        coordinator.show()
+    }
+
 /**
 Shows a popover viewController with a pickerView that allows the user to select a language.
          
@@ -92,6 +100,7 @@ The selected language will be used to change the current display language of the
     }
 }
 
+// MARK: - ImageCoordinatorProtocol
 
 extension EnvironmentCoordinator: ImageCoordinatorProtocol {
     
@@ -100,9 +109,20 @@ extension EnvironmentCoordinator: ImageCoordinatorProtocol {
     }
 }
 
+// MARK: - ForestFootprintCoordinatorProtocol
+
 extension EnvironmentCoordinator: ForestFootprintCoordinatorProtocol {
     
     func forestFootprintViewControllerDidTapDone(_ sender: ForestFootprintViewController) {
+        sender.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - EcoscoreCoordinatorProtocol
+
+extension EnvironmentCoordinator: EcoscoreCoordinatorProtocol {
+    
+    func ecoscoreViewControllerDidTapDone(_ sender: EcoscoreTableViewController) {
         sender.dismiss(animated: true, completion: nil)
     }
 }

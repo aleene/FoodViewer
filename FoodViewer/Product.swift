@@ -607,6 +607,8 @@ class FoodProduct {
     var nutritionalScoreFRCalculated: NutritionalScoreFR? = nil
 
     var ecoscore: Ecoscore = .unknown
+    var ecoscoreData: OFFProductEcoscoreData? = nil
+    
     var purchasePlacesAddress: Address? = nil //or a set?
     var purchasePlacesInterpreted: Tags = .undefined
     var purchasePlacesOriginal: Tags = .undefined
@@ -1139,6 +1141,8 @@ class FoodProduct {
         }
         return filteredQuestions
     }
+    
+    
     /*
     struct UniqueContributors {
         var contributors: [Contributor] = []
@@ -1653,6 +1657,7 @@ class FoodProduct {
         
         lastEditDates = decodeLastEditDates(validProduct.last_edit_dates_tags)
         
+        
         // the labels as interpreted by OFF (a list of strings)
         labelsInterpreted = Tags(list: validProduct.labels_tags)
         // the labels as the user has entered them (a comma delimited string)
@@ -1998,6 +2003,7 @@ class FoodProduct {
         if let validEcoscore = validProduct.ecoscore_grade {
             ecoscore = Ecoscore(rawValue: "\(validEcoscore)") ?? .unknown
         }
+        ecoscoreData = validProduct.ecoscore_data
         storesOriginal = Tags(string: validProduct.stores)
         storesInterpreted = Tags(list: validProduct.stores_tags)
         
