@@ -234,22 +234,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7E7123EA-A0A1-451A-91A6-1F9FBA843998"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FoodViewer/ViewControllers/SingleProductTableViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "selectedProductPair"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "03E5422F-040A-4A60-9D58-0E2380669ABB"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -929,8 +913,8 @@
             filePath = "FoodViewer/ViewControllers/SingleProductTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "521"
-            endingLineNumber = "521"
+            startingLineNumber = "529"
+            endingLineNumber = "529"
             landmarkName = "imageSet(_:)"
             landmarkType = "7">
          </BreakpointContent>

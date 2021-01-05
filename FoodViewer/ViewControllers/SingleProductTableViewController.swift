@@ -173,6 +173,7 @@ class SingleProductTableViewController: UITableViewController {
         case ingredients
         case nutritionFacts
         case nutritionScore
+        case environment
         case categories
         case completion
         case diets
@@ -199,6 +200,8 @@ class SingleProductTableViewController: UITableViewController {
                 return .supplyChain
             case .diets:
                 return .dietCompliancy
+            case .environment:
+                return .environment
             }
         }
     }
@@ -207,7 +210,7 @@ class SingleProductTableViewController: UITableViewController {
     private var tableStructure: [RowType] {
         switch currentProductType {
         case .food:
-            return [.name, .image, .nutritionScore, .ingredientsAllergensTraces, .diets, .nutritionFacts, .supplyChain, .categories, .completion]
+            return [.name, .image, .nutritionScore, .ingredientsAllergensTraces, .diets, .nutritionFacts, .supplyChain, .environment, .categories, .completion]
         case .petFood:
             return [.name, .image, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
         case .beauty:
@@ -329,6 +332,11 @@ class SingleProductTableViewController: UITableViewController {
             cell?.product = selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct
             return cell!
                     
+        case .environment:
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: PackagingTableViewCell.self), for: indexPath) as? PackagingTableViewCell
+            cell?.ecoscore = selectedProductPair?.remoteProduct?.ecoscore
+            return cell!
+
         case .categories:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: LabelWithBadgeTableViewCell.self), for: indexPath) as! LabelWithBadgeTableViewCell
             cell.labelText = TranslatableStrings.Categories

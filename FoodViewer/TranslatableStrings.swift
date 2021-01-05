@@ -203,7 +203,7 @@ struct TranslatableStrings {
     static let ForestFootprintDescription = NSLocalizedString("Forest footprint\n(m² per kg of food)", comment: "Title of the vc.")
     static let ForestFootprintConclusion = NSLocalizedString("Total forest footprint\n(m² per kg of food)", comment: "Conclusion line in forest footprint explanation vc.")
     static let ForestFootprintDeforestationRisk = NSLocalizedString("Deforestation risk\n(%)", comment: "Conclusion line in forest footprint explanation vc.")
-    static let ForestFootprintExplanation = NSLocalizedString("The forest footprint is calculated by taking into account the ingredients whose production requires soybeans whose cultivation is linked to deforestation. ", How:" The forest footprint is calculated by taking into account the ingredients whose production requires soybeans whose cultivation is linked to deforestation.")
+    static let ForestFootprintExplanation = NSLocalizedString("The forest footprint is calculated by taking into account the ingredients whose production requires soybeans whose cultivation is linked to deforestation.", comment: "Cell text explaing the forest footprint")
     static let ForestFootprintPercentInProduct = NSLocalizedString("percentage in product.", comment: "Percent of ingredient in product")
     static let ForestFootprintProcessingFactor = NSLocalizedString("Processing factor\n(percentage of food after processing)", comment: "Percent of ingredient in product")
     static let ForestFootprintSoyFeedFactor = NSLocalizedString("Soy feed factor\n(kg of soy per kg of food)", comment: "Percent of ingredient in product")

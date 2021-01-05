@@ -45,6 +45,7 @@
 		51216E2C20B71BEE004D356C /* SelectNutritionFactsTableStyleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51216E2B20B71BEE004D356C /* SelectNutritionFactsTableStyleTableViewCell.swift */; };
 		512390FA1E7BEA0700A5D6FD /* PercentUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512390F91E7BEA0700A5D6FD /* PercentUnit.swift */; };
 		512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */; };
+		5125D27625A4DBD20064AC39 /* PackagingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125D27525A4DBD20064AC39 /* PackagingTableViewCell.swift */; };
 		5127CDEF1E48A03600944FE8 /* ProductImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDEE1E48A03600944FE8 /* ProductImageData.swift */; };
 		5127CDF11E48A0FF00944FE8 /* ProductImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDF01E48A0FF00944FE8 /* ProductImageSize.swift */; };
 		512B43BA23FAB05500BFBCF0 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512B43B923FAB05500BFBCF0 /* Coordinator.swift */; };
@@ -513,6 +514,7 @@
 		51216E2B20B71BEE004D356C /* SelectNutritionFactsTableStyleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectNutritionFactsTableStyleTableViewCell.swift; path = Cells/SelectNutritionFactsTableStyleTableViewCell.swift; sourceTree = "<group>"; };
 		512390F91E7BEA0700A5D6FD /* PercentUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PercentUnit.swift; sourceTree = "<group>"; };
 		5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetchResult.swift; sourceTree = "<group>"; };
+		5125D27525A4DBD20064AC39 /* PackagingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PackagingTableViewCell.swift; path = Cells/PackagingTableViewCell.swift; sourceTree = "<group>"; };
 		5127CDEE1E48A03600944FE8 /* ProductImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageData.swift; sourceTree = "<group>"; };
 		5127CDF01E48A0FF00944FE8 /* ProductImageSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageSize.swift; sourceTree = "<group>"; };
 		512B43B923FAB05500BFBCF0 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = Coordinators/Coordinator.swift; sourceTree = "<group>"; };
@@ -1532,6 +1534,7 @@
 				5192BE1020DA8AE40068C961 /* LabelWithBadgeTableViewCell.swift */,
 				512B44CE23FABACB00BFBCF0 /* NameTableViewCell.swift */,
 				512B44D223FABAE200BFBCF0 /* NutritionScoreTableViewCell.swift */,
+				5125D27525A4DBD20064AC39 /* PackagingTableViewCell.swift */,
 			);
 			name = "Product Cells";
 			sourceTree = "<group>";
@@ -2273,6 +2276,7 @@
 				512B449523FAB8BD00BFBCF0 /* SupplyChainTableViewController.swift in Sources */,
 				512B441E23FAB20100BFBCF0 /* GKResizableCropOverlayView.swift in Sources */,
 				51992FDD2546C30500C44214 /* DateExtension.swift in Sources */,
+				5125D27625A4DBD20064AC39 /* PackagingTableViewCell.swift in Sources */,
 				512B444A23FAB23600BFBCF0 /* RSCode39Mod43Generator.swift in Sources */,
 				515A5A5425583D3F002DEEBA /* ProgressViewController.swift in Sources */,
 				515A5A5725583D3F002DEEBA /* GreenLightStyle.swift in Sources */,
@@ -2743,13 +2747,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 63;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FoodViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.9;
+				MARKETING_VERSION = 3.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2770,13 +2774,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 63;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = FoodViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.9;
+				MARKETING_VERSION = 3.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
