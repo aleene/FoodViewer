@@ -25,6 +25,9 @@
 /* Title of first segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value) */
 "100 mg/ml" = "100 mg/ml";
 
+/* Text of 1st segment of a SegmentedControl, indicating the model of the nutrient values, i.e. per standard 100g or 100 ml */
+"100g/ml" = "100g/ml";
+
 /* String (in Segmented Control) to indicate the best nutritional score level */
 "A" = "A";
 
@@ -102,6 +105,30 @@
 
 /* Cell title indicating the product belongs to the beverages category */
 "Beverages category" = "Kategorie Getränke";
+
+/* Cell text label indicating the bonus values for the environmental politics */
+"Bonus environmental politics" = "Bonus Umweltpolitik";
+
+/* Cell text label indicating the bonus values for transport */
+"Bonus transport" = "Bonus Transport";
+
+/* Cell text label indicating the bonus/malus values for the environmental politics */
+"Bonus/malus environmental politics" = "Bonus / Malus Umweltpolitik";
+
+/* Cell text label indicating the bonus/malus values for transport */
+"Bonus/malus transport" = "Bonus/Malus Transport";
+
+/* tableView section header indicating the menaced species impact */
+"Bonus/Malus: Menaced Species" = "Bonus / Malus: Bedrohte Arten";
+
+/* tableView section header indicating the impact of the origin of the ingredients */
+"Bonus/Malus: Origin of Ingredients" = "Bonus / Malus: Herkunft der Zutaten";
+
+/* tableView section header indicating the packaging impact */
+"Bonus/Malus: Packaging" = "Bonus / Malus: Packaging";
+
+/* tableView section header indicating the impact of the production system used */
+"Bonus/Malus: Production System" = "Bonus / Malus: Verpackung";
 
 /* Tableview sectionheader for brands. */
 "Brands" = "Marken";
@@ -214,6 +241,9 @@
 /* String in Segmented Control to indicate the fourth best nutritional score level */
 "D" = "D";
 
+/* Text of 3rd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving and in daily value percentage */
+"Daily value" = "Täglicher Wert";
+
 /* Title of third segment in switch, which lets the user select between per daily value (per 100 mg/ml / per serving / per daily value) */
 "Daily Value" = "Täglicher Wert";
 
@@ -240,6 +270,9 @@
 
 /* String to indicate a product has not yet been retrieved from OFF yet and is only locally available */
 "Default product type" = "Standard Produkttyp";
+
+/* Conclusion line in forest footprint explanation vc. */
+"Deforestation risk\n(%)" = "Abholzungsrisiko\n(%)";
 
 /* Title of abutton, which allows the user to view the details of a scanned product. */
 "Details" = "Details";
@@ -332,6 +365,12 @@
 /* String in Segmented Control to indicate the fifth best (and last) nutrition score level */
 "E" = "E";
 
+/* Header Title for the Ecoscore */
+"Eco-Score" = "Eco-Score";
+
+/* Title for the explanation of the Ecoscore */
+"Ecoscore Details" = "Eco-Score Detaillierung";
+
 /* Title of viewcontroller which allows editing of the product in a webview. */
 "Edit" = "Bearbeite";
 
@@ -413,6 +452,9 @@
 /* Cell title indicating the product belongs to the fats category */
 "Fats category" = "Kategorie Fette und Öle";
 
+/* tableView section header indicating that the total score */
+"Final Score" = "Final Score";
+
 /* Title of SegmentedControl segment. */
 "Food" = "Lebensmittel";
 
@@ -422,8 +464,17 @@
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Food Products" = "Lebensmittelprodukte";
 
+/* Percent of ingredient in product */
+"footprint not available" = "Abdrück nicht verfügbar";
+
 /* Explanatory text in AlertViewController, which shows the intended search */
 "for %@ in %@" = "nach %1$@ in %2$@";
+
+/* Title of the vc. */
+"Forest Footprint" = "Waldabdruck";
+
+/* Title of the vc. */
+"Forest footprint\n(m² per kg of food)" = "Waldfußabdruck\n(m² pro kg Lebensmittel)";
 
 /* Title for the viewcontroller with the front image */
 "Front Image" = "Produktfoto Vorderseite";
@@ -485,8 +536,14 @@
 /* String in PickerViewController to indicate the informer role of a contributor */
 "Informer" = "Hinweisgeber";
 
+/* Text to indicate the ingredients of a product. */
+"Ingredient" = "Zutate";
+
 /* Text to indicate a specific ingredient. */
 "Ingredient %@" = "Zutate %@";
+
+/* Percent of ingredient in product */
+"Ingredient Type" = "Zutatenart";
 
 /* Text to indicate the ingredients of a product. */
 "Ingredients" = "Zutaten";
@@ -531,6 +588,9 @@
 /* Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories */
 "Kilocalories" = "Kilokalorien";
 
+/* Text of 4rd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per kilogram or liter */
+"Kilogram" = "Kilogramm";
+
 /* Generic string for labels on product */
 "Labels" = "Kennzeichnungen, Zertifizierungen, Preise";
 
@@ -561,14 +621,23 @@
 /* String presented in a tagView if there are more results available */
 "Load more results" = "Weitere Ergebnisse laden";
 
-/* Message as tag when the search is loading. */
+/* Message as tag when something is loading. */
 "Loading" = "Laden";
 
 /* Error message when the product failed to load. */
 "Loading Failed" = "Laden fehlgeschlagen";
 
+/* Percent of ingredient in product */
+"m² per kg of food" = "m² pro kg Lebensmittel";
+
 /* Tableview sectionheader for main image of package. */
 "Main Image" = "Produktfoto Vorderseite";
+
+/* Cell text label indicating the malus values for the environmental politics */
+"Malus environmental politics" = "Malus Umweltpolitik";
+
+/* Cell text label indicating the malus values for transport */
+"Malus transport" = "Malus Transport";
 
 /* Generic string to indicate the manufaturer of the product. */
 "Manufacturer" = "Hersteller/Verarbeiter";
@@ -633,11 +702,17 @@
 /* Text in a TagListView, when no ingredients are available in the product data. */
 "no ingredients specified" = "Kein Zutaten angegeben";
 
+/* Cell text label saying that none of the product lables are relevant */
+"No labels taken into account" = "Keine Etiketten berücksichtigt";
+
 /* Text for language of product, when there is no language defined. */
 "no language defined" = "Kein Sprache angegeben";
 
 /* String when no diet matches have been found. */
 "No matches for this level detected" = "Keine Übereinstimmungen für dieses Level festgestellt";
+
+/* Cell text label indicating that no menaced species were used for the calculation */
+"No menaced species taken into account" = "Keine bedrohten Arten berücksichtigt";
 
 /* Text for productname, when no productname is available in the product data. */
 "no name specified" = "Kein Name angegeben";
@@ -656,6 +731,12 @@
 
 /* Text in a TagListView, when no nutrition data has been specified in the product data. */
 "no nutrition data indicated" = "Keine Nährstoffe angegeben";
+
+/* Cell text label indicating that no valid origins could be found */
+"No origins specified" = "No origins specified";
+
+/* Text to indicate that no packaging has been defined. */
+"No packing defined" = "Keine Herkunft angegeben";
 
 /* Text to indicate that the history of products is empty. */
 "No products listed" = "Kein Produkte angegeben.";
@@ -677,6 +758,9 @@
 
 /* Title for viewcontroller with detailed product images, when no title is given. */
 "No title" = "Kein Titel";
+
+/* Cell text label indicating that the total score could not be calculated */
+"no total score" = "keine Gesamtpunktzahl";
 
 /* Text for language of product, when there is no trace defined. */
 "no trace defined" = "kein Spur definiert";
@@ -847,6 +931,12 @@
 /* Tableview sectionheader for packaging, original version. */
 "Packaging (non-edited)" = "Verpackungsart (unbearbeitet)";
 
+/* Cell text label indicating that no menaced species were used for the calculation */
+"packaging has an unrecognized material" = "Verpackung hat ein nicht erkanntes Material";
+
+/* Cell text label indicating that no menaced species were used for the calculation */
+"packaging has an unrecognized shape" = "Verpackung hat eine nicht erkannte Form";
+
 /* Title for the viewcontroller with the packaging image */
 "Packaging Image" = "Verpackungsartfoto";
 
@@ -859,14 +949,11 @@
 /* String in textField placeholder, to show that the user has to enter his password */
 "Password" = "Passwort";
 
-/* Text of 1st segment of a SegmentedControl, indicating the model of the nutrient values, i.e. per standard 100g or 100 ml */
-"Per 100 mg/ml" = "Pro 100 mg/ml";
-
-/* Text of 2nd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving */
-"Per serving" = "Pro Portion";
-
 /* Fraction of total by volume */
 "percentage (%)" = "Prozentsatz (%)";
+
+/* Percent of ingredient in product */
+"percentage in product." = "Prozentsatz im Produkt.";
 
 /* Header title of tableview section, indicating period after opening for beauty products */
 "Period After Opening" = "Nach dem Öffnen zu verbrauchen bis";
@@ -919,11 +1006,23 @@
 /* Description of the prefixed corrected tags */
 "Prefix corrected" = "Corrigierte prefix";
 
+/* TableView header for product preparation (prepared/unprepared). */
+"Preparation" = "Beretung";
+
+/* TableView header for product preparation (prepared/unprepared) if it has been changed. */
+"Preparation (edited)" = "Bereitung (bearbeitet)";
+
 /* Button title to start preparing for the next set of questions */
 "Prepare Game" = "Spiel vorbereiten";
 
+/* Text to indicate a preparartion type (Prepared) related to the nutritional values. */
+"Prepared" = "Bereitet";
+
 /* Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion. */
 "Presentation format" = "Präsentationsformat";
+
+/* Percent of ingredient in product */
+"Processing factor\n(percentage of food after processing)" = "Verarbeitungsfaktor\n(Prozentsatz der Lebensmittel nach der Verarbeitung)";
 
 /* Header for section of tableView with information of the producer (name, geographic location). */
 "Producer" = "Hersteller";
@@ -1009,6 +1108,9 @@
 /* Tableview sectionheader for the original size of package. */
 "Quantity (non-edited)" = "Mengenangabe (unbearbeitet)";
 
+/* tableView section header indicating the lifecycle reference score */
+"Reference Score: Lifecycle Analysis" = "Referenzwert: Lebenszyklusanalyse";
+
 /* String in button, to let the user indicate he wants to cancel username/password input. */
 "Reset application" = "App zurücksetzen";
 
@@ -1041,6 +1143,9 @@
 
 /* Title of the first tab of a tabbarVC */
 "Scanner" = "Scanner";
+
+/* Cell text label for the Agribalyse Lifecycle value */
+"Score ACV" = "Punktzahl LZA";
 
 /* Title of a tableview header, which shows the Nutrition Score and Nova Value */
 "Score Summary" = "Beurteilungszusammenfassung";
@@ -1151,7 +1256,8 @@
 /* Title of a tableview section with the selected traces for a product. */
 "Selected Traces" = "Gewählte Spuren";
 
-/* Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value) */
+/* Text of 2nd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving and in mg
+   Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value) */
 "Serving" = "Portion";
 
 /* Title of a segment in a segmentedControl indicating that the a search needs to be setup by tapping. */
@@ -1186,6 +1292,12 @@
 
 /* Title of third segment in switch, which lets the user select between salt or sodium */
 "Sodium" = "Natrium";
+
+/* Percent of ingredient in product */
+"Soy feed factor\n(kg of soy per kg of food)" = "Soja-Futterfaktor\n(kg Soja pro kg Lebensmittel)";
+
+/* Percent of ingredient in product */
+"Soy yield\n(kg of soy per m²)" = "Sojaertrag\n(kg Soja pro m²)";
 
 /* Header for a table section showing the special categories */
 "Special categories" = "Ausnahme Kategorien";
@@ -1244,6 +1356,12 @@
 /* An explanatory text in the common name field. */
 "This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Dieses Produktbeispiel zeigt Ihnen, wie ein Produkt präsentiert wird. Streichen Sie zu den anderen Seiten, um weitere Produktdetails anzuzeigen. Sobald Sie mit dem Scannen von Barcodes beginnen, wird dieses Produkt nicht mehr angezeigt.";
 
+/* Conclusion line in forest footprint explanation vc. */
+"Total forest footprint\n(m² per kg of food)" = "Gesamtwaldfläche\n(m² pro kg Lebensmittel)";
+
+/* Cell text label indicating that no menaced species were used for the calculation */
+"Total of all packaging parts" = "Insgesamt alle Verpackungsteile";
+
 /* Text to indicate the traces of a product. */
 "Traces" = "Spuren";
 
@@ -1267,6 +1385,9 @@
 
 /* Text in a TagListView, when the field in the json was not present. */
 "Unknown" = "Unbekannt";
+
+/* Text to indicate a preparartion type (Unprepared) related to the nutritional values. */
+"Unprepared" = "Unbereitet";
 
 /* Title of a tableview section with a list of categories that can be selected. */
 "Unselected Categories" = "Zu wählen Kategorien";

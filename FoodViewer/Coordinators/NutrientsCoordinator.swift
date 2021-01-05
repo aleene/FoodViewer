@@ -40,35 +40,63 @@ final class NutrientsCoordinator: Coordinator {
     // Show the image with the current display language
     // The coordinator does the right image selection
     func showImage(imageTitle: String?, imageSize: ProductImageSize?) {
-        let coordinator = ImageViewCoordinator(with: self, imageTitle: imageTitle, imageSize: imageSize)
+        let coordinator = ImageViewCoordinator(with: self,
+                                               imageTitle: imageTitle,
+                                               imageSize: imageSize)
         childCoordinators.append(coordinator)
         coordinator.show()
     }
 
-    func showNutrientUnitSelector(for productPair: ProductPair?, nutrient: Nutrient?, unit: NutritionFactUnit?, perUnit: NutritionEntryUnit, anchoredOn button: UIButton) {
+    func showNutrientUnitSelector(for productPair: ProductPair?,
+                                  nutrient: Nutrient?,
+                                  unit: NutritionFactUnit?,
+                                  perUnit: NutritionEntryUnit,
+                                  nutritionFactsPreparationStyle: NutritionFactsPreparationStyle,
+                                  anchoredOn button: UIButton) {
         self.productPair = productPair
         self.perUnit = perUnit
-        let coordinator = NutrientUnitSelectorCoordinator(with: self, nutrient: nutrient, unit: unit, button: button)
+        let coordinator = NutrientUnitSelectorCoordinator(with: self,
+                                                          nutrient: nutrient,
+                                                          unit: unit,
+                                                          nutritionFactsPreparationStyle: nutritionFactsPreparationStyle,
+                                                          button: button)
         childCoordinators.append(coordinator)
         coordinator.show()
     }
 
-    func showAddNutrientSelector(for productPair: ProductPair?, current nutrients:[String], anchoredOn button:UIButton) {
+    func showAddNutrientSelector(for productPair: ProductPair?,
+                                 current nutrients:[String],
+                                 nutritionFactsPreparationStyle: NutritionFactsPreparationStyle,
+                                 anchoredOn button:UIButton) {
         self.productPair = productPair
-        let coordinator = AddNutrientCoordinator(with: self, nutrients: nutrients, button: button)
+        let coordinator = AddNutrientCoordinator(with: self,
+                                                 nutrients: nutrients,
+                                                 nutritionFactsPreparationStyle: nutritionFactsPreparationStyle,
+                                                 button: button)
         childCoordinators.append(coordinator)
         coordinator.show()
     }
 
-    func showNutritionFactsTableStyleSelector(for productPair: ProductPair?, selected nutritionFactsTableStyle: NutritionFactsLabelStyle?, anchoredOn button:UIButton) {
+    func showNutritionFactsTableStyleSelector(for productPair: ProductPair?,
+                                              selected nutritionFactsTableStyle: NutritionFactsLabelStyle?,
+                                              anchoredOn button:UIButton) {
         self.productPair = productPair
-        let coordinator = SelectNutritionFactsTableStyleCoordinator(with: self, nutritionFactsTableStyle: nutritionFactsTableStyle, button: button)
+        let coordinator = SelectNutritionFactsTableStyleCoordinator(with: self,
+                                                                    nutritionFactsTableStyle: nutritionFactsTableStyle,
+                                                                    button: button)
         childCoordinators.append(coordinator)
         coordinator.show()
     }
     
-    func selectLanguage(primaryLanguageCode: String, currentLanguageCode: String?, productLanguageCodes: [String], atAnchor button: UIButton) {
-        let coordinator = SelectLanguageCoordinator(with: self, primaryLanguageCode: primaryLanguageCode, currentLanguageCode: currentLanguageCode, languageCodes: productLanguageCodes, button: button)
+    func selectLanguage(primaryLanguageCode: String,
+                        currentLanguageCode: String?,
+                        productLanguageCodes: [String],
+                        atAnchor button: UIButton) {
+        let coordinator = SelectLanguageCoordinator(with: self,
+                                                    primaryLanguageCode: primaryLanguageCode,
+                                                    currentLanguageCode: currentLanguageCode,
+                                                    languageCodes: productLanguageCodes,
+                                                    button: button)
         self.childCoordinators.append(coordinator)
         coordinator.show()
     }
@@ -119,8 +147,8 @@ extension NutrientsCoordinator: SelectNutritionFactsTableStyleCoordinatorProtoco
 
 extension NutrientsCoordinator: SelectNutrientCoordinatorProtocol {
     
-    func selectNutrientUnitViewController(_ sender: SelectNutrientUnitViewController, nutrient: Nutrient?, unit: NutritionFactUnit?) {
-        productPair?.update(nutrient: nutrient, unit: unit, perUnit: perUnit)
+    func selectNutrientUnitViewController(_ sender: SelectNutrientUnitViewController, nutrient: Nutrient?, unit: NutritionFactUnit?, nutritionFactsPreparationStyle: NutritionFactsPreparationStyle) {
+        productPair?.update(nutrient: nutrient, unit: unit, perUnit: perUnit, nutritionFactsPreparationStyle: nutritionFactsPreparationStyle)
         sender.dismiss(animated: true, completion: nil)
     }
 
@@ -132,9 +160,13 @@ extension NutrientsCoordinator: SelectNutrientCoordinatorProtocol {
 
 extension NutrientsCoordinator : AddNutrientCoordinatorProtocol {
     
-    func addNutrientViewController(_ sender:AddNutrientViewController, add nutrientTuple:(Nutrient, String, NutritionFactUnit)?) {
+    func addNutrientViewController(_ sender:AddNutrientViewController, add nutrientTuple:(Nutrient, String, NutritionFactUnit)?, nutritionFactsPreparationStyle: NutritionFactsPreparationStyle) {
         if let newNutrientTuple = nutrientTuple {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: newNutrientTuple.0, unit: newNutrientTuple.2))
+            var newNutritionFactItem = NutritionFactItem.init()
+            newNutritionFactItem.nutrient = newNutrientTuple.0
+            newNutritionFactItem.itemName = newNutrientTuple.1
+            newNutritionFactItem.valueUnitEdited = newNutrientTuple.2
+            productPair?.add(fact: newNutritionFactItem, nutritionFactsPreparationStyle: nutritionFactsPreparationStyle)
         }
         coordinatorViewController?.refreshProduct()
         sender.dismiss(animated: true, completion: nil)

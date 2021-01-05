@@ -8,7 +8,17 @@
 
 import Foundation
 
-public struct NutritionFactItem {
+public struct NutritionFactItem: Hashable, Equatable {
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(nutrient.key)
+    }
+
+    // Mark: Equatable
+    public static func ==(lhs: NutritionFactItem, rhs: NutritionFactItem) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+
     public var itemName: String? = nil
     /// The value normalised to standard units (100 g or 100 ml)
     public var standard: String? = nil
@@ -268,8 +278,6 @@ public struct NutritionFactItem {
     }
 
 }
-
-
 
 
 

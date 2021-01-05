@@ -377,6 +377,7 @@
 		51B9048C1E7AEE38004E3439 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9048B1E7AEE38004E3439 /* Energy.swift */; };
 		51B9048E1E7AF09B004E3439 /* OFFEnergy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9048D1E7AF09B004E3439 /* OFFEnergy.swift */; };
 		51B904901E7AF5F5004E3439 /* EnergyTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9048F1E7AF5F5004E3439 /* EnergyTestSuite.swift */; };
+		51BC60EC259E0256008E6599 /* PreparationStyleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BC60EB259E0256008E6599 /* PreparationStyleTableViewCell.swift */; };
 		51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BED0C01CE0DC75006ED62B /* TUSafariActivity.swift */; };
 		51BED0C41CE1C044006ED62B /* MapPinCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BED0C31CE1C044006ED62B /* MapPinCategories.swift */; };
 		51BED0C81CE36723006ED62B /* ProductFetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */; };
@@ -883,6 +884,7 @@
 		51B9048B1E7AEE38004E3439 /* Energy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
 		51B9048D1E7AF09B004E3439 /* OFFEnergy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFEnergy.swift; sourceTree = "<group>"; };
 		51B9048F1E7AF5F5004E3439 /* EnergyTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyTestSuite.swift; sourceTree = "<group>"; };
+		51BC60EB259E0256008E6599 /* PreparationStyleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PreparationStyleTableViewCell.swift; path = Cells/PreparationStyleTableViewCell.swift; sourceTree = "<group>"; };
 		51BED0C01CE0DC75006ED62B /* TUSafariActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TUSafariActivity.swift; sourceTree = "<group>"; };
 		51BED0C31CE1C044006ED62B /* MapPinCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPinCategories.swift; sourceTree = "<group>"; };
 		51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductFetchStatus.swift; sourceTree = "<group>"; };
@@ -1492,6 +1494,7 @@
 				512B44FA23FABBCA00BFBCF0 /* NoServingSizeTableViewCell.swift */,
 				512B44F223FABBA700BFBCF0 /* NutrientsTableViewCell.swift */,
 				512B450223FABBF400BFBCF0 /* NutrimentsAvailableTableViewCell.swift */,
+				51BC60EB259E0256008E6599 /* PreparationStyleTableViewCell.swift */,
 				512B450023FABBE300BFBCF0 /* PerUnitTableViewCell.swift */,
 				512B44F423FABBAF00BFBCF0 /* SearchNutrientsTableViewCell.swift */,
 				512B44FC23FABBD400BFBCF0 /* ServingSizeTableViewCell.swift */,
@@ -2248,6 +2251,7 @@
 				5184F57C1EB35BFC009ECF73 /* BarGaugeView.swift in Sources */,
 				518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */,
 				51DA03231F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift in Sources */,
+				51BC60EC259E0256008E6599 /* PreparationStyleTableViewCell.swift in Sources */,
 				514AFA202407D8FB0081D50A /* OFFProductNutriScoreData.swift in Sources */,
 				512B44CB23FABAB700BFBCF0 /* IngredientsPageTableViewCell.swift in Sources */,
 				51D7E36623D890F900F2911E /* UIViewControllerExtension.swift in Sources */,

@@ -35,9 +35,15 @@ final class NutrientUnitSelectorCoordinator: Coordinator {
         }
     }
     
-    convenience init(with coordinator: Coordinator?, nutrient: Nutrient?, unit: NutritionFactUnit?, button: UIButton) {
+    convenience init(with coordinator: Coordinator?,
+                     nutrient: Nutrient?,
+                     unit: NutritionFactUnit?,
+                     nutritionFactsPreparationStyle: NutritionFactsPreparationStyle,
+                     button: UIButton) {
         self.init(with: coordinator)
-        coordinatorViewController?.configure(nutrient: nutrient, unit: unit)
+        coordinatorViewController?.configure(nutrient: nutrient,
+                                             unit: unit,
+                                             nutritionFactsPreparationStyle: nutritionFactsPreparationStyle)
         self.button = button
     }
     

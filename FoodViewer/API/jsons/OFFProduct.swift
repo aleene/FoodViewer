@@ -8,6 +8,9 @@
 
 import Foundation
 
+/// This class decodes the OFF json that contains a single product.
+/// Only the straight decodable parameters are contained in this class
+/// The child class OFFDetailedProduct contains the variables that need more attention
 class OFFProduct: Codable {
     
     // the vars are those that the user can create/edit
@@ -165,6 +168,7 @@ class OFFProduct: Codable {
     var nutriscore_score: Int? = nil
     var nutrition_data: String? = nil
     var nutrition_data_per: String? = nil
+    var nutrition_data_prepared: String? = nil
     var nutrition_data_prepared_per: String? = nil
     var nutrition_grade_fr: String? = nil
     var nutrition_grades_tags: [String]? = nil

@@ -37,8 +37,10 @@ class OFFProductNutriments: Codable {
         static let Value = "_value"
         static let Unit = "_unit"
         static let Label = "_label"
+        static let Prepared = "_prepared"
     }
     var nutriments: [String:OFFProductNutrimentValues]
+    var preparedNutriments: [String:OFFProductNutrimentValues]
 
     struct DetailedKeys : CodingKey {
         var stringValue: String
@@ -50,116 +52,128 @@ class OFFProductNutriments: Codable {
     }
     
     required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: DetailedKeys.self)
-        var nutrimentsFound: [String:OFFProductNutrimentValues] = [:]
-        for key in container.allKeys {
-            for nutriment in Nutrient.allCases {
-                if key.stringValue == nutriment.rawValue {
+        
+        func forceString(key: DetailedKeys) -> String? {
+            do {
+                return try container.decode(String.self, forKey: key)
+            } catch {
+                do {
+                    let name = try container.decode(Float.self, forKey: key)
+                    return "\(name)"
+                } catch {
                     do {
-                        let name = try container.decode(String.self, forKey: key)
-                        if nutrimentsFound[nutriment.rawValue] == nil {
-                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
-                        }
-                        nutrimentsFound[nutriment.rawValue]?.base = name
+                        let name = try container.decode(Int.self, forKey: key)
+                        return "\(name)"
                     } catch {
-                        do {
-                            if nutrimentsFound[nutriment.rawValue] == nil {
-                                nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
-                            }
-                            let name = try container.decode(Float.self, forKey: key)
-                            nutrimentsFound[nutriment.rawValue]?.base = "\(name)"
-                        } catch {
-                            do {
-                                if nutrimentsFound[nutriment.rawValue] == nil {
-                                    nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
-                                }
-                                let name = try container.decode(Int.self, forKey: key)
-                                nutrimentsFound[nutriment.rawValue]?.base = "\(name)"
-                            } catch {
-                                print("OFFProductNutriments: \(nutriment.rawValue) not convertable")
-                            }
-                        }
+                        print("OFFProductNutriments: \(key) is not convertable")
+                        return nil
                     }
-                    break
-                } else if key.stringValue == nutriment.rawValue + Constants.HunderdGram {
-                    do {
-                        let name = try container.decode(String.self, forKey: key)
-                        if nutrimentsFound[nutriment.rawValue] == nil {
-                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
-                        }
-                        nutrimentsFound[nutriment.rawValue]?.per100g = name
-                    } catch {
-                        let name = try container.decode(Float.self, forKey: key)
-                        if nutrimentsFound[nutriment.rawValue] == nil {
-                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
-                        }
-                        nutrimentsFound[nutriment.rawValue]?.per100g = "\(name)"
-                    }
-                    break
-                } else if key.stringValue == nutriment.rawValue + Constants.Serving {
-                    do {
-                        let name = try container.decode(String.self, forKey: key)
-                        if nutrimentsFound[nutriment.rawValue] == nil {
-                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
-                        }
-                        nutrimentsFound[nutriment.rawValue]?.serving = name
-                    } catch {
-                        let name = try container.decode(Float.self, forKey: key)
-                        if nutrimentsFound[nutriment.rawValue] == nil {
-                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
-                        }
-                        nutrimentsFound[nutriment.rawValue]?.serving = "\(name)"
-                    }
-                    break
-                } else if key.stringValue == nutriment.rawValue + Constants.Value {
-                    do {
-                        let name = try container.decode(String.self, forKey: key)
-                        if nutrimentsFound[nutriment.rawValue] == nil {
-                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
-                        }
-                        nutrimentsFound[nutriment.rawValue]?.value = name
-                    } catch {
-                        let name = try container.decode(Float.self, forKey: key)
-                        if nutrimentsFound[nutriment.rawValue] == nil {
-                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
-                        }
-                        nutrimentsFound[nutriment.rawValue]?.value = "\(name)"
-                    }
-                    break
-                } else if key.stringValue == nutriment.rawValue + Constants.Unit {
-                    do {
-                        if nutrimentsFound[nutriment.rawValue] == nil {
-                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
-                        }
-                        nutrimentsFound[nutriment.rawValue]?.unit = try container.decode(String.self, forKey: key)
-                    } catch {
-                        nutrimentsFound[nutriment.rawValue]?.unit = ""
-                    }
-                } else if key.stringValue == nutriment.rawValue + Constants.Label  {
-                    do {
-                        if nutrimentsFound[nutriment.rawValue] == nil {
-                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
-                        }
-                        nutrimentsFound[nutriment.rawValue]?.label = try container.decode(String.self, forKey: key)
-                    } catch {
-                        nutrimentsFound[nutriment.rawValue]?.label = ""
-                    }
-                    break
                 }
             }
         }
         
+        let container = try decoder.container(keyedBy: DetailedKeys.self)
+        
+        var nutrimentsFound: [String:OFFProductNutrimentValues] = [:]
+        var preparedNutrimentsFound: [String:OFFProductNutrimentValues] = [:]
+        
+        for key in container.allKeys {
+            for nutriment in Nutrient.allCases {
+                switch key.stringValue {
+                case nutriment.rawValue:
+                    guard let validValue = forceString(key: key) else { break }
+                    if nutrimentsFound[nutriment.rawValue] == nil {
+                        nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
+                    }
+                    nutrimentsFound[nutriment.rawValue]?.base = validValue
+                    
+                case nutriment.rawValue + Constants.HunderdGram :
+                    if nutrimentsFound[nutriment.rawValue] == nil {
+                        nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
+                    }
+                    nutrimentsFound[nutriment.rawValue]?.per100g = forceString(key: key)
+                        
+                case nutriment.rawValue + Constants.Serving :
+                        if nutrimentsFound[nutriment.rawValue] == nil {
+                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
+                        }
+                        nutrimentsFound[nutriment.rawValue]?.serving = forceString(key: key)
+
+                case nutriment.rawValue + Constants.Value :
+                        if nutrimentsFound[nutriment.rawValue] == nil {
+                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
+                        }
+                        nutrimentsFound[nutriment.rawValue]?.value = forceString(key: key)
+
+                case nutriment.rawValue + Constants.Unit :
+                        if nutrimentsFound[nutriment.rawValue] == nil {
+                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
+                        }
+                        nutrimentsFound[nutriment.rawValue]?.unit = forceString(key: key)
+
+                case nutriment.rawValue + Constants.Label :
+                        if nutrimentsFound[nutriment.rawValue] == nil {
+                            nutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
+                        }
+                        nutrimentsFound[nutriment.rawValue]?.label = forceString(key: key)
+
+                case nutriment.rawValue + Constants.Prepared + Constants.HunderdGram :
+                        if preparedNutrimentsFound[nutriment.rawValue] == nil {
+                            preparedNutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
+                        }
+                        preparedNutrimentsFound[nutriment.rawValue]?.per100g = forceString(key: key)
+
+                case nutriment.rawValue + Constants.Prepared + Constants.Serving :
+                    if preparedNutrimentsFound[nutriment.rawValue] == nil {
+                        preparedNutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
+                    }
+                    preparedNutrimentsFound[nutriment.rawValue]?.serving = forceString(key: key)
+
+                case nutriment.rawValue + Constants.Prepared + Constants.Value :
+                    if preparedNutrimentsFound[nutriment.rawValue] == nil {
+                        preparedNutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
+                    }
+                    preparedNutrimentsFound[nutriment.rawValue]?.value = forceString(key: key)
+
+                case nutriment.rawValue + Constants.Prepared + Constants.Unit :
+                    if preparedNutrimentsFound[nutriment.rawValue] == nil {
+                        preparedNutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
+                    }
+                    preparedNutrimentsFound[nutriment.rawValue]?.unit = forceString(key: key)
+
+                case nutriment.rawValue + Constants.Prepared + Constants.Label  :
+                    if preparedNutrimentsFound[nutriment.rawValue] == nil {
+                        preparedNutrimentsFound[nutriment.rawValue] = OFFProductNutrimentValues()
+                    }
+                    preparedNutrimentsFound[nutriment.rawValue]?.label = forceString(key: key)
+
+                default:
+                    break
+                }
+            }
+        }
         nutriments = nutrimentsFound
+        preparedNutriments = preparedNutrimentsFound
     }
     
     init() {
         self.nutriments = [:]
+        self.preparedNutriments = [:]
     }
 
-    convenience init(nutritionFactsDict: [String:NutritionFactItem]) {
+    convenience init(nutritionFactsDict: [String: NutritionFactItem],
+                     preparedNutritionFactsDict: [String: NutritionFactItem]) {
         self.init()
         for nutritionFact in nutritionFactsDict {
             self.nutriments[nutritionFact.key] = OFFProductNutrimentValues(base: nil,
+                                                                  per100g: nutritionFact.value.standard,
+                                                                  serving: nutritionFact.value.serving,
+                                                                  value: nutritionFact.value.value,
+                                                                  label: nil,
+                                                                  unit: nutritionFact.value.standardUnit?.short)
+        }
+        for nutritionFact in preparedNutritionFactsDict {
+            self.preparedNutriments[nutritionFact.key] = OFFProductNutrimentValues(base: nil,
                                                                   per100g: nutritionFact.value.standard,
                                                                   serving: nutritionFact.value.serving,
                                                                   value: nutritionFact.value.value,
@@ -187,6 +201,22 @@ class OFFProductNutriments: Codable {
             }
             // The other elements are not wriiten to and always nil
         }
+        for nutriment in preparedNutriments {
+            // per 100 g
+            if let key = DetailedKeys(stringValue: nutriment.key + Constants.Prepared + Constants.HunderdGram) {
+                try container.encodeIfPresent(nutriment.value.per100g, forKey: key)
+            }
+            // per serving
+            if let key = DetailedKeys(stringValue: nutriment.key + Constants.Prepared + Constants.Serving) {
+                try container.encodeIfPresent(nutriment.value.serving, forKey: key)
+            }
+            // unit
+            if let key = DetailedKeys(stringValue: nutriment.key + Constants.Prepared + Constants.Unit) {
+                try container.encodeIfPresent(nutriment.value.unit, forKey: key)
+            }
+            // The other elements are not wriiten to and always nil
+        }
+
     }
 
 }

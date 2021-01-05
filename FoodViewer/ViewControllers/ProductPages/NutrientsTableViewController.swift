@@ -42,6 +42,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     // setup the current display modes to app wide defaults
     fileprivate var currentNutritionQuantityDisplayMode: NutritionDisplayMode = .perStandard
 
+    fileprivate var currentNutritionFactsPreparationStyle: NutritionFactsPreparationStyle = .unprepared
+    
     private var validNutritionQuantityDisplayMode: NutritionDisplayMode {
         // It must be checked whether the current quantity display mode is valid for the current product
             // set the selected segment at start up
@@ -126,7 +128,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     fileprivate var productVersion: ProductVersion = .new
 
-    struct DisplayFact {
+    struct DisplayFact: Hashable {
+        
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(nutrient.key)
+        }
+
         var name: String? = nil
         var value: String? = nil
         var unit: NutritionFactUnit? = nil
@@ -344,6 +351,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 let validValue = fact.valueEdited {
                 displayFact.value = validValue
                 displayFact.unit = fact.valueUnitEdited
+            
+            // new nutrients do not have a validValue
+            } else if productPair?.localProduct != nil,
+                    let validUnit = fact.valueUnitEdited {
+                    displayFact.unit = validUnit
+                
             // Show the values as derived by OFF
             } else if let validValue = fact.standard,
                 !validValue.isEmpty {
@@ -412,13 +425,24 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     // The functions creates a mixed array of edited and unedited nutrients
     
     fileprivate func mergeNutritionFacts() {
+        
+        func makeDict(_ set: Set<NutritionFactItem>?) -> [String: NutritionFactItem] {
+            var nutritionFactsDict: [String: NutritionFactItem] = [:]
+            
+            if let valid = set {
+                for element in valid {
+                    nutritionFactsDict[element.key] = element
+                }
+            }
+            return nutritionFactsDict
+        }
         switch productVersion {
         case .remote:
-            adaptedNutritionFacts = adaptNutritionFacts(productPair?.remoteProduct?.nutritionFactsDict ?? [:])
+            adaptedNutritionFacts = adaptNutritionFacts(makeDict(productPair?.remoteProduct?.nutritionFacts[currentNutritionFactsPreparationStyle]))
         case .new:
             // merge the two dictionaries, the local version wins!
-            let facts = productPair?.remoteProduct?.nutritionFactsDict.merging(productPair?.localProduct?.nutritionFactsDict ?? [:]) { (_, new) in new }
-            adaptedNutritionFacts = adaptNutritionFacts(facts ?? [:])
+            let facts = makeDict(productPair?.remoteProduct?.nutritionFacts[currentNutritionFactsPreparationStyle]).merging(makeDict(productPair?.localProduct?.nutritionFacts[currentNutritionFactsPreparationStyle])) { (_, new) in new }
+            adaptedNutritionFacts = adaptNutritionFacts(facts)
         }
 
     }
@@ -449,6 +473,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case nutritionFacts(Int)
         case addNutrient(Int)
         case servingSize(Int)
+        case preparation(Int)
         case image(Int)
         case noNutrimentsAvailable(Int)
         
@@ -459,6 +484,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                  .addNutrient(let numberOfRows),
                  .servingSize(let numberOfRows),
                  .image(let numberOfRows),
+                 .preparation(let numberOfRows),
                  .noNutrimentsAvailable(let numberOfRows):
                 return numberOfRows
             }
@@ -519,6 +545,22 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                   delegate: self)
             return cell
             
+        case .preparation:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PreparationStyleTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! PreparationStyleTableViewCell
+            var hasUnprepared = false
+            var hasPrepared = false
+            if let unpreparedData = productPair?.localProduct?.nutritionFacts[.unprepared] ?? productPair?.remoteProduct?.nutritionFacts[.unprepared] {
+                hasUnprepared = !unpreparedData.isEmpty
+            }
+            if let preparedData = productPair?.localProduct?.nutritionFacts[.prepared] ?? productPair?.remoteProduct?.nutritionFacts[.prepared] {
+                hasPrepared = !preparedData.isEmpty
+            }
+            cell.setup(currentPreparationStyle: currentNutritionFactsPreparationStyle,
+                       availability: (hasUnprepared, hasPrepared),
+                       editMode: editMode,
+                       delegate: self)
+            return cell
+
         case .nutritionFacts:
             if indexPath.row == tableStructure[indexPath.section].numberOfRows && editMode {
                 // This cell should only be added when in editMode and as the last row
@@ -574,7 +616,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         cell?.toggleViewModeButton.isHidden = true
                     }
                     cell?.editMode = editMode
-                    if let facts = productPair?.localProduct?.nutritionFactsDict,
+                    if let facts = productPair?.localProduct?.nutritionFacts[currentNutritionFactsPreparationStyle],
                         !facts.isEmpty {
                         cell?.editMode = productVersion.isRemote ? false : true
                     }
@@ -757,7 +799,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             headerView.changeLanguageButton.tag = 1
             switch productVersion {
             case .new:
-                if let facts = productPair?.localProduct?.nutritionFactsDict,
+                if let facts = productPair?.localProduct?.nutritionFacts[currentNutritionFactsPreparationStyle],
                     !facts.isEmpty {
                     headerView.buttonNotDoubleTap = buttonNotDoubleTap
                     header = TranslatableStrings.NutritionFactsEdited
@@ -799,6 +841,22 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 }
             default:
                 header = TranslatableStrings.DisplayUnit
+            }
+            headerView.title = header
+            return headerView
+
+        case .preparation:
+            headerView.changeLanguageButton.isHidden = true
+            switch productVersion {
+            case .new:
+                if productPair?.localProduct?.nutritionFacts != nil {
+                    headerView.buttonNotDoubleTap = buttonNotDoubleTap
+                    header = TranslatableStrings.PreparationEdited
+                } else {
+                    header = TranslatableStrings.Preparation
+                }
+            default:
+                header = TranslatableStrings.Preparation
             }
             headerView.title = header
             return headerView
@@ -896,6 +954,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             static let NutritionFactsImage = 1
             static let ServingSize = 1
             static let NutritionFactsEmpty = 1
+            static let Preparation = 1
             static let AddNutrient = 1
             static let PerUnit = 1
             static let NutrimentsAvailable = 1
@@ -954,7 +1013,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                           TableSections.Size.NutrimentsAvailable )
                     )
                 }
-            
+                
+                sectionsAndRows.append(.preparation(
+                    TableSections.Size.Preparation )
+                )
+
                 // Section 0 or 1 : presentation format
             
                 if let validType = type {
@@ -998,7 +1061,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     public func setNutritionFactUnit(for row: Int?, with nutritionFactUnit:NutritionFactUnit?) {
         if let nutrientRow = row {
-            productPair?.update(nutrient: adaptedNutritionFacts[nutrientRow].nutrient, unit: nutritionFactUnit, perUnit: validNutritionQuantityDisplayMode.nutritionEntryUnit)
+            productPair?.update(nutrient: adaptedNutritionFacts[nutrientRow].nutrient, unit: nutritionFactUnit, perUnit: validNutritionQuantityDisplayMode.nutritionEntryUnit, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
             refreshProduct()
         }
     }
@@ -1019,8 +1082,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             // fill the nutritionList with the missing values
             if editMode {
                 for nutrient in validSelectedNutritionFactsTableStyle.mandatoryNutrients {
-                    if !productPair!.remoteProduct!.nutritionFactsContain(nutrient) {
-                        productPair?.add(fact: NutritionFactItem.init(nutrient: nutrient, unit: nutrient.unit(for:validSelectedNutritionFactsTableStyle)))
+                    if !productPair!.remoteProduct!.nutritionFactsContain(nutrient, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+                        productPair?.add(fact: NutritionFactItem.init(nutrient: nutrient, unit: nutrient.unit(for:validSelectedNutritionFactsTableStyle)), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
                     }
                 }
             }
@@ -1296,6 +1359,26 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
 }
 
+// MARK: - PreparationStyleCellDelegate functions
+
+extension NutrientsTableViewController: PreparationStyleCellDelegate {
+    
+    func preparationStyleTableViewCell(_ sender: PreparationStyleTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
+        switch segmentedControl.selectedSegmentIndex {
+        case NutritionFactsPreparationStyle.unprepared.rawValue:
+            currentNutritionFactsPreparationStyle = .unprepared
+        case NutritionFactsPreparationStyle.prepared.rawValue:
+            currentNutritionFactsPreparationStyle = .prepared
+        default: break
+        }
+        mergeNutritionFacts()
+        tableStructure = setupTableSections()
+        tableView.reloadData()
+    }
+    
+    
+}
+
 // MARK: - NutrientsCellDelegate functions
 
 extension NutrientsTableViewController: NutrientsCellDelegate {
@@ -1319,7 +1402,12 @@ extension NutrientsTableViewController: NutrientsCellDelegate {
     }
     /// The NutrientsTableViewCell unit button has been tapped. The coordinator should handle this event.
     func nutrientsTableViewCellUnit(_ sender: NutrientsTableViewCell, nutrient: Nutrient?, unit: NutritionFactUnit?, receivedTapOn button: UIButton) {
-        coordinator?.showNutrientUnitSelector(for: self.productPair, nutrient: nutrient, unit: unit, perUnit: validNutritionQuantityDisplayMode.nutritionEntryUnit, anchoredOn: button)
+        coordinator?.showNutrientUnitSelector(for: self.productPair,
+                                              nutrient: nutrient,
+                                              unit: unit,
+                                              perUnit: validNutritionQuantityDisplayMode.nutritionEntryUnit,
+                                              nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle,
+                                              anchoredOn: button)
     }
 
 }
@@ -1329,7 +1417,10 @@ extension NutrientsTableViewController: NutrientsCellDelegate {
 extension NutrientsTableViewController:  AddNutrientCellDelegate {
     
     func addNutrientTableViewCell(_ sender: AddNutrientTableViewCell, tappedOn button: UIButton) {
-        coordinator?.showAddNutrientSelector(for: self.productPair, current: adaptedNutritionFacts.compactMap { $0.name }, anchoredOn: button)
+        coordinator?.showAddNutrientSelector(for: self.productPair,
+                                             current: adaptedNutritionFacts.compactMap { $0.name },
+                                             nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle,
+                                             anchoredOn: button)
     }
     
     
@@ -1337,40 +1428,40 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
     func addEUNutrientSetTableViewCell(_ sender: AddNutrientTableViewCell, receivedTapOn button:UIButton) {
         
         // Energy
-        if !productPair!.remoteProduct!.nutritionFactsContain(.energy) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .energy, unit: .joule))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.energy, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .energy, unit: .joule), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Energy kcal
-        if !productPair!.remoteProduct!.nutritionFactsContain(.energyKcal) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .energyKcal, unit: .kiloCalories))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.energyKcal, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .energyKcal, unit: .kiloCalories), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Fat
-        if !productPair!.remoteProduct!.nutritionFactsContain(.fat) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .fat, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.fat, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .fat, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Saturated Fat
-        if !productPair!.remoteProduct!.nutritionFactsContain(.saturatedFat) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .saturatedFat, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.saturatedFat, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .saturatedFat, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Carbohydrates
-        if !productPair!.remoteProduct!.nutritionFactsContain(.carbohydrates) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .carbohydrates, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.carbohydrates, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .carbohydrates, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Sugars
-        if !productPair!.remoteProduct!.nutritionFactsContain(.sugars) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .sugars, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.sugars, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .sugars, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Fibers
-        if !productPair!.remoteProduct!.nutritionFactsContain(.fiber) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .fiber, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.fiber, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .fiber, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Proteins
-        if !productPair!.remoteProduct!.nutritionFactsContain(.proteins) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .proteins, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.proteins, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .proteins, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Salt
-        if !productPair!.remoteProduct!.nutritionFactsContain(.salt) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .salt, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.salt, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .salt, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         refreshProduct()
     }
@@ -1384,81 +1475,81 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         currentSaltDisplayMode = .sodium
         
         // Energy
-        if !productPair!.remoteProduct!.nutritionFactsContain(.energyKcal) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .energyKcal, unit: .calories))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.energyKcal, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .energyKcal, unit: .calories), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Energy from Fat Old Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(.energyFromFat) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .energyFromFat, unit: .calories))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.energyFromFat, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .energyFromFat, unit: .calories), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
 
         // Fat
-        if !productPair!.remoteProduct!.nutritionFactsContain(.fat) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .fat, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.fat, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .fat, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Saturated Fat
-        if !productPair!.remoteProduct!.nutritionFactsContain(.saturatedFat) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .saturatedFat, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.saturatedFat, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .saturatedFat, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Trans Fat
-        if !productPair!.remoteProduct!.nutritionFactsContain(.transFat) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .transFat, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.transFat, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .transFat, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
 
         // Cholesterol
-        if !productPair!.remoteProduct!.nutritionFactsContain(.cholesterol) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .cholesterol, unit: .milligram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.cholesterol, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .cholesterol, unit: .milligram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Sodium
-        if !productPair!.remoteProduct!.nutritionFactsContain(.sodium) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .sodium, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.sodium, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .sodium, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Total Carbohydrates
-        if !productPair!.remoteProduct!.nutritionFactsContain(.carbohydrates) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .carbohydrates, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.carbohydrates, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .carbohydrates, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Dietary Fiber
-        if !productPair!.remoteProduct!.nutritionFactsContain(.fiber) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .fiber, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.fiber, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .fiber, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
 
         // Sugars
-        if !productPair!.remoteProduct!.nutritionFactsContain(.sugars) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .sugars, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.sugars, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .sugars, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Added Sugars New Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(.addedSugars) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .addedSugars, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.addedSugars, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .addedSugars, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
 
         // Proteins
-        if !productPair!.remoteProduct!.nutritionFactsContain(.proteins) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .proteins, unit: .gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.proteins, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .proteins, unit: .gram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Vitamin A New Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(.vitaminA) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .vitaminA, unit: .percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.vitaminA, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .vitaminA, unit: .percent), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Vitamin C Old Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(.vitaminC) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .vitaminC, unit: .milligram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.vitaminC, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .vitaminC, unit: .milligram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Vitamin D New Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(.vitaminD) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .vitaminD, unit: .milligram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.vitaminD, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .vitaminD, unit: .milligram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
 
         // Calcium
-        if !productPair!.remoteProduct!.nutritionFactsContain(.calcium) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .calcium, unit: .milligram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.calcium, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .calcium, unit: .milligram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Iron Old Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(.iron) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .iron, unit: .milligram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.iron, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .iron, unit: .milligram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
         // Potassium New Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(.potassium) {
-            productPair?.add(fact: NutritionFactItem.init(nutrient: .potassium, unit: .milligram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.potassium, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle) {
+            productPair?.add(fact: NutritionFactItem.init(nutrient: .potassium, unit: .milligram), nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         }
 
         mergeNutritionFacts()
@@ -1476,7 +1567,7 @@ extension NutrientsTableViewController: NutrimentsAvailableCellDelegate {
     func nutrimentsAvailableTableViewCell(_ sender: NutrimentsAvailableTableViewCell, receivedActionOn mySwitch:UISwitch) {
         guard productPair?.remoteProduct != nil else { return }
         // change the updated product
-        productPair?.update(availability: mySwitch.isOn)
+        productPair?.update(availability: mySwitch.isOn, nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
         refreshProduct()
     }
 }
@@ -1621,7 +1712,9 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                     }
                 }
                 // NOTE that the current valid display mode is used for ALL values
-                productPair?.update(fact: editedNutritionFact, perUnit: validNutritionQuantityDisplayMode.nutritionEntryUnit)
+                productPair?.update(fact: editedNutritionFact,
+                                    perUnit: validNutritionQuantityDisplayMode.nutritionEntryUnit,
+                                    nutritionFactsPreparationStyle: currentNutritionFactsPreparationStyle)
                 mergeNutritionFacts()
             }
         default:

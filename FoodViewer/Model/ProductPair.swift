@@ -849,30 +849,43 @@ class ProductPair {
         }
     }
     
-    func update(availability: Bool) {
+    func update(availability: Bool, nutritionFactsPreparationStyle: NutritionFactsPreparationStyle) {
         initLocalProduct()
         localProduct?.hasNutritionFacts = availability
         if !availability {
             // if indicated as not available, delete the existing nutritionFacts
-            update(facts: [:])
+            update(facts: [], nutritionFactsPreparationStyle: nutritionFactsPreparationStyle)
             }
     }
     
-    func add(fact: NutritionFactItem?) {
+    func add(fact: NutritionFactItem?, nutritionFactsPreparationStyle: NutritionFactsPreparationStyle) {
         guard let validFact = fact  else { return }
         initLocalProduct()
-        localProduct?.nutritionFactsDict[validFact.key] = validFact
+        if localProduct?.nutritionFacts[nutritionFactsPreparationStyle] == nil {
+            localProduct?.nutritionFacts = [nutritionFactsPreparationStyle: Set(arrayLiteral: validFact)]
+        } else {
+            localProduct?.nutritionFacts[nutritionFactsPreparationStyle]?.update(with: validFact)
+        }
         // if nutritionFacts specified indicate as available
         localProduct?.hasNutritionFacts = true
     }
 
-    func update(fact: NutritionFactItem?, perUnit: NutritionEntryUnit) {
+    func update(fact: NutritionFactItem?, perUnit: NutritionEntryUnit, nutritionFactsPreparationStyle: NutritionFactsPreparationStyle) {
         guard let validFact = fact  else { return }
         initLocalProduct()
-        localProduct?.nutritionFactsDict[validFact.key] = validFact
+        if localProduct?.nutritionFacts[nutritionFactsPreparationStyle] == nil {
+            localProduct?.nutritionFacts = [nutritionFactsPreparationStyle: Set(arrayLiteral: validFact)]
+        } else {
+            localProduct?.nutritionFacts[nutritionFactsPreparationStyle]?.update(with: validFact)
+        }
         // if nutritionFacts specified indicate as available
         localProduct?.hasNutritionFacts = true
-        localProduct?.nutritionFactsIndicationUnit = perUnit
+        if localProduct?.nutritionFactsIndicationUnit?[nutritionFactsPreparationStyle] == nil {
+            let newUnit = NutritionEntryUnit()
+            localProduct!.nutritionFactsIndicationUnit = [nutritionFactsPreparationStyle: newUnit]
+        } else {
+            localProduct?.nutritionFactsIndicationUnit?[nutritionFactsPreparationStyle] = perUnit
+        }
     }
     
 /**
@@ -883,56 +896,57 @@ Update the nutrient unit of a nutrient. If  the nutrient already exists remotely
     - unit: the new unit to be used (kJ, Cal, milligram, etc)
     - perUnit: the per (serving/100g)
 */
-    func update(nutrient: Nutrient?, unit: NutritionFactUnit?, perUnit: NutritionEntryUnit) {
+    func update(nutrient: Nutrient?, unit: NutritionFactUnit?, perUnit: NutritionEntryUnit, nutritionFactsPreparationStyle: NutritionFactsPreparationStyle) {
         guard let validNutrient = nutrient else { return }
         guard let validUnitEdited = unit else { return }
         // has this nutrient already been edited?
-        if  localProduct?.nutritionFactsDict[validNutrient.key] != nil {
-            localProduct!.nutritionFactsDict[validNutrient.key]!.valueUnitEdited = validUnitEdited
+        if let nutritionFactItems = localProduct?.nutritionFacts[nutritionFactsPreparationStyle]?.filter({ $0.key == validNutrient.key}),
+            var editedNutritionFactItem = nutritionFactItems.first {
+            editedNutritionFactItem.valueUnitEdited = validUnitEdited
+            localProduct?.nutritionFacts[nutritionFactsPreparationStyle]?.update(with: editedNutritionFactItem)
         // is this an remotely existing nutrient?
-        } else if remoteProduct?.nutritionFactsDict[validNutrient.key] != nil {
-            // create a local version if needed
+        } else if let nutritionFactItems = remoteProduct?.nutritionFacts[nutritionFactsPreparationStyle]?.filter({ $0.key == validNutrient.key}),
+            var editedNutritionFactItem = nutritionFactItems.first {
+            // create a local product version if needed
             initLocalProduct()
             // copy only the values as this are the edited data
-            localProduct?.nutritionFactsDict[validNutrient.key] = NutritionFactItem()
             switch perUnit {
             case .perStandardUnit:
-                localProduct?.nutritionFactsDict[validNutrient.key]?.valueEdited =
-                    remoteProduct?.nutritionFactsDict[validNutrient.key]?.standard
+                editedNutritionFactItem.valueEdited = editedNutritionFactItem.standard
             case .per1000Gram:
-                localProduct?.nutritionFactsDict[validNutrient.key]?.valueEdited =
-                    "1000 gram"
+                editedNutritionFactItem.valueEdited = "1000 gram"
             case .perServing:
-                localProduct?.nutritionFactsDict[validNutrient.key]?.valueEdited =
-                    remoteProduct?.nutritionFactsDict[validNutrient.key]?.serving
+                editedNutritionFactItem.valueEdited = editedNutritionFactItem.serving
             case .perDailyValue:
-                localProduct?.nutritionFactsDict[validNutrient.key]?.valueEdited =
-                    "daily value"
+                editedNutritionFactItem.valueEdited = "daily value"
             }
-            localProduct?.nutritionFactsDict[validNutrient.key]?.itemName =
-                remoteProduct?.nutritionFactsDict[validNutrient.key]?.itemName
-            localProduct?.nutritionFactsDict[validNutrient.key]?.nutrient =
-                validNutrient
+            editedNutritionFactItem.nutrient = validNutrient
             // set the new unit
-            localProduct?.nutritionFactsDict[validNutrient.key]?.valueUnitEdited = validUnitEdited
+            editedNutritionFactItem.valueUnitEdited = validUnitEdited
+            localProduct?.nutritionFacts[nutritionFactsPreparationStyle]?.update(with: editedNutritionFactItem)
         // This nutrient does not exist remotely or locally
         } else {
             // create a local version if needed
             initLocalProduct()
+            var editedNutritionFactItem = NutritionFactItem()
             // set the new unit
-            localProduct!.nutritionFactsDict[validNutrient.key]!.valueUnitEdited = validUnitEdited
+            editedNutritionFactItem.valueUnitEdited = validUnitEdited
+            localProduct?.nutritionFacts[nutritionFactsPreparationStyle]?.update(with: editedNutritionFactItem)
         }
         sendLocalStatusChangeNotification()
-        localProduct?.nutritionFactsIndicationUnit = perUnit
+        if localProduct?.nutritionFactsIndicationUnit?[nutritionFactsPreparationStyle] == nil {
+            localProduct?.nutritionFactsIndicationUnit?[nutritionFactsPreparationStyle] = NutritionEntryUnit()
+        }
+        localProduct?.nutritionFactsIndicationUnit?[nutritionFactsPreparationStyle] = perUnit
     }
     
-    func update(facts: [String:NutritionFactItem]) {
+    func update(facts: Set<NutritionFactItem>, nutritionFactsPreparationStyle: NutritionFactsPreparationStyle) {
         // TODO: need to check if a fact has been updated
         initLocalProduct()
         
-        localProduct?.nutritionFactsDict = facts
+        localProduct?.nutritionFacts[nutritionFactsPreparationStyle] = facts
 
-        localProduct?.hasNutritionFacts = localProduct!.nutritionFactsDict.count > 0 ? true : false
+        localProduct?.hasNutritionFacts = !localProduct!.nutritionFacts.isEmpty ? true : false
     }
     
     func updateImage(key:String?, languageCode:String?, imageType:ImageTypeCategory?) {

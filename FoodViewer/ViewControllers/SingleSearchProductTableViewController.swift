@@ -11,7 +11,7 @@ import MobileCoreServices
 
 class SingleSearchProductTableViewController: UITableViewController {
     
-    
+// MARK: - constants
     fileprivate struct Constants {
         
         // The tag-value of a cell is used to codify the type of cell
@@ -39,7 +39,27 @@ class SingleSearchProductTableViewController: UITableViewController {
             }
         }
     }
+
+// MARK: - public variables
     
+    var productPageViewController: ProductPageViewController? = nil
+    
+    var selectedProductPair: ProductPair? = nil {
+        didSet {
+            if selectedPageIndex == nil {
+                selectedPageIndex = 0
+            }
+        }
+    }
+
+// MARK: - private variables
+    
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
+    }
+
+    fileprivate var currentNutritionFactsPreparationStyle: NutritionFactsPreparationStyle = .unprepared
+
     private func tagValue(for status: ProductFetchStatus) -> Int {
         switch status {
         case .productNotLoaded:
@@ -61,43 +81,7 @@ class SingleSearchProductTableViewController: UITableViewController {
         }
     }
     
-    
-    private var currentProductType: ProductType {
-        return Preferences.manager.showProductType
-    }
-    
-    // var selectedSearch: Search? = nil
-    
-    /*
-    fileprivate func startInterface(at index:Int) {
-        if let validProductPair = selectedSearch?.productPair(at: index),
-            let validFetchResult = selectedSearch?.productPair(at: index)?.status {
-            switch validFetchResult {
-            case .available, .loading:
-                selectedProductPair = validProductPair
-                // tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: true)
-                showProductPage()
-            default:
-                selectedProductPair = nil
-                tableView.reloadData()
-            }
-        } else {
-            selectedProductPair = nil
-            tableView.reloadData()
-        }
-        setTitle()
-    }
- */
-    
-    /*
-    fileprivate func refreshInterface() {
-        guard selectedSearch != nil else { return }
-        guard selectedSearch!.productPairs.count > 0 else { return }
-        tableView.reloadData()
-    }
- */
-    
-    var productPageViewController: ProductPageViewController? = nil
+        
     
     // Function to set the title of this viewController
     // It is important to set the title at the right moment in the lifecycle
@@ -119,13 +103,6 @@ class SingleSearchProductTableViewController: UITableViewController {
     
     // MARK: - Table view methods and vars
     
-    var selectedProductPair: ProductPair? = nil {
-        didSet {
-            if selectedPageIndex == nil {
-                selectedPageIndex = 0
-            }
-        }
-    }
     
     fileprivate var selectedPageIndex: Int? = nil // this indicates which part of the product must be shown
     
@@ -168,8 +145,6 @@ class SingleSearchProductTableViewController: UITableViewController {
         }
         }
             }
-    //    }
-     //   }
     }
     
     // The row types are mapped onto custom cells
@@ -329,7 +304,10 @@ class SingleSearchProductTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
             cell.labelText = TranslatableStrings.NutritionFacts
             
-            if let facts = selectedProductPair?.remoteProduct?.nutritionFactsDict ?? selectedProductPair?.localProduct?.nutritionFactsDict {
+            if let facts = selectedProductPair?.remoteProduct?.nutritionFacts[.unprepared]
+                ?? selectedProductPair?.localProduct?.nutritionFacts[.unprepared]
+                ?? selectedProductPair?.remoteProduct?.nutritionFacts[.prepared]
+                ?? selectedProductPair?.localProduct?.nutritionFacts[.prepared] {
                 cell.badgeText = "\(facts.count)"
             } else {
                 cell.badgeText = TranslatableStrings.Undefined

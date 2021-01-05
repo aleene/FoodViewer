@@ -354,7 +354,7 @@ public class NutritionalScore {
         self.init(energy: energy, saturatedFat: saturatedFat, sugars: sugars, sodium: sodium, fruitVegetablesNuts: fruitVegetablesNuts, fruitVegetablesNutsEstimated: fruitVegetablesNutsEstimated, fiber: fiber, proteins: proteins)
     }
     
-    convenience init(nutritionFactsDict: [String:NutritionFactItem]) {
+    convenience init(nutritionFacts: Set<NutritionFactItem>) {
         
         var energy: Double? = nil
         var sugars: Double? = nil
@@ -365,26 +365,26 @@ public class NutritionalScore {
         var fruitVegetableNuts: Double? = nil
         var fruitVegetableNutsEstimated: Double? = nil
         
-        if let nutrientFact = nutritionFactsDict[Nutrient.energy.key] {
-            energy = nutrientFact.standardAsDouble
+        if let nutritionFactItem = nutritionFacts.filter({ $0.key == Nutrient.energy.key }).first {
+            energy = nutritionFactItem.standardAsDouble
         }
-        if let nutrientFact = nutritionFactsDict[Nutrient.sugars.key] {
-            sugars = nutrientFact.standardGramValue
+        if let nutritionFactItem = nutritionFacts.filter({ $0.key == Nutrient.sugars.key }).first {
+            sugars = nutritionFactItem.standardGramValue
         }
-        if let nutrientFact = nutritionFactsDict[Nutrient.saturatedFat.key] {
-            saturatedFat = nutrientFact.standardGramValue
+        if let nutritionFactItem = nutritionFacts.filter({ $0.key == Nutrient.saturatedFat.key }).first {
+            saturatedFat = nutritionFactItem.standardGramValue
         }
-        if let nutrientFact = nutritionFactsDict[Nutrient.sodium.key] {
-            sodium = nutrientFact.standardGramValue
+        if let nutritionFactItem = nutritionFacts.filter({ $0.key == Nutrient.sodium.key }).first {
+            sodium = nutritionFactItem.standardGramValue
         }
-        if let nutrientFact = nutritionFactsDict[Nutrient.fiber.key] {
-            fiber = nutrientFact.standardGramValue
+        if let nutritionFactItem = nutritionFacts.filter({ $0.key == Nutrient.fiber.key }).first {
+            fiber = nutritionFactItem.standardGramValue
         }
-        if let nutrientFact = nutritionFactsDict[Nutrient.proteins.key] {
-            proteins = nutrientFact.standardGramValue
+        if let nutritionFactItem = nutritionFacts.filter({ $0.key == Nutrient.proteins.key }).first {
+            proteins = nutritionFactItem.standardGramValue
         }
-        if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNuts.key] {
-            fruitVegetableNuts = nutrientFact.standardGramValue
+        if let nutritionFactItem = nutritionFacts.filter({ $0.key == Nutrient.fruitsVegetablesNuts.key }).first {
+            fruitVegetableNuts = nutritionFactItem.standardGramValue
         }
         //if let nutrientFact = nutritionFactsDict[Nutrient.fruitsVegetablesNutsEstimate.key] {
         //    fruitVegetableNutsEstimated = nutrientFact.standardGramValue

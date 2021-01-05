@@ -11,7 +11,7 @@ import UIKit
 protocol PerUnitCellDelegate: class {
     
     // function to let the delegate know that the switch changed
-    func perUnitTableViewCell(_ sender: PerUnitTableViewCell, receivedActionOn segmentedControl:UISegmentedControl)
+    func perUnitTableViewCell(_ sender: PerUnitTableViewCell, receivedActionOn segmentedControl: UISegmentedControl)
 }
 
 class PerUnitTableViewCell: UITableViewCell {

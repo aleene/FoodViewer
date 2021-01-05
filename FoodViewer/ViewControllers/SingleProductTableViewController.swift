@@ -314,7 +314,10 @@ class SingleProductTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: LabelWithBadgeTableViewCell.self), for: indexPath) as! LabelWithBadgeTableViewCell
                     cell.labelText = TranslatableStrings.NutritionFacts
                     
-            if let facts = selectedProductPair?.remoteProduct?.nutritionFactsDict ?? selectedProductPair?.localProduct?.nutritionFactsDict {
+            if let facts = selectedProductPair?.remoteProduct?.nutritionFacts[.unprepared]
+                ?? selectedProductPair?.localProduct?.nutritionFacts[.unprepared]
+                ?? selectedProductPair?.remoteProduct?.nutritionFacts[.prepared]
+                ?? selectedProductPair?.localProduct?.nutritionFacts[.prepared] {
                 cell.badgeText = "\(facts.count)"
             } else {
                 cell.badgeText = TranslatableStrings.Undefined

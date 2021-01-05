@@ -253,17 +253,21 @@ class NutritionScoreTableViewController: UITableViewController {
         case .levels:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: LevelTableViewCell.self), for: indexPath) as! LevelTableViewCell
             cell.nutritionLevel = productPair?.remoteProduct?.nutritionScore?[indexPath.row]
-            if let validNutrient = productPair?.remoteProduct?.nutritionFactsDict[Nutrient.salt.key] {
-                cell.saltValue = validNutrient.standardGramValue
+            if let validNutritionFacts = productPair?.remoteProduct?.nutritionFacts[.unprepared]?.filter({ $0.key == Nutrient.salt.key }),
+                let first = validNutritionFacts.first {
+                cell.saltValue = first.standardGramValue
             }
-            if let validNutrient = productPair?.remoteProduct?.nutritionFactsDict[Nutrient.sugars.key] {
-                cell.sugarValue = validNutrient.standardGramValue
+            if let validNutritionFacts = productPair?.remoteProduct?.nutritionFacts[.unprepared]?.filter({ $0.key == Nutrient.sugars.key }),
+                let first = validNutritionFacts.first {
+                cell.sugarValue = first.standardGramValue
             }
-            if let validNutrient = productPair?.remoteProduct?.nutritionFactsDict[Nutrient.fat.key] {
-                cell.fatValue = validNutrient.standardGramValue
+            if let validNutritionFacts = productPair?.remoteProduct?.nutritionFacts[.unprepared]?.filter({ $0.key == Nutrient.fat.key }),
+            let first = validNutritionFacts.first {
+                cell.fatValue = first.standardGramValue
             }
-            if let validNutrient = productPair?.remoteProduct?.nutritionFactsDict[Nutrient.saturatedFat.key] {
-                cell.saturatedFatValue = validNutrient.standardGramValue
+            if let validNutritionFacts = productPair?.remoteProduct?.nutritionFacts[.unprepared]?.filter({ $0.key == Nutrient.saturatedFat.key }),
+            let first = validNutritionFacts.first {
+                cell.saturatedFatValue = first.standardGramValue
 
             }
             return cell

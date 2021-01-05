@@ -16,7 +16,7 @@ protocol AddNutrientCoordinatorProtocol {
          - sender : the `AddNutrientViewController` that called the function.
          - nutrientTuple : the tuple that has been added
     */
-    func addNutrientViewController(_ sender:AddNutrientViewController, add nutrientTuple:(Nutrient, String, NutritionFactUnit)?)
+    func addNutrientViewController(_ sender:AddNutrientViewController, add nutrientTuple:(Nutrient, String, NutritionFactUnit)?, nutritionFactsPreparationStyle: NutritionFactsPreparationStyle)
     /**
     Inform the protocol delegate that no shop has been selected.
     - Parameters:
@@ -31,8 +31,10 @@ final class AddNutrientViewController: UIViewController, UIPickerViewDelegate, U
     
     weak var coordinator: Coordinator? = nil
 
-    public func configure(existing nutrients: [String]) {
+    public func configure(existing nutrients: [String],
+                          nutritionFactsPreparationStyle: NutritionFactsPreparationStyle) {
         self.existingNutrients = nutrients
+        self.nutritionFactsPreparationStyle = nutritionFactsPreparationStyle
     }
 
     // The nutrient that user wants to
@@ -51,6 +53,7 @@ final class AddNutrientViewController: UIViewController, UIPickerViewDelegate, U
     // The list of nutrients filtered by the textFilter
     private var filteredNutrients: [(Nutrient, String, NutritionFactUnit)] = []
     
+    private var nutritionFactsPreparationStyle: NutritionFactsPreparationStyle = .unprepared
     
     private var textFilter: String = "" {
         didSet {
@@ -82,7 +85,7 @@ final class AddNutrientViewController: UIViewController, UIPickerViewDelegate, U
     }
     
     @IBAction func doneBarButtonItemTapped(_ sender: UIBarButtonItem) {
-        protocolCoordinator?.addNutrientViewController(self, add:addedNutrientTuple)
+        protocolCoordinator?.addNutrientViewController(self, add:addedNutrientTuple, nutritionFactsPreparationStyle: nutritionFactsPreparationStyle)
     }
     
     @IBAction func cancelBarButtonItemTapped(_ sender: UIBarButtonItem) {

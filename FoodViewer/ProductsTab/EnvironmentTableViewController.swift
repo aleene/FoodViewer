@@ -451,8 +451,8 @@ var delegate: ProductPageViewController? = nil {
         struct Header {
             static let Packaging = TranslatableStrings.Packaging
             static let Image = TranslatableStrings.MainImage
-            static let Ecoscore = "Ecoscore"
-            static let ForestFootprint = "Forest Footprint"
+            static let Ecoscore = TranslatableStrings.Ecoscore
+            static let ForestFootprint = TranslatableStrings.ForestFootprint
         }
     }
 
@@ -462,10 +462,20 @@ var delegate: ProductPageViewController? = nil {
         //
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
+        var index = 0
+
         sectionsAndRows.append(.ecoscore(TableSection.Size.Ecoscore, TableSection.Header.Ecoscore))
+        index += 1
+
         sectionsAndRows.append(.forestFootprint(TableSection.Size.ForestFootprint, TableSection.Header.ForestFootprint))
+        index += 1
+
         sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
+        tagListViewHeight[index] = Constants.CellHeight.TagListViewCell
+        index += 1
+
         sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
+        index += 1
 
         return sectionsAndRows
     }

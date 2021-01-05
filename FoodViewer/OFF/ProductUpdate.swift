@@ -172,59 +172,73 @@ class ProductUpdate: OFFProductUpdateAPI {
         
         if validProduct.type != nil && validProduct.type != .beauty {
             var hasNewNutritionFacts = false
-            for fact in validProduct.nutritionFactsDict {
-                if var validValue = fact.value.valueEdited {
-                    // If there is a space the user wants to delete the value
-                    if validValue == " " {
-                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal)
-                    } else {
-                        // The values must be converted to a standard unit
-                        // this is only valid if the unit is gram
-                        
-                        if let value = fact.value.valueEditedGramValue {
-                            validValue = "\(value)"
+            for nutritionFacts in validProduct.nutritionFacts {
+                let preparedFix = nutritionFacts.key == .unprepared ? "" : "_prepared"
+                for fact in nutritionFacts.value {
+                    if var validValue = fact.valueEdited {
+                        // If there is a space the user wants to delete the value
+                        if validValue == " " {
+                            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + preparedFix + OFFWriteAPI.Equal)
+                        } else {
+                            // The values must be converted to a standard unit
+                            // this is only valid if the unit is gram
+                            
+                            if let value = fact.valueEditedGramValue {
+                                validValue = "\(value)"
+                            }
+                            // If the unit is as daily percentage
+                            // The data must be converted to grams per servings
+                            // OFF does not accept/undestand %DV (17-nov-2020)
+                            if let validUnit = fact.valueUnitEdited,
+                                validUnit == .dailyValuePercent {
+                                //let validDouble = fact.value.valueEditedAsDouble,
+                                //let gram = ReferenceDailyIntakeList.manager.gram(dailyValuePercentage: validDouble, nutrient: fact.value.nutrient) {
+                                // divide the value by 100 to get a fraction
+                                validValue = "\(validValue)"
+                            }
+                            // else the unit as is is used
+                            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + preparedFix + OFFWriteAPI.Equal + validValue)
                         }
-                        // If the unit is as daily percentage
-                        // The data must be converted to grams per servings
-                        // OFF does not accept/undestand %DV (17-nov-2020)
-                        if let validUnit = fact.value.valueUnitEdited,
-                            validUnit == .dailyValuePercent {
-                            //let validDouble = fact.value.valueEditedAsDouble,
-                            //let gram = ReferenceDailyIntakeList.manager.gram(dailyValuePercentage: validDouble, nutrient: fact.value.nutrient) {
-                            // divide the value by 100 to get a fraction
-                            validValue = "\(validValue)"
+                    }
+                            
+                    // Add the unit of the nutrient
+                    if let validUnit = fact.valueUnitEdited {
+                        var validValueUnit = ""
+                        switch validUnit {
+                            // The addition of dailyValue is due to the inability of OFF to recognized %DV
+                        case .milligram, .microgram:
+                            validValueUnit = NutritionFactUnit.gram.short
+                        case .dailyValuePercent:
+                            validValueUnit = "% DV"
+                        default:
+                            validValueUnit = validUnit.short
                         }
-                        // else the unit as is is used
-                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal + validValue)
+                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
+                        urlString.append(preparedFix)
+                        urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
                     }
+                    productUpdated = true
+                    hasNewNutritionFacts = true
                 }
-                        
-                // Add the unit of the nutrient
-                if let validUnit = fact.value.valueUnitEdited {
-                    var validValueUnit = ""
-                    switch validUnit {
-                        // The addition of dailyValue is due to the inability of OFF to recognized %DV
-                    case .milligram, .microgram:
-                        validValueUnit = NutritionFactUnit.gram.short
-                    case .dailyValuePercent:
-                        validValueUnit = "% DV"
-                    default:
-                        validValueUnit = validUnit.short
-                    }
-                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
-                    urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
-                }
-                productUpdated = true
-                hasNewNutritionFacts = true
             }
             if hasNewNutritionFacts {
-                switch validProduct.nutritionFactsIndicationUnit {
-                case .perStandardUnit, .per1000Gram:
-                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
-                case .perServing, .perDailyValue:
-                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPerServing)
-                default: break
+                if let validNutritionFactsIndicationUnit = validProduct.nutritionFactsIndicationUnit?[.unprepared] {
+                    switch validNutritionFactsIndicationUnit {
+                    case .perStandardUnit, .per1000Gram:
+                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
+                    case .perServing, .perDailyValue:
+                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPerServing)
+                    }
                 }
+                if let validNutritionFactsIndicationUnit = validProduct.nutritionFactsIndicationUnit?[.prepared] {
+                    switch validNutritionFactsIndicationUnit {
+                    case .perStandardUnit, .per1000Gram:
+                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100gPrepared)
+                    case .perServing, .perDailyValue:
+                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPerServingPrepared)
+                    }
+                }
+
             }
         }
         

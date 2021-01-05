@@ -19,6 +19,12 @@ protocol EcoscoreCoordinatorProtocol {
 
 class EcoscoreTableViewController: UITableViewController {
 
+// MARK: - constants
+    
+    private let AgribalyseBaseUrl = "https://www.agribalyse.fr/app/aliments/"
+
+// MARK: - storyboard
+    
     @IBOutlet weak var navigationBar: UINavigationBar!
     
     @IBOutlet weak var navBarTitle: UINavigationItem!
@@ -67,10 +73,19 @@ Configures the viewController with the ecoscore detail calculation data.
     }
     
     private var ecoscoreData: OFFProductEcoscoreData? = nil
-                
+              
+    @objc func openAgribalyseCategory() {
+        guard let ciqual = ecoscoreData?.agribalyse?.agribalyse_food_code else { return }
+        guard let url = URL(string: AgribalyseBaseUrl + ciqual) else { return }
+        
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navBarTitle?.title = "Ecoscore Details"
+        navBarTitle?.title = TranslatableStrings.EcoscoreDetailsTitle
         tableView?.dataSource = self
     }
         
@@ -128,14 +143,23 @@ extension EcoscoreTableViewController {
             switch indexPath.row {
             case 0:
                 //cell.textLabel?.text = "Catégorie Agribalyse"
+                if let ciqual = ecoscoreData?.agribalyse?.agribalyse_food_code {
+                    let urlString = AgribalyseBaseUrl + ciqual
+                    let tapGesture = UITapGestureRecognizer()
+                    tapGesture.numberOfTouchesRequired = 1
+                    tapGesture.addTarget(self, action: #selector(openAgribalyseCategory))
+                    cell.detailTextLabel?.attributedText = NSAttributedString(string: ciqual, attributes: [NSAttributedString.Key.link: URL(string: urlString)!])
+                    cell.detailTextLabel?.addGestureRecognizer(tapGesture)
+                } else {
+                    cell.detailTextLabel?.attributedText = NSAttributedString(string: "")
+                }
                 cell.textLabel?.text = ecoscoreData?.agribalyse?.agribalyse_food_name_en
-                cell.detailTextLabel?.text = ""
             default:
-                cell.textLabel?.text = "Score ACV"
+                cell.textLabel?.text = TranslatableStrings.EcoscoreDetailsScoreACV
                 if let validScore = ecoscoreData?.agribalyse?.score {
                     cell.detailTextLabel?.text = numberFormatter.string(from: NSNumber(value: validScore))
                 } else {
-                    cell.detailTextLabel?.text = "none"
+                    cell.detailTextLabel?.text = TranslatableStrings.None
                 }
             }
             return cell
@@ -151,7 +175,7 @@ extension EcoscoreTableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BasicCaptionTableViewCell.EcoscoreTableViewController", for: indexPath)
-                cell.textLabel?.text = "No labels taken into account"
+                cell.textLabel?.text = TranslatableStrings.EcoscoreNoLablesTakenIntoAccount
                 return cell
             }
             
@@ -160,36 +184,37 @@ extension EcoscoreTableViewController {
             let aantalRows = tableView.numberOfRows(inSection: indexPath.section)
             switch indexPath.row {
             case aantalRows - 1: // last row
-                if let validScore = ecoscoreData?.adjustments?.origins_of_ingredients?.transportation_score {
-                    let malus = validScore / 6.66
-                    cell.textLabel?.text = malus < 0.0 ? "Malus transport" : "Bonus transport"
+                if let validScore = ecoscoreData?.adjustments?.origins_of_ingredients?.transportation_value {
+                    cell.textLabel?.text = validScore < 0.0 ? TranslatableStrings.EcoscoreMalusTransport : TranslatableStrings.EcoscoreBonusTransport
 
-                    cell.detailTextLabel?.text = numberFormatter.string(from: NSNumber(value: malus))
+                    cell.detailTextLabel?.text = numberFormatter.string(from: NSNumber(value: validScore))
                 } else {
-                    cell.textLabel?.text = "Bonus/malus transport"
-                    cell.detailTextLabel?.text = "pas défini"
+                    cell.textLabel?.text = TranslatableStrings.EcoscoreBonusMalusTransport
+                    cell.detailTextLabel?.text = TranslatableStrings.Undefined
                 }
             case aantalRows - 2:
                 if let validScore = ecoscoreData?.adjustments?.origins_of_ingredients?.epi_value {
-                    cell.textLabel?.text = validScore < 0.0 ? "Malus politique environmentale" : "Bonus politique environmentale"
+                    cell.textLabel?.text = validScore < 0.0
+                        ? TranslatableStrings.EcoscoreMalusEnvironmentalPolitics
+                        : TranslatableStrings.EcoscoreBonusEnvironmentalPolitics
                     cell.detailTextLabel?.text = numberFormatter.string(from: NSNumber(value: validScore))
                 } else {
-                    cell.textLabel?.text = "Bonus/malus politique environmentale"
-                    cell.detailTextLabel?.text = "pas défini"
+                    cell.textLabel?.text = TranslatableStrings.EcoscoreBonusMalusEnvironmentalPolitics
+                    cell.detailTextLabel?.text = TranslatableStrings.Undefined
                 }
             default:
                 if let validScore = ecoscoreData?.adjustments?.origins_of_ingredients?.origins_from_origins_field {
                     cell.textLabel?.text = validScore[indexPath.row]
                     cell.detailTextLabel?.text = ""
                 } else {
-                    cell.textLabel?.text = "No origins specified"
+                    cell.textLabel?.text = TranslatableStrings.EcoscoreNoOriginsSpecified
                 }
             }
             return cell
             
         case .species:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BasicCaptionTableViewCell.EcoscoreTableViewController", for: indexPath)
-            cell.textLabel?.text = "Pas d'especes menacees prises en compte"
+            cell.textLabel?.text = TranslatableStrings.EcoscoreNoMenacedSpecies
             return cell
             
         case .packaging:
@@ -197,40 +222,28 @@ extension EcoscoreTableViewController {
             switch indexPath.row {
             case aantalRows - 1: // last row
                 let cell = tableView.dequeueReusableCell(withIdentifier: "RightDetailTableViewCell.EcoscoreTableViewController", for: indexPath)
-                cell.textLabel?.text = "Total des éléments d'emballage"
+                cell.textLabel?.text = TranslatableStrings.EcoscoreTotalOfAllPackagingParts
                 if let validScore = ecoscoreData?.adjustments?.packaging?.value {
                     cell.detailTextLabel?.text = numberFormatter.string(from: NSNumber(value: validScore))
                 } else {
-                    cell.detailTextLabel?.text = "no packaging"
+                    cell.detailTextLabel?.text = TranslatableStrings.NoPackaging
                 }
                 return cell
-                /*
-            case aantalRows - 2: // penultimate row
-                let cell = tableView.dequeueReusableCell(withIdentifier: "RightDetailFootnoteTableViewCell.EcoscoreTableViewController", for: indexPath)
-                cell.textLabel?.text = "Score de tous les composants"
-                if let validScore = ecoscoreData?.adjustments?.packaging?.score {
-                    cell.detailTextLabel?.text = numberFormatter.string(from: NSNumber(value: validScore))
-                } else {
-                    cell.detailTextLabel?.text = "no score total"
-                }
-                return cell
-                 */
             default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "RightDetailFootnoteTableViewCell.EcoscoreTableViewController", for: indexPath)
             if let validScore = ecoscoreData?.adjustments?.packaging?.packagings {
-                    cell.textLabel?.text = ( validScore[indexPath.row].material ?? "unknown material")
+                cell.textLabel?.text = ( validScore[indexPath.row].material ?? TranslatableStrings.EcoscorePackagingOfUnrecognizedMaterial)
                         + " / " +
-                        ( validScore[indexPath.row].shape ?? "unknown shape" )
+                    ( validScore[indexPath.row].shape ?? TranslatableStrings.EcoscorePackagingOfUnrecognizedShape )
                     if let materialScore = validScore[indexPath.row].ecoscore_material_score,
-                        let materialRatio = validScore[indexPath.row].ecoscore_shape_ratio,
-                        let materialRatioDouble = Double(materialRatio) {
-                        let malus = (materialScore - 100.0) * materialRatioDouble / 10.0
+                        let materialRatio = validScore[indexPath.row].ecoscore_shape_ratio {
+                        let malus = (materialScore - 100.0) * Double(materialRatio) / 10.0
                         cell.detailTextLabel?.text = numberFormatter.string(from: NSNumber(value: malus))
                     } else {
-                        cell.detailTextLabel?.text = "no score total"
+                        cell.detailTextLabel?.text = TranslatableStrings.EcoscoreNoTotalScore
                     }
                 } else {
-                    cell.textLabel?.text = "No packaging"
+                    cell.textLabel?.text = TranslatableStrings.NoPackaging
                 }
                 return cell
             }
@@ -245,17 +258,17 @@ extension EcoscoreTableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch SectionType.sections[section] {
         case .agribalyse:
-            return "Score de Référence: analyse de cycle de vie (ACV)"
+            return TranslatableStrings.EcoscoreHeaderReferenceScore
         case .productionSystem:
-            return "Bonus/Malus: Mode de production"
+            return TranslatableStrings.EcoscoreHeaderProductionSystemImpact
         case .transport:
-            return "Bonus/Malus: Origine des ingrédients"
+            return TranslatableStrings.EcoscoreHeaderOriginImpact
         case .species:
-            return "Bonus/Malus: Espèces menacées"
+            return TranslatableStrings.EcoscoreHeaderMenacedSpeciesImpact
         case .packaging:
-            return "Bonus/Malus: Emballage"
+            return TranslatableStrings.EcoscoreHeaderPackagingImpact
         case .grade:
-            return "Score final"
+            return TranslatableStrings.EcoscoreHeaderFinalScore
         }
     }
 }

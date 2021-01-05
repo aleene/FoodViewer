@@ -9,6 +9,20 @@
 import Foundation
 import MapKit
 
+enum NutritionFactsPreparationStyle: Int {
+    case unprepared = 0
+    case prepared
+    
+    var description: String {
+        switch self {
+        case .prepared:
+            return TranslatableStrings.PreparationPrepared
+        case .unprepared:
+            return TranslatableStrings.PreparationUnprepared
+        }
+    }
+}
+
 class FoodProduct {
     
     // Primary variables
@@ -520,22 +534,25 @@ class FoodProduct {
     
     // MARK: - Nutrition variables 
     
+    var nutritionFacts: [NutritionFactsPreparationStyle: Set<NutritionFactItem>] = [:]
+    
     var nutritionFactsAreAvailable: NutritionAvailability {
         get {
             // Figures out whether a nutrition fact contains values per serving and/or standard
             // We use the first nutritionfact that is available and check the OFF processed data
-            if !nutritionFactsDict.isEmpty {
-                if nutritionFactsDict.first?.value.serving != nil &&
-                    !nutritionFactsDict.first!.value.serving!.isEmpty &&
-                    nutritionFactsDict.first?.value.standard != nil &&
-                    !nutritionFactsDict.first!.value.standard!.isEmpty {
-                    return .perServingAndStandardUnit
-                } else if nutritionFactsDict.first?.value.serving != nil &&
-                    !nutritionFactsDict.first!.value.serving!.isEmpty {
-                    return .perServing
-                } else if nutritionFactsDict.first?.value.standard != nil &&
-                    !nutritionFactsDict.first!.value.standard!.isEmpty {
-                    return .perStandardUnit
+            for nutrientSet in nutritionFacts {
+                if let firstNutrient = nutrientSet.value.first {
+                    if let firstServing = firstNutrient.serving,
+                        let firstStandard = firstNutrient.standard,
+                        !firstServing.isEmpty && !firstStandard.isEmpty {
+                        return .perServingAndStandardUnit
+                    } else if let first = firstNutrient.serving,
+                        !first.isEmpty {
+                        return .perServing
+                    } else if let first = firstNutrient.standard,
+                        !first.isEmpty {
+                        return .perStandardUnit
+                    }
                 }
             }
             if hasNutritionFacts != nil {
@@ -545,54 +562,50 @@ class FoodProduct {
         }
     }
     
-    // This variable indicates whether there are nutrition facts available on the package.
-    var hasNutritionFacts: Bool? = nil // nil indicates that it is not known/provided by OFF
+    /// This variable indicates whether there are nutrition facts available on the package.
+    public var hasNutritionFacts: Bool? = nil // nil indicates that it is not known/provided by OFF
     
-    // hasNutritionFacts can be nil even if there are nutriments defined
+    /// hasNutritionFacts can be nil even if there are nutriments defined
     var nutrimentFactsAvailability: Bool {
         get {
             if let hasFacts = hasNutritionFacts {
                 return hasFacts
             } else {
-                return !nutritionFactsDict.isEmpty ? true : false
+                return !nutritionFacts.isEmpty ? true : false
             }
         }
     }
-    var nutritionFactsIndicationUnit: NutritionEntryUnit? = nil
-    
-    // The nutritionFacts array can be nil, if nothing has been defined
-    // An element in the array can be nil as well
-    //var nutritionFacts: [NutritionFactItem?]? = nil
-    
-    var nutritionFactsDict: [String:NutritionFactItem] = [:]
-    
-    var nutritionFacts: Set<Nutrient> {
-        var nutrients: Set<Nutrient> = []
-        for nutritionFactItem in nutritionFactsDict {
-            nutrients.insert(nutritionFactItem.value.nutrient)
-        }
-        return nutrients
-    }
-    
-    func add(fact: NutritionFactItem?) {
+    var nutritionFactsIndicationUnit: [NutritionFactsPreparationStyle: NutritionEntryUnit]? = nil
+
+    func add(fact: NutritionFactItem?, preparationStyle: NutritionFactsPreparationStyle) {
         guard let validFact = fact else { return }
-        nutritionFactsDict[validFact.key] = validFact
+        if nutritionFacts[preparationStyle] == nil {
+            nutritionFacts[preparationStyle] = Set<NutritionFactItem>()
+        }
+        nutritionFacts[preparationStyle]?.insert(validFact)
+        //nutritionFactsDict[validFact.key] = validFact
     }
     
     var possibleNutritionFactTableStyles: Set<NutritionFactsLabelStyle> {
-        return NutritionFactsLabelStyle.styles(for: Set(nutritionFacts))
+        if let unprepared = nutritionFacts[.unprepared] {
+            return NutritionFactsLabelStyle.styles(for: unprepared)
+        } else if let prepared = nutritionFacts[.prepared] {
+            return NutritionFactsLabelStyle.styles(for: prepared)
+        }
+        return []
     }
     
     // The style that best fits the nutrients
     var bestNutritionFactTableStyle: NutritionFactsLabelStyle {
         let countryBasedStyles = NutritionFactsLabelStyle.styles(for: Set(self.countriesInterpreted.list))
-        //print(self.name, "country", countryBasedStyles)
-        //let nutritionFactsBasedStyles = NutritionFactsLabelStyle.styles(for: Set(nutritionFacts))
-        let bestStyles = NutritionFactsLabelStyle.optimumStyle(for: Set(nutritionFacts))
-        //print("nutrition", nutritionFactsBasedStyles)
-        //print("current", NutritionFactsLabelStyle.current)
+        var bestStyles: Set<NutritionFactsLabelStyle> = []
+        if let unprepared = nutritionFacts[.unprepared] {
+            bestStyles = NutritionFactsLabelStyle.styles(for: unprepared)
+        } else if let prepared = nutritionFacts[.prepared] {
+            bestStyles = NutritionFactsLabelStyle.styles(for: prepared)
+        }
+        
         let interSection = countryBasedStyles.intersection(bestStyles).first
-        //let returnValue = interSection ?? NutritionFactsLabelStyle.current
         return interSection ?? NutritionFactsLabelStyle.current
     }
     
@@ -1206,7 +1219,7 @@ class FoodProduct {
         embCodesInterpreted = .undefined
         embCodesOriginal = .undefined
         servingSize = nil
-        nutritionFactsDict = [:]
+        nutritionFacts = [:]
         nutritionScore = nil
         //imageNutritionSmallUrl = nil
         //nutritionFactsImageUrl = nil
@@ -2019,7 +2032,8 @@ class FoodProduct {
         categoriesInterpreted = Tags(list: validProduct.categories_tags)
         
         quantity = validProduct.quantity
-        nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(validProduct.nutrition_data_per)
+        nutritionFactsIndicationUnit?[.unprepared] = decodeNutritionFactIndicationUnit(validProduct.nutrition_data_per)
+        nutritionFactsIndicationUnit?[.prepared] = decodeNutritionFactIndicationUnit(validProduct.nutrition_data_prepared_per)
         
         periodAfterOpeningString = validProduct.period_after_opening
         
@@ -2050,116 +2064,20 @@ class FoodProduct {
                            NutritionLevelQuantity.value(for:validProduct.nutrient_levels?.salt))]
         
         for nutrient in Nutrient.allCases {
-            add(fact: nutritionDecode(nutrient, with: validProduct.nutriments?.nutriments[nutrient.rawValue]))
+            add(fact: nutritionDecode(nutrient, with: validProduct.nutriments?.nutriments[nutrient.rawValue]), preparationStyle: .unprepared)
+            add(fact: nutritionDecode(nutrient, with: validProduct.nutriments?.preparedNutriments[nutrient.rawValue]), preparationStyle: .prepared)
         }
         
         self.forestFootprint = decodeForestFootPrint(validProduct.forest_footprint_data)
         
-        /*
-        add(fact: nutritionDecode(.energy, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.EnergyKey]))
-        add(fact: nutritionDecode(.energyKcal, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.EnergyKcalKey]))
-        add(fact: nutritionDecode(.fat, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FatKey]))
-        add(fact: nutritionDecode(.monounsaturatedFat, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MonounsaturatedFatKey]))
-        add(fact: nutritionDecode(.polyunsaturatedFat, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PolyunsaturatedFatKey]))
-        add(fact: nutritionDecode(.saturatedFat, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SaturatedFatKey]))
-        add(fact: nutritionDecode(.omega3Fat, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.Omega3FatKey]))
-        add(fact: nutritionDecode(.omega6Fat, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.Omega6FatKey]))
-        add(fact: nutritionDecode(.omega9Fat, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.Omega9FatKey]))
-        add(fact: nutritionDecode(.transFat, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.TransFatKey]))
-        add(fact: nutritionDecode(.cholesterol, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CholesterolKey]))
-        add(fact: nutritionDecode(.carbohydrates, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CarbohydratesKey]))
-        add(fact: nutritionDecode(.sugars, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SugarsKey]))
-        add(fact: nutritionDecode(.sucrose, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SucroseKey]))
-        add(fact: nutritionDecode(.glucose, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.GlucoseKey]))
-        add(fact: nutritionDecode(.fructose , with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FructoseKey]))
-        add(fact: nutritionDecode(.lactose, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.LactoseKey]))
-        add(fact: nutritionDecode(.maltose, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MaltoseKey]))
-        add(fact: nutritionDecode(.polyols, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PolyolsKey]))
-        add(fact: nutritionDecode(.maltodextrins, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MaltodextrinsKey]))
-        add(fact: nutritionDecode(.fiber, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FiberKey]))
-        add(fact: nutritionDecode(.proteins, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ProteinsKey]))
-        add(fact: nutritionDecode(.sodium, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SodiumKey]))
-        add(fact: nutritionDecode(.salt, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SaltKey]))
-        add(fact: nutritionDecode(.alcohol, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.AlcoholKey]))
-        
-        add(fact: nutritionDecode(.biotin, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.BiotinKey]))
-        add(fact: nutritionDecode(.casein, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CaseinKey]))
-        add(fact: nutritionDecode(.serumProteins, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SerumProteinsKey]))
-        add(fact: nutritionDecode(.nucleotides , with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.NucleotidesKey]))
-        add(fact: nutritionDecode(.starch, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.StarchKey]))
-        
-        add(fact: nutritionDecode(.vitaminA, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminAKey]))
-        add(fact: nutritionDecode(.vitaminB1, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminB1Key]))
-        add(fact: nutritionDecode(.vitaminB2, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminB2Key]))
-        add(fact: nutritionDecode(.vitaminPP, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminPPKey]))
-        add(fact: nutritionDecode(.vitaminB6, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminB6Key]))
-        add(fact: nutritionDecode(.vitaminB9, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminB9Key]))
-        add(fact: nutritionDecode(.vitaminB12, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminB12Key]))
-        add(fact: nutritionDecode(.vitaminC, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminCKey]))
-        add(fact: nutritionDecode(.vitaminD, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminDKey]))
-        add(fact: nutritionDecode(.vitaminE, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminEKey]))
-        add(fact: nutritionDecode(.vitaminK, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminKKey]))
-        
-        add(fact: nutritionDecode(.calcium, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CalciumKey]))
-        add(fact: nutritionDecode(.chloride, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ChlorideKey]))
-        add(fact: nutritionDecode(.chromium, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ChromiumKey]))
-        add(fact: nutritionDecode(.copper, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CopperKey]))
-        add(fact: nutritionDecode(.bicarbonate, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.BicarbonateKey]))
-        add(fact: nutritionDecode(.fluoride, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FluorideKey]))
-        add(fact: nutritionDecode(.iodine, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.IodineKey]))
-        add(fact: nutritionDecode(.iron, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.IronKey]))
-        add(fact: nutritionDecode(.magnesium, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MagnesiumKey]))
-        add(fact: nutritionDecode(.manganese, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ManganeseKey]))
-        add(fact: nutritionDecode(.molybdenum, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MolybdenumKey]))
-        add(fact: nutritionDecode(.phosphorus, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PhosphorusKey]))
-        add(fact: nutritionDecode(.potassium, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PotassiumKey]))
-        add(fact: nutritionDecode(.selenium, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SeleniumKey]))
-        add(fact: nutritionDecode(.silica, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SilicaKey]))
-        add(fact: nutritionDecode(.zinc, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ZincKey]))
-        
-        add(fact: nutritionDecode(.alphaLinolenicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.AlphaLinolenicAcidKey]))
-        add(fact: nutritionDecode(.arachidicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ArachidicAcidKey]))
-        add(fact: nutritionDecode(.arachidonicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ArachidonicAcidKey]))
-        add(fact: nutritionDecode(.behenicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.BehenicAcidKey]))
-        add(fact: nutritionDecode(.butyricAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ButyricAcidKey]))
-        add(fact: nutritionDecode(.capricAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CapricAcidKey]))
-        add(fact: nutritionDecode(.caproicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CaproicAcidKey]))
-        add(fact: nutritionDecode(.caprylicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CaprylicAcidKey]))
-        add(fact: nutritionDecode(.ceroticAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CeroticAcidKey]))
-        add(fact: nutritionDecode(.dihomoGammaLinolenicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.DihomoGammaLinolenicAcidKey]))
-        add(fact: nutritionDecode(.docosahexaenoicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.DocosahexaenoicAcidKey]))
-        add(fact: nutritionDecode(.eicosapentaenoicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.EicosapentaenoicAcidKey]))
-        add(fact: nutritionDecode(.elaidicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ElaidicAcidKey]))
-        add(fact: nutritionDecode(.erucicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ErucicAcidKey]))
-        add(fact: nutritionDecode(.gammaLinolenicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.GammaLinolenicAcidKey]))
-        add(fact: nutritionDecode(.gondoicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.GondoicAcidKey]))
-        add(fact: nutritionDecode(.lauricAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.LauricAcidKey]))
-        add(fact: nutritionDecode(.lignocericAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.LignocericAcidKey]))
-        add(fact: nutritionDecode(.linoleicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.LinoleicAcidKey]))
-        add(fact: nutritionDecode(.meadAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MeadAcidKey]))
-        add(fact: nutritionDecode(.melissicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MelissicAcidKey]))
-        add(fact: nutritionDecode(.montanicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MontanicAcidKey]))
-        add(fact: nutritionDecode(.myristicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MyristicAcidKey]))
-        add(fact: nutritionDecode(.nervonicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.NervonicAcidKey]))
-        add(fact: nutritionDecode(.palmiticAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PalmiticAcidKey]))
-        add(fact: nutritionDecode(.pantothenicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PantothenicAcidKey]))
-        add(fact: nutritionDecode(.stearicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.StearicAcidKey]))
-        add(fact: nutritionDecode(.voleicAcid, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VoleicAcidKey]))
-        
-        add(fact: nutritionDecode(.caffeine, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CaffeineKey]))
-        add(fact: nutritionDecode(.taurine, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.TaurineKey]))
-        
-        add(fact: nutritionDecode(.ph, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PhKey]))
-        add(fact: nutritionDecode(.cocoa, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CacaoKey]))
-        add(fact: nutritionDecode(.fruitsVegetablesNuts, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FruitsVegetablesNutsKey]))
-        add(fact: nutritionDecode(.fruitsVegetablesNutsEstimate, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FruitsVegetablesNutsEstimateKey]))
-*/
         
         decodeNutritionalScore(validProduct.nutrition_score_debug)
         nutritionalScoreFRDecoded = validProduct.nutriscore_data?.nutriscore
         //print("FR Decoded: ",nutritionalScoreFRDecoded?.description)
-        nutritionalScoreUKCalculated = NutritionalScore.init(nutritionFactsDict: nutritionFactsDict)
-        nutritionalScoreFRCalculated = NutritionalScoreFR.init(nutritionFactsDict: nutritionFactsDict, taxonomy: categoriesHierarchy)
+        if let unprepared = nutritionFacts[.unprepared] {
+            nutritionalScoreUKCalculated = NutritionalScore.init(nutritionFacts: unprepared)
+            nutritionalScoreFRCalculated = NutritionalScoreFR.init(nutritionFacts: unprepared, taxonomy: categoriesHierarchy)
+        }
         //print("UK Calculated: ",nutritionalScoreUKCalculated?.description)
         // load the attribute groups
         
@@ -2175,8 +2093,9 @@ class FoodProduct {
         self.barcode = product.barcode
     }
     
-    func nutritionFactsContain(_ nutrient: Nutrient) -> Bool {
-        return nutritionFactsDict.contains(where: {( $0.key == nutrient.key )})
+    func nutritionFactsContain(_ nutrient: Nutrient, nutritionFactsPreparationStyle: NutritionFactsPreparationStyle) -> Bool {
+        guard let nutritionFacts = nutritionFacts[nutritionFactsPreparationStyle] else { return false }
+        return nutritionFacts.contains(where: {( $0.key == nutrient.key )})
     }
     
     // If an update is successfull, the updated data can be removed
@@ -2194,7 +2113,7 @@ class FoodProduct {
         labelsOriginal = .undefined
         
         servingSize = nil
-        nutritionFactsDict = [:]
+        nutritionFacts = [:]
         hasNutritionFacts = nil
 
         manufacturingPlacesOriginal = .undefined
@@ -2232,7 +2151,7 @@ class FoodProduct {
         originsOriginal == .undefined &&
         embCodesOriginal == .undefined &&
         servingSize == nil &&
-        nutritionFactsDict.isEmpty &&
+        nutritionFacts.isEmpty &&
         purchasePlacesAddress == nil &&
         purchasePlacesOriginal == .undefined &&
         storesOriginal == .undefined &&
@@ -2491,7 +2410,22 @@ class FoodProduct {
     // This calculated variable is needed for the creation of a OFF json
     var asOFFProductJson: OFFProductJson {
         
-        let offNutriments = OFFProductNutriments(nutritionFactsDict: self.nutritionFactsDict)
+        var unprepared: [String: NutritionFactItem] = [:]
+        var prepared: [String: NutritionFactItem] = [:]
+        
+        if let valid = self.nutritionFacts[.unprepared] {
+            for element in valid {
+                unprepared[element.key] = element
+            }
+        }
+        if let valid = self.nutritionFacts[.prepared] {
+            for element in valid {
+                prepared[element.key] = element
+            }
+        }
+
+        let offNutriments = OFFProductNutriments(nutritionFactsDict: unprepared,
+                                                 preparedNutritionFactsDict: prepared)
     
         var validLinks = ""
         if let validLinkUrls = self.links {

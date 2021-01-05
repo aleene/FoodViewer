@@ -66,6 +66,25 @@ class OFFProductEcoscoreDataAgrybalyse: Codable {
     var agribalyse_food_name_en: String? = nil
     var agribalyse_food_code: String? = nil
     var agribalyse_food_name_fr: String? = nil
+    var agribalyse_proxy_food_code: String? = nil
+    var code: String? = nil
+    var co2_agriculture: String? = nil
+    var co2_consumption: String? = nil
+    var co2_distribution: String? = nil
+    var co2_packaging: String? = nil
+    var co2_processing: String? = nil
+    var co2_total: String? = nil
+    var co2_transportation: String? = nil
+    var dqr: String? = nil
+    var ef_agriculture: String? = nil
+    var ef_consumption: String? = nil
+    var ef_distribution: String? = nil
+    var ef_packaging: String? = nil
+    var ef_processing: String? = nil
+    var ef_total: String? = nil
+    var ef_transportation: String? = nil
+    var name_en: String? = nil
+    var name_fr: String? = nil
     var score: Double? = nil
 }
 
@@ -92,7 +111,7 @@ class OFFProductEcoscoreDataAdjustmentsOriginsOfIngredientsDetailed: OFFProductE
         static let epi_value = DetailedKeys(stringValue: "epi_value")!
         static let epi_score = DetailedKeys(stringValue: "epi_score")!
         static let transportation_score = DetailedKeys(stringValue: "transportation_score")!
-        static let transportation_value = DetailedKeys(stringValue: "transportation_score")!
+        static let transportation_value = DetailedKeys(stringValue: "transportation_value")!
     }
 
     var epi_value: Double? = nil
@@ -101,7 +120,8 @@ class OFFProductEcoscoreDataAdjustmentsOriginsOfIngredientsDetailed: OFFProductE
     var transportation_value: Double? = nil
 
     required init(from decoder: Decoder) throws {
-        
+        /*
+
         func forceInt(key: DetailedKeys) -> Int? {
             do {
                 return try container.decode(Int.self, forKey: key )
@@ -114,7 +134,6 @@ class OFFProductEcoscoreDataAdjustmentsOriginsOfIngredientsDetailed: OFFProductE
                 }
             }
         }
-        
         func forceDouble(key: DetailedKeys) -> Double? {
             do {
                 return try container.decode(Double.self, forKey: key )
@@ -132,13 +151,13 @@ class OFFProductEcoscoreDataAdjustmentsOriginsOfIngredientsDetailed: OFFProductE
                 }
             }
         }
-
+*/
         let container = try decoder.container(keyedBy: DetailedKeys.self)
                 
-        self.epi_score = forceDouble(key: .epi_score)
-        self.epi_value = forceDouble(key: .epi_value)
-        self.transportation_score = forceDouble(key: .transportation_score)
-        self.transportation_value = forceDouble(key: .transportation_value)
+        self.epi_score = container.forceDouble(key: .epi_score)
+        self.epi_value = container.forceDouble(key: .epi_value)
+        self.transportation_score = container.forceDouble(key: .transportation_score)
+        self.transportation_value = container.forceDouble(key: .transportation_value)
             
         try super.init(from: decoder)
     }
@@ -165,59 +184,27 @@ class OFFProductEcoscoreDataAdjustmentsPackagingShape: Codable {
     var material: String? = nil
     var ecoscore_counted: Int? = nil
     var ecoscore_material_warning: String? = nil
-    var ecoscore_shape_ratio: String? = nil
-    //var ecoscore_material_score: String? = nil
 }
 
 
 class OFFProductEcoscoreDataAdjustmentsPackagingShapeDetailed: OFFProductEcoscoreDataAdjustmentsPackagingShape {
     
-    /*
-    struct DetailedKeys : CodingKey {
-        var stringValue: String
-        init?(stringValue: String) {
-            self.stringValue = stringValue
-        }
-        var intValue: Int? { return nil }
-        init?(intValue: Int) { return nil }
-        
-        static let ecoscore_material_score = DetailedKeys(stringValue: "ecoscore_material_score")!
-    }
- */
-
     enum CodingKeys: String, CodingKey {
         case ecoscore_material_score
+        case ecoscore_shape_ratio
     }
 
     var ecoscore_material_score: Double? = nil
-    
+    var ecoscore_shape_ratio: Double? = nil
+
     required init(from decoder: Decoder) throws {
-        /*
-        func forceDouble(key: CodingKeys) -> Double? {
-            do {
-                return try container.decode(Double.self, forKey: key )
-            } catch {
-                do {
-                    let asInt = try container.decode(Int.self, forKey: key)
-                    return Double(asInt)
-                } catch {
-                    do {
-                        let asString = try container.decode(String.self, forKey: key)
-                        return Double(asString)
-                    } catch {
-                        return nil
-                    }
-                }
-            }
-        }
-        */
+
         do {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            
+            ecoscore_shape_ratio = container.forceDouble(key: .ecoscore_shape_ratio)
             ecoscore_material_score = container.forceDouble(key: .ecoscore_material_score)
-            
         } catch {
-            print("OFFProductEcoscoreDataAdjustmentsPackagingShapeDetailed: decoding failed")
+            print("OFFProductEcoscoreDataAdjustmentsPackagingShapeDetailed: all decoding failed")
         }
 
         try super.init(from: decoder)
@@ -239,6 +226,47 @@ extension KeyedDecodingContainer {
                     let asString = try decode(String.self, forKey: key)
                     return Double(asString)
                 } catch {
+                    print("KeyedDecodingContainer:forceDouble: \(key) is not convertable")
+                    return nil
+                }
+            }
+        }
+    }
+
+    func forceInt(key: K) -> Int? {
+        do {
+            return try decode(Int.self, forKey: key )
+        } catch {
+            do {
+                let asDouble = try decode(Double.self, forKey: key)
+                return Int(asDouble)
+            } catch {
+                do {
+                    let asString = try decode(String.self, forKey: key)
+                    return Int(asString)
+                } catch {
+                    print("KeyedDecodingContainer:forceInt: \(key) is not convertable")
+                    return nil
+                }
+            }
+        }
+    }
+
+    func forceString(key: K) -> String? {
+        do {
+            return try decode(String.self, forKey: key)
+        } catch {
+            do {
+                print("KeyedDecodingContainer:forceString: \(key) is not a String")
+                let name = try decode(Float.self, forKey: key)
+                return "\(name)"
+            } catch {
+                print("KeyedDecodingContainer:forceString: \(key) is not a Float")
+                do {
+                    let name = try decode(Int.self, forKey: key)
+                    return "\(name)"
+                } catch {
+                    print("KeyedDecodingContainer:forceString: \(key) is not an Int")
                     return nil
                 }
             }

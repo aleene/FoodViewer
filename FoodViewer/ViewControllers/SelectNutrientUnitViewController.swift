@@ -10,12 +10,15 @@ import UIKit
 
 protocol SelectNutrientCoordinatorProtocol {
     /**
-    Inform the protocol delegate that no shop has been selected.
+    Inform the protocol delegate that no nutrien unit has been selected.
     - Parameters:
          - sender : the `SelectNutrientUnitViewController` that called the function.
          - nutrientRow : the row number of that is changed
     */
-    func selectNutrientUnitViewController(_ sender:SelectNutrientUnitViewController, nutrient:Nutrient?, unit:NutritionFactUnit?)
+    func selectNutrientUnitViewController(_ sender:SelectNutrientUnitViewController,
+                                          nutrient:Nutrient?,
+                                          unit:NutritionFactUnit?,
+                                          nutritionFactsPreparationStyle: NutritionFactsPreparationStyle)
     /**
     Inform the protocol delegate that no shop has been selected.
     - Parameters:
@@ -35,9 +38,12 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
         static let RowOffset = 1
     }
     
-    public func configure(nutrient: Nutrient?, unit: NutritionFactUnit?) {
+    public func configure(nutrient: Nutrient?,
+                          unit: NutritionFactUnit?,
+                          nutritionFactsPreparationStyle: NutritionFactsPreparationStyle) {
         self.currentNutrient = nutrient
         self.currentNutritionUnit = unit
+        self.nutritionFactsPreparationStyle = nutritionFactsPreparationStyle
     }
     
     private var energyUnit: Bool {
@@ -50,11 +56,15 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
         }
     }
     
+// MARK: - private variables
+    
     private var currentNutrient: Nutrient? = nil
     
     private var currentNutritionUnit: NutritionFactUnit? = nil
         
     private var selectedNutritionUnit: NutritionFactUnit? = nil
+    
+    private var nutritionFactsPreparationStyle: NutritionFactsPreparationStyle = .unprepared
     
     @IBOutlet weak var nutrientUnitsPickerView: UIPickerView! {
         didSet {
@@ -67,7 +77,10 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     @IBOutlet weak var navItem: UINavigationItem!
 
     @IBAction func doneBarButtonItemTapped(_ sender: UIBarButtonItem) {
-        protocolCoordinator?.selectNutrientUnitViewController(self, nutrient: currentNutrient, unit: selectedNutritionUnit)
+        protocolCoordinator?.selectNutrientUnitViewController(self,
+                                                              nutrient: currentNutrient,
+                                                              unit: selectedNutritionUnit,
+                                                              nutritionFactsPreparationStyle: nutritionFactsPreparationStyle)
     }
     
     @IBAction func cancelBarButtonItemTapped(_ sender: UIBarButtonItem) {
@@ -99,7 +112,10 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if row >= Constants.RowOffset {
             selectedNutritionUnit = NutritionFactUnit.units(for:energyUnit)[row - Constants.RowOffset]
-            protocolCoordinator?.selectNutrientUnitViewController(self, nutrient: currentNutrient, unit: selectedNutritionUnit)
+            protocolCoordinator?.selectNutrientUnitViewController(self,
+                                                                  nutrient: currentNutrient,
+                                                                  unit: selectedNutritionUnit,
+                                                                  nutritionFactsPreparationStyle: nutritionFactsPreparationStyle)
         }
     }
 

@@ -1,107 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
-  <file original="FoodViewer/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="en" datatype="plaintext">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.3" build-num="11C29"/>
-    </header>
-    <body>
-      <trans-unit id="3Vn-bz-g9v.title" xml:space="preserve">
-        <source>Scanner</source>
-        <target>Scanner</target>
-        <note>Class = "UITabBarItem"; title = "Scanner"; ObjectID = "3Vn-bz-g9v";</note>
-      </trans-unit>
-      <trans-unit id="8si-Yq-0ji.text" xml:space="preserve">
-        <source>FoodViewer is possible thanks to OpenFoodFacts, a open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels.</source>
-        <target>FoodViewer is possible thanks to OpenFoodFacts, a open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels.</target>
-        <note>Class = "UITextView"; text = "FoodViewer is possible thanks to OpenFoodFacts, a open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels."; ObjectID = "8si-Yq-0ji";</note>
-      </trans-unit>
-      <trans-unit id="9OJ-E9-8aV.text" xml:space="preserve">
-        <source>FoodViewer</source>
-        <target>FoodViewer</target>
-        <note>Class = "UILabel"; text = "FoodViewer"; ObjectID = "9OJ-E9-8aV";</note>
-      </trans-unit>
-      <trans-unit id="WHd-6b-vLZ.title" xml:space="preserve">
-        <source>User</source>
-        <target>User</target>
-        <note>Class = "UITabBarItem"; title = "User"; ObjectID = "WHd-6b-vLZ";</note>
-      </trans-unit>
-      <trans-unit id="u7v-kh-6sa.title" xml:space="preserve">
-        <source>Search</source>
-        <target>Search</target>
-        <note>Class = "UITabBarItem"; title = "Search"; ObjectID = "u7v-kh-6sa";</note>
-      </trans-unit>
-      <trans-unit id="znY-gQ-KqA.text" xml:space="preserve">
-        <source>Copyright © 2019 Hovering Above. All rights reserved.</source>
-        <target>Copyright © 2019 Hovering Above. All rights reserved.</target>
-        <note>Class = "UILabel"; text = "Copyright © 2019 Hovering Above. All rights reserved."; ObjectID = "znY-gQ-KqA";</note>
-      </trans-unit>
-    </body>
-  </file>
-  <file original="FoodViewer/Base.lproj/Main.storyboard" source-language="en" target-language="en" datatype="plaintext">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.3" build-num="11C29"/>
-    </header>
-    <body>
-      <trans-unit id="18F-0Y-Djv.title" xml:space="preserve">
-        <source>Title</source>
-        <target>Title</target>
-        <note>Class = "UINavigationItem"; title = "Title"; ObjectID = "18F-0Y-Djv";</note>
-      </trans-unit>
-      <trans-unit id="GNV-RJ-BqM.normalTitle" xml:space="preserve">
-        <source>Button</source>
-        <target>Button</target>
-        <note>Class = "UIButton"; normalTitle = "Button"; ObjectID = "GNV-RJ-BqM";</note>
-      </trans-unit>
-      <trans-unit id="N1L-ib-Wsw.normalTitle" xml:space="preserve">
-        <source>Button</source>
-        <target>Button</target>
-        <note>Class = "UIButton"; normalTitle = "Button"; ObjectID = "N1L-ib-Wsw";</note>
-      </trans-unit>
-      <trans-unit id="gcB-gq-Prk.text" xml:space="preserve">
-        <source>Title</source>
-        <target>Title</target>
-        <note>Class = "UILabel"; text = "Title"; ObjectID = "gcB-gq-Prk";</note>
-      </trans-unit>
-      <trans-unit id="hho-M2-f3Y.text" xml:space="preserve">
-        <source>  </source>
-        <target>  </target>
-        <note>Class = "UILabel"; text = "  "; ObjectID = "hho-M2-f3Y";</note>
-      </trans-unit>
-      <trans-unit id="lq6-u2-yzX.prompt" xml:space="preserve">
-        <source>ddd</source>
-        <target>ddd</target>
-        <note>Class = "UINavigationItem"; prompt = "ddd"; ObjectID = "lq6-u2-yzX";</note>
-      </trans-unit>
-      <trans-unit id="lq6-u2-yzX.title" xml:space="preserve">
-        <source>uttyut</source>
-        <target>uttyut</target>
-        <note>Class = "UINavigationItem"; title = "uttyut"; ObjectID = "lq6-u2-yzX";</note>
-      </trans-unit>
-      <trans-unit id="qYU-Rc-PQr.title" xml:space="preserve">
-        <source>Title</source>
-        <target>Title</target>
-        <note>Class = "UINavigationItem"; title = "Title"; ObjectID = "qYU-Rc-PQr";</note>
-      </trans-unit>
-      <trans-unit id="sRD-kD-Shm.text" xml:space="preserve">
-        <source>Title</source>
-        <target>Title</target>
-        <note>Class = "UILabel"; text = "Title"; ObjectID = "sRD-kD-Shm";</note>
-      </trans-unit>
-      <trans-unit id="wMC-J7-mFP.text" xml:space="preserve">
-        <source>Subtitle</source>
-        <target>Subtitle</target>
-        <note>Class = "UILabel"; text = "Subtitle"; ObjectID = "wMC-J7-mFP";</note>
-      </trans-unit>
-      <trans-unit id="xyu-NU-BXi.text" xml:space="preserve">
-        <source>Subtitle</source>
-        <target>Subtitle</target>
-        <note>Class = "UILabel"; text = "Subtitle"; ObjectID = "xyu-NU-BXi";</note>
-      </trans-unit>
-    </body>
-  </file>
   <file original="FoodViewer/en.lproj/InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.3" build-num="11C29"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.7" build-num="11E801a"/>
     </header>
     <body>
       <trans-unit id="CFBundleName" xml:space="preserve">
@@ -128,7 +29,7 @@
   </file>
   <file original="FoodViewer/en.lproj/Localizable.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.3" build-num="11C29"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.7" build-num="11E801a"/>
     </header>
     <body>
       <trans-unit id=" " xml:space="preserve">
@@ -145,6 +46,11 @@
         <source>100 mg/ml</source>
         <target>100 mg/ml</target>
         <note>Title of first segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)</note>
+      </trans-unit>
+      <trans-unit id="100g/ml" xml:space="preserve">
+        <source>100g/ml</source>
+        <target>100g/ml</target>
+        <note>Text of 1st segment of a SegmentedControl, indicating the model of the nutrient values, i.e. per standard 100g or 100 ml</note>
       </trans-unit>
       <trans-unit id="?" xml:space="preserve">
         <source>?</source>
@@ -170,6 +76,11 @@
         <source>Add Nutrient</source>
         <target>Add Nutrient</target>
         <note>Title of a button in normal state allowing the user to add a nutrient</note>
+      </trans-unit>
+      <trans-unit id="Add images for new product" xml:space="preserve">
+        <source>Add images for new product</source>
+        <target>Add images for new product</target>
+        <note>Title of a viewController where the users can add images for a new product.</note>
       </trans-unit>
       <trans-unit id="Additives" xml:space="preserve">
         <source>Additives</source>
@@ -275,6 +186,46 @@
         <source>Beverages category</source>
         <target>Beverages category</target>
         <note>Cell title indicating the product belongs to the beverages category</note>
+      </trans-unit>
+      <trans-unit id="Bonus environmental politics" xml:space="preserve">
+        <source>Bonus environmental politics</source>
+        <target>Bonus environmental politics</target>
+        <note>Cell text label indicating the bonus values for the environmental politics</note>
+      </trans-unit>
+      <trans-unit id="Bonus transport" xml:space="preserve">
+        <source>Bonus transport</source>
+        <target>Bonus transport</target>
+        <note>Cell text label indicating the bonus values for transport</note>
+      </trans-unit>
+      <trans-unit id="Bonus/Malus: Menaced Species" xml:space="preserve">
+        <source>Bonus/Malus: Menaced Species</source>
+        <target>Bonus/Malus: Menaced Species</target>
+        <note>tableView section header indicating the menaced species impact</note>
+      </trans-unit>
+      <trans-unit id="Bonus/Malus: Origin of Ingredients" xml:space="preserve">
+        <source>Bonus/Malus: Origin of Ingredients</source>
+        <target>Bonus/Malus: Origin of Ingredients</target>
+        <note>tableView section header indicating the impact of the origin of the ingredients</note>
+      </trans-unit>
+      <trans-unit id="Bonus/Malus: Packaging" xml:space="preserve">
+        <source>Bonus/Malus: Packaging</source>
+        <target>Bonus/Malus: Packaging</target>
+        <note>tableView section header indicating the packaging impact</note>
+      </trans-unit>
+      <trans-unit id="Bonus/Malus: Production System" xml:space="preserve">
+        <source>Bonus/Malus: Production System</source>
+        <target>Bonus/Malus: Production System</target>
+        <note>tableView section header indicating the impact of the production system used</note>
+      </trans-unit>
+      <trans-unit id="Bonus/malus environmental politics" xml:space="preserve">
+        <source>Bonus/malus environmental politics</source>
+        <target>Bonus/malus environmental politics</target>
+        <note>Cell text label indicating the bonus/malus values for the environmental politics</note>
+      </trans-unit>
+      <trans-unit id="Bonus/malus transport" xml:space="preserve">
+        <source>Bonus/malus transport</source>
+        <target>Bonus/malus transport</target>
+        <note>Cell text label indicating the bonus/malus values for transport</note>
       </trans-unit>
       <trans-unit id="Brands" xml:space="preserve">
         <source>Brands</source>
@@ -471,6 +422,11 @@
         <target>Daily Values (per serving)</target>
         <note>Description for NutritionData Daily Value per serving</note>
       </trans-unit>
+      <trans-unit id="Daily value" xml:space="preserve">
+        <source>Daily value</source>
+        <target>Daily value</target>
+        <note>Text of 3rd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving and in daily value percentage</note>
+      </trans-unit>
       <trans-unit id="Data is loaded" xml:space="preserve">
         <source>Data is loaded</source>
         <target>Data is loaded</target>
@@ -505,6 +461,13 @@
         <source>Default product type</source>
         <target>Default product type</target>
         <note>String to indicate a product has not yet been retrieved from OFF yet and is only locally available</note>
+      </trans-unit>
+      <trans-unit id="Deforestation risk&#10;(%)" xml:space="preserve">
+        <source>Deforestation risk
+(%)</source>
+        <target>Deforestation risk
+(%)</target>
+        <note>Conclusion line in forest footprint explanation vc.</note>
       </trans-unit>
       <trans-unit id="Details" xml:space="preserve">
         <source>Details</source>
@@ -662,6 +625,16 @@
         <target>EU Set</target>
         <note>String of a button, to prefill the nutrients with the standard EU set.</note>
       </trans-unit>
+      <trans-unit id="Eco-Score" xml:space="preserve">
+        <source>Eco-Score</source>
+        <target>Eco-Score</target>
+        <note>Header Title for the Ecoscore</note>
+      </trans-unit>
+      <trans-unit id="Ecoscore Details" xml:space="preserve">
+        <source>Ecoscore Details</source>
+        <target>Ecoscore Details</target>
+        <note>Title for the explanation of the Ecoscore</note>
+      </trans-unit>
       <trans-unit id="Edit" xml:space="preserve">
         <source>Edit</source>
         <target>Edit</target>
@@ -757,6 +730,11 @@
         <target>Entry Date</target>
         <note>String to indicate the date, when the product was created on OFF.</note>
       </trans-unit>
+      <trans-unit id="Environment" xml:space="preserve">
+        <source>Environment</source>
+        <target>Environment</target>
+        <note>String to indicate the title o a page, which details the environmental impact of the product.</note>
+      </trans-unit>
       <trans-unit id="Exclude" xml:space="preserve">
         <source>Exclude</source>
         <target>Exclude</target>
@@ -787,6 +765,11 @@
         <target>Fats category</target>
         <note>Cell title indicating the product belongs to the fats category</note>
       </trans-unit>
+      <trans-unit id="Final Score" xml:space="preserve">
+        <source>Final Score</source>
+        <target>Final Score</target>
+        <note>tableView section header indicating that the total score</note>
+      </trans-unit>
       <trans-unit id="Food" xml:space="preserve">
         <source>Food</source>
         <target>Food</target>
@@ -801,6 +784,18 @@
         <source>Food barcode.</source>
         <target>Food barcode.</target>
         <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note>
+      </trans-unit>
+      <trans-unit id="Forest Footprint" xml:space="preserve">
+        <source>Forest Footprint</source>
+        <target>Forest Footprint</target>
+        <note>Title of the vc.</note>
+      </trans-unit>
+      <trans-unit id="Forest footprint&#10;(m² per kg of food)" xml:space="preserve">
+        <source>Forest footprint
+(m² per kg of food)</source>
+        <target>Forest footprint
+(m² per kg of food)</target>
+        <note>Title of the vc.</note>
       </trans-unit>
       <trans-unit id="Front Image" xml:space="preserve">
         <source>Front Image</source>
@@ -822,6 +817,21 @@
         <target>Gallery</target>
         <note>Viewcontroller title for page with images of the product</note>
       </trans-unit>
+      <trans-unit id="Game" xml:space="preserve">
+        <source>Game</source>
+        <target>Game</target>
+        <note>Tabbar title for page with the robotoff game</note>
+      </trans-unit>
+      <trans-unit id="Game can not be prepared, try another time" xml:space="preserve">
+        <source>Game can not be prepared, try another time</source>
+        <target>Game can not be prepared, try another time</target>
+        <note>Button text, which indicate the game can not be set up.</note>
+      </trans-unit>
+      <trans-unit id="Game preparing" xml:space="preserve">
+        <source>Game preparing</source>
+        <target>Game preparing</target>
+        <note>Button text, which indicate the prepare (retrieval) status of the game.</note>
+      </trans-unit>
       <trans-unit id="Generic Name (edited)" xml:space="preserve">
         <source>Generic Name (edited)</source>
         <target>Generic Name (edited)</target>
@@ -831,6 +841,11 @@
         <source>Generic Name (non-edited)</source>
         <target>Generic Name (non-edited)</target>
         <note>Tableview sectionheader for the original long product name</note>
+      </trans-unit>
+      <trans-unit id="Help OFF improving its automatic recognition of brand, ingredients, etc." xml:space="preserve">
+        <source>Help OFF improving its automatic recognition of brand, ingredients, etc.</source>
+        <target>Help OFF improving its automatic recognition of brand, ingredients, etc.</target>
+        <note>Label text to explain the robotoff game</note>
       </trans-unit>
       <trans-unit id="History" xml:space="preserve">
         <source>History</source>
@@ -877,10 +892,20 @@
         <target>Informer</target>
         <note>String in PickerViewController to indicate the informer role of a contributor</note>
       </trans-unit>
+      <trans-unit id="Ingredient" xml:space="preserve">
+        <source>Ingredient</source>
+        <target>Ingredient</target>
+        <note>Text to indicate the ingredients of a product.</note>
+      </trans-unit>
       <trans-unit id="Ingredient %@" xml:space="preserve">
         <source>Ingredient %@</source>
         <target>Ingredient %@</target>
         <note>Text to indicate a specific ingredient.</note>
+      </trans-unit>
+      <trans-unit id="Ingredient Type" xml:space="preserve">
+        <source>Ingredient Type</source>
+        <target>Ingredient Type</target>
+        <note>Percent of ingredient in product</note>
       </trans-unit>
       <trans-unit id="Ingredients" xml:space="preserve">
         <source>Ingredients</source>
@@ -953,6 +978,11 @@
         <target>Kilocalories</target>
         <note>Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories</note>
       </trans-unit>
+      <trans-unit id="Kilogram" xml:space="preserve">
+        <source>Kilogram</source>
+        <target>Kilogram</target>
+        <note>Text of 4rd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per kilogram or liter</note>
+      </trans-unit>
       <trans-unit id="Labels" xml:space="preserve">
         <source>Labels</source>
         <target>Labels</target>
@@ -1006,7 +1036,7 @@
       <trans-unit id="Loading" xml:space="preserve">
         <source>Loading</source>
         <target>Loading</target>
-        <note>Message as tag when the search is loading.</note>
+        <note>Message as tag when something is loading.</note>
       </trans-unit>
       <trans-unit id="Loading Failed" xml:space="preserve">
         <source>Loading Failed</source>
@@ -1017,6 +1047,16 @@
         <source>Main Image</source>
         <target>Main Image</target>
         <note>Tableview sectionheader for main image of package.</note>
+      </trans-unit>
+      <trans-unit id="Malus environmental politics" xml:space="preserve">
+        <source>Malus environmental politics</source>
+        <target>Malus environmental politics</target>
+        <note>Cell text label indicating the malus values for the environmental politics</note>
+      </trans-unit>
+      <trans-unit id="Malus transport" xml:space="preserve">
+        <source>Malus transport</source>
+        <target>Malus transport</target>
+        <note>Cell text label indicating the malus values for transport</note>
       </trans-unit>
       <trans-unit id="Manufacturer" xml:space="preserve">
         <source>Manufacturer</source>
@@ -1053,6 +1093,11 @@
         <target>Negative Ingredient Detections</target>
         <note>Tableview sectionheader for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected?</note>
       </trans-unit>
+      <trans-unit id="No" xml:space="preserve">
+        <source>No</source>
+        <target>No</target>
+        <note>Title of an alert action, when the answer is negative/untrue.</note>
+      </trans-unit>
       <trans-unit id="No brands indicated" xml:space="preserve">
         <source>No brands indicated</source>
         <target>No brands indicated</target>
@@ -1062,6 +1107,11 @@
         <source>No category defined</source>
         <target>No category defined</target>
         <note>Text in a tableview cell, when no category is defined.</note>
+      </trans-unit>
+      <trans-unit id="No comments set" xml:space="preserve">
+        <source>No comments set</source>
+        <target>No comments set</target>
+        <note>Text of a tag, when the user did not set any comments.</note>
       </trans-unit>
       <trans-unit id="No expiration date" xml:space="preserve">
         <source>No expiration date</source>
@@ -1083,10 +1133,20 @@
         <target>No image in the right language</target>
         <note>Tag indicating that no image in the correct language is available</note>
       </trans-unit>
+      <trans-unit id="No labels taken into account" xml:space="preserve">
+        <source>No labels taken into account</source>
+        <target>No labels taken into account</target>
+        <note>Cell text label saying that none of the product lables are relevant</note>
+      </trans-unit>
       <trans-unit id="No matches for this level detected" xml:space="preserve">
         <source>No matches for this level detected</source>
         <target>No matches for this level detected</target>
         <note>String when no diet matches have been found.</note>
+      </trans-unit>
+      <trans-unit id="No menaced species taken into account" xml:space="preserve">
+        <source>No menaced species taken into account</source>
+        <target>No menaced species taken into account</target>
+        <note>Cell text label indicating that no menaced species were used for the calculation</note>
       </trans-unit>
       <trans-unit id="No nutrients" xml:space="preserve">
         <source>No nutrients</source>
@@ -1102,6 +1162,16 @@
         <source>No nutrients (non-edited)</source>
         <target>No nutrients (non-edited)</target>
         <note>Text of Label, indicating that the product has no nutrients (original) defined</note>
+      </trans-unit>
+      <trans-unit id="No origins specified" xml:space="preserve">
+        <source>No origins specified</source>
+        <target>No origins specified</target>
+        <note>Cell text label indicating that no valid origins could be found</note>
+      </trans-unit>
+      <trans-unit id="No packing defined" xml:space="preserve">
+        <source>No packing defined</source>
+        <target>No packing defined</target>
+        <note>Text to indicate that no packaging has been defined.</note>
       </trans-unit>
       <trans-unit id="No products listed" xml:space="preserve">
         <source>No products listed</source>
@@ -1379,20 +1449,25 @@
         <target>Packaging (non-edited)</target>
         <note>Tableview sectionheader for packaging, original version.</note>
       </trans-unit>
+      <trans-unit id="Packaging Image" xml:space="preserve">
+        <source>Packaging Image</source>
+        <target>Packaging Image</target>
+        <note>Title for the viewcontroller with the packaging image</note>
+      </trans-unit>
+      <trans-unit id="Packaging Image (edited)" xml:space="preserve">
+        <source>Packaging Image (edited)</source>
+        <target>Packaging Image (edited)</target>
+        <note>Title for the viewcontroller with the edited packaging image</note>
+      </trans-unit>
+      <trans-unit id="Packaging Image (non-edited)" xml:space="preserve">
+        <source>Packaging Image (non-edited)</source>
+        <target>Packaging Image (non-edited)</target>
+        <note>Title for the viewcontroller with the original packaging image</note>
+      </trans-unit>
       <trans-unit id="Password" xml:space="preserve">
         <source>Password</source>
         <target>Password</target>
         <note>String in textField placeholder, to show that the user has to enter his password</note>
-      </trans-unit>
-      <trans-unit id="Per 100 mg/ml" xml:space="preserve">
-        <source>Per 100 mg/ml</source>
-        <target>Per 100 mg/ml</target>
-        <note>Text of 1st segment of a SegmentedControl, indicating the model of the nutrient values, i.e. per standard 100g or 100 ml</note>
-      </trans-unit>
-      <trans-unit id="Per serving" xml:space="preserve">
-        <source>Per serving</source>
-        <target>Per serving</target>
-        <note>Text of 2nd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving</note>
       </trans-unit>
       <trans-unit id="Period After Opening" xml:space="preserve">
         <source>Period After Opening</source>
@@ -1413,6 +1488,11 @@
         <source>Personal Account</source>
         <target>Personal Account</target>
         <note>Title in AlertViewController, which lets the user enter his username/password.</note>
+      </trans-unit>
+      <trans-unit id="Personal comment" xml:space="preserve">
+        <source>Personal comment</source>
+        <target>Personal comment</target>
+        <note>Comment string added by the user.</note>
       </trans-unit>
       <trans-unit id="Petfood" xml:space="preserve">
         <source>Petfood</source>
@@ -1474,10 +1554,37 @@
         <target>Prefix corrected</target>
         <note>Description of the prefixed corrected tags</note>
       </trans-unit>
+      <trans-unit id="Preparation" xml:space="preserve">
+        <source>Preparation</source>
+        <target>Preparation</target>
+        <note>TableView header for product preparation (prepared/unprepared).</note>
+      </trans-unit>
+      <trans-unit id="Preparation (edited)" xml:space="preserve">
+        <source>Preparation (edited)</source>
+        <target>Preparation (edited)</target>
+        <note>TableView header for product preparation (prepared/unprepared) if it has been changed.</note>
+      </trans-unit>
+      <trans-unit id="Prepare Game" xml:space="preserve">
+        <source>Prepare Game</source>
+        <target>Prepare Game</target>
+        <note>Button title to start preparing for the next set of questions</note>
+      </trans-unit>
+      <trans-unit id="Prepared" xml:space="preserve">
+        <source>Prepared</source>
+        <target>Prepared</target>
+        <note>Text to indicate a preparartion type (Prepared) related to the nutritional values.</note>
+      </trans-unit>
       <trans-unit id="Presentation format" xml:space="preserve">
         <source>Presentation format</source>
         <target>Presentation format</target>
         <note>Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion.</note>
+      </trans-unit>
+      <trans-unit id="Processing factor&#10;(percentage of food after processing)" xml:space="preserve">
+        <source>Processing factor
+(percentage of food after processing)</source>
+        <target>Processing factor
+(percentage of food after processing)</target>
+        <note>Percent of ingredient in product</note>
       </trans-unit>
       <trans-unit id="Producer" xml:space="preserve">
         <source>Producer</source>
@@ -1619,6 +1726,11 @@
         <target>Quantity (non-edited)</target>
         <note>Tableview sectionheader for the original size of package.</note>
       </trans-unit>
+      <trans-unit id="Reference Score: Lifecycle Analysis" xml:space="preserve">
+        <source>Reference Score: Lifecycle Analysis</source>
+        <target>Reference Score: Lifecycle Analysis</target>
+        <note>tableView section header indicating the lifecycle reference score</note>
+      </trans-unit>
       <trans-unit id="Reset application" xml:space="preserve">
         <source>Reset application</source>
         <target>Reset application</target>
@@ -1673,6 +1785,11 @@
         <source>Scanner</source>
         <target>Scanner</target>
         <note>Title of the first tab of a tabbarVC</note>
+      </trans-unit>
+      <trans-unit id="Score ACV" xml:space="preserve">
+        <source>Score ACV</source>
+        <target>Score ACV</target>
+        <note>Cell text label for the Agribalyse Lifecycle value</note>
       </trans-unit>
       <trans-unit id="Score Summary" xml:space="preserve">
         <source>Score Summary</source>
@@ -1830,6 +1947,21 @@
         <target>Selected Nutrition Images (non-edited)</target>
         <note>Gallery header text presenting the non-edited selected nutrition images</note>
       </trans-unit>
+      <trans-unit id="Selected Packaging Images" xml:space="preserve">
+        <source>Selected Packaging Images</source>
+        <target>Selected Packaging Images</target>
+        <note>Gallery header text presenting the selected packaging images</note>
+      </trans-unit>
+      <trans-unit id="Selected Packaging Images (edited)" xml:space="preserve">
+        <source>Selected Packaging Images (edited)</source>
+        <target>Selected Packaging Images (edited)</target>
+        <note>Gallery header text presenting the edited selected nutrition images</note>
+      </trans-unit>
+      <trans-unit id="Selected Packaging Images (non-edited)" xml:space="preserve">
+        <source>Selected Packaging Images (non-edited)</source>
+        <target>Selected Packaging Images (non-edited)</target>
+        <note>Gallery header text presenting the non-edited selected nutrition images</note>
+      </trans-unit>
       <trans-unit id="Selected Traces" xml:space="preserve">
         <source>Selected Traces</source>
         <target>Selected Traces</target>
@@ -1838,7 +1970,8 @@
       <trans-unit id="Serving" xml:space="preserve">
         <source>Serving</source>
         <target>Serving</target>
-        <note>Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)</note>
+        <note>Text of 2nd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving and in mg
+   Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)</note>
       </trans-unit>
       <trans-unit id="Set" xml:space="preserve">
         <source>Set</source>
@@ -1895,6 +2028,20 @@
         <target>Sodium</target>
         <note>Title of third segment in switch, which lets the user select between salt or sodium</note>
       </trans-unit>
+      <trans-unit id="Soy feed factor&#10;(kg of soy per kg of food)" xml:space="preserve">
+        <source>Soy feed factor
+(kg of soy per kg of food)</source>
+        <target>Soy feed factor
+(kg of soy per kg of food)</target>
+        <note>Percent of ingredient in product</note>
+      </trans-unit>
+      <trans-unit id="Soy yield&#10;(kg of soy per m²)" xml:space="preserve">
+        <source>Soy yield
+(kg of soy per m²)</source>
+        <target>Soy yield
+(kg of soy per m²)</target>
+        <note>Percent of ingredient in product</note>
+      </trans-unit>
       <trans-unit id="Special categories" xml:space="preserve">
         <source>Special categories</source>
         <target>Special categories</target>
@@ -1914,6 +2061,11 @@
         <source>Start Search?</source>
         <target>Start Search?</target>
         <note>Title in AlertViewController, which lets the user decide if he wants to start a search.</note>
+      </trans-unit>
+      <trans-unit id="Start game" xml:space="preserve">
+        <source>Start game</source>
+        <target>Start game</target>
+        <note>Button text, which indicate that the game can be started.</note>
       </trans-unit>
       <trans-unit id="Stores" xml:space="preserve">
         <source>Stores</source>
@@ -1975,10 +2127,27 @@
         <target>This barcode is not yet listed on OFF. Please take some photos, so the data can be added.</target>
         <note>String, which urges the user to take photos of the (new) product.</note>
       </trans-unit>
+      <trans-unit id="This image was upload on:" xml:space="preserve">
+        <source>This image was upload on:</source>
+        <target>This image was upload on:</target>
+        <note>Text of a label, when an image was uploaded.</note>
+      </trans-unit>
       <trans-unit id="This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." xml:space="preserve">
         <source>This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.</source>
         <target>This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.</target>
         <note>An explanatory text in the common name field.</note>
+      </trans-unit>
+      <trans-unit id="Total forest footprint&#10;(m² per kg of food)" xml:space="preserve">
+        <source>Total forest footprint
+(m² per kg of food)</source>
+        <target>Total forest footprint
+(m² per kg of food)</target>
+        <note>Conclusion line in forest footprint explanation vc.</note>
+      </trans-unit>
+      <trans-unit id="Total of all packaging parts" xml:space="preserve">
+        <source>Total of all packaging parts</source>
+        <target>Total of all packaging parts</target>
+        <note>Cell text label indicating that no menaced species were used for the calculation</note>
       </trans-unit>
       <trans-unit id="Traces" xml:space="preserve">
         <source>Traces</source>
@@ -2025,6 +2194,11 @@
         <target>Unknown</target>
         <note>Text in a TagListView, when the field in the json was not present.</note>
       </trans-unit>
+      <trans-unit id="Unprepared" xml:space="preserve">
+        <source>Unprepared</source>
+        <target>Unprepared</target>
+        <note>Text to indicate a preparartion type (Unprepared) related to the nutritional values.</note>
+      </trans-unit>
       <trans-unit id="Unselected Categories" xml:space="preserve">
         <source>Unselected Categories</source>
         <target>Unselected Categories</target>
@@ -2044,6 +2218,16 @@
         <source>Unselected Traces</source>
         <target>Unselected Traces</target>
         <note>Title of a tableview section with a list of traces that can be selected.</note>
+      </trans-unit>
+      <trans-unit id="Uploaded by:" xml:space="preserve">
+        <source>Uploaded by:</source>
+        <target>Uploaded by:</target>
+        <note>Explanation text of a label, which shows the name of the uploader.</note>
+      </trans-unit>
+      <trans-unit id="Uploader unknown" xml:space="preserve">
+        <source>Uploader unknown</source>
+        <target>Uploader unknown</target>
+        <note>Title of a label, which should show the name of the uploader.</note>
       </trans-unit>
       <trans-unit id="Uploading image" xml:space="preserve">
         <source>Uploading image</source>
@@ -2065,6 +2249,11 @@
         <target>Use Photos</target>
         <note>Title of a button to indicate that user can pick an image from Photos.</note>
       </trans-unit>
+      <trans-unit id="User" xml:space="preserve">
+        <source>User</source>
+        <target>User</target>
+        <note>Title Tab bar, which shows some statistics of the user.</note>
+      </trans-unit>
       <trans-unit id="User Preferences" xml:space="preserve">
         <source>User Preferences</source>
         <target>User Preferences</target>
@@ -2085,6 +2274,16 @@
         <target>View Toggle Mode</target>
         <note>Title of a tableView section, which lets the user set the view toggle mode interface (double tap or button)</note>
       </trans-unit>
+      <trans-unit id="Yes" xml:space="preserve">
+        <source>Yes</source>
+        <target>Yes</target>
+        <note>Title of an alert button, which confirms the question</note>
+      </trans-unit>
+      <trans-unit id="footprint not available" xml:space="preserve">
+        <source>footprint not available</source>
+        <target>footprint not available</target>
+        <note>Percent of ingredient in product</note>
+      </trans-unit>
       <trans-unit id="for %@ in %@" xml:space="preserve">
         <source>for %1$@ in %2$@</source>
         <target>for %1$@ in %2$@</target>
@@ -2104,6 +2303,11 @@
         <source>milligram (mg)</source>
         <target>milligram (mg)</target>
         <note>Standard weight unit divided by thousand.</note>
+      </trans-unit>
+      <trans-unit id="m² per kg of food" xml:space="preserve">
+        <source>m² per kg of food</source>
+        <target>m² per kg of food</target>
+        <note>Percent of ingredient in product</note>
       </trans-unit>
       <trans-unit id="no country defined" xml:space="preserve">
         <source>no country defined</source>
@@ -2155,6 +2359,11 @@
         <target>no serving size available</target>
         <note>Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour.</note>
       </trans-unit>
+      <trans-unit id="no total score" xml:space="preserve">
+        <source>no total score</source>
+        <target>no total score</target>
+        <note>Cell text label indicating that the total score could not be calculated</note>
+      </trans-unit>
       <trans-unit id="no trace defined" xml:space="preserve">
         <source>no trace defined</source>
         <target>no trace defined</target>
@@ -2170,6 +2379,11 @@
         <target>not selected</target>
         <note>Text of a button, indicating a contributor role is not selected</note>
       </trans-unit>
+      <trans-unit id="nothing selected" xml:space="preserve">
+        <source>nothing selected</source>
+        <target>nothing selected</target>
+        <note>Title of a viewController when no product/search has been selected.</note>
+      </trans-unit>
       <trans-unit id="nutrition data not on package" xml:space="preserve">
         <source>nutrition data not on package</source>
         <target>nutrition data not on package</target>
@@ -2180,10 +2394,25 @@
         <target>nutrition data per serving and standard unit available</target>
         <note>Text in a TagListView, when the nutrition data has been specified in the product data.</note>
       </trans-unit>
+      <trans-unit id="packaging has an unrecognized material" xml:space="preserve">
+        <source>packaging has an unrecognized material</source>
+        <target>packaging has an unrecognized material</target>
+        <note>Cell text label indicating that no menaced species were used for the calculation</note>
+      </trans-unit>
+      <trans-unit id="packaging has an unrecognized shape" xml:space="preserve">
+        <source>packaging has an unrecognized shape</source>
+        <target>packaging has an unrecognized shape</target>
+        <note>Cell text label indicating that no menaced species were used for the calculation</note>
+      </trans-unit>
       <trans-unit id="percentage (%)" xml:space="preserve">
         <source>percentage (%)</source>
         <target>percentage (%)</target>
         <note>Fraction of total by volume</note>
+      </trans-unit>
+      <trans-unit id="percentage in product." xml:space="preserve">
+        <source>percentage in product.</source>
+        <target>percentage in product.</target>
+        <note>Percent of ingredient in product</note>
       </trans-unit>
       <trans-unit id="search results" xml:space="preserve">
         <source>search results</source>
@@ -2214,6 +2443,65 @@
         <source>🔦</source>
         <target>🔦</target>
         <note>Image to indicate that the user modified information of the product.</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="FoodViewer/Localisation/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.7" build-num="11E801a"/>
+    </header>
+    <body>
+      <trans-unit id="3Vn-bz-g9v.title" xml:space="preserve">
+        <source>Scanner</source>
+        <target>Scanner</target>
+        <note>Class = "UITabBarItem"; title = "Scanner"; ObjectID = "3Vn-bz-g9v";</note>
+      </trans-unit>
+      <trans-unit id="8si-Yq-0ji.text" xml:space="preserve">
+        <source>FoodViewer is possible thanks to OpenFoodFacts, an open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels.</source>
+        <target>FoodViewer is possible thanks to OpenFoodFacts, an open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels.</target>
+        <note>Class = "UITextView"; text = "FoodViewer is possible thanks to OpenFoodFacts, an open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels."; ObjectID = "8si-Yq-0ji";</note>
+      </trans-unit>
+      <trans-unit id="9OJ-E9-8aV.text" xml:space="preserve">
+        <source>FoodViewer</source>
+        <target>FoodViewer</target>
+        <note>Class = "UILabel"; text = "FoodViewer"; ObjectID = "9OJ-E9-8aV";</note>
+      </trans-unit>
+      <trans-unit id="Uqq-0f-VGW.title" xml:space="preserve">
+        <source>Preferences</source>
+        <target>Preferences</target>
+        <note>Class = "UITabBarItem"; title = "Preferences"; ObjectID = "Uqq-0f-VGW";</note>
+      </trans-unit>
+      <trans-unit id="WHd-6b-vLZ.title" xml:space="preserve">
+        <source>User</source>
+        <target>User</target>
+        <note>Class = "UITabBarItem"; title = "User"; ObjectID = "WHd-6b-vLZ";</note>
+      </trans-unit>
+      <trans-unit id="szq-J1-leR.title" xml:space="preserve">
+        <source>Game</source>
+        <target>Game</target>
+        <note>Class = "UITabBarItem"; title = "Game"; ObjectID = "szq-J1-leR";</note>
+      </trans-unit>
+      <trans-unit id="u7v-kh-6sa.title" xml:space="preserve">
+        <source>Search</source>
+        <target>Search</target>
+        <note>Class = "UITabBarItem"; title = "Search"; ObjectID = "u7v-kh-6sa";</note>
+      </trans-unit>
+      <trans-unit id="znY-gQ-KqA.text" xml:space="preserve">
+        <source>Copyright © 2020 Hovering Above. All rights reserved.</source>
+        <target>Copyright © 2020 Hovering Above. All rights reserved.</target>
+        <note>Class = "UILabel"; text = "Copyright © 2020 Hovering Above. All rights reserved."; ObjectID = "znY-gQ-KqA";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="FoodViewer/Localisation/Base.lproj/Main.storyboard" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.7" build-num="11E801a"/>
+    </header>
+    <body>
+      <trans-unit id="XRs-Yd-vnh.text" xml:space="preserve">
+        <source>)</source>
+        <target>)</target>
+        <note>Class = "UILabel"; text = ")"; ObjectID = "XRs-Yd-vnh";</note>
       </trans-unit>
     </body>
   </file>

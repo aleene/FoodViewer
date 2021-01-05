@@ -80,7 +80,8 @@ enum NutritionFactsLabelStyle {
     }
     
     // This function analyses a set of nutrients and returns the possible styles that can be supported
-    static func styles(for nutrients: Set<Nutrient>) -> Set<NutritionFactsLabelStyle> {
+    static func styles(for nutritionfacts: Set<NutritionFactItem>) -> Set<NutritionFactsLabelStyle> {
+        let nutrients = nutritionfacts.compactMap({ $0.nutrient })
         var styles: Set<NutritionFactsLabelStyle> = []
         if !nutrients.isEmpty {
             for style in self.allStyles {
@@ -93,7 +94,8 @@ enum NutritionFactsLabelStyle {
     }
     
     // This function analyses a set of nutrients and returns the styles that fit all available nutrients
-    static func optimumStyle(for nutrients: Set<Nutrient>) -> Set<NutritionFactsLabelStyle> {
+    static func optimumStyle(for nutritionfacts: Set<NutritionFactItem>) -> Set<NutritionFactsLabelStyle> {
+        let nutrients = nutritionfacts.compactMap({ $0.nutrient })
         var numberOfNutrientsFitted = 0
         var bestStyles: Set<NutritionFactsLabelStyle> = []
 

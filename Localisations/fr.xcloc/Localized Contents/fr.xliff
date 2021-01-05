@@ -1,96 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
-  <file original="FoodViewer/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="fr" datatype="plaintext">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.3" build-num="11C29"/>
-    </header>
-    <body>
-      <trans-unit id="3Vn-bz-g9v.title" xml:space="preserve">
-        <source>Scanner</source>
-        <target>Scanner</target>
-        <note>Class = "UITabBarItem"; title = "Scanner"; ObjectID = "3Vn-bz-g9v";</note>
-      </trans-unit>
-      <trans-unit id="8si-Yq-0ji.text" xml:space="preserve">
-        <source>FoodViewer is possible thanks to OpenFoodFacts, a open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels.</source>
-        <target>FoodViewer est possible grâce à OpenFoodFacts, une base de données ouverte de produits alimentaires avec des ingrédients, des allergènes, des informations nutritionnelles et toutes les petites informations que vous pouvez trouver sur les étiquettes des aliments.</target>
-        <note>Class = "UITextView"; text = "FoodViewer is possible thanks to OpenFoodFacts, a open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels."; ObjectID = "8si-Yq-0ji";</note>
-      </trans-unit>
-      <trans-unit id="9OJ-E9-8aV.text" xml:space="preserve">
-        <source>FoodViewer</source>
-        <target>Histoire</target>
-        <note>Class = "UILabel"; text = "FoodViewer"; ObjectID = "9OJ-E9-8aV";</note>
-      </trans-unit>
-      <trans-unit id="WHd-6b-vLZ.title" xml:space="preserve">
-        <source>User</source>
-        <target>Utilisateur</target>
-        <note>Class = "UITabBarItem"; title = "User"; ObjectID = "WHd-6b-vLZ";</note>
-      </trans-unit>
-      <trans-unit id="u7v-kh-6sa.title" xml:space="preserve">
-        <source>Search</source>
-        <target>Chercher</target>
-        <note>Class = "UITabBarItem"; title = "Search"; ObjectID = "u7v-kh-6sa";</note>
-      </trans-unit>
-      <trans-unit id="znY-gQ-KqA.text" xml:space="preserve">
-        <source>Copyright © 2019 Hovering Above. All rights reserved.</source>
-        <target>Copyright 2019 Hovering Above. Tous droits reservés</target>
-        <note>Class = "UILabel"; text = "Copyright © 2019 Hovering Above. All rights reserved."; ObjectID = "znY-gQ-KqA";</note>
-      </trans-unit>
-    </body>
-  </file>
-  <file original="FoodViewer/Base.lproj/Main.storyboard" source-language="en" target-language="fr" datatype="plaintext">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.3" build-num="11C29"/>
-    </header>
-    <body>
-      <trans-unit id="18F-0Y-Djv.title" xml:space="preserve">
-        <source>Title</source>
-        <note>Class = "UINavigationItem"; title = "Title"; ObjectID = "18F-0Y-Djv";</note>
-      </trans-unit>
-      <trans-unit id="GNV-RJ-BqM.normalTitle" xml:space="preserve">
-        <source>Button</source>
-        <note>Class = "UIButton"; normalTitle = "Button"; ObjectID = "GNV-RJ-BqM";</note>
-      </trans-unit>
-      <trans-unit id="N1L-ib-Wsw.normalTitle" xml:space="preserve">
-        <source>Button</source>
-        <note>Class = "UIButton"; normalTitle = "Button"; ObjectID = "N1L-ib-Wsw";</note>
-      </trans-unit>
-      <trans-unit id="gcB-gq-Prk.text" xml:space="preserve">
-        <source>Title</source>
-        <note>Class = "UILabel"; text = "Title"; ObjectID = "gcB-gq-Prk";</note>
-      </trans-unit>
-      <trans-unit id="hho-M2-f3Y.text" xml:space="preserve">
-        <source>  </source>
-        <note>Class = "UILabel"; text = "  "; ObjectID = "hho-M2-f3Y";</note>
-      </trans-unit>
-      <trans-unit id="lq6-u2-yzX.prompt" xml:space="preserve">
-        <source>ddd</source>
-        <note>Class = "UINavigationItem"; prompt = "ddd"; ObjectID = "lq6-u2-yzX";</note>
-      </trans-unit>
-      <trans-unit id="lq6-u2-yzX.title" xml:space="preserve">
-        <source>uttyut</source>
-        <note>Class = "UINavigationItem"; title = "uttyut"; ObjectID = "lq6-u2-yzX";</note>
-      </trans-unit>
-      <trans-unit id="qYU-Rc-PQr.title" xml:space="preserve">
-        <source>Title</source>
-        <note>Class = "UINavigationItem"; title = "Title"; ObjectID = "qYU-Rc-PQr";</note>
-      </trans-unit>
-      <trans-unit id="sRD-kD-Shm.text" xml:space="preserve">
-        <source>Title</source>
-        <note>Class = "UILabel"; text = "Title"; ObjectID = "sRD-kD-Shm";</note>
-      </trans-unit>
-      <trans-unit id="wMC-J7-mFP.text" xml:space="preserve">
-        <source>Subtitle</source>
-        <note>Class = "UILabel"; text = "Subtitle"; ObjectID = "wMC-J7-mFP";</note>
-      </trans-unit>
-      <trans-unit id="xyu-NU-BXi.text" xml:space="preserve">
-        <source>Subtitle</source>
-        <note>Class = "UILabel"; text = "Subtitle"; ObjectID = "xyu-NU-BXi";</note>
-      </trans-unit>
-    </body>
-  </file>
   <file original="FoodViewer/en.lproj/InfoPlist.strings" source-language="en" target-language="fr" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.3" build-num="11C29"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.7" build-num="11E801a"/>
     </header>
     <body>
       <trans-unit id="CFBundleName" xml:space="preserve">
@@ -100,24 +12,24 @@
       </trans-unit>
       <trans-unit id="NSAppleMusicUsageDescription" xml:space="preserve">
         <source>The photo library is used to select images of products for uploading to OpenFoodFacts.</source>
-        <target>Choisit image pour charger</target>
+        <target>La photothèque est utilisée pour sélectionner les images à télécharger sur OFF.</target>
         <note>Privacy - Media Library Usage Description</note>
       </trans-unit>
       <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
         <source>The camera is needed to scan barcodes and take images of products for uploading to OpenFoodFacts.</source>
-        <target>Utilisé pour scanner des codes barres</target>
+        <target>L'appareil photo est utilisé pour scanner les codes-barres et prendre des images à télécharger sur OFF.</target>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
       <trans-unit id="NSPhotoLibraryUsageDescription" xml:space="preserve">
         <source>The photo library is used to select images of products for uploading to OpenFoodFacts.</source>
-        <target>Utilisé pour sélectionner et charger des images</target>
+        <target>La photothèque est utilisée pour sélectionner les images à télécharger sur OFF.</target>
         <note>Privacy - Photo Library Usage Description</note>
       </trans-unit>
     </body>
   </file>
   <file original="FoodViewer/en.lproj/Localizable.strings" source-language="en" target-language="fr" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.3" build-num="11C29"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.7" build-num="11E801a"/>
     </header>
     <body>
       <trans-unit id=" " xml:space="preserve">
@@ -134,6 +46,11 @@
         <source>100 mg/ml</source>
         <target>100 mg/ml</target>
         <note>Title of first segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)</note>
+      </trans-unit>
+      <trans-unit id="100g/ml" xml:space="preserve">
+        <source>100g/ml</source>
+        <target>100g/ml</target>
+        <note>Text of 1st segment of a SegmentedControl, indicating the model of the nutrient values, i.e. per standard 100g or 100 ml</note>
       </trans-unit>
       <trans-unit id="?" xml:space="preserve">
         <source>?</source>
@@ -159,6 +76,11 @@
         <source>Add Nutrient</source>
         <target>Ajout nutriment</target>
         <note>Title of a button in normal state allowing the user to add a nutrient</note>
+      </trans-unit>
+      <trans-unit id="Add images for new product" xml:space="preserve">
+        <source>Add images for new product</source>
+        <target>Ajoute des photo pour le nouveua produit</target>
+        <note>Title of a viewController where the users can add images for a new product.</note>
       </trans-unit>
       <trans-unit id="Additives" xml:space="preserve">
         <source>Additives</source>
@@ -252,7 +174,8 @@
       </trans-unit>
       <trans-unit id="Beauty  barcode." xml:space="preserve">
         <source>Beauty  barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a beauty product barcode search</note><target>Code barre produit beauté</target>
+        <target>Code barre produit beauté</target>
+        <note>Placeholder string in a textfield to explain the purpose of a beauty product barcode search</note>
       </trans-unit>
       <trans-unit id="Beauty Products" xml:space="preserve">
         <source>Beauty Products</source>
@@ -263,6 +186,46 @@
         <source>Beverages category</source>
         <target>Catégorie Boissons</target>
         <note>Cell title indicating the product belongs to the beverages category</note>
+      </trans-unit>
+      <trans-unit id="Bonus environmental politics" xml:space="preserve">
+        <source>Bonus environmental politics</source>
+        <target>Bonus politique environnementale</target>
+        <note>Cell text label indicating the bonus values for the environmental politics</note>
+      </trans-unit>
+      <trans-unit id="Bonus transport" xml:space="preserve">
+        <source>Bonus transport</source>
+        <target>Bonus transport</target>
+        <note>Cell text label indicating the bonus values for transport</note>
+      </trans-unit>
+      <trans-unit id="Bonus/Malus: Menaced Species" xml:space="preserve">
+        <source>Bonus/Malus: Menaced Species</source>
+        <target>Bonus/Malus: Espèces menacés</target>
+        <note>tableView section header indicating the menaced species impact</note>
+      </trans-unit>
+      <trans-unit id="Bonus/Malus: Origin of Ingredients" xml:space="preserve">
+        <source>Bonus/Malus: Origin of Ingredients</source>
+        <target>Bonus/Malus: Origine des Ingrédients</target>
+        <note>tableView section header indicating the impact of the origin of the ingredients</note>
+      </trans-unit>
+      <trans-unit id="Bonus/Malus: Packaging" xml:space="preserve">
+        <source>Bonus/Malus: Packaging</source>
+        <target>Bonus/Malus: Emballage</target>
+        <note>tableView section header indicating the packaging impact</note>
+      </trans-unit>
+      <trans-unit id="Bonus/Malus: Production System" xml:space="preserve">
+        <source>Bonus/Malus: Production System</source>
+        <target>Bonus/Malus: Mode de production</target>
+        <note>tableView section header indicating the impact of the production system used</note>
+      </trans-unit>
+      <trans-unit id="Bonus/malus environmental politics" xml:space="preserve">
+        <source>Bonus/malus environmental politics</source>
+        <target>Bonus/malus politique environnementale</target>
+        <note>Cell text label indicating the bonus/malus values for the environmental politics</note>
+      </trans-unit>
+      <trans-unit id="Bonus/malus transport" xml:space="preserve">
+        <source>Bonus/malus transport</source>
+        <target>Bonus/malus transport</target>
+        <note>Cell text label indicating the bonus/malus values for transport</note>
       </trans-unit>
       <trans-unit id="Brands" xml:space="preserve">
         <source>Brands</source>
@@ -459,6 +422,11 @@
         <target>Apport Journ.</target>
         <note>Description for NutritionData Daily Value per serving</note>
       </trans-unit>
+      <trans-unit id="Daily value" xml:space="preserve">
+        <source>Daily value</source>
+        <target>Valeur journalier</target>
+        <note>Text of 3rd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving and in daily value percentage</note>
+      </trans-unit>
       <trans-unit id="Data is loaded" xml:space="preserve">
         <source>Data is loaded</source>
         <target>Data chargé</target>
@@ -494,6 +462,12 @@
         <target>Défaut type produit</target>
         <note>String to indicate a product has not yet been retrieved from OFF yet and is only locally available</note>
       </trans-unit>
+      <trans-unit id="Deforestation risk&#10;(%)" xml:space="preserve">
+        <source>Deforestation risk
+(%)</source>
+        <target>Risque de déforestation (%)</target>
+        <note>Conclusion line in forest footprint explanation vc.</note>
+      </trans-unit>
       <trans-unit id="Details" xml:space="preserve">
         <source>Details</source>
         <target>Détails</target>
@@ -527,8 +501,7 @@
       </trans-unit>
       <trans-unit id="Detected Aminoacids" xml:space="preserve">
         <source>Detected Aminoacids</source>
-        <target>	
-Acides aminés</target>
+        <target>Acides aminés</target>
         <note>Text to indicate the detected aminoacids of a product.</note>
       </trans-unit>
       <trans-unit id="Detected Aminoacids (normalized)" xml:space="preserve">
@@ -651,6 +624,16 @@ Acides aminés</target>
         <target>UE</target>
         <note>String of a button, to prefill the nutrients with the standard EU set.</note>
       </trans-unit>
+      <trans-unit id="Eco-Score" xml:space="preserve">
+        <source>Eco-Score</source>
+        <target>Eco-Score</target>
+        <note>Header Title for the Ecoscore</note>
+      </trans-unit>
+      <trans-unit id="Ecoscore Details" xml:space="preserve">
+        <source>Ecoscore Details</source>
+        <target>Détails Eco-Score</target>
+        <note>Title for the explanation of the Ecoscore</note>
+      </trans-unit>
       <trans-unit id="Edit" xml:space="preserve">
         <source>Edit</source>
         <target>Edité</target>
@@ -698,12 +681,13 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Enter food product barcode." xml:space="preserve">
         <source>Enter food product barcode.</source>
-        <target>Saisis code barre produit alimentaire</target>
+        <target>Saisir le code barre produit alimentaire</target>
         <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note>
       </trans-unit>
       <trans-unit id="Enter petfood product barcode." xml:space="preserve">
         <source>Enter petfood product barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a petfood barcode search</note><target>Entre code barre produit animalier</target>
+        <target>Entre code barre produit animalier</target>
+        <note>Placeholder string in a textfield to explain the purpose of a petfood barcode search</note>
       </trans-unit>
       <trans-unit id="Enter postal code" xml:space="preserve">
         <source>Enter postal code</source>
@@ -717,17 +701,17 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Enter shop name" xml:space="preserve">
         <source>Enter shop name</source>
-        <target>Saisis nom du magasin</target>
+        <target>Saisir le nom du magasin</target>
         <note>Placeholder text for field where user should enter a shop name.</note>
       </trans-unit>
       <trans-unit id="Enter street name" xml:space="preserve">
         <source>Enter street name</source>
-        <target>Saisis nom de la rue</target>
+        <target>Saisir le nom de la rue</target>
         <note>Placeholder text for field where user should enter a street name.</note>
       </trans-unit>
       <trans-unit id="Enter the generic name of the product" xml:space="preserve">
         <source>Enter the generic name of the product</source>
-        <target>Saisis nom générique</target>
+        <target>Saisir le nom générique</target>
         <note>Placeholder text of a textView for the generic product name.</note>
       </trans-unit>
       <trans-unit id="Enter the ingredients of the product" xml:space="preserve">
@@ -737,13 +721,18 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Enter the name of the product" xml:space="preserve">
         <source>Enter the name of the product</source>
-        <target>Saisis nom produit</target>
+        <target>Saisir le nom du produit</target>
         <note>Placeholder text of a textView for the product name.</note>
       </trans-unit>
       <trans-unit id="Entry Date" xml:space="preserve">
         <source>Entry Date</source>
-        <target>Date de creation</target>
+        <target>Date de création</target>
         <note>String to indicate the date, when the product was created on OFF.</note>
+      </trans-unit>
+      <trans-unit id="Environment" xml:space="preserve">
+        <source>Environment</source>
+        <target>Impact environnementale</target>
+        <note>String to indicate the title o a page, which details the environmental impact of the product.</note>
       </trans-unit>
       <trans-unit id="Exclude" xml:space="preserve">
         <source>Exclude</source>
@@ -775,6 +764,11 @@ Acides aminés</target>
         <target>Catégorie Graisses et Huiles</target>
         <note>Cell title indicating the product belongs to the fats category</note>
       </trans-unit>
+      <trans-unit id="Final Score" xml:space="preserve">
+        <source>Final Score</source>
+        <target>Score final</target>
+        <note>tableView section header indicating that the total score</note>
+      </trans-unit>
       <trans-unit id="Food" xml:space="preserve">
         <source>Food</source>
         <target>Aliments</target>
@@ -787,7 +781,20 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Food barcode." xml:space="preserve">
         <source>Food barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note><target>Code barre produit alimentaire</target>
+        <target>Code barre produit alimentaire</target>
+        <note>Placeholder string in a textfield to explain the purpose of a food product barcode search</note>
+      </trans-unit>
+      <trans-unit id="Forest Footprint" xml:space="preserve">
+        <source>Forest Footprint</source>
+        <target>Empreinte Forêt</target>
+        <note>Title of the vc.</note>
+      </trans-unit>
+      <trans-unit id="Forest footprint&#10;(m² per kg of food)" xml:space="preserve">
+        <source>Forest footprint
+(m² per kg of food)</source>
+        <target>Empreinte Forêt
+(m² par kg de)</target>
+        <note>Title of the vc.</note>
       </trans-unit>
       <trans-unit id="Front Image" xml:space="preserve">
         <source>Front Image</source>
@@ -809,6 +816,21 @@ Acides aminés</target>
         <target>Gallerie</target>
         <note>Viewcontroller title for page with images of the product</note>
       </trans-unit>
+      <trans-unit id="Game" xml:space="preserve">
+        <source>Game</source>
+        <target>Jeu</target>
+        <note>Tabbar title for page with the robotoff game</note>
+      </trans-unit>
+      <trans-unit id="Game can not be prepared, try another time" xml:space="preserve">
+        <source>Game can not be prepared, try another time</source>
+        <target>Jeu ne peut pas être téléchargé, essaie ulterieurement</target>
+        <note>Button text, which indicate the game can not be set up.</note>
+      </trans-unit>
+      <trans-unit id="Game preparing" xml:space="preserve">
+        <source>Game preparing</source>
+        <target>Jeu en préparation</target>
+        <note>Button text, which indicate the prepare (retrieval) status of the game.</note>
+      </trans-unit>
       <trans-unit id="Generic Name (edited)" xml:space="preserve">
         <source>Generic Name (edited)</source>
         <target>Nom générique (édité)</target>
@@ -818,6 +840,11 @@ Acides aminés</target>
         <source>Generic Name (non-edited)</source>
         <target>Nom générique (pas édité)</target>
         <note>Tableview sectionheader for the original long product name</note>
+      </trans-unit>
+      <trans-unit id="Help OFF improving its automatic recognition of brand, ingredients, etc." xml:space="preserve">
+        <source>Help OFF improving its automatic recognition of brand, ingredients, etc.</source>
+        <target>Aide OFF avec sa reconnaissance automatique des marques, ingrédients, catégories, etc.</target>
+        <note>Label text to explain the robotoff game</note>
       </trans-unit>
       <trans-unit id="History" xml:space="preserve">
         <source>History</source>
@@ -864,10 +891,20 @@ Acides aminés</target>
         <target>Informeur</target>
         <note>String in PickerViewController to indicate the informer role of a contributor</note>
       </trans-unit>
+      <trans-unit id="Ingredient" xml:space="preserve">
+        <source>Ingredient</source>
+        <target>Ingrédient</target>
+        <note>Text to indicate the ingredients of a product.</note>
+      </trans-unit>
       <trans-unit id="Ingredient %@" xml:space="preserve">
         <source>Ingredient %@</source>
         <target>Ingrédient %@</target>
         <note>Text to indicate a specific ingredient.</note>
+      </trans-unit>
+      <trans-unit id="Ingredient Type" xml:space="preserve">
+        <source>Ingredient Type</source>
+        <target>Ingrédient type</target>
+        <note>Percent of ingredient in product</note>
       </trans-unit>
       <trans-unit id="Ingredients" xml:space="preserve">
         <source>Ingredients</source>
@@ -932,13 +969,18 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Json" xml:space="preserve">
         <source>Json</source>
-        <target>Json</target>
+        <target>JSON</target>
         <note>Title of viewController, which shows the json as is available on OFF.</note>
       </trans-unit>
       <trans-unit id="Kilocalories" xml:space="preserve">
         <source>Kilocalories</source>
         <target>Kilocalories</target>
         <note>Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories</note>
+      </trans-unit>
+      <trans-unit id="Kilogram" xml:space="preserve">
+        <source>Kilogram</source>
+        <target>Kilogram</target>
+        <note>Text of 4rd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per kilogram or liter</note>
       </trans-unit>
       <trans-unit id="Labels" xml:space="preserve">
         <source>Labels</source>
@@ -972,7 +1014,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Last Edit Date" xml:space="preserve">
         <source>Last Edit Date</source>
-        <target>Dernier date d'édition</target>
+        <target>Dernière date d'édition</target>
         <note>Generic string to indicate the last date the product was edited</note>
       </trans-unit>
       <trans-unit id="Level" xml:space="preserve">
@@ -993,7 +1035,7 @@ Acides aminés</target>
       <trans-unit id="Loading" xml:space="preserve">
         <source>Loading</source>
         <target>Cherchant</target>
-        <note>Message as tag when the search is loading.</note>
+        <note>Message as tag when something is loading.</note>
       </trans-unit>
       <trans-unit id="Loading Failed" xml:space="preserve">
         <source>Loading Failed</source>
@@ -1004,6 +1046,16 @@ Acides aminés</target>
         <source>Main Image</source>
         <target>Photo du produit</target>
         <note>Tableview sectionheader for main image of package.</note>
+      </trans-unit>
+      <trans-unit id="Malus environmental politics" xml:space="preserve">
+        <source>Malus environmental politics</source>
+        <target>Malus politique environnementale</target>
+        <note>Cell text label indicating the malus values for the environmental politics</note>
+      </trans-unit>
+      <trans-unit id="Malus transport" xml:space="preserve">
+        <source>Malus transport</source>
+        <target>Malus transport</target>
+        <note>Cell text label indicating the malus values for transport</note>
       </trans-unit>
       <trans-unit id="Manufacturer" xml:space="preserve">
         <source>Manufacturer</source>
@@ -1040,6 +1092,11 @@ Acides aminés</target>
         <target>Détections négatives ingrédients</target>
         <note>Tableview sectionheader for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected?</note>
       </trans-unit>
+      <trans-unit id="No" xml:space="preserve">
+        <source>No</source>
+        <target>Non</target>
+        <note>Title of an alert action, when the answer is negative/untrue.</note>
+      </trans-unit>
       <trans-unit id="No brands indicated" xml:space="preserve">
         <source>No brands indicated</source>
         <target>Aucun marque indiqué</target>
@@ -1050,9 +1107,14 @@ Acides aminés</target>
         <target>pas de catégorie défini</target>
         <note>Text in a tableview cell, when no category is defined.</note>
       </trans-unit>
+      <trans-unit id="No comments set" xml:space="preserve">
+        <source>No comments set</source>
+        <target>Pas de commentaire défini</target>
+        <note>Text of a tag, when the user did not set any comments.</note>
+      </trans-unit>
       <trans-unit id="No expiration date" xml:space="preserve">
         <source>No expiration date</source>
-        <target>DLU pas disponible</target>
+        <target>DLU non disponible</target>
         <note>Title of cell when no expiration date is avalable</note>
       </trans-unit>
       <trans-unit id="No generic name available" xml:space="preserve">
@@ -1070,9 +1132,20 @@ Acides aminés</target>
         <target>Pas de photo dans la bonne langue</target>
         <note>Tag indicating that no image in the correct language is available</note>
       </trans-unit>
+      <trans-unit id="No labels taken into account" xml:space="preserve">
+        <source>No labels taken into account</source>
+        <target>Pas de labels pris en compte</target>
+        <note>Cell text label saying that none of the product lables are relevant</note>
+      </trans-unit>
       <trans-unit id="No matches for this level detected" xml:space="preserve">
         <source>No matches for this level detected</source>
-        <note>String when no diet matches have been found.</note><target>Aucune correspondance pour ce niveau détectée</target>
+        <target>Aucune correspondance pour ce niveau détectée</target>
+        <note>String when no diet matches have been found.</note>
+      </trans-unit>
+      <trans-unit id="No menaced species taken into account" xml:space="preserve">
+        <source>No menaced species taken into account</source>
+        <target>Aucun ingrédient dont la culture menace des espèces n'a été détecté</target>
+        <note>Cell text label indicating that no menaced species were used for the calculation</note>
       </trans-unit>
       <trans-unit id="No nutrients" xml:space="preserve">
         <source>No nutrients</source>
@@ -1089,6 +1162,16 @@ Acides aminés</target>
         <target>Pas de nutriments (pas édité)</target>
         <note>Text of Label, indicating that the product has no nutrients (original) defined</note>
       </trans-unit>
+      <trans-unit id="No origins specified" xml:space="preserve">
+        <source>No origins specified</source>
+        <target>Pas d'origines specifié</target>
+        <note>Cell text label indicating that no valid origins could be found</note>
+      </trans-unit>
+      <trans-unit id="No packing defined" xml:space="preserve">
+        <source>No packing defined</source>
+        <target>pas d'emballage specifié</target>
+        <note>Text to indicate that no packaging has been defined.</note>
+      </trans-unit>
       <trans-unit id="No products listed" xml:space="preserve">
         <source>No products listed</source>
         <target>Pas de produits spécifiés</target>
@@ -1096,7 +1179,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="No quantity available" xml:space="preserve">
         <source>No quantity available</source>
-        <target>Pas des quantités disponible</target>
+        <target>Pas de quantités disponibles</target>
         <note>String if no quantity is available</note>
       </trans-unit>
       <trans-unit id="No reponse" xml:space="preserve">
@@ -1106,7 +1189,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="No search defined" xml:space="preserve">
         <source>No search defined</source>
-        <target>Requete pas défini</target>
+        <target>Requête non définie</target>
         <note>String in TableView section when a search is not defined.</note>
       </trans-unit>
       <trans-unit id="No search result" xml:space="preserve">
@@ -1166,22 +1249,22 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="NutriScore not Applicable" xml:space="preserve">
         <source>NutriScore not Applicable</source>
-        <target>NutriScore pas applicable</target>
+        <target>Nutri-Score pas applicable</target>
         <note>Text to indicate that the nutriscore is not applicable to this product (type).</note>
       </trans-unit>
       <trans-unit id="NutriScore not calculable" xml:space="preserve">
         <source>NutriScore not calculable</source>
-        <target>NutriScore indéterminable</target>
+        <target>Nutri-Score indéterminable</target>
         <note>Text to indicate that the nutriscore can not be calculated due to missing data.</note>
       </trans-unit>
       <trans-unit id="Nutrient data for %@ unavailable" xml:space="preserve">
         <source>Nutrient data for %@ unavailable</source>
-        <target>Valeurs pour %@ pas disponible</target>
+        <target>Valeurs pour %@ non disponibles</target>
         <note>Tag text to indicate that nutrient data for the named nutrient %@ is unavailable.</note>
       </trans-unit>
       <trans-unit id="Nutrient data unavailable" xml:space="preserve">
         <source>Nutrient data unavailable</source>
-        <target>Valeurs nutritionnelles pas disponible</target>
+        <target>Valeurs nutritionnelles non disponibles</target>
         <note>Tag text to indicate that nutrient data is unavailable.</note>
       </trans-unit>
       <trans-unit id="Nutrients" xml:space="preserve">
@@ -1206,7 +1289,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Nutrition Facts (non-edited)" xml:space="preserve">
         <source>Nutrition Facts (non-edited)</source>
-        <target>Composition nutritionnelle (épas dité)</target>
+        <target>Composition nutritionnelle (pas édité)</target>
         <note>Text to indicate the original nutrition facts of a product.</note>
       </trans-unit>
       <trans-unit id="Nutrition Facts (per 1 kg)" xml:space="preserve">
@@ -1216,7 +1299,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Nutrition Facts (per 100g/100ml)" xml:space="preserve">
         <source>Nutrition Facts (per 100g/100ml)</source>
-        <target>Comp. nutritionnelle (par 100g/100ml)</target>
+        <target>Comp. nutritionnelle (pour 100g/100ml)</target>
         <note>Description for NutritionData per standard unit</note>
       </trans-unit>
       <trans-unit id="Nutrition Facts (per serving)" xml:space="preserve">
@@ -1226,7 +1309,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Nutrition Facts Image" xml:space="preserve">
         <source>Nutrition Facts Image</source>
-        <target>Photo info nutritionnelles</target>
+        <target>Photo des infos nutritionnelles</target>
         <note>Tableview header section for the image of the nutritional facts</note>
       </trans-unit>
       <trans-unit id="Nutrition Facts Image (edited)" xml:space="preserve">
@@ -1246,17 +1329,17 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Nutritional Score France (FV)" xml:space="preserve">
         <source>Nutritional Score France (FV)</source>
-        <target>Score nutritionnel France (FV)</target>
+        <target>Nutri-Score (FV)</target>
         <note>Header for a table section showing the total results France calculated by FoodViewer</note>
       </trans-unit>
       <trans-unit id="Nutritional Score France (OFF)" xml:space="preserve">
         <source>Nutritional Score France (OFF)</source>
-        <target>Score nutritionnel France (OFF)</target>
+        <target>Nutri-Score (OFF)</target>
         <note>Header for a table section showing the total results France calculated by OFF</note>
       </trans-unit>
       <trans-unit id="Nutritional Score UK (FV)" xml:space="preserve">
         <source>Nutritional Score UK (FV)</source>
-        <target>Score nutritionnel  Royaume-Uni (FV)</target>
+        <target>Score nutritionnel Royaume-Uni (FV)</target>
         <note>Header for a table section showing the total results UK calculated by FoodViewer</note>
       </trans-unit>
       <trans-unit id="Nutritional Score UK (OFF)" xml:space="preserve">
@@ -1271,17 +1354,17 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Official product website" xml:space="preserve">
         <source>Official product website</source>
-        <target>Site officiele produit</target>
+        <target>Site officiel du produit</target>
         <note>Header title of tableview section, indicating the websites for the product</note>
       </trans-unit>
       <trans-unit id="Official product website (edited)" xml:space="preserve">
         <source>Official product website (edited)</source>
-        <target>Site officiele produit (édité)</target>
+        <target>Site officiel du produit (édité)</target>
         <note>Header title of tableview section, indicating the edited website for the product</note>
       </trans-unit>
       <trans-unit id="Official product website (non-edited)" xml:space="preserve">
         <source>Official product website (non-edited)</source>
-        <target>Site officiele produit (pas édité)</target>
+        <target>Site officiel du produit (pas édité)</target>
         <note>Header title of tableview section, indicating the original website for the product</note>
       </trans-unit>
       <trans-unit id="Open Food Facts Preferences" xml:space="preserve">
@@ -1291,7 +1374,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Open in Safari" xml:space="preserve">
         <source>Open in Safari</source>
-        <target>Ouvre dans Safari</target>
+        <target>Ouvrir dans Safari</target>
         <note>String for the Activity Action Screen</note>
       </trans-unit>
       <trans-unit id="Original" xml:space="preserve">
@@ -1365,20 +1448,25 @@ Acides aminés</target>
         <target>Emballage (pas édité)</target>
         <note>Tableview sectionheader for packaging, original version.</note>
       </trans-unit>
+      <trans-unit id="Packaging Image" xml:space="preserve">
+        <source>Packaging Image</source>
+        <target>Photo instructions d'emballage</target>
+        <note>Title for the viewcontroller with the packaging image</note>
+      </trans-unit>
+      <trans-unit id="Packaging Image (edited)" xml:space="preserve">
+        <source>Packaging Image (edited)</source>
+        <target>Photo instructions d'emballage (édité)</target>
+        <note>Title for the viewcontroller with the edited packaging image</note>
+      </trans-unit>
+      <trans-unit id="Packaging Image (non-edited)" xml:space="preserve">
+        <source>Packaging Image (non-edited)</source>
+        <target>Photo instructions d'emballage (pas édité)</target>
+        <note>Title for the viewcontroller with the original packaging image</note>
+      </trans-unit>
       <trans-unit id="Password" xml:space="preserve">
         <source>Password</source>
         <target>Mot de passe</target>
         <note>String in textField placeholder, to show that the user has to enter his password</note>
-      </trans-unit>
-      <trans-unit id="Per 100 mg/ml" xml:space="preserve">
-        <source>Per 100 mg/ml</source>
-        <target>Par 100 mg/ml</target>
-        <note>Text of 1st segment of a SegmentedControl, indicating the model of the nutrient values, i.e. per standard 100g or 100 ml</note>
-      </trans-unit>
-      <trans-unit id="Per serving" xml:space="preserve">
-        <source>Per serving</source>
-        <target>Par portion</target>
-        <note>Text of 2nd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving</note>
       </trans-unit>
       <trans-unit id="Period After Opening" xml:space="preserve">
         <source>Period After Opening</source>
@@ -1400,6 +1488,11 @@ Acides aminés</target>
         <target>Compte personel</target>
         <note>Title in AlertViewController, which lets the user enter his username/password.</note>
       </trans-unit>
+      <trans-unit id="Personal comment" xml:space="preserve">
+        <source>Personal comment</source>
+        <target>Commentaire personel(le)</target>
+        <note>Comment string added by the user.</note>
+      </trans-unit>
       <trans-unit id="Petfood" xml:space="preserve">
         <source>Petfood</source>
         <target>Animaux</target>
@@ -1407,12 +1500,13 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Petfood Products" xml:space="preserve">
         <source>Petfood Products</source>
-        <target>Animaux</target>
+        <target>Produits pour animaux</target>
         <note>Title of ViewController with a list of all food products that has been viewed.</note>
       </trans-unit>
       <trans-unit id="Petfood barcode." xml:space="preserve">
         <source>Petfood barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a pet food barcode search</note><target>Code barre produit animalier</target>
+        <target>Code barre produit animalier</target>
+        <note>Placeholder string in a textfield to explain the purpose of a pet food barcode search</note>
       </trans-unit>
       <trans-unit id="Photographer" xml:space="preserve">
         <source>Photographer</source>
@@ -1459,10 +1553,36 @@ Acides aminés</target>
         <target>Préfix corrigé</target>
         <note>Description of the prefixed corrected tags</note>
       </trans-unit>
+      <trans-unit id="Preparation" xml:space="preserve">
+        <source>Preparation</source>
+        <target>Préparation</target>
+        <note>TableView header for product preparation (prepared/unprepared).</note>
+      </trans-unit>
+      <trans-unit id="Preparation (edited)" xml:space="preserve">
+        <source>Preparation (edited)</source>
+        <target>Préparation (édité)</target>
+        <note>TableView header for product preparation (prepared/unprepared) if it has been changed.</note>
+      </trans-unit>
+      <trans-unit id="Prepare Game" xml:space="preserve">
+        <source>Prepare Game</source>
+        <target>Prépare jeu</target>
+        <note>Button title to start preparing for the next set of questions</note>
+      </trans-unit>
+      <trans-unit id="Prepared" xml:space="preserve">
+        <source>Prepared</source>
+        <target>Préparé</target>
+        <note>Text to indicate a preparartion type (Prepared) related to the nutritional values.</note>
+      </trans-unit>
       <trans-unit id="Presentation format" xml:space="preserve">
         <source>Presentation format</source>
         <target>Format de présentation</target>
         <note>Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion.</note>
+      </trans-unit>
+      <trans-unit id="Processing factor&#10;(percentage of food after processing)" xml:space="preserve">
+        <source>Processing factor
+(percentage of food after processing)</source>
+        <target>Facteur </target>
+        <note>Percent of ingredient in product</note>
       </trans-unit>
       <trans-unit id="Producer" xml:space="preserve">
         <source>Producer</source>
@@ -1506,16 +1626,17 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Product Language" xml:space="preserve">
         <source>Product Language</source>
-        <target>Langue produit</target>
+        <target>Langue du produit</target>
         <note>Title of a segmented control segment, which lets the user set the default language of the new product tag entries as Product Language</note>
       </trans-unit>
       <trans-unit id="Product barcode." xml:space="preserve">
         <source>Product barcode.</source>
-        <note>Placeholder string in a textfield to explain the purpose of a product barcode search</note><target>Code barre produit</target>
+        <target>Code barre du produit</target>
+        <note>Placeholder string in a textfield to explain the purpose of a product barcode search</note>
       </trans-unit>
       <trans-unit id="Product does not exist. Add?" xml:space="preserve">
         <source>Product does not exist. Add?</source>
-        <target>Produit n'existe pas. Ajouter?</target>
+        <target>Le produit n'existe pas. L'ajouter?</target>
         <note>Alert message, when the product could not be retrieved from Internet.</note>
       </trans-unit>
       <trans-unit id="Product is loaded" xml:space="preserve">
@@ -1535,22 +1656,22 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Product loading" xml:space="preserve">
         <source>Product loading</source>
-        <target>En cours de charger produit</target>
+        <target>Chargement du produit en cours</target>
         <note>String presented in a tagView if the product is currently being loaded</note>
       </trans-unit>
       <trans-unit id="Product loading failed" xml:space="preserve">
         <source>Product loading failed</source>
-        <target>Chargement produit échoué</target>
+        <target>Echec du chargement du produit</target>
         <note>String presented in a tagView if the product loading has failed</note>
       </trans-unit>
       <trans-unit id="Product name" xml:space="preserve">
         <source>Product name</source>
-        <target>Nom produit</target>
+        <target>Nom du produit</target>
         <note>String in picker, which lets the user select the search result order. Order on the product names.</note>
       </trans-unit>
       <trans-unit id="Product name missing" xml:space="preserve">
         <source>Product name missing</source>
-        <target>Nom produit manque</target>
+        <target>Nom du produit manquant</target>
         <note>Secction title, to indicate the product name does not exist</note>
       </trans-unit>
       <trans-unit id="Product not available" xml:space="preserve">
@@ -1575,17 +1696,17 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Purchase address (edited)" xml:space="preserve">
         <source>Purchase address (edited)</source>
-        <target>Adresse d'achat (édité)</target>
+        <target>Adresse d'achat (éditée)</target>
         <note>Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought</note>
       </trans-unit>
       <trans-unit id="Purchase address (non-edited)" xml:space="preserve">
         <source>Purchase address (non-edited)</source>
-        <target>Adresse d'achat (pas édité)</target>
+        <target>Adresse d'achat (pas éditée)</target>
         <note>Generic string to indicate the address original (street/city/postalcode/country) where the product was bought</note>
       </trans-unit>
       <trans-unit id="Purchase address (normalized)" xml:space="preserve">
         <source>Purchase address (normalized)</source>
-        <target>Adresse d'achat (normalisé)</target>
+        <target>Adresse d'achat (normalisée)</target>
         <note>Generic string to indicate the address edited (street/city/postalcode/country) where the product was bought</note>
       </trans-unit>
       <trans-unit id="Quantity" xml:space="preserve">
@@ -1603,14 +1724,19 @@ Acides aminés</target>
         <target>Quantité (pas édité)</target>
         <note>Tableview sectionheader for the original size of package.</note>
       </trans-unit>
+      <trans-unit id="Reference Score: Lifecycle Analysis" xml:space="preserve">
+        <source>Reference Score: Lifecycle Analysis</source>
+        <target>Score de référence: Analyse de Cycle de Vie</target>
+        <note>tableView section header indicating the lifecycle reference score</note>
+      </trans-unit>
       <trans-unit id="Reset application" xml:space="preserve">
         <source>Reset application</source>
-        <target>Remet appli à zero</target>
+        <target>Réinitialise l'appli</target>
         <note>String in button, to let the user indicate he wants to cancel username/password input.</note>
       </trans-unit>
       <trans-unit id="Response received" xml:space="preserve">
         <source>Response received</source>
-        <target>Réponse reçu</target>
+        <target>Réponse reçue</target>
         <note>String presented in a tagView if a response was received</note>
       </trans-unit>
       <trans-unit id="Sale Stores" xml:space="preserve">
@@ -1625,7 +1751,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Salt level" xml:space="preserve">
         <source>Salt level</source>
-        <target>Taux sel</target>
+        <target>Taux de sel</target>
         <note>Text of a label that wil indicate the fat level (low/medium/high) by colour.</note>
       </trans-unit>
       <trans-unit id="Sample Product for Demonstration, the globally known M&amp;M's" xml:space="preserve">
@@ -1635,7 +1761,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Saturated Fat level" xml:space="preserve">
         <source>Saturated Fat level</source>
-        <target>Taux graisse saturé</target>
+        <target>Taux de graisses saturées</target>
         <note>Text of a label that will indicate the saturated fat level (low/medium/high) by colour.</note>
       </trans-unit>
       <trans-unit id="Saturated Fat to Total Fat ratio" xml:space="preserve">
@@ -1658,9 +1784,14 @@ Acides aminés</target>
         <target>Scanner</target>
         <note>Title of the first tab of a tabbarVC</note>
       </trans-unit>
+      <trans-unit id="Score ACV" xml:space="preserve">
+        <source>Score ACV</source>
+        <target>Score ACV</target>
+        <note>Cell text label for the Agribalyse Lifecycle value</note>
+      </trans-unit>
       <trans-unit id="Score Summary" xml:space="preserve">
         <source>Score Summary</source>
-        <target>Sommaire nutri-score</target>
+        <target>Sommaire Nutri-Score</target>
         <note>Title of a tableview header, which shows the Nutrition Score and Nova Value</note>
       </trans-unit>
       <trans-unit id="Search" xml:space="preserve">
@@ -1691,7 +1822,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Search Text" xml:space="preserve">
         <source>Search Text</source>
-        <target>Texte à chercher</target>
+        <target>Texte à rechercher</target>
         <note>String to indicate the text, which will be used to search multiple fileds of a product.</note>
       </trans-unit>
       <trans-unit id="Search in name, generic name, label, brand." xml:space="preserve">
@@ -1706,12 +1837,12 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Search query" xml:space="preserve">
         <source>Search query</source>
-        <target>Définition de requete</target>
+        <target>Définition de requête</target>
         <note>String presented in a tagView for the search query</note>
       </trans-unit>
       <trans-unit id="Search set up" xml:space="preserve">
         <source>Search set up</source>
-        <target>Requete définie</target>
+        <target>Requête définie</target>
         <note>Indicating that a search has been defined</note>
       </trans-unit>
       <trans-unit id="Searching" xml:space="preserve">
@@ -1726,7 +1857,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Select Completion Status" xml:space="preserve">
         <source>Select Completion Status</source>
-        <target>Saisis état de complétion</target>
+        <target>Saisir l'état de complétion</target>
         <note>Title of a picker row where the user has to select an element in the picker.</note>
       </trans-unit>
       <trans-unit id="Select a product from the history." xml:space="preserve">
@@ -1736,12 +1867,12 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Select language" xml:space="preserve">
         <source>Select language</source>
-        <target>Sélectionne langue</target>
+        <target>Sélectionner la langue</target>
         <note>Title of a viewcontroller where the user has to select a language in a pickerView list of languages.</note>
       </trans-unit>
       <trans-unit id="Select role" xml:space="preserve">
         <source>Select role</source>
-        <target>Choisit role</target>
+        <target>Choisir le role</target>
         <note>First item in a pickerView, indicating what the user should do</note>
       </trans-unit>
       <trans-unit id="Select the diets, that you want the app to highlight in the product summary." xml:space="preserve">
@@ -1776,7 +1907,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Selected Front Images (non-edited)" xml:space="preserve">
         <source>Selected Front Images (non-edited)</source>
-        <target>Photo du produit sélectionnées (pas édité)</target>
+        <target>Photo du produit sélectionnées (non modifiées)</target>
         <note>Gallery header text presenting the non-edited selected front images</note>
       </trans-unit>
       <trans-unit id="Selected Ingredients Images" xml:space="preserve">
@@ -1791,7 +1922,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Selected Ingredients Images (non-edited)" xml:space="preserve">
         <source>Selected Ingredients Images (non-edited)</source>
-        <target>Photos d'ingrédients sélectionnées (pas édité)</target>
+        <target>Photos d'ingrédients sélectionnées (non modifiées)</target>
         <note>Gallery header text presenting the non-edited selected ingredients images</note>
       </trans-unit>
       <trans-unit id="Selected Languages" xml:space="preserve">
@@ -1806,47 +1937,63 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Selected Nutrition Images (edited)" xml:space="preserve">
         <source>Selected Nutrition Images (edited)</source>
-        <target>Photos de nutrition sélectionnées (édité)</target>
+        <target>Photos de nutrition sélectionnées (modifiées)</target>
         <note>Gallery header text presenting the edited selected nutrition images</note>
       </trans-unit>
       <trans-unit id="Selected Nutrition Images (non-edited)" xml:space="preserve">
         <source>Selected Nutrition Images (non-edited)</source>
-        <target>Photos de nutrition sélectionnées (pas édité)</target>
+        <target>Photos de nutrition sélectionnées (non modifiées)</target>
+        <note>Gallery header text presenting the non-edited selected nutrition images</note>
+      </trans-unit>
+      <trans-unit id="Selected Packaging Images" xml:space="preserve">
+        <source>Selected Packaging Images</source>
+        <target>Photos sélectionées des Instructions d'emballage</target>
+        <note>Gallery header text presenting the selected packaging images</note>
+      </trans-unit>
+      <trans-unit id="Selected Packaging Images (edited)" xml:space="preserve">
+        <source>Selected Packaging Images (edited)</source>
+        <target>Photos sélectionées des Instructions d'emballage (édité)</target>
+        <note>Gallery header text presenting the edited selected nutrition images</note>
+      </trans-unit>
+      <trans-unit id="Selected Packaging Images (non-edited)" xml:space="preserve">
+        <source>Selected Packaging Images (non-edited)</source>
+        <target>Photos sélectionées des Instructions d'emballage (pas édité)</target>
         <note>Gallery header text presenting the non-edited selected nutrition images</note>
       </trans-unit>
       <trans-unit id="Selected Traces" xml:space="preserve">
         <source>Selected Traces</source>
-        <target>Traces sélectionnés</target>
+        <target>Traces sélectionnées</target>
         <note>Title of a tableview section with the selected traces for a product.</note>
       </trans-unit>
       <trans-unit id="Serving" xml:space="preserve">
         <source>Serving</source>
         <target>Portion</target>
-        <note>Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)</note>
+        <note>Text of 2nd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving and in mg
+   Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)</note>
       </trans-unit>
       <trans-unit id="Set" xml:space="preserve">
         <source>Set</source>
-        <target>Définie</target>
+        <target>Définir</target>
         <note>Title of a segment in a segmentedControl indicating that the a search needs to be setup by tapping.</note>
       </trans-unit>
       <trans-unit id="Set Account" xml:space="preserve">
         <source>Set Account</source>
-        <target>Défini compte</target>
+        <target>Définir un compte</target>
         <note>Title of second segment in switch, which  indicates the user can set another account</note>
       </trans-unit>
       <trans-unit id="Set Diets to Display" xml:space="preserve">
         <source>Set Diets to Display</source>
-        <target>Sélectionne le régime à montrer</target>
+        <target>Sélectionner le régime à montrer</target>
         <note>Title of a tableView, in which a user can select rows (diets) to display.</note>
       </trans-unit>
       <trans-unit id="Set a warning for specific allergen(s)." xml:space="preserve">
         <source>Set a warning for specific allergen(s).</source>
-        <target>Défini avertissage allergènes/traces</target>
+        <target>Définir des alertes allergènes/traces</target>
         <note>cell title label, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels.</note>
       </trans-unit>
       <trans-unit id="Set ingredient warnings" xml:space="preserve">
         <source>Set ingredient warnings</source>
-        <target>Défini avertissage ingrédients</target>
+        <target>Définir des alertes ingrédients</target>
         <note>Title of a tableView section, which lets the user set warnings</note>
       </trans-unit>
       <trans-unit id="Set preferences for salt/sodium, kJ/kcal/Cal, etc." xml:space="preserve">
@@ -1856,22 +2003,22 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Set product type (food/beauty/petFood), reset, etc." xml:space="preserve">
         <source>Set product type (food/beauty/petFood), reset, etc.</source>
-        <target>Défini type produit</target>
+        <target>Définir le type de produit</target>
         <note>TableView row label, which allows the user to set up the application.</note>
       </trans-unit>
       <trans-unit id="Set your OpenFoodFacts account." xml:space="preserve">
         <source>Set your OpenFoodFacts account.</source>
-        <target>Défini ton compte Open Food Facts</target>
+        <target>Définir votre compte Open Food Facts</target>
         <note>Row title, which allows the user to set his open food facts username.</note>
       </trans-unit>
       <trans-unit id="Setup query" xml:space="preserve">
         <source>Setup query</source>
-        <target>Définie requête</target>
+        <target>Définir une recherche avancée</target>
         <note>Title of a tableview header  indicating that the corresding field has been set.</note>
       </trans-unit>
       <trans-unit id="Show" xml:space="preserve">
         <source>Show</source>
-        <target>Montre</target>
+        <target>Afficher</target>
         <note>SegmentedControl index tezt for a preference setting, which ask the user to set the default for ingredient detections (additives, minerals etc). Should the app also show when nothing has been detected?</note>
       </trans-unit>
       <trans-unit id="Sodium" xml:space="preserve">
@@ -1879,14 +2026,28 @@ Acides aminés</target>
         <target>Sodium</target>
         <note>Title of third segment in switch, which lets the user select between salt or sodium</note>
       </trans-unit>
+      <trans-unit id="Soy feed factor&#10;(kg of soy per kg of food)" xml:space="preserve">
+        <source>Soy feed factor
+(kg of soy per kg of food)</source>
+        <target>Soja consommé
+(kg de soja par kg de nourriture)</target>
+        <note>Percent of ingredient in product</note>
+      </trans-unit>
+      <trans-unit id="Soy yield&#10;(kg of soy per m²)" xml:space="preserve">
+        <source>Soy yield
+(kg of soy per m²)</source>
+        <target>Soja rendement
+(kg de soja par m²)</target>
+        <note>Percent of ingredient in product</note>
+      </trans-unit>
       <trans-unit id="Special categories" xml:space="preserve">
         <source>Special categories</source>
-        <target>Catégories speciaux</target>
+        <target>Catégories spéciales</target>
         <note>Header for a table section showing the special categories</note>
       </trans-unit>
       <trans-unit id="Specify password" xml:space="preserve">
         <source>Specify password</source>
-        <target>Spécifie mot de passe</target>
+        <target>Saisir votre mot de passe</target>
         <note>Title in AlertViewController, which lets the user enter his username/password.</note>
       </trans-unit>
       <trans-unit id="Specify your credentials for OFF" xml:space="preserve">
@@ -1896,8 +2057,13 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Start Search?" xml:space="preserve">
         <source>Start Search?</source>
-        <target>Commence Requete?</target>
+        <target>Commencer la recherche?</target>
         <note>Title in AlertViewController, which lets the user decide if he wants to start a search.</note>
+      </trans-unit>
+      <trans-unit id="Start game" xml:space="preserve">
+        <source>Start game</source>
+        <target>Démarre jeu</target>
+        <note>Button text, which indicate that the game can be started.</note>
       </trans-unit>
       <trans-unit id="Stores" xml:space="preserve">
         <source>Stores</source>
@@ -1906,12 +2072,12 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Stores (edited)" xml:space="preserve">
         <source>Stores (edited)</source>
-        <target>Magasins (édité)</target>
+        <target>Magasins (modifié)</target>
         <note>Generic string to indicate the edited stores where the product is sold.</note>
       </trans-unit>
       <trans-unit id="Stores (non-edited)" xml:space="preserve">
         <source>Stores (non-edited)</source>
-        <target>Magasins (pas édité)</target>
+        <target>Magasins (non modifié)</target>
         <note>Generic string to indicate the original (non-edited) stores where the product is sold.</note>
       </trans-unit>
       <trans-unit id="Stores (normalized)" xml:space="preserve">
@@ -1921,7 +2087,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Sugar level" xml:space="preserve">
         <source>Sugar level</source>
-        <target>Taux sucres</target>
+        <target>Taux de sucres</target>
         <note>Text of a label that will indicate the sugar level (low/medium/high) by colour.</note>
       </trans-unit>
       <trans-unit id="Supply Chain" xml:space="preserve">
@@ -1931,12 +2097,12 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Sure" xml:space="preserve">
         <source>Sure</source>
-        <target>Dac</target>
+        <target>OK</target>
         <note>Alert title, to indicate product should be added</note>
       </trans-unit>
       <trans-unit id="System Language" xml:space="preserve">
         <source>System Language</source>
-        <target>Langue système</target>
+        <target>Langue du système</target>
         <note>Title of a segmented control segment, which lets the user set the default language of the new product tag entries as System Language</note>
       </trans-unit>
       <trans-unit id="Tag Entry Language" xml:space="preserve">
@@ -1946,7 +2112,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Take Photos" xml:space="preserve">
         <source>Take Photos</source>
-        <target>Prend Photos</target>
+        <target>Prendre des Photos</target>
         <note>String of a button which urges the user to take photos of the (new) product.</note>
       </trans-unit>
       <trans-unit id="The local product has been changed. Should these changes be saved?" xml:space="preserve">
@@ -1956,13 +2122,30 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="This barcode is not yet listed on OFF. Please take some photos, so the data can be added." xml:space="preserve">
         <source>This barcode is not yet listed on OFF. Please take some photos, so the data can be added.</source>
-        <target>Ce code-barres n'est pas encore répertorié sur FF. Veuillez prendre quelques photos, afin que les données puissent être ajoutées.</target>
+        <target>Ce code-barres n'est pas encore répertorié sur OFF. Veuillez prendre quelques photos, afin que les données puissent être ajoutées.</target>
         <note>String, which urges the user to take photos of the (new) product.</note>
+      </trans-unit>
+      <trans-unit id="This image was upload on:" xml:space="preserve">
+        <source>This image was upload on:</source>
+        <target>Cette image est contribué le:</target>
+        <note>Text of a label, when an image was uploaded.</note>
       </trans-unit>
       <trans-unit id="This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." xml:space="preserve">
         <source>This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.</source>
         <target>Ce produit de démonstration vous montre comment une produit est présenté. Passez au pages suivants pour voir plus de détails sur le produit. Quand vous commencez à scanner, ce produit sera supprimé.</target>
         <note>An explanatory text in the common name field.</note>
+      </trans-unit>
+      <trans-unit id="Total forest footprint&#10;(m² per kg of food)" xml:space="preserve">
+        <source>Total forest footprint
+(m² per kg of food)</source>
+        <target>Empreinte forêt total
+(m² par kg de nourritue)</target>
+        <note>Conclusion line in forest footprint explanation vc.</note>
+      </trans-unit>
+      <trans-unit id="Total of all packaging parts" xml:space="preserve">
+        <source>Total of all packaging parts</source>
+        <target>Total des composants d'emballage</target>
+        <note>Cell text label indicating that no menaced species were used for the calculation</note>
       </trans-unit>
       <trans-unit id="Traces" xml:space="preserve">
         <source>Traces</source>
@@ -1971,22 +2154,22 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Traces (edited)" xml:space="preserve">
         <source>Traces (edited)</source>
-        <target>Traces (édité)</target>
+        <target>Traces (modifiées)</target>
         <note>Text to indicate the edited traces of a product.</note>
       </trans-unit>
       <trans-unit id="Traces (non-edited)" xml:space="preserve">
         <source>Traces (non-edited)</source>
-        <target>Traces (pas édité)</target>
+        <target>Traces (mon modifiées)</target>
         <note>Text to indicate the original (un-edited) traces of a product.</note>
       </trans-unit>
       <trans-unit id="Traces (normalized)" xml:space="preserve">
         <source>Traces (normalized)</source>
-        <target>Traces (normalisé)</target>
+        <target>Traces (normalisées)</target>
         <note>Text to indicate the original (normalized) traces of a product.</note>
       </trans-unit>
       <trans-unit id="Traces (translated)" xml:space="preserve">
         <source>Traces (translated)</source>
-        <target>Traces (traduit)</target>
+        <target>Traces (traduites)</target>
         <note>Text to indicate the original (normalized) traces of a product.</note>
       </trans-unit>
       <trans-unit id="Translated" xml:space="preserve">
@@ -2001,13 +2184,18 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="Undefined" xml:space="preserve">
         <source>Undefined</source>
-        <target>Pas defini</target>
+        <target>Non défini</target>
         <note>String (in Segmented Control/Tag) to indicate the nutritional score level is undefined (and will not be used in the search)</note>
       </trans-unit>
       <trans-unit id="Unknown" xml:space="preserve">
         <source>Unknown</source>
         <target>Inconnu</target>
         <note>Text in a TagListView, when the field in the json was not present.</note>
+      </trans-unit>
+      <trans-unit id="Unprepared" xml:space="preserve">
+        <source>Unprepared</source>
+        <target>Non-préparé</target>
+        <note>Text to indicate a preparartion type (Unprepared) related to the nutritional values.</note>
       </trans-unit>
       <trans-unit id="Unselected Categories" xml:space="preserve">
         <source>Unselected Categories</source>
@@ -2029,29 +2217,44 @@ Acides aminés</target>
         <target>Traces à selectioner</target>
         <note>Title of a tableview section with a list of traces that can be selected.</note>
       </trans-unit>
+      <trans-unit id="Uploaded by:" xml:space="preserve">
+        <source>Uploaded by:</source>
+        <target>par</target>
+        <note>Explanation text of a label, which shows the name of the uploader.</note>
+      </trans-unit>
+      <trans-unit id="Uploader unknown" xml:space="preserve">
+        <source>Uploader unknown</source>
+        <target>Contributeur inconnu</target>
+        <note>Title of a label, which should show the name of the uploader.</note>
+      </trans-unit>
       <trans-unit id="Uploading image" xml:space="preserve">
         <source>Uploading image</source>
-        <target>Charger image</target>
+        <target>Chargement de l'image…</target>
         <note>String presented in a tagView if an image is being uploaded</note>
       </trans-unit>
       <trans-unit id="Use" xml:space="preserve">
         <source>Use</source>
-        <target>Utilise</target>
+        <target>Utiliser</target>
         <note>Title of a button in a navigation bar, which allows the user to adapt an image and use the result.</note>
       </trans-unit>
       <trans-unit id="Use Camera" xml:space="preserve">
         <source>Use Camera</source>
-        <target>Utilise camera</target>
+        <target>Utiliser l'appareil photo</target>
         <note>Title of a button to indicate that user can take an image with the Camera.</note>
       </trans-unit>
       <trans-unit id="Use Photos" xml:space="preserve">
         <source>Use Photos</source>
-        <target>Utilise photos</target>
+        <target>Utiliser la gallerie</target>
         <note>Title of a button to indicate that user can pick an image from Photos.</note>
+      </trans-unit>
+      <trans-unit id="User" xml:space="preserve">
+        <source>User</source>
+        <target>Utilisateur</target>
+        <note>Title Tab bar, which shows some statistics of the user.</note>
       </trans-unit>
       <trans-unit id="User Preferences" xml:space="preserve">
         <source>User Preferences</source>
-        <target>Préférences utilisateur</target>
+        <target>Préférences</target>
         <note>ViewController/row title, which allows the user to set the application preferences.</note>
       </trans-unit>
       <trans-unit id="User defined" xml:space="preserve">
@@ -2068,6 +2271,16 @@ Acides aminés</target>
         <source>View Toggle Mode</source>
         <target>Mode de changement affichage</target>
         <note>Title of a tableView section, which lets the user set the view toggle mode interface (double tap or button)</note>
+      </trans-unit>
+      <trans-unit id="Yes" xml:space="preserve">
+        <source>Yes</source>
+        <target>Oui</target>
+        <note>Title of an alert button, which confirms the question</note>
+      </trans-unit>
+      <trans-unit id="footprint not available" xml:space="preserve">
+        <source>footprint not available</source>
+        <target>Empreinte pas disponible</target>
+        <note>Percent of ingredient in product</note>
       </trans-unit>
       <trans-unit id="for %@ in %@" xml:space="preserve">
         <source>for %1$@ in %2$@</source>
@@ -2088,6 +2301,11 @@ Acides aminés</target>
         <source>milligram (mg)</source>
         <target>milligramme (mg)</target>
         <note>Standard weight unit divided by thousand.</note>
+      </trans-unit>
+      <trans-unit id="m² per kg of food" xml:space="preserve">
+        <source>m² per kg of food</source>
+        <target>m² par kg de nourriture</target>
+        <note>Percent of ingredient in product</note>
       </trans-unit>
       <trans-unit id="no country defined" xml:space="preserve">
         <source>no country defined</source>
@@ -2116,7 +2334,7 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="no language defined" xml:space="preserve">
         <source>no language defined</source>
-        <target>pas de langue défini</target>
+        <target>pas de langue définie</target>
         <note>Text for language of product, when there is no language defined.</note>
       </trans-unit>
       <trans-unit id="no name specified" xml:space="preserve">
@@ -2126,22 +2344,27 @@ Acides aminés</target>
       </trans-unit>
       <trans-unit id="no nutrition data available" xml:space="preserve">
         <source>no nutrition data available</source>
-        <target>pas d'info nutritionnelles spécifiés</target>
+        <target>pas d'info nutritionnelle spécifiée</target>
         <note>Text in a TagListView, when no nutrition data has been specified in the product data.</note>
       </trans-unit>
       <trans-unit id="no nutrition data indicated" xml:space="preserve">
         <source>no nutrition data indicated</source>
-        <target>pas d'info nutritionnelles spécifiés</target>
+        <target>pas d'info nutritionnelle spécifiée</target>
         <note>Text in a TagListView, when no nutrition data has been specified in the product data.</note>
       </trans-unit>
       <trans-unit id="no serving size available" xml:space="preserve">
         <source>no serving size available</source>
-        <target>pas de portion spécifié</target>
+        <target>pas de portion spécifiée</target>
         <note>Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour.</note>
+      </trans-unit>
+      <trans-unit id="no total score" xml:space="preserve">
+        <source>no total score</source>
+        <target>pas de score total</target>
+        <note>Cell text label indicating that the total score could not be calculated</note>
       </trans-unit>
       <trans-unit id="no trace defined" xml:space="preserve">
         <source>no trace defined</source>
-        <target>pas de trace défini</target>
+        <target>pas de trace définie</target>
         <note>Text for language of product, when there is no trace defined.</note>
       </trans-unit>
       <trans-unit id="none" xml:space="preserve">
@@ -2154,9 +2377,14 @@ Acides aminés</target>
         <target>Pas saisi</target>
         <note>Text of a button, indicating a contributor role is not selected</note>
       </trans-unit>
+      <trans-unit id="nothing selected" xml:space="preserve">
+        <source>nothing selected</source>
+        <target>rien sélectionné</target>
+        <note>Title of a viewController when no product/search has been selected.</note>
+      </trans-unit>
       <trans-unit id="nutrition data not on package" xml:space="preserve">
         <source>nutrition data not on package</source>
-        <target>pas de valeurs nutri sur emballage</target>
+        <target>pas de valeurs nutri sur l'emballage</target>
         <note>Text in a TagListView, when no nutrition data is available on the package.</note>
       </trans-unit>
       <trans-unit id="nutrition data per serving and standard unit available" xml:space="preserve">
@@ -2164,14 +2392,29 @@ Acides aminés</target>
         <target>info nutritionnelle disponible par portion et unité standard</target>
         <note>Text in a TagListView, when the nutrition data has been specified in the product data.</note>
       </trans-unit>
+      <trans-unit id="packaging has an unrecognized material" xml:space="preserve">
+        <source>packaging has an unrecognized material</source>
+        <target>matériel d'emballage pas reconnu</target>
+        <note>Cell text label indicating that no menaced species were used for the calculation</note>
+      </trans-unit>
+      <trans-unit id="packaging has an unrecognized shape" xml:space="preserve">
+        <source>packaging has an unrecognized shape</source>
+        <target>forme d'emballage pas reconnu</target>
+        <note>Cell text label indicating that no menaced species were used for the calculation</note>
+      </trans-unit>
       <trans-unit id="percentage (%)" xml:space="preserve">
         <source>percentage (%)</source>
         <target>pourcentage (%)</target>
         <note>Fraction of total by volume</note>
       </trans-unit>
+      <trans-unit id="percentage in product." xml:space="preserve">
+        <source>percentage in product.</source>
+        <target>pourcentage dans produit</target>
+        <note>Percent of ingredient in product</note>
+      </trans-unit>
       <trans-unit id="search results" xml:space="preserve">
         <source>search results</source>
-        <target>résultats de récherche</target>
+        <target>résultats de recherche</target>
         <note>Part of a sentece indicating the number of search results</note>
       </trans-unit>
       <trans-unit id="❤️" xml:space="preserve">
@@ -2198,6 +2441,64 @@ Acides aminés</target>
         <source>🔦</source>
         <target>🔦</target>
         <note>Image to indicate that the user modified information of the product.</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="FoodViewer/Localisation/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="fr" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.7" build-num="11E801a"/>
+    </header>
+    <body>
+      <trans-unit id="3Vn-bz-g9v.title" xml:space="preserve">
+        <source>Scanner</source>
+        <target>Scanner</target>
+        <note>Class = "UITabBarItem"; title = "Scanner"; ObjectID = "3Vn-bz-g9v";</note>
+      </trans-unit>
+      <trans-unit id="8si-Yq-0ji.text" xml:space="preserve">
+        <source>FoodViewer is possible thanks to OpenFoodFacts, an open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels.</source>
+        <target>FoodViewer est possible grâce à OpenFoodFacts, une base de données ouverte de produits alimentaires avec des ingrédients, des allergènes, des informations nutritionnelles et toutes les petites informations que vous pouvez trouver sur les étiquettes des aliments.</target>
+        <note>Class = "UITextView"; text = "FoodViewer is possible thanks to OpenFoodFacts, an open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information you can find on food labels."; ObjectID = "8si-Yq-0ji";</note>
+      </trans-unit>
+      <trans-unit id="9OJ-E9-8aV.text" xml:space="preserve">
+        <source>FoodViewer</source>
+        <target>FoodViewer</target>
+        <note>Class = "UILabel"; text = "FoodViewer"; ObjectID = "9OJ-E9-8aV";</note>
+      </trans-unit>
+      <trans-unit id="Uqq-0f-VGW.title" xml:space="preserve">
+        <source>Preferences</source>
+        <target>Réglages</target>
+        <note>Class = "UITabBarItem"; title = "Preferences"; ObjectID = "Uqq-0f-VGW";</note>
+      </trans-unit>
+      <trans-unit id="WHd-6b-vLZ.title" xml:space="preserve">
+        <source>User</source>
+        <target>Utilisateur</target>
+        <note>Class = "UITabBarItem"; title = "User"; ObjectID = "WHd-6b-vLZ";</note>
+      </trans-unit>
+      <trans-unit id="szq-J1-leR.title" xml:space="preserve">
+        <source>Game</source>
+        <target>Jeu</target>
+        <note>Class = "UITabBarItem"; title = "Game"; ObjectID = "szq-J1-leR";</note>
+      </trans-unit>
+      <trans-unit id="u7v-kh-6sa.title" xml:space="preserve">
+        <source>Search</source>
+        <target>Chercher</target>
+        <note>Class = "UITabBarItem"; title = "Search"; ObjectID = "u7v-kh-6sa";</note>
+      </trans-unit>
+      <trans-unit id="znY-gQ-KqA.text" xml:space="preserve">
+        <source>Copyright © 2020 Hovering Above. All rights reserved.</source>
+        <target>Copyright 2020 Hovering Above. Tous droits reservés</target>
+        <note>Class = "UILabel"; text = "Copyright © 2020 Hovering Above. All rights reserved."; ObjectID = "znY-gQ-KqA";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="FoodViewer/Localisation/Base.lproj/Main.storyboard" source-language="en" target-language="fr" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.7" build-num="11E801a"/>
+    </header>
+    <body>
+      <trans-unit id="XRs-Yd-vnh.text" xml:space="preserve">
+        <source>)</source>
+        <note>Class = "UILabel"; text = ")"; ObjectID = "XRs-Yd-vnh";</note>
       </trans-unit>
     </body>
   </file>
