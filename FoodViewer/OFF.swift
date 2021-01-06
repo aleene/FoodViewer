@@ -186,6 +186,8 @@ public struct OFF {
             return "nutrition-facts" // in JSON and search
         case .photosUploaded:
             return "photos-uploaded" // in JSON and search
+        case .origins:
+            return "origins"
         case .photosValidated:
             return "photos-validated" // in JSON and search
         case .packagingPhoto:

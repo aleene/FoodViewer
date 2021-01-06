@@ -90,6 +90,12 @@ public struct ProductCompletion: Hashable {
         case .nutrition_photo_to_be_selected:
             category = .nutritionPhoto
             value = false
+        case .origins_to_be_completed:
+            category = .origins
+            value = false
+        case .origins_completed:
+            category = .origins
+            value = true
         case .packaging_completed:
             category = .packaging
             value = true
@@ -165,6 +171,7 @@ public struct ProductCompletion: Hashable {
              .nutritionPhoto,
              .complete,
              .characteristics,
+             .origins,
              .packagingCode,
              .packagingPhoto,
              .checked:
@@ -190,6 +197,7 @@ public struct ProductCompletion: Hashable {
              .nutritionPhoto,
              .complete,
              .characteristics,
+             .origins,
              .packagingCode,
              .packagingPhoto,
              .checked:

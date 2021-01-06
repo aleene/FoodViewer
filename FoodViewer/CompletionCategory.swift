@@ -21,6 +21,7 @@ enum CompletionCategory: Int {
     case ingredientsPhoto
     case nutritionFacts
     case nutritionPhoto
+    case origins
     case packaging
     case packagingCode
     case packagingPhoto

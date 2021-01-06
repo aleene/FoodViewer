@@ -30,6 +30,8 @@ public enum OFFProductStates: String, Codable {
     case nutrition_facts_to_be_completed = "en:nutrition-facts-to-be-completed"
     case nutrition_photo_selected = "en:nutrition-photo-selected"
     case nutrition_photo_to_be_selected = "en:nutrition-photo-to-be-selected"
+    case origins_completed = "en:origins-completed"
+    case origins_to_be_completed = "en:origins-to-be-completed"
     case packaging_completed = "en:packaging-completed"
     case packaging_to_be_completed = "en:packaging-to-be-completed"
     case packaging_code_completed = "en:packaging-code-completed"
