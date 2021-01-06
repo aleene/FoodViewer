@@ -929,8 +929,8 @@
             filePath = "FoodViewer/ViewControllers/IdentificationTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1661"
-            endingLineNumber = "1661"
+            startingLineNumber = "1662"
+            endingLineNumber = "1662"
             landmarkName = "changeLanguageButtonTapped(_:in:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1850,7 +1850,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B22B4895-9B53-4251-B4A8-4477C1AF5AFB"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodViewer/ViewControllers/IdentificationTableViewController.swift"

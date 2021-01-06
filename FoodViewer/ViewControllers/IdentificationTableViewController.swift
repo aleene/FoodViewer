@@ -1381,14 +1381,15 @@ extension IdentificationTableViewController: TagListViewDelegate {
     public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
         
         func askQuestion(for type: RobotoffQuestionType, at index:Int) {
-            guard let question = productPair?.remoteProduct?.robotoffQuestions(for: type)[index] else { return }
+            guard let questions = productPair?.remoteProduct?.robotoffQuestions(for: type) else { return }
+            guard index >= 0 && index < questions.count else { return }
             var image: ProductImageSize?
-            if let validID = question.imageID {
+            if let validID = questions[index].imageID {
                 if let validImages = productPair?.remoteProduct?.images {
                     image = validImages[validID]
                 }
             }
-            coordinator?.showQuestion(for: productPair, question: question, image: image)
+            coordinator?.showQuestion(for: productPair, question: questions[index], image: image)
         }
 
         switch tableStructure[tagListView.tag] {
@@ -1398,10 +1399,10 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 if index <= count - 1 {
                     return
                 } else {
-                    askQuestion(for: .label, at: index - count)
+                    askQuestion(for: .brand, at: index - count)
                 }
             } else {
-                askQuestion(for: .label, at: index)
+                askQuestion(for: .brand, at: index)
             }
 
         case .languages:
