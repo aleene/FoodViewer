@@ -39,7 +39,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "A0F1969B-E09E-4BE9-9703-FCF6CE9BB9FB - be06a0f34e2896c6"
+                  uuid = "A0F1969B-E09E-4BE9-9703-FCF6CE9BB9FB - e2c54ad4de6c402d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -54,7 +54,7 @@
                   offsetFromSymbolStart = "60">
                </Location>
                <Location
-                  uuid = "A0F1969B-E09E-4BE9-9703-FCF6CE9BB9FB - c027c9abdeafa968"
+                  uuid = "A0F1969B-E09E-4BE9-9703-FCF6CE9BB9FB - 9ce4238c4eeb7f83"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -66,7 +66,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "75"
                   endingLineNumber = "75"
-                  offsetFromSymbolStart = "56">
+                  offsetFromSymbolStart = "60">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -627,8 +627,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "246"
             endingLineNumber = "246"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -931,8 +931,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1662"
             endingLineNumber = "1662"
-            landmarkName = "changeLanguageButtonTapped(_:in:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -979,8 +979,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "920"
             endingLineNumber = "920"
-            landmarkName = "imageUploaded(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1207,7 +1207,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "86A816B5-A44C-42EF-886C-B3E812AE4422 - f2d8f1479748cad6"
+                  uuid = "86A816B5-A44C-42EF-886C-B3E812AE4422 - 4903fc45576e1eaa"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -1219,10 +1219,10 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "164"
                   endingLineNumber = "164"
-                  offsetFromSymbolStart = "216">
+                  offsetFromSymbolStart = "232">
                </Location>
                <Location
-                  uuid = "86A816B5-A44C-42EF-886C-B3E812AE4422 - f2d8f1479748cad6"
+                  uuid = "86A816B5-A44C-42EF-886C-B3E812AE4422 - 4903fc45576e1eaa"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -1234,7 +1234,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "164"
                   endingLineNumber = "164"
-                  offsetFromSymbolStart = "332">
+                  offsetFromSymbolStart = "360">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1619,8 +1619,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "359"
             endingLineNumber = "359"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1719,7 +1719,37 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "EAE47F4B-9207-44A1-A50D-C8BB84F38830 - 1e7438e2c18847f9"
+                  uuid = "EAE47F4B-9207-44A1-A50D-C8BB84F38830 - 105c35e92587ec86"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FoodViewer.NutrientsTableViewController.preparationStyleTableViewCell(_: FoodViewer.PreparationStyleTableViewCell, receivedActionOn: __C.UISegmentedControl) -&gt; ()"
+                  moduleName = "FoodViewer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/arnaud/Programming/FoodViewer/FoodViewer/ViewControllers/ProductPages/NutrientsTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1367"
+                  endingLineNumber = "1367"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "EAE47F4B-9207-44A1-A50D-C8BB84F38830 - 105c35e92587ec86"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FoodViewer.NutrientsTableViewController.preparationStyleTableViewCell(_: FoodViewer.PreparationStyleTableViewCell, receivedActionOn: __C.UISegmentedControl) -&gt; ()"
+                  moduleName = "FoodViewer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/arnaud/Programming/FoodViewer/FoodViewer/ViewControllers/ProductPages/NutrientsTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1367"
+                  endingLineNumber = "1367"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "EAE47F4B-9207-44A1-A50D-C8BB84F38830 - 105c35e92587ec86"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -1732,36 +1762,6 @@
                   startingLineNumber = "1367"
                   endingLineNumber = "1367"
                   offsetFromSymbolStart = "156">
-               </Location>
-               <Location
-                  uuid = "EAE47F4B-9207-44A1-A50D-C8BB84F38830 - 1e7438e2c18847f9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FoodViewer.NutrientsTableViewController.preparationStyleTableViewCell(_: FoodViewer.PreparationStyleTableViewCell, receivedActionOn: __C.UISegmentedControl) -&gt; ()"
-                  moduleName = "FoodViewer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/arnaud/Programming/FoodViewer/FoodViewer/ViewControllers/ProductPages/NutrientsTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1367"
-                  endingLineNumber = "1367"
-                  offsetFromSymbolStart = "168">
-               </Location>
-               <Location
-                  uuid = "EAE47F4B-9207-44A1-A50D-C8BB84F38830 - 1e7438e2c18847f9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FoodViewer.NutrientsTableViewController.preparationStyleTableViewCell(_: FoodViewer.PreparationStyleTableViewCell, receivedActionOn: __C.UISegmentedControl) -&gt; ()"
-                  moduleName = "FoodViewer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/arnaud/Programming/FoodViewer/FoodViewer/ViewControllers/ProductPages/NutrientsTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1367"
-                  endingLineNumber = "1367"
-                  offsetFromSymbolStart = "216">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1842,8 +1842,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "261"
             endingLineNumber = "261"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1858,8 +1858,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1384"
             endingLineNumber = "1384"
-            landmarkName = "askQuestion(for:at:)"
-            landmarkType = "9">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
