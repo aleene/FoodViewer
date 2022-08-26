@@ -8,7 +8,7 @@
 import UIKit
 
 /// Delegate protocol for the TagView object.
-public protocol TagViewDelegate: class {
+public protocol TagViewDelegate: AnyObject {
     /// Returns when the tagView is tapped and the tagView that was tapped.
     func didTapTagView(_ tagView: TagView)
     /// Returns when the remove button of the tagView was tapped

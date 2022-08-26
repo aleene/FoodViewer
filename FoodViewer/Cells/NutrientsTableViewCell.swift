@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol NutrientsCellDelegate: class {
+protocol NutrientsCellDelegate: AnyObject {
     
     func nutrientsTableViewCell(_ sender: NutrientsTableViewCell, receivedTapOn button:UIButton)
     

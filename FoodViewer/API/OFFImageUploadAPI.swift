@@ -163,9 +163,9 @@ Setup the image uploading
         request.setValue(content, forHTTPHeaderField: HTTP.ContentType)
         request.setValue("\(myRequestData.length)", forHTTPHeaderField: HTTP.ContentLength)
         request.httpBody = myRequestData as Data
-        DispatchQueue.main.async(execute: { () -> Void in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        })
+        //DispatchQueue.main.async(execute: { () -> Void in
+        //    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        //})
         
         let configuration = URLSessionConfiguration.default
         let mainQueue = OperationQueue.main

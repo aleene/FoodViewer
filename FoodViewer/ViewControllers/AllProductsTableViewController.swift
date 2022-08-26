@@ -115,18 +115,19 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
     // Just after reloading the data seems to be the best moment.
     
     fileprivate func setTitle() {
-        self.navItem?.title = TranslatableStrings.History
+        //self.navItem?.title = TranslatableStrings.History
+        // When using the navItem.prompt an autolayout error is triggered
         switch currentProductType {
         case .food:
-            self.navItem?.prompt = TranslatableStrings.FoodProducts
+            self.navItem?.title = TranslatableStrings.FoodProducts + " " + TranslatableStrings.History
         case .petFood:
-            self.navItem?.prompt = TranslatableStrings.PetFoodProducts
+            self.navItem?.title = TranslatableStrings.PetFoodProducts + " " + TranslatableStrings.History
         case .beauty:
-            self.navItem?.prompt = TranslatableStrings.BeautyProducts
+            self.navItem?.title = TranslatableStrings.BeautyProducts + " " + TranslatableStrings.History
         case .product:
-            self.navItem?.prompt = TranslatableStrings.SearchProducts
+            self.navItem?.title = TranslatableStrings.SearchProducts + " " + TranslatableStrings.History
         }
-        self.title = TranslatableStrings.History
+        //self.title = TranslatableStrings.History
     }
     
     // MARK: - Table view methods and vars

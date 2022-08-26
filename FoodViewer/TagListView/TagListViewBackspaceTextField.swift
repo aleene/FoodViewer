@@ -9,7 +9,7 @@
 import UIKit
 
 /// Delegate object for the BackspaceTextView type that inherits from class and gives access to a call when the textView hits backspace.
-internal protocol BackspaceTextFieldDelegate: class {
+internal protocol BackspaceTextFieldDelegate: AnyObject {
     func textFieldDidEnterBackspace(_ textField: BackspaceTextField)
 }
 

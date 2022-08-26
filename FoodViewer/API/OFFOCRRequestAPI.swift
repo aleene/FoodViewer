@@ -178,9 +178,9 @@ class OFFOCRRequestAPI {
     
     private func fetchOCRJson(barcode: BarcodeType, productType: ProductType, languageCode: String, completion: @escaping (OFFOCRFetchStatus) -> ()) {
         
-        DispatchQueue.main.async(execute: { () -> Void in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        })
+        //DispatchQueue.main.async(execute: { () -> Void in
+        //    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        //})
         let string = OFFOCRRequestAPI.fetchOCRString(barcode: barcode, productType: productType, languageCode: languageCode)
         let fetchUrl = URL(string: string )
         if let validURL = fetchUrl {
@@ -202,23 +202,23 @@ class OFFOCRRequestAPI {
                     print("fetchOCRJson: ", error.localizedDescription)
                     completion(.failed(error.localizedDescription))
                 }
-                DispatchQueue.main.async(execute: { () -> Void in
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                })
+                //DispatchQueue.main.async(execute: { () -> Void in
+                //    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                //})
                 return
             }
             cache.fetch(URL: validURL).onFailure { error in
                 print("fetchOCRJson: ", error!.localizedDescription)
                 completion(.failed(error?.localizedDescription ?? "No error description provided"))
             }
-            DispatchQueue.main.async(execute: { () -> Void in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            })
+            //DispatchQueue.main.async(execute: { () -> Void in
+            //    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            //})
         } else {
             completion(.failed(barcode.asString))
-            DispatchQueue.main.async(execute: { () -> Void in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            })
+            //DispatchQueue.main.async(execute: { () -> Void in
+            //    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            //})
             return
         }
     }

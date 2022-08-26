@@ -32,17 +32,17 @@ class OFFSearchRequest {
     }
     
     func fetchProducts(for query: SearchTemplate, on page:Int) -> SearchFetchStatus {
-        DispatchQueue.main.async(execute: { () -> Void in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        })
+        //DispatchQueue.main.async(execute: { () -> Void in
+        //    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        //})
         // encode the url-string
         let search = OFF.searchString(for: query, on: page)
         if let escapedSearch = search.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) {
             
             let fetchUrl = URL(string:escapedSearch)
-            DispatchQueue.main.async(execute: { () -> Void in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            })
+            //DispatchQueue.main.async(execute: { () -> Void in
+            //    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            //})
             if let url = fetchUrl {
                 do {
                     let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)

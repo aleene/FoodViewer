@@ -12,7 +12,7 @@ import UIKit
  - functions:
     - dietLevelsTableViewCell(_:receivedTapOn:):  handles double taps that are received on the button in the cell.
  */
-protocol DietLevelsTableViewCellDelegate: class {
+protocol DietLevelsTableViewCellDelegate: AnyObject {
     
     /// Function handles button taps or double taps that are received in the cell.
     /// - parameter _: The tableViewCell that inititated the call.

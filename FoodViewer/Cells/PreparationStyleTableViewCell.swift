@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PreparationStyleCellDelegate: class {
+protocol PreparationStyleCellDelegate: AnyObject {
     
     // function to let the delegate know that the switch changed
     func preparationStyleTableViewCell(_ sender: PreparationStyleTableViewCell, receivedActionOn segmentedControl: UISegmentedControl)

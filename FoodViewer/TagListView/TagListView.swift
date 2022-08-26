@@ -1268,13 +1268,13 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
         let locationInView = longPress.location(in: self)
         // get the index of the tag where the longPress took place
-        var index = indexForTagViewAt(longPress.location(in: self))
+        let index = indexForTagViewAt(longPress.location(in: self))
         
         func startReOrderingTagAt(_ sourceIndex: Int?) {
             
             let state = longPress.state
             switch state {
-            case UIGestureRecognizerState.began:
+            case UIGestureRecognizer.State.began:
                 self.longPressInitialIndex = index
                 if let sourceIndex = self.longPressInitialIndex {
                     if let canMoveTag = delegate?.tagListView(self, canMoveTagAt: sourceIndex) {
@@ -1303,7 +1303,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
                         }
                     }
                 }
-            case UIGestureRecognizerState.changed:
+            case UIGestureRecognizer.State.changed:
                 if longPressViewSnapshot != nil {
                     // move the snapshot to current press location
                     var newLocation = locationInView

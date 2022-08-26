@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ButtonWithSegmentedControlCellDelegate: class {
+protocol ButtonWithSegmentedControlCellDelegate: AnyObject {
     // function to let the delegate know that the switch changed
     func buttonTapped(_ sender: ButtonWithSegmentedControlTableViewCell, button: UIButton)
     func segmentedControlToggled(_ sender: ButtonWithSegmentedControlTableViewCell, segmentedControl: UISegmentedControl)

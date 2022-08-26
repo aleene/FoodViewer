@@ -115,7 +115,7 @@
         self.toolbar = UIToolbar.init(frame: CGRect.zero)
         if self.toolbar != nil {
             self.toolbar!.isTranslucent = true
-            self.toolbar!.barStyle = .blackOpaque
+            self.toolbar!.barStyle = .black
             // print(self.toolbar?.frame)
             self.view.addSubview(self.toolbar!)
         }

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol QuantityTableViewCellDelegate: class {
+protocol QuantityTableViewCellDelegate: AnyObject {
     
     // function to let the delegate know that the button was tapped
     func quantityTableViewCell(_ sender: QuantityTableViewCell, receivedTapOn button:UIButton)

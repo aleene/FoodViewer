@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TextFieldWithButtonCellDelegate: class {
+protocol TextFieldWithButtonCellDelegate: AnyObject {
     func textFieldWithButtonTableViewCell(_ sender: TextFieldWithButtonTableViewCell, receivedActionOn button:UIButton)
 }
 

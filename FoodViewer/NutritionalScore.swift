@@ -363,7 +363,7 @@ public class NutritionalScore {
         var fiber: Double? = nil
         var proteins: Double? = nil
         var fruitVegetableNuts: Double? = nil
-        var fruitVegetableNutsEstimated: Double? = nil
+        let fruitVegetableNutsEstimated: Double? = nil
         
         if let nutritionFactItem = nutritionFacts.filter({ $0.key == Nutrient.energy.key }).first {
             energy = nutritionFactItem.standardAsDouble

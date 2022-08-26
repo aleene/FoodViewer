@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol GalleryCollectionViewCellDelegate: class {
+protocol GalleryCollectionViewCellDelegate: AnyObject {
     
     // function to let the delegate know that the deselect button has been tapped
     func galleryCollectionViewCell(_ sender: GalleryCollectionViewCell, receivedTapOn button:UIButton, for key:String?)

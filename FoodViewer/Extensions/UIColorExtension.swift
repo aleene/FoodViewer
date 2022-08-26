@@ -89,21 +89,21 @@ extension UIColor {
         //let hexString: String = rgba.substring(from: rgba.index(rgba.startIndex, offsetBy: 1))
         let index = rgba.index(rgba.startIndex, offsetBy: 1)
         let hexString = String(rgba[index...])
-        var hexValue:  UInt32 = 0
         
-        guard Scanner(string: hexString).scanHexInt32(&hexValue) else {
+        var rgbValue: UInt64 = 0
+        guard Scanner(string: hexString).scanHexInt64(&rgbValue) else {
             throw UIColorInputError.unableToScanHexValue
         }
         
         switch (hexString.count) {
         case 3:
-            self.init(hex3: UInt16(hexValue))
+            self.init(hex3: UInt16(rgbValue))
         case 4:
-            self.init(hex4: UInt16(hexValue))
+            self.init(hex4: UInt16(rgbValue))
         case 6:
-            self.init(hex6: hexValue)
+            self.init(hex6: UInt32(rgbValue))
         case 8:
-            self.init(hex8: hexValue)
+            self.init(hex8: UInt32(rgbValue))
         default:
             throw UIColorInputError.mismatchedHexStringLength
         }

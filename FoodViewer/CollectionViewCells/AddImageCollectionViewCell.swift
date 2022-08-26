@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AddImageCollectionViewCellDelegate: class {
+protocol AddImageCollectionViewCellDelegate: AnyObject {
     
     // function to let the delegate know that a tag was single tapped
     func addImageCollectionViewCellAddFromCamera(_ sender: AddImageCollectionViewCell, receivedTapOn button:UIButton)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol IngredientsFullCellDelegate: class {
+protocol IngredientsFullCellDelegate: AnyObject {
     
     func ingredientsFullTableViewCell(_ sender: IngredientsFullTableViewCell, receivedActionOn textView:UITextView)
     

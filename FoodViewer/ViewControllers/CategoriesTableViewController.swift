@@ -494,11 +494,16 @@ extension CategoriesTableViewController: TagListViewDelegate {
         }
 
         guard tagListView.tag >= 0 && tagListView.tag < tableStructure.count else {
-            print ("IngredientsTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
+            print ("CategoriesTableViewController: tag index out of bounds", tagListView.tag, tableStructure.count - 1)
             return
         }
         guard !editMode else { return }
 
+        // is this a valid category?
+        if let hasTags = productPair?.localProduct?.categoriesOriginal.hasTags ?? productPair?.remoteProduct?.categoriesOriginal.hasTags {
+            guard hasTags else { return }
+        }
+        
         switch tableStructure[tagListView.tag] {
         case .categories:
             // Do I need to take into account any regular tags?

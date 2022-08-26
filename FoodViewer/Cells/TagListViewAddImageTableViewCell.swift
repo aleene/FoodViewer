@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TagListViewAddImageCellDelegate: class {
+protocol TagListViewAddImageCellDelegate: AnyObject {
 /**
 - parameters :
      - sender :

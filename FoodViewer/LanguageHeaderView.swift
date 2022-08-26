@@ -10,7 +10,7 @@ import UIKit
 
 // https://stackoverflow.com/questions/36926612/swift-how-creating-custom-viewforheaderinsection-using-a-xib-file
 
-protocol LanguageHeaderDelegate: class {
+protocol LanguageHeaderDelegate: AnyObject {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int)
     

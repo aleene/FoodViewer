@@ -35,7 +35,7 @@ class EmptyNutrientsTableViewCell: UITableViewCell {
     var editMode: Bool = false {
         didSet {
             if editMode {
-                tagListView.backgroundColor = UIColor.groupTableViewBackground
+                tagListView.backgroundColor = UIColor.green
                 tagListView.layer.cornerRadius = 5
                 tagListView.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
                 tagListView.clipsToBounds = true

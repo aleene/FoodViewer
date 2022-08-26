@@ -13,7 +13,7 @@
 
 import UIKit
 
-protocol NutrimentsAvailableCellDelegate: class {
+protocol NutrimentsAvailableCellDelegate: AnyObject {
     
     // function to let the delegate know that the switch changed
     func nutrimentsAvailableTableViewCell(_ sender: NutrimentsAvailableTableViewCell, receivedActionOn mySwitch: UISwitch)

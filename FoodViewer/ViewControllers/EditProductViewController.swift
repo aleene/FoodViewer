@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 class EditProductViewController: UIViewController {
 
@@ -27,11 +28,11 @@ class EditProductViewController: UIViewController {
     
     func refresh() {
         if let existingRequest = request {
-            webView?.loadRequest(existingRequest)
+            webView?.load(existingRequest)
         }
     }
     
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var webView: WKWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

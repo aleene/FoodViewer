@@ -67,7 +67,7 @@ class OFFProductNutriScoreData: Codable {
         let container = try decoder.container(keyedBy: DetailedKeys.self)
         //var foundString: String? = nil
         var foundInt: Int? = nil
-        var foundDouble: Double? = nil
+        //var foundDouble: Double? = nil
         
         // The variables that we are looking for
         var energy: Int? = nil
@@ -78,7 +78,7 @@ class OFFProductNutriScoreData: Codable {
         var fiber: Int? = nil
         var proteins: Int? = nil
         var fruitsVegetableNuts: Int? = nil
-        var fruitsVegetableNutsEstimated: Int? = nil
+        // var fruitsVegetableNutsEstimated: Int? = nil
         var isBeverage = false
         var isFat = false
         var isCheese = false
@@ -93,8 +93,8 @@ class OFFProductNutriScoreData: Codable {
                     foundInt = name
                 } catch {
                     do {
-                        let name = try container.decode(Double.self, forKey: key)
-                        foundDouble = name
+                        let _ = try container.decode(Double.self, forKey: key)
+                        // foundDouble = name
                     } catch {
                         print("OFFProductNutriScoreData: \(key) not convertable")
                     }
@@ -139,8 +139,8 @@ class OFFProductNutriScoreData: Codable {
                 fruitsVegetableNuts = foundInt
             //case  "fruits_vegetables_nuts_colza_walnut_olive_oils_value":
             //case   "fruits_vegetables_nuts_colza_walnut_olive_oils":
-            case "fruits_vegetables_nuts_colza_walnut_olive_oils_estimate_points":
-                fruitsVegetableNutsEstimated = foundInt
+            //case "fruits_vegetables_nuts_colza_walnut_olive_oils_estimate_points":
+                // fruitsVegetableNutsEstimated = foundInt
                 case  "is_beverage":
                     if foundInt != nil,
                         foundInt! == 1 {

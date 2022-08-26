@@ -233,9 +233,9 @@ class OFFRobotoff {
     
     private func fetchRobotoffQuestionsJson(for barcode: BarcodeType?, in interfaceLanguageCode: String, count: Int?, completion: @escaping (OFFRobotoffQuestionFetchStatus) -> ()) {
         
-        DispatchQueue.main.async(execute: { () -> Void in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        })
+        //DispatchQueue.main.async(execute: { () -> Void in
+        //    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        //})
         let string = OFFRobotoff.fetchQuestionsString(for: barcode, with: productType, languageCode: interfaceLanguageCode, count: count)
         let fetchUrl = URL(string: string )
         if let validURL = fetchUrl {
@@ -261,23 +261,23 @@ class OFFRobotoff {
                     print("fetchRobotoffQuestionsJson: ", error.localizedDescription)
                     completion(.failed(barcode?.asString ?? error.localizedDescription))
                 }
-                DispatchQueue.main.async(execute: { () -> Void in
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                })
+                //DispatchQueue.main.async(execute: { () -> Void in
+                //    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                //})
                 return
             }
             cache.fetch(URL: validURL).onFailure { error in
-                print("fetchRobotoffQuestionsJson: ", error?.localizedDescription)
+                print("fetchRobotoffQuestionsJson: ", error?.localizedDescription ?? "OFFRobotoff: no error in fetching json")
                 completion(.failed(error?.localizedDescription ?? "No error description provided"))
             }
-            DispatchQueue.main.async(execute: { () -> Void in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            })
+            //DispatchQueue.main.async(execute: { () -> Void in
+            //    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            //})
         } else {
             completion(.failed(barcode?.asString ?? ""))
-            DispatchQueue.main.async(execute: { () -> Void in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            })
+            //DispatchQueue.main.async(execute: { () -> Void in
+            //    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            //})
             return
         }
     }

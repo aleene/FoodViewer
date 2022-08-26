@@ -9,7 +9,7 @@
 import UIKit
 
 
-protocol TagListViewSegmentedControlCellDelegate: class {
+protocol TagListViewSegmentedControlCellDelegate: AnyObject {
     
     // function to let the delegate know that the switch changed
     func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl:UISegmentedControl)

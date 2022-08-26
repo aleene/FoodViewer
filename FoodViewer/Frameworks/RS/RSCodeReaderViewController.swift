@@ -100,22 +100,22 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
     // MARK: Private methods
     
     @objc func captureDevice() -> AVCaptureDevice? {
-        if let device = self.device {
-            if device.position == AVCaptureDevice.Position.back {
-                for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
-                    if device.position == AVCaptureDevice.Position.front {
-                        return device
-                    }
-                }
-            } else if device.position == AVCaptureDevice.Position.front {
-                for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
-                    if device.position == AVCaptureDevice.Position.back {
-                        return device
-                    }
-                }
-            }
-        }
-        return nil
+        return AVCaptureDevice.DiscoverySession.init(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back).devices[0]
+        //    if device.position == AVCaptureDevice.Position.back {
+        //        for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
+        //            if device.position == AVCaptureDevice.Position.front {
+        //                return device
+        //            }
+        //        }
+        //    } else if device.position == AVCaptureDevice.Position.front {
+        //        for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
+        //            if device.position == AVCaptureDevice.Position.back {
+         //               return device
+        //            }
+        //        }
+        //    }
+        //}
+        //return nil
     }
     
     @objc func setupCamera() {
@@ -173,7 +173,7 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         // Remove previous added outputs from session
         var metadataObjectTypes: [AnyObject]?
         for output in self.session.outputs {
-            metadataObjectTypes = (output as AnyObject).metadataObjectTypes as [AnyObject]?
+            metadataObjectTypes = (output as AnyObject).metadataObjectTypes! as [AnyObject]?
             self.session.removeOutput(output )
         }
         if self.session.canAddOutput(self.output) {
@@ -208,19 +208,20 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
             return
         }
         guard (videoPreviewLayer.connection?.isVideoOrientationSupported)! else {
-            print("isVideoOrientationSupported is false")
+            print("RSCodeReaderViewController:reloadVideoOrientation:isVideoOrientationSupported is false")
             return
         }
+                
+        if let statusBarOrientation = UIApplication.shared.windows.first(where: { $0.isKeyWindow } )?.windowScene?.interfaceOrientation {
+            let videoOrientation = RSCodeReaderViewController.interfaceOrientationToVideoOrientation(statusBarOrientation)
         
-        let statusBarOrientation = UIApplication.shared.statusBarOrientation
-        let videoOrientation = RSCodeReaderViewController.interfaceOrientationToVideoOrientation(statusBarOrientation)
+            if videoPreviewLayer.connection?.videoOrientation == videoOrientation {
+                print("RSCodeReaderViewController:reloadVideoOrientation:no change to videoOrientation")
+                return
+            }
         
-        if videoPreviewLayer.connection?.videoOrientation == videoOrientation {
-            print("no change to videoOrientation")
-            return
+            videoPreviewLayer.connection?.videoOrientation = videoOrientation
         }
-        
-        videoPreviewLayer.connection?.videoOrientation = videoOrientation
         videoPreviewLayer.removeAllAnimations()
     }
     
@@ -264,13 +265,13 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
                 if device.isFocusPointOfInterestSupported {
                     device.focusPointOfInterest = focusPoint
                 } else {
-                    print("Focus point of interest not supported.")
+                    print("RSCodeReaderViewController:onTap:Focus point of interest not supported.")
                 }
                 if self.isCrazyMode {
                     if device.isFocusModeSupported(.locked) {
                         device.focusMode = .locked
                     } else {
-                        print("Locked focus not supported.")
+                        print("RSCodeReaderViewController:onTap:Locked focus not supported.")
                     }
                     if !self.isCrazyModeStarted {
                         self.isCrazyModeStarted = true
@@ -284,13 +285,13 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
                     } else if device.isFocusModeSupported(.autoFocus) {
                         device.focusMode = .autoFocus
                     } else {
-                        print("Auto focus not supported.")
+                        print("RSCodeReaderViewController:onTap:Auto focus not supported.")
                     }
                 }
                 if device.isAutoFocusRangeRestrictionSupported {
                     device.autoFocusRangeRestriction = .none
                 } else {
-                    print("Auto focus range restriction not supported.")
+                    print("RSCodeReaderViewController:onTap:Auto focus range restriction not supported.")
                 }
                 device.unlockForConfiguration()
                 self.focusMarkLayer.point = tapPoint
@@ -315,10 +316,25 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         }
     }
     
+    private func setupScanning() {
+        self.focusMarkLayer.strokeColor = UIColor.systemRed.cgColor
+        
+        self.cornersLayer.strokeColor = UIColor.systemYellow.cgColor
+        
+        // MARK: NOTE: If you want to detect specific barcode types, you should update the types
+        var types = self.output.availableMetadataObjectTypes
+        // MARK: NOTE: Uncomment the following line to remove QRCode scanning capability
+        types = types.filter({ $0 != AVMetadataObject.ObjectType.qr })
+        types = types.filter({ $0 != AVMetadataObject.ObjectType.pdf417 })
+        types = types.filter({ $0 != AVMetadataObject.ObjectType.aztec })
+        types = types.filter({ $0 != AVMetadataObject.ObjectType.dataMatrix })
+        self.output.metadataObjectTypes = types
+    }
+
     // MARK: Deinitialization
     
     deinit {
-        print("RSCodeReaderViewController deinit")
+        print("RSCodeReaderViewController:deinit: deinit")
     }
     
     // MARK: View lifecycle
@@ -346,6 +362,7 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         self.view.backgroundColor = UIColor.clear
         
         self.setupCamera()
+        self.setupScanning()
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(RSCodeReaderViewController.onTap(_:)))
         self.view.addGestureRecognizer(tapGestureRecognizer)
@@ -359,13 +376,18 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationWillEnterForeground), name:UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         
         if !Platform.isSimulator {
             self.session.startRunning()
         }
+    }
+    
+    override open func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        reloadVideoOrientation()
     }
     
     override open func viewDidDisappear(_ animated: Bool) {

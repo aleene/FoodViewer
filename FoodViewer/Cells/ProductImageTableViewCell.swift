@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ProductImageCellDelegate: class {
+protocol ProductImageCellDelegate: AnyObject {
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCamera button:UIButton)
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCameraRoll button:UIButton)

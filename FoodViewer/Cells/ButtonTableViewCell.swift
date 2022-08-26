@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ButtonCellDelegate: class {
+protocol ButtonCellDelegate: AnyObject {
     
     // function to let the delegate know that a tag was single tapped
     func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton)

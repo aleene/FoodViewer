@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol TagListViewButtonCellDelegate: class {
+protocol TagListViewButtonCellDelegate: AnyObject {
 /**
 Function to let the delegate know that a tag was single tapped.
      

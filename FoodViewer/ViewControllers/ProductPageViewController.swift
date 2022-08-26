@@ -197,7 +197,7 @@ class ProductPageViewController: UIPageViewController {
         }
     }
 //
-// MARK: - Privaye variables
+// MARK: - Private variables
 //
     private enum SourcePage {
         case singleProductTableViewController
@@ -785,6 +785,7 @@ class ProductPageViewController: UIPageViewController {
         dataSource = self
         delegate = self
         self.parent?.splitViewController?.delegate = self
+        self.navigationController?.navigationBar.backgroundColor = .systemBackground
         // On the iPhone a backbutton is needed to the singleProductTVC
         setupBackButton()
     }

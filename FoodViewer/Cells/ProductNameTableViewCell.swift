@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ProductNameCellDelegate: class {
+protocol ProductNameCellDelegate: AnyObject {
     
     func productNameTableViewCell(_ sender: ProductNameTableViewCell, receivedDoubleTap textView:UITextView)
     

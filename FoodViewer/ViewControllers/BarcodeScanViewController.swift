@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate, KeyboardDelegate {
+class BarcodeScanViewController: UIViewController, UITextFieldDelegate, KeyboardDelegate {
     
     private let preferences = Preferences.manager
     
@@ -47,7 +47,19 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         self.switchToHistoryTab()
     }
     
+    @IBOutlet weak var productNameBarButtonItem: UIBarButtonItem! {
+        didSet {
+            productNameBarButtonItem.title = "No product detected"
+        }
+    }
+    
+    @IBAction func productNameBarButtonItemTapped(_ sender: UIBarButtonItem) {
+        self.switchToHistoryTab()
+    }
+    
     @IBOutlet weak var productView: UIView!
+    
+    @IBOutlet weak var scanView: UIView!
     
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -91,15 +103,12 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         }
     }
     
-    @IBOutlet weak var viewProductButton: UIButton! {
+    @IBOutlet weak var barcodeSearchBar: UISearchBar! {
         didSet {
-            viewProductButton.setTitle(TranslatableStrings.Details, for: .normal)
+            barcodeSearchBar.placeholder = "Enter barcode"
         }
     }
     
-    @IBAction func viewProductButtonTapped(_ sender: UIButton) {
-        self.switchToHistoryTab()
-    }
     
     @IBOutlet weak var instructionView: UIView!
     
@@ -187,7 +196,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         // initialize custom keyboard
         let keyboardView = Keyboard(frame: CGRect(x: 0, y: 0, width: 0, height: 300))
         
-        searchTextField.inputView = keyboardView
+        searchTextField?.inputView = keyboardView
         
         // the view controller will be notified by the keyboard whenever a key is tapped
         keyboardView.delegate = self
@@ -253,7 +262,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     }
     
     @objc func scanBarcodes() {
-        self.barcodesHandler = { barcodes in
+        self.scanner?.barcodesHandler = { barcodes in
             for barcode in barcodes {
                 // Is this a new barcode?
                 if let validBarcode = barcode.stringValue,
@@ -285,17 +294,9 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                 case .available, .updated:
                     resetSearch()
                     setupViews()
-                    self.nameLabel.text = scannedProductPair?.localProduct?.name ?? scannedProductPair?.remoteProduct?.name ?? TranslatableStrings.NoName
-                    self.brandLabel.text = scannedProductPair?.brand ?? TranslatableStrings.NoBrandsIndicated
-                    if let quantity = scannedProductPair?.localProduct?.quantity ?? scannedProductPair?.remoteProduct?.quantity {
-                        let quantityParts = quantity.components(separatedBy: ", ")
-                        if quantityParts.count > 0 {
-                            self.quantityLabel.text = quantityParts[0]
-                        }
-                    }
+                    self.productNameBarButtonItem.title = scannedProductPair?.localProduct?.name ?? scannedProductPair?.remoteProduct?.name ?? TranslatableStrings.NoName
                     self.nova = scannedProductPair?.localProduct?.novaGroup ?? scannedProductPair!.remoteProduct?.novaGroup
                     self.score = scannedProductPair?.remoteProduct?.nutritionGrade ?? scannedProductPair?.localProduct?.nutritionGrade
-                    self.takePhotoButton.isHidden = true
                     tagListView?.reloadData(clearAll: true)
                     if let nutritionLevels = scannedProductPair?.remoteProduct?.nutritionScore ?? scannedProductPair?.localProduct?.nutritionScore {
                         for level in nutritionLevels {
@@ -371,23 +372,23 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                             }
                         }
                     }
-                    showImage()
+                    // showImage()
                     
                     
             case .productNotAvailable:
                 setupViews()
-                self.instructionTextView.text = TranslatableStrings.TakePhotosInstruction
-                self.takePhotoButton.isHidden = false
+                self.instructionTextView?.text = TranslatableStrings.TakePhotosInstruction
+                self.takePhotoButton?.isHidden = false
             case .loadingFailed(let error):
                 setupViews()
-                self.instructionTextView.text = error
+                self.instructionTextView?.text = error
             default:
                 break
             }
         } else {
             // There is no valid productPair
             setupViews()
-            self.instructionTextView.text = TranslatableStrings.ScanInstruction
+            self.instructionTextView?.text = TranslatableStrings.ScanInstruction
         }
     }
     
@@ -407,21 +408,6 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
 
     }
     
-    private func setupScanning() {
-        self.focusMarkLayer.strokeColor = UIColor.systemRed.cgColor
-        
-        self.cornersLayer.strokeColor = UIColor.systemYellow.cgColor
-        
-        // MARK: NOTE: If you want to detect specific barcode types, you should update the types
-        var types = self.output.availableMetadataObjectTypes
-        // MARK: NOTE: Uncomment the following line to remove QRCode scanning capability
-        types = types.filter({ $0 != AVMetadataObject.ObjectType.qr })
-        types = types.filter({ $0 != AVMetadataObject.ObjectType.pdf417 })
-        types = types.filter({ $0 != AVMetadataObject.ObjectType.aztec })
-        types = types.filter({ $0 != AVMetadataObject.ObjectType.dataMatrix })
-        self.output.metadataObjectTypes = types
-    }
-
     // is the current device in compact orientation?
     private var deviceHasCompactOrientation: Bool {
         get {
@@ -431,7 +417,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
 
     private func setupProductType() {
         
-        nameLabel.text = TranslatableStrings.PointCamera
+        nameLabel?.text = TranslatableStrings.PointCamera
         
 
         switch preferences.showProductType {
@@ -450,7 +436,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         default:
             productElementsAreHidden(true)
         }
-        productView.backgroundColor = UIColor.black
+        productView?.backgroundColor = UIColor.black
     }
     
     private func productElementsAreHidden(_ hide: Bool) {
@@ -472,7 +458,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String,
             let validProductPair = scannedProductPair,
             validProductPair.barcodeType.asString == barcodeString {
-            showImage()
+            // showImage()
         }
     }
 
@@ -504,7 +490,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
             tabVC.selectedIndex = 0
             tabVC.delegate = self
             if let controllers = tabVC.viewControllers,
-                controllers.count > 3 {
+                controllers.count > 4 {
                 controllers[0].tabBarItem?.title = TranslatableStrings.Scanner
                 controllers[1].tabBarItem?.title = TranslatableStrings.History
                 controllers[2].tabBarItem?.title = TranslatableStrings.Search
@@ -519,18 +505,18 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         DispatchQueue.main.async(execute: {
             if self.scannedProductPair == nil {
                 self.hideProductInterfaceElements = true
-                self.takePhotoButton.isHidden = true
+                self.takePhotoButton?.isHidden = true
             } else {
                 switch self.scannedProductPair!.remoteStatus {
                 case .available, .updated:
                     self.hideProductInterfaceElements = false
-                    self.takePhotoButton.isHidden = true
+                    self.takePhotoButton?.isHidden = true
                 case .productNotAvailable:
                     self.hideProductInterfaceElements = true
-                    self.takePhotoButton.isHidden = false
+                    self.takePhotoButton?.isHidden = false
                 default:
                     self.hideProductInterfaceElements = true
-                    self.takePhotoButton.isHidden = true
+                    self.takePhotoButton?.isHidden = true
                 }
             }
         })
@@ -538,15 +524,26 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     
     private var hideProductInterfaceElements: Bool = true {
         didSet {
-            self.productView.isHidden = hideProductInterfaceElements
-            self.instructionView.isHidden = !hideProductInterfaceElements
+            self.productView?.isHidden = hideProductInterfaceElements
+            self.instructionView?.isHidden = !hideProductInterfaceElements
+        }
+    }
+    
+    var scanner: RSCodeReaderViewController? = nil
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "RSCodeReaderViewControllerSegue" {
+            if let vc = segue.destination as? RSCodeReaderViewController {
+                scanner = vc
+            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupScanning()
+        //is already done by the system
+        //performSegue(withIdentifier: "RSCodeReaderViewControllerSegue", sender: self)
         scanBarcodes()
         setupProductType()
         setupViews()

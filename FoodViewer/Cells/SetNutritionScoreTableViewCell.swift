@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SetNutritionScoreCellDelegate: class {
+protocol SetNutritionScoreCellDelegate: AnyObject {
     // function to let the delegate know that the switch changed
     func firstSegmentedControlToggled(_ sender: UISegmentedControl)
     func secondSegmentedControlToggled(_ sender: UISegmentedControl)

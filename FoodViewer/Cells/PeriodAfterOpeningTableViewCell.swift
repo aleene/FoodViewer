@@ -52,7 +52,7 @@ class PeriodAfterOpeningTableViewCell: UITableViewCell {
     
     private func setTextFieldStyle() {
         if editMode {
-            textField.backgroundColor = UIColor.groupTableViewBackground
+            textField.backgroundColor = UIColor.green
             textField.layer.cornerRadius = 5
             textField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             textField.clipsToBounds = true

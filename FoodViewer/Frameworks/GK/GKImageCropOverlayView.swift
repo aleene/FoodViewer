@@ -68,7 +68,7 @@ class GKImageCropOverlayView: UIView {
     // An empty implementation adversely affects performance during animation.
     
     override func draw(_ rect: CGRect) {
-        let toolbarSize: CGFloat = UI_USER_INTERFACE_IDIOM() == .pad ? 44.0 : 54.0
+        let toolbarSize: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 44.0 : 54.0
         
         let width = frame.width
         let height = frame.height - toolbarSize

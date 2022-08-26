@@ -70,7 +70,7 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
         didSet {
             nutrientUnitsPickerView?.delegate = self
             nutrientUnitsPickerView?.dataSource = self
-            nutrientUnitsPickerView?.showsSelectionIndicator = true
+            // deprecated: nutrientUnitsPickerView?.showsSelectionIndicator = true
         }
     }
     

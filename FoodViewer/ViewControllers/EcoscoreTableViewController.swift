@@ -78,8 +78,8 @@ Configures the viewController with the ecoscore detail calculation data.
         guard let ciqual = ecoscoreData?.agribalyse?.agribalyse_food_code else { return }
         guard let url = URL(string: AgribalyseBaseUrl + ciqual) else { return }
         
-        if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.openURL(url)
+        if UIApplication.shared.canOpenURL(url){
+            UIApplication.shared.open(url)
         }
     }
     

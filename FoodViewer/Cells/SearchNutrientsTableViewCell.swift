@@ -11,7 +11,7 @@ import UIKit
 // IN principle no protocol is needed for letting a button segue into another vc
 // But not with two buttons in separate cells, which go to the same vc
 
-protocol SearchNutrientsCellDelegate: class {
+protocol SearchNutrientsCellDelegate: AnyObject {
     
     func searchNutrientsTableViewCell(_ sender: SearchNutrientsTableViewCell, receivedActionOnUnit button:UIButton)
 }
@@ -83,7 +83,7 @@ class SearchNutrientsTableViewCell: UITableViewCell {
         didSet {
             unitButton.isEnabled = editMode
             if editMode {
-                textField.backgroundColor = UIColor.groupTableViewBackground
+                textField.backgroundColor = UIColor.green
                 textField.layer.cornerRadius = 5
                 textField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
                 textField.clipsToBounds = true

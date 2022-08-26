@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AddNutrientCellDelegate: class {
+protocol AddNutrientCellDelegate: AnyObject {
     
     /// function to let the delegate know that the EU nutrient set button has been tapped
     func addEUNutrientSetTableViewCell(_ sender: AddNutrientTableViewCell, receivedTapOn button:UIButton)

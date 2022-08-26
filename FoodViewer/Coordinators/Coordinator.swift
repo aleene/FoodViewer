@@ -28,7 +28,7 @@ The coordinator manages the flow of a single viewController. Any action that the
  - Have the coordinator adhere to the Coordinate-protocol defined by the child.
  - In the viewDidDisappear() of the child, call viewControllerDidDisappear() of the
  */
-public protocol Coordinator: class {
+public protocol Coordinator: AnyObject {
     var viewController: UIViewController? { get set }
     
     var parentCoordinator: Coordinator? { get set }

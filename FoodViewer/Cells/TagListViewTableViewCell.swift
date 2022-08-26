@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TagListViewCellDelegate: class {
+protocol TagListViewCellDelegate: AnyObject {
 /**
 Function to let the delegate know that the tagListViewTableCell was single tapped
 

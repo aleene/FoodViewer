@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SetWarningTableViewCellDelegate: class {
+protocol SetWarningTableViewCellDelegate: AnyObject {
     
     // function to let the delegate know that the switch changed
     func setWarningTableViewCell(_ sender: SetWarningTableViewCell, receivedActionOn stateSwitch:UISwitch)

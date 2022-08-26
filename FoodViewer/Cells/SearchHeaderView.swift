@@ -9,7 +9,7 @@
 import UIKit
 
 
-protocol SearchHeaderDelegate: class {
+protocol SearchHeaderDelegate: AnyObject {
     func sortButtonTapped(_ sender: SearchHeaderView, button: UIButton)
     func clearButtonTapped(_ sender: SearchHeaderView, button: UIButton)
 }

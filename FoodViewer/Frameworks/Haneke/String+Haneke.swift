@@ -24,8 +24,15 @@ extension String {
 
         let MD5Calculator = MD5(Array(data))
         let MD5Data = MD5Calculator.calculate()
-        let resultBytes = UnsafeMutablePointer<CUnsignedChar>(mutating: MD5Data)
-        let resultEnumerator = UnsafeBufferPointer<CUnsignedChar>(start: resultBytes, count: MD5Data.count)
+        
+        // let resultBytes = UnsafeMutablePointer<CUnsignedChar>(mutating: MD5Data)
+        var resultBytes = [CUnsignedChar]()
+        let unsafePointer = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: resultBytes.count)
+        unsafePointer.initialize(from: &resultBytes, count: resultBytes.count)
+        // let resultEnumerator = UnsafeBufferPointer<CUnsignedChar>(start: resultBytes, count: MD5Data.count)
+        var resultEnumerator = [CUnsignedChar]()
+        let unsafePointer2 = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: resultEnumerator.count)
+        unsafePointer2.initialize(from: &resultEnumerator, count: MD5Data.count)
         let MD5String = NSMutableString()
         for c in resultEnumerator {
             MD5String.appendFormat("%02x", c)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BarcodeEditCellDelegate: class {
+protocol BarcodeEditCellDelegate: AnyObject {
     
 /// function to let the delegate know that the switch changed
     func barcodeEditTableViewCell(_ sender: BarcodeEditTableViewCell, receivedActionOn segmentedControl:UISegmentedControl)
@@ -79,7 +79,7 @@ class BarcodeEditTableViewCell: UITableViewCell {
 
     private func setTextFieldStyle() {
         if editMode {
-            barcodeTextField.backgroundColor = UIColor.groupTableViewBackground
+            barcodeTextField.backgroundColor = UIColor.green
             barcodeTextField.layer.cornerRadius = 5
             barcodeTextField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             barcodeTextField.clipsToBounds = true

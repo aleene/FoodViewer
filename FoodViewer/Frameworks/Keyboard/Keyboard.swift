@@ -10,7 +10,7 @@ import UIKit
 
 // The view controller will adopt this protocol (delegate)
 // and thus must contain the keyWasTapped method
-protocol KeyboardDelegate: class
+protocol KeyboardDelegate: AnyObject
 {
     func keyWasTapped(_ character: String)
     func backspace()

@@ -67,7 +67,7 @@ final class AddNutrientViewController: UIViewController, UIPickerViewDelegate, U
         didSet {
             nutrientsPickerView.delegate = self
             nutrientsPickerView.dataSource = self
-            nutrientsPickerView.showsSelectionIndicator = true
+            // nutrientsPickerView.showsSelectionIndicator = true
         }
     }
     

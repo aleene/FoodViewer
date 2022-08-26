@@ -566,16 +566,6 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch tableStructure[section] {
-        case .languages:
-            return TranslatableStrings.Languages
-        case .comment:
-            return TranslatableStrings.Comment
-        default: return nil
-        }
-    }
-
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let currentProductSection = tableStructure[section]
         
@@ -591,9 +581,8 @@ class IdentificationTableViewController: UITableViewController {
         headerView.changeViewModeButton.isHidden = true
         
         var header = ""
-        // The headers with a language
         switch currentProductSection {
-            
+            // The headers with a language
         case .image, .name, .genericName :
             if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
             // Hide the change language button if there is only one language, but not in editMode
@@ -656,7 +645,7 @@ class IdentificationTableViewController: UITableViewController {
             headerView.title = header + " "
             return headerView
             
-        case .barcode, .brands, .packaging, .quantity:
+        case .barcode, .brands, .packaging, .quantity, .languages, .comment:
             headerView.changeLanguageButton.isHidden = true
             headerView.changeViewModeButton.isHidden = editMode
             
@@ -664,6 +653,13 @@ class IdentificationTableViewController: UITableViewController {
             case .barcode:
                 // it is not possible to edit the barcode
                 header = TranslatableStrings.Barcode
+                
+            case .languages:
+                header = TranslatableStrings.Languages
+                
+            case .comment:
+                header = TranslatableStrings.Comment
+                
             case .brands:
                 switch productVersion {
                 case .new:
@@ -736,8 +732,6 @@ class IdentificationTableViewController: UITableViewController {
             }
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             return headerView
-        default:
-            return nil
         }
     }
     
@@ -1001,7 +995,12 @@ class IdentificationTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         
         tableView.sectionHeaderHeight = UITableView.automaticDimension
-        tableView.estimatedSectionHeaderHeight = 70
+        tableView.estimatedSectionHeaderHeight = 36
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
         tableView.register(UINib(nibName: LanguageHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: LanguageHeaderView.identifier)
         
     }

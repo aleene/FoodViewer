@@ -17,7 +17,6 @@
 		5108280D210A3CD40089977D /* PendingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5108280C210A3CD40089977D /* PendingOperations.swift */; };
 		510D9FB41E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */; };
 		510D9FB61E71850400B95B1B /* NutritionalScoreUKTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */; };
-		510D9FBD1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FBC1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift */; };
 		510D9FC01E72B20C00B95B1B /* NutritionalScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FBF1E72B20C00B95B1B /* NutritionalScore.swift */; };
 		510D9FC51E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC41E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift */; };
 		510D9FC81E742E7800B95B1B /* NutritionFactUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC71E742E7800B95B1B /* NutritionFactUnitTest.swift */; };
@@ -252,8 +251,6 @@
 		514CA0892572B0C900243193 /* OFFProductForestFootPrintDataIngredientsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514CA0882572B0C900243193 /* OFFProductForestFootPrintDataIngredientsType.swift */; };
 		514CA08B2573F02200243193 /* ForestFootprintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514CA08A2573F02200243193 /* ForestFootprintViewController.swift */; };
 		514CA08F25740B3900243193 /* ForestFootprintCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514CA08E25740B3900243193 /* ForestFootprintCoordinator.swift */; };
-		514CA091257532FB00243193 /* ForestFootprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514CA090257532FB00243193 /* ForestFootprint.swift */; };
-		514CA097257534A500243193 /* ForestFootprintIngredientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514CA096257534A400243193 /* ForestFootprintIngredientTableViewCell.swift */; };
 		514EEF9A1ED9B70000C4CF54 /* 4005900122063.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF991ED9B70000C4CF54 /* 4005900122063.json */; };
 		514EFA82222FEBB3008FFD2A /* FoodViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EFA81222FEBB3008FFD2A /* FoodViewerUITests.swift */; };
 		514EFA8A222FF770008FFD2A /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EFA89222FF770008FFD2A /* SnapshotHelper.swift */; };
@@ -434,6 +431,8 @@
 		51FB32291CF2139D00A17312 /* ReferenceDailyIntakeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */; };
 		51FB32331CF762FC00A17312 /* AllergenWarningDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FB32321CF762FC00A17312 /* AllergenWarningDefaults.swift */; };
 		51FDC3152029D99900ED0DD7 /* OFFProductJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FDC3142029D99900ED0DD7 /* OFFProductJson.swift */; };
+		AB94195128AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB94195028AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift */; };
+		AB94195328AE69750011F2CE /* ForestFootprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB94195228AE69750011F2CE /* ForestFootprint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -486,7 +485,6 @@
 		5108280C210A3CD40089977D /* PendingOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PendingOperations.swift; path = Model/PendingOperations.swift; sourceTree = "<group>"; };
 		510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionLevelQuantityTestSuite.swift; sourceTree = "<group>"; };
 		510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreUKTestSuite.swift; sourceTree = "<group>"; };
-		510D9FBC1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreFranceTestSuite.swift; sourceTree = "<group>"; };
 		510D9FBF1E72B20C00B95B1B /* NutritionalScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScore.swift; sourceTree = "<group>"; };
 		510D9FC41E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreTestSuite.swift; sourceTree = "<group>"; };
 		510D9FC71E742E7800B95B1B /* NutritionFactUnitTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactUnitTest.swift; sourceTree = "<group>"; };
@@ -724,8 +722,6 @@
 		514CA0882572B0C900243193 /* OFFProductForestFootPrintDataIngredientsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFProductForestFootPrintDataIngredientsType.swift; path = OFFProductJson/OFFProductForestFootPrintDataIngredientsType.swift; sourceTree = "<group>"; };
 		514CA08A2573F02200243193 /* ForestFootprintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForestFootprintViewController.swift; path = ViewControllers/ForestFootprintViewController.swift; sourceTree = "<group>"; };
 		514CA08E25740B3900243193 /* ForestFootprintCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForestFootprintCoordinator.swift; path = Coordinators/SecondLevel/ForestFootprintCoordinator.swift; sourceTree = "<group>"; };
-		514CA090257532FB00243193 /* ForestFootprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForestFootprint.swift; path = /Users/arnaud/Programming/FoodViewer/FoodViewer/Model/ForestFootprint.swift; sourceTree = "<absolute>"; };
-		514CA096257534A400243193 /* ForestFootprintIngredientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForestFootprintIngredientTableViewCell.swift; path = /Users/arnaud/Programming/FoodViewer/FoodViewer/Cells/ForestFootprintIngredientTableViewCell.swift; sourceTree = "<absolute>"; };
 		514EEF991ED9B70000C4CF54 /* 4005900122063.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4005900122063.json; sourceTree = "<group>"; };
 		514EFA7F222FEBB3008FFD2A /* FoodViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		514EFA81222FEBB3008FFD2A /* FoodViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewerUITests.swift; sourceTree = "<group>"; };
@@ -942,6 +938,8 @@
 		51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceDailyIntakeList.swift; sourceTree = "<group>"; };
 		51FB32321CF762FC00A17312 /* AllergenWarningDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllergenWarningDefaults.swift; sourceTree = "<group>"; };
 		51FDC3142029D99900ED0DD7 /* OFFProductJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductJson.swift; sourceTree = "<group>"; };
+		AB94195028AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForestFootprintIngredientTableViewCell.swift; sourceTree = "<group>"; };
+		AB94195228AE69750011F2CE /* ForestFootprint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForestFootprint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1078,7 +1076,6 @@
 			children = (
 				510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */,
 				510D9FC41E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift */,
-				510D9FBC1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift */,
 			);
 			name = NutritionalScore;
 			sourceTree = "<group>";
@@ -1660,7 +1657,7 @@
 				51C8A6CF1F67C38700B3C361 /* CompletionCategory.swift */,
 				51C8A6CD1F6677C400B3C361 /* Completion.swift */,
 				516BA5951CC769DD008A094A /* EnergyUnitUsed.swift */,
-				514CA090257532FB00243193 /* ForestFootprint.swift */,
+				AB94195228AE69750011F2CE /* ForestFootprint.swift */,
 				519A8E021E827F23001C026A /* ImageSizeCategory.swift */,
 				519A8E041E827F7C001C026A /* ImageTypeCategory.swift */,
 				5148F0F01DD3291500EF1B67 /* Language.swift */,
@@ -1806,7 +1803,7 @@
 			children = (
 				512B44D423FABAF600BFBCF0 /* ButtonTableViewCell.swift */,
 				512B451C23FAC0B900BFBCF0 /* CollectionViewCells */,
-				514CA096257534A400243193 /* ForestFootprintIngredientTableViewCell.swift */,
+				AB94195028AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift */,
 				518BFB412583A754006E26BE /* EcoscoreTableViewCell.swift */,
 				51C829D42576BF8B00BD981C /* ForestFootprintIngredientHeaderTableViewCell.swift */,
 				51B3838D1F8936D30086581C /* ButtonWithSegmentedControlTableViewCell.swift */,
@@ -1973,7 +1970,7 @@
 					New,
 				);
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = "Hovering Above";
 				TargetAttributes = {
 					514EFA7E222FEBB3008FFD2A = {
@@ -2175,7 +2172,6 @@
 				51CF42CF1E069BDD00C9AD91 /* Tags.swift in Sources */,
 				512B44DB23FABB1D00BFBCF0 /* ContributorTableViewCell.swift in Sources */,
 				512B43D223FAB13700BFBCF0 /* CreateOFFAccountViewController.swift in Sources */,
-				514CA091257532FB00243193 /* ForestFootprint.swift in Sources */,
 				512B44D123FABAD600BFBCF0 /* ImagesPageTableViewCell.swift in Sources */,
 				51F057FB1CB68A3000849532 /* NatriumChloride.swift in Sources */,
 				511DB4431E0AE994009D4A4B /* ColorSchemes.swift in Sources */,
@@ -2198,7 +2194,6 @@
 				512B43FB23FAB1C700BFBCF0 /* DiskFetcher.swift in Sources */,
 				512B449F23FAB8F700BFBCF0 /* DietCompliancyTableViewController.swift in Sources */,
 				51E6D79423F45A7700AD7947 /* ProductImagesCoordinator.swift in Sources */,
-				514CA097257534A500243193 /* ForestFootprintIngredientTableViewCell.swift in Sources */,
 				51E8BA2A1F2FA50900D3C742 /* TagsType.swift in Sources */,
 				512B445723FAB23600BFBCF0 /* RSExtendedCode39Generator.swift in Sources */,
 				51B384FB1FED52BD00F201AE /* UIImageExtension.swift in Sources */,
@@ -2220,6 +2215,7 @@
 				512B44AD23FAB99800BFBCF0 /* MainLanguageViewController.swift in Sources */,
 				512B43BE23FAB07000BFBCF0 /* IdentificationCoordinator.swift in Sources */,
 				512B44C923FABAAA00BFBCF0 /* SetWarningTableViewCell.swift in Sources */,
+				AB94195128AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift in Sources */,
 				51E614941C8349AD00DAEE6C /* History.swift in Sources */,
 				51216E2A20B5ABAE004D356C /* NutritionFactsTableStyleSetter.swift in Sources */,
 				512B445423FAB23600BFBCF0 /* RSFocusMarkLayer.swift in Sources */,
@@ -2345,6 +2341,7 @@
 				512B443223FAB21C00BFBCF0 /* TagColorScheme.swift in Sources */,
 				51A7DC801EE6C04400F231B0 /* LanguageHeaderView.swift in Sources */,
 				51A94B0E2561864100C5B4C7 /* OFFOCRRequestAPI.swift in Sources */,
+				AB94195328AE69750011F2CE /* ForestFootprint.swift in Sources */,
 				511D58A920372EC600F5D313 /* OFFProductImageSize.swift in Sources */,
 				512B44CF23FABACB00BFBCF0 /* NameTableViewCell.swift in Sources */,
 				51895A072539EF5B007C82F8 /* EnvironmentTableViewController.swift in Sources */,
@@ -2487,7 +2484,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				510D9FBD1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift in Sources */,
 				510D9FC81E742E7800B95B1B /* NutritionFactUnitTest.swift in Sources */,
 				511B2C3F1E7866AA00336CE8 /* SIUnitTestSuite.swift in Sources */,
 				510D9FC51E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift in Sources */,
@@ -2654,6 +2650,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2678,7 +2675,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -2710,6 +2707,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2728,7 +2726,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -2747,13 +2745,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 66;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FoodViewer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.10;
+				MARKETING_VERSION = 3.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2761,6 +2759,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2774,19 +2773,20 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 66;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = FoodViewer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.10;
+				MARKETING_VERSION = 3.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2798,7 +2798,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				INFOPLIST_FILE = FoodViewerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2817,7 +2817,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				INFOPLIST_FILE = FoodViewerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
