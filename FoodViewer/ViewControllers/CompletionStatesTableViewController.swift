@@ -261,6 +261,11 @@ class CompletionStatesTableViewController: UITableViewController {
         tableView.allowsSelection = true
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80.0
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
 
         refreshProduct()
     }

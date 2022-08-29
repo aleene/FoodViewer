@@ -1304,6 +1304,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         tableView.estimatedSectionHeaderHeight = 70
         
         tableView.register(UINib(nibName: LanguageHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: LanguageHeaderView.identifier)
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
 
     }
     

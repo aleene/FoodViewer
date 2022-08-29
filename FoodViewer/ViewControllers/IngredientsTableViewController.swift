@@ -1016,7 +1016,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 70
         tableView.register(UINib(nibName: LanguageHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: LanguageHeaderView.identifier)
-        
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -735,6 +735,11 @@ class SupplyChainTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
         tableView.register(UINib(nibName: LanguageHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: LanguageHeaderView.identifier)
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
 
     }
     

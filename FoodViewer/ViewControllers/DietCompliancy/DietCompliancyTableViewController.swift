@@ -104,6 +104,12 @@ class DietCompliancyTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
+
     }
 }
 //
