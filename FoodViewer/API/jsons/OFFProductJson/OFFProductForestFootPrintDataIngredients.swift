@@ -56,16 +56,7 @@ class OFFProductForestFootPrintDataIngredientsDetailed: OFFProductForestFootPrin
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: DetailedKeys.self)
                 
-        do {
-            self.percent = try container.decode(Double.self, forKey: .percent )
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .percent)
-                self.percent = Double(asString)
-            } catch {
-                self.percent = nil
-            }
-        }
+        self.percent = container.forceDouble(key: .percent)
         
         try super.init(from: decoder)
     }

@@ -106,82 +106,29 @@ class OFFProductDetailed: OFFProduct {
             //
         }
         
-        do {
-            self.carbon_footprint_from_known_ingredients_debug = try container.decode(Int.self, forKey: .carbon_footprint_from_known_ingredients_debug )
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .carbon_footprint_from_known_ingredients_debug)
-                self.carbon_footprint_from_known_ingredients_debug = Int(asString)
-            } catch {
-                self.carbon_footprint_from_known_ingredients_debug = nil
-            }
-        }
-        
-        do {
-            self.completeness = try container.decode(Double.self, forKey: .completeness)
-        } catch {
-            do {
-                let asInt = try container.decode(Int.self, forKey: .completeness)
-                self.completeness = Double(asInt)
-            } catch {
-                self.completeness = nil
-            }
-        }
-
-        do {
-            self.carbon_footprint_percent_of_known_ingredients = try container.decode(Double.self, forKey: .carbon_footprint_percent_of_known_ingredients)
-        } catch {
-            do {
-                let asInt = try container.decode(Int.self, forKey: .carbon_footprint_percent_of_known_ingredients)
-                self.carbon_footprint_percent_of_known_ingredients = Double(asInt)
-            } catch {
-                self.carbon_footprint_percent_of_known_ingredients = nil
-            }
-        }
-
-        do {
-            self.max_imgid = try container.decode(String.self, forKey: .max_imgid)
-        } catch {
-            do {
-                let intCode = try container.decode(Int.self, forKey: .max_imgid)
-                self.max_imgid = "\(intCode)"
-            } catch {
-                self.max_imgid = nil
-            }
-        }
-
-        
-        do {
-            self.rev = try container.decode(Int.self, forKey: .rev)
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .rev)
-                self.rev = Int(asString)
-            } catch {
-                self.rev = nil
-            }
-        }
-
-        do {
-            self.sortkey = try container.decode(Int.self, forKey: .sortkey)
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .sortkey)
-                self.sortkey = Int(asString)
-            } catch {
-                self.sortkey = nil
-            }
-        }
-        do {
-            self.code = try container.decode(String.self, forKey: .code)
-        } catch {
-            do {
-            let intCode = try container.decode(Int.self, forKey: .code)
-                self.code = "\(intCode)"
-            } catch {
-                self.code = nil
-            }
-        }
+        self.carbon_footprint_from_known_ingredients_debug = container.forceInt(key: .carbon_footprint_from_known_ingredients_debug)
+        self.completeness = container.forceDouble(key: .completeness)
+        self.carbon_footprint_percent_of_known_ingredients = container.forceDouble(key: .carbon_footprint_percent_of_known_ingredients)
+        self.max_imgid = container.forceString(key: .max_imgid)
+        self.rev = container.forceInt(key: .rev)
+        self.sortkey = container.forceInt(key: .sortkey)
+        self.code = container.forceString(key: .code)
+        self.ingredients_n = container.forceInt(key: .ingredients_n)
+        self.additives_n = container.forceInt(key: .additives_n)
+        self.additives_old_n = container.forceInt(key: .additives_old_n)
+        self.ingredients_from_or_that_may_be_from_palm_oil_n = container.forceInt(key: .ingredients_from_or_that_may_be_from_palm_oil_n)
+        self.ingredients_from_palm_oil_n = container.forceInt(key: .ingredients_from_palm_oil_n)
+        self.ingredients_that_may_be_from_palm_oil_n = container.forceInt(key: .ingredients_that_may_be_from_palm_oil_n)
+        self.serving_quantity = container.forceDouble(key: .serving_quantity)
+        self.nova_group = container.forceString(key: .nova_group)
+        self.nova_groups = container.forceString(key: .nova_groups)
+        self.novaDashgroup = container.forceString(key: .novaDashgroup)
+        self.novaDashgroup_100g = container.forceString(key: .novaDashgroup_100g)
+        self.novaDashgroup_serving = container.forceString(key: .novaDashgroup_serving)
+        self.nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value = container.forceDouble(key: .nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value)
+        self.product_quantity = container.forceString(key: .product_quantity)
+        self.unknown_ingredients_n = container.forceInt(key: .unknown_ingredients_n)
+        self.popularity_key = container.forceInt(key: .popularity_key)
 
         do {
             self.codes_tags = try container.decode(Array.self, forKey: .codes_tags)
@@ -193,171 +140,6 @@ class OFFProductDetailed: OFFProduct {
                 self.codes_tags = nil
             }
         }
-
-        
-        do {
-            self.ingredients_n = try container.decode(Int.self, forKey: .ingredients_n)
-         } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .ingredients_n)
-                self.ingredients_n = Int(asString)
-            } catch {
-                self.ingredients_n = nil
-            }
-        }
-
-        do {
-            self.additives_n = try container.decode(Int.self, forKey: .additives_n)
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .additives_n)
-                self.additives_n = Int(asString)
-            } catch {
-                self.additives_n = nil
-            }
-        }
-
-        do {
-            self.additives_old_n = try container.decode(Int.self, forKey: .additives_old_n)
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .additives_old_n)
-                self.additives_old_n = Int(asString)
-            } catch {
-                self.additives_old_n = nil
-            }
-        }
-
-        do {
-            self.ingredients_from_or_that_may_be_from_palm_oil_n = try container.decode(Int.self, forKey: .ingredients_from_or_that_may_be_from_palm_oil_n)
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .ingredients_from_or_that_may_be_from_palm_oil_n)
-                self.ingredients_from_or_that_may_be_from_palm_oil_n = Int(asString)
-            } catch {
-                self.ingredients_from_or_that_may_be_from_palm_oil_n = nil
-            }
-        }
-
-        do {
-            self.ingredients_from_palm_oil_n = try container.decode(Int.self, forKey: .ingredients_from_palm_oil_n)
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .ingredients_from_palm_oil_n)
-                self.ingredients_from_palm_oil_n = Int(asString)
-            } catch {
-                self.ingredients_from_palm_oil_n = nil
-            }
-        }
-
-        do {
-            self.ingredients_that_may_be_from_palm_oil_n = try container.decode(Int.self, forKey: .ingredients_that_may_be_from_palm_oil_n)
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .ingredients_that_may_be_from_palm_oil_n)
-                self.ingredients_that_may_be_from_palm_oil_n = Int(asString)
-            } catch {
-                self.ingredients_that_may_be_from_palm_oil_n = nil
-            }
-        }
-
-        do {
-            self.serving_quantity = try container.decode(Double.self, forKey: .serving_quantity)
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .serving_quantity)
-                self.serving_quantity = Double(asString)
-            } catch {
-                self.serving_quantity = nil
-            }
-        }
-
-        do {
-            self.nova_group = try container.decode(String.self, forKey: .nova_group)
-        } catch {
-            do {
-                let asDouble = try container.decode(Double.self, forKey: .nova_group)
-                self.nova_group = "\(asDouble)"
-            } catch {
-                self.nova_group = nil
-            }
-        }
-
-        do {
-            self.nova_groups = try container.decode(String.self, forKey: .nova_groups)
-        } catch {
-            do {
-                let asDouble = try container.decode(Double.self, forKey: .nova_groups)
-                self.nova_groups = "\(asDouble)"
-            } catch {
-                self.nova_groups = nil
-            }
-        }
-
-        do {
-            self.novaDashgroup = try container.decode(String.self, forKey: .novaDashgroup)
-        } catch {
-            self.novaDashgroup = nil
-        }
-
-        do {
-            self.novaDashgroup_100g = try container.decode(String.self, forKey: .novaDashgroup_100g)
-        } catch {
-            self.novaDashgroup_100g = nil
-        }
-
-        do {
-            self.novaDashgroup_serving = try container.decode(String.self, forKey: .novaDashgroup_serving)
-        } catch {
-            self.novaDashgroup_serving = nil
-        }
-        
-        do {
-            self.nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value = try container.decode(Double.self, forKey: .nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value)
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .product_quantity)
-                self.nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value = Double(asString)
-            } catch {
-                self.nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value = nil
-            }
-        }
-
-        // var product_quantity: String? = nil is handled in the child
-        do {
-            self.product_quantity = try container.decode(String.self, forKey: .product_quantity)
-        } catch {
-            do {
-                let asInt = try container.decode(Int.self, forKey: .product_quantity)
-                self.product_quantity = "\(asInt)"
-            } catch {
-                self.product_quantity = nil
-            }
-        }
-        
-        do {
-            self.unknown_ingredients_n = try container.decode(Int.self, forKey: .unknown_ingredients_n)
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .unknown_ingredients_n)
-                self.unknown_ingredients_n = Int(asString)
-            } catch {
-                self.unknown_ingredients_n = nil
-            }
-        }
-
-        
-        do {
-            self.popularity_key = try container.decode(Int.self, forKey: .popularity_key)
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .popularity_key)
-                self.popularity_key = Int(asString)
-            } catch {
-                self.popularity_key = nil
-            }
-        }
-
         
         // try to extract all language specific fields
         for languageCode in languages_codes {

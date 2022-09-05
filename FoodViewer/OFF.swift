@@ -44,7 +44,8 @@ public struct OFF {
         static let PrefixRobotoff = "robotoff."
         static let TopDomain = ".org/"
         static let AdvancedSearch = "cgi/search.pl?action=process"
-        static let EnglishProduct = "en:product/"
+        static let EnglishProduct = "en" + Product
+        static let Product = "product"
         static let Postfix = ".org/api/v1.2/product/"
         // /api/v1/questions/
         static let PostfixRobotoff = ".org/api/v1/questions"
@@ -554,7 +555,8 @@ Retrieve the robotoff questions for a product
         urlString += "\(region)."
         urlString += server(for:barcode.productType ?? .food)
         urlString += OFF.URL.TopDomain
-        urlString += OFF.URL.EnglishProduct
+        urlString += TranslatableStrings.Product.lowercased()
+        urlString += OFF.URL.Divider.Slash
         urlString += barcode.asString
         urlString += OFF.URL.Divider.Slash
         return urlString
