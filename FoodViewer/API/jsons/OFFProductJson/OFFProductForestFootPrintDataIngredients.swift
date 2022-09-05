@@ -21,7 +21,7 @@ import Foundation
  "footprint_per_kg":0.00361958333333333,
  "percent":4.5625,
  "percent_estimate":4.5625,
- "processing_factor":"1"
+ "processing_factor":1
 
  */
 class OFFProductForestFootPrintDataIngredients: Codable {
@@ -31,10 +31,10 @@ class OFFProductForestFootPrintDataIngredients: Codable {
     var matching_tag_id: String? = nil
     // var percent: Double? = nil
     var percent_estimate: Double? = nil
-    var processing_factor: String? = nil
+    var processing_factor: Int? = nil
     var tag_id: String? = nil
     var tag_type: String? = nil
-    var type: OFFProductForestFootPrintDataIngredientsType? = nil
+    var type: OFFProductForestFootPrintDataIngredientsTypeDetailed? = nil
 
 }
 

@@ -55,7 +55,6 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="IEf-tI-agI" secondAttribute="bottom" id="4ZD-Wf-X6G"/>
                 <constraint firstAttribute="trailing" secondItem="IEf-tI-agI" secondAttribute="trailing" id="VT2-og-PfB"/>

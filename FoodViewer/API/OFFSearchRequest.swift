@@ -15,8 +15,8 @@ class OFFSearchRequest {
     private var debug = false
     
     fileprivate struct OpenFoodFacts {
-        static let APIURLPrefixForFoodProduct = "http://world.openfoodfacts.org/api/v0/product/"
-        static let APIURLPrefixForBeautyProduct = "http://world.openbeautyfacts.org/api/v0/product/"
+        static let APIURLPrefixForFoodProduct = "https://world.openfoodfacts.org/api/v0/product/"
+        static let APIURLPrefixForBeautyProduct = "https://world.openbeautyfacts.org/api/v0/product/"
     }
     
     enum FetchJsonResult {

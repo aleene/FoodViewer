@@ -413,7 +413,7 @@ class SingleSearchProductTableViewController: UITableViewController {
      // Can we supply a specific error message?
      if error.contains("NSCocoaErrorDomain Code=256") {
      // The error message when the server can not be reached:
-     // "Error Domain=NSCocoaErrorDomain Code=256 \"The file “7610207742059.json” couldn’t be opened.\" UserInfo={NSURL=http://world.openfoodfacts.org/api/v0/product/7610207742059.json}"
+     // "Error Domain=NSCocoaErrorDomain Code=256 \"The file “7610207742059.json” couldn’t be opened.\" UserInfo={NSURL=https://world.openfoodfacts.org/api/v0/product/7610207742059.json}"
      let parts = error.components(separatedBy: ".json")
      if !parts.isEmpty {
      let partsTwo = parts[0].components(separatedBy:"\'")

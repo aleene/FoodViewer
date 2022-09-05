@@ -12,7 +12,7 @@ struct OFFHttpPost {
     
     struct URL {
         static let GetPostPrefix = "cgi/product_jqm2.pl?"
-        static let Prefix = "http://world."
+        static let Prefix = "https://world."
         static let Domain = ".org/"
         static let SecurePrefix = "https://ssl-api."
         static let AddPostFix = "cgi/product_image_upload.pl"

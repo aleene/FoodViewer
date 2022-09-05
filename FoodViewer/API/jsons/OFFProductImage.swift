@@ -12,7 +12,7 @@ class OFFProductImage: Codable {
     let geometry: String?
     //let imgid: String? or Int?
     let normalize: String?
-    let rev: String?
+    // let rev: String? Handled in PFFProductImageDetailed
     let sizes: OFFProductImageSizes
     let uploader: String?
     // let uploaded_t: Int? Handled in PFFProductImageDetailed

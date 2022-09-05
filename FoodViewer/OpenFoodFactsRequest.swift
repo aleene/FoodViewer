@@ -15,8 +15,8 @@ class OpenFoodFactsRequest {
     
     fileprivate struct OpenFoodFacts {
         // static let JSONExtension = ".json"
-        static let APIURLPrefixForFoodProduct = "http://world.openfoodfacts.org/api/v0/product/"
-        static let APIURLPrefixForBeautyProduct = "http://world.openbeautyfacts.org/api/v0/product/"
+        static let APIURLPrefixForFoodProduct = "https://world.openfoodfacts.org/api/v0/product/"
+        static let APIURLPrefixForBeautyProduct = "https://world.openbeautyfacts.org/api/v0/product/"
         //static let FoodSampleProductBarcode = "40111490"
         //static let BeautySampleProductBarcode = "4005900122063"
         //static let PetFoodSampleProductBarcode = "3166780740950"

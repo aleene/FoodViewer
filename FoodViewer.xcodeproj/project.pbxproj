@@ -433,6 +433,7 @@
 		51FDC3152029D99900ED0DD7 /* OFFProductJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FDC3142029D99900ED0DD7 /* OFFProductJson.swift */; };
 		AB94195128AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB94195028AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift */; };
 		AB94195328AE69750011F2CE /* ForestFootprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB94195228AE69750011F2CE /* ForestFootprint.swift */; };
+		ABE0831528C6454000127F90 /* OFFProductForestFootPrintDataIngredientsTypeDetailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE0831428C6454000127F90 /* OFFProductForestFootPrintDataIngredientsTypeDetailed.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -940,6 +941,7 @@
 		51FDC3142029D99900ED0DD7 /* OFFProductJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductJson.swift; sourceTree = "<group>"; };
 		AB94195028AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForestFootprintIngredientTableViewCell.swift; sourceTree = "<group>"; };
 		AB94195228AE69750011F2CE /* ForestFootprint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForestFootprint.swift; sourceTree = "<group>"; };
+		ABE0831428C6454000127F90 /* OFFProductForestFootPrintDataIngredientsTypeDetailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductForestFootPrintDataIngredientsTypeDetailed.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -985,6 +987,7 @@
 				514CA0842572AF0400243193 /* OFFProductForestFootPrintData.swift */,
 				514CA0862572AFC700243193 /* OFFProductForestFootPrintDataIngredients.swift */,
 				514CA0882572B0C900243193 /* OFFProductForestFootPrintDataIngredientsType.swift */,
+				ABE0831428C6454000127F90 /* OFFProductForestFootPrintDataIngredientsTypeDetailed.swift */,
 				5158ECD82032DD170072261C /* OFFImageUploadResultJson.swift */,
 				51F96663202DA09A00CD58C3 /* OFFProduct.swift */,
 				51857F9F2508D2AF007B896B /* OFFProductAttributeGroup.swift */,
@@ -2142,6 +2145,7 @@
 				5191878722F09C8E003D848D /* LevelTableViewCell.swift in Sources */,
 				51075552202F647C0047EC09 /* OFFProductNutrimentValues.swift in Sources */,
 				512B451B23FAC0AB00BFBCF0 /* AddImageCollectionViewCell.swift in Sources */,
+				ABE0831528C6454000127F90 /* OFFProductForestFootPrintDataIngredientsTypeDetailed.swift in Sources */,
 				512B445B23FAB24200BFBCF0 /* StringExtension.swift in Sources */,
 				512B43DA23FAB16100BFBCF0 /* ShowDietTriggersTableViewController.swift in Sources */,
 				51895A092539F2C9007C82F8 /* EnvironmentCoordinator.swift in Sources */,

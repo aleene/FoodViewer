@@ -12,7 +12,7 @@ import WebKit
 class EditProductViewController: UIViewController {
 
     fileprivate struct Constants {
-        static let EditURL = "http://fr.openfoodfacts.org/cgi/product.pl?type=edit&code="
+        static let EditURL = "https://fr.openfoodfacts.org/cgi/product.pl?type=edit&code="
     }
     
     fileprivate var request: URLRequest? = nil

@@ -210,8 +210,6 @@ class OFFProductEcoscoreDataAdjustmentsOriginsOfIngredientsDetailed: OFFProductE
         
         static let epi_value = DetailedKeys(stringValue: "epi_value")!
         static let epi_score = DetailedKeys(stringValue: "epi_score")!
-        static let transportation_score = DetailedKeys(stringValue: "transportation_score")!
-        static let transportation_value = DetailedKeys(stringValue: "transportation_value")!
     }
 
     var epi_value: Double? = nil
@@ -225,8 +223,6 @@ class OFFProductEcoscoreDataAdjustmentsOriginsOfIngredientsDetailed: OFFProductE
                 
         self.epi_score = container.forceDouble(key: .epi_score)
         self.epi_value = container.forceDouble(key: .epi_value)
-        self.transportation_score = container.forceDouble(key: .transportation_score)
-        self.transportation_value = container.forceDouble(key: .transportation_value)
             
         try super.init(from: decoder)
     }
@@ -328,16 +324,14 @@ extension KeyedDecodingContainer {
             return try decode(String.self, forKey: key)
         } catch {
             do {
-                print("KeyedDecodingContainer:forceString: \(key) is not a String")
                 let name = try decode(Float.self, forKey: key)
                 return "\(name)"
             } catch {
-                print("KeyedDecodingContainer:forceString: \(key) is not a Float")
                 do {
                     let name = try decode(Int.self, forKey: key)
                     return "\(name)"
                 } catch {
-                    print("KeyedDecodingContainer:forceString: \(key) is not an Int")
+                    print("KeyedDecodingContainer:forceString: \(key) is not convertable")
                     return nil
                 }
             }

@@ -43,7 +43,12 @@ class ForestFootprintIngredientTableViewCell: UITableViewCell {
         if let validValue = ingredient.percent {
             percentInProductLabel?.text = numberFormatter.string(from: NSNumber(value: validValue))
         }
-        processingFactorLabel?.text = ingredient.processingFactor
+        if let validValue = ingredient.processingFactor {
+            processingFactorLabel?.text = numberFormatter.string(from: NSNumber(value: validValue))
+        } else {
+            processingFactorLabel?.text = "No valid processing factor"
+        }
+                                                             
         if let validValue = ingredient.footprintPerKg {
             forestFootprintLabel?.text = numberFormatter.string(from: NSNumber(value: validValue))
         }

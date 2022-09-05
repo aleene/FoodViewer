@@ -10,17 +10,19 @@ import Foundation
 
 class OFFSearchResultJson : Codable {
     
-    var count: Int? = nil
     // total number of search results
-    var page: Int? = nil
+    var count: Int? = nil
     // page number. Starts at 1 !!!
-    var page_size: Int? = nil
-    // the number of products per json
-    // 1 - if product found
-    var products: [OFFProductDetailed]? = nil
-    // an array with the products
-    var skip: Int? = nil
+    var page: Int? = nil
     // what is this?
+    var page_count: Int? = nil
+    // the number of products per json
+    var page_size: Int? = nil
+    // 1 - if product found
+    // an array with the products
+    var products: [OFFProductDetailed]? = nil
+    // what is this?
+    var skip: Int? = nil
     
     enum CodingKeys: String, CodingKey {
         case count

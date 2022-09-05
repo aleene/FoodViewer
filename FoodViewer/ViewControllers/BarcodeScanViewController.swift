@@ -35,6 +35,8 @@ class BarcodeScanViewController: UIViewController, UITextFieldDelegate, Keyboard
         }
     }
     
+    @IBOutlet weak var ecoscoreImageView: UIImageView!
+    
     @IBOutlet weak var takePhotoButton: UIButton! {
         didSet {
             takePhotoButton.setTitle(TranslatableStrings.TakePhotos, for: .normal)
@@ -191,6 +193,14 @@ class BarcodeScanViewController: UIViewController, UITextFieldDelegate, Keyboard
         }
     }
     
+/// returns an UIImage for a product, which can be displayed
+    private func setup(ecoscore: Ecoscore?) -> UIImage? {
+        if let validEcoscore = ecoscore {
+            return validEcoscore.image
+        } else {
+            return Ecoscore.unknown.image
+        }
+    }
     
     func initializeCustomKeyboard() {
         // initialize custom keyboard
@@ -298,6 +308,7 @@ class BarcodeScanViewController: UIViewController, UITextFieldDelegate, Keyboard
                     self.nova = scannedProductPair?.localProduct?.novaGroup ?? scannedProductPair!.remoteProduct?.novaGroup
                     self.score = scannedProductPair?.remoteProduct?.nutritionGrade ?? scannedProductPair?.localProduct?.nutritionGrade
                     tagListView?.reloadData(clearAll: true)
+                    self.ecoscoreImageView?.image = setup(ecoscore: scannedProductPair?.remoteProduct?.ecoscore ?? scannedProductPair?.localProduct?.ecoscore)
                     if let nutritionLevels = scannedProductPair?.remoteProduct?.nutritionScore ?? scannedProductPair?.localProduct?.nutritionScore {
                         for level in nutritionLevels {
                             switch level.0 {

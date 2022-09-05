@@ -24,7 +24,7 @@ struct ForestFootprintIngredient {
     var footprintPerKg: Double? = nil
     var percent: Double? = nil
     var percentEstimate: Double? = nil
-    var processingFactor: String? = nil
+    var processingFactor: Int? = nil
 }
 
 struct ForestFootprint {

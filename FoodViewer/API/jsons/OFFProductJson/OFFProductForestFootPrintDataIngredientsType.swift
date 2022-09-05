@@ -17,9 +17,10 @@ import Foundation
  */
 class OFFProductForestFootPrintDataIngredientsType: Codable {
     
-    var deforestation_risk: String? = nil
+    // var deforestation_risk: String? = nil decoded in OFFProductForestFootPrintDataIngredientsType
     var name: String? = nil
-    var soy_feed_factor: String? = nil
-    var soy_yield: String? = nil
+    // var soy_feed_factor: String? = nil decoded in OFFProductForestFootPrintDataIngredientsTypeDetailed
+    // var soy_yield: String? = nil  decoded in OFFProductForestFootPrintDataIngredientsTypeDetailed
 
 }
+

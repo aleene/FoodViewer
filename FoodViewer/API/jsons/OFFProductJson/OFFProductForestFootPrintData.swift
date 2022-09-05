@@ -25,7 +25,7 @@ import Foundation
              "footprint_per_kg":0.00361958333333333,
              "percent":4.5625,
              "percent_estimate":4.5625,
-             "processing_factor":"1"
+             "processing_factor":1
          }
      ]
  },

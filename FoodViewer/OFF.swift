@@ -40,7 +40,7 @@ public struct OFF {
         }
         
         static let Scheme = "https://"
-        static let Prefix = "http://world."
+        static let Prefix = "https://world."
         static let PrefixRobotoff = "robotoff."
         static let TopDomain = ".org/"
         static let AdvancedSearch = "cgi/search.pl?action=process"

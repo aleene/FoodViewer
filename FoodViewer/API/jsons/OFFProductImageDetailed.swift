@@ -20,43 +20,21 @@ class OFFProductImageDetailed: OFFProductImage {
         
         static let imgid = DetailedKeys(stringValue: "imgid")!
         static let uploaded_t = DetailedKeys(stringValue: "uploaded_t")!
-
+        static let rev = DetailedKeys(stringValue: "rev")!
+        
     }
     
     public var imgid: String? = nil
     public var uploaded_t: Double? = nil
-    
+    public var rev: String? = nil
     required init(from decoder: Decoder) throws {
 
         let container = try decoder.container(keyedBy: DetailedKeys.self)
         
-        do {
-            self.imgid = try container.decode(String.self, forKey: .imgid)
-        } catch {
-            do {
-                let intCode = try container.decode(Int.self, forKey: .imgid)
-                self.imgid = "\(intCode)"
-            } catch {
-                self.imgid = nil
-            }
-        }
-
-        do {
-            self.uploaded_t = try container.decode(Double.self, forKey: .uploaded_t)
-        } catch {
-            do {
-                let intCode = try container.decode(Int.self, forKey: .uploaded_t)
-                self.uploaded_t = Double(intCode)
-            } catch {
-                do {
-                    let intCode = try container.decode(String.self, forKey: .uploaded_t)
-                    self.uploaded_t = Double(intCode)
-                } catch {
-                    self.uploaded_t = nil
-                }
-            }
-        }
-
+        self.imgid = container.forceString(key: .imgid)
+        self.uploaded_t = container.forceDouble(key: .uploaded_t)
+        self.rev = container.forceString(key: .rev)
+        
         try super.init(from: decoder)
     }
     
