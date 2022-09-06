@@ -434,6 +434,7 @@
 		AB94195128AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB94195028AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift */; };
 		AB94195328AE69750011F2CE /* ForestFootprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB94195228AE69750011F2CE /* ForestFootprint.swift */; };
 		ABE0831528C6454000127F90 /* OFFProductForestFootPrintDataIngredientsTypeDetailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE0831428C6454000127F90 /* OFFProductForestFootPrintDataIngredientsTypeDetailed.swift */; };
+		ABE929F428C7922400F930C1 /* KeyedDecodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE929F328C7922400F930C1 /* KeyedDecodingContainerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -942,6 +943,7 @@
 		AB94195028AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForestFootprintIngredientTableViewCell.swift; sourceTree = "<group>"; };
 		AB94195228AE69750011F2CE /* ForestFootprint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForestFootprint.swift; sourceTree = "<group>"; };
 		ABE0831428C6454000127F90 /* OFFProductForestFootPrintDataIngredientsTypeDetailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductForestFootPrintDataIngredientsTypeDetailed.swift; sourceTree = "<group>"; };
+		ABE929F328C7922400F930C1 /* KeyedDecodingContainerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1758,6 +1760,7 @@
 				51D7E36723D895E000F2911E /* UITableViewCellExtension.swift */,
 				51D7E36923D8BFD900F2911E /* UITableViewHeaderFooterViewExtension.swift */,
 				51992FDC2546C30200C44214 /* DateExtension.swift */,
+				ABE929F328C7922400F930C1 /* KeyedDecodingContainerExtension.swift */,
 			);
 			name = Extensions;
 			path = "New Group";
@@ -2165,6 +2168,7 @@
 				51E2926E20DBE1B2001C7471 /* ImageCache.swift in Sources */,
 				512B453A23FBEC2F00BFBCF0 /* ShowDietTriggersCoordinator.swift in Sources */,
 				51857FAC250D02CE007B896B /* Diets.swift in Sources */,
+				ABE929F428C7922400F930C1 /* KeyedDecodingContainerExtension.swift in Sources */,
 				512B44AB23FAB99000BFBCF0 /* FavoriteShopsTableViewController.swift in Sources */,
 				512B43FC23FAB1C700BFBCF0 /* UIView+Haneke.swift in Sources */,
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,

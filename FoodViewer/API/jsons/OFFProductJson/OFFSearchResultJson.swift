@@ -35,23 +35,10 @@ class OFFSearchResultJson : Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         self.count = try container.decode(Int.self, forKey: .count)
-        do {
-            self.page = try container.decode(Int.self, forKey: .page)
-        } catch {
-            do {
-                let asString = try container.decode(String.self, forKey: .page)
-                self.page = Int(asString)
-               } catch {
-                self.page = nil
-            }
-        }
         
-        do {
-            self.page_size = try container.decode(Int.self, forKey: .count)
-        } catch {
-            let page_sizeAsString = try container.decode(String.self, forKey: .count)
-            print("pageSize as string", page_sizeAsString)
-        }
+        self.page = container.forceInt(key: .page)
+        self.page_size = container.forceInt(key: .page_size)
+
         self.products = try container.decode(Array.self, forKey: .products)
         self.skip = try container.decode(Int.self, forKey: .skip)
 

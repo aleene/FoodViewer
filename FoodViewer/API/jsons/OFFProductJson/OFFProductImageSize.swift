@@ -21,19 +21,8 @@ class OFFProductImageSize: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        do {
-            self.w = try container.decode(Int.self, forKey: .w)
-        } catch {
-            let wString = try container.decode(String.self, forKey: .w)
-            self.w = Int.init(wString)
-        }
-        
-        do {
-            self.w = try container.decode(Int.self, forKey: .h)
-        } catch {
-            let hString = try container.decode(String.self, forKey: .h)
-            self.h = Int.init(hString)
-        }
+        self.w = container.forceInt(key: .w)
+        self.h = container.forceInt(key: .h)
     }
 
 }
