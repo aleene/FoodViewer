@@ -122,22 +122,23 @@ class BarcodeScanViewController: UIViewController, UITextFieldDelegate, Keyboard
     
     private var nova: String? = nil {
         didSet {
-            if let validNova = nova {
+            if let novaExists = nova {
+                let validNova = novaExists.components(separatedBy: ".").first
                 switch validNova {
                 case "1":
-                    NOVAValueLabel.text = nova
+                    NOVAValueLabel.text = validNova
                     NOVAValueLabel.textColor = .white
                     NOVAValueLabel.backgroundColor = .systemGreen
                case "2":
-                    NOVAValueLabel.text = nova
+                    NOVAValueLabel.text = validNova
                     NOVAValueLabel.textColor = .white
                     NOVAValueLabel.backgroundColor = .systemYellow
                 case "3":
-                    NOVAValueLabel.text = nova
+                    NOVAValueLabel.text = validNova
                     NOVAValueLabel.textColor = .white
                     NOVAValueLabel.backgroundColor = .systemOrange
                 case "4":
-                    NOVAValueLabel.text = nova
+                    NOVAValueLabel.text = validNova
                     NOVAValueLabel.textColor = .white
                     NOVAValueLabel.backgroundColor = .systemRed
                 default:
