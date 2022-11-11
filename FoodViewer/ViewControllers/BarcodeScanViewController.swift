@@ -386,11 +386,12 @@ class BarcodeScanViewController: UIViewController, UITextFieldDelegate, Keyboard
                     }
                     // showImage()
                     
-                    
+            // in case of a new product
             case .productNotAvailable:
                 setupViews()
                 self.instructionTextView?.text = TranslatableStrings.TakePhotosInstruction
                 self.takePhotoButton?.isHidden = false
+                    self.productNameBarButtonItem.title = scannedProductPair?.localProduct?.barcode.asString ?? scannedProductPair?.remoteProduct?.barcode.asString ?? TranslatableStrings.NoName
             case .loadingFailed(let error):
                 setupViews()
                 self.instructionTextView?.text = error

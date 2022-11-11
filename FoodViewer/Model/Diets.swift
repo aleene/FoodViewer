@@ -80,7 +80,7 @@ class Diets {
         guard let validLanguages = all[key]?.languages else { return nil }
         for language in validLanguages {
             if language.key == languageCode {
-                return language.names.first 
+                return language.names.first
             }
         }
         return nil
@@ -217,7 +217,7 @@ class Diets {
         if let numberOfLevels = numberOfLevels(forDietWith:key) {
             var matchedDiet: [(Int,[String])] = []
             for levelIndex in 0...numberOfLevels - 1 {
-                if let order = order(forDietWith:key, and:levelIndex) {
+                if let order = order(forDietWith: key, and: levelIndex) {
                     let matchedTags = match(product, withDietWith: key, in: order)
                     matchedDiet.append((order,matchedTags))
                 }
@@ -439,13 +439,12 @@ class Diets {
                         
                         if taxonomy.key == Constant.Key.Ingredients,
                             name.count >= 0  {
-                            switch product.ingredientsTags {
+                            switch product.ingredientsHierarchy {
                             case .available(let tags):
-                                if tags.contains(name[0]) {
-                                    matchedTags.append(Constant.Key.Ingredients + "/" + name[0])
-                                    //if name.count == 2 {
-                                    //    matchedTags.append(Constant.Key.Ingredients + "/" + name[1])
-                                    //}
+                                for element in name {
+                                    if tags.contains(element) {
+                                        matchedTags.append(Constant.Key.Ingredients + "/" + name[0])
+                                    }
                                 }
                             default: break
                             }
