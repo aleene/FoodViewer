@@ -8713,5 +8713,467 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>en:garlic-free</key>
+	<dict>
+		<key>Comment</key>
+		<string>Only based on ingredients</string>
+		<key>Neutral</key>
+		<integer>0</integer>
+		<key>Ttile</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Garlic free</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Ohne Knoblauch</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans ail</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Zonder knoflook</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin ajo</string>
+			</array>
+		</dict>
+		<key>Description</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>The ingredient list does not have garlic</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Auf der Zutatenliste steht kein Knoblauch</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>La liste des ingrédients ne contient pas d&apos;ail</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>De ingrediëntenlijst vermeld geen knoflook</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>La lista de ingredientes no tiene ajo.</string>
+			</array>
+		</dict>
+		<key>Levels</key>
+		<dict>
+			<key>en:certified compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>2</integer>
+				<key>Languages</key>
+				<dict>
+					<key>en</key>
+					<array>
+						<string>Certified</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Certifié</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>Certificado</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Gercertificeerd</string>
+					</array>
+					<key>de</key>
+					<array>
+						<string>Kontrolliert</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict/>
+			</dict>
+			<key>en:claimed complaint</key>
+			<dict>
+				<key>Order</key>
+				<integer>1</integer>
+				<key>Languages</key>
+				<dict>
+					<key>en</key>
+					<array>
+						<string>Claimed by the manufacturer</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Reclamé par le fabricant</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>Reclamado por el fabricante</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Beweerd door de producent</string>
+					</array>
+					<key>de</key>
+					<array>
+						<string>Behaupted durch den Hersteller</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict/>
+			</dict>
+			<key>en:compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>0</integer>
+				<key>Languages</key>
+				<dict>
+					<key>de</key>
+					<array>
+						<string>Keine Kontraindikationen bekannt</string>
+					</array>
+					<key>en</key>
+					<array>
+						<string>No contra-indications known</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>No contraindicaciones conocidas</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Aucune contre-indication connu</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Geen contra-indicaties bekend</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict/>
+			</dict>
+			<key>en:possible non-compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>-1</integer>
+				<key>Languages</key>
+				<dict>
+					<key>de</key>
+					<array>
+						<string>Könnte nicht Konform sein</string>
+					</array>
+					<key>en</key>
+					<array>
+						<string>Possibly non-compliant</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>Pode ser no conforme</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Pourrait être non-conforme</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Mogelijk niet-conform</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict>
+					<key>Ingredients</key>
+					<array>
+						<array>
+							<string>en:spices</string>
+							<string>en:broth</string>
+						</array>
+						<array>
+							<string>en:herbs</string>
+						</array>
+						<array>
+							<string>en:flavouring</string>
+						</array>
+					</array>
+				</dict>
+			</dict>
+			<key>en:non-compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>-2</integer>
+				<key>Languages</key>
+				<dict>
+					<key>de</key>
+					<array>
+						<string>Nicht Konform</string>
+					</array>
+					<key>en</key>
+					<array>
+						<string>Non-compliant</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>No conforme</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Non-conforme</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Niet-conform</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict>
+					<key>Ingredients</key>
+					<array>
+						<array>
+							<string>en:garlic</string>
+						</array>
+					</array>
+				</dict>
+			</dict>
+		</dict>
+	</dict>
+	<key>en:alliums-free</key>
+	<dict>
+		<key>Comment</key>
+		<string>Only based on ingredients</string>
+		<key>Neutral</key>
+		<integer>0</integer>
+		<key>Title</key>
+		<dict>
+			<key>es</key>
+			<array>
+				<string>Sin Alliums</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Zonder Alliums</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans Alliums</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Ohne Alliums</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Alliums free</string>
+			</array>
+		</dict>
+		<key>Description</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>The ingredient list does not mention any allium.</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Auf der Zutatenliste stehen kein Alliums</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>La liste des ingrédients ne contient pas des alliums</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>De ingrediëntenlijst vermeld geen alliums</string>
+				<string></string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>La lista de ingredientes no tiene alliums.</string>
+			</array>
+		</dict>
+		<key>Levels</key>
+		<dict>
+			<key>en:certified compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>2</integer>
+				<key>Languages</key>
+				<dict>
+					<key>en</key>
+					<array>
+						<string>Certified</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Certifié</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>Certificado</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Gercertificeerd</string>
+					</array>
+					<key>de</key>
+					<array>
+						<string>Kontrolliert</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict/>
+			</dict>
+			<key>en:claimed complaint</key>
+			<dict>
+				<key>Order</key>
+				<integer>1</integer>
+				<key>Languages</key>
+				<dict>
+					<key>en</key>
+					<array>
+						<string>Claimed by the manufacturer</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Reclamé par le fabricant</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>Reclamado por el fabricante</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Beweerd door de producent</string>
+					</array>
+					<key>de</key>
+					<array>
+						<string>Behaupted durch den Hersteller</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict/>
+			</dict>
+			<key>en:compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>0</integer>
+				<key>Languages</key>
+				<dict>
+					<key>de</key>
+					<array>
+						<string>Keine Kontraindikationen bekannt</string>
+					</array>
+					<key>en</key>
+					<array>
+						<string>No contra-indications known</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>No contraindicaciones conocidas</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Aucune contre-indication connu</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Geen contra-indicaties bekend</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict/>
+			</dict>
+			<key>en:possible non-compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>-1</integer>
+				<key>Languages</key>
+				<dict>
+					<key>de</key>
+					<array>
+						<string>Könnte nicht Konform sein</string>
+					</array>
+					<key>en</key>
+					<array>
+						<string>Possibly non-compliant</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>Pode ser no conforme</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Pourrait être non-conforme</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Mogelijk niet-conform</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict>
+					<key>Ingredients</key>
+					<array>
+						<array>
+							<string>en:spices</string>
+						</array>
+						<array>
+							<string>en:herbs</string>
+						</array>
+						<array>
+							<string>en:flavouring</string>
+						</array>
+						<array>
+							<string>en:broth</string>
+						</array>
+					</array>
+				</dict>
+			</dict>
+			<key>en:non-compliant</key>
+			<dict>
+				<key>Order</key>
+				<integer>-2</integer>
+				<key>Languages</key>
+				<dict>
+					<key>de</key>
+					<array>
+						<string>Nicht Konform</string>
+					</array>
+					<key>en</key>
+					<array>
+						<string>Non-compliant</string>
+					</array>
+					<key>es</key>
+					<array>
+						<string>No conforme</string>
+					</array>
+					<key>fr</key>
+					<array>
+						<string>Non-conforme</string>
+					</array>
+					<key>nl</key>
+					<array>
+						<string>Niet-conform</string>
+					</array>
+				</dict>
+				<key>Taxonomies</key>
+				<dict>
+					<key>Ingredients</key>
+					<array>
+						<array>
+							<string>en:garlic</string>
+							<string>en:wild-garlic</string>
+							<string>en:leek</string>
+							<string>en:onion</string>
+							<string>en:shallot</string>
+							<string>en:chives</string>
+						</array>
+					</array>
+				</dict>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>
