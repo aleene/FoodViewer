@@ -464,14 +464,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		516F88C4242D06DF00EF07CD /* Embed App Extensions */ = {
+		516F88C4242D06DF00EF07CD /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -784,8 +784,6 @@
 		516F88B8242D06DE00EF07CD /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
 		516F88BB242D06DE00EF07CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Localisation/Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		516F88BD242D06DE00EF07CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		516F8A34242D072100EF07CD /* FoodViewer copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FoodViewer copy-Info.plist"; path = "/Users/arnaud/Programming/FoodViewer/FoodViewer copy-Info.plist"; sourceTree = "<absolute>"; };
-		516F8BA4242D080400EF07CD /* FoodViewer copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FoodViewer copy2-Info.plist"; path = "/Users/arnaud/Programming/FoodViewer/FoodViewer copy2-Info.plist"; sourceTree = "<absolute>"; };
 		516F8BA52433B9CF00EF07CD /* UserStatsSelectorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserStatsSelectorTableViewController.swift; path = UserTab/UserStatsSelectorTableViewController.swift; sourceTree = "<group>"; };
 		516F8BA72433BF2300EF07CD /* UserStatsSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserStatsSummaryViewController.swift; path = UserTab/UserStatsSummaryViewController.swift; sourceTree = "<group>"; };
 		517499792208957000C3ED3E /* OFFSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFSearchRequest.swift; path = API/OFFSearchRequest.swift; sourceTree = "<group>"; };
@@ -1558,8 +1556,6 @@
 				514EFA80222FEBB3008FFD2A /* FoodViewerUITests */,
 				516F88B5242D06DE00EF07CD /* FoodViewer-iPhone */,
 				5180B9051C5D3B57002DBD21 /* Products */,
-				516F8A34242D072100EF07CD /* FoodViewer copy-Info.plist */,
-				516F8BA4242D080400EF07CD /* FoodViewer copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1937,7 +1933,7 @@
 				5180B9011C5D3B57002DBD21 /* Frameworks */,
 				5180B9021C5D3B57002DBD21 /* Resources */,
 				51578BF51DB11ECA005BEEF6 /* CopyFiles */,
-				516F88C4242D06DF00EF07CD /* Embed App Extensions */,
+				516F88C4242D06DF00EF07CD /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -1976,7 +1972,7 @@
 					New,
 				);
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1410;
 				ORGANIZATIONNAME = "Hovering Above";
 				TargetAttributes = {
 					514EFA7E222FEBB3008FFD2A = {

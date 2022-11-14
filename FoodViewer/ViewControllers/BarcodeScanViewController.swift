@@ -386,14 +386,19 @@ class BarcodeScanViewController: UIViewController, UITextFieldDelegate, Keyboard
                     }
                     // showImage()
                     
-            // in case of a new product
+            // in case of a new product THIS DOES NOT SEEM TO WORK
             case .productNotAvailable:
                 setupViews()
                 self.instructionTextView?.text = TranslatableStrings.TakePhotosInstruction
                 self.takePhotoButton?.isHidden = false
-                    self.productNameBarButtonItem.title = scannedProductPair?.localProduct?.barcode.asString ?? scannedProductPair?.remoteProduct?.barcode.asString ?? TranslatableStrings.NoName
+                    if let validBarcode = scannedProductPair?.localProduct?.barcode.asString ?? scannedProductPair?.remoteProduct?.barcode.asString {
+                        self.productNameBarButtonItem.title = "NEW: " +  validBarcode
+                    }
             case .loadingFailed(let error):
                 setupViews()
+                    if let validBarcode = scannedProductPair?.localProduct?.barcode.asString ?? scannedProductPair?.remoteProduct?.barcode.asString {
+                        self.productNameBarButtonItem.title = "NEW: " +  validBarcode
+                    }
                 self.instructionTextView?.text = error
             default:
                 break
