@@ -395,7 +395,9 @@ class BarcodeScanViewController: UIViewController, UITextFieldDelegate, Keyboard
                         self.productNameBarButtonItem.title = "NEW: " +  validBarcode
                     }
             case .loadingFailed(let error):
-                setupViews()
+
+                    
+                    setupViews()
                     if let validBarcode = scannedProductPair?.localProduct?.barcode.asString ?? scannedProductPair?.remoteProduct?.barcode.asString {
                         self.productNameBarButtonItem.title = "NEW: " +  validBarcode
                     }

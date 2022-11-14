@@ -119,16 +119,17 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
     }
     
     @objc func setupCamera() {
-        var error : NSError?
-        let input: AVCaptureDeviceInput!
-        do {
-            guard let device = self.device else { return }
-            input = try AVCaptureDeviceInput(device: device)
-        } catch let error1 as NSError {
-            error = error1
-            input = nil
-        }
-        if let error = error {
+        DispatchQueue.global(qos:.default).async {
+            var error : NSError?
+            let input: AVCaptureDeviceInput!
+            do {
+                guard let device = self.device else { return }
+                input = try AVCaptureDeviceInput(device: device)
+            } catch let error1 as NSError {
+                error = error1
+                input = nil
+            }
+            if let error = error {
             print(error.description)
             return
         }
@@ -158,11 +159,13 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         if let videoPreviewLayer = self.videoPreviewLayer {
             videoPreviewLayer.removeFromSuperlayer()
         }
-        self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
+            self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.session)
         if let videoPreviewLayer = self.videoPreviewLayer {
             videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-            videoPreviewLayer.frame = self.view.bounds
-            self.view.layer.insertSublayer(videoPreviewLayer, at: 0)
+            DispatchQueue.main.async(execute: {
+                videoPreviewLayer.frame = self.view.bounds
+                self.view.layer.insertSublayer(videoPreviewLayer, at: 0)
+            })
         }
         
         if self.output.metadataObjectsDelegate == nil
@@ -185,7 +188,8 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
             }
         }
         
-        reloadVideoOrientation()
+            self.reloadVideoOrientation()
+        }
     }
     
     @objc class func interfaceOrientationToVideoOrientation(_ orientation : UIInterfaceOrientation) -> AVCaptureVideoOrientation {
@@ -211,18 +215,19 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
             print("RSCodeReaderViewController:reloadVideoOrientation:isVideoOrientationSupported is false")
             return
         }
-                
-        if let statusBarOrientation = UIApplication.shared.windows.first(where: { $0.isKeyWindow } )?.windowScene?.interfaceOrientation {
-            let videoOrientation = RSCodeReaderViewController.interfaceOrientationToVideoOrientation(statusBarOrientation)
-        
-            if videoPreviewLayer.connection?.videoOrientation == videoOrientation {
-                print("RSCodeReaderViewController:reloadVideoOrientation:no change to videoOrientation")
-                return
+        DispatchQueue.main.async(execute: {
+            if let statusBarOrientation = UIApplication.shared.windows.first(where: { $0.isKeyWindow } )?.windowScene?.interfaceOrientation {
+                let videoOrientation = RSCodeReaderViewController.interfaceOrientationToVideoOrientation(statusBarOrientation)
+            
+                if videoPreviewLayer.connection?.videoOrientation == videoOrientation {
+                    print("RSCodeReaderViewController:reloadVideoOrientation:no change to videoOrientation")
+                    return
+                }
+            
+                videoPreviewLayer.connection?.videoOrientation = videoOrientation
             }
-        
-            videoPreviewLayer.connection?.videoOrientation = videoOrientation
-        }
-        videoPreviewLayer.removeAllAnimations()
+            videoPreviewLayer.removeAllAnimations()
+        })
     }
     
     @objc func autoUpdateLensPosition() {
@@ -381,7 +386,9 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         
         if !Platform.isSimulator {
-            self.session.startRunning()
+            DispatchQueue.global(qos:.default).async {
+                self.session.startRunning()
+            }
         }
     }
     

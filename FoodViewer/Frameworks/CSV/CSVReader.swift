@@ -281,7 +281,7 @@ extension CSVReader {
     }
 
     private func readField(quoted: Bool) -> (String, Bool) {
-        fieldBuffer.removeAll(keepingCapacity: true)
+        fieldBuffer.removeAll()
 
         while let c = moveNext() {
             if quoted {
