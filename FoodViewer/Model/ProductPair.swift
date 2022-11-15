@@ -140,12 +140,6 @@ class ProductPair {
         // as the product is set, the status is available
         self.remoteStatus = .available(product.barcode.asString)
     }
-
-    //init(with barcodeTuple: (String,String) ) {
-    //    self.barcodeType = BarcodeType(value: barcodeTuple.0)
-    //    self.remoteStatus = .productNotLoaded(barcodeType.asString)
-    //    self.productType = ProductType.init(string:barcodeTuple.1)
-    //}
     
     convenience init(barcodeString: String, type: ProductType) {
         self.init(barcodeType: BarcodeType(barcodeString: barcodeString, type: type), comment: nil)
@@ -202,6 +196,10 @@ class ProductPair {
     
     var frontImages:[String:ProductImageSize] {
         return remoteProduct?.frontImages ?? localProduct?.frontImages ?? [:]
+    }
+    // tags in the local product should contain edited and nwe tags
+    var folksonomyTags: [FSNM.Tag]? {
+        return remoteProduct?.folksonomyTags
     }
     
     /// The languages found on the product expressed as two character languageCodes ("en").

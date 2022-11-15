@@ -1093,6 +1093,59 @@ class FoodProduct {
             }
         }
     }
+    
+// MARK: - folksonomy
+    
+    private var fsnmSession = URLSession.shared
+    private var folksonomyTagFetchStatus: FolksonomyTagFetchStatus = .initialized
+    
+    public var folksonomyTags: [FSNM.Tag]? {
+        // check the fetch status, so to not do a repeated fetch
+        switch folksonomyTagFetchStatus {
+        // start the fetch
+        case .initialized:
+            fetchFolksonomyTags()
+            folksonomyTagFetchStatus = .loading(barcode.asString)
+        case .success(let tags):
+            return tags
+        default:
+            break
+        }
+        return nil
+    }
+    
+    // do the actual retrieval of the folksonomy tags for this product
+    private func fetchFolksonomyTags() {
+        // Need to update the foodviewer barcode to the FSNM barcode struct
+        fsnmSession.FSNMtags(with: OFFBarcode.init(barcode: barcode.asString), and: nil) { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let productTags):
+                    self.folksonomyTagFetchStatus = .success(productTags)
+                case .failure(let error):
+                    self.folksonomyTagFetchStatus = .failed(error.description)
+                }
+                let userInfo = [ProductPair.Notification.BarcodeKey: OFFBarcode.init(barcode: self.barcode.asString)] as [String : Any]
+                DispatchQueue.main.async(execute: { () -> Void in
+                    NotificationCenter.default.post(name: .ProductPairUpdated, object:nil, userInfo: userInfo)
+                })
+            }
+        }
+    }
+    
+    /// The FSNMTagFetchStatus describes the  retrieval status of a fsnm tags retrieval call
+    enum FolksonomyTagFetchStatus {
+        // nothing is known at the moment
+        case initialized
+        // the barcode is set, but no load is initialised
+        case notLoaded(String) // (barcodeString)
+        case failed(String)
+        // loading indicates that it is trying to load the product
+        case loading(String) // The string indicates the barcodeString
+        // the product has been loaded successfully and can be set.
+        case success([FSNM.Tag])
+        // the product is not available on the off servers
+    }
 
 // MARK: - robotoff
     

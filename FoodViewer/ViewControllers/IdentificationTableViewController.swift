@@ -228,6 +228,7 @@ class IdentificationTableViewController: UITableViewController {
         case preparation
         case image
         case comment
+        case folksonomy
     }
 
     private var tagListViewHeight: [Int:CGFloat] = [:]
@@ -238,6 +239,14 @@ class IdentificationTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch tableStructure[section] {
+        case .folksonomy:
+            if let tags = productPair?.folksonomyTags {
+                return tags.count
+            }
+        default:
+            break
+        }
         return 1
     }
     
@@ -414,6 +423,25 @@ class IdentificationTableViewController: UITableViewController {
                 // A status tag is shown, indicating no comment has been set
             } else {
                 // If there is no comment, show a tag with the text "No Comment set"
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
+                cell.accessoryType = .none
+                cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
+                return cell
+            }
+        case .folksonomy:
+            if productPair?.folksonomyTags != nil {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "BasicDetailedTableViewCell.IdentificationTableViewController", for: indexPath)
+                if let tags = productPair?.folksonomyTags,
+                    !tags.isEmpty {
+                    cell.textLabel?.text = tags[indexPath.row].k
+                    cell.detailTextLabel?.text = tags[indexPath.row].v
+                } else {
+                    cell.textLabel?.text = "no tags set"
+                }
+                return cell
+
+            } else {
+                // If there is no folksonomy item, show a tag with the text "No folksonomy items set"
                 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
                 cell.accessoryType = .none
                 cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
@@ -732,6 +760,9 @@ class IdentificationTableViewController: UITableViewController {
             }
             headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             return headerView
+        case .folksonomy:
+            headerView.title = "Folksonomy tags"
+            return headerView
         }
     }
     
@@ -811,6 +842,9 @@ class IdentificationTableViewController: UITableViewController {
         index += 1
         
         sectionsAndRows.append(.comment)
+        index += 1
+
+        sectionsAndRows.append(.folksonomy)
         index += 1
 
         return sectionsAndRows
@@ -1230,7 +1264,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return count(packagingToDisplay)
         case .languages:
             return count(languagesToDisplay)
-        case .comment:
+        case .comment, .folksonomy:
             return 1
         default:
             return 0
@@ -1266,6 +1300,8 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return searchResult
         case .comment:
             return TranslatableStrings.NoCommentSet
+        case .folksonomy:
+            return "No folksonomy"
         default:
             return("IdentificationTableViewController: TagListView titleForTagAt error")
         }
@@ -1309,6 +1345,8 @@ extension IdentificationTableViewController: TagListViewDataSource {
         case .image:
             return ColorSchemes.error
         case .comment:
+            return ColorSchemes.normal
+        case .folksonomy:
             return ColorSchemes.normal
         default:
             return nil

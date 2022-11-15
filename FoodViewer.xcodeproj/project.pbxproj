@@ -253,7 +253,6 @@
 		514CA08F25740B3900243193 /* ForestFootprintCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514CA08E25740B3900243193 /* ForestFootprintCoordinator.swift */; };
 		514EEF9A1ED9B70000C4CF54 /* 4005900122063.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF991ED9B70000C4CF54 /* 4005900122063.json */; };
 		514EFA82222FEBB3008FFD2A /* FoodViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EFA81222FEBB3008FFD2A /* FoodViewerUITests.swift */; };
-		514EFA8A222FF770008FFD2A /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EFA89222FF770008FFD2A /* SnapshotHelper.swift */; };
 		515046512009056D0094EE50 /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515046502009056D0094EE50 /* ResultType.swift */; };
 		515046552009062F0094EE50 /* GenericDownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515046542009062F0094EE50 /* GenericDownloadTask.swift */; };
 		51504657200906B10094EE50 /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51504656200906B10094EE50 /* DownloadService.swift */; };
@@ -428,6 +427,13 @@
 		51FB32291CF2139D00A17312 /* ReferenceDailyIntakeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */; };
 		51FB32331CF762FC00A17312 /* AllergenWarningDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FB32321CF762FC00A17312 /* AllergenWarningDefaults.swift */; };
 		51FDC3152029D99900ED0DD7 /* OFFProductJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FDC3142029D99900ED0DD7 /* OFFProductJson.swift */; };
+		AB8160AB2922C18700967433 /* OFFAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8160A52922C18700967433 /* OFFAPI.swift */; };
+		AB8160AC2922C18700967433 /* OFFProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8160A62922C18700967433 /* OFFProductType.swift */; };
+		AB8160AD2922C18700967433 /* HTTPLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8160A72922C18700967433 /* HTTPLibrary.swift */; };
+		AB8160AE2922C18700967433 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8160A82922C18700967433 /* AuthController.swift */; };
+		AB8160AF2922C18700967433 /* FSNM.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8160A92922C18700967433 /* FSNM.swift */; };
+		AB8160B02922C18700967433 /* OFFBarcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8160AA2922C18700967433 /* OFFBarcode.swift */; };
+		AB8160B22922C19D00967433 /* FSNMProductTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8160B12922C19D00967433 /* FSNMProductTags.swift */; };
 		AB94195128AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB94195028AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift */; };
 		AB94195328AE69750011F2CE /* ForestFootprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB94195228AE69750011F2CE /* ForestFootprint.swift */; };
 		ABB8754C28C8EF0C0050D761 /* Ingredients.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABB8754B28C8EF0C0050D761 /* Ingredients.plist */; };
@@ -728,7 +734,6 @@
 		514EFA7F222FEBB3008FFD2A /* FoodViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		514EFA81222FEBB3008FFD2A /* FoodViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewerUITests.swift; sourceTree = "<group>"; };
 		514EFA83222FEBB3008FFD2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		514EFA89222FF770008FFD2A /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		515046502009056D0094EE50 /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ResultType.swift; path = Frameworks/Download/ResultType.swift; sourceTree = "<group>"; };
 		515046542009062F0094EE50 /* GenericDownloadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GenericDownloadTask.swift; path = Frameworks/Download/GenericDownloadTask.swift; sourceTree = "<group>"; };
 		51504656200906B10094EE50 /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DownloadService.swift; path = Frameworks/Download/DownloadService.swift; sourceTree = "<group>"; };
@@ -780,10 +785,6 @@
 		516BA5951CC769DD008A094A /* EnergyUnitUsed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyUnitUsed.swift; sourceTree = "<group>"; };
 		516BB740222689FC004D16FF /* ContinuousScanDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousScanDefaults.swift; sourceTree = "<group>"; };
 		516F88AE242BA73800EF07CD /* TagListViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListViewCollectionViewCell.swift; sourceTree = "<group>"; };
-		516F88B6242D06DE00EF07CD /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		516F88B8242D06DE00EF07CD /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
-		516F88BB242D06DE00EF07CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Localisation/Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		516F88BD242D06DE00EF07CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		516F8BA52433B9CF00EF07CD /* UserStatsSelectorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserStatsSelectorTableViewController.swift; path = UserTab/UserStatsSelectorTableViewController.swift; sourceTree = "<group>"; };
 		516F8BA72433BF2300EF07CD /* UserStatsSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserStatsSummaryViewController.swift; path = UserTab/UserStatsSummaryViewController.swift; sourceTree = "<group>"; };
 		517499792208957000C3ED3E /* OFFSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFSearchRequest.swift; path = API/OFFSearchRequest.swift; sourceTree = "<group>"; };
@@ -814,16 +815,12 @@
 		51895A082539F2C9007C82F8 /* EnvironmentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EnvironmentCoordinator.swift; path = Coordinators/EnvironmentCoordinator.swift; sourceTree = "<group>"; };
 		5189FEAD2556E1C100379D13 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localisation/es.lproj/Main.strings; sourceTree = "<group>"; };
 		5189FEAE2556E1C200379D13 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localisation/es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		5189FEAF2556E1C300379D13 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localisation/es.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		5189FEB02556E1ED00379D13 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localisation/fr.lproj/Main.strings; sourceTree = "<group>"; };
 		5189FEB12556E21100379D13 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localisation/fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		5189FEB22556E24600379D13 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localisation/fr.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		5189FEB32556E25700379D13 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = Localisation/nl.lproj/Main.strings; sourceTree = "<group>"; };
 		5189FEB42556E25700379D13 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = Localisation/nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		5189FEB52556E25800379D13 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = Localisation/nl.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		5189FEB62556E25900379D13 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Localisation/de.lproj/Main.strings; sourceTree = "<group>"; };
 		5189FEB72556E25A00379D13 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Localisation/de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		5189FEB82556E25A00379D13 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Localisation/de.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		518B2FAB1CB13BB5007D8AB9 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		518B701F1EA2779C00AB35CC /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
 		518BFB412583A754006E26BE /* EcoscoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EcoscoreTableViewCell.swift; path = Cells/EcoscoreTableViewCell.swift; sourceTree = "<group>"; };
@@ -935,6 +932,13 @@
 		51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceDailyIntakeList.swift; sourceTree = "<group>"; };
 		51FB32321CF762FC00A17312 /* AllergenWarningDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllergenWarningDefaults.swift; sourceTree = "<group>"; };
 		51FDC3142029D99900ED0DD7 /* OFFProductJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductJson.swift; sourceTree = "<group>"; };
+		AB8160A52922C18700967433 /* OFFAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFAPI.swift; sourceTree = "<group>"; };
+		AB8160A62922C18700967433 /* OFFProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFProductType.swift; sourceTree = "<group>"; };
+		AB8160A72922C18700967433 /* HTTPLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPLibrary.swift; sourceTree = "<group>"; };
+		AB8160A82922C18700967433 /* AuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
+		AB8160A92922C18700967433 /* FSNM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSNM.swift; sourceTree = "<group>"; };
+		AB8160AA2922C18700967433 /* OFFBarcode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFBarcode.swift; sourceTree = "<group>"; };
+		AB8160B12922C19D00967433 /* FSNMProductTags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSNMProductTags.swift; sourceTree = "<group>"; };
 		AB94195028AE69000011F2CE /* ForestFootprintIngredientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForestFootprintIngredientTableViewCell.swift; sourceTree = "<group>"; };
 		AB94195228AE69750011F2CE /* ForestFootprint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForestFootprint.swift; sourceTree = "<group>"; };
 		ABB8754B28C8EF0C0050D761 /* Ingredients.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Ingredients.plist; sourceTree = "<group>"; };
@@ -1350,7 +1354,6 @@
 		514EFA80222FEBB3008FFD2A /* FoodViewerUITests */ = {
 			isa = PBXGroup;
 			children = (
-				514EFA89222FF770008FFD2A /* SnapshotHelper.swift */,
 				514EFA81222FEBB3008FFD2A /* FoodViewerUITests.swift */,
 				514EFA83222FEBB3008FFD2A /* Info.plist */,
 			);
@@ -1504,17 +1507,6 @@
 			name = NutrientsCells;
 			sourceTree = "<group>";
 		};
-		516F88B5242D06DE00EF07CD /* FoodViewer-iPhone */ = {
-			isa = PBXGroup;
-			children = (
-				516F88B6242D06DE00EF07CD /* Media.xcassets */,
-				516F88B8242D06DE00EF07CD /* ActionViewController.swift */,
-				516F88BA242D06DE00EF07CD /* MainInterface.storyboard */,
-				516F88BD242D06DE00EF07CD /* Info.plist */,
-			);
-			path = "FoodViewer-iPhone";
-			sourceTree = "<group>";
-		};
 		517499762204B4A000C3ED3E /* ProductsTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -1554,7 +1546,6 @@
 				5180B9061C5D3B57002DBD21 /* FoodViewer */,
 				51975CCC1E6EB8550075B57B /* FoodViewerTests */,
 				514EFA80222FEBB3008FFD2A /* FoodViewerUITests */,
-				516F88B5242D06DE00EF07CD /* FoodViewer-iPhone */,
 				5180B9051C5D3B57002DBD21 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1872,6 +1863,7 @@
 		51E925ED1C678FAC009C52E8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AB8160B32922C1A700967433 /* Folksonomy */,
 				51C769B31DDA0D010000D260 /* CaseCountable.swift */,
 				51C2FF3420E101A200B65509 /* ImageFileCache.swift */,
 				51BED0C31CE1C044006ED62B /* MapPinCategories.swift */,
@@ -1902,6 +1894,28 @@
 				51F669381F4499190074AACB /* AddImageCollectionViewCell.xib */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		AB8160A42922C18700967433 /* Required */ = {
+			isa = PBXGroup;
+			children = (
+				AB8160A52922C18700967433 /* OFFAPI.swift */,
+				AB8160A62922C18700967433 /* OFFProductType.swift */,
+				AB8160A72922C18700967433 /* HTTPLibrary.swift */,
+				AB8160A82922C18700967433 /* AuthController.swift */,
+				AB8160A92922C18700967433 /* FSNM.swift */,
+				AB8160AA2922C18700967433 /* OFFBarcode.swift */,
+			);
+			path = Required;
+			sourceTree = "<group>";
+		};
+		AB8160B32922C1A700967433 /* Folksonomy */ = {
+			isa = PBXGroup;
+			children = (
+				AB8160B12922C19D00967433 /* FSNMProductTags.swift */,
+				AB8160A42922C18700967433 /* Required */,
+			);
+			name = Folksonomy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1978,6 +1992,7 @@
 					514EFA7E222FEBB3008FFD2A = {
 						CreatedOnToolsVersion = 10.1;
 						DevelopmentTeam = Q4FXMVWJ7V;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 						TestTargetID = 5180B9031C5D3B57002DBD21;
 					};
@@ -1998,7 +2013,7 @@
 					51975CCA1E6EB84F0075B57B = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = Q4FXMVWJ7V;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 						TestTargetID = 5180B9031C5D3B57002DBD21;
 					};
@@ -2092,7 +2107,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				514EFA82222FEBB3008FFD2A /* FoodViewerUITests.swift in Sources */,
-				514EFA8A222FF770008FFD2A /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2101,6 +2115,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51F81B7C25811A3700A2F9DF /* OFFProductEcoscoreData.swift in Sources */,
+				AB8160AD2922C18700967433 /* HTTPLibrary.swift in Sources */,
 				512B44EF23FABB8A00BFBCF0 /* QuantityTableViewCell.swift in Sources */,
 				514CA0832571495400243193 /* ImageTableViewCell.swift in Sources */,
 				51E8573D1FF00ABC0045B4B3 /* UIImageViewExtension.swift in Sources */,
@@ -2131,6 +2146,7 @@
 				518ED6DD2028B008002176A9 /* ProductStorage.swift in Sources */,
 				514CA08F25740B3900243193 /* ForestFootprintCoordinator.swift in Sources */,
 				512B43D423FAB14000BFBCF0 /* DietSelectorTableViewController.swift in Sources */,
+				AB8160AC2922C18700967433 /* OFFProductType.swift in Sources */,
 				512B43F923FAB1C700BFBCF0 /* Cache.swift in Sources */,
 				512B440F23FAB1D800BFBCF0 /* UnicodeIterator.swift in Sources */,
 				51BED0C81CE36723006ED62B /* ProductFetchStatus.swift in Sources */,
@@ -2286,6 +2302,7 @@
 				512B440623FAB1C700BFBCF0 /* NSHTTPURLResponse+Haneke.swift in Sources */,
 				512B43C023FAB07800BFBCF0 /* SupplyChainCoordinator.swift in Sources */,
 				512B44BF23FABA0900BFBCF0 /* SelectLanguageAndImageTypeViewController.swift in Sources */,
+				AB8160B22922C19D00967433 /* FSNMProductTags.swift in Sources */,
 				512B444F23FAB23600BFBCF0 /* RSEANGenerator.swift in Sources */,
 				516F8BA82433BF2300EF07CD /* UserStatsSummaryViewController.swift in Sources */,
 				512B443523FAB21C00BFBCF0 /* TagListViewDelegate.swift in Sources */,
@@ -2335,6 +2352,7 @@
 				512B452F23FAC70700BFBCF0 /* NutrientsTableViewController.swift in Sources */,
 				512B43C823FAB0EF00BFBCF0 /* SearchesHistoryTableViewController.swift in Sources */,
 				51F96664202DA09A00CD58C3 /* OFFProduct.swift in Sources */,
+				AB8160AF2922C18700967433 /* FSNM.swift in Sources */,
 				5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */,
 				515A5A5A25583D3F002DEEBA /* OrangeClearStyle.swift in Sources */,
 				512B443623FAB21C00BFBCF0 /* TagListViewDatasource.swift in Sources */,
@@ -2354,6 +2372,8 @@
 				512B450923FABD1A00BFBCF0 /* OFFImageDeselectAPI.swift in Sources */,
 				51C8A6CE1F6677C400B3C361 /* Completion.swift in Sources */,
 				5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */,
+				AB8160AB2922C18700967433 /* OFFAPI.swift in Sources */,
+				AB8160AE2922C18700967433 /* AuthController.swift in Sources */,
 				51AB5F1420342E9D004D74C7 /* OFFProductSelectedImages.swift in Sources */,
 				512B44F923FABBC300BFBCF0 /* EmptyNutrientsTableViewCell.swift in Sources */,
 				512B442623FAB20100BFBCF0 /* GKImagePickerProtocol.swift in Sources */,
@@ -2368,6 +2388,7 @@
 				512B445223FAB23600BFBCF0 /* RSCode93Generator.swift in Sources */,
 				515A5A5B25583D3F002DEEBA /* Style.swift in Sources */,
 				512B454623FD489700BFBCF0 /* SelectPairCoordinator.swift in Sources */,
+				AB8160B02922C18700967433 /* OFFBarcode.swift in Sources */,
 				512B44D723FABAFF00BFBCF0 /* LastEditDateTableViewCell.swift in Sources */,
 				51F9665E202D9E4000CD58C3 /* OFFProductStates.swift in Sources */,
 				512B44B323FAB9BF00BFBCF0 /* SetSortOrderViewController.swift in Sources */,
@@ -2540,18 +2561,6 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		516F88BA242D06DE00EF07CD /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				516F88BB242D06DE00EF07CD /* Base */,
-				5189FEAF2556E1C300379D13 /* es */,
-				5189FEB22556E24600379D13 /* fr */,
-				5189FEB52556E25800379D13 /* nl */,
-				5189FEB82556E25A00379D13 /* de */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 		5180B9101C5D3B57002DBD21 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2593,7 +2602,7 @@
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = FoodViewerUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -2620,7 +2629,7 @@
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = FoodViewerUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewerUITests;
@@ -2749,7 +2758,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 66;
+				CURRENT_PROJECT_VERSION = 67;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FoodViewer/Info.plist;
@@ -2777,9 +2786,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 66;
+				CURRENT_PROJECT_VERSION = 67;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FoodViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2802,7 +2811,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				INFOPLIST_FILE = FoodViewerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2821,7 +2830,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				INFOPLIST_FILE = FoodViewerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
