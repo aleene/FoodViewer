@@ -36,7 +36,7 @@ open class RSUnifiedCodeValidator {
         case AVMetadataObject.ObjectType.code93.rawValue:
             codeGenerator = RSCode93Generator()
         case AVMetadataObject.ObjectType.code128.rawValue:
-            codeGenerator = RSCode128Generator()
+            codeGenerator = RSCode128Generator(codeTable: .auto)
         case AVMetadataObject.ObjectType.dataMatrix.rawValue:
             codeGenerator = RSCodeDataMatrixGenerator()
         case RSBarcodesTypeISBN13Code:

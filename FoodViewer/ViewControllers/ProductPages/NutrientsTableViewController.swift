@@ -546,6 +546,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             return cell
             
         case .preparation:
+            /*
+            TBD: Not in soryboard
             let cell = tableView.dequeueReusableCell(withIdentifier: PreparationStyleTableViewCell.identifier + "." + NutrientsTableViewController.identifier, for: indexPath) as! PreparationStyleTableViewCell
             var hasUnprepared = false
             var hasPrepared = false
@@ -559,6 +561,18 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                        availability: (hasUnprepared, hasPrepared),
                        editMode: editMode,
                        delegate: self)
+             */
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ServingSizeTableViewCell.self), for: indexPath) as! ServingSizeTableViewCell
+            cell.servingSizeTextField.delegate = self
+            cell.servingSizeTextField.tag = indexPath.section
+            cell.editMode = editMode
+            switch productVersion {
+            case .remote:
+                cell.servingSize = productPair?.remoteProduct?.servingSize
+            case .new:
+                cell.servingSize = productPair?.localProduct?.servingSize ?? productPair?.remoteProduct?.servingSize
+            }
+
             return cell
 
         case .nutritionFacts:

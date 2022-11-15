@@ -333,8 +333,12 @@ class SingleProductTableViewController: UITableViewController {
             return cell!
                     
         case .environment:
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: PackagingTableViewCell.self), for: indexPath) as? PackagingTableViewCell
-            cell?.ecoscore = selectedProductPair?.remoteProduct?.ecoscore
+            //let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: PackagingTableViewCell.self), for: indexPath) as? PackagingTableViewCell
+            //cell?.ecoscore = selectedProductPair?.remoteProduct?.ecoscore
+            //
+            //TBD: seems not to be in the storyboard
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: NutritionScoreTableViewCell.self), for: indexPath) as? NutritionScoreTableViewCell
+            cell?.product = selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct
             return cell!
 
         case .categories:

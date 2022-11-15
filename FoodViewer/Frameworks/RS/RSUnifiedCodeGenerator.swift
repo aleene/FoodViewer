@@ -53,7 +53,7 @@ open class RSUnifiedCodeGenerator: RSCodeGenerator {
             if self.isBuiltInCode128GeneratorSelected {
                 return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
             } else {
-                codeGenerator = RSCode128Generator()
+                codeGenerator = RSCode128Generator(codeTable: .auto)
             }
         case AVMetadataObject.ObjectType.dataMatrix.rawValue:
             codeGenerator = RSCodeDataMatrixGenerator()

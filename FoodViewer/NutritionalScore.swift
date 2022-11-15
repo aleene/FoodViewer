@@ -448,7 +448,7 @@ public class NutritionalScore {
 }
 
 extension UIColor {
-    
+    /* These are already defind in the assets
     static var nutriScoreDarkGreen: UIColor {
         if #available(iOS 11.0, *),
             let color = UIColor.init(named: "NutriScore-darkGreen"){
@@ -486,7 +486,7 @@ extension UIColor {
         }
         return UIColor.init(red: 0.974, green: 0.775, blue: 0.138, alpha: 1.0)
     }
-
+*/
     /// The color to use for the NutriScore
     static func nutriScoreColor(for part: NutriScoreLabelPart) -> UIColor {
         switch part {

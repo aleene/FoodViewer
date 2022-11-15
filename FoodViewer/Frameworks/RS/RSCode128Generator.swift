@@ -30,10 +30,11 @@ open class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         self.codeTableSize = CODE128_CHARACTER_ENCODINGS.count
         self.autoCodeTable = RSCode128GeneratorAutoCodeTable()
     }
-    
+    /* compiler complains on infinite recursion
     public convenience override init() {
         self.init(codeTable: .auto)
     }
+     */
     
     func startCodeTableValue(_ startCodeTable: RSCode128GeneratorCodeTable) -> Int {
         switch self.autoCodeTable.startCodeTable {

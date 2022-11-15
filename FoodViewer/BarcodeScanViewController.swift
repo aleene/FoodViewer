@@ -236,7 +236,7 @@ class BarcodeScanViewController: UIViewController, UITextFieldDelegate, Keyboard
             if validBarcode.count == 12 {
                 validBarcode = "0" + validBarcode
             }
-            self.scannedProductPair = self.products.createProductPair(with:BarcodeType(barcodeString:validBarcode, type: preferences.showProductType))
+            self.scannedProductPair = self.products.createProductPair(with: BarcodeType(barcodeString:validBarcode, type: preferences.showProductType))
             showProductData()
         }
     }
@@ -632,7 +632,7 @@ extension BarcodeScanViewController: TagListViewDataSource {
         if scannedProductPair != nil {
             let dietKey = SelectedDietsDefaults.manager.selected[index]
                 //let conclusion = Diets.manager.conclusion(validProduct, forDietWith:dietKey)
-            return Diets.manager.name(forDietWith: dietKey, in:Locale.interfaceLanguageCode) ?? "No diet name found "
+            return Diets.manager.name(forDietWith: dietKey, in: Locale.interfaceLanguageCode) ?? "No diet name found "
                 // return (name ?? "No diet name found ") + "\(conclusion ?? 0)"
         }
         

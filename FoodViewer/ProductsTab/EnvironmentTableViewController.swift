@@ -158,6 +158,7 @@ var delegate: ProductPageViewController? = nil {
         
         switch tableStructure[indexPath.section] {
         case .forestFootprint:
+            /*
             let cell = tableView.dequeueReusableCell(withIdentifier:  "ForestFootprintViewCell.EnvironmentTableViewController", for: indexPath)
             cell.accessoryType = productPair?.remoteProduct?.forestFootprint != nil
                 ? .detailButton : .none
@@ -170,13 +171,20 @@ var delegate: ProductPageViewController? = nil {
                 cell.textLabel?.text = TranslatableStrings.ForestFootprintNotAvailable
             }
             cell.detailTextLabel?.text = TranslatableStrings.ForestFootprintUnit
+             */
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
+            cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
+
             return cell
             
         case .ecoscore:
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ImageTableViewCell.self), for: indexPath) as! ImageTableViewCell
-            cell.accessoryType = productPair?.remoteProduct?.ecoscoreData != nil
-                ? .detailButton : .none
-            cell.setup(ecoscore: productPair?.remoteProduct?.ecoscore)
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: TagListViewTableViewCell.self), for: indexPath) as! TagListViewTableViewCell
+            cell.setup(datasource: self, delegate: self, width: tableView.frame.size.width, tag: indexPath.section)
+            //TBD: lost the ecoscore?
+            //let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(for: ImageTableViewCell.self), for: indexPath) as! ImageTableViewCell
+            //cell.accessoryType = productPair?.remoteProduct?.ecoscoreData != nil
+            //    ? .detailButton : .none
+            //cell.setup(ecoscore: productPair?.remoteProduct?.ecoscore)
             return cell
             
         case .packaging:
