@@ -8,9 +8,9 @@
 
 import UIKit
 
-class GradientArcWithClearColorView: UIView {
+class GCGradientArcWithClearColorView: UIView {
     
-    internal func draw(rect: CGRect, prop: Property) -> UIImageView {
+    internal func draw(rect: CGRect, prop: GCProperty) -> UIImageView {
         // Gradient Clear Circular
         
         /* Prop */
@@ -21,10 +21,10 @@ class GradientArcWithClearColorView: UIView {
         var solidMaskProp = prop
         
         // StartArc
-        startArcColorProp.endArcColor = ColorUtil.toNotOpacityColor(color: startArcColorProp.startArcColor)
+        startArcColorProp.endArcColor = GCColorUtil.toNotOpacityColor(color: startArcColorProp.startArcColor)
         
         // EndArc
-        endArcColorProp.startArcColor = ColorUtil.toNotOpacityColor(color: endArcColorProp.endArcColor)
+        endArcColorProp.startArcColor = GCColorUtil.toNotOpacityColor(color: endArcColorProp.endArcColor)
         
         // StartGradientMask
         startGradientMaskProp.startArcColor = UIColor.black
@@ -44,29 +44,29 @@ class GradientArcWithClearColorView: UIView {
         
         /* Mask Image */
         // StartArcColorImage
-        let startArcColorView = ArcView(frame: rect, lineWidth: startArcColorProp.arcLineWidth)
+        let startArcColorView = GCArcView(frame: rect, lineWidth: startArcColorProp.arcLineWidth)
         startArcColorView.color = startArcColorProp.startArcColor
         startArcColorView.prop = startArcColorProp
         let startArcColorImage = viewToUIImage(view: startArcColorView)!
         
         // StartGradientMaskImage
-        let startGradientMaskView = GradientArcView(frame: rect)
+        let startGradientMaskView = GCArcView(frame: rect, lineWidth: CGFloat.zero)
         startGradientMaskView.prop = startGradientMaskProp
         let startGradientMaskImage = viewToUIImage(view: startGradientMaskView)!
         
         // EndArcColorImage
-        let endArcColorView = ArcView(frame: rect, lineWidth: endArcColorProp.arcLineWidth)
+        let endArcColorView = GCArcView(frame: rect, lineWidth: endArcColorProp.arcLineWidth)
         endArcColorView.color = endArcColorProp.startArcColor
         endArcColorView.prop = endArcColorProp
         let endArcColorImage = viewToUIImage(view: endArcColorView)!
         
         // EndGradientMaskImage
-        let endGradientMaskView = GradientArcView(frame: rect)
+        let endGradientMaskView = GCGradientArcView(frame: rect)
         endGradientMaskView.prop = endGradientMaskProp
         let endGradientMaskImage = viewToUIImage(view: endGradientMaskView)!
         
         // SolidMaskImage
-        let solidMaskView = ArcView(frame: rect, lineWidth: solidMaskProp.arcLineWidth)
+        let solidMaskView = GCArcView(frame: rect, lineWidth: solidMaskProp.arcLineWidth)
         solidMaskView.prop = solidMaskProp
         let solidMaskImage = viewToUIImage(view: solidMaskView)!
         
@@ -119,18 +119,18 @@ class GradientArcWithClearColorView: UIView {
         return image
     }
     
-    internal func composite(image1: UIImage, image2: UIImage, prop: Property) -> UIImage {
+    internal func composite(image1: UIImage, image2: UIImage, prop: GCProperty) -> UIImage {
         
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(image1.size, false, scale)
         image1.draw(
             in: CGRect(x: 0, y: 0, width: image1.size.width, height: image1.size.height),
             blendMode: .overlay,
-            alpha: ColorUtil.toRGBA(color: prop.startArcColor).a)
+            alpha: GCColorUtil.toRGBA(color: prop.startArcColor).a)
         image2.draw(
             in: CGRect(x: 0, y: 0, width: image2.size.width, height: image2.size.height),
             blendMode: .overlay,
-            alpha: ColorUtil.toRGBA(color: prop.endArcColor).a)
+            alpha: GCColorUtil.toRGBA(color: prop.endArcColor).a)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         

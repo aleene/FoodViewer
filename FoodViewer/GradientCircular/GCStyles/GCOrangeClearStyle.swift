@@ -7,7 +7,7 @@
 //
 import UIKit
 
-public struct OrangeClearStyle: StyleProperty {
+public struct GCOrangeClearStyle: GCStyleProperty {
     // Progress Size
     public var progressSize: CGFloat = 80
     
@@ -29,7 +29,7 @@ public struct OrangeClearStyle: StyleProperty {
     public var messageLabelFontColor: UIColor? = nil
     
     // Background
-    public var backgroundStyle: BackgroundStyles = .none
+    public var backgroundStyle: GCBackgroundStyles = .none
     
     // Dismiss
     public var dismissTimeInterval: Double? = nil // 'nil' for default setting.

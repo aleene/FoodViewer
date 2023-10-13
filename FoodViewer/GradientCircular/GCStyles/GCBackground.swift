@@ -8,9 +8,9 @@
 
 import UIKit
 
-struct Background {
+struct GCBackground {
     
-    internal func blurEffectView(fromBlurStyle style: BackgroundStyles, frame: CGRect) -> UIVisualEffectView? {
+    internal func blurEffectView(fromBlurStyle style: GCBackgroundStyles, frame: CGRect) -> UIVisualEffectView? {
         
         var blurView: UIVisualEffectView?
         
@@ -33,7 +33,7 @@ struct Background {
         return blurView
     }
     
-    private func getStyle(_ style: BackgroundStyles) -> (blurEffectStyle: UIBlurEffect.Style?, isUserInteraction: Bool) {
+    private func getStyle(_ style: GCBackgroundStyles) -> (blurEffectStyle: UIBlurEffect.Style?, isUserInteraction: Bool) {
         switch style {
         case .extraLight:
             return (.extraLight, false)

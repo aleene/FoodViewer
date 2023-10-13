@@ -8,9 +8,9 @@
 
 import UIKit
 
-class CircularProgressView: UIView {
+class GCCircularProgressView: UIView {
     
-    var prop: Property?
+    var prop: GCProperty?
     var messageLabel = UILabel()
     var centerPoint: CGPoint?
     
@@ -118,16 +118,16 @@ class CircularProgressView: UIView {
         
         // Base Circular
         if let baseLineWidth = prop.baseLineWidth, let baseArcColor = prop.baseArcColor {
-            let circular: ArcView = ArcView(frame: rect, lineWidth: baseLineWidth)
+            let circular: GCArcView = GCArcView(frame: rect, lineWidth: baseLineWidth)
             circular.color = baseArcColor
             circular.prop = prop
             addSubview(circular)
         }
         
         // Gradient Circular
-        if ColorUtil.toRGBA(color: prop.startArcColor).a < 1.0 || ColorUtil.toRGBA(color: prop.endArcColor).a < 1.0 {
+        if GCColorUtil.toRGBA(color: prop.startArcColor).a < 1.0 || GCColorUtil.toRGBA(color: prop.endArcColor).a < 1.0 {
             // Clear Color
-            let gradient: UIView = GradientArcWithClearColorView().draw(rect: rect, prop: prop)
+            let gradient: UIView = GCGradientArcWithClearColorView().draw(rect: rect, prop: prop)
             addSubview(gradient)
             
             gradientLayer = gradient.layer
@@ -135,7 +135,7 @@ class CircularProgressView: UIView {
             
         } else {
             // Opaque Color
-            let gradient: GradientArcView = GradientArcView(frame: rect)
+            let gradient: GCGradientArcView = GCGradientArcView(frame: rect)
             gradient.prop = prop
             addSubview(gradient)
             

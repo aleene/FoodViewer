@@ -33,9 +33,9 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageAgeButton: UIButton!
     
     
-    @IBOutlet weak var progressView: ProgressAtRatioView! {
+    @IBOutlet weak var progressView: GCProgressAtRatioView! {
         didSet {
-            progressView?.setup(prop: Property(style: GreenLightStyle()))
+            progressView?.setup(prop: GCProperty(style: GCGreenLightStyle()))
         }
     }
     /// The upload progress ratio. If it is set to nil, the ratio indicator will be removed

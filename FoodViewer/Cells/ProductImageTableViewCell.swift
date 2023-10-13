@@ -151,9 +151,9 @@ class ProductImageTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var progressView: ProgressAtRatioView! {
+    @IBOutlet weak var progressView: GCProgressAtRatioView! {
         didSet {
-            progressView?.setup(prop: Property(style: GreenLightStyle()))
+            progressView?.setup(prop: GCProperty(style: GCGreenLightStyle()))
         }
     }
     

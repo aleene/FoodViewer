@@ -8,9 +8,9 @@
 
 import UIKit
 
-class GradientArcView: UIView {
+class GCGradientArcView: UIView {
     
-    internal var prop: Property?
+    internal var prop: GCProperty?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,8 +25,8 @@ class GradientArcView: UIView {
     
     private func getGradientPointColor(ratio: CGFloat, startColor: UIColor, endColor: UIColor) -> UIColor {
         
-        let sColor = ColorUtil.toRGBA(color: startColor)
-        let eColor = ColorUtil.toRGBA(color: endColor)
+        let sColor = GCColorUtil.toRGBA(color: startColor)
+        let eColor = GCColorUtil.toRGBA(color: endColor)
         
         let r = (eColor.r - sColor.r) * ratio + sColor.r
         let g = (eColor.g - sColor.g) * ratio + sColor.g

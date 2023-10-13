@@ -7,13 +7,13 @@
 //
 import UIKit
 
-public struct GreenLightStyle: StyleProperty {
+public struct GCGreenLightStyle: GCStyleProperty {
     // Progress Size
     public var progressSize: CGFloat = 80.0
     
     // Gradient Circular
     public var arcLineWidth: CGFloat = 14.0
-    public var startArcColor: UIColor = ColorUtil.toUIColor(r: 40.0, g: 110.0, b: 60.0, a: 1.0)
+    public var startArcColor: UIColor = GCColorUtil.toUIColor(r: 40.0, g: 110.0, b: 60.0, a: 1.0)
     public var endArcColor: UIColor = .green
     
     // Base Circular
@@ -29,7 +29,7 @@ public struct GreenLightStyle: StyleProperty {
     public var messageLabelFontColor: UIColor? = .darkGray
     
     // Background
-    public var backgroundStyle: BackgroundStyles = .light
+    public var backgroundStyle: GCBackgroundStyles = .light
     
     // Dismiss
     public var dismissTimeInterval: Double? = nil // 'nil' for default setting.

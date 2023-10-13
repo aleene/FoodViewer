@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ProgressViewController: UIViewController {
+class GCProgressViewController: UIViewController {
     
     private var viewRect: CGRect?
     private var blurView: UIVisualEffectView?
-    private var progressAtRatioView: ProgressAtRatioView?
-    private var circularProgressView: CircularProgressView?
-    internal var prop: Property?
+    private var progressAtRatioView: GCProgressAtRatioView?
+    private var circularProgressView: GCCircularProgressView?
+    internal var prop: GCProperty?
     
     internal var ratio: CGFloat = 0.0 {
         didSet {
@@ -68,7 +68,7 @@ class ProgressViewController: UIViewController {
             return
         }
         
-        blurView = Background().blurEffectView(fromBlurStyle: prop.backgroundStyle, frame: rect)
+        blurView = GCBackground().blurEffectView(fromBlurStyle: prop.backgroundStyle, frame: rect)
         
         guard let blurView = blurView else {
             return
@@ -78,9 +78,9 @@ class ProgressViewController: UIViewController {
         view.addSubview(blurView)
     }
     
-    internal func arc(display: Bool, style: StyleProperty, baseWindow: UIWindow?) {
+    internal func arc(display: Bool, style: GCStyleProperty, baseWindow: UIWindow?) {
         
-        prop = Property(style: style)
+        prop = GCProperty(style: style)
         
         guard let win = baseWindow, let prop = prop else {
             return
@@ -92,7 +92,7 @@ class ProgressViewController: UIViewController {
         
         getBlurView()
         
-        progressAtRatioView = ProgressAtRatioView(frame: CGRect(x: 0, y: 0, width: prop.progressSize, height: prop.progressSize))
+        progressAtRatioView = GCProgressAtRatioView(frame: CGRect(x: 0, y: 0, width: prop.progressSize, height: prop.progressSize))
         
         guard let progressAtRatioView = progressAtRatioView else {
             return
@@ -109,9 +109,9 @@ class ProgressViewController: UIViewController {
         view.addSubview(progressAtRatioView)
     }
     
-    internal func circle(message: String?, style: StyleProperty, baseWindow: UIWindow?) {
+    internal func circle(message: String?, style: GCStyleProperty, baseWindow: UIWindow?) {
         
-        prop = Property(style: style)
+        prop = GCProperty(style: style)
         
         guard let win = baseWindow, let prop = prop else {
             return
@@ -123,7 +123,7 @@ class ProgressViewController: UIViewController {
         
         getBlurView()
                 
-        circularProgressView = CircularProgressView(frame: CGRect(x: 0, y: 0, width: prop.progressSize, height: prop.progressSize))
+        circularProgressView = GCCircularProgressView(frame: CGRect(x: 0, y: 0, width: prop.progressSize, height: prop.progressSize))
         
         guard let circularProgressView = circularProgressView else {
             return
