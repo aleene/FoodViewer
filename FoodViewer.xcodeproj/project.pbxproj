@@ -773,6 +773,14 @@
 		51857FAB250D02CE007B896B /* Diets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Diets.swift; path = Model/Diets.swift; sourceTree = "<group>"; };
 		51895A062539EF5B007C82F8 /* EnvironmentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EnvironmentTableViewController.swift; path = ProductsTab/EnvironmentTableViewController.swift; sourceTree = "<group>"; };
 		51895A082539F2C9007C82F8 /* EnvironmentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EnvironmentCoordinator.swift; path = Coordinators/EnvironmentCoordinator.swift; sourceTree = "<group>"; };
+		5189FEAD2556E1C100379D13 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localisation/es.lproj/Main.strings; sourceTree = "<group>"; };
+		5189FEAE2556E1C200379D13 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localisation/es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		5189FEB02556E1ED00379D13 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localisation/fr.lproj/Main.strings; sourceTree = "<group>"; };
+		5189FEB12556E21100379D13 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localisation/fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		5189FEB32556E25700379D13 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = Localisation/nl.lproj/Main.strings; sourceTree = "<group>"; };
+		5189FEB42556E25700379D13 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = Localisation/nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		5189FEB62556E25900379D13 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Localisation/de.lproj/Main.strings; sourceTree = "<group>"; };
+		5189FEB72556E25A00379D13 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Localisation/de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		518B2FAB1CB13BB5007D8AB9 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		518B701F1EA2779C00AB35CC /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
 		518BFB412583A754006E26BE /* EcoscoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EcoscoreTableViewCell.swift; path = Cells/EcoscoreTableViewCell.swift; sourceTree = "<group>"; };
@@ -2106,6 +2114,7 @@
 				514CA08F25740B3900243193 /* ForestFootprintCoordinator.swift in Sources */,
 				512B43D423FAB14000BFBCF0 /* DietSelectorTableViewController.swift in Sources */,
 				AB8160AC2922C18700967433 /* OFFProductType.swift in Sources */,
+				512B43F923FAB1C700BFBCF0 /* Cache.swift in Sources */,
 				512B440F23FAB1D800BFBCF0 /* UnicodeIterator.swift in Sources */,
 				AB163CAE2AD945F9007AFD3C /* OrangeClearStyle.swift in Sources */,
 				51BED0C81CE36723006ED62B /* ProductFetchStatus.swift in Sources */,
@@ -2515,6 +2524,30 @@
 				515A5A32255704C7002DEEBA /* es */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		5180B9101C5D3B57002DBD21 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5180B9111C5D3B57002DBD21 /* Base */,
+				5189FEAE2556E1C200379D13 /* es */,
+				5189FEB12556E21100379D13 /* fr */,
+				5189FEB42556E25700379D13 /* nl */,
+				5189FEB72556E25A00379D13 /* de */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		51E3069E1C68E0B900485A8D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51E3069F1C68E0B900485A8D /* Base */,
+				5189FEAD2556E1C100379D13 /* es */,
+				5189FEB02556E1ED00379D13 /* fr */,
+				5189FEB32556E25700379D13 /* nl */,
+				5189FEB62556E25900379D13 /* de */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
