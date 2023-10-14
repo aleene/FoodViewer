@@ -416,7 +416,7 @@
 		AB163CA92AD945F9007AFD3C /* GCArcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB163C972AD945F9007AFD3C /* GCArcView.swift */; };
 		AB163CAA2AD945F9007AFD3C /* GCBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB163C992AD945F9007AFD3C /* GCBackground.swift */; };
 		AB163CAB2AD945F9007AFD3C /* GCBlueDarkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB163C9A2AD945F9007AFD3C /* GCBlueDarkStyle.swift */; };
-		AB163CAC2AD945F9007AFD3C /* WindowBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB163C9B2AD945F9007AFD3C /* WindowBuilder.swift */; };
+		AB163CAC2AD945F9007AFD3C /* GCWindowBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB163C9B2AD945F9007AFD3C /* GCWindowBuilder.swift */; };
 		AB163CAD2AD945F9007AFD3C /* GCGradientCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB163C9C2AD945F9007AFD3C /* GCGradientCircularProgress.swift */; };
 		AB163CAE2AD945F9007AFD3C /* GCOrangeClearStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB163C9D2AD945F9007AFD3C /* GCOrangeClearStyle.swift */; };
 		AB163CAF2AD945F9007AFD3C /* GCGradientArcWithClearColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB163C9E2AD945F9007AFD3C /* GCGradientArcWithClearColorView.swift */; };
@@ -914,7 +914,7 @@
 		AB163C982AD945F9007AFD3C /* GradientCircularProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientCircularProgress.h; sourceTree = "<group>"; };
 		AB163C992AD945F9007AFD3C /* GCBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCBackground.swift; sourceTree = "<group>"; };
 		AB163C9A2AD945F9007AFD3C /* GCBlueDarkStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCBlueDarkStyle.swift; sourceTree = "<group>"; };
-		AB163C9B2AD945F9007AFD3C /* WindowBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowBuilder.swift; sourceTree = "<group>"; };
+		AB163C9B2AD945F9007AFD3C /* GCWindowBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCWindowBuilder.swift; sourceTree = "<group>"; };
 		AB163C9C2AD945F9007AFD3C /* GCGradientCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCGradientCircularProgress.swift; sourceTree = "<group>"; };
 		AB163C9D2AD945F9007AFD3C /* GCOrangeClearStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCOrangeClearStyle.swift; sourceTree = "<group>"; };
 		AB163C9E2AD945F9007AFD3C /* GCGradientArcWithClearColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCGradientArcWithClearColorView.swift; sourceTree = "<group>"; };
@@ -1860,7 +1860,7 @@
 				AB05FAC52ADADC12000BC3A1 /* GCStyles */,
 				AB05FAC62ADADDAA000BC3A1 /* GCViews */,
 				AB163C982AD945F9007AFD3C /* GradientCircularProgress.h */,
-				AB163C9B2AD945F9007AFD3C /* WindowBuilder.swift */,
+				AB163C9B2AD945F9007AFD3C /* GCWindowBuilder.swift */,
 				AB163C9C2AD945F9007AFD3C /* GCGradientCircularProgress.swift */,
 			);
 			path = GradientCircular;
@@ -2342,7 +2342,7 @@
 				51895A072539EF5B007C82F8 /* EnvironmentTableViewController.swift in Sources */,
 				517907FA1F8F6C950017FCA0 /* Contributor.swift in Sources */,
 				519A8E051E827F7C001C026A /* ImageTypeCategory.swift in Sources */,
-				AB163CAC2AD945F9007AFD3C /* WindowBuilder.swift in Sources */,
+				AB163CAC2AD945F9007AFD3C /* GCWindowBuilder.swift in Sources */,
 				512B450923FABD1A00BFBCF0 /* OFFImageDeselectAPI.swift in Sources */,
 				51C8A6CE1F6677C400B3C361 /* Completion.swift in Sources */,
 				5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */,
