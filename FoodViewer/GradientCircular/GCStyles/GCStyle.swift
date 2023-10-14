@@ -7,14 +7,14 @@
 //
 import UIKit
 
-public struct Style: StyleProperty {
+public struct GCStyle: GCStyleProperty {
     // Progress Size
     public var progressSize: CGFloat = 220
     
     // Gradient Circular
     public var arcLineWidth: CGFloat = 16.0
-    public var startArcColor: UIColor = ColorUtil.toUIColor(r: 230.0, g: 230.0, b: 230.0, a: 0.6)
-    public var endArcColor: UIColor = ColorUtil.toUIColor(r: 90.0, g: 90.0, b: 90.0, a: 1.0)
+    public var startArcColor: UIColor = GCColorUtil.toUIColor(r: 230.0, g: 230.0, b: 230.0, a: 0.6)
+    public var endArcColor: UIColor = GCColorUtil.toUIColor(r: 90.0, g: 90.0, b: 90.0, a: 1.0)
     
     // Base Circular
     public var baseLineWidth: CGFloat? = 16.0
@@ -29,7 +29,7 @@ public struct Style: StyleProperty {
     public var messageLabelFontColor: UIColor? = UIColor.black
     
     // Background
-    public var backgroundStyle: BackgroundStyles = .extraLight
+    public var backgroundStyle: GCBackgroundStyles = .extraLight
     
     // Dismiss
     public var dismissTimeInterval: Double? = nil // 'nil' for default setting.

@@ -8,10 +8,10 @@
 
 import UIKit
 
-class ProgressAtRatioView: UIView {
+class GCProgressAtRatioView: UIView {
     
-    internal var arcView: ArcView?
-    internal var prop: Property?
+    internal var arcView: GCArcView?
+    internal var prop: GCProperty?
     internal var ratioLabel: UILabel?
     private var blurView: UIVisualEffectView?
 
@@ -30,7 +30,7 @@ class ProgressAtRatioView: UIView {
         //fatalError("init(coder:) has not been implemented")
     }
     
-    public func setup(prop: Property) {
+    public func setup(prop: GCProperty) {
         
         self.prop = prop
         layer.cornerRadius = self.frame.height/2
@@ -60,7 +60,7 @@ class ProgressAtRatioView: UIView {
         
         // Base Circular
         if let baseLineWidth = prop.baseLineWidth, let baseArcColor = prop.baseArcColor {
-            let circular: ArcView = ArcView(frame: rect, lineWidth: baseLineWidth)
+            let circular: GCArcView = GCArcView(frame: rect, lineWidth: baseLineWidth)
             circular.prop = prop
             circular.ratio = 1.0
             circular.color = baseArcColor
@@ -69,17 +69,17 @@ class ProgressAtRatioView: UIView {
         }
         
         // Gradient Circular
-        if  ColorUtil.toRGBA(color: prop.startArcColor).a < 1.0
-            || ColorUtil.toRGBA(color: prop.endArcColor).a < 1.0 {
+        if  GCColorUtil.toRGBA(color: prop.startArcColor).a < 1.0
+            || GCColorUtil.toRGBA(color: prop.endArcColor).a < 1.0 {
             // Clear Color
-            let gradient: UIView = GradientArcWithClearColorView().draw(rect: rect, prop: prop)
+            let gradient: UIView = GCGradientArcWithClearColorView().draw(rect: rect, prop: prop)
             addSubview(gradient)
             
             masking(rect: rect, prop: prop, gradient: gradient)
             
         } else {
             // Opaque Color
-            let gradient: GradientArcView = GradientArcView(frame: rect)
+            let gradient: GCGradientArcView = GCGradientArcView(frame: rect)
             gradient.prop = prop
             addSubview(gradient)
             
@@ -87,9 +87,9 @@ class ProgressAtRatioView: UIView {
         }
     }
     
-    private func masking(rect: CGRect, prop: Property, gradient: UIView) {
+    private func masking(rect: CGRect, prop: GCProperty, gradient: UIView) {
         // Mask
-        arcView = ArcView(frame: rect, lineWidth: prop.arcLineWidth)
+        arcView = GCArcView(frame: rect, lineWidth: prop.arcLineWidth)
         
         guard let mask = arcView else {
             return
@@ -133,7 +133,7 @@ class ProgressAtRatioView: UIView {
             return
         }
         
-        blurView = Background().blurEffectView(fromBlurStyle: prop.backgroundStyle, frame: frame)
+        blurView = GCBackground().blurEffectView(fromBlurStyle: prop.backgroundStyle, frame: frame)
         
         guard let blurView = blurView else {
             return

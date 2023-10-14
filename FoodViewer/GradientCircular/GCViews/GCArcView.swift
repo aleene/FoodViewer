@@ -8,9 +8,9 @@
 
 import UIKit
 
-class ArcView: UIView {
+class GCArcView: UIView {
     
-    var prop: Property?
+    var prop: GCProperty?
     var ratio: CGFloat = 1.0
     var color: UIColor = UIColor.black
     var lineWidth: CGFloat = 0.0

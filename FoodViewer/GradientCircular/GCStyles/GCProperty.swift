@@ -9,7 +9,7 @@
 import CoreGraphics
 import UIKit
 
-public protocol StyleProperty {
+public protocol GCStyleProperty {
     // Progress Size
     var progressSize: CGFloat { get set }
     
@@ -31,7 +31,7 @@ public protocol StyleProperty {
     var messageLabelFontColor: UIColor? { get set }
     
     // Background
-    var backgroundStyle: BackgroundStyles { get set }
+    var backgroundStyle: GCBackgroundStyles { get set }
     
     // Dismiss
     var dismissTimeInterval: Double? { get set }
@@ -40,7 +40,7 @@ public protocol StyleProperty {
     init()
 }
 
-public enum BackgroundStyles: Int {
+public enum GCBackgroundStyles: Int {
     case none = 0
     case extraLight
     case light
@@ -49,7 +49,7 @@ public enum BackgroundStyles: Int {
 }
 
 
-internal struct Property {
+internal struct GCProperty {
     let margin: CGFloat = 5.0
     let arcLineCapStyle: CGLineCap = CGLineCap.butt
     
@@ -74,7 +74,7 @@ internal struct Property {
     let messageLabelFontColor: UIColor?
     
     // Background
-    let backgroundStyle: BackgroundStyles
+    let backgroundStyle: GCBackgroundStyles
     
     // Dismiss
     let dismissTimeInterval: Double?
@@ -85,9 +85,9 @@ internal struct Property {
         return CGRect(x: 0, y: 0, width: progressSize - lineWidth * 2, height: progressSize - lineWidth * 2)
     }
     
-    init(style: StyleProperty) {
+    init(style: GCStyleProperty) {
         
-        let styles: StyleProperty = style
+        let styles: GCStyleProperty = style
         
         progressSize          = styles.progressSize
         arcLineWidth          = styles.arcLineWidth

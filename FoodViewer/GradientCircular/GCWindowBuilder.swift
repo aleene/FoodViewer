@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WindowBuilder {
+class GCWindowBuilder {
     static func build() -> UIWindow? {
         var baseWindow: UIWindow?
         

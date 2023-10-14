@@ -8,7 +8,9 @@
 
 import UIKit
 
-public class ColorUtil {
+//TBD: Why is this not yet available as a standard?
+
+public class GCColorUtil {
     
     public class func toUIColor(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
         
@@ -32,9 +34,9 @@ public class ColorUtil {
             return UIColor.white
         } else {
             return UIColor(
-                red: ColorUtil.toRGBA(color: color).r,
-                green: ColorUtil.toRGBA(color: color).g,
-                blue: ColorUtil.toRGBA(color: color).b,
+                red: GCColorUtil.toRGBA(color: color).r,
+                green: GCColorUtil.toRGBA(color: color).g,
+                blue: GCColorUtil.toRGBA(color: color).b,
                 alpha: 1.0)
         }
     }

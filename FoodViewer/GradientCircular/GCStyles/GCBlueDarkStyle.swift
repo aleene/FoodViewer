@@ -7,13 +7,13 @@
 //
 import UIKit
 
-public struct BlueDarkStyle: StyleProperty {
+public struct GCBlueDarkStyle: GCStyleProperty {
     // Progress Size
     public var progressSize: CGFloat = 260
     
     // Gradient Circular
     public var arcLineWidth: CGFloat = 4.0
-    public var startArcColor: UIColor = ColorUtil.toUIColor(r: 0.0, g: 122.0, b: 255.0, a: 1.0)
+    public var startArcColor: UIColor = GCColorUtil.toUIColor(r: 0.0, g: 122.0, b: 255.0, a: 1.0)
     public var endArcColor: UIColor = UIColor.cyan
     
     // Base Circular
@@ -29,7 +29,7 @@ public struct BlueDarkStyle: StyleProperty {
     public var messageLabelFontColor: UIColor? = UIColor.white
     
     // Background
-    public var backgroundStyle: BackgroundStyles = .dark
+    public var backgroundStyle: GCBackgroundStyles = .dark
     
     // Dismiss
     public var dismissTimeInterval: Double? = nil // 'nil' for default setting.

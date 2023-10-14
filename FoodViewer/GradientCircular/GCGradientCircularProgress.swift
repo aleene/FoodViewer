@@ -8,12 +8,12 @@
 
 import UIKit
 
-public class GradientCircularProgress {
+public class GCProgress {
     
     private var baseWindow: UIWindow?
-    private var progressViewController: ProgressViewController?
-    private var progressView: ProgressView?
-    private var property: Property?
+    private var progressViewController: GCProgressViewController?
+    private var progressView: GCProgressView?
+    private var property: GCProperty?
     
     public var isAvailable: Bool = false
     
@@ -21,7 +21,7 @@ public class GradientCircularProgress {
 }
 
 // MARK: Common
-extension GradientCircularProgress {
+extension GCProgress {
     
     public func updateMessage(message: String) {
         if !isAvailable {
@@ -57,21 +57,21 @@ extension GradientCircularProgress {
 }
 
 // MARK: Use UIWindow
-extension GradientCircularProgress {
+extension GCProgress {
     
-    public func showAtRatio(display: Bool = true, style: StyleProperty = Style()) {
+    public func showAtRatio(display: Bool = true, style: GCStyleProperty = GCStyle()) {
         if isAvailable {
             return
         }
         isAvailable = true
-        property = Property(style: style)
+        property = GCProperty(style: style)
         
         getProgressAtRatio(display: display, style: style)
     }
     
-    private func getProgressAtRatio(display: Bool, style: StyleProperty) {
-        baseWindow = WindowBuilder.build()
-        progressViewController = ProgressViewController()
+    private func getProgressAtRatio(display: Bool, style: GCStyleProperty) {
+        baseWindow = GCWindowBuilder.build()
+        progressViewController = GCProgressViewController()
         
         guard let win = baseWindow, let vc = progressViewController else {
             return
@@ -82,29 +82,29 @@ extension GradientCircularProgress {
         vc.arc(display: display, style: style, baseWindow: baseWindow)
     }
     
-    public func show(style: StyleProperty = Style()) {
+    public func show(style: GCStyleProperty = GCStyle()) {
         if isAvailable {
             return
         }
         isAvailable = true
-        property = Property(style: style)
+        property = GCProperty(style: style)
         
         getProgress(message: nil, style: style)
     }
     
-    public func show(message: String, style: StyleProperty = Style()) {
+    public func show(message: String, style: GCStyleProperty = GCStyle()) {
         if isAvailable {
             return
         }
         isAvailable = true
-        property = Property(style: style)
+        property = GCProperty(style: style)
         
         getProgress(message: message, style: style)
     }
     
-    private func getProgress(message: String?, style: StyleProperty) {
-        baseWindow = WindowBuilder.build()
-        progressViewController = ProgressViewController()
+    private func getProgress(message: String?, style: GCStyleProperty) {
+        baseWindow = GCWindowBuilder.build()
+        progressViewController = GCProgressViewController()
         
         guard let win = baseWindow, let vc = progressViewController else {
             return
@@ -182,16 +182,16 @@ extension GradientCircularProgress {
 }
 
 // MARK: Use addSubView
-extension GradientCircularProgress {
+extension GCProgress {
     
-    public func showAtRatio(frame: CGRect, display: Bool = true, style: StyleProperty = Style()) -> UIView? {
+    public func showAtRatio(frame: CGRect, display: Bool = true, style: GCStyleProperty = GCStyle()) -> UIView? {
         if isAvailable {
             return nil
         }
         isAvailable = true
-        property = Property(style: style)
+        property = GCProperty(style: style)
         
-        progressView = ProgressView(frame: frame)
+        progressView = GCProgressView(frame: frame)
         
         guard let v = progressView else {
             return nil
@@ -202,29 +202,29 @@ extension GradientCircularProgress {
         return v
     }
     
-    public func show(frame: CGRect, style: StyleProperty = Style()) -> UIView? {
+    public func show(frame: CGRect, style: GCStyleProperty = GCStyle()) -> UIView? {
         if isAvailable {
             return nil
         }
         isAvailable = true
-        property = Property(style: style)
+        property = GCProperty(style: style)
         
         return getProgress(frame: frame, message: nil, style: style)
     }
     
-    public func show(frame: CGRect, message: String, style: StyleProperty = Style()) -> UIView? {
+    public func show(frame: CGRect, message: String, style: GCStyleProperty = GCStyle()) -> UIView? {
         if isAvailable {
             return nil
         }
         isAvailable = true
-        property = Property(style: style)
+        property = GCProperty(style: style)
         
         return getProgress(frame: frame, message: message, style: style)
     }
     
-    private func getProgress(frame: CGRect, message: String?, style: StyleProperty) -> UIView? {
+    private func getProgress(frame: CGRect, message: String?, style: GCStyleProperty) -> UIView? {
         
-        progressView = ProgressView(frame: frame)
+        progressView = GCProgressView(frame: frame)
         
         guard let v = progressView else {
             return nil
